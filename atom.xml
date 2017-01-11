@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-11T05:56:51.000Z</updated>
+  <updated>2017-01-11T06:05:15.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>程斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架</title>
+    <title>斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架</title>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AiOS%E7%9A%84MVC%E6%A1%86%E6%9E%B6/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/</id>
     <published>2017-01-11T05:49:32.000Z</published>
-    <updated>2017-01-11T05:56:51.000Z</updated>
+    <updated>2017-01-11T06:05:15.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><hr>
 <p>入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。</p>
@@ -78,234 +78,6 @@
     
       &lt;h2 id=&quot;写在开头&quot;&gt;&lt;a href=&quot;#写在开头&quot; class=&quot;headerlink&quot; title=&quot;写在开头&quot;&gt;&lt;/a&gt;写在开头&lt;/h2&gt;&lt;hr&gt;
 &lt;p&gt;入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E7%BA%B8%E7%89%8C%E9%85%8D%E5%AF%B9%E6%B8%B8%E6%88%8FDemo/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/</id>
-    <published>2017-01-11T05:49:32.000Z</published>
-    <updated>2017-01-11T06:02:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：<a href="http://www.jianshu.com/p/332324bff10a" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（二） ：翻纸牌Demo</a>），将一张纸牌扩展到一个多张纸牌并进行配对和打分的小游戏。</p>
-<p>本节课的内容虽然简单，但是十分重要，讲师强调了MVC的设计原则并实际运用到了代码中，本文就Demo的具体代码来讲解本节课提到的知识点。</p>
-<h1 id="设计需求"><a href="#设计需求" class="headerlink" title="设计需求"></a>设计需求</h1><hr>
-<ul>
-<li>显示多张纸牌，点击任意一张牌可以翻牌。</li>
-<li>两张牌都显示正面后可以进行配对：<ul>
-<li>花色匹配得1分；数字匹配得4分，匹配后，两张牌切换为不可点击状态（置灰）。</li>
-<li>都不匹配扣2分。</li>
-<li>每次翻牌都减一分。</li>
-</ul>
-</li>
-<li>每次翻牌都要更新分数。</li>
-</ul>
-<h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><hr>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-6371568b2e366281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：初始界面 ；右：游戏中界面"></p>
-<h1 id="重要代码段与知识点"><a href="#重要代码段与知识点" class="headerlink" title="重要代码段与知识点"></a>重要代码段与知识点</h1><hr>
-<h2 id="模型类：CardMatchingGame"><a href="#模型类：CardMatchingGame" class="headerlink" title="模型类：CardMatchingGame"></a>模型类：CardMatchingGame</h2><h4 id="1-在公共接口设置只读属性"><a href="#1-在公共接口设置只读属性" class="headerlink" title="1. 在公共接口设置只读属性"></a>1. 在公共接口设置只读属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">//CardMatchingGame.h</div><div class="line">@property (nonatomic, readonly) NSInteger score;</div><div class="line"></div><div class="line">//CardMatchingGame.m</div><div class="line">@property (nonatomic, readwrite) NSInteger score;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>在.h文件中将分数属性设置为只读，并在.m文件中设定该属性为读写，以便在内部计算。</p>
-<p>原因：不希望其他类更改此属性，只能获取该属性。通俗一点地说：“你们就拿我给你算好的分数就好了，你们是不能更改它的！”</p>
-</blockquote>
-<h4 id="2-指定初始化器：Designated-initializer"><a href="#2-指定初始化器：Designated-initializer" class="headerlink" title="2. 指定初始化器：Designated initializer"></a>2. 指定初始化器：Designated initializer</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck</div><div class="line">&#123;</div><div class="line">    self = [super init];</div><div class="line">    </div><div class="line">    if (self) &#123;</div><div class="line">        </div><div class="line">        for (int i = 0; i &lt; count; i++) &#123;</div><div class="line">            </div><div class="line">            Card *card = [deck drawRandomCard];</div><div class="line">            </div><div class="line">            if (card) &#123;</div><div class="line">               </div><div class="line">                [self.cards addObject:card];</div><div class="line">                </div><div class="line">            &#125;else&#123;</div><div class="line">                </div><div class="line">                self = nil;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>有些时候，我们需要在类实例化的时候就要求对象持有某些数据,这就需要设计<strong>指定初始化器</strong>，因为原始的初始化方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt;在这段代码里，该模型类通过数量```count```和一堆纸牌```deck```中拿到了自己持有的数组```self.cards```。</div><div class="line"></div><div class="line">&gt;举个🌰 ：想要从一个有52张牌的堆里抽取了12张牌来作为自己的一堆纸牌的话，就要设置Deck为具有52张牌的数组；而设置count为12即可。</div><div class="line"></div><div class="line"></div><div class="line">#### 3. 设定常量</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>#define MISMATCH_PENALTY 2 //简单的替换，不具有数据类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>static const int MISMATCH_PENALTY = 2; //非简单替换，具有数据类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## 控制器类：CardMathcingGameViewController</div><div class="line">---</div><div class="line">#### 1. 接收来自View的点击事件并更新UI</div></pre></td></tr></table></figure></p>
-<p>/**</p>
-<ul>
-<li>接收用户的点击事件<br>*</li>
-<li><p>@param sender 点击的按钮对象<br>*/</p>
-<ul>
-<li>(IBAction)touchCardButton:(UIButton *)sender {</li>
-</ul>
-<p>//1. 找到界面中所点击的按钮index<br>NSInteger cardIndex = [self.cardButtons indexOfObject:sender];</p>
-<p>//2. 找到模型中相同index的纸牌数据，并判断是否匹配，计算分数<br>[self.game chooseCardAtIndex: cardIndex];</p>
-<p>//3. 更新UI<br>[self updateUI];<br>}</p>
-</li>
-</ul>
-<p>/**</p>
-<ul>
-<li><p>更新UI<br>*/</p>
-<ul>
-<li><p>(void)updateUI<br>{<br>//1. 更新view上所有牌面<br>for (UIButton *cardButton in self.cardButtons) {</p>
-<p>  //1.1 找到界面中的一张纸牌(按照枚举的顺序)<br>  NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];</p>
-<p>  //1.2 找到模型中对应的纸牌数据<br>  Card *card  = [self.game cardAtIndex:cardIndex];</p>
-<p>  //1.3 根据数据更新纸牌的UI和可点击性<br>  [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];<br>  [cardButton setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];<br>   cardButton.enabled = !card.isMatched;<br>}</p>
-</li>
-</ul>
-<p>//2. 更新分数<br>self.scoreLabel.text = [NSString stringWithFormat:@”Score: %ld”, (long)self.game.score];<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt;在这里，我们可以很容易看到MVC的工作流程：</div><div class="line">1. 在View里发生了点击事件并通知给了Controller。</div><div class="line">2. Controller告诉Model发生了点击。</div><div class="line">3. Model根据点击事件更新自己，然后将更新后的自己告诉Controller。</div><div class="line">4. Controller根据更新后的模型去更新UI。</div><div class="line"></div><div class="line">这里笔者有一张自己画的图，略逗逼，掩面贴出，独乐乐不如众乐乐~</div><div class="line"></div><div class="line"></div><div class="line">![MVC流程图.png](http://upload-images.jianshu.io/upload_images/859001-0c8b70fd62292aa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</div><div class="line"></div><div class="line"></div><div class="line">## 零散知识点</div><div class="line">---</div><div class="line"></div><div class="line">#### 1. 在数组里传入其包含的对象返回其所在序号</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 2. 在数组中找到第一个元素</div></pre></td></tr></table></figure></p>
-<p>//应该使用：<br>PlayingCard *otherCard = [otherCards firstObject];</p>
-<p>//不应该使用：<br>PlayingCard *otherCard = otherCards[0];</p>
-<p>//不应该使用：<br>PlayingCard *otherCard = [otherCards objectAtIndex:0];<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt;应该使用第一种情况。</div><div class="line">因为如果数组为空，那么如果使用第一种情况会返回nil,而向nil发送消息是不会造成崩溃的。</div><div class="line">但是如果使用后两种方法，一旦数组为空，就会立刻造成程序崩溃！而且同样适用与取数组的最后一个元素的情况。</div><div class="line">在数组中找到最后一个元素：</div></pre></td></tr></table></figure></p>
-<p>PlayingCard *otherCard = [otherCards lastObject];<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#### 3. 在数组中是否包含某元素</div></pre></td></tr></table></figure></p>
-<p>if ([ [PlayingCard ValidSuits] containsObject:suit]) {<br>        _suit = suit;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt;containsObject:是NSArray的方法，返回布尔值，用来判断是否包含某个元素。</div><div class="line"></div><div class="line">#### 4. JPG格式图片的读取</div></pre></td></tr></table></figure></p>
-<ul>
-<li>(UIImage <em>)backgroundImageForCard: (Card </em>)card<br>{<br>  //默认是png，如果是jpg需要加上.jpg的后缀<br>  return [UIImage imageNamed:card.isChosen? @”cardFront.jpg”:@”CardBack.png”];<br>}<br>```</li>
-</ul>
-<blockquote>
-<p>如果使用<code>imageNamed:</code>方法，仅传入jpg格式的文件名是无法显示出图片的，应该讲后缀<code>.jpg</code>拼接后传入才可以哦~而相同情况下，若要显示<code>png</code>格式的图片的话是不需要另外加后缀的。</p>
-</blockquote>
-<h1 id="最后的话："><a href="#最后的话：" class="headerlink" title="最后的话："></a>最后的话：</h1><hr>
-<p>如果哪位小伙伴想拿到此Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
-<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
-<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
-<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：&lt;a href=&quot;http://www.jianshu.com/p/332324bff10a&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;斯坦福大学iOS开发公开课总结（二） ：翻纸牌
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%BF%BB%E7%BA%B8%E7%89%8CDemo/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/</id>
-    <published>2017-01-11T05:49:32.000Z</published>
-    <updated>2017-01-11T05:57:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。</p>
-<h2 id="懒加载-lazy-instantiation"><a href="#懒加载-lazy-instantiation" class="headerlink" title="懒加载(lazy instantiation)"></a>懒加载(lazy instantiation)</h2><hr>
-<p><strong>懒加载</strong>：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>@interface ViewController ()</p>
-<p>@property (nonatomic, strong) NSMutableArray *cards;</p>
-<p>@end</p>
-<p>@implementation ViewController</p>
-<ul>
-<li>(NSMutableArray *)cards<br>{<br>  //如果此实例变量为空，则初始化；否则，直接调用<br>  if (!_cards) {<pre><code>_cards = [[NSMutableArray alloc] init];
-</code></pre>  }<br>  return _cards;<br>}</li>
-</ul>
-<p>@end<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 数组的使用</div><div class="line">---</div><div class="line">#### 在可变数组中插入元素</div><div class="line">在数组中插入元素是可变数组的方法，因为不可变数组在初始化以后就无法再更改。</div><div class="line">尤其注意的是：在数组中插入元素时，插入的元素必须不能为空，否则会引起程序崩溃。需要对要插入的元素做是否为空的判断！</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p>(void)addCard: (Card *)card atTop:(BOOL)atTop<br>{<br>  if (atTop) {</p>
-<pre><code>//插入到数组第一个位置
-[self.cards insertObject:card atIndex:0];
-</code></pre><p>  }else{</p>
-<pre><code>//添加到数组末尾
-[self.cards addObject:card];
-</code></pre><p>  }<br>}</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#### 在可变数组中引用和移除数组元素</div><div class="line"></div><div class="line">在数组中，提取和移除元素的时候需要注意的是需要判断数组是否为空，如果**在数组为空的情况下引用或移除某个元素会引起程序的崩溃！** 所以要先进行目标数组元素数量判断。</div></pre></td></tr></table></figure>
-<ul>
-<li><p>(Card <em>)drawRandomCard<br>{<br>  //如果数组为空数组，则直接放回nil，因为没有可以抽取的元素。<br>  Card </em>randomCard = nil;</p>
-<p>  //判断数组元素个数是否不为0，如果为0，则返回nil<br>  if ([self.cards count]) {</p>
-<pre><code>//生成0到[self.cards count]的随机数
-NSUInteger index = arc4random() % [self.cards count];
-
-//引用下标为index的元素
-randomCard = self.cards[index];
-
-//移除下标为index的元素
-[self.cards removeObjectAtIndex:index];
-</code></pre><p>  }</p>
-<p>  return randomCard;<br>}</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## 类方法</div><div class="line">---</div><div class="line">**类方法**也叫工厂方法，类方法主要包括两种：</div><div class="line"></div><div class="line">1. **类的初始化**：形成类的实例。</div><div class="line">2. **工具方法**：不经过实例化获得某些数据。</div><div class="line"></div><div class="line">**应用**：用类方法生成四种不同花色：</div></pre></td></tr></table></figure>
-<ul>
-<li>(NSArray *)ValidSuits<br>{<br>  return @[@”♥︎”,@”♦︎”,@”♣︎”,@”♠︎”];<br>}</li>
-</ul>
-<ul>
-<li>(void)setSuit:(NSString *)suit<br>{<br>  if ([ [PlayingCard ValidSuits] containsObject:suit]) {<pre><code>_suit = suit;
-</code></pre>  }<br>}</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## instancetype</div><div class="line">---</div><div class="line">instancetype的使用目的是确保返回的对象同这条消息要发送到的对象一样。</div><div class="line"></div><div class="line">怎么说？</div><div class="line"></div><div class="line">常用在类的初始化方法的返回值中，因为如果类的初始化返回值是```id```,那么这个指针可以指向任何对象，所以有可能指向非此类的对象类型；</div><div class="line"></div><div class="line">所以，```instancetype```作为初始化方法的返回值后，那么初始化的结果一定会同此类的类型一致。</div><div class="line"></div><div class="line">举个🌰：</div></pre></td></tr></table></figure>
-<ul>
-<li><p>(instancetype)init<br>{<br>  //检查父类是否初始化成功<br>  self = [super init];</p>
-<p>  if (self) {</p>
-<pre><code>//初始化代码
-</code></pre><p>  }</p>
-<p>  return self;<br>}</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## 翻牌Demo</div><div class="line">---</div><div class="line">#### 设计需求：</div><div class="line">在界面上显示一张扑克牌，点击后翻牌：如果是正面，点击后就显示背面；如果是背面，点击后显示正面。</div><div class="line"></div><div class="line">#### 效果图：</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">![左：纸牌背面；右：纸牌正面](http://upload-images.jianshu.io/upload_images/859001-191d3037dd166754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#### 实现代码：</div><div class="line"></div><div class="line">**1. 点击按钮翻牌**</div></pre></td></tr></table></figure>
-<ul>
-<li><p>(IBAction)touchCardButton:(UIButton *)sender {</p>
-<p>  //先判断牌面：如果按钮的title有字，则为正面<br>  if ([sender.currentTitle length]) {</p>
-<pre><code>//1. 背面的UI效果:
-
-//1.1 设置背景图片为背面的图片
-[sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];
-
-//1.2 设置按钮title为空，因为要翻到背面
-[sender setTitle:@&quot;&quot; forState:UIControlStateNormal];
-</code></pre><p>  }else{</p>
-<pre><code>//2. 正面的UI效果:
-
-//2.1 设置背景图片为空
-[sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];
-
-//2.2 设置背景颜色为白色
-[sender setBackgroundColor:[UIColor whiteColor]];
-
-//2.3 设置按钮title为牌的花色
-[sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];
-</code></pre><p>  }</p>
-<p>  //翻牌次数记录。同时存在setter和getter方法。首先getter方法取到当前的翻拍次数，然后用setter方法让翻拍次数+1<br>  self.flipCount++;<br>}</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">**2. 更新按钮UI**</div><div class="line"></div><div class="line">更新按钮的UI的代码放到了属性```flipCount```的setter方法里。</div></pre></td></tr></table></figure>
-<ul>
-<li><p>(void)setFlipCount:(int)flipCount<br>{<br>  _flipCount = flipCount;</p>
-<p>  //在setter方法完成后，设置标签的显示数字<br>  self.flipsLabel.text = [NSString stringWithFormat:@”Flips: %d”, self.flipCount];<br>}</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">但是笔者个人认为这种处理方式并不好，因为**一个方法最好只做一件事情**，所以应该将更新按钮UI的代码单独提取出来作为另一个方法:</div></pre></td></tr></table></figure>
-<ul>
-<li><p>(IBAction)touchCardButton:(UIButton *)sender {</p>
-<p>  //先判断牌面：如果按钮的title有字，则为正面<br>  if ([sender.currentTitle length]) {</p>
-<pre><code>//背面的UI效果
-[sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];
-[sender setTitle:@&quot;&quot; forState:UIControlStateNormal];
-</code></pre><p>  }else{</p>
-<pre><code>//正面的UI效果
-[sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];
-[sender setBackgroundColor:[UIColor whiteColor]];
-[sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];
-</code></pre><p>  }</p>
-<p>  //翻牌次数+1。<br>  self.flipCount++;</p>
-<p>  //更新Label显示的数字<br>  [self updateFlipsLabel];<br>}</p>
-</li>
-</ul>
-<p>/**</p>
-<ul>
-<li>单独提取出更新Label显示的数字的方法<br>*/<ul>
-<li>(void)updateFlipsLabel<br>{<br>self.flipsLabel.text = [NSString stringWithFormat:@”Flips: %d”, self.flipCount];<br>}</li>
-</ul>
-</li>
-</ul>
-<p>```</p>
-<p>这样一来，程序的可读性更高了一点。而且我们还不用重写<code>flipsCount</code>的setter方法。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。&lt;/p&gt;
-&lt;h2 id=&quot;懒加载-lazy-instantiation&quot;&gt;&lt;a href=&quot;#懒加载-lazy-instantiation&quot; c
     
     </summary>
     
