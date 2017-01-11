@@ -123,11 +123,11 @@ usingBlock:^(NSNotification *note) {
   </entry>
   
   <entry>
-    <title>斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期,方块碰撞游戏Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%83%EF%BC%89%EF%BC%9ACoreMotion%EF%BC%8Capp%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F,%E6%96%B9%E5%9D%97%E7%A2%B0%E6%92%9E%E6%B8%B8%E6%88%8FDemo/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期,方块碰撞游戏Demo/</id>
+    <title>斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%83%EF%BC%89%EF%BC%9ACoreMotion%EF%BC%8Capp%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%8C%E6%96%B9%E5%9D%97%E7%A2%B0%E6%92%9E%E6%B8%B8%E6%88%8FDemo/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/</id>
     <published>2017-01-11T07:30:02.000Z</published>
-    <updated>2017-01-11T07:30:02.000Z</updated>
+    <updated>2017-01-11T07:32:04.000Z</updated>
     
     <content type="html"><![CDATA[<p>本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。</p>
 <h1 id="Core-Motion"><a href="#Core-Motion" class="headerlink" title="Core Motion"></a>Core Motion</h1><hr>
@@ -277,11 +277,11 @@ _motionManager.accelerometerUpdateInterval = 0.1;
   </entry>
   
   <entry>
-    <title>斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField,UImagePickerController，在Flickr添加摄影师照片Demo</title>
+    <title>斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField，UImagePickerController，在Flickr添加摄影师照片Demo</title>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89%EF%BC%9A%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE%EF%BC%8CUITextField,UImagePickerController%EF%BC%8C%E5%9C%A8Flickr%E6%B7%BB%E5%8A%A0%E6%91%84%E5%BD%B1%E5%B8%88%E7%85%A7%E7%89%87Demo/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField,UImagePickerController，在Flickr添加摄影师照片Demo/</id>
     <published>2017-01-11T07:28:46.000Z</published>
-    <updated>2017-01-11T07:28:46.000Z</updated>
+    <updated>2017-01-11T07:32:28.000Z</updated>
     
     <content type="html"><![CDATA[<p>本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。</p>
 <h1 id="模态视图"><a href="#模态视图" class="headerlink" title="模态视图"></a>模态视图</h1><hr>
@@ -592,11 +592,11 @@ if (url) {
   </entry>
   
   <entry>
-    <title>斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation,MapKit,在地图上标识Flickr摄影师的作品</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%9B%9B%20%E5%8D%81%E4%BA%94%EF%BC%89%EF%BC%9ACoreLocation,MapKit,%E5%9C%A8%E5%9C%B0%E5%9B%BE%E4%B8%8A%E6%A0%87%E8%AF%86Flickr%E6%91%84%E5%BD%B1%E5%B8%88%E7%9A%84%E4%BD%9C%E5%93%81/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation,MapKit,在地图上标识Flickr摄影师的作品/</id>
+    <title>斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%9B%9B%20%E5%8D%81%E4%BA%94%EF%BC%89%EF%BC%9ACoreLocation%EF%BC%8CMapKit%EF%BC%8C%E5%9C%A8%E5%9C%B0%E5%9B%BE%E4%B8%8A%E6%A0%87%E8%AF%86Flickr%E6%91%84%E5%BD%B1%E5%B8%88%E7%9A%84%E4%BD%9C%E5%93%81/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品/</id>
     <published>2017-01-11T07:27:10.000Z</published>
-    <updated>2017-01-11T07:27:31.000Z</updated>
+    <updated>2017-01-11T07:32:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>本总结将第十四和十五课放在了一起，原因有二：第一是略去了ipad开发Demo的部分（因为笔者木有ipad，无法进行调试）。第二是两节课都讲解了关于地图框架的相关知识，故将二者放在一起总结。</p>
 <p>在本篇总结的最后，会给大家讲解在地图上显示Flickr上摄影师的照片作品。</p>
@@ -788,11 +788,11 @@ toShowAnnotation:(id &lt;MKAnnotation&gt;)annotation
   </entry>
   
   <entry>
-    <title>斯坦福大学iOS开发公开课总结（十二 十三）：Core-Data,表格视图，Flickr摄影师资料列表Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%BA%8C%20%E5%8D%81%E4%B8%89%EF%BC%89%EF%BC%9ACore-Data,%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%EF%BC%8CFlickr%E6%91%84%E5%BD%B1%E5%B8%88%E8%B5%84%E6%96%99%E5%88%97%E8%A1%A8/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十二 十三）：Core-Data,表格视图，Flickr摄影师资料列表/</id>
+    <title>斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%BA%8C%20%E5%8D%81%E4%B8%89%EF%BC%89%EF%BC%9ACoreData%EF%BC%8C%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%EF%BC%8CFlickr%E6%91%84%E5%BD%B1%E5%B8%88%E8%B5%84%E6%96%99%E5%88%97%E8%A1%A8/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/</id>
     <published>2017-01-11T07:21:28.000Z</published>
-    <updated>2017-01-11T07:25:33.000Z</updated>
+    <updated>2017-01-11T07:32:53.000Z</updated>
     
     <content type="html"><![CDATA[<p>第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。</p>
 <p>笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。</p>
