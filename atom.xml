@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-11T07:32:04.000Z</updated>
+  <updated>2017-01-11T08:10:01.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -14,6 +14,155 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AB%EF%BC%89%EF%BC%9A%E5%9B%BD%E9%99%85%E5%8C%96%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AE%BE%E7%BD%AEUI/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI/</id>
+    <published>2017-01-11T07:30:42.000Z</published>
+    <updated>2017-01-11T08:10:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇是斯坦福大学iOS7系列课程（CS193P）的最后一节课的总结，终于把18节课的内容都总结完了，而且这个文集也画上了句号，有点不舍的赶脚。。</p>
+<p>好了，不煽情了，开始！</p>
+<h1 id="国际化-Internationalization"><a href="#国际化-Internationalization" class="headerlink" title="国际化 Internationalization"></a>国际化 Internationalization</h1><hr>
+<p>如果我们想要将app推广到国际市场，那么就免不了将我们的app翻译成其他国家的语言以便于当地人去使用。</p>
+<p>而翻译的内容主要集中于“非内容”部分：例如标题类文字，按钮上的文字，提示框的文字等等。</p>
+<p>所谓“翻译”app的过程主要分为<strong>国际化</strong>和<strong>本地化</strong>两个步骤：</p>
+<ol>
+<li>国际化：是让app能够本地化的过程。</li>
+<li>本地化：将程序翻译另外一种语言。<ul>
+<li>故事版字符串的本地化：改变故事版中出现的字符串。</li>
+<li>类文件字符串的本地化：改变文件中出现的字符串，包括字符串面量和非字符串面量。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>好的UI设计：给用户呈现出的内容大多数都需要显示的（内容），而不是自己添加的（提示）。这样一来，也会减少我们本地化的工作量。</li>
+<li>所有的地方都要设置好自动布局，否则本地化将无从谈起，因为将文字翻译成其他语言后，长度很可能是不一样的。</li>
+</ol>
+</blockquote>
+<p>下面来来具体看一下本地化的方法，分为<strong>故事版中字符串</strong>的本地化和<strong>类文件中字符串</strong>的本地化。</p>
+<h2 id="1-故事版中的本地化"><a href="#1-故事版中的本地化" class="headerlink" title="1. 故事版中的本地化"></a>1. 故事版中的本地化</h2><p>在故事版中本地化的过程是：</p>
+<ol>
+<li>在项目里添加其他语言。</li>
+<li>在被添加语言的故事版文件中找到相应的.string文件，加以更改。</li>
+</ol>
+<p>具体过程如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-917657136741d815.gif?imageMogr2/auto-orient/strip" alt="故事版的本地化.gif"></p>
+<h2 id="2-类文件中字符串的本地化"><a href="#2-类文件中字符串的本地化" class="headerlink" title="2. 类文件中字符串的本地化"></a>2. 类文件中字符串的本地化</h2><p>除了需要本地化故事版中的字符串，类文件中的字符串也需要本地化，因为故事版并不能显示所有需要翻译的字符串。</p>
+<p>而且，类文件中的字符串分为两种形式：</p>
+<ol>
+<li>字符串面量。</li>
+<li>非字符串面量。</li>
+</ol>
+<p>字符串面量:</p>
+<p><code>NSString *myName = @“Jack”;</code></p>
+<p>类似这样的字符串是比较好找的，只需要搜索<code>@</code>即可很容易找到。<br>但是，我们仍然会通过该方法搜索到不应该本地化的字符串：<br>也就是不出现在UI中的字符串面量。</p>
+<p>例如：</p>
+<ul>
+<li>文件扩展名</li>
+<li>segure的identifier</li>
+<li>stiringWithFormat:</li>
+</ul>
+<h4 id="2-1字符串面量的本地化步骤："><a href="#2-1字符串面量的本地化步骤：" class="headerlink" title="2.1字符串面量的本地化步骤："></a>2.1字符串面量的本地化步骤：</h4><ol>
+<li>找到需要本地化的字符串面量。</li>
+<li>通过宏，将字符串面量添加到表中。</li>
+<li>创建表的.string文件。</li>
+<li>本地化.string文件</li>
+</ol>
+<p>﻿<br>1.找到  @”Sorry, this device cannot add a photo.” 字符串面量。</p>
+<p>``</p>
+<ul>
+<li>(void)viewDidAppear:(BOOL)animated<br>{<br>  [super viewDidAppear:animated];<br>  if (![[self class] canAddPhoto]) {<pre><code>[self fatalAlert:@&quot;Sorry, this device cannot add a photo.&quot;]; //
+</code></pre>  } else {<pre><code>[self.locationManager startUpdatingLocation];
+</code></pre>  }<br>}<br>``</li>
+</ul>
+<p>2.通过宏，将字符串面量添加到表中。</p>
+<p>``</p>
+<ul>
+<li><p>(void)viewDidAppear:(BOOL)animated<br>{<br>  [super viewDidAppear:animated];</p>
+<p>  if (![[self class] canAddPhoto]) {</p>
+<pre><code>[self fatalAlert:ALERT_CANT_ADD_PHOTO]; // @&quot;Sorry, this device cannot add a photo.&quot;
+</code></pre><p>  } else {</p>
+<pre><code>[self.locationManager startUpdatingLocation];
+</code></pre><p>  }<br>}<br>``</p>
+</li>
+</ul>
+<p>``</p>
+<p>#define ALERT_CANT_ADD_PHOTO NSLocalizedStringFromTable(@”ALERT_CANT_ADD_PHOTO”, @”AddPhotoViewController”, @”Alert message delivered when there is something that prevents the user from adding a new photo to the database that the user can do nothing about.”)<br>``</p>
+<p>3.创建表的.string文件</p>
+<p>我们已经在AddPhotoViewController.m文件里将需要本地化的字符串添加到了叫做AddPhotoViewController的表里，下面就需要用命令行工具找到该.m文件：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-a043fa2da855615c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="找到.m文件所在目录"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-b3adf539663b1269.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="输入genstrigns ^*m命令"></p>
+<p>4.本地化.string文件</p>
+<p>在第三步中，我们需要手动创建<code>AddPhotoViewController</code>表的.string文件，然后在文件内部将对应的key进行翻译。因为过程略繁琐，所以以动图的形式呈献给大家：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-100dfbddbe7399bb.gif?imageMogr2/auto-orient/strip" alt="本地化string.gif"></p>
+<blockquote>
+<p>失误了，右侧的字符串应该是没有“@”的，大家注意。因为到最后才发现的，不好改了 额。。 理解万岁。。</p>
+</blockquote>
+<h2 id="2-2-非字面量字符串的本地化："><a href="#2-2-非字面量字符串的本地化：" class="headerlink" title="2.2 非字面量字符串的本地化："></a>2.2 非字面量字符串的本地化：</h2><p>在类文件里，有些显示出来的字符串并不都是通过字符串面量赋值的，比如下面这个例子：</p>
+<p><code>self.title = newfrc.fetchRequest.entity.name;</code></p>
+<p>在这里，title取的是模型里的字段，并没有用字面量语法来表示。<br>对于这种情况，我们需要用NSBundle的<code>localizedStringForKey:value:table:</code>方法来进行本地化。</p>
+<p><code>self.title = [[NSBundle mainBundle] localizedStringForKey:newfrc.fetchRequest.entity.name
+                         value:newfrc.fetchRequest.entity.name     
+                         table:@&quot;Entities&quot;];</code></p>
+<p>这样一来，我们就生成了对应名字叫<strong>Entities</strong>的表的映射。但是这张表对应的.string文件还没有生成，需要我们手动去生成，并设置对应的key和value。生成方法如下所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-965d85e9b008d0c8.gif?imageMogr2/auto-orient/strip" alt="手动生成.string文件"></p>
+<h1 id="设置页的UI"><a href="#设置页的UI" class="headerlink" title="设置页的UI"></a>设置页的UI</h1><hr>
+<p>在苹果系统的设置里，会有我们装入的app的信息和设置。有时，我们需要将一些设置选项放在这里面供用户使用。</p>
+<p>而这里的UI是通过通过Settings bundle来设定的。我们首先要新建一个Settings Bundle:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-d49a21d343306156.gif?imageMogr2/auto-orient/strip" alt="创建Settings Bundle"></p>
+<p>创建成功后，分别有一个slider，switch，和textfield来对应设置页里的UI。</p>
+<p>在设置页里的样子是这样的：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-6dc1b24f8d070871.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建的Settings Bundle 后的设置页效果"></p>
+<p>那么如何使用呢？我们设置一下上一节课的Bouncer Demo的弹性系数：让用户通过调节设置里的slider来调整app里的弹性系数。</p>
+<p>``</p>
+<ul>
+<li>(void)resetElasticity<br>{<br>  //连接代码与Setting Bundle<br>  NSNumber *elasticity = [[NSUserDefaults standardUserDefaults] valueForKey:@”Setting_Elasticity”];//连接setting bundle<br>  if (elasticity) {<pre><code>//如果有，就取当前设定的
+self.elastic.elasticity = [elasticity floatValue];
+</code></pre>  } else {<pre><code>//如果没有，就设置为1
+self.elastic.elasticity = 1.0;
+</code></pre>  }<br>}<br>``</li>
+</ul>
+<p>在这里，通过<code>valueForKey</code>的键值对应了Setting Bundle plist 文件里的<code>identifier</code>，我们将plist文件里的<code>identifier</code>修改成了<code>Setting_Elasticity</code>而且更改了<code>Title</code>，而且将按钮和文本框删除掉，只保留了slider：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-f195429739d8262b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Setting Bundle plist"></p>
+<p>所对应的设置页的UI：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-1d15dcab18d5df94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新的设置页UI"></p>
+<p>现在我们可以通过identifier连接了代码和plist文件，获取到了键对应的值。</p>
+<p>而且，我们还需考虑在程序运行过程中，用户跳转到了设置页面来设置弹性系数的情况。因此，我们需要监听用户是否更改了设置里的选项：</p>
+<p>监听用户在设置中的行为：</p>
+<p><code>[[NSNotificationCenter defaultCenter] addObserverForName:NSUserDefaultsDidChangeNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self resetElasticity];
+                                                  }];</code></p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>当~当~当~当~！<br>笔者终于利用了2个月的部分业余时间总结了所有斯坦福iOS7的课程和相关Demo。通过以博客的形式总结，更加加深了对知识的理解和认识，也对基础知识进行了一次查缺补漏，或许也在一定程度上给其他看到这些博客的同仁们一些帮助吧~</p>
+<p>最后附上这一系列笔者总结的所有Demo在GitHub上的地址：<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">Stanford_iOS_Lecture_DemoBundle</a>。</p>
+<p>笔者下一阶段应该是总结下面两本书的内容：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-0eeac0652f909c84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Effective Objective- C 2.0"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-c1046257878a01d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Swift 基础教程"></p>
+<p>这两本书笔者都已经看了3分之一，因为要总结归纳，所以应该进度不是很快，不过还是会坚持写博客的！</p>
+<p>加油~</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇是斯坦福大学iOS7系列课程（CS193P）的最后一节课的总结，终于把18节课的内容都总结完了，而且这个文集也画上了句号，有点不舍的赶脚。。&lt;/p&gt;
+&lt;p&gt;好了，不煽情了，开始！&lt;/p&gt;
+&lt;h1 id=&quot;国际化-Internationalization&quot;&gt;&lt;a href
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
   
   <entry>
     <title>斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo</title>
