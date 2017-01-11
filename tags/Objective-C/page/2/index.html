@@ -165,7 +165,7 @@
       本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。
 动态绑定
 在OC的编译期，所有的指针都是id类型，只有在运行时，对象的类型才会被确定。
-举个🌰 ：在编译期，实际上与id相同，但是加上去的好处是让编译器知道你至少是**意图让该指针指向一个字符串**。所以如果尝试发送非字符串消息给该指针，它会发出警告，但是不会
+举个🌰 ：在编译期，NSString* 实际上与id相同，但是加上去的好处是让编译器知道你至少是意图让该指针指向一个字符串。所以如果尝试发送非字符串消息给该指针，它会发出警
     &hellip;
       </p>
       <div class="post-list__meta"><time datetime="2017-01-11T07:07:50.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
@@ -200,9 +200,8 @@
     
       本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。
 懒加载(lazy instantiation)
-懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在12
-@interface ViewController ()
-@property (nonato
+懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。
+123456789101112131415161718@int
     &hellip;
       </p>
       <div class="post-list__meta"><time datetime="2017-01-11T07:01:11.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
