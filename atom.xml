@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-11T05:31:54.000Z</updated>
+  <updated>2017-01-11T05:55:21.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -14,6 +14,79 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>程序员的修炼：从优秀到卓越 - 读书笔记</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AiOS%E7%9A%84MVC%E6%A1%86%E6%9E%B6/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/</id>
+    <published>2017-01-11T05:49:32.000Z</published>
+    <updated>2017-01-11T05:55:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><hr>
+<p>入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。</p>
+<p>课程地址：<a href="http://open.163.com/special/opencourse/ios7.html" target="_blank" rel="external">斯坦福大学公开课：iOS 7应用开发</a></p>
+<p>废话少说，开始！</p>
+<h2 id="MVC架构介绍"><a href="#MVC架构介绍" class="headerlink" title="MVC架构介绍"></a>MVC架构介绍</h2><hr>
+<h3 id="基本概念："><a href="#基本概念：" class="headerlink" title="基本概念："></a>基本概念：</h3><ul>
+<li><strong>视图</strong>(View)：构建UI的类；例如：按钮，标签，进度条等。</li>
+<li><strong>模型</strong>(Model)：视图类所需要的数据；例如：表格需要显示的文字。</li>
+<li><strong>控制器</strong>(Controller)：连接视图类和模型类，任务是使数据显示在屏幕上。例如：控制器将表格需要使用的数据“填入”表格视图中，将表格视图显示出来。</li>
+</ul>
+<h3 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h3><ul>
+<li><strong>控制器可以直接访问模型</strong>：将模型直接作为控制器的属性。</li>
+<li><strong>控制器可以直接访问视图</strong>：将视图直接作为控制器的属性。</li>
+<li><p><strong>模型与视图无法直接访问对方</strong>：二者完全解耦，不能引用对方，把对方设置为属性。</p>
+</li>
+<li><p><strong>视图到控制器的通信</strong>：</p>
+<ol>
+<li><p><strong>目标动作机制</strong>(target - action)：用户与视图交互触发控制器的方法。例如：点击按钮后实现视界面跳转，网络请求，刷新UI等。</p>
+</li>
+<li><p><strong>委托机制</strong>(delegate)：视图向控制器询问某些自己无法决定的事情，或是让控制器帮助自己做一些自己独立无法完成的事情。 因为控制器才是掌握全局的角色，很多时候视图是无法自己做决定的。例如：表格问控制器：我可以滚动么？然后控制器给予回答告知是否可以继续滚动。 如果表格的高度很小，那么就可以不让它滚动。但是如果表格的高度已经超过了屏幕的高度，这时候如果让它自作主张无法滚动久不好了。                                             </p>
+</li>
+<li><strong>数据源机制</strong>(dataSource):视图让控制器给它将要显示的数据。例如：音乐的数据存在于模型里，控制器访问模型，从模型里拿到数据后告诉视图如何显示出歌曲。</li>
+</ol>
+</li>
+<li><p><strong>模型到控制器的通信</strong></p>
+<ol>
+<li><strong>广播机制</strong>(Notification)：控制器注册监听某模型数据变化的广播频道，当此模型数据变化后向该控制器发送广播，告知模型变化情况。</li>
+<li><strong>KVO机制</strong>(Key-Value Observing)：模型作为控制器的属性，当模型属性被修改后，持有此模型属性的控制器就会收到通知。</li>
+</ol>
+</li>
+</ul>
+<p>下面一张图可以直观看出上述的通信方式。图片来自本课程配套的<a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=480479762" target="_blank" rel="external">课件</a><br><img src="http://upload-images.jianshu.io/upload_images/859001-492c53ebbb43ad76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS MVC架构"></p>
+<h2 id="其他知识"><a href="#其他知识" class="headerlink" title="其他知识"></a>其他知识</h2><hr>
+<h3 id="类文件类型："><a href="#类文件类型：" class="headerlink" title="类文件类型："></a>类文件类型：</h3><ul>
+<li><strong>.h文件</strong>(头文件):公开API，其他类可以调用的方法，告诉其他类“我能做些什么：<strong>what I can do</strong>。</li>
+<li><strong>.m文件</strong>(实现文件):非公开API，如何实现.h文件的方法，查看实现文件可以知道该类具体是如何实现公开API的方法的:<strong>how to do</strong>。</li>
+</ul>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><strong>strong</strong>：在堆中保持这个所指的东西，至少有一个强指针指向它，否则就会释放。</li>
+<li><strong>weak</strong>：如果没有强指针指向它，清理指向的内存后，会被设置成nil指针。</li>
+<li><strong>nonatomic</strong>：不能有两个线程同时设置该属性。</li>
+</ul>
+<h3 id="零散知识"><a href="#零散知识" class="headerlink" title="零散知识"></a>零散知识</h3><ul>
+<li>所有对象都在堆里，OC会为我们管理这些内存。</li>
+<li>访问实例变量，就是访问对象的实例数据。</li>
+<li>OC里，可以先实现方法再声明。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><hr>
+<p>第一讲里的内容比较基础，重点是介绍了MVC模型的通信机制，需要反复推敲并且在实际操作中<strong>严格遵守</strong>。因为只有这样做才能降低类之间的耦合性，写出易于维护和扩展的代码。</p>
+<p>比如在模型类里是不能调用控制器的方法的，模型类只能被控制器调用并且当所拥有的数据改变后通知使用自己的控制器数据的改变。更不能直接给视图通知让视图自己更新UI。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;写在开头&quot;&gt;&lt;a href=&quot;#写在开头&quot; class=&quot;headerlink&quot; title=&quot;写在开头&quot;&gt;&lt;/a&gt;写在开头&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
   
   <entry>
     <title>程序员的职业素养 - 读书笔记</title>
