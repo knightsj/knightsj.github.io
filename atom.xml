@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-10T11:52:00.000Z</updated>
+  <updated>2017-01-11T05:31:54.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/10/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E7%B4%A0%E5%85%BB%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/10/程序员的职业素养 - 读书笔记/</id>
     <published>2017-01-10T11:42:23.000Z</published>
-    <updated>2017-01-10T11:52:00.000Z</updated>
+    <updated>2017-01-11T05:31:54.000Z</updated>
     
     <content type="html"><![CDATA[<p>好久木有读书了，因为前两次迭代比较忙，工作下来也在一直写代码。不过还好现在把握好了节奏，有时间读书了。</p>
 <p>我找了这本《程序员的职业素养》，内容比较简单，但是涵盖了一些程序员在工作过程中需要注意的一些细节问题，如果读者是程序员的话会对职业有很大帮助的。</p>
@@ -108,6 +108,10 @@
     </summary>
     
     
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
   </entry>
   
   <entry>
@@ -115,7 +119,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/10/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BF%AE%E7%82%BC%EF%BC%9A%E4%BB%8E%E4%BC%98%E7%A7%80%E5%88%B0%E5%8D%93%E8%B6%8A%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/10/程序员的修炼：从优秀到卓越 - 读书笔记/</id>
     <published>2017-01-10T11:41:15.000Z</published>
-    <updated>2017-01-10T11:51:28.000Z</updated>
+    <updated>2017-01-11T05:32:01.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="程序员的修炼 - 从优秀到卓越"></p>
 <p>本书是笔者上一篇读书笔记<a href="http://www.jianshu.com/p/33933a3ba977" target="_blank" rel="external">高效能程序员的修炼</a>的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。</p>
@@ -223,6 +227,10 @@
     </summary>
     
     
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
   </entry>
   
   <entry>
@@ -230,7 +238,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/10/%E9%AB%98%E6%95%88%E8%83%BD%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BF%AE%E7%82%BC%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/10/高效能程序员的修炼 - 读书笔记/</id>
     <published>2017-01-10T11:39:48.000Z</published>
-    <updated>2017-01-10T11:45:23.000Z</updated>
+    <updated>2017-01-11T05:31:35.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-d4f6ace667765fd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="高效能程序员的修炼"></p>
 <p>俗话说：程序员不能只想着写代码。在编程以外的闲暇时间，读一点这种有助于程序员扩展视野和提高素养的书籍是很好的。</p>
@@ -363,6 +371,10 @@
     </summary>
     
     
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
   </entry>
   
   <entry>
@@ -370,7 +382,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/10/%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/10/如何高效学习 - 读书笔记/</id>
     <published>2017-01-10T11:29:01.000Z</published>
-    <updated>2017-01-10T11:36:49.000Z</updated>
+    <updated>2017-01-11T05:32:22.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-19e2323f8483e093.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="如何高效学习"></p>
 <p>笔者的话：本书介绍了整体性学习法，强调在学习过程中，需要通过比喻和抽象的方法，将新知识与旧知识相互联系，以提高学习效率和深度的学习方法。笔者亲测，甚是有效，在此强烈推荐给大家。</p>
@@ -609,6 +621,10 @@
     
     </summary>
     
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="Mind" scheme="https://github.com/knightsj/knightsj.github.io/tags/Mind/"/>
     
   </entry>
   
