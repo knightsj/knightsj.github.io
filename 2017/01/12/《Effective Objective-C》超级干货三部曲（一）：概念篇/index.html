@@ -206,9 +206,7 @@
 <p>####注意：遵循属性定义</p>
 <p>如果属性定义为copy，那么在非设置方法里设定属性的时候，也要遵循copy的语义</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (id)initWithFirstName:(NSString*)firstName lastName:(NSString*)lastName</div><div class="line">&#123;</div><div class="line">         if ((self = [super init])) &#123;</div><div class="line">            _firstName = [firstName copy];</div><div class="line">            _lastName = [lastName copy];</div><div class="line">        &#125;</div><div class="line">       return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>#第8条：理解“对象等同性”这一概念</p>
-<hr>
-<p>##1. 同等性判断</p>
+<h2 id="第8条：理解“对象等同性”这一概念"><a href="#第8条：理解“对象等同性”这一概念" class="headerlink" title="#第8条：理解“对象等同性”这一概念"></a>#第8条：理解“对象等同性”这一概念</h2><p>##1. 同等性判断</p>
 <blockquote>
 <p>==操作符比较的是指针值，也就是内存地址。</p>
 </blockquote>
@@ -221,9 +219,7 @@
 <blockquote>
 <p>1.先比较数组的个数<br>2.再比较两个数组对应位置上的对象均相等。</p>
 </blockquote>
-<p>#第11条：理解objc_msgSend的作用</p>
-<hr>
-<p>在OC中，如果向某对象传递信息，那就会使用动态绑定机制来决定需要调用的方法。在底层，所有方法都是普通的C语言函数.</p>
+<h2 id="第11条：理解objc-msgSend的作用"><a href="#第11条：理解objc-msgSend的作用" class="headerlink" title="#第11条：理解objc_msgSend的作用"></a>#第11条：理解objc_msgSend的作用</h2><p>在OC中，如果向某对象传递信息，那就会使用动态绑定机制来决定需要调用的方法。在底层，所有方法都是普通的C语言函数.</p>
 <p>然而对象收到 消息后，究竟该调用哪个方法则完全于运行期决定，甚至可以在程序运行时改变，这些特性使得OC成为一门真正的动态语言。</p>
 <p>在OC中，给对象发送消息的语法是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id returnValue = [someObject messageName:parameter];</div></pre></td></tr></table></figure>
@@ -270,9 +266,7 @@
 <blockquote>
 <p>因为key的名字对应了属性名，也就是没有set，首字母小写，尾部没有：的字符串。然而，将set方法转换为字符串后，我们需要将set方法的这些“边角”都处理掉。最后得到了“纯净”的键后，再进行字典的赋值操作。</p>
 </blockquote>
-<p>#第14条：理解“类对象”的用意</p>
-<hr>
-<p>在运行期程序库的头文件里定义了描述OC对象所用的数据结构：</p>
+<h2 id="第14条：理解“类对象”的用意"><a href="#第14条：理解“类对象”的用意" class="headerlink" title="#第14条：理解“类对象”的用意"></a>#第14条：理解“类对象”的用意</h2><p>在运行期程序库的头文件里定义了描述OC对象所用的数据结构：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">typedef struct objc_class *Class;</div><div class="line"></div><div class="line">    struct objc_class &#123;</div><div class="line">         Class isa;</div><div class="line">         Class super_class;</div><div class="line">         const char *name;</div><div class="line">         long version;</div><div class="line">         long info;</div><div class="line">         long instance_size;</div><div class="line">         struct objc_ivar_list *ivars;</div><div class="line">         struct objc_method_list **methodLists;</div><div class="line">         struct objc_cache *cache;</div><div class="line">         struct objc_protocol_list *protocols;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>在这里，isa指针指向了对象所属的类：元类（metaclass），它是整个结构体的第一个变量。super_class定义了本类的超类。</p>
@@ -351,9 +345,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (NSString*)stringValue &#123;</div><div class="line">     NSString *str = [[NSString alloc] initWithFormat:@&quot;I am this: %@&quot;, self];</div><div class="line">     return [str autorelease];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>##3. 保留环（retain cycle）</p>
 <p>对象之间相互用强引用指向对方，会使得全部都无法得以释放。解决方案是讲其中一端的引用改为弱引用（weak reference），在引用的同时不递增引用计数。</p>
-<p>#第30条：以ARC简化引用计数</p>
-<hr>
-<p>使用ARC，可以省略对于引用计数的操作，让开发者专注于开发本身：</p>
+<h2 id="第30条：以ARC简化引用计数"><a href="#第30条：以ARC简化引用计数" class="headerlink" title="#第30条：以ARC简化引用计数"></a>#第30条：以ARC简化引用计数</h2><p>使用ARC，可以省略对于引用计数的操作，让开发者专注于开发本身：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if ([self shouldLogMessage]) &#123;</div><div class="line">     NSString *message = [[NSString alloc] initWithFormat:@&quot;I am object, %p&quot;, self];</div><div class="line">     NSLog(@&quot;message = %@&quot;, message);</div><div class="line">      [message release]; ///&lt; Added by ARC</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>显然这里我们不需要message对象了，那么ARC会自动为我们添加内存管理的语句。</p>
@@ -368,9 +360,7 @@
 <blockquote>
 <p>注意：ARC只负责管理OC对象的内存，CoreFoundation对象不归ARC管理</p>
 </blockquote>
-<p>#第37条：理解“块”这一概念</p>
-<hr>
-<p>对于“块”的基础知识就不再赘述了，这里强调一下块的种类。</p>
+<h2 id="第37条：理解“块”这一概念"><a href="#第37条：理解“块”这一概念" class="headerlink" title="#第37条：理解“块”这一概念"></a>#第37条：理解“块”这一概念</h2><p>对于“块”的基础知识就不再赘述了，这里强调一下块的种类。</p>
 <p>块(Block)分为三类：</p>
 <ul>
 <li>栈块</li>
@@ -386,9 +376,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">void (^block)();</div><div class="line"></div><div class="line">if ( /* some condition */ ) &#123;</div><div class="line">    block = [^&#123;</div><div class="line">         NSLog(@&quot;Block A&quot;);</div><div class="line">   &#125; copy];</div><div class="line">&#125; else &#123;</div><div class="line">    block = [^&#123;</div><div class="line">         NSLog(@&quot;Block B&quot;);</div><div class="line">    &#125; copy];</div><div class="line">&#125;</div><div class="line"></div><div class="line">block();</div></pre></td></tr></table></figure>
 <p>##3. 全局块<br>全局块声明在全局内存里，而不需要在每次用到的时候于栈中创建。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void (^block)() = ^&#123;</div><div class="line">     NSLog(@&quot;This is a block&quot;);</div><div class="line">﻿&#125;;</div></pre></td></tr></table></figure>
-<p>#第47条：熟悉系统框架</p>
-<hr>
-<p>如果我们使用了系统提供的现成的框架，那么用户在升级系统后，就可以直接享受系统升级所带来的改进。</p>
+<h2 id="第47条：熟悉系统框架"><a href="#第47条：熟悉系统框架" class="headerlink" title="#第47条：熟悉系统框架"></a>#第47条：熟悉系统框架</h2><p>如果我们使用了系统提供的现成的框架，那么用户在升级系统后，就可以直接享受系统升级所带来的改进。</p>
 <p>主要的系统框架：</p>
 <ul>
 <li>Foundation:NSObject,NSArray,NSDictionary等</li>
