@@ -1,159 +1,341 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    
-    <title>《Effective Objective-C》超级干货三部曲（三）：技巧篇 | J_Knight</title>
-    <meta name="renderer" content="webkit">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-    <meta name="description" content="正在学hybrid开发的iOS开发者，就职于上海">
 
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="《Effective Objective-C》超级干货三部曲（三）：技巧篇 | J_Knight">
-    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者，就职于上海">
 
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="《Effective Objective-C》超级干货三部曲（三）：技巧篇 | J_Knight">
-    <meta property="og:description" content="正在学hybrid开发的iOS开发者，就职于上海">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    
-    <meta name="author" content="Knight_SJ">
-    
-    <link rel="stylesheet" href="/css/vno.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
-    
-    <link rel="icon" href="/images/avatar.png">
-    
 
-    <meta name="generator" content="hexo"/>
-    
-    <link rel="alternate" type="application/rss+xml" title="J_Knight" href="/atom.xml">
-    
 
-    <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（三）：技巧篇/"/>
 
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
     
-      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Objective-C," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。
+不知道笔者所谓的三部曲的童鞋们可以看一下这张图：
+
+前两篇传送门：《Effective Objective-C 》超级干货三部曲（一）：概念篇《Effective Objective-C 》超级干货三部曲（二）：规范篇
+第9条 以“类族模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Effective Objective-C》超级干货三部曲（三）：技巧篇">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（三）：技巧篇/index.html">
+<meta property="og:site_name" content="J_Knight">
+<meta property="og:description" content="《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。
+不知道笔者所谓的三部曲的童鞋们可以看一下这张图：
+
+前两篇传送门：《Effective Objective-C 》超级干货三部曲（一）：概念篇《Effective Objective-C 》超级干货三部曲（二）：规范篇
+第9条 以“类族模">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-c58274453996f2c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-10ddc4e1634625b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-4e1aa0647dee51fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-d99033df1cf5e1ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-afc3b538527f93da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-01-12T02:00:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Effective Objective-C》超级干货三部曲（三）：技巧篇">
+<meta name="twitter:description" content="《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。
+不知道笔者所谓的三部曲的童鞋们可以看一下这张图：
+
+前两篇传送门：《Effective Objective-C 》超级干货三部曲（一）：概念篇《Effective Objective-C 》超级干货三部曲（二）：规范篇
+第9条 以“类族模">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（三）：技巧篇/"/>
+
+
+
+
+
+  <title> 《Effective Objective-C》超级干货三部曲（三）：技巧篇 | J_Knight </title>
 </head>
 
-<body class="home-template no-js">
-    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <span class="mobile btn-mobile-menu">
-        <i class="fa fa-list btn-mobile-menu__icon"></i>
-        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
-    </span>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
     
-<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg_2.jpg)">
-  <div class="panel-main">
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
+  
 
-        <a href="/" title="前往 J_Knight 的主页"><img src="/images/avatar.png" width="80" alt="J_Knight logo" class="panel-cover__logo logo" /></a>
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for J_Knight">J_Knight</a></h1>
-        
-        <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
-        
-        <hr class="panel-cover__divider" />
-        <p class="panel-cover__description">正在学hybrid开发的iOS开发者，就职于上海</p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
 
-        <div class="navigation-wrapper">
-          <div>
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">J_Knight</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">每天进步一点点</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
-            </ul>
-          </nav>
-          </div>
-          <div>
-          <nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-  <!-- Weibo-->
-  
-  <li class="navigation__item">
-    <a href="http://weibo.com/1929625262/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" title="我的微博" target="_blank">
-      <i class='social fa fa-weibo'></i>
-      <span class="label">Weibo</span>
-    </a>
-  </li> 
-
-
-  <!-- Github -->
-  
-  <li class="navigation__item">
-    <a href="https://github.com/knightsj" title="查看我的GitHub主页" target="_blank">
-      <i class='social fa fa-github'></i>
-      <span class="label">Github</span>
-    </a>
-  </li>
-
-
-<!-- Stack Overflow -->
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
         
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
 
-  <!-- Google Plus -->
+      
+    </ul>
   
 
-<!-- Facebook -->
-
   
-<!-- Twitter -->
-
-  
-
-  <li class="navigation__item">
-    <a href="/atom.xml" title="RSS" target="_blank">
-      <i class='social fa fa-rss'></i>
-      <span class="label">RSS</span>
-    </a>
-  </li>
-
-
-
-  </ul>
 </nav>
 
-          </div>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（三）：技巧篇/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《Effective Objective-C》超级干货三部曲（三）：技巧篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T09:44:05+08:00">
+                2017-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
 
-      </div>
 
-    </div>
+    <div class="post-body" itemprop="articleBody">
 
-    <div class="panel-cover--overlay cover-purple"></div>
-  </div>
-</header>
+      
+      
 
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner">
-            <article class="post-container post-container--single">
-
-  <header class="post-header">
-    <div class="post-meta">
-      <time datetime="2017-01-12T01:44:05.000Z" class="post-list__meta--date date">2017-01-12</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
- </span>
-      <span class="page-pv">
-      &nbsp;阅读&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
-      </span> 
-   
-    </div>
-    <h1 class="post-title">《Effective Objective-C》超级干货三部曲（三）：技巧篇</h1>
-  </header>
-
-  <section class="post">
-    <p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
 <p>《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。</p>
 <p>不知道笔者所谓的三部曲的童鞋们可以看一下这张图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
@@ -428,82 +610,308 @@ NSString *lowercaseString = [string lowercaseString];
 <h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
 <p>终于总结完了，还是有个别知识点理解得不是很透彻，需要反复阅读和理解消化。希望各位小伙伴多多提出宝贵意见，交流学习~</p>
 
-  </section>
-
-</article>
-<section class="read-more">
-           
-    
-        
-        
-               
-            <div class="read-more-item">
-                <span class="read-more-item-dim">更早的文章</span>
-                <h2 class="post-list__post-title post-title"><a href="/2017/01/12/《Effective Objective-C》超级干货三部曲（二）：规范篇/" title="《Effective Objective-C》超级干货三部曲（二）：规范篇">《Effective Objective-C》超级干货三部曲（二）：规范篇</a></h2>
-                <p class="excerpt">
-                
-                
-继上一篇《Effective Objective-C 》超级干货三部曲（一）：概念篇之后，本篇即是三部曲的第二篇：规范篇。没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归
-                &hellip;
-                </p>
-                <div class="post-list__meta"><time datetime="2017-01-12T01:35:29.000Z" class="post-list__meta--date date">2017-01-12</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/12/《Effective Objective-C》超级干货三部曲（二）：规范篇/">继续阅读</a></div>
-                       
-            </div>
-        
-     
-   
-   
-  
-</section>
-
-            
-            <footer class="footer">
-    <span class="footer__copyright">
-        本站点采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
-    </span>
-    <span class="footer__copyright">
-        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
-    </span>
-    <span class="footer__copyright">
-        &copy; 2017 - 本站由 <a href="/">@Monniya</a> 创建,
-        使用 <a href="https://github.com/monniya/hexo-theme-new-vno ">hexo-theme-new-vno</a> 主题,
-        修改自 <a href="https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">Vno</a>, 原创出自<a href="http://github.com/onevcat/vno" target="_blank">onevcat</a>
-    </span>
-</footer>
-        </div>
+      
     </div>
 
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/12/《Effective Objective-C》超级干货三部曲（二）：规范篇/" rel="next" title="《Effective Objective-C》超级干货三部曲（二）：规范篇">
+                <i class="fa fa-chevron-left"></i> 《Effective Objective-C》超级干货三部曲（二）：规范篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
     
+  </div>
 
-     
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	ga('create', 'UA-78918255-1', 'auto');
-	ga('send', 'pageview');
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg"
+               alt="Knight_SJ" />
+          <p class="site-author-name" itemprop="name">Knight_SJ</p>
+          <p class="site-description motion-element" itemprop="description">正在学hybrid开发的iOS开发者，就职于上海</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">Tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第9条-以“类族模式“隐藏实现细节"><span class="nav-number">1.</span> <span class="nav-text">第9条 以“类族模式“隐藏实现细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要这么做呢"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">为什么要这么做呢?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-抽象基类"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">1. 抽象基类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-实体子类（concrete-subclass）"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">2. 实体子类（concrete subclass）:</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第10条：在既有类中使用关联对象存放自定义数据"><span class="nav-number">2.</span> <span class="nav-text">第10条：在既有类中使用关联对象存放自定义数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-为某个对象设置关联对象的值："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">1. 为某个对象设置关联对象的值：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-根据给定的键从某对象中获取相应的关联对象值："><span class="nav-number">2.0.0.2.</span> <span class="nav-text">2. 根据给定的键从某对象中获取相应的关联对象值：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-移除指定对象的关联对象："><span class="nav-number">2.0.0.3.</span> <span class="nav-text">3. 移除指定对象的关联对象：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第13条：用“方法调配技术”调试“黑盒方法”"><span class="nav-number">3.</span> <span class="nav-text">第13条：用“方法调配技术”调试“黑盒方法”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤一：我们先将新方法写在NSString的分类里："><span class="nav-number">3.0.0.1.</span> <span class="nav-text">步骤一：我们先将新方法写在NSString的分类里：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤二：交换两个方法的实现（操纵调换IMP指针）"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">步骤二：交换两个方法的实现（操纵调换IMP指针）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第16条：提供”全能初始化方法”"><span class="nav-number">4.</span> <span class="nav-text">第16条：提供”全能初始化方法”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#这里有问题！"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">这里有问题！</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#还差一点：initWithCoder-的初始化"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">还差一点：initWithCoder:的初始化</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第17条：实现description方法"><span class="nav-number">5.</span> <span class="nav-text">第17条：实现description方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第28条-通过协议提供匿名对象"><span class="nav-number">6.</span> <span class="nav-text">第28条:通过协议提供匿名对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-匿名对象作为属性"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">1. 匿名对象作为属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-匿名对象作为方法参数"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">2. 匿名对象作为方法参数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第32条：编写“异常安全代码”时留意内存管理问题"><span class="nav-number">7.</span> <span class="nav-text">第32条：编写“异常安全代码”时留意内存管理问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在MRC环境下："><span class="nav-number">7.0.0.1.</span> <span class="nav-text">在MRC环境下：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第33条：以弱引用避免保留环"><span class="nav-number">8.</span> <span class="nav-text">第33条：以弱引用避免保留环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两个对象的保留环："><span class="nav-number">8.0.0.1.</span> <span class="nav-text">两个对象的保留环：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个对象的保留环："><span class="nav-number">8.0.0.2.</span> <span class="nav-text">多个对象的保留环：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第34条：以“自动释放池快”降低内存峰值"><span class="nav-number">9.</span> <span class="nav-text">第34条：以“自动释放池快”降低内存峰值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第35条：用“僵尸对象”调试内存管理问题"><span class="nav-number">10.</span> <span class="nav-text">第35条：用“僵尸对象”调试内存管理问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第38条：为常用的块类型创建typedef"><span class="nav-number">11.</span> <span class="nav-text">第38条：为常用的块类型创建typedef</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第39条：用handler块降低代码分散程度"><span class="nav-number">12.</span> <span class="nav-text">第39条：用handler块降低代码分散程度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用代理下载："><span class="nav-number">12.0.0.1.</span> <span class="nav-text">用代理下载：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用块下载："><span class="nav-number">12.0.0.2.</span> <span class="nav-text">用块下载：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第40条：用块引用其所属对象时不要出现保留环"><span class="nav-number">13.</span> <span class="nav-text">第40条：用块引用其所属对象时不要出现保留环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第41条：多用派发队列，少用同步锁"><span class="nav-number">14.</span> <span class="nav-text">第41条：多用派发队列，少用同步锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方案一：使用串行同步队列来将读写操作都安排到同一个队列里："><span class="nav-number">14.0.0.1.</span> <span class="nav-text">方案一：使用串行同步队列来将读写操作都安排到同一个队列里：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"><span class="nav-number">14.0.0.2.</span> <span class="nav-text">方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第42条：多用GCD，少用performSelector系列方法"><span class="nav-number">15.</span> <span class="nav-text">第42条：多用GCD，少用performSelector系列方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-延后执行某个任务的方法："><span class="nav-number">15.0.0.1.</span> <span class="nav-text">1. 延后执行某个任务的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将任务放在主线程执行："><span class="nav-number">15.0.0.2.</span> <span class="nav-text">2. 将任务放在主线程执行：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第43条：掌握GCD及操作队列的使用时机"><span class="nav-number">16.</span> <span class="nav-text">第43条：掌握GCD及操作队列的使用时机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第44条：通过Dispath-Group机制，根据系统资源状况来执行任务"><span class="nav-number">17.</span> <span class="nav-text">第44条：通过Dispath Group机制，根据系统资源状况来执行任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第45条：使用dispatch-once来执行只需运行一次的线程安全代码"><span class="nav-number">18.</span> <span class="nav-text">第45条：使用dispatch_once来执行只需运行一次的线程安全代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第49条：对自定义其内存管理语义的collection使用无缝桥接"><span class="nav-number">19.</span> <span class="nav-text">第49条：对自定义其内存管理语义的collection使用无缝桥接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">20.</span> <span class="nav-text">最后的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Knight_SJ</span>
+</div>
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
-    
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?9cdad07c755fa23f6aced510c6760e87";
-            var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
 
 
 
-    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-    
-    </script>
-    
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
 </body>
 </html>

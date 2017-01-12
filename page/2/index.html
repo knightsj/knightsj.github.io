@@ -1,395 +1,2297 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    
-    <title>J_Knight | 每天进步一点点</title>
-    <meta name="renderer" content="webkit">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-    <meta name="description" content="正在学hybrid开发的iOS开发者，就职于上海">
 
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="J_Knight | 每天进步一点点">
-    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者，就职于上海">
 
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="J_Knight | 每天进步一点点">
-    <meta property="og:description" content="正在学hybrid开发的iOS开发者，就职于上海">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    
-    <meta name="author" content="Knight_SJ">
-    
-    <link rel="stylesheet" href="/css/vno.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 
-    
-    <link rel="icon" href="/images/avatar.png">
-    
 
-    <meta name="generator" content="hexo"/>
-    
-    <link rel="alternate" type="application/rss+xml" title="J_Knight" href="/atom.xml">
-    
 
-    <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io"/>
 
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
     
-      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="正在学hybrid开发的iOS开发者，就职于上海">
+<meta property="og:type" content="website">
+<meta property="og:title" content="J_Knight">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/page/2/index.html">
+<meta property="og:site_name" content="J_Knight">
+<meta property="og:description" content="正在学hybrid开发的iOS开发者，就职于上海">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="J_Knight">
+<meta name="twitter:description" content="正在学hybrid开发的iOS开发者，就职于上海">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/page/2/"/>
+
+
+
+
+
+  <title> J_Knight </title>
 </head>
 
-<body class="home-template no-js">
-    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <span class="mobile btn-mobile-menu">
-        <i class="fa fa-list btn-mobile-menu__icon"></i>
-        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
-    </span>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
     
-<header class="panel-cover " style="background-image: url(/images/bg_2.jpg)">
-  <div class="panel-main">
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
+  
 
-        <a href="/" title="前往 J_Knight 的主页"><img src="/images/avatar.png" width="80" alt="J_Knight logo" class="panel-cover__logo logo" /></a>
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for J_Knight">J_Knight</a></h1>
-        
-        <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
-        
-        <hr class="panel-cover__divider" />
-        <p class="panel-cover__description">正在学hybrid开发的iOS开发者，就职于上海</p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
 
-        <div class="navigation-wrapper">
-          <div>
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">J_Knight</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">每天进步一点点</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
-            </ul>
-          </nav>
-          </div>
-          <div>
-          <nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-  <!-- Weibo-->
-  
-  <li class="navigation__item">
-    <a href="http://weibo.com/1929625262/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" title="我的微博" target="_blank">
-      <i class='social fa fa-weibo'></i>
-      <span class="label">Weibo</span>
-    </a>
-  </li> 
-
-
-  <!-- Github -->
-  
-  <li class="navigation__item">
-    <a href="https://github.com/knightsj" title="查看我的GitHub主页" target="_blank">
-      <i class='social fa fa-github'></i>
-      <span class="label">Github</span>
-    </a>
-  </li>
-
-
-<!-- Stack Overflow -->
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
         
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
 
-  <!-- Google Plus -->
+      
+    </ul>
   
 
-<!-- Facebook -->
-
   
-<!-- Twitter -->
-
-  
-
-  <li class="navigation__item">
-    <a href="/atom.xml" title="RSS" target="_blank">
-      <i class='social fa fa-rss'></i>
-      <span class="label">RSS</span>
-    </a>
-  </li>
-
-
-
-  </ul>
 </nav>
 
-          </div>
-        </div>
 
-      </div>
 
-    </div>
+ </div>
+    </header>
 
-    <div class="panel-cover--overlay cover-purple"></div>
-  </div>
-</header>
-
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner">
-            <div class="main-post-list">
-    
-  <ol class="post-list">
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/" title="link to post.title">斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo</a></h2>
-      <p class="excerpt">
-    
-      本节课介绍了iOS在故事版里构造AutoLayout(自动布局)的三种方法并通过沿用了第六课的Demo具体演示了添加约束的过程。内容较少也比较简单，可惜的是没有讲解用纯代码构造自动布局。
-PS：严重多图预警！
-因为操作都是在故事版里进行的，所以只能通过截图来演示具体操作步骤。。。
-AutoLayout
-在故事版里构造AutoLayout的三种方法：
-使用蓝色辅助线，并选择系统建议约束。
-点击底部的
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-11T07:18:19.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/" title="link to post.title">斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo</a></h2>
-      <p class="excerpt">
-    
-      本节课介绍了协议，block，动画的相关知识，最后结合了这些知识点展示了一个类似俄罗斯方块的小游戏Demo。总体来说本节课的内容比较重要，稍微摆脱了UI层面的知识，对于初学者来说理解起来不是很容易，不过笔者会尽量详细地讲解给大家。
-协议
-关于协议所介绍的知识点比较简单，而且实现起来相对容易，故不做详细介绍，各位可以参考文档或者相关博客即可。在这里只强调一个知识点：
-id obj 和 id&amp;lt;M
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-11T07:17:25.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo/" title="link to post.title">斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo</a></h2>
-      <p class="excerpt">
-    
-      本节课介绍了UIView的一些知识，自定义UIView的方法以及手势识别。最后应用本节所讲的大部分知识点向我们演示了一个绘制纸牌的Demo。
-UIView
-关于UIView，你需要知道的零散知识
-视图是可以多层嵌套的。
-每个视图可以有多个子视图，但是只能有一个父视图。
-控制器的view属性指向自己的顶级视图。
-令视图透明会加大系统的开销。
-通过判断控制器view的self.view.window是
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-11T07:16:20.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo/" title="link to post.title">斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo</a></h2>
-      <p class="excerpt">
-    
-      本节课的课程地址：控制器多态性、导航控制器、选项卡栏控制器
-本节课通过延伸第四节课的纸牌配对Demo（详情请见：斯坦福大学iOS开发公开课总结（三） ：纸牌配对游戏Demo）讲解了控制器的多态性，扩展了第五节课的属性字符串Demo(详情请见:斯坦福大学iOS开发公开课总结（四） ：属性字符串Demo)讲解了如何使用导航控制器和选项卡栏控制器。
-建议读者先了解以上两个博客的内容，因为这样有助于对本节
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-11T07:08:50.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/" title="link to post.title">斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo</a></h2>
-      <p class="excerpt">
-    
-      本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。
-动态绑定
-在OC的编译期，所有的指针都是id类型，只有在运行时，对象的类型才会被确定。
-举个🌰 ：在编译期，NSString* 实际上与id相同，但是加上去的好处是让编译器知道你至少是意图让该指针指向一个字符串。所以如果尝试发送非字符串消息给该指针，它会发出警
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-11T07:07:50.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/" title="link to post.title">斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo</a></h2>
-      <p class="excerpt">
-    
-      本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：斯坦福大学iOS开发公开课总结（二） ：翻纸牌Demo），将一张纸牌扩展到一个多张纸牌并进行配对和打分的小游戏。
-本节课的内容虽然简单，但是十分重要，讲师强调了MVC的设计原则并实际运用到了代码中，本文就Demo的具体代码来讲解本节课提到的知识点。
-设计需求
-
-显示多张纸牌，点击任意一张牌可以翻牌。
-两张牌都显示正面后可以进行配
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-11T07:05:23.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/" title="link to post.title">斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo</a></h2>
-      <p class="excerpt">
-    
-      本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。
-懒加载(lazy instantiation)
-懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。
-123456789101112131415161718@int
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-11T07:01:11.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/" title="link to post.title">斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架</a></h2>
-      <p class="excerpt">
-    
-      写在开头
-入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。
-课程地址：斯坦福大学公开课：iOS 7应用开发
-废话少说，开始！
-MVC架构介绍
-基本概念：
-视图(View)：构建UI的类；例如：按钮，标签，进度条等。
-模型(Model)：视图类所需
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-11T06:58:09.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
-</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/10/程序员的职业素养 - 读书笔记/" title="link to post.title">程序员的职业素养 - 读书笔记</a></h2>
-      <p class="excerpt">
-    
-      好久木有读书了，因为前两次迭代比较忙，工作下来也在一直写代码。不过还好现在把握好了节奏，有时间读书了。
-我找了这本《程序员的职业素养》，内容比较简单，但是涵盖了一些程序员在工作过程中需要注意的一些细节问题，如果读者是程序员的话会对职业有很大帮助的。
-
-本书一直围绕着“专业”二字展开，以作者的观点阐述了何为”专业的程序员”：专业的程序员是如何思考，如何解决问题，如何承担责任。笔者将一些比较有体会的部
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-10T11:42:23.000Z" class="post-list__meta--date date">2017-01-10</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/BookNote/">BookNote</a>, <a class="tag-link" href="/tags/IT/">IT</a>
-</span><a class="btn-border-small" href="/2017/01/10/程序员的职业素养 - 读书笔记/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
-  
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2017/01/10/程序员的修炼：从优秀到卓越 - 读书笔记/" title="link to post.title">程序员的修炼：从优秀到卓越 - 读书笔记</a></h2>
-      <p class="excerpt">
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
     
       
-本书是笔者上一篇读书笔记高效能程序员的修炼的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。
-和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。
 
-关于 To-Do list
-这个冗长的To-Do列表始终存在着，像一把悬挂在我头顶上的利刃，而且每天都在变得更加沉重和锋利。
-每天早上使劲想出
-    &hellip;
-      </p>
-      <div class="post-list__meta"><time datetime="2017-01-10T11:41:15.000Z" class="post-list__meta--date date">2017-01-10</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
-  <a class="tag-link" href="/tags/BookNote/">BookNote</a>, <a class="tag-link" href="/tags/IT/">IT</a>
-</span><a class="btn-border-small" href="/2017/01/10/程序员的修炼：从优秀到卓越 - 读书笔记/">继续阅读</a></div>
-      <hr class="post-list__divider" />
-    </li>
   
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
     
-  </ol>
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T15:18:19+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
 
 
-  <nav class="pagination" role="navigation">
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本节课介绍了iOS在故事版里构造AutoLayout(自动布局)的三种方法并通过沿用了第六课的<a href="http://www.jianshu.com/p/8d5a4a8ac2be" target="_blank" rel="external">Demo</a>具体演示了添加约束的过程。内容较少也比较简单，可惜的是没有讲解用纯代码构造自动布局。</p>
+<p><strong>PS：严重多图预警！</strong></p>
+<p>因为操作都是在故事版里进行的，所以只能通过截图来演示具体操作步骤。。。</p>
+<h1 id="AutoLayout"><a href="#AutoLayout" class="headerlink" title="AutoLayout"></a>AutoLayout</h1><hr>
+<h2 id="在故事版里构造AutoLayout的三种方法："><a href="#在故事版里构造AutoLayout的三种方法：" class="headerlink" title="在故事版里构造AutoLayout的三种方法："></a>在故事版里构造AutoLayout的三种方法：</h2><ol>
+<li>使用蓝色辅助线，并选择系统建议约束。</li>
+<li>点击底部的布局菜单，根据需求选择相应的约束。</li>
+<li>按住control按键拖动触发菜单，根据需求选择相应约束。</li>
+</ol>
+<p>下面具体每种方法的做法：</p>
+<h2 id="1-使用蓝色辅助线，并选择系统建议约束"><a href="#1-使用蓝色辅助线，并选择系统建议约束" class="headerlink" title="1. 使用蓝色辅助线，并选择系统建议约束"></a>1. 使用蓝色辅助线，并选择系统建议约束</h2><p>我们现在要将“Thing 1”和“Thing 2”两个标签放在左上角和右下角。<br><img src="http://upload-images.jianshu.io/upload_images/859001-1f209520ddccc48e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用蓝色辅助线"></p>
+<blockquote>
+<p>在拖动空间的时候，系统会在某些时刻给出建议的约束，用蓝色虚线表示，详情看左图。<br>在约束显示出来的前提下放下控件，再选择系统建议的约束可以添加系统建议的约束，也就是之前虚线表示出来的约束，详情看右图。</p>
+</blockquote>
+<h2 id="2-点击底部的布局菜单，根据需求选择相应的约束"><a href="#2-点击底部的布局菜单，根据需求选择相应的约束" class="headerlink" title="2. 点击底部的布局菜单，根据需求选择相应的约束"></a>2. 点击底部的布局菜单，根据需求选择相应的约束</h2><p>我们现在要添加“Bad Thing”按钮，将其置于屏幕正中间。<br><img src="http://upload-images.jianshu.io/upload_images/859001-38cf0f8b7dddb55b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用底部布局菜单"></p>
+<blockquote>
+<p>想让控件居中显示，可以根据底部的按钮弹出的菜单设置，具体看左图。</p>
+<p>添加约束后，生成了黄色虚线框，如中间的图所示。黄色虚线框为控件添加该约束后，控件应有的frame。这时，应该点击左上角的黄色小三角选择“update frame”，具体看右图。</p>
+</blockquote>
+<p>最终效果图如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-4ed297bd355f392e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图1"></p>
+<blockquote>
+<p>点击黄色小三角显示的选项的意义：  </p>
+<ol>
+<li>update frame：通过修改frame 来适应约束。 </li>
+<li>update constrains: 修改约束 适应这个控件的frame。</li>
+<li>reset to suggested constrains:使用建议约束。</li>
+</ol>
+</blockquote>
+<h2 id="3-按住control按键拖动触发菜单，根据需求选择相应约束。"><a href="#3-按住control按键拖动触发菜单，根据需求选择相应约束。" class="headerlink" title="3. 按住control按键拖动触发菜单，根据需求选择相应约束。"></a>3. 按住control按键拖动触发菜单，根据需求选择相应约束。</h2><p>我们现在要将“Bad Thing”和”Thing 2”垂直距离固定，右边对其。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-192fcf72d0c3b71e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="按住control键"></p>
+<p>在拖动控件”Bad Thing”后，并不会改变其原有的约束(出现了黄色虚线框)，如左图。我们需要先删除其原有的约束。<br>然后点击“Bad Thing”按住<code>control</code>拖动到<code>Thing 2</code>,弹出菜单后，设置二者的垂直距离固定，右边对其，如右图所示。</p>
+<p>最终效果图如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-c292148931dab740.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图2"></p>
+<blockquote>
+<p>拖动也有三种方式：</p>
+<ol>
+<li>从一个控件按住control按键到另一个控件，选择相应的排列方式。</li>
+<li>从一个控件拖拽到它的父视图：水平居中，垂直居中等。</li>
+<li>从一个控件拖拽到它自己：选择固定宽度等。</li>
+</ol>
+</blockquote>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<p>首先我们拿到之前的属性字符串Demo，按照第一种设定约束的方法，结果不尽人意：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-143c8a529cb76416.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="宽度不等"></p>
+<p>显然，我们需要让四个彩色按钮宽度保持一致：<br>点击下方弹出菜单，选择“Equal Width”。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-4d27907e6dc68116.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置等宽"></p>
+<p>现在确实是等宽了，但是控制台有报错信息，虽然运行木有问题。</p>
+<p>什么问题呢？</p>
+<p>因为我们在让四个彩色按钮宽度相等的同时<strong>硬编码</strong>了它们的宽度，这显然不同时适用于横屏和竖屏的情况，需要将它们的固定宽度删去：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-bf9616a1e7401713.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="删除固定宽度"></p>
+<p>在第二个页面，我们把两个Label放到左下角：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-d8c09edac6a09686.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="垂直固定"></p>
+<ol>
+<li>首先用下方的菜单，将靠左和靠下的距离固定，如左图。</li>
+<li>然后用拖动control键的方法设定第二个标签的左对齐和垂直距离，效果如右图。</li>
+</ol>
+<p>在这里没有固定标签的宽度，这很好，因为如果数字是多位的，固定的宽度可能无法全部显示标签内的内容。</p>
+<p>那么手动固定一下其中一个标签的宽度，通过拖动control键拖动到自己的方法点击“width”，使宽度固定：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-b9ab01e556babf45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="固定宽度.png"></p>
+<blockquote>
+<p>固定宽度的标签无法完整显示了内容，因此这是一个危险的做法。</p>
+</blockquote>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-      <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/#blog">← 最近</a>
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
     
-    <span class="pagination__page-number" > 2 / 3 </span>
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T15:17:25+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-      <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/3/">更早 →</a>
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本节课介绍了协议，block，动画的相关知识，最后结合了这些知识点展示了一个类似<strong>俄罗斯方块</strong>的小游戏Demo。<br>总体来说本节课的内容比较重要，稍微摆脱了UI层面的知识，对于初学者来说理解起来不是很容易，不过笔者会尽量详细地讲解给大家。</p>
+<h1 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h1><hr>
+<p>关于协议所介绍的知识点比较简单，而且实现起来相对容易，故不做详细介绍，各位可以参考文档或者相关博客即可。<br>在这里只强调一个知识点：</p>
+<h3 id="id-obj-和-id-lt-MyProtocol-gt-obj的相同点和不同点"><a href="#id-obj-和-id-lt-MyProtocol-gt-obj的相同点和不同点" class="headerlink" title="id obj 和 id&lt;MyProtocol&gt;obj的相同点和不同点:"></a><code>id obj</code> 和 <code>id&lt;MyProtocol&gt;obj</code>的相同点和不同点:</h3><p><strong>相同点</strong>：都表示了某个对象。<br><strong>不同点</strong>：<br><code>id obj</code>表示<code>obj</code>是具体某一类的实例对象。<br><code>id&lt;MyProtocol&gt;obj</code>只表示遵守了某协议的对象 。</p>
+<blockquote>
+<p>因为有的时候我们并不需要确保某个对象一定是某个类的实例对象，而只需要它遵循了某个协议，这个时候就需要用第二行的写法来确保这个对象确实遵循了<myprotocol>。</myprotocol></p>
+</blockquote>
+<h1 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h1><hr>
+<p>关于block的概念和语法在这里就不赘述了，因为有文档和很多牛人已经总结地很好了。<br>在这里只强调两点关于block的使用注意事项。</p>
+<h2 id="修改block内部变量的方案"><a href="#修改block内部变量的方案" class="headerlink" title="修改block内部变量的方案"></a>修改block内部变量的方案</h2><p>如果我们要在block里将<code>found</code>值设为YES,就应该在block外部添加<code>__block</code>关键字。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">    __block BOOL found = NO;</div><div class="line">    //通过__block关键字，将found从栈中移动到堆中保证其可以被修改；block结束后，将该变量复制一份到堆中，再放回栈上</div><div class="line"></div><div class="line">    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop)&#123;        </div><div class="line"></div><div class="line">        if ([targetString isEqualToString:obj]) &#123;            </div><div class="line"></div><div class="line">            *stop = YES; //停止</div><div class="line">            found = YES;</div><div class="line">        &#125;        </div><div class="line">    &#125;];</div></pre></td></tr></table></figure></p>
+<h2 id="存储循环的解决方案"><a href="#存储循环的解决方案" class="headerlink" title="存储循环的解决方案"></a>存储循环的解决方案</h2><p>只要block存在，block内部消息中的每个对象都会被block的一个强指针指着。此时，如果这些对象里的某个或几个对象也有指向该block的指针，就会造成存储循环。</p>
+<p>问题重现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    //这个block有强指针指向self，而self也通过myBlocks数组有强指针指向block</div><div class="line"></div><div class="line">    [self.myBlocks addObject:^&#123;    </div><div class="line"></div><div class="line">        [self doSomething];</div><div class="line"></div><div class="line">    &#125;];</div></pre></td></tr></table></figure>
+<p>解决方案：创建弱类型的局部变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    __weak ViewController *weakSelf = self; //创建弱类型的局部变量</div><div class="line"></div><div class="line">    [self.myBlocks addObject:^&#123;    </div><div class="line"></div><div class="line">        [weakSelf doSomething];</div><div class="line"></div><div class="line">    &#125;];</div></pre></td></tr></table></figure>
+<h2 id="Block的应用"><a href="#Block的应用" class="headerlink" title="Block的应用"></a>Block的应用</h2><p>block可以直接保存在变量中，属性中，字典和数组中。</p>
+<p>具体使用环境：</p>
+<ul>
+<li>多线程：用于主线程，子线程的回调。</li>
+<li>枚举：数组，字典的枚举等。</li>
+<li>通知：某件事情发生后，信息的传递。</li>
+<li>错误时调用：“包住”错误发生后需要执行的代码。</li>
+<li>成功时调用：“包住”任务成功后需要执行的代码。</li>
+<li>动画</li>
+<li>排序</li>
+</ul>
+<h1 id="通过View改变视图的属性来实现动画"><a href="#通过View改变视图的属性来实现动画" class="headerlink" title="通过View改变视图的属性来实现动画"></a>通过View改变视图的属性来实现动画</h1><hr>
+<ul>
+<li>改变<code>frame</code></li>
+<li>改变<code>transform</code></li>
+<li>改变<code>alpha</code></li>
+</ul>
+<p>具体通过UIView的类方法来改变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">+ (void)animateWithDuration:(NSTimeInterval)duration   //动画在这个屏幕上出现的时间</div><div class="line">                                     delay:(NSTimeInterval)delay       //等待多长时间再执行</div><div class="line">                                  options:(UIViewAnimationOptions)options </div><div class="line">                             animations:(void (^)(void))animations  //在此代码块中修改frame，transform 和 alpha</div><div class="line">                             completion:(void (^ __nullable)(BOOL finished))completion;</div></pre></td></tr></table></figure>
+<p>options参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">    UIViewAnimationOptionLayoutSubviews            = 1 &lt;&lt;  0,</div><div class="line">    UIViewAnimationOptionAllowUserInteraction      = 1 &lt;&lt;  1, // turn on user interaction while animating</div><div class="line">    UIViewAnimationOptionBeginFromCurrentState     = 1 &lt;&lt;  2, // start all views from current value, not initial value</div><div class="line">    UIViewAnimationOptionRepeat                    = 1 &lt;&lt;  3, // repeat animation indefinitely</div><div class="line">    UIViewAnimationOptionAutoreverse               = 1 &lt;&lt;  4, // if repeat, run animation back and forth</div><div class="line">    UIViewAnimationOptionOverrideInheritedDuration = 1 &lt;&lt;  5, // ignore nested duration</div><div class="line">    UIViewAnimationOptionOverrideInheritedCurve    = 1 &lt;&lt;  6, // ignore nested curve</div><div class="line">    UIViewAnimationOptionAllowAnimatedContent      = 1 &lt;&lt;  7, // animate contents (applies to transitions only)</div><div class="line">    UIViewAnimationOptionShowHideTransitionViews   = 1 &lt;&lt;  8, // flip to/from hidden state instead of adding/removing</div><div class="line">    UIViewAnimationOptionOverrideInheritedOptions  = 1 &lt;&lt;  9, // do not inherit any options or animation type</div></pre></td></tr></table></figure></p>
+<h1 id="通过给视图添加物理效果实现动画"><a href="#通过给视图添加物理效果实现动画" class="headerlink" title="通过给视图添加物理效果实现动画"></a>通过给视图添加物理效果实现动画</h1><hr>
+<p>添加物理效果主要需要三个元素：</p>
+<ol>
+<li>DynamicAnimator</li>
+<li>UIGravityBehavior</li>
+<li>遵守<uidynamicitem>协议的item(大部分情况是UIView)</uidynamicitem></li>
+</ol>
+<h2 id="DynamicAnimator：动力动画"><a href="#DynamicAnimator：动力动画" class="headerlink" title="DynamicAnimator：动力动画"></a>DynamicAnimator：动力动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UIDynamicAnimator *animator =[ [ UIDynamicAnimator alloc] initWithReferenceView:aView]; //aview是动画Views的顶级视图</div></pre></td></tr></table></figure>
+<p>动力动画的初始化需要给其添加要进行动画的顶级视图，详细内容后面再介绍。</p>
+<h2 id="UIDynamicBehavior：动力行为"><a href="#UIDynamicBehavior：动力行为" class="headerlink" title="UIDynamicBehavior：动力行为"></a>UIDynamicBehavior：动力行为</h2><p>动力行为分为重力动力行为，碰撞行为等具体的行为。<br>这个类有很多子类：</p>
+<h3 id="1-UIGravityBehavior：重力行为"><a href="#1-UIGravityBehavior：重力行为" class="headerlink" title="1. UIGravityBehavior：重力行为"></a>1. UIGravityBehavior：重力行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@property (readwrite, nonatomic) CGFloat angle;//重力方向</div><div class="line">@property (readwrite, nonatomic) CGFloat magnitude; //重力加速度值</div></pre></td></tr></table></figure>
+<h3 id="2-UICollisionBehavior：碰撞行为"><a href="#2-UICollisionBehavior：碰撞行为" class="headerlink" title="2. UICollisionBehavior：碰撞行为"></a>2. UICollisionBehavior：碰撞行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic, readwrite) UICollisionBehaviorMode collisionMode;//互相碰撞弹开还是只是从边界碰撞弹开</div><div class="line"></div><div class="line">@property (nonatomic, readwrite) BOOL translatesReferenceBoundsIntoBoundary; //是否是有弹性的边界</div></pre></td></tr></table></figure>
+<h3 id="3-UIAttachmentBehavior-：吸附行为"><a href="#3-UIAttachmentBehavior-：吸附行为" class="headerlink" title="3. UIAttachmentBehavior ：吸附行为"></a>3. UIAttachmentBehavior ：吸附行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@property (readwrite, nonatomic) CGPoint anchorPoint; //设置锚点</div><div class="line">- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item attachedToAnchor:(CGPoint)point;//将动力项吸附在锚点上</div><div class="line">- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item1 attachedToItem:(id &lt;UIDynamicItem&gt;)item2;//吸附两个动力项</div></pre></td></tr></table></figure>
+<h3 id="4-UISnapBehavior：速甩行为"><a href="#4-UISnapBehavior：速甩行为" class="headerlink" title="4. UISnapBehavior：速甩行为"></a>4. UISnapBehavior：速甩行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item snapToPoint:(CGPoint)point NS_DESIGNATED_INITIALIZER;</div></pre></td></tr></table></figure>
+<h3 id="5-UIPushBehavior：推动行为"><a href="#5-UIPushBehavior：推动行为" class="headerlink" title="5. UIPushBehavior：推动行为"></a>5. UIPushBehavior：推动行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic, readonly) UIPushBehaviorMode mode;</div><div class="line">@property (readwrite, nonatomic) CGFloat magnitude;//推力</div><div class="line">@property (readwrite, nonatomic) CGVector pushDirection;//推动方向</div></pre></td></tr></table></figure>
+<h3 id="6-UIDynamicItemBehavior：动力项行为"><a href="#6-UIDynamicItemBehavior：动力项行为" class="headerlink" title="6. UIDynamicItemBehavior：动力项行为"></a>6. UIDynamicItemBehavior：动力项行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@property (readwrite, nonatomic) CGFloat elasticity; // Usually between 0 (inelastic) and 1 (collide elastically) </div><div class="line"></div><div class="line">@property (readwrite, nonatomic) CGFloat friction; // 0 being no friction between objects slide along each other</div><div class="line"></div><div class="line">@property (readwrite, nonatomic) CGFloat density; // 1 by default</div><div class="line"></div><div class="line">@property (readwrite, nonatomic) CGFloat resistance; // 0: no velocity damping</div><div class="line"></div><div class="line">- (CGPoint)linearVelocityForItem:(id &lt;UIDynamicItem&gt;)item;//线速度</div><div class="line">- (CGFloat)angularVelocityForItem:(id &lt;UIDynamicItem&gt;)item;//角速度</div></pre></td></tr></table></figure>
+<h2 id="遵守协议的item-大部分情况是UIView"><a href="#遵守协议的item-大部分情况是UIView" class="headerlink" title="遵守协议的item(大部分情况是UIView)"></a>遵守<uidynamicitem>协议的item(大部分情况是UIView)</uidynamicitem></h2><p>只要是遵守了<uidynamicitem>协议（动力项协议）的对象，都可以添加动力行为。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">id&lt;UIDynamicItem&gt;item1 = ....;</div><div class="line">id&lt;UIDynamicItem&gt;item2 = ....;</div><div class="line">[gravity addItem:itme2];</div></pre></td></tr></table></figure></uidynamicitem></p>
+<p>动力项协议的属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic, readwrite) CGPoint center;//动力项的中心</div><div class="line"></div><div class="line">@property (nonatomic, readonly) CGRect bounds; //动力项的绘制区域，只读，通过变换，居中，移动进行修改</div><div class="line"></div><div class="line">@property (nonatomic, readwrite) CGAffineTransform transform;//动力项的旋转或缩放比例</div></pre></td></tr></table></figure></p>
+<p>若想与animator的动画相抗争，需要调用animator的以下方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)updateItemUsingCurrentState:(id &lt;UIDynamicItem&gt;)item;</div></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
+<li>点击屏幕后，在顶部随机位置生成具有随机色的正方形，正方形显示后立即下落并停止。</li>
+<li>方块排满的行会自动被炸飞，而且带动画。</li>
+</ul>
+<h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-6116d4bb61ba202a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：炸飞前 | 右：炸飞后"></p>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><p>因为每个方块的动作行为都是一致的，所以在这里自定义了一个<code>UIDynamicBehavior</code>类，给每个方块增加相同的动作行为。</p>
+<p><strong>1. 自定义统一行为类：DropItBehavior</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init</div><div class="line">&#123;</div><div class="line">    self = [super init];    </div><div class="line">   //重写初始化方法，同时增加重力和碰撞行为</div><div class="line">    [self addChildBehavior:self.gravity];</div><div class="line">    [self addChildBehavior:self.collider];</div><div class="line">    return self;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//同时增加重力和碰撞行为</div><div class="line">- (void)addItem:(id&lt;UIDynamicItem&gt;)item</div><div class="line">&#123;</div><div class="line">    [self.gravity addItem:item];</div><div class="line">    [self.collider addItem:item];</div><div class="line">&#125;</div><div class="line"></div><div class="line">//同时移除重力和碰撞行为</div><div class="line"></div><div class="line">- (void)removeItem:(id&lt;UIDynamicItem&gt;)item</div><div class="line">&#123;</div><div class="line">    [self.gravity removeItem:item];</div><div class="line">    [self.collider removeItem:item];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (UIGravityBehavior *)gravity</div><div class="line">&#123;</div><div class="line"></div><div class="line">    if (!_gravity) &#123;</div><div class="line"></div><div class="line">        _gravity = [[UIGravityBehavior alloc] init];</div><div class="line">         //设置重力加速度</div><div class="line">        _gravity.magnitude = 1.9;</div><div class="line">    &#125;</div><div class="line">    return _gravity;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (UICollisionBehavior *)collider</div><div class="line">&#123;</div><div class="line">    if (!_collider) &#123;</div><div class="line">        _collider = [[UICollisionBehavior alloc] init];</div><div class="line">        //触碰边缘弹性 </div><div class="line">        _collider.translatesReferenceBoundsIntoBoundary = YES;</div><div class="line">    &#125;</div><div class="line">    return _collider;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>2. 初始化animator</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (UIDynamicAnimator *)animator</div><div class="line">&#123;</div><div class="line">    if (!_animator) &#123;</div><div class="line">        //self.gameView 是动画实现的顶级视图，它的子视图是掉落的方块</div><div class="line">        _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.gameView];</div><div class="line">    &#125;</div><div class="line">    return _animator;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>3. 给<code>UIDynamicAnimator</code>添加行为</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (DropItBehavior *)dropitBehavior</div><div class="line">&#123;</div><div class="line">    if (!_dropitBehavior) &#123;</div><div class="line">         _dropitBehavior = [[DropItBehavior alloc] init];</div><div class="line">        [self.animator addBehavior:_dropitBehavior];</div><div class="line">    &#125;</div><div class="line">    return _dropitBehavior;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>4. 生成随机方块并让其下落</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *  生成随机方块并下落</div><div class="line"> */</div><div class="line">- (void)drop</div><div class="line">&#123;</div><div class="line">    //1. 随机位置</div><div class="line"></div><div class="line">    CGRect frame;</div><div class="line">    frame.origin = CGPointZero;</div><div class="line">    frame.size = DROP_SIZE;</div><div class="line">    int x = (arc4random()%(int)self.gameView.bounds.size.width)/DROP_SIZE.width;</div><div class="line">    frame.origin.x = x * DROP_SIZE.width;</div><div class="line">    UIView *dropView = [[UIView alloc] initWithFrame:frame];</div><div class="line">  </div><div class="line">    //2. 随机颜色</div><div class="line">    dropView.backgroundColor = [self randomColor];</div><div class="line">    [self.gameView addSubview:dropView];</div><div class="line">    </div><div class="line">    //3. 添加下落</div><div class="line">    [self.dropitBehavior addItem:dropView];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>目前小方块下落碰到障碍物后会旋转，所以容易让这些小方块散落成堆。这样一来，就不能计算好整行的排列情况，所以我们应该让小方块们没有旋转的特性。</p>
+</blockquote>
+<p><strong>5.取消旋转特性</strong></p>
+<p>在公用的behavior类<code>DropItBehavior</code>里增加一个<code>UIDynamicItemBehavior</code>实例，取消其旋转特性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (UIDynamicItemBehavior *)animationOptions</div><div class="line">&#123;</div><div class="line">    if (!_animationOptions) &#123;</div><div class="line"></div><div class="line">        _animationOptions = [[UIDynamicItemBehavior alloc] init];</div><div class="line">        _animationOptions.allowsRotation = NO;        </div><div class="line">    &#125;</div><div class="line">    return _animationOptions;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就能整齐排列小方块了：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-a6bc68132ab0425a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：可旋转 | 右：不可旋转"></p>
+<p><strong>6. 动画炸掉排满的行</strong></p>
+<p>最好在方块都静止了之后再判断是否有排满的行，这里需要遵守协议<code>&lt;UIDynamicAnimatorDelegate&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> *  监听动力动画内部的所有动画停止后调用炸飞整行的方法</div><div class="line"> *</div><div class="line"> *  @param animator 动力动画</div><div class="line"> */</div><div class="line">- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator</div><div class="line"></div><div class="line">&#123;</div><div class="line">    [self removeCompleteRows];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下面来看一下炸飞整行的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> *  炸飞整行的方法：包括查看是否存在整行的算法和炸飞整行的动画</div><div class="line"> */</div><div class="line">- (void)removeCompleteRows</div><div class="line">&#123;</div><div class="line">    NSMutableArray *dropsToRemove = [[NSMutableArray alloc] init];</div><div class="line">    </div><div class="line">    //遍历每一行</div><div class="line">    for (CGFloat y = self.gameView.bounds.size.height - DROP_SIZE.height/2;y &gt; 0;y-= DROP_SIZE.height) &#123;</div><div class="line">        </div><div class="line">        BOOL rowIsComplete = YES;</div><div class="line">        NSMutableArray *dropsFound = [[NSMutableArray alloc] init];</div><div class="line"></div><div class="line">        for (CGFloat x = DROP_SIZE.width/2; x &lt; self.gameView.bounds.size.width - DROP_SIZE.width/2; x+=DROP_SIZE.width) &#123;</div><div class="line">            </div><div class="line">            //移动(x,y)获取这个点所在的view</div><div class="line">            UIView *hitView = [self.gameView hitTest:CGPointMake(x, y) withEvent:NULL];</div><div class="line"></div><div class="line">            if ([hitView superview] == self.gameView) &#123;</div><div class="line">               </div><div class="line">                //如果获取的view的父视图是gameView,就说明它是方块</div><div class="line">                [dropsFound addObject:hitView];</div><div class="line">                </div><div class="line">            &#125;else&#123;</div><div class="line"></div><div class="line">                //否则这个行肯定是不完整的</div><div class="line">                rowIsComplete = NO;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (![dropsFound count]) break;</div><div class="line">        if (rowIsComplete)[dropsToRemove addObjectsFromArray:dropsFound];</div><div class="line">  </div><div class="line">    &#125;    </div><div class="line"></div><div class="line">    //如果有排满的行，则炸掉它</div><div class="line">    if ([dropsToRemove count])&#123;</div><div class="line">        for (UIView *drop in dropsToRemove)&#123;</div><div class="line">            [self.dropitBehavior removeItem:drop];</div><div class="line">        &#125;</div><div class="line">        [self animatedRemovingDrops:dropsToRemove];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  炸飞整行</div><div class="line"> *</div><div class="line"> *  @param dropsToRemove 需要炸飞的View的数组</div><div class="line"> */</div><div class="line"></div><div class="line">- (void)animatedRemovingDrops:(NSArray *)dropsToRemove</div><div class="line">&#123;</div><div class="line">    [UIView animateWithDuration:0.5 animations:^&#123;</div><div class="line">        </div><div class="line">        for (UIView *drop in dropsToRemove) &#123;</div><div class="line">           </div><div class="line">            //设定炸飞后终点的位置</div><div class="line">            int x = (arc4random()%(int)(self.gameView.bounds.size.width*5)) - (int)self.gameView.bounds.size.width*2;</div><div class="line">            int y = self.gameView.bounds.size.height;</div><div class="line">            drop.center = CGPointMake(x,-y);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125; completion:^(BOOL finished) &#123;</div><div class="line"></div><div class="line">        [dropsToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];</div><div class="line"></div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="思考一下"><a href="#思考一下" class="headerlink" title="思考一下"></a>思考一下</h1><hr>
+<p>关于通过给view添加物理效果的方法添加动画，需要弄清楚<code>DynamicAnimator</code>,<code>UIDynamicBehavior</code>和遵守<uidynamicitem>协议的item三者之间的关系。</uidynamicitem></p>
+<p>通过对代码的分析以及讲师的讲解，笔者将这三者以比喻的方法将他们的关系梳理了一下：</p>
+<ul>
+<li><code>DynamicAnimator</code>:代表了一个游乐场。</li>
+<li><code>UIDynamicBehavior</code>：代表了游乐场里的娱乐设施。</li>
+<li>遵守<uidynamicitem>协议的item：代表了去游乐场玩儿的小孩。</uidynamicitem></li>
+</ul>
+<p>我们从代码看一下如何映射他们的关系：</p>
+<h4 id="DynamicAnimator"><a href="#DynamicAnimator" class="headerlink" title="DynamicAnimator"></a>DynamicAnimator</h4><p><code>UIDynamicAnimator *animator =[ [ UIDynamicAnimator alloc] initWithReferenceView:aView];</code><br>在这里，<code>aView</code>代表了一片空地，这句话的意思是我们把游乐场建在了这片空地上。</p>
+<h4 id="UIDynamicBehavior"><a href="#UIDynamicBehavior" class="headerlink" title="UIDynamicBehavior"></a>UIDynamicBehavior</h4><p><code>[self.animator addBehavior:_dropitBehavior];</code><br>在这里，代表了我们在这个游乐场里增加了某个娱乐设施。</p>
+<h4 id="遵守协议的item"><a href="#遵守协议的item" class="headerlink" title="遵守协议的item"></a>遵守<uidynamicitem>协议的item</uidynamicitem></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)addItem:(id&lt;UIDynamicItem&gt;)item</div><div class="line">&#123;</div><div class="line">    [self.gravity addItem:item];</div><div class="line">    [self.collider addItem:item];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，代表了我们让某个小孩来玩儿某个娱乐设施。</p>
+<p>这样就理清了：我们要让一个小孩玩儿一个娱乐设施就应该:</p>
+<ol>
+<li>找一片空地建设游乐场。</li>
+<li>在游乐场引进娱乐设备。</li>
+<li>孩子来玩儿这个娱乐设备。</li>
+</ol>
+<p>笔者在开始看到这三者的相关代码的时候略懵逼，不知道为什么会这么设计，但是用了“比喻法”之后，顿时豁然开朗了~</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T15:16:20+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本节课介绍了UIView的一些知识，自定义UIView的方法以及手势识别。最后应用本节所讲的大部分知识点向我们演示了一个绘制纸牌的Demo。</p>
+<h1 id="UIView"><a href="#UIView" class="headerlink" title="UIView"></a>UIView</h1><hr>
+<h2 id="关于UIView，你需要知道的零散知识"><a href="#关于UIView，你需要知道的零散知识" class="headerlink" title="关于UIView，你需要知道的零散知识"></a>关于UIView，你需要知道的零散知识</h2><ul>
+<li>视图是可以多层嵌套的。</li>
+<li>每个视图可以有多个子视图，但是只能有一个父视图。</li>
+<li>控制器的view属性指向自己的顶级视图。</li>
+<li>令视图透明会加大系统的开销。</li>
+<li>通过判断控制器view的<code>self.view.window</code>是否存在来判断控制器view是否被显示出来。</li>
+</ul>
+<h2 id="UIView的一些属性和方法"><a href="#UIView的一些属性和方法" class="headerlink" title="UIView的一些属性和方法"></a>UIView的一些属性和方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@property CGFloat contentScaleFactor; //返回每个点所有的像素数 ：非retina为1，retina为2</div><div class="line"></div><div class="line">- (UIView *)superView; //指向自己的父视图</div><div class="line">- (NSArray *)subview; //自己的所有子视图的数组</div><div class="line"></div><div class="line">- (void)addSubview: (Uiview *)aView;// 发送给目标父视图，让其把aView作为自己的子视图</div><div class="line">- (void)removeFromSuperview;  //消息发送给要移除的vie</div></pre></td></tr></table></figure>
+<h2 id="View的初始化方法："><a href="#View的初始化方法：" class="headerlink" title="View的初始化方法："></a>View的初始化方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (void)awakeFromNib &#123;[self setup];&#125;  //通过故事版创建的View的初始化</div><div class="line">- (id)initWithFrame: (CGRect)aRect    //通过纯代码创建的View的初始化</div><div class="line">&#123;</div><div class="line">     self = [super initWithFrame:aRect];</div><div class="line">     [self setup];</div><div class="line">     return self;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setup &#123;....&#125;;</div></pre></td></tr></table></figure>
+<h2 id="Custom-View-自定义视图"><a href="#Custom-View-自定义视图" class="headerlink" title="Custom View 自定义视图"></a>Custom View 自定义视图</h2><p>在iOS中，自定义是图的方法是创建一个UIView的子类并重写 <code>- (void)drawInRect:(Rect)rect</code>方法。</p>
+<blockquote>
+<p>注意：永远都不要自己调用这个方法，要交给系统负责！<br>可以调用以下的方法，告诉系统这个视图要被重绘：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (void)setNeedsDisplay;</div><div class="line">- (void)setNeedsDisplayInRect: (CGRect)aRect</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>那么具体怎样重写 <code>- (void)drawInRect:(Rect)rect</code>方法来绘图呢？<br>答：应用Core Graphics的相关知识。</p>
+<h2 id="Core-Graphics"><a href="#Core-Graphics" class="headerlink" title="Core Graphics"></a>Core Graphics</h2><p>Core Graphics是一套基于C的API框架，使用了Quartz作为绘图引擎，使用Core Graphics，可以创建直线、路径、渐变、文字与图像等内容，并可以做变形处理。</p>
+<h3 id="Core-Grephics的工作步骤："><a href="#Core-Grephics的工作步骤：" class="headerlink" title="Core Grephics的工作步骤："></a>Core Grephics的工作步骤：</h3><ol>
+<li>取得图形上下文。</li>
+<li>设置绘图路径(利用UIBezierPath)。</li>
+<li>设置颜色。</li>
+<li>用颜色填充路径 。</li>
+</ol>
+<p>各位看官不用着急，具体方法在最后的Demo代码里给大家呈现。</p>
+<h1 id="UIGestureRecoginizer-：手势识别抽象类"><a href="#UIGestureRecoginizer-：手势识别抽象类" class="headerlink" title="UIGestureRecoginizer ：手势识别抽象类"></a>UIGestureRecoginizer ：手势识别抽象类</h1><hr>
+<p><strong>简单介绍</strong>：<code>UIGestureRecoginizer</code>是一个抽象类，它的各种子类可以用于识别各种不同的手势：如捏合，滑动等等。通过识别各种不同的手势，实现各种交互操作。</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><ol>
+<li>在视图中添加手势识别对象。</li>
+<li>提供手势发生时所需要调用的方法。</li>
+</ol>
+<h2 id="手势种类："><a href="#手势种类：" class="headerlink" title="手势种类："></a>手势种类：</h2><p><strong>1. UIPanGestureRecognizer ： 拖动手势</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)setPannableView:(UIView*)pannableView</div><div class="line">&#123;</div><div class="line">     _pannableView = pananbleView;</div><div class="line">     UIPanGestureRecognizer *pangr = [UIPanGestureRecognizer alloc] initWithTarget:pannableView action: @selector(pan:)];</div><div class="line">     [pannableView addGestureRecognnizer:panr];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>2. UIPinchGestureReccognizer ：捏合手势</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@property CGFloat scale;   捏合手势距离</div><div class="line">@property (readonly) CGFloat velocity; 每分钟变化的速度</div></pre></td></tr></table></figure></p>
+<p><strong>3. UIRotationGestureRecgnizer 旋转手势</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@property CGFloat rotation;   弧度</div><div class="line">@property (readonly) CGFloat velocity; 每秒变化的速度</div></pre></td></tr></table></figure></p>
+<p><strong>4. UISwipeGestureRecgnizer ： 滑动手势</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@property UISwipeGestureRecognizerDirection direction 滑动方向</div><div class="line">@property NSUInteger numberOfTouchesRequired; 几只手指来完成</div></pre></td></tr></table></figure></p>
+<p><strong>5. UITapGestureRecognizer ：点击手势</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@property NSUInteger numberOfTapsReqired；几次点击</div><div class="line">@property NSUInteger numberOfTouchesRequired;     几只手指来完成</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>以上第4，5项手势是非连续手势；1，2，3属于连续手势。<br>注意区分滑动手势和拖动手势。滑动手势是指短促，快速地滑动的手势，而拖动手势是相对较慢，路径较长的手势。</p>
+</blockquote>
+<h1 id="绘制纸牌Demo"><a href="#绘制纸牌Demo" class="headerlink" title="绘制纸牌Demo"></a>绘制纸牌Demo</h1><hr>
+<h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
+<li>绘制一张纸拍放到屏幕上，包括正面和背面。</li>
+<li>滑动手势可以翻牌。</li>
+<li>捏合手势可以伸缩纸牌正面的图案大小。</li>
+</ul>
+<h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-aedaf67a6c46a092.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左二图：翻牌 | 右二图：伸缩"></p>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-绘制纸牌正反面"><a href="#1-绘制纸牌正反面" class="headerlink" title="1. 绘制纸牌正反面"></a>1. 绘制纸牌正反面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">- (void)drawRect:(CGRect)rect &#123;</div><div class="line"></div><div class="line">    //初始化一个圆角矩形</div><div class="line">    UIBezierPath *roundRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:[self cornerRadius]];</div><div class="line"></div><div class="line">    //裁剪，保证不会绘制四角</div><div class="line">    [roundRect addClip];</div><div class="line"></div><div class="line">    //填充白色</div><div class="line">    [[UIColor whiteColor] setFill];</div><div class="line">     UIRectFill(self.bounds);</div><div class="line"></div><div class="line">    //轮廓</div><div class="line">    [[UIColor blackColor] setStroke];</div><div class="line">    [roundRect stroke];</div><div class="line"></div><div class="line">    if (self.faceUp) &#123;</div><div class="line"></div><div class="line">        //1. 纸牌正面</div><div class="line">        //1.1 纸牌正面中间的图</div><div class="line">        UIImage *faceImage = [UIImage imageNamed:[NSString stringWithFormat:@&quot;%@%@&quot;,[self rankAsString],self.suit]];</div><div class="line"></div><div class="line">        if (faceImage) &#123;</div><div class="line"></div><div class="line">            CGRect imageRect = CGRectInset(self.bounds, self.bounds.size.width * (1.0 - self.faceCardScaleFactor) + 20, self.bounds.size.height * ( 1.0 - self.faceCardScaleFactor  ) + 20);</div><div class="line">            [faceImage drawInRect:imageRect];</div><div class="line">        &#125;</div><div class="line">      </div><div class="line">        //1.2 纸牌正面四个角</div><div class="line">        [self drawCorners];</div><div class="line"></div><div class="line">    &#125;else&#123;</div><div class="line"></div><div class="line">        //2. 纸牌背面</div><div class="line">        [[UIImage imageNamed:@&quot;cardBack&quot;] drawInRect:self.bounds];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-绘制纸牌边角的花色和数字"><a href="#2-绘制纸牌边角的花色和数字" class="headerlink" title="2. 绘制纸牌边角的花色和数字"></a>2. 绘制纸牌边角的花色和数字</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">- (void)drawCorners</div><div class="line">&#123;    </div><div class="line">    //设定段落排列</div><div class="line">    NSMutableParagraphStyle *paragraphStype = [[NSMutableParagraphStyle alloc] init];</div><div class="line">    paragraphStype.alignment = NSTextAlignmentCenter;</div><div class="line"></div><div class="line">   //设定字体</div><div class="line">    UIFont *cornerFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];</div><div class="line">    cornerFont = [cornerFont fontWithSize:cornerFont.pointSize * [self cornerScaleFactor]]; </div><div class="line"></div><div class="line">    //角落文字</div><div class="line">    NSAttributedString *cornerText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@&quot;%@\n%@&quot;, [self rankAsString], self.suit] attributes:@&#123;NSFontAttributeName:cornerFont,NSParagraphStyleAttributeName:paragraphStype&#125;];</div><div class="line"></div><div class="line">    //左上角</div><div class="line">    //1. 获得图片的rect</div><div class="line">    CGRect textBounds;</div><div class="line">    textBounds.origin = CGPointMake([self cornerOffset], [self cornerOffset]);</div><div class="line">    textBounds.size = [cornerText size];</div><div class="line"></div><div class="line">     //2.绘制文字</div><div class="line">    [cornerText drawInRect:textBounds];</div><div class="line"></div><div class="line">    //右下角</div><div class="line">    //1. 获取上下文</div><div class="line">    CGContextRef context = UIGraphicsGetCurrentContext();</div><div class="line">    // 2. 移动上下文</div><div class="line">    CGContextTranslateCTM(context, self.bounds.size.width, self.bounds.size.height);</div><div class="line">     //3. 翻转上下文（翻转180度）</div><div class="line">    CGContextRotateCTM(context, M_PI);</div><div class="line">     //4. 绘制</div><div class="line">    [cornerText drawInRect:textBounds];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>我们可以看到，图片和文字的绘图方法都是可以通过<code>drawInRect:</code>方法来进行：通过传入需要绘制的<code>rect</code>，可以让系统根据原始的素材（图片，文字）来绘图。</p>
+</blockquote>
+<h4 id="3-添加手势：连线方式"><a href="#3-添加手势：连线方式" class="headerlink" title="3. 添加手势：连线方式"></a>3. 添加手势：连线方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *  滑动手势翻转牌</div><div class="line"> *</div><div class="line"> *  @param sender 滑动手势</div><div class="line"> */</div><div class="line"></div><div class="line">- (IBAction)swipe:(id)sender &#123;</div><div class="line"> </div><div class="line">   //翻转牌面</div><div class="line">    self.playCardView.faceUp  = !self.playCardView.faceUp;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4-添加手势：代码方式"><a href="#4-添加手势：代码方式" class="headerlink" title="4. 添加手势：代码方式"></a>4. 添加手势：代码方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//1. 添加捏合手势</div><div class="line"> [self.playCardView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.playCardView</div><div class="line">                                                                                    action:@selector(pinch:)]];</div><div class="line"></div><div class="line">/**</div><div class="line"> *  2. 捏合手势调用的方法</div><div class="line"> *</div><div class="line"> *  @param gesture 捏合手势</div><div class="line"> */</div><div class="line"></div><div class="line">- (void)pinch:(UIPinchGestureRecognizer *)gesture</div><div class="line">&#123;</div><div class="line">    if (gesture.state == UIGestureRecognizerStateChanged || gesture.state == UIGestureRecognizerStateEnded) &#123;</div><div class="line">       //根据捏合的程度来伸缩图片</div><div class="line">        self.faceCardScaleFactor *= gesture.scale;</div><div class="line">        gesture.scale = 1.0;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在手势识别调用的方法里，我们需要对手势本身的状态加以判断以确保各种交互的实现都是正确的。</p>
+</blockquote>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T15:08:50+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本节课的课程地址：<a href="http://open.163.com/movie/2014/1/F/D/M9H7S9F1H_M9H80B3FD.html" target="_blank" rel="external">控制器多态性、导航控制器、选项卡栏控制器</a></p>
+<p>本节课通过延伸第四节课的纸牌配对Demo（详情请见：<a href="http://www.jianshu.com/p/2e9c8af048d8" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（三） ：纸牌配对游戏Demo</a>）讲解了控制器的多态性，扩展了第五节课的属性字符串Demo(详情请见:<a href="http://www.jianshu.com/p/c4e277bbad71" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（四） ：属性字符串Demo</a>)讲解了如何使用导航控制器和选项卡栏控制器。</p>
+<p>建议读者先了解以上两个博客的内容，因为这样有助于对本节课笔记的理解。</p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><hr>
+<p>第四节课做的纸牌配对游戏只有一个ViewController，它导入了<code>PlayingCardDek.h</code>类，说明该ViewController只适用于纸牌游戏。如果我们想换一类牌，那么显然目前使用的ViewController是不适用的。</p>
+<p>具体看一下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line">#import &quot;PlayingCardDeck.h&quot;</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (CardMatchingGame *)game</div><div class="line">&#123;</div><div class="line">    if (!_game) &#123;</div><div class="line">        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];</div><div class="line">    &#125;</div><div class="line">    return _game;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    //实例化了 PlayingCardDeck 类</div><div class="line">    return [[PlayingCardDeck alloc] init];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>为了将该ViewController作为通用的控制器，我们需要将它设置为抽象类。通过创造不同的继承它的字类来实现各种各样的纸牌配对游戏。</p>
+</blockquote>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p><strong>抽象类</strong>就是不能被实例化的类，它具有某种普遍性，可以通过继承它来实现基于这种普遍性并带有其他特性的字类。</p>
+<p>举个🌰：船是一个具有普遍性的抽象类。基于这个抽象来，如果我们添加了木桨，就可以造一个木桨船；如果我们给它添加了帆，就可以早一个帆船等等。。</p>
+<p>因此，在这里，我们需要将纸牌游戏的牌堆抽象出来，如果这个牌堆里是扑克牌，那么这个游戏就是扑克牌配对游戏；如果这个牌堆里的牌是塔罗牌，那么这个牌就是卡洛牌配对游戏。</p>
+<h2 id="如何创建抽象类的具体子类？"><a href="#如何创建抽象类的具体子类？" class="headerlink" title="如何创建抽象类的具体子类？"></a>如何创建抽象类的具体子类？</h2><h4 id="1-将该类抽象化："><a href="#1-将该类抽象化：" class="headerlink" title="1. 将该类抽象化："></a>1. 将该类抽象化：</h4><p>从上面的代码可以看到，控制器的实例化是基于<code>createDeck</code>方法的(这个方法将<code>扑克牌堆</code>的模型交给了控制器), 如果可以阻止模型的生成就阻止控制器的实例化。因此我们将<code>createDeck</code>的方法的返回值设为nil：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line">#import &quot;PlayingCardDeck.h&quot;</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (CardMatchingGame *)game</div><div class="line">&#123;</div><div class="line">    if (!_game) &#123;</div><div class="line">        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];</div><div class="line">    &#125;    </div><div class="line">    return _game;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    return nil;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这样一来，该类无法取得自己的模型实例，就无法正常工作，变得“抽象”。</p>
+</blockquote>
+<h4 id="2-将需要字类实现的方法放在抽象类的公共API中："><a href="#2-将需要字类实现的方法放在抽象类的公共API中：" class="headerlink" title="2. 将需要字类实现的方法放在抽象类的公共API中："></a>2. 将需要字类实现的方法放在抽象类的公共API中：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &quot;Deck.h&quot;</div><div class="line"></div><div class="line">@interface ViewController : UIViewController</div><div class="line"></div><div class="line">/**</div><div class="line"> *  abstract metod, for subclasses</div><div class="line"> *</div><div class="line"> *  @return 各种类型不同的纸牌堆</div><div class="line"> */</div><div class="line">- (Deck *)createDeck;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<blockquote>
+<p>不难想到，子类将该方法实现的过程就是实例化具有不同特性的具体类的过程！这也就实现了类的多态。</p>
+</blockquote>
+<h4 id="3-创造继承抽象的子类"><a href="#3-创造继承抽象的子类" class="headerlink" title="3. 创造继承抽象的子类"></a>3. 创造继承抽象的子类</h4><p>新建一个继承于抽象类<code>ViewController</code>的字类<code>PlayingCardViewController</code>：</p>
+<p><strong>PlayingCardViewController.h</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line"></div><div class="line">@interface PlayingCardViewController : ViewController</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p><strong>PlayingCardViewController.m</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#import &quot;PlayingCardViewController.h&quot;</div><div class="line">#import &quot;PlayingCardDeck.h&quot;</div><div class="line"></div><div class="line">@interface PlayingCardViewController ()</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation PlayingCardViewController</div><div class="line"></div><div class="line">//只需要实现</div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    return [[PlayingCardDeck alloc] init];</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这样一来，我们就获得了一个扑克牌配对游戏的ViewController。<br>将来，如果我们还有别的继承与<code>Deck</code>的牌，就可以用相同的方法：通过创建继承该抽象类并实现<code>createDeck</code>的方法来完成。</p>
+</blockquote>
+<h1 id="多MVC的实现：通过导航控制器管理多个ViewController"><a href="#多MVC的实现：通过导航控制器管理多个ViewController" class="headerlink" title="多MVC的实现：通过导航控制器管理多个ViewController"></a>多MVC的实现：通过导航控制器管理多个ViewController</h1><hr>
+<p><strong>导航控制器</strong>拥有一个<strong>栈数据结构</strong>，它可以将多个控制器压入自己的栈结构中来管理这些控制器。我们经常看到的界面<strong>滑入滑出</strong>的过程就是导航控制器的栈结构在<strong>压入弹出</strong>控制器的过程。而每个控制器管理一个MVC模型，导航控制器通过管理这些控制器实现了管理多MVC的目的。</p>
+<p><strong>需要注意的是</strong>：手机的屏幕每次只能显示一个MVC模型的View。在view的切换过程中，手机界面显示的是<strong>当前处于导航控制器栈顶的控制器的视图！</strong>当该视图被移除界面的时候，该MVC的数据就会被释放。因此，每次要显示一个新的MVC的时候，都会创建一个新的MVC。</p>
+<h2 id="控制器在导航控制器的栈结构中弹出"><a href="#控制器在导航控制器的栈结构中弹出" class="headerlink" title="控制器在导航控制器的栈结构中弹出"></a>控制器在导航控制器的栈结构中弹出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)popViewController</div><div class="line">&#123;</div><div class="line">    //self是当前的控制器，它的navigationController属性指向管理自己的导航控制器</div><div class="line">   [self.navigationController popViewControllerAnimitaed:YES];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="跳转到下一个控制器之前执行的方法："><a href="#跳转到下一个控制器之前执行的方法：" class="headerlink" title="跳转到下一个控制器之前执行的方法："></a>跳转到下一个控制器之前执行的方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (void)prepareForSegue:(UIStroyboardSegue *)segue sender: (id)sender</div><div class="line">&#123;</div><div class="line"></div><div class="line"> //segue的identifier属性用来区分不同的控制器</div><div class="line">  if ([segue.identifier isEqualToString:@&quot;DoSomething&quot;])</div><div class="line">  &#123; </div><div class="line">      //segue的destinationViewController指向的是下一个要滑入界面的控制器</div><div class="line">      if ([segue.destinationViewController isKindOfClass:[DoSomethingVC class]])&#123;</div><div class="line">      </div><div class="line">       DoSomethingVC *doVC = (DoSomethingVC *)segue.desitinationViewController；</div><div class="line">       doVC.infoString = self.infoString;</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="判断是否可以跳转的方法"><a href="#判断是否可以跳转的方法" class="headerlink" title="判断是否可以跳转的方法"></a>判断是否可以跳转的方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (BOOL)shouldPerformSegueWithIdentifier: (NSString *)identifier sender: (id)sender</div><div class="line">&#123;</div><div class="line"></div><div class="line">  if([segue.identifier isEqualToString:@&quot;DoAParticularThing&quot;])</div><div class="line">  &#123;</div><div class="line">     //此方法是用来确定跳转的可行性，因为有时如果缺少下一个界面的数据是不能跳转的</div><div class="line">    return [self canDoAParticularThing]? YES:NO;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="多MVC-Demo"><a href="#多MVC-Demo" class="headerlink" title="多MVC Demo"></a>多MVC Demo</h1><h2 id="DEMO需求："><a href="#DEMO需求：" class="headerlink" title="DEMO需求："></a>DEMO需求：</h2><ul>
+<li>在第一个页面可以设置字符属性</li>
+<li>点击第一个页面导航栏右侧的按钮跳转到第二个页面</li>
+<li>在第二个页面统计第一个页面中添加色彩和边框的字符数量</li>
+</ul>
+<h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-35ed7fcc54dc0c69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="|导航控制器|  左：第一个页面；右：第二个页面"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5788b1865e19247c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="|选项卡栏控制器| 左：第一个Tab；右：第二个Tab"></p>
+<h2 id="重要代码与知识点"><a href="#重要代码与知识点" class="headerlink" title="重要代码与知识点"></a>重要代码与知识点</h2><h4 id="跳转页面传值"><a href="#跳转页面传值" class="headerlink" title="跳转页面传值"></a>跳转页面传值</h4><p>实现跳转页面传值一共有两个步骤：</p>
+<ol>
+<li>我们先通过在第二个页面的公共API中设置属性</li>
+<li>然后在第一个页面跳转到第二个页面之前将数据赋予第二个页面的这个公共属性实现传值。</li>
+</ol>
+<p><strong>1. 在第二个页面设置公共属性</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line"></div><div class="line">@interface TextAnylizeViewController : UIViewController</div><div class="line"></div><div class="line">@property (nonatomic, retain) NSAttributedString *textToAnalyze;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p><strong>2. 在第一个页面跳转到第二个页面之前执行传值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender</div><div class="line">&#123;</div><div class="line">    //1. 首先判断segue的identifier</div><div class="line">    if ([segue.identifier isEqualToString:@&quot;Analyze Text&quot;]) &#123;</div><div class="line">         //2. 然后判断目标控制器的类型</div><div class="line">        if ([segue.destinationViewController isKindOfClass:[TextAnylizeViewController class]]) &#123;</div><div class="line">            //3. 在1和2都确定的情况下，实例化第二个页面</div><div class="line">            TextAnylizeViewController *analyzeVC = (TextAnylizeViewController*)segue.destinationViewController;</div><div class="line">            //4. 将第一个页面的字符串赋予第二个页面，用于第二个页面的分析</div><div class="line">            analyzeVC.textToAnalyze = self.body.textStorage;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="获取一段字符中，具有某种属性的字符串"><a href="#获取一段字符中，具有某种属性的字符串" class="headerlink" title="获取一段字符中，具有某种属性的字符串"></a>获取一段字符中，具有某种属性的字符串</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">- (NSAttributedString *)charactersWithAttribute: (NSString *)attributedName</div><div class="line">&#123;</div><div class="line">    NSMutableAttributedString *characters = [[NSMutableAttributedString alloc] init];</div><div class="line">    </div><div class="line">    NSUInteger index = 0;</div><div class="line">    </div><div class="line">    while (index &lt; [self.textToAnalyze length]) &#123;</div><div class="line">        </div><div class="line">        NSRange range;</div><div class="line">        </div><div class="line">        //查找一段字符串中，具有某种相同属性的值</div><div class="line">        id value = [self.textToAnalyze attribute:attributedName atIndex:index effectiveRange:&amp;range];</div><div class="line">       </div><div class="line">        if (value) &#123;</div><div class="line">            //如果值存在，获取具有该相同属性的字符串</div><div class="line">            [characters appendAttributedString:[self.textToAnalyze attributedSubstringFromRange:range]];</div><div class="line">            </div><div class="line">            //将index移动到具有该相同属性的字符串的下一位</div><div class="line">            index = range.location + range.length;</div><div class="line">        </div><div class="line">        &#125;else&#123;</div><div class="line">            index ++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return characters;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="搭建导航控制器-Navigation-Controller"><a href="#搭建导航控制器-Navigation-Controller" class="headerlink" title="搭建导航控制器(Navigation Controller)"></a>搭建导航控制器(Navigation Controller)</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-7a518741341460be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导航控制器"></p>
+<h4 id="搭建选项卡栏控制器-Tab-Bar-Controller"><a href="#搭建选项卡栏控制器-Tab-Bar-Controller" class="headerlink" title="搭建选项卡栏控制器(Tab Bar Controller)"></a>搭建选项卡栏控制器(Tab Bar Controller)</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-c477e12dc9779726.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选项卡栏控制器"></p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T15:07:50+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。</p>
+<h1 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h1><hr>
+<p>在OC的编译期，所有的指针都是id类型，只有在运行时，对象的类型才会被确定。</p>
+<p>举个🌰 ：<br>在编译期，<code>NSString*</code> 实际上与id相同，但是加上去的好处是让编译器知道你至少是<strong>意图让该指针指向一个字符串</strong>。所以如果尝试发送非字符串消息给该指针，它会发出警告，但是不会提示错误，仍可以通过编译。但是如果在运行时就会“露馅”，因为此时如果向该对象发送非字符串消息时，就会引起崩溃。</p>
+<p>再举个具体的🌰：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSString *hellow = @&quot;hello&quot;;</div><div class="line">Ship *hellowShip = (Ship *)hello;</div><div class="line">[helloShip shoot];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>编译器会认为<code>hellowShip</code>是<code>ship</code>类型，因此向<code>hellowShip</code>发送<code>shoot</code>消息时，在编译器期是可以通过的。<br>但是，<code>hellowShip</code>实际上指向的是字符串，所以会导致在运行时崩溃。</p>
+</blockquote>
+<p>所以就引出了<strong>类型保护机制</strong>用来确定对象的类型：</p>
+<h1 id="类型保护机制"><a href="#类型保护机制" class="headerlink" title="类型保护机制"></a>类型保护机制</h1><hr>
+<h3 id="没有添加类型保护机制："><a href="#没有添加类型保护机制：" class="headerlink" title="没有添加类型保护机制："></a>没有添加类型保护机制：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PlayingCard *otherCard = [otherCards firstObject];</div><div class="line">[otherCard play];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>firstObject 方法返回的是id类型，这里需要保护机制确保取出的对象是<code>PlayingCard</code>的实例，以防止向其发送消息时导致程序崩溃。</p>
+</blockquote>
+<h3 id="添加了类型保护机制："><a href="#添加了类型保护机制：" class="headerlink" title="添加了类型保护机制："></a>添加了类型保护机制：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">PlayingCard *otherCard = [otherCards firstObject];</div><div class="line"></div><div class="line">id card = [otherCards firstObjct];</div><div class="line">if ([card isKindOfClass:[PlayingCard class]])</div><div class="line">&#123;</div><div class="line">   PlayingCard *otherCard = (PlaytingCard *)card;</div><div class="line">   [otherCard play];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>我们可以看到<code>card</code>指针通过<code>isKindOfClass:</code>方法被确认了是<code>PlayingCard</code>类的实例，那么如果我们给<code>card</code>实例发送其消息时，就不会发生崩溃。反之，若<code>card</code>是其他类的实例，如果向其发送<code>card</code>类的消息就会非常危险！</p>
+</blockquote>
+<h1 id="NSRange"><a href="#NSRange" class="headerlink" title="NSRange"></a>NSRange</h1><hr>
+<p>NSRange是一个表示“范围”的结构体，包括起点和长度,主要用于字符串。</p>
+<p>常用方法：</p>
+<h4 id="字符串所有的字符："><a href="#字符串所有的字符：" class="headerlink" title="字符串所有的字符："></a>字符串所有的字符：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *title = @&quot;好好学习天天向上&quot;;</div><div class="line">NSMakeRange(0, [title length])</div></pre></td></tr></table></figure>
+<h4 id="判断某个字符串里包含某个字符："><a href="#判断某个字符串里包含某个字符：" class="headerlink" title="判断某个字符串里包含某个字符："></a>判断某个字符串里包含某个字符：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">NSString *greeting = @&quot;hellow world&quot;;</div><div class="line">Nsstring *hi = @&quot;hi&quot;;</div><div class="line">NSRange r = [greeting rangeOfString:hi];</div><div class="line">if(r.location != NSNotFound)</div><div class="line">&#123;</div><div class="line">    NSLog(@&quot;Found&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="控制器生命周期"><a href="#控制器生命周期" class="headerlink" title="控制器生命周期"></a>控制器生命周期</h1><hr>
+<p>在控制器(ViewController)的生命周期里，处于某个特定的时间点会执行某个特定的方法。通过在这些方法里之行某些特定的任务，可以正确地实现其应实现的功能。</p>
+<h3 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad"></a>viewDidLoad</h3><p>控制器的<code>viewDidLoad</code>方法在控制器的view为nil的时候被调用，在控制器的生命周期中只调用一次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- （voidviewDidLoad</div><div class="line">&#123;</div><div class="line">   [super viewDidLoad];    </div><div class="line">   </div><div class="line">   //可执行：</div><div class="line">   //1. 控制器的初始化数据</div><div class="line">   //2. 网络请求</div><div class="line">   </div><div class="line">   </div><div class="line">   //不可执行：</div><div class="line">   //1. 视图形状的初始化信息</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="viewWillAppear"><a href="#viewWillAppear" class="headerlink" title="viewWillAppear:"></a>viewWillAppear:</h3><p>控制器的<code>viewWillAppear:</code>在UIViewController对象的视图即将加入窗口时调用。只要该控制器的view即将要出现，都会调用，在控制器的生命周期中可以调用多次。<br>而且，如果该方法被调用，就说明视图<strong>一定</strong>会出现在屏幕上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (void)viewWillAppear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [super viewWillAppear:animated];</div><div class="line">    </div><div class="line">    //可执行：</div><div class="line">    //1. 更新view离开界面后可能会改变的数据。</div><div class="line">    //2. view的几何变化。</div><div class="line">        </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="viewWillDisappear"><a href="#viewWillDisappear" class="headerlink" title="viewWillDisappear:"></a>viewWillDisappear:</h3><p>控制器的<code>viewWillDisappear:</code>在UIViewController的view即将不显示的时候调用，在控制器的生命周期中可以调用多次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)viewWillDisappear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [super viewWillDisappear:animated];</div><div class="line">    </div><div class="line">    //可执行：</div><div class="line">    //1. 记录滚动视图的偏移量(因为要记住滚动位置，便于下次查看)</div><div class="line">    //2. 存储数据，便于再次显示该控制器时使用。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="属性字符串Demo"><a href="#属性字符串Demo" class="headerlink" title="属性字符串Demo"></a>属性字符串Demo</h1><hr>
+<h2 id="设计需求"><a href="#设计需求" class="headerlink" title="设计需求"></a>设计需求</h2><ul>
+<li>布局为TextView下方有四个颜色按钮，再下方有添加轮廓按钮和去除轮廓按钮。</li>
+<li>选中TextView的文本后，点击色彩按钮，选中的文本的颜色变成点击的色彩按钮的背景色。</li>
+<li>选中TextView的文本后，点击添加轮廓，选中的文本增加了轮廓，再点击色彩按钮，轮廓变成了相应的颜色。</li>
+<li>文本有轮廓的状态下，点击去除轮廓按钮，轮廓消失。</li>
+<li>在设置选项来改变系统字体，再回到本Demo界面，字体会做相应改变。</li>
+</ul>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-4660010abbea2854.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="属性字符串效果图"></p>
+<h2 id="知识点详解"><a href="#知识点详解" class="headerlink" title="知识点详解"></a>知识点详解</h2><h4 id="属性字符串的设置"><a href="#属性字符串的设置" class="headerlink" title="属性字符串的设置"></a>属性字符串的设置</h4><p>属性字符串分为不可变属性字符串<code>NSAttributedString</code>和<code>NSMutableAttributedString</code>。</p>
+<p>设置属性字符串的一般步骤为：</p>
+<ol>
+<li>初始化可变属性字符串。</li>
+<li>向其添加属性字典和制定属性字典被应用的范围。</li>
+</ol>
+<p>举个🌰：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">//1. 由现有字符串初始化可变属性字符串</div><div class="line">NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:self.outLineButton.currentTitle];</div><div class="line"></div><div class="line">//2. 添加属性字典和范围</div><div class="line">[title setAttributes:@&#123;NSStrokeWidthAttributeName : @3,</div><div class="line">                      NSStrokeColorAttributeName  : self.outLineButton.tintColor&#125;</div><div class="line">                                             range: NSMakeRange(0, [title length])];</div><div class="line"></div><div class="line">//3. 将属性字符串赋给按钮的属性字符串属性</div><div class="line">[self.outLineButton setAttributedTitle:title forState:UIControlStateNormal];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//设定选中的字都被设置为和点击的按钮一样的背景颜色</div><div class="line">[self.textView.textStorage  addAttribute:NSForegroundColorAttributeName value:sender.backgroundColor range:self.body.selectedRange];</div></pre></td></tr></table></figure>
+<h4 id="关于按钮的操作"><a href="#关于按钮的操作" class="headerlink" title="关于按钮的操作"></a>关于按钮的操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//获取按钮的背景色</div><div class="line">self.button.backgroundColor</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//获取按钮当前的标题</div><div class="line">self.button.currentTitle</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//设定按钮当前的属性字符串标题</div><div class="line">[self.button setAttributedTitle:title forState:UIControlStateNormal];</div></pre></td></tr></table></figure>
+<h4 id="属性字典里的key："><a href="#属性字典里的key：" class="headerlink" title="属性字典里的key："></a>属性字典里的key：</h4><ul>
+<li><code>NSForegroundColorAttributeName</code>:属性字符串字符的颜色</li>
+<li><code>NSStrokeColorAttributeName</code>:属性字符串字符轮廓的颜色</li>
+<li><code>NSStrokeWidthAttributeName</code>:属性字符串字符轮廓的宽度</li>
+</ul>
+<h4 id="获取TextView被选中的范围"><a href="#获取TextView被选中的范围" class="headerlink" title="获取TextView被选中的范围"></a>获取TextView被选中的范围</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self.textView.selectedRange</div></pre></td></tr></table></figure>
+<h4 id="通知机制"><a href="#通知机制" class="headerlink" title="通知机制"></a>通知机制</h4><p>为了实现本Demo最后一个需求，我们需要监听系统字体何时被改变了。所以需要注册一个能收听“系统改变”广播的频道：</p>
+<p>注册通知：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prefredFontsChaged:) name:UIContentSizeCategoryDidChangeNotification object:nil];</div></pre></td></tr></table></figure>
+<p>这样一来，当系统字体发生变化时，注册该频道的对象会收到通知并执行自定义的方法。<br>当改变系统字体的大小后，该类会收到通知，并调用<code>prefredFontsChaged:</code>方法，此时Demo上的字体也要做相应的改变：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (void)prefredFontsChaged: (NSNotification *)notification</div><div class="line">&#123;</div><div class="line">    //收到通知后，调用本地自定义的方法</div><div class="line">    [self userPreferredFonts];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)userPreferredFonts</div><div class="line">&#123;</div><div class="line">    //使用被改变后的系统字体</div><div class="line">    self.body.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];</div><div class="line">    self.headLine.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里，显然又是一个MVC的流程：系统字体(模型)被改变了，通过广播(通知)的机制来告诉控制器，然后控制器再调用更改View的方法。还记得在第一篇（详情请见：<a href="http://www.jianshu.com/p/eb58ab21080a" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（一） ：iOS的MVC框架</a>）里强调的，从模型到控制器的通信是通过广播或KVO机制完成的么？</p>
+</blockquote>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到此Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T15:05:23+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：<a href="http://www.jianshu.com/p/332324bff10a" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（二） ：翻纸牌Demo</a>），将一张纸牌扩展到一个多张纸牌并进行配对和打分的小游戏。</p>
+<p>本节课的内容虽然简单，但是十分重要，讲师强调了MVC的设计原则并实际运用到了代码中，本文就Demo的具体代码来讲解本节课提到的知识点。</p>
+<h1 id="设计需求"><a href="#设计需求" class="headerlink" title="设计需求"></a>设计需求</h1><hr>
+<ul>
+<li>显示多张纸牌，点击任意一张牌可以翻牌。</li>
+<li>两张牌都显示正面后可以进行配对：<ul>
+<li>花色匹配得1分；数字匹配得4分，匹配后，两张牌切换为不可点击状态（置灰）。</li>
+<li>都不匹配扣2分。</li>
+<li>每次翻牌都减一分。</li>
+</ul>
+</li>
+<li>每次翻牌都要更新分数。</li>
+</ul>
+<h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><hr>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-6371568b2e366281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：初始界面 ；右：游戏中界面"></p>
+<h1 id="重要代码段与知识点"><a href="#重要代码段与知识点" class="headerlink" title="重要代码段与知识点"></a>重要代码段与知识点</h1><hr>
+<h2 id="模型类：CardMatchingGame"><a href="#模型类：CardMatchingGame" class="headerlink" title="模型类：CardMatchingGame"></a>模型类：CardMatchingGame</h2><h4 id="1-在公共接口设置只读属性"><a href="#1-在公共接口设置只读属性" class="headerlink" title="1. 在公共接口设置只读属性"></a>1. 在公共接口设置只读属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">//CardMatchingGame.h</div><div class="line">@property (nonatomic, readonly) NSInteger score;</div><div class="line"></div><div class="line">//CardMatchingGame.m</div><div class="line">@property (nonatomic, readwrite) NSInteger score;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在.h文件中将分数属性设置为只读，并在.m文件中设定该属性为读写，以便在内部计算。</p>
+<p>原因：不希望其他类更改此属性，只能获取该属性。通俗一点地说：“你们就拿我给你算好的分数就好了，你们是不能更改它的！”</p>
+</blockquote>
+<h4 id="2-指定初始化器：Designated-initializer"><a href="#2-指定初始化器：Designated-initializer" class="headerlink" title="2. 指定初始化器：Designated initializer"></a>2. 指定初始化器：Designated initializer</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck</div><div class="line">&#123;</div><div class="line">    self = [super init];</div><div class="line">    </div><div class="line">    if (self) &#123;</div><div class="line">        </div><div class="line">        for (int i = 0; i &lt; count; i++) &#123;</div><div class="line">            </div><div class="line">            Card *card = [deck drawRandomCard];</div><div class="line">            </div><div class="line">            if (card) &#123;</div><div class="line">               </div><div class="line">                [self.cards addObject:card];</div><div class="line">                </div><div class="line">            &#125;else&#123;</div><div class="line">                </div><div class="line">                self = nil;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>有些时候，我们需要在类实例化的时候就要求对象持有某些数据,这就需要设计<strong>指定初始化器</strong>，因为原始的初始化方法<code>-(instancetype)init</code>方法是无法让实例对象持有非零数据的(初始化后，基本数据类型属性=0；对象属性=nil)。</p>
+<p>在这段代码里，该模型类通过数量<code>count</code>和一堆纸牌<code>deck</code>中拿到了自己持有的数组<code>self.cards</code>。</p>
+<p>举个🌰 ：想要从一个有52张牌的堆里抽取了12张牌来作为自己的一堆纸牌的话，就要设置Deck为具有52张牌的数组；而设置count为12即可。</p>
+</blockquote>
+<h4 id="3-设定常量"><a href="#3-设定常量" class="headerlink" title="3. 设定常量"></a>3. 设定常量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define MISMATCH_PENALTY 2 //简单的替换，不具有数据类型</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">static const int MISMATCH_PENALTY = 2; //非简单替换，具有数据类型</div></pre></td></tr></table></figure>
+<h2 id="控制器类：CardMathcingGameViewController"><a href="#控制器类：CardMathcingGameViewController" class="headerlink" title="控制器类：CardMathcingGameViewController"></a>控制器类：CardMathcingGameViewController</h2><hr>
+<h4 id="1-接收来自View的点击事件并更新UI"><a href="#1-接收来自View的点击事件并更新UI" class="headerlink" title="1. 接收来自View的点击事件并更新UI"></a>1. 接收来自View的点击事件并更新UI</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> *  接收用户的点击事件</div><div class="line"> *</div><div class="line"> *  @param sender 点击的按钮对象</div><div class="line"> */</div><div class="line">- (IBAction)touchCardButton:(UIButton *)sender &#123;</div><div class="line"></div><div class="line">    //1. 找到界面中所点击的按钮index</div><div class="line">    NSInteger cardIndex = [self.cardButtons indexOfObject:sender];</div><div class="line">    </div><div class="line">    //2. 找到模型中相同index的纸牌数据，并判断是否匹配，计算分数</div><div class="line">    [self.game chooseCardAtIndex: cardIndex];</div><div class="line">    </div><div class="line">    //3. 更新UI</div><div class="line">    [self updateUI];</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  更新UI</div><div class="line"> */</div><div class="line">- (void)updateUI</div><div class="line">&#123;</div><div class="line">    //1. 更新view上所有牌面</div><div class="line">    for (UIButton *cardButton in self.cardButtons) &#123;</div><div class="line">        </div><div class="line">        //1.1 找到界面中的一张纸牌(按照枚举的顺序)</div><div class="line">        NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];</div><div class="line">        </div><div class="line">        //1.2 找到模型中对应的纸牌数据</div><div class="line">        Card *card  = [self.game cardAtIndex:cardIndex];</div><div class="line">        </div><div class="line">        //1.3 根据数据更新纸牌的UI和可点击性</div><div class="line">        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];</div><div class="line">        [cardButton setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];</div><div class="line">         cardButton.enabled = !card.isMatched;        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //2. 更新分数</div><div class="line">    self.scoreLabel.text = [NSString stringWithFormat:@&quot;Score: %ld&quot;, (long)self.game.score];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，我们可以很容易看到MVC的工作流程：</p>
+<ol>
+<li>在View里发生了点击事件并通知给了Controller。</li>
+<li>Controller告诉Model发生了点击。</li>
+<li>Model根据点击事件更新自己，然后将更新后的自己告诉Controller。</li>
+<li>Controller根据更新后的模型去更新UI。</li>
+</ol>
+</blockquote>
+<p>这里笔者有一张自己画的图，略逗逼，掩面贴出，独乐乐不如众乐乐~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-0c8b70fd62292aa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MVC流程图.png"></p>
+<h2 id="零散知识点"><a href="#零散知识点" class="headerlink" title="零散知识点"></a>零散知识点</h2><hr>
+<h4 id="1-在数组里传入其包含的对象返回其所在序号"><a href="#1-在数组里传入其包含的对象返回其所在序号" class="headerlink" title="1. 在数组里传入其包含的对象返回其所在序号"></a>1. 在数组里传入其包含的对象返回其所在序号</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];</div></pre></td></tr></table></figure>
+<h4 id="2-在数组中找到第一个元素"><a href="#2-在数组中找到第一个元素" class="headerlink" title="2. 在数组中找到第一个元素"></a>2. 在数组中找到第一个元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//应该使用：</div><div class="line">PlayingCard *otherCard = [otherCards firstObject];</div><div class="line"></div><div class="line">//不应该使用：</div><div class="line">PlayingCard *otherCard = otherCards[0];</div><div class="line"></div><div class="line">//不应该使用：</div><div class="line">PlayingCard *otherCard = [otherCards objectAtIndex:0];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>应该使用第一种情况。<br>因为如果数组为空，那么如果使用第一种情况会返回nil,而向nil发送消息是不会造成崩溃的。<br>但是如果使用后两种方法，一旦数组为空，就会立刻造成程序崩溃！而且同样适用与取数组的最后一个元素的情况。<br>在数组中找到最后一个元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PlayingCard *otherCard = [otherCards lastObject];</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="3-在数组中是否包含某元素"><a href="#3-在数组中是否包含某元素" class="headerlink" title="3. 在数组中是否包含某元素"></a>3. 在数组中是否包含某元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if ([ [PlayingCard ValidSuits] containsObject:suit]) &#123;</div><div class="line">        _suit = suit;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>containsObject:是NSArray的方法，返回布尔值，用来判断是否包含某个元素。</p>
+</blockquote>
+<h4 id="4-JPG格式图片的读取"><a href="#4-JPG格式图片的读取" class="headerlink" title="4. JPG格式图片的读取"></a>4. JPG格式图片的读取</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (UIImage *)backgroundImageForCard: (Card *)card</div><div class="line">&#123;</div><div class="line">    //默认是png，如果是jpg需要加上.jpg的后缀</div><div class="line">    return [UIImage imageNamed:card.isChosen? @&quot;cardFront.jpg&quot;:@&quot;CardBack.png&quot;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>如果使用<code>imageNamed:</code>方法，仅传入jpg格式的文件名是无法显示出图片的，应该讲后缀<code>.jpg</code>拼接后传入才可以哦~而相同情况下，若要显示<code>png</code>格式的图片的话是不需要另外加后缀的。</p>
+</blockquote>
+<h1 id="最后的话："><a href="#最后的话：" class="headerlink" title="最后的话："></a>最后的话：</h1><hr>
+<p>如果哪位小伙伴想拿到此Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T15:01:11+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。</p>
+<h2 id="懒加载-lazy-instantiation"><a href="#懒加载-lazy-instantiation" class="headerlink" title="懒加载(lazy instantiation)"></a>懒加载(lazy instantiation)</h2><hr>
+<p><strong>懒加载</strong>：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在<code>viewDidLoad:</code>方法里)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">@interface ViewController ()</div><div class="line"></div><div class="line">@property (nonatomic, strong) NSMutableArray *cards;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (NSMutableArray *)cards</div><div class="line">&#123;</div><div class="line">    //如果此实例变量为空，则初始化；否则，直接调用</div><div class="line">    if (!_cards) &#123;</div><div class="line">        _cards = [[NSMutableArray alloc] init];</div><div class="line">    &#125;</div><div class="line">    return _cards;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<h2 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h2><hr>
+<h4 id="在可变数组中插入元素"><a href="#在可变数组中插入元素" class="headerlink" title="在可变数组中插入元素"></a>在可变数组中插入元素</h4><p>在数组中插入元素是可变数组的方法，因为不可变数组在初始化以后就无法再更改。<br>尤其注意的是：在数组中插入元素时，插入的元素必须不能为空，否则会引起程序崩溃。需要对要插入的元素做是否为空的判断！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (void)addCard: (Card *)card atTop:(BOOL)atTop</div><div class="line">&#123;</div><div class="line">    if (atTop) &#123;</div><div class="line">        </div><div class="line">        //插入到数组第一个位置</div><div class="line">        [self.cards insertObject:card atIndex:0];</div><div class="line">    </div><div class="line">    &#125;else&#123;</div><div class="line">        </div><div class="line">        //添加到数组末尾</div><div class="line">        [self.cards addObject:card];</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="在可变数组中引用和移除数组元素"><a href="#在可变数组中引用和移除数组元素" class="headerlink" title="在可变数组中引用和移除数组元素"></a>在可变数组中引用和移除数组元素</h4><p>在数组中，提取和移除元素的时候需要注意的是需要判断数组是否为空，如果<strong>在数组为空的情况下引用或移除某个元素会引起程序的崩溃！</strong> 所以要先进行目标数组元素数量判断。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">- (Card *)drawRandomCard</div><div class="line">&#123;</div><div class="line">    //如果数组为空数组，则直接放回nil，因为没有可以抽取的元素。</div><div class="line">    Card *randomCard = nil;</div><div class="line">    </div><div class="line">    //判断数组元素个数是否不为0，如果为0，则返回nil</div><div class="line">    if ([self.cards count]) &#123;</div><div class="line">        </div><div class="line">        //生成0到[self.cards count]的随机数</div><div class="line">        NSUInteger index = arc4random() % [self.cards count];</div><div class="line">        </div><div class="line">        //引用下标为index的元素</div><div class="line">        randomCard = self.cards[index];</div><div class="line">        </div><div class="line">        //移除下标为index的元素</div><div class="line">        [self.cards removeObjectAtIndex:index];</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return randomCard;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h2><hr>
+<p><strong>类方法</strong>也叫工厂方法，类方法主要包括两种：</p>
+<ol>
+<li><strong>类的初始化</strong>：形成类的实例。</li>
+<li><strong>工具方法</strong>：不经过实例化获得某些数据。</li>
+</ol>
+<p><strong>应用</strong>：用类方法生成四种不同花色：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+ (NSArray *)ValidSuits</div><div class="line">&#123;</div><div class="line">    return @[@&quot;♥︎&quot;,@&quot;♦︎&quot;,@&quot;♣︎&quot;,@&quot;♠︎&quot;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setSuit:(NSString *)suit</div><div class="line">&#123;</div><div class="line">    if ([ [PlayingCard ValidSuits] containsObject:suit]) &#123;</div><div class="line">        _suit = suit;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="instancetype"><a href="#instancetype" class="headerlink" title="instancetype"></a>instancetype</h2><hr>
+<p>instancetype的使用目的是确保返回的对象同这条消息要发送到的对象一样。</p>
+<p>怎么说？</p>
+<p>常用在类的初始化方法的返回值中，因为如果类的初始化返回值是<code>id</code>,那么这个指针可以指向任何对象，所以有可能指向非此类的对象类型；</p>
+<p>所以，<code>instancetype</code>作为初始化方法的返回值后，那么初始化的结果一定会同此类的类型一致。</p>
+<p>举个🌰：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init</div><div class="line">&#123;</div><div class="line">    //检查父类是否初始化成功</div><div class="line">    self = [super init];</div><div class="line">    </div><div class="line">    if (self) &#123;</div><div class="line">        //初始化代码</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="翻牌Demo"><a href="#翻牌Demo" class="headerlink" title="翻牌Demo"></a>翻牌Demo</h2><hr>
+<h4 id="设计需求："><a href="#设计需求：" class="headerlink" title="设计需求："></a>设计需求：</h4><p>在界面上显示一张扑克牌，点击后翻牌：如果是正面，点击后就显示背面；如果是背面，点击后显示正面。</p>
+<h4 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-191d3037dd166754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：纸牌背面；右：纸牌正面"></p>
+<h4 id="实现代码："><a href="#实现代码：" class="headerlink" title="实现代码："></a>实现代码：</h4><p><strong>1. 点击按钮翻牌</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">- (IBAction)touchCardButton:(UIButton *)sender &#123;</div><div class="line">    </div><div class="line">    //先判断牌面：如果按钮的title有字，则为正面</div><div class="line">    if ([sender.currentTitle length]) &#123;</div><div class="line">       </div><div class="line">        //1. 背面的UI效果:</div><div class="line">        </div><div class="line">        //1.1 设置背景图片为背面的图片</div><div class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];</div><div class="line">       </div><div class="line">        //1.2 设置按钮title为空，因为要翻到背面</div><div class="line">        [sender setTitle:@&quot;&quot; forState:UIControlStateNormal];</div><div class="line">        </div><div class="line">    &#125;else&#123;</div><div class="line">        </div><div class="line">        //2. 正面的UI效果:</div><div class="line">      </div><div class="line">        //2.1 设置背景图片为空</div><div class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];</div><div class="line">        </div><div class="line">        //2.2 设置背景颜色为白色</div><div class="line">        [sender setBackgroundColor:[UIColor whiteColor]];</div><div class="line">       </div><div class="line">        //2.3 设置按钮title为牌的花色</div><div class="line">        [sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //翻牌次数记录。同时存在setter和getter方法。首先getter方法取到当前的翻拍次数，然后用setter方法让翻拍次数+1</div><div class="line">    self.flipCount++;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>2. 更新按钮UI</strong></p>
+<p>更新按钮的UI的代码放到了属性<code>flipCount</code>的setter方法里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (void)setFlipCount:(int)flipCount</div><div class="line">&#123;</div><div class="line">    _flipCount = flipCount;</div><div class="line">    </div><div class="line">    //在setter方法完成后，设置标签的显示数字</div><div class="line">    self.flipsLabel.text = [NSString stringWithFormat:@&quot;Flips: %d&quot;, self.flipCount];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但是笔者个人认为这种处理方式并不好，因为<strong>一个方法最好只做一件事情</strong>，所以应该将更新按钮UI的代码单独提取出来作为另一个方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (IBAction)touchCardButton:(UIButton *)sender &#123;</div><div class="line">    </div><div class="line">    //先判断牌面：如果按钮的title有字，则为正面</div><div class="line">    if ([sender.currentTitle length]) &#123;</div><div class="line">       </div><div class="line">        //背面的UI效果</div><div class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];</div><div class="line">        [sender setTitle:@&quot;&quot; forState:UIControlStateNormal];</div><div class="line">        </div><div class="line">    &#125;else&#123;</div><div class="line">        </div><div class="line">        //正面的UI效果</div><div class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];</div><div class="line">        [sender setBackgroundColor:[UIColor whiteColor]];</div><div class="line">        [sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //翻牌次数+1。</div><div class="line">    self.flipCount++;</div><div class="line">    </div><div class="line">    //更新Label显示的数字</div><div class="line">    [self updateFlipsLabel];</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  单独提取出更新Label显示的数字的方法</div><div class="line"> */</div><div class="line">- (void)updateFlipsLabel</div><div class="line">&#123;</div><div class="line">     self.flipsLabel.text = [NSString stringWithFormat:@&quot;Flips: %d&quot;, self.flipCount];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样一来，程序的可读性更高了一点。而且我们还不用重写<code>flipsCount</code>的setter方法。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-11T14:58:09+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><hr>
+<p>入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。</p>
+<p>课程地址：<a href="http://open.163.com/special/opencourse/ios7.html" target="_blank" rel="external">斯坦福大学公开课：iOS 7应用开发</a></p>
+<p>废话少说，开始！</p>
+<h2 id="MVC架构介绍"><a href="#MVC架构介绍" class="headerlink" title="MVC架构介绍"></a>MVC架构介绍</h2><hr>
+<h3 id="基本概念："><a href="#基本概念：" class="headerlink" title="基本概念："></a>基本概念：</h3><ul>
+<li><strong>视图</strong>(View)：构建UI的类；例如：按钮，标签，进度条等。</li>
+<li><strong>模型</strong>(Model)：视图类所需要的数据；例如：表格需要显示的文字。</li>
+<li><strong>控制器</strong>(Controller)：连接视图类和模型类，任务是使数据显示在屏幕上。例如：控制器将表格需要使用的数据“填入”表格视图中，将表格视图显示出来。</li>
+</ul>
+<h3 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h3><ul>
+<li><strong>控制器可以直接访问模型</strong>：将模型直接作为控制器的属性。</li>
+<li><strong>控制器可以直接访问视图</strong>：将视图直接作为控制器的属性。</li>
+<li><p><strong>模型与视图无法直接访问对方</strong>：二者完全解耦，不能引用对方，把对方设置为属性。</p>
+</li>
+<li><p><strong>视图到控制器的通信</strong>：</p>
+<ol>
+<li><p><strong>目标动作机制</strong>(target - action)：用户与视图交互触发控制器的方法。例如：点击按钮后实现视界面跳转，网络请求，刷新UI等。</p>
+</li>
+<li><p><strong>委托机制</strong>(delegate)：视图向控制器询问某些自己无法决定的事情，或是让控制器帮助自己做一些自己独立无法完成的事情。 因为控制器才是掌握全局的角色，很多时候视图是无法自己做决定的。例如：表格问控制器：我可以滚动么？然后控制器给予回答告知是否可以继续滚动。 如果表格的高度很小，那么就可以不让它滚动。但是如果表格的高度已经超过了屏幕的高度，这时候如果让它自作主张无法滚动久不好了。                                             </p>
+</li>
+<li><strong>数据源机制</strong>(dataSource):视图让控制器给它将要显示的数据。例如：音乐的数据存在于模型里，控制器访问模型，从模型里拿到数据后告诉视图如何显示出歌曲。</li>
+</ol>
+</li>
+<li><p><strong>模型到控制器的通信</strong></p>
+<ol>
+<li><strong>广播机制</strong>(Notification)：控制器注册监听某模型数据变化的广播频道，当此模型数据变化后向该控制器发送广播，告知模型变化情况。</li>
+<li><strong>KVO机制</strong>(Key-Value Observing)：模型作为控制器的属性，当模型属性被修改后，持有此模型属性的控制器就会收到通知。</li>
+</ol>
+</li>
+</ul>
+<p>下面一张图可以直观看出上述的通信方式。图片来自本课程配套的<a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=480479762" target="_blank" rel="external">课件</a><br><img src="http://upload-images.jianshu.io/upload_images/859001-492c53ebbb43ad76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS MVC架构"></p>
+<h2 id="其他知识"><a href="#其他知识" class="headerlink" title="其他知识"></a>其他知识</h2><hr>
+<h3 id="类文件类型："><a href="#类文件类型：" class="headerlink" title="类文件类型："></a>类文件类型：</h3><ul>
+<li><strong>.h文件</strong>(头文件):公开API，其他类可以调用的方法，告诉其他类“我能做些什么：<strong>what I can do</strong>。</li>
+<li><strong>.m文件</strong>(实现文件):非公开API，如何实现.h文件的方法，查看实现文件可以知道该类具体是如何实现公开API的方法的:<strong>how to do</strong>。</li>
+</ul>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><strong>strong</strong>：在堆中保持这个所指的东西，至少有一个强指针指向它，否则就会释放。</li>
+<li><strong>weak</strong>：如果没有强指针指向它，清理指向的内存后，会被设置成nil指针。</li>
+<li><strong>nonatomic</strong>：不能有两个线程同时设置该属性。</li>
+</ul>
+<h3 id="零散知识"><a href="#零散知识" class="headerlink" title="零散知识"></a>零散知识</h3><ul>
+<li>所有对象都在堆里，OC会为我们管理这些内存。</li>
+<li>访问实例变量，就是访问对象的实例数据。</li>
+<li>OC里，可以先实现方法再声明。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><hr>
+<p>第一讲里的内容比较基础，重点是介绍了MVC模型的通信机制，需要反复推敲并且在实际操作中<strong>严格遵守</strong>。因为只有这样做才能降低类之间的耦合性，写出易于维护和扩展的代码。</p>
+<p>比如在模型类里是不能调用控制器的方法的，模型类只能被控制器调用并且当所拥有的数据改变后通知使用自己的控制器数据的改变。更不能直接给视图通知让视图自己更新UI。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/10/程序员的职业素养 - 读书笔记/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/10/程序员的职业素养 - 读书笔记/" itemprop="url">
+                  程序员的职业素养 - 读书笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T19:42:23+08:00">
+                2017-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>好久木有读书了，因为前两次迭代比较忙，工作下来也在一直写代码。不过还好现在把握好了节奏，有时间读书了。</p>
+<p>我找了这本《程序员的职业素养》，内容比较简单，但是涵盖了一些程序员在工作过程中需要注意的一些细节问题，如果读者是程序员的话会对职业有很大帮助的。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-7f961cd28e79379f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="程序员的职业素养"></p>
+<p>本书一直围绕着“专业”二字展开，以作者的观点阐述了何为”专业的程序员”：专业的程序员是如何思考，如何解决问题，如何承担责任。笔者将一些比较有体会的部分摘录出来，结合自己的心得整理出这篇读书笔记。内容的顺序和书中的顺序基本不符，完全按照笔者按照几大块归类整理而成。</p>
+<h1 id="专业的程序员如何写代码"><a href="#专业的程序员如何写代码" class="headerlink" title="专业的程序员如何写代码"></a>专业的程序员如何写代码</h1><hr>
+<h2 id="应该写出易于修改的软件"><a href="#应该写出易于修改的软件" class="headerlink" title="应该写出易于修改的软件"></a>应该写出易于修改的软件</h2><blockquote>
+<p>所有软件项目的知道原则是，软件要易于修改。如果你希望自己的软件灵活可变，那就应该市场修改它！要证明软件易于修改，唯一的办法就是做些实际的修改。如果你发现这些改动并不像你预想的那样简单，你就应该改进设计，使后续修改改变简单。</p>
+</blockquote>
+<p>有时开发期已过进入测试阶段，可能还会加一点需求(大家有体会吧)，在开始入职的时候笔者个人是很反感的，因为如果是影响到逻辑上的改动会比较麻烦，每次都要改一些时间。但是反过来想，如果每次改都要很长时间，是否是因为我本来的代码不易扩展和修改呢？所以，今后在写代码的时候要考虑多种可扩展的情况，让代码的可扩展性，可定制性达到很高的水平，这样一来，以后如果要增加需求或者更改需求的时候能够应付自如。</p>
+<h2 id="应该尽力让QA找不出任何问题"><a href="#应该尽力让QA找不出任何问题" class="headerlink" title="应该尽力让QA找不出任何问题"></a>应该尽力让QA找不出任何问题</h2><blockquote>
+<p>什么样的代码是有缺陷的呢？那些你没把握的代码都是！把自己没有把握的代码发送给QA这么做本身就是不专业的。<br>尽管公司可能设有独立的QA小组专门测试软件，但是开发小组仍然要把“QA应该找不到任何错误”作为努力的目标。</p>
+</blockquote>
+<p>以笔者短暂的职业经验来看，出bug的地方一定是自己没有完全理解的地方，没有之一，全部命中。所以渐渐的，养成先好好看代码，将逻辑都理清了再重构或者再写代码的习惯，显然出错率少了很多。</p>
+<h2 id="应该以零bug为目标"><a href="#应该以零bug为目标" class="headerlink" title="应该以零bug为目标"></a>应该以零bug为目标</h2><blockquote>
+<p>没人能写出完美的软件，但这并不表示你不用对不完美负责。不能一而再，再而三犯同样的错误，职业经验多了以后，你的失误率应该快速减少，甚至渐进于零。失误率不可能等于零，但是你有责任让它无线接近于零。</p>
+</blockquote>
+<h2 id="不应该单打独斗"><a href="#不应该单打独斗" class="headerlink" title="不应该单打独斗"></a>不应该单打独斗</h2><blockquote>
+<p>也许你认为自己一个人工作时会做得更好。也许确实如此，但这并不意味着你一个人工作时，整个团队会做得更好。况且，，事实上，一个人单独工作时，不太可能会工作得更好。</p>
+</blockquote>
+<p>确实是这样的，笔者前一段时间一直是半脱离团队的，有问题也很少请教别人，虽然明知道这样可以节省很多的时间，但是由于笔者的性格比较喜欢独立解决问题，所以经常做一些“自负的行为”。后来渐渐的发现自己做确实吃不消，而且听到团队其他人互相帮助的时候确实为自己省下来不少时间，改掉了这个毛病，效果甚好</p>
+<h2 id="应该明确代码的业务价值"><a href="#应该明确代码的业务价值" class="headerlink" title="应该明确代码的业务价值"></a>应该明确代码的业务价值</h2><blockquote>
+<p>专业程序员的首要职责是满足雇主的需求。这意味着要和你的经理们，业务分析师们，测试工程师们和其他团队成员很好地协作，深刻理解业务目标。你需要理解手上正在编写的代码的业务价值是什么了解你的企业将如何从你的工作中获得回报。</p>
+<p>专业程序员会花时间去理解业务。他们会和用户讨论他们正在使用的软件，会和销售人员和市场人员讨论所遭遇的问题，会和经理沟通，明确团队的短期目标和长期目标。</p>
+</blockquote>
+<h1 id="专业的程序员如何沟通"><a href="#专业的程序员如何沟通" class="headerlink" title="专业的程序员如何沟通"></a>专业的程序员如何沟通</h1><hr>
+<h2 id="应该准确把握“完成”的定义"><a href="#应该准确把握“完成”的定义" class="headerlink" title="应该准确把握“完成”的定义"></a>应该准确把握“完成”的定义</h2><blockquote>
+<p>专业开发人员的“完成”只有一个含义：完成，就是完成。<br>完成意味着所有的代码都写完了，所有的测试都通过了，QA和需求方已经认可，这，才是完成。</p>
+</blockquote>
+<h2 id="应该准确预估"><a href="#应该准确预估" class="headerlink" title="应该准确预估"></a>应该准确预估</h2><blockquote>
+<p>将大任务分成许多小任务，分开预估再加总，结果回避单独评估大任务要准确很多。这样做之所以能提高准确度，是因为小人物的预估错误几乎可以忽略不会对总的结果产生明显影响。</p>
+</blockquote>
+<h2 id="不应为了保住颜面而虚报事实"><a href="#不应为了保住颜面而虚报事实" class="headerlink" title="不应为了保住颜面而虚报事实"></a>不应为了保住颜面而虚报事实</h2><blockquote>
+<p>我忽略了测试环节，整个过程中只考虑如何保全自己的颜面，却没有估计客户和雇主的声誉。我本该早点担起责任，告诉Tom测试还未完成，自己不能按时交付产品。</p>
+</blockquote>
+<p>其实刚进公司的时候自己也是蛮好面子的，生怕同事觉得自己技术不过关，有的时候跟人家说完全做完了，但是实际上晚上回家后开夜车写代码才给搞定。其实这种习惯是不好的，虽然表面上看来还不错，但是实际上为了颜面而不考虑效率将工作推到回家之后显然是不专业的。做完了就说做完了，没做完就说没做完，没有任何借口，就算做不完也要好好想想为什么没有及时完成，找到提高效率的方法才是专业的态度。而不是想着“反正有晚上呢”，通过时间的积累来解决问题。</p>
+<blockquote>
+<p>专业人士敢于说明真相而不屈从于权势。专业人士有勇气对他们的经理说“不”。你的经理期望的是，你能像他那样竭尽所能地捍卫自己的目标，这样你们才能得到可能的最好结果。      </p>
+</blockquote>
+<p>当你的能力明显达不到经理的期望的工期的时候，要敢于说“不可能”。要说明自己尽力所能达到的效果，要让经理知道实际情况，跟经理一起找到双方都能接受的解决方案，而不是屈服于权势而打肿脸充胖子，因为如果你没能实现你的“豪言壮语”，背锅的就是你。</p>
+<h2 id="应该提供真正的承诺"><a href="#应该提供真正的承诺" class="headerlink" title="应该提供真正的承诺"></a>应该提供真正的承诺</h2><blockquote>
+<p>真正的承诺：对自己将会做的事情做了清晰的陈述，还明确说明了完成期限。</p>
+</blockquote>
+<p>没能履行承诺的原因以及解决方法：</p>
+<ol>
+<li>依赖其他的事情，只承诺自己完全掌控的事情。</li>
+<li>如果不确信是否能完成，应该全力前进，使用可以支配的全部时间来完成。</li>
+<li>如果遇到突发事件导致无法按时完成，要及时向承诺对象发出预警，越早越好，以便于整个团队采取措施作出对策。</li>
+</ol>
+<h2 id="应该用数据争论。"><a href="#应该用数据争论。" class="headerlink" title="应该用数据争论。"></a>应该用数据争论。</h2><blockquote>
+<p>凡是不能在5分钟内解决的争论，都不能靠辩说解决。争论之所以要花这么多时间，是因为各方都拿不出足够有力的证据。所以这类争论依据的不是事实，而是信念。在没有数据的情况下，如果观点无法在短时间达成一致，就永远无法达成一致，唯一的出路是，用数据争论。</p>
+<p>切忌用个人能力赢得争论。他们可能提高嗓门，近距离与你对视，或者摆出不屑的姿态。但这都不重要，长期来看，强力是无法解决争论的，最终还是要需要数据。</p>
+</blockquote>
+<h1 id="专业的程序员如何自我管理"><a href="#专业的程序员如何自我管理" class="headerlink" title="专业的程序员如何自我管理"></a>专业的程序员如何自我管理</h1><hr>
+<h2 id="应该不断的学习"><a href="#应该不断的学习" class="headerlink" title="应该不断的学习"></a>应该不断的学习</h2><blockquote>
+<p>在工作余下的时间里花点时间为雇主工作也是合理的，但是别忘了，那20个小时是为你自己的，它们会让你成为更有价值的专业人士。</p>
+</blockquote>
+<p>我通常会把学习的时间分为两种：第一种是学习纯iOS知识，另一种是学习提高代码能力的知识。</p>
+<p>前一种知识我选择相对于自己目前的水平稍微难一点的知识，这样一来，学习起来也不累，而且提升效果也比较明显。就好比敏捷开发：对于自己的学习，也就着轻量迭代，快速迭代的原则。</p>
+<p>后一种知识我选择一些能提高代码效率和质量的书，而且还有一些提升程序员素质和视野的书(就好比这一本)，因为我认为人不论做什么事情，都要跳出这件事本身，以更高的层次来思考。</p>
+<h2 id="应该勤于练习"><a href="#应该勤于练习" class="headerlink" title="应该勤于练习"></a>应该勤于练习</h2><blockquote>
+<p>只完成日常工作是不足以成为练习的，那只能算是种执行性质的操作，而不是练习。练习指的是日常工作之余专门练习技能，以自我提升。</p>
+</blockquote>
+<p>说来惭愧，入职这段时间只是总结之而已，包括工作中学到的知识和下来自己学习的知识。但是从未刻意练习过某项技术。前一阵子看到一篇文章说是将一本书的代码抄7遍来练习，效果显著，而那本书恰是iOS领域的:《Effective Objective-C 2.0  编写高质量iOS与OS X代码的52个有效方法》。等这次迭代结束之后我打算尝试一下。</p>
+<h2 id="应该保持精力充沛"><a href="#应该保持精力充沛" class="headerlink" title="应该保持精力充沛"></a>应该保持精力充沛</h2><blockquote>
+<p>疲劳的时候，千万不要写代码。奉献精神和职业素养，更多意义上指要遵循纪律原则而非成为长时间工作的工作狂。要确保自己已经将睡眠，健康和生活方式调整到最佳状况，这样才能在每天8个小时的工作时间内全力以赴。</p>
+</blockquote>
+<p>关于这一点，笔者需要好好检讨自己了。之前因为独立负责公司一个项目，为了要项目如期上线，每天都工作到2点以后，虽然产品如期上线，但是回想一下过程发现，完成的效率并不是很高，由于有些地方需要重写，浪费了不少时间。在这之后，尽量调整自己的生物钟，将睡觉的时间渐渐提前，效果甚好。</p>
+<h2 id="专业程序员的时间管理"><a href="#专业程序员的时间管理" class="headerlink" title="专业程序员的时间管理"></a>专业程序员的时间管理</h2><blockquote>
+<p>邀请你参加会议的人并不负责管理你的时间，为时间负责的只有你，所以，如果你收到会议邀请，务必确保出席会议可以给自己目前的工作带来切实显著的成效，否则不参与。</p>
+<p>你应当明白，继续待在会议室里是浪费时间；就行参加对你没有太多意义的会议，是不专业的行为。因为你有责任合理分配老板给你的时间和金钱，所以，选个何时的机会行亮如何离席，并非不专业的做法。</p>
+</blockquote>
+<p>书的作者在最后推崇了学徒制，呼吁了在专业毕业生毕业后进公司时不应该马上投入工作，而是应该采取学徒制来对毕业生进行大学内无法提供的教育。</p>
+<h2 id="推崇学徒制"><a href="#推崇学徒制" class="headerlink" title="推崇学徒制"></a>推崇学徒制</h2><blockquote>
+<p>学校能够传授的是计算机编程的理论。但是学校并不会也无法传授作为一名编程匠者所需要掌握的原则，实践和技能。这些东西只有经由师徒个体间多年的细心度到和辅导才能获得。软件行业中像我们这样的一批人必须要面对这一事实，即指引下一代软件开发人员成熟起来的重任无法寄希望于大学教育，现在这个重任已经落到了我们的肩上。建立一种包含学徒期，实习期和长期指引的机制已经是迫在眉睫。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/10/程序员的修炼：从优秀到卓越 - 读书笔记/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Knight_SJ">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="J_Knight">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/10/程序员的修炼：从优秀到卓越 - 读书笔记/" itemprop="url">
+                  程序员的修炼：从优秀到卓越 - 读书笔记
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-10T19:41:15+08:00">
+                2017-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="程序员的修炼 - 从优秀到卓越"></p>
+<p>本书是笔者上一篇读书笔记<a href="http://www.jianshu.com/p/33933a3ba977" target="_blank" rel="external">高效能程序员的修炼</a>的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。</p>
+<p>和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。</p>
+<hr>
+<h3 id="关于-To-Do-list"><a href="#关于-To-Do-list" class="headerlink" title="关于 To-Do list"></a>关于 To-Do list</h3><blockquote>
+<p>这个冗长的To-Do列表始终存在着，像一把悬挂在我头顶上的利刃，而且每天都在变得更加沉重和锋利。</p>
+<p>每天早上使劲想出这天你需要做的最重要的3件事。</p>
+</blockquote>
+<p>其实对于待办事项列表，笔者也读过相关的书籍，一般都是不推荐使用待办事项列表的。笔者总结出原因有二：</p>
+<ul>
+<li><p>待办事项列表上面的待办事项只是列出了还未完成的事情而已，并不带有“何时开始进行”和“何时完成“的信息。简单说，就是只有“what to do”而没有“when to do”和“when to finish”。也就是它本身能带给列表主人的驱动力不够高。</p>
+</li>
+<li><p>正是因为待办事项列表带给主人的驱动力不高，那么结果就是它们一直会躺在列表里持续很长时间。那么它们的主人在潜意识中一直挂念着它们，分散了主人的精力。因为主人“知道”总有一些事情还是没有完成的。 </p>
+</li>
+</ul>
+<hr>
+<h3 id="关于探索的态度"><a href="#关于探索的态度" class="headerlink" title="关于探索的态度"></a>关于探索的态度</h3><blockquote>
+<p>比起专业技能或者智商，成功更需要一种探索的态度，它是一种对于可能性和失败后果的执着。那些具备良好潜质的人总是会做出类似的回答“我总是在犯一些作物。昨天刚发生了一件挺严重的事情，前因后果是这样的。。。”。</p>
+<p>相反，那些回答“我并没有犯过大错误”或者“我犯过一些严重的错误，但是错误的原因并不在于我”的人是不会成为杰出的外科医生的。</p>
+</blockquote>
+<p>探索的态度对于程序员也是尤为重要的。笔者在开始写代码的时候总是以“解决问题就万事大吉”的标准，遇到了可能的坑却睁一只眼闭一只眼。但是每每这样的时候，后来总是会出bug。</p>
+<p>其实这就是逃避，就是一种缺乏探索精神的表现。其实我把那些坑弄懂了也不需要多少时间嘛。弄懂了，以后再遇到就稳稳当当搞定了。没弄懂，就还是踩坑。突然想到了一句话：遇到问题，你硬着头皮解决了一半，就只剩下一半的问题。但是你逃避，就是两个问题了。</p>
+<blockquote>
+<p>不管你在做什么项目，怀揣着学习和锻炼的态度去完成它吧，这是绝对值得的！与项目结果相比，过程才是最大的财富。如果你没能从一个项目的过程中学到一点东西，这才是真正失败的项目。</p>
+</blockquote>
+<hr>
+<h3 id="关于专家"><a href="#关于专家" class="headerlink" title="关于专家"></a>关于专家</h3><blockquote>
+<p>这个世界上只有少数的专家，却有大量的普通人。当你想要建立一个包含各种信息的网站时，这些普通人的贡献是最重要的。这是一个不规则的世界，里面装满了无穷无尽的细节。</p>
+<p>作为专家，重要的是不是告诉别人你知道什么。而是要清楚你应该问什么样的问题，并且灵活运用你所掌握的知识去解决眼下的具体问题。作为专家，你的作用是提供明确的，可执行的方向。</p>
+</blockquote>
+<p>读到这些，笔者觉得专家理应受到种种质疑，而为了能经得起这些质疑，那么就不应该跟人家说“我读了神马神马著作，精通神马神马技术，你看我的论文，你看我的研究成果等等”，真正证明自己是专家的途径，一般只有帮助非专家人士或者别的专家高效地解决问题。</p>
+<p>其实，庞大的知识体系也是对解决问题帮助很大的：因为这些有着庞大知识体系的专家的晶体智力水平很高，很多时候，他们并不需要动脑子(也就是流体智力)，直接调出相应知识就能解决。所以说，那些自称专家的人如果连连无法解决问题的话，那么真的是low爆了。</p>
+<hr>
+<h3 id="关于软件项目管理"><a href="#关于软件项目管理" class="headerlink" title="关于软件项目管理"></a>关于软件项目管理</h3><blockquote>
+<p>鼓励并强制要求程序员创建一张他们所要做的全部事情的列表，然后尽可能添加所有的子项，这样就能估算这个任务话费多少时间了。</p>
+<p>如果有人问你的时间表，你应该拿出一张你要做的所有事情的列表。如果拿不出来，你所要做的第一件事情，就是要做出这么一张列表。</p>
+</blockquote>
+<p>这种列表和待办事项列表稍有不同。这种列表属于“时间表”，它的目的是监控进度:所以说，它的时间总长度是不变的。但是待办事项列表的时间总长度是趋于“无限的”(当然，只对于执行力很差的人来说)。</p>
+<hr>
+<h3 id="关于“一夜成名”"><a href="#关于“一夜成名”" class="headerlink" title="关于“一夜成名”"></a>关于“一夜成名”</h3><blockquote>
+<p>一夜成名的传说容易让人误入歧途，并且遗毒不浅。如果你打算做一个全新的东西，要有打持久战的准备。</p>
+<p>勤于练习：不是一遍又一遍的简单重复，而是要不断挑战略微超出自身能力之外的任务-努力尝试，并在做的同时以及之后对自己的表现进行评估，然后纠正错误，如此反复。</p>
+</blockquote>
+<p>这里谈到了程序员对自己本身的迭代：快速迭代。其实同软件开发是一个道理：软件迭代的速度远重要于迭代的质量。也就是说，我们在学习的过程中，对自己的提升也应该是快速而轻盈的。</p>
+<p>切忌一口气吃个胖子，肯定是吃不消的。应该结合自己已有的知识水平，再寻找对自己来说稍微有点挑战性的技术来攻克，一来学习效率高，二来可以提升自信，进入到新一轮的学习中去。</p>
+<hr>
+<h3 id="关于优秀和平庸程序员之间的鸿沟"><a href="#关于优秀和平庸程序员之间的鸿沟" class="headerlink" title="关于优秀和平庸程序员之间的鸿沟"></a>关于优秀和平庸程序员之间的鸿沟</h3><blockquote>
+<ul>
+<li>成为更加优秀的程序员的方法是抛开编程。</li>
+<li>你的兴趣越广泛，就能越胜任你的工作。</li>
+<li>为了真正地成为一名更好的程序员，你必须培养自己对于编程周边所有事情的热情。</li>
+<li>单单靠编程，你只能补足或者增强自己已有的变成技能，永远也无法成为一名优秀的程序员。你需要尝试去了解你的客户，你所处的行业以及相关的业务。</li>
+<li>聪明的开发者知道，他们的工作远远不止编写代码和发布产品：他们的工作是开发出人们真正想要使用的软件。这当然包括编码，但还有大量全局性的其他事情，比如撰写技术文档，交互设计，培养用户社区，乃至产品愿景，这些对于软件的全貌成功都是至关重要的。</li>
+</ul>
+<hr>
+</blockquote>
+<h3 id="关于修复bug"><a href="#关于修复bug" class="headerlink" title="关于修复bug"></a>关于修复bug</h3><blockquote>
+<p>在对报告数据的广泛分析之后，我们看到：80%的客服问题在修复了用户报得最多的20%的bug之后就得到解决。即使修复用户报的最多的1%的bug，也能解决50%的客服问题。这个分析结果通常对于各家公司都是成立的。</p>
+<p>如果你修复了一个真实用户永远也碰不到的bug，那你修复有什么价值呢？</p>
+<p>你越快将你的软件推到真实用户面前，就会得到越多的数据来改进你的软件。问题不在于你在发布软件的时候带去了多少bug，而是在于你能多快地修复那些bug。</p>
+</blockquote>
+<p>因此，笔者认为在bug管理的问题上，要注意两点：</p>
+<ul>
+<li>不要怕将bug暴露在用户面前，尽早地收集用户的反馈数据是关键。</li>
+<li>而且，在收到大量的反馈数据之后，也应遵循二八定律，要以bug的影响程度来划分bug的优先级,不应盲目排列修改bug的顺序。</li>
+</ul>
+<hr>
+<h3 id="关于衡量软件的成功"><a href="#关于衡量软件的成功" class="headerlink" title="关于衡量软件的成功"></a>关于衡量软件的成功</h3><blockquote>
+<p>多少用户在真正使用你的软件？这才是衡量成功的终极标准。</p>
+</blockquote>
+<p>其实无论交互多绚丽，功能多么吊炸天，一旦用户不需要，用户不喜欢，不掏钱，其实是没有任何卵用的。而且在一定的技术水准上，如果无法“说服”大量客户使用产品，也同样是让人心痛的。</p>
+<ul>
+<li>技术再牛也要从用户体验出发，少做一些中看不中用的东西。想出数百个功能很容易，但是从中挑出几个可以提升用户体验，真正能吸引用户，让用户掏腰包的功能实在不易。</li>
+</ul>
+<ul>
+<li>产品做出来了，产品有没有人用，营销和推广同时占有举足轻重的作用。突然想到以前在一本营销书籍看到的：能做出比麦当劳好吃的汉堡包很容易，但是能比麦当劳卖得好却是很难得，众人难以模仿麦当劳整体的营销模式。相同的，像ZARA品牌的生产模式和营销模式之高效，是其他品牌无法超越的，这也是其风靡全球的原因。</li>
+</ul>
+<hr>
+<h3 id="关于用户的谎言"><a href="#关于用户的谎言" class="headerlink" title="关于用户的谎言"></a>关于用户的谎言</h3><blockquote>
+<ul>
+<li>我们必须根据用户的实际行为模式来设计产品。</li>
+<li>他们会说喜欢你的软件。但是我们应该去观察他们是否使用了软件，以及他们是怎么使用的。基于行为数据去设计软件，而不是靠用户说的“谎言”。</li>
+</ul>
+</blockquote>
+<p>笔者认为，我们很少能从用户言语上得到用户特别真实的感受。那些善良的客户们有时碍于面子，有时想当和事老，凭着“你好我好大家好”的原则，说一些心里没有的，善意的谎言。</p>
+<p>所以那些问卷调查什么的，走街串巷访问什么的其实意义不大。真正能“窥视”用户内心的是那些技术埋点。我记得有一次参加一个分享会，触宝科技的CEO跟大家分享了他们的埋点:他们通过埋点的方式，甚至会知道导致用户删掉app的是哪几个界面和动作。这让我感触很大，既然能做到这些，那么如果想知道用户喜欢点击那里，喜欢看哪里，喜欢做那几个动作，岂不是轻而易举？知己知彼，百战岂殆？</p>
+<hr>
+<h3 id="最后作者推荐的书籍"><a href="#最后作者推荐的书籍" class="headerlink" title="最后作者推荐的书籍"></a>最后作者推荐的书籍</h3><ol>
+<li>《代码大全(第二版)》</li>
+<li>《点石成金：访客至上的网页设计秘籍》</li>
+<li>《人件》</li>
+<li>《程序员修炼之道：从小工到专家》</li>
+<li>《软件工程的事实与谬误》</li>
+</ol>
+<p>其中第1本和第4本笔者在看。第1本对于非科班出身的笔者来说实在是晦涩难懂。不过既然作者说读完此书就能超过90%的程序员，那么不失为一个节省时间的好方法。以后有机会的话，希望能和各路英雄讨论讨论个中奥妙。</p>
+<hr>
+<h3 id="笔者最后的话"><a href="#笔者最后的话" class="headerlink" title="笔者最后的话"></a>笔者最后的话</h3><p>其实还是希望能和各位相互讨论，其实相比于文章被“喜欢”，笔者更希望诸位能留下评论，毫不留情地指出小弟想法中的不妥之处，这些是远比“打赏”和“喜欢”更让小弟高兴的呢！</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg"
+               alt="Knight_SJ" />
+          <p class="site-author-name" itemprop="name">Knight_SJ</p>
+          <p class="site-description motion-element" itemprop="description">正在学hybrid开发的iOS开发者，就职于上海</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">Tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Knight_SJ</span>
 </div>
 
 
-            
-            <footer class="footer">
-    <span class="footer__copyright">
-        本站点采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
-    </span>
-    <span class="footer__copyright">
-        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
-    </span>
-    <span class="footer__copyright">
-        &copy; 2017 - 本站由 <a href="/">@Monniya</a> 创建,
-        使用 <a href="https://github.com/monniya/hexo-theme-new-vno ">hexo-theme-new-vno</a> 主题,
-        修改自 <a href="https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">Vno</a>, 原创出自<a href="http://github.com/onevcat/vno" target="_blank">onevcat</a>
-    </span>
-</footer>
-        </div>
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
     </div>
+  </div>
 
-    
+  
 
-     
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	ga('create', 'UA-78918255-1', 'auto');
-	ga('send', 'pageview');
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
-    
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?9cdad07c755fa23f6aced510c6760e87";
-            var s = document.getElementsByTagName("script")[0]; 
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
 
 
 
-    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-    
-    </script>
-    
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
 </body>
 </html>
