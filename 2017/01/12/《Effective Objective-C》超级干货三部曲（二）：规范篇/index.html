@@ -1,92 +1,14 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="zh-CN">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
+  <meta charset="utf-8">
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="iOS,Objective-C," />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="J_Knight" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="继上一篇《Effective Objective-C 》超级干货三部曲（一）：概念篇之后，本篇即是三部曲的第二篇：规范篇。没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://github.com/knightsj/knightsj.github.io">
+  <title>《Effective Objective-C》超级干货三部曲（二）：规范篇 | J_Knight</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="继上一篇《Effective Objective-C 》超级干货三部曲（一）：概念篇之后，本篇即是三部曲的第二篇：规范篇。没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：
 
 概念类：讲解了一些概念性知识。
 规范类：讲解了一些为了避免一些问题或者为后续开发提供便利">
@@ -111,222 +33,152 @@
 概念类：讲解了一些概念性知识。
 规范类：讲解了一些为了避免一些问题或者为后续开发提供便利">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternative" href="/atom.xml" title="J_Knight" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css?v=4.0.0.css">
+  
 
+  
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    sidebar: {"position":"left","display":"post"},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（二）：规范篇/"/>
-
-
-
-
-
-  <title> 《Effective Objective-C》超级干货三部曲（二）：规范篇 | J_Knight </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg" class="js-avatar">
+		</a>
 
-  
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Knight_SJ</a></h1>
+		</hgroup>
 
+		
+		<p class="header-subtitle">每天进步一点点</p>
+		
 
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
-
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">J_Knight</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle">每天进步一点点</p>
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
 </div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Startseite
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archiv
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Knight_SJ</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Knight_SJ</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">每天进步一点点</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔/">随笔</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
 </nav>
 
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-《Effective Objective-C》超级干货三部曲（二）：规范篇" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（二）：规范篇/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Knight_SJ">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="J_Knight">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="J_Knight" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
+      <header class="article-header">
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                《Effective Objective-C》超级干货三部曲（二）：规范篇
-              
-            
-          </h1>
-        
+  
+    <h1 class="article-title" itemprop="name">
+      《Effective Objective-C》超级干货三部曲（二）：规范篇
+    </h1>
+  
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-12T09:35:29+08:00">
-                2017-01-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
+        <a href="/2017/01/12/《Effective Objective-C》超级干货三部曲（二）：规范篇/" class="archive-article-date">
+  	<time datetime="2017-01-12T01:35:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-12</time>
+</a>
       </header>
     
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
+    <div class="article-entry" itemprop="articleBody">
       
         <p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
 <p>继上一篇<a href="http://www.jianshu.com/p/9c93c7ab734d" target="_blank" rel="external">《Effective Objective-C 》超级干货三部曲（一）：概念篇</a>之后，本篇即是三部曲的第二篇：规范篇。<br>没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：</p>
@@ -619,311 +471,350 @@ EOCSubClass initialize</code></p>
 <p>因为第三篇的内容稍微难一点，所以笔者打算再好好消化几天，将第三篇的初稿再三润饰之后呈献给大家~</p>
 
       
-    </div>
-
-    <div>
-      
-        
 
       
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
-          
-            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
-          
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
       
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+	</div>
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/01/12/《Effective Objective-C》超级干货三部曲（一）：概念篇/" rel="next" title="《Effective Objective-C》超级干货三部曲（一）：概念篇">
-                <i class="fa fa-chevron-left"></i> 《Effective Objective-C》超级干货三部曲（一）：概念篇
-              </a>
-            
-          </div>
 
-          <span class="post-nav-divider"></span>
+      
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/12/《Effective Objective-C》超级干货三部曲（三）：技巧篇/" rel="prev" title="《Effective Objective-C》超级干货三部曲（三）：技巧篇">
-                《Effective Objective-C》超级干货三部曲（三）：技巧篇 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-      
+      </div>
+    </span>
+  </div>
+</div>
 
-      
-      
-    </footer>
-  </article>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（二）：规范篇/" alt="微信分享二维码">
+    </div>
+</div>
 
-
-
-    <div class="post-spread">
+<div class="mask js-mask"></div>
       
+      <div class="clearfix"></div>
     </div>
   </div>
+</article>
 
-
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
-    
-  </div>
-
-
-        </div>
-        
-          
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg"
-               alt="Knight_SJ" />
-          <p class="site-author-name" itemprop="name">Knight_SJ</p>
-          <p class="site-description motion-element" itemprop="description">正在学hybrid开发的iOS开发者，就职于上海</p>
-        </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">22</span>
-              <span class="site-state-item-name">Artikel</span>
-            </a>
-          </div>
-
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">Tags</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
+<nav id="article-nav">
+  
+    <a href="/2017/01/12/《Effective Objective-C》超级干货三部曲（三）：技巧篇/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
         
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第2条：-在类的头文件中尽量少引用其他头文件"><span class="nav-number">1.</span> <span class="nav-text">第2条： 在类的头文件中尽量少引用其他头文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3条：多用字面量语法，少用与之等价的方法"><span class="nav-number">2.</span> <span class="nav-text">第3条：多用字面量语法，少用与之等价的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-声明时的字面量语法："><span class="nav-number">2.1.</span> <span class="nav-text">1. 声明时的字面量语法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-集合类取下标的字面量语法："><span class="nav-number">2.2.</span> <span class="nav-text">2. 集合类取下标的字面量语法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4条：多用类型常量，少用-define预处理命令"><span class="nav-number">3.</span> <span class="nav-text">第4条：多用类型常量，少用#define预处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预处理命令："><span class="nav-number">3.0.0.1.</span> <span class="nav-text">预处理命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类型常量："><span class="nav-number">3.0.0.2.</span> <span class="nav-text">类型常量：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对外公开某个常量："><span class="nav-number">3.0.0.3.</span> <span class="nav-text">对外公开某个常量：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第5条：用枚举表示状态，选项，状态码"><span class="nav-number">4.</span> <span class="nav-text">第5条：用枚举表示状态，选项，状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第7条：-在对象内部尽量直接访问实例变量"><span class="nav-number">5.</span> <span class="nav-text">第7条： 在对象内部尽量直接访问实例变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接访问属性的特点："><span class="nav-number">5.0.0.1.</span> <span class="nav-text">直接访问属性的特点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过属性访问属性的特点："><span class="nav-number">5.0.0.2.</span> <span class="nav-text">通过属性访问属性的特点：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第15条：用前缀-避免命名空间冲突"><span class="nav-number">6.</span> <span class="nav-text">第15条：用前缀 避免命名空间冲突</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第18条：尽量使用不可变对象"><span class="nav-number">7.</span> <span class="nav-text">第18条：尽量使用不可变对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#等一下，有个疑问：在公共接口设置不可变set-和-将增删的代码放在公共接口中是否矛盾的？"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">等一下，有个疑问：在公共接口设置不可变set 和 将增删的代码放在公共接口中是否矛盾的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#答案：并不矛盾"><span class="nav-number">7.0.0.2.</span> <span class="nav-text">答案：并不矛盾!</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第19条：使用清晰而协调的命名方式"><span class="nav-number">8.</span> <span class="nav-text">第19条：使用清晰而协调的命名方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第20条：为私有方法名加前缀"><span class="nav-number">9.</span> <span class="nav-text">第20条：为私有方法名加前缀</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第23条：通过委托与数据源协议进行对象间通信"><span class="nav-number">10.</span> <span class="nav-text">第23条：通过委托与数据源协议进行对象间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第24条：将类的实现代码分散到便于管理的数个分类中"><span class="nav-number">11.</span> <span class="nav-text">第24条：将类的实现代码分散到便于管理的数个分类中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第25条：总是为第三方类的分类名称加前缀"><span class="nav-number">12.</span> <span class="nav-text">第25条：总是为第三方类的分类名称加前缀</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第26条-勿在分类中声明属性"><span class="nav-number">13.</span> <span class="nav-text">第26条:勿在分类中声明属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第27条：使用class-continuation分类-隐藏实现细节"><span class="nav-number">13.1.</span> <span class="nav-text">#第27条：使用class-continuation分类 隐藏实现细节</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第31条：在dealloc方法中只释放引用并解除监听"><span class="nav-number">14.</span> <span class="nav-text">第31条：在dealloc方法中只释放引用并解除监听</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第36条：不要使用retainCount"><span class="nav-number">15.</span> <span class="nav-text">第36条：不要使用retainCount</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第46条：不要使用dispatch-get-current-queue"><span class="nav-number">16.</span> <span class="nav-text">第46条：不要使用dispatch_get_current_queue</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第48条：多用块枚举，少用for循环"><span class="nav-number">17.</span> <span class="nav-text">第48条：多用块枚举，少用for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#传统的for遍历"><span class="nav-number">17.0.0.1.</span> <span class="nav-text">传统的for遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用快速遍历："><span class="nav-number">17.0.0.2.</span> <span class="nav-text">利用快速遍历：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用基于块（block）的遍历："><span class="nav-number">17.0.0.3.</span> <span class="nav-text">利用基于块（block）的遍历：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第50条：构建缓存时选用NSCache-而非NSDictionary"><span class="nav-number">18.</span> <span class="nav-text">第50条：构建缓存时选用NSCache 而非NSDictionary</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NSCache优于NSDictionary的几点："><span class="nav-number">18.0.0.1.</span> <span class="nav-text">NSCache优于NSDictionary的几点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于操控NSCache删减内容的时机"><span class="nav-number">18.0.0.2.</span> <span class="nav-text">关于操控NSCache删减内容的时机</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSPurgeableData"><span class="nav-number">18.1.</span> <span class="nav-text">NSPurgeableData</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第51条-精简initialize-与-load的实现代码"><span class="nav-number">19.</span> <span class="nav-text">第51条: 精简initialize 与 load的实现代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#load方法"><span class="nav-number">19.1.</span> <span class="nav-text">load方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#initialize方法"><span class="nav-number">19.2.</span> <span class="nav-text">initialize方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第52条-别忘了NSTimer会保留其目标对象"><span class="nav-number">20.</span> <span class="nav-text">第52条: 别忘了NSTimer会保留其目标对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">21.</span> <span class="nav-text">最后的话</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-    </div>
-  </aside>
-
-
+          《Effective Objective-C》超级干货三部曲（三）：技巧篇
         
       </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
+    </a>
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Knight_SJ</span>
-</div>
+  
+    <a href="/2017/01/12/《Effective Objective-C》超级干货三部曲（一）：概念篇/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">《Effective Objective-C》超级干货三部曲（一）：概念篇</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
-<div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
-  </a>
-</div>
 
 
-        
 
-        
+
+
+
+
+          </div>
+        </div>
       </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 Knight_SJ
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
     </div>
   </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
 </script>
 
+<script src="/./main.js?v=4.0.0.js"></script>
 
 
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Objective-C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">BookNote</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Mind</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">IT</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
 
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
 
-
-
-
-
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
   
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
 
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
 
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
 
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+            <div class="pswp__top-bar">
 
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+                <!--  Controls are self-explanatory. Order can be changed. -->
 
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+                <div class="pswp__counter"></div>
 
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
 
-  
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
 
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
 
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
 
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
 
-  
-  
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
 
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+        </div>
 
+    </div>
 
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-
-  
-
-
-
-
-	
-
-
-
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-
+</div>
+  </div>
 </body>
 </html>
