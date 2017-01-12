@@ -163,13 +163,14 @@
 <h1 id="第9条-以“类族模式“隐藏实现细节"><a href="#第9条-以“类族模式“隐藏实现细节" class="headerlink" title="第9条 以“类族模式“隐藏实现细节"></a>第9条 以“类族模式“隐藏实现细节</h1><hr>
 <p>在iOS开发中，我们也会使用“类族”(class cluster)这一设计模式，通过“抽象基类”来实例化不同的实体子类。</p>
 <p>举个🌰 ：</p>
-<pre><code>+ (UIButton *)buttonWithType:(UIButtonType)type;
-</code></pre><blockquote>
+<pre><code class="objc">+ (UIButton *)buttonWithType:(UIButtonType)type;
+</code></pre>
+<blockquote>
 <p>在这里，我们只需要输入不同的按钮类型(UIButtonType)就可以得到不同的UIButton的子类。在OC框架中普遍使用这一设计模式。</p>
 </blockquote>
 <h4 id="为什么要这么做呢"><a href="#为什么要这么做呢" class="headerlink" title="为什么要这么做呢?"></a>为什么要这么做呢?</h4><p>笔者认为这么做的原因是为了“弱化”子类的具体类型，让开发者无需关心创建出来的子类具体属于哪个类。（这里觉得还有点什么，但是还没有想到，欢迎补充！）</p>
 <p>我们可以看一个具体的例子：<br>对于“员工”这个类，可以有各种不同的“子类型”：开发员工，设计员工和财政员工。这些“实体类”可以由“员工”这个抽象基类来获得：</p>
-<h4 id="1-抽象基类"><a href="#1-抽象基类" class="headerlink" title="1. 抽象基类"></a>1. 抽象基类</h4><pre><code>//EOCEmployee.h
+<h4 id="1-抽象基类"><a href="#1-抽象基类" class="headerlink" title="1. 抽象基类"></a>1. 抽象基类</h4><pre><code class="objc">//EOCEmployee.h
 
 typedef NS_ENUM(NSUInteger, EOCEmployeeType) {
     EOCEmployeeTypeDeveloper,
@@ -190,7 +191,8 @@ typedef NS_ENUM(NSUInteger, EOCEmployeeType) {
 - (void)doADaysWork;
 
 @end
-</code></pre><pre><code>//EOCEmployee.m
+</code></pre>
+<pre><code>//EOCEmployee.m
 
 @implementation EOCEmployee
 
