@@ -11,7 +11,9 @@
   <meta name="description" content="本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。
 懒加载(lazy instantiation)
 懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。
-123456789101112131415161718@int">
+@interface ViewController ()
+
+@">
 <meta property="og:type" content="article">
 <meta property="og:title" content="斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo">
 <meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/index.html">
@@ -19,7 +21,9 @@
 <meta property="og:description" content="本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。
 懒加载(lazy instantiation)
 懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。
-123456789101112131415161718@int">
+@interface ViewController ()
+
+@">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-191d3037dd166754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2017-01-11T08:42:52.000Z">
 <meta name="twitter:card" content="summary">
@@ -27,7 +31,9 @@
 <meta name="twitter:description" content="本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。
 懒加载(lazy instantiation)
 懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。
-123456789101112131415161718@int">
+@interface ViewController ()
+
+@">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-191d3037dd166754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternative" href="/atom.xml" title="J_Knight" type="application/atom+xml">
@@ -191,37 +197,173 @@
         <p>本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。</p>
 <h2 id="懒加载-lazy-instantiation"><a href="#懒加载-lazy-instantiation" class="headerlink" title="懒加载(lazy instantiation)"></a>懒加载(lazy instantiation)</h2><hr>
 <p><strong>懒加载</strong>：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在<code>viewDidLoad:</code>方法里)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">@interface ViewController ()</div><div class="line"></div><div class="line">@property (nonatomic, strong) NSMutableArray *cards;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (NSMutableArray *)cards</div><div class="line">&#123;</div><div class="line">    //如果此实例变量为空，则初始化；否则，直接调用</div><div class="line">    if (!_cards) &#123;</div><div class="line">        _cards = [[NSMutableArray alloc] init];</div><div class="line">    &#125;</div><div class="line">    return _cards;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
-<h2 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h2><hr>
+<pre><code>@interface ViewController ()
+
+@property (nonatomic, strong) NSMutableArray *cards;
+
+@end
+
+@implementation ViewController
+
+- (NSMutableArray *)cards
+{
+    //如果此实例变量为空，则初始化；否则，直接调用
+    if (!_cards) {
+        _cards = [[NSMutableArray alloc] init];
+    }
+    return _cards;
+}
+
+@end
+</code></pre><h2 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h2><hr>
 <h4 id="在可变数组中插入元素"><a href="#在可变数组中插入元素" class="headerlink" title="在可变数组中插入元素"></a>在可变数组中插入元素</h4><p>在数组中插入元素是可变数组的方法，因为不可变数组在初始化以后就无法再更改。<br>尤其注意的是：在数组中插入元素时，插入的元素必须不能为空，否则会引起程序崩溃。需要对要插入的元素做是否为空的判断！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (void)addCard: (Card *)card atTop:(BOOL)atTop</div><div class="line">&#123;</div><div class="line">    if (atTop) &#123;</div><div class="line">        </div><div class="line">        //插入到数组第一个位置</div><div class="line">        [self.cards insertObject:card atIndex:0];</div><div class="line">    </div><div class="line">    &#125;else&#123;</div><div class="line">        </div><div class="line">        //添加到数组末尾</div><div class="line">        [self.cards addObject:card];</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="在可变数组中引用和移除数组元素"><a href="#在可变数组中引用和移除数组元素" class="headerlink" title="在可变数组中引用和移除数组元素"></a>在可变数组中引用和移除数组元素</h4><p>在数组中，提取和移除元素的时候需要注意的是需要判断数组是否为空，如果<strong>在数组为空的情况下引用或移除某个元素会引起程序的崩溃！</strong> 所以要先进行目标数组元素数量判断。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">- (Card *)drawRandomCard</div><div class="line">&#123;</div><div class="line">    //如果数组为空数组，则直接放回nil，因为没有可以抽取的元素。</div><div class="line">    Card *randomCard = nil;</div><div class="line">    </div><div class="line">    //判断数组元素个数是否不为0，如果为0，则返回nil</div><div class="line">    if ([self.cards count]) &#123;</div><div class="line">        </div><div class="line">        //生成0到[self.cards count]的随机数</div><div class="line">        NSUInteger index = arc4random() % [self.cards count];</div><div class="line">        </div><div class="line">        //引用下标为index的元素</div><div class="line">        randomCard = self.cards[index];</div><div class="line">        </div><div class="line">        //移除下标为index的元素</div><div class="line">        [self.cards removeObjectAtIndex:index];</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return randomCard;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h2><hr>
+<pre><code>- (void)addCard: (Card *)card atTop:(BOOL)atTop
+{
+    if (atTop) {
+
+        //插入到数组第一个位置
+        [self.cards insertObject:card atIndex:0];
+
+    }else{
+
+        //添加到数组末尾
+        [self.cards addObject:card];
+
+    }
+}
+</code></pre><h4 id="在可变数组中引用和移除数组元素"><a href="#在可变数组中引用和移除数组元素" class="headerlink" title="在可变数组中引用和移除数组元素"></a>在可变数组中引用和移除数组元素</h4><p>在数组中，提取和移除元素的时候需要注意的是需要判断数组是否为空，如果<strong>在数组为空的情况下引用或移除某个元素会引起程序的崩溃！</strong> 所以要先进行目标数组元素数量判断。</p>
+<pre><code>- (Card *)drawRandomCard
+{
+    //如果数组为空数组，则直接放回nil，因为没有可以抽取的元素。
+    Card *randomCard = nil;
+
+    //判断数组元素个数是否不为0，如果为0，则返回nil
+    if ([self.cards count]) {
+
+        //生成0到[self.cards count]的随机数
+        NSUInteger index = arc4random() % [self.cards count];
+
+        //引用下标为index的元素
+        randomCard = self.cards[index];
+
+        //移除下标为index的元素
+        [self.cards removeObjectAtIndex:index];
+
+    }
+
+    return randomCard;
+}
+</code></pre><h2 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h2><hr>
 <p><strong>类方法</strong>也叫工厂方法，类方法主要包括两种：</p>
 <ol>
 <li><strong>类的初始化</strong>：形成类的实例。</li>
 <li><strong>工具方法</strong>：不经过实例化获得某些数据。</li>
 </ol>
 <p><strong>应用</strong>：用类方法生成四种不同花色：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">+ (NSArray *)ValidSuits</div><div class="line">&#123;</div><div class="line">    return @[@&quot;♥︎&quot;,@&quot;♦︎&quot;,@&quot;♣︎&quot;,@&quot;♠︎&quot;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)setSuit:(NSString *)suit</div><div class="line">&#123;</div><div class="line">    if ([ [PlayingCard ValidSuits] containsObject:suit]) &#123;</div><div class="line">        _suit = suit;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="instancetype"><a href="#instancetype" class="headerlink" title="instancetype"></a>instancetype</h2><hr>
+<pre><code>+ (NSArray *)ValidSuits
+{
+    return @[@&quot;♥︎&quot;,@&quot;♦︎&quot;,@&quot;♣︎&quot;,@&quot;♠︎&quot;];
+}
+
+- (void)setSuit:(NSString *)suit
+{
+    if ([ [PlayingCard ValidSuits] containsObject:suit]) {
+        _suit = suit;
+    }
+}
+</code></pre><h2 id="instancetype"><a href="#instancetype" class="headerlink" title="instancetype"></a>instancetype</h2><hr>
 <p>instancetype的使用目的是确保返回的对象同这条消息要发送到的对象一样。</p>
 <p>怎么说？</p>
 <p>常用在类的初始化方法的返回值中，因为如果类的初始化返回值是<code>id</code>,那么这个指针可以指向任何对象，所以有可能指向非此类的对象类型；</p>
 <p>所以，<code>instancetype</code>作为初始化方法的返回值后，那么初始化的结果一定会同此类的类型一致。</p>
 <p>举个🌰：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init</div><div class="line">&#123;</div><div class="line">    //检查父类是否初始化成功</div><div class="line">    self = [super init];</div><div class="line">    </div><div class="line">    if (self) &#123;</div><div class="line">        //初始化代码</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="翻牌Demo"><a href="#翻牌Demo" class="headerlink" title="翻牌Demo"></a>翻牌Demo</h2><hr>
+<pre><code>- (instancetype)init
+{
+    //检查父类是否初始化成功
+    self = [super init];
+
+    if (self) {
+        //初始化代码
+    }
+
+    return self;
+}
+</code></pre><h2 id="翻牌Demo"><a href="#翻牌Demo" class="headerlink" title="翻牌Demo"></a>翻牌Demo</h2><hr>
 <h4 id="设计需求："><a href="#设计需求：" class="headerlink" title="设计需求："></a>设计需求：</h4><p>在界面上显示一张扑克牌，点击后翻牌：如果是正面，点击后就显示背面；如果是背面，点击后显示正面。</p>
 <h4 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-191d3037dd166754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：纸牌背面；右：纸牌正面"></p>
-<h4 id="实现代码："><a href="#实现代码：" class="headerlink" title="实现代码："></a>实现代码：</h4><p><strong>1. 点击按钮翻牌</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">- (IBAction)touchCardButton:(UIButton *)sender &#123;</div><div class="line">    </div><div class="line">    //先判断牌面：如果按钮的title有字，则为正面</div><div class="line">    if ([sender.currentTitle length]) &#123;</div><div class="line">       </div><div class="line">        //1. 背面的UI效果:</div><div class="line">        </div><div class="line">        //1.1 设置背景图片为背面的图片</div><div class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];</div><div class="line">       </div><div class="line">        //1.2 设置按钮title为空，因为要翻到背面</div><div class="line">        [sender setTitle:@&quot;&quot; forState:UIControlStateNormal];</div><div class="line">        </div><div class="line">    &#125;else&#123;</div><div class="line">        </div><div class="line">        //2. 正面的UI效果:</div><div class="line">      </div><div class="line">        //2.1 设置背景图片为空</div><div class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];</div><div class="line">        </div><div class="line">        //2.2 设置背景颜色为白色</div><div class="line">        [sender setBackgroundColor:[UIColor whiteColor]];</div><div class="line">       </div><div class="line">        //2.3 设置按钮title为牌的花色</div><div class="line">        [sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //翻牌次数记录。同时存在setter和getter方法。首先getter方法取到当前的翻拍次数，然后用setter方法让翻拍次数+1</div><div class="line">    self.flipCount++;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>2. 更新按钮UI</strong></p>
+<h4 id="实现代码："><a href="#实现代码：" class="headerlink" title="实现代码："></a>实现代码：</h4><p><strong>1. 点击按钮翻牌</strong></p>
+<pre><code>- (IBAction)touchCardButton:(UIButton *)sender {
+
+    //先判断牌面：如果按钮的title有字，则为正面
+    if ([sender.currentTitle length]) {
+
+        //1. 背面的UI效果:
+
+        //1.1 设置背景图片为背面的图片
+        [sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];
+
+        //1.2 设置按钮title为空，因为要翻到背面
+        [sender setTitle:@&quot;&quot; forState:UIControlStateNormal];
+
+    }else{
+
+        //2. 正面的UI效果:
+
+        //2.1 设置背景图片为空
+        [sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];
+
+        //2.2 设置背景颜色为白色
+        [sender setBackgroundColor:[UIColor whiteColor]];
+
+        //2.3 设置按钮title为牌的花色
+        [sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];
+    }
+
+    //翻牌次数记录。同时存在setter和getter方法。首先getter方法取到当前的翻拍次数，然后用setter方法让翻拍次数+1
+    self.flipCount++;
+}
+</code></pre><p><strong>2. 更新按钮UI</strong></p>
 <p>更新按钮的UI的代码放到了属性<code>flipCount</code>的setter方法里。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (void)setFlipCount:(int)flipCount</div><div class="line">&#123;</div><div class="line">    _flipCount = flipCount;</div><div class="line">    </div><div class="line">    //在setter方法完成后，设置标签的显示数字</div><div class="line">    self.flipsLabel.text = [NSString stringWithFormat:@&quot;Flips: %d&quot;, self.flipCount];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>但是笔者个人认为这种处理方式并不好，因为<strong>一个方法最好只做一件事情</strong>，所以应该将更新按钮UI的代码单独提取出来作为另一个方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (IBAction)touchCardButton:(UIButton *)sender &#123;</div><div class="line">    </div><div class="line">    //先判断牌面：如果按钮的title有字，则为正面</div><div class="line">    if ([sender.currentTitle length]) &#123;</div><div class="line">       </div><div class="line">        //背面的UI效果</div><div class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];</div><div class="line">        [sender setTitle:@&quot;&quot; forState:UIControlStateNormal];</div><div class="line">        </div><div class="line">    &#125;else&#123;</div><div class="line">        </div><div class="line">        //正面的UI效果</div><div class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];</div><div class="line">        [sender setBackgroundColor:[UIColor whiteColor]];</div><div class="line">        [sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //翻牌次数+1。</div><div class="line">    self.flipCount++;</div><div class="line">    </div><div class="line">    //更新Label显示的数字</div><div class="line">    [self updateFlipsLabel];</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  单独提取出更新Label显示的数字的方法</div><div class="line"> */</div><div class="line">- (void)updateFlipsLabel</div><div class="line">&#123;</div><div class="line">     self.flipsLabel.text = [NSString stringWithFormat:@&quot;Flips: %d&quot;, self.flipCount];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样一来，程序的可读性更高了一点。而且我们还不用重写<code>flipsCount</code>的setter方法。</p>
+<pre><code>- (void)setFlipCount:(int)flipCount
+{
+    _flipCount = flipCount;
+
+    //在setter方法完成后，设置标签的显示数字
+    self.flipsLabel.text = [NSString stringWithFormat:@&quot;Flips: %d&quot;, self.flipCount];
+}
+</code></pre><p>但是笔者个人认为这种处理方式并不好，因为<strong>一个方法最好只做一件事情</strong>，所以应该将更新按钮UI的代码单独提取出来作为另一个方法:</p>
+<pre><code>- (IBAction)touchCardButton:(UIButton *)sender {
+
+    //先判断牌面：如果按钮的title有字，则为正面
+    if ([sender.currentTitle length]) {
+
+        //背面的UI效果
+        [sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];
+        [sender setTitle:@&quot;&quot; forState:UIControlStateNormal];
+
+    }else{
+
+        //正面的UI效果
+        [sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];
+        [sender setBackgroundColor:[UIColor whiteColor]];
+        [sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];
+    }
+
+    //翻牌次数+1。
+    self.flipCount++;
+
+    //更新Label显示的数字
+    [self updateFlipsLabel];
+}
+
+/**
+ *  单独提取出更新Label显示的数字的方法
+ */
+- (void)updateFlipsLabel
+{
+     self.flipsLabel.text = [NSString stringWithFormat:@&quot;Flips: %d&quot;, self.flipCount];
+}
+</code></pre><p>这样一来，程序的可读性更高了一点。而且我们还不用重写<code>flipsCount</code>的setter方法。</p>
 
       
 
@@ -445,19 +587,19 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">BookNote</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Mind</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Objective-C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">BookNote</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Mind</a>
               </li>
              
               <li class="article-tag-list-item">
