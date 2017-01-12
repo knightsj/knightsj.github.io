@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-12T02:00:09.000Z</updated>
+  <updated>2017-01-12T03:01:19.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/12/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%8A%80%E5%B7%A7%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（三）：技巧篇/</id>
     <published>2017-01-12T01:44:05.000Z</published>
-    <updated>2017-01-12T02:00:09.000Z</updated>
+    <updated>2017-01-12T03:01:19.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
 <p>《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。</p>
@@ -30,13 +30,10 @@
 <h1 id="第9条-以“类族模式“隐藏实现细节"><a href="#第9条-以“类族模式“隐藏实现细节" class="headerlink" title="第9条 以“类族模式“隐藏实现细节"></a>第9条 以“类族模式“隐藏实现细节</h1><hr>
 <p>在iOS开发中，我们也会使用“类族”(class cluster)这一设计模式，通过“抽象基类”来实例化不同的实体子类。</p>
 <p>举个🌰 ：</p>
-<p>``</p>
-<ul>
-<li>(UIButton *)buttonWithType:(UIButtonType)type;<br>``<blockquote>
+<pre><code>+ (UIButton *)buttonWithType:(UIButtonType)type;
+</code></pre><blockquote>
 <p>在这里，我们只需要输入不同的按钮类型(UIButtonType)就可以得到不同的UIButton的子类。在OC框架中普遍使用这一设计模式。</p>
 </blockquote>
-</li>
-</ul>
 <h4 id="为什么要这么做呢"><a href="#为什么要这么做呢" class="headerlink" title="为什么要这么做呢?"></a>为什么要这么做呢?</h4><p>笔者认为这么做的原因是为了“弱化”子类的具体类型，让开发者无需关心创建出来的子类具体属于哪个类。（这里觉得还有点什么，但是还没有想到，欢迎补充！）</p>
 <p>我们可以看一个具体的例子：<br>对于“员工”这个类，可以有各种不同的“子类型”：开发员工，设计员工和财政员工。这些“实体类”可以由“员工”这个抽象基类来获得：</p>
 <h4 id="1-抽象基类"><a href="#1-抽象基类" class="headerlink" title="1. 抽象基类"></a>1. 抽象基类</h4><pre><code>//EOCEmployee.h
