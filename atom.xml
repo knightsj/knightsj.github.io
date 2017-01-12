@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-12T01:33:26.000Z</updated>
+  <updated>2017-01-12T01:37:07.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>《Effective-Objective-C-》超级干货三部曲（一）：概念篇</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/12/%E3%80%8AEffective-Objective-C-%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E5%BF%B5%E7%AF%87/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective-Objective-C-》超级干货三部曲（一）：概念篇/</id>
+    <title>《Effective Objective-C》超级干货三部曲（一）：概念篇</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/12/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E5%BF%B5%E7%AF%87/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（一）：概念篇/</id>
     <published>2017-01-12T01:30:51.000Z</published>
-    <updated>2017-01-12T01:33:26.000Z</updated>
+    <updated>2017-01-12T01:37:07.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
 <p>很多文章和大牛都在推荐这本书，说它讲授了很多编写Objective-C语言时所应该遵循的规范。刚好笔者前段时间因为产品刚开发完，有了一点空档期，于是用了3个星期的时间仔细研读和总结了这本书。</p>
