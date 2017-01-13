@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-13T05:36:06.000Z</updated>
+  <updated>2017-01-13T05:42:22.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -14,6 +14,122 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/2016%E5%B9%B410%E6%9C%88%E6%B1%82%E8%81%8C%E8%AE%B0%EF%BC%9AiOS%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C%E4%B8%8D%E5%88%B01%E5%B9%B4%EF%BC%8C%E5%9C%A81%E4%B8%AA%E6%9C%88%E5%86%85%E6%8B%BF%E5%88%B0%E4%BA%863%E4%B8%AAoffer/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/</id>
+    <published>2017-01-13T05:42:22.000Z</published>
+    <updated>2017-01-13T05:42:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<hr>
+<p>title: 2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer</p>
+<h2 id="tags-iOS-Objective-C"><a href="#tags-iOS-Objective-C" class="headerlink" title="tags: [iOS,Objective-C]"></a>tags: [iOS,Objective-C]</h2><p>真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~</p>
+<p>新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。</p>
+<p>笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简历到拿到最后一个offer历时3周多。因为在这段求职时间里感触很多，所以想专门写一篇博客来讲述一下自己的求职心得，希望能给各位年底求职的小伙伴，特别是做iOS的同行一些值得借鉴的东西。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-23f60ab52ef7bafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：pixabay.com"></p>
+<h3 id="1-总求职数据："><a href="#1-总求职数据：" class="headerlink" title="1. 总求职数据："></a>1. 总求职数据：</h3><hr>
+<ol>
+<li>从写简历到拿到最后一个offer历时26天。</li>
+<li>总面试通知数：11个</li>
+<li>总面试次数：8次</li>
+<li>总offer数：3个</li>
+</ol>
+<h4 id="有趣的3个点："><a href="#有趣的3个点：" class="headerlink" title="有趣的3个点："></a>有趣的3个点：</h4><ol>
+<li>简历的最初稿的完成历时2天并开始投递，在第10天才最终定稿。</li>
+<li>在简历开始投递后的第一个星期里没有收到任何面试通知。</li>
+<li>在3个offer里，只有一家是小公司（不到50人），其他两个都是具有相当规模的大公司。</li>
+</ol>
+<p>下面写一下整个求职过程的心得：</p>
+<h3 id="1-简历需要持续更新"><a href="#1-简历需要持续更新" class="headerlink" title="1. 简历需要持续更新"></a>1. 简历需要持续更新</h3><hr>
+<p>虽然开始简历的初版完成的挺快的，但是后来却不断发现有很多不妥的地方：</p>
+<ol>
+<li>不应该添加我自己的证件照：其实除了美女，是不建议有自己的证明照的。</li>
+<li>不应该添加项目的icon：导致排版显得很乱，应该去掉。</li>
+<li>项目经验的技术点不够具体，而且主次没有顺序：最好将技术亮点放在最前面，而且要细致一点。</li>
+<li>技能清单太过俗套，不够具体：比如不能只写“熟悉RunLoop的使用”，建议这么写：“熟悉RunLoop的机制，创建常驻线程执行任务”，也就是将具体的技术点和具体的应用结合起来写一下会好一些。</li>
+<li>个人优势不突出：因为项目经验少而且比较简单，所以相对来说博客和开源项目就是我的优势，而这些 优势我甚至没有在初版简历中写明，后来在更新简历的时候才写出来放在偏后的位置。但是再后来，<a href="http://www.jianshu.com/users/55c8fdc3c6e7/latest_articles" target="_blank" rel="external">TianBai</a>大大建议我开源项目的地址和优秀博客文章最好放在显著位置，我才鼓起勇气将它们放在个人信息的下面，也就是简历的第二项。</li>
+<li>除了简历的撰写技巧之外，笔者也在不断自学来增添简历上的技术点：在学习前两天在简历上添加要学习的技术点，保证将来面试的时候可以用上。</li>
+</ol>
+<blockquote>
+<p>在简历的初版完成之后就开始投递了，之后也在不断更新自己的简历，直到10天后更新才趋于稳定。</p>
+</blockquote>
+<h3 id="2-简历要突出个人优势"><a href="#2-简历要突出个人优势" class="headerlink" title="2. 简历要突出个人优势"></a>2. 简历要突出个人优势</h3><hr>
+<p>之前提到过，在第一个星期里，我没有收到任何面试通知，直到第二个星期的星期三我才收到了第一个面试通知。而这个时间点，也正是简历最终定稿之后的2，3天。而且后来，面试通知就“源源不断”了：两周里有11个面试通知，而且越到后面越多。</p>
+<p>虽然可能不是很准确，但我个人觉得：将我的博客优秀文章链接和开源项目地址放（并加上简单介绍）在简历的前面之后，我的简历变得“招人喜欢了”。</p>
+<blockquote>
+<p>因此，在写简历的时候，就要想：到底自己的优势点在哪里？哪个最有亮点，就毫不犹豫地写在最前面吧！</p>
+<ul>
+<li>如果你的优势是公司项目里的某个功能模块（不能太简单），就把这个模块写出来好好描述一下。</li>
+<li>如果你在github上有星星，就把它放在简历前面，多啰嗦几句。</li>
+<li>如果你的文章很热，或者被知名网站转载过，也把它放在简历前面，多啰嗦几句。</li>
+<li>如果你上面三点都没有，就将你研究过或者参与过的开源框架拿出来，写一写你都从中学到了什么。</li>
+</ul>
+</blockquote>
+<h3 id="3-大公司和小公司的用人侧重点不一样"><a href="#3-大公司和小公司的用人侧重点不一样" class="headerlink" title="3. 大公司和小公司的用人侧重点不一样"></a>3. 大公司和小公司的用人侧重点不一样</h3><hr>
+<p>简历写得再好，它的性质也只是面试的敲门砖，真正考验你的还是面试。这段时间我的面试次数是8次，但是只拿到了2个offer，成绩很一般。</p>
+<p>我分析了一下自己的优势和劣势：</p>
+<h4 id="我的优势："><a href="#我的优势：" class="headerlink" title="我的优势："></a>我的优势：</h4><ol>
+<li>学历高：海外硕士（非科班）。</li>
+<li>自学能力强：iOS完全自学，而且持续更新博客，有开源项目（很渣）。入职四个月后独立负责一个新项目。</li>
+</ol>
+<h4 id="我的劣势："><a href="#我的劣势：" class="headerlink" title="我的劣势："></a>我的劣势：</h4><ol>
+<li>工作经验少：严格来讲只有10个月。</li>
+<li>项目经验少：而且项目技术点难度偏低。</li>
+</ol>
+<p>整体来说就是：经验少一些，潜力大一点。</p>
+<p>有意思的是，这8家面试我的公司里有3家是有相当规模的大公司，而其中2家都给了我offer。而且在我面试的过程中，明显觉得自己比较受大公司青睐，而小公司却反差比较大。</p>
+<h4 id="结合我的特点和面试结果有一个结论："><a href="#结合我的特点和面试结果有一个结论：" class="headerlink" title="结合我的特点和面试结果有一个结论："></a>结合我的特点和面试结果有一个结论：</h4><p>大公司招人大多还是以<strong>培养</strong>为目的。<br>小公司招人大多是以<strong>上手</strong>为目的。</p>
+<blockquote>
+<p>因此，<br>如果你觉得你技术很牛，能独当一面的话，大公司和小公司都可以尝试；<br>如果你经验少，但是潜力相对大一点，小公司还是相对不适合的。<br>如果你经验少，潜力也不是很大，不建议马上跳槽，把前两点的某一点或者其中一点强化再说。</p>
+</blockquote>
+<h3 id="4-面试题的准备有点虐心"><a href="#4-面试题的准备有点虐心" class="headerlink" title="4. 面试题的准备有点虐心"></a>4. 面试题的准备有点虐心</h3><hr>
+<p>笔者在第一第二星期的时间里一直在刷网上的iOS面试题，不断地查缺补漏。在2个星期的时间里，笔记数量增加了100+条，都是记录面试题和相关基础知识的，后来实在是看不下去了，已经看吐了。</p>
+<p>不过可笑的是：<br>在面试小公司的时候，问的问题及其刁钻以至于我的“iOS面试题库”几乎形同虚设，网上看的iOS面试题已经应付不了了。<br>而面试大公司的时候，几乎都没有问太多iOS相关的问题，而且问题都不难。</p>
+<blockquote>
+<p>虽然我最终要去的公司面试我的时候没有问我几个iOS的面试题，不过面试题还是需要准备的。这段时间总结的100多条笔记虽然一方面是为了在面试的时候发挥，另一方面也巩固了自己的基础知识，而且效果很好。</p>
+</blockquote>
+<h3 id="5-要么做，要么走"><a href="#5-要么做，要么走" class="headerlink" title="5. 要么做，要么走"></a>5. 要么做，要么走</h3><hr>
+<p>在求职的过程中看到过这么一句话：“不是互联网不行，而是你不行”。<br>随后我就自行脑补：“不是iOS形势不行，而是你不行”。<br>那么是否可以通用一下呢：“不是<em>__</em>形势不行，而是你不行”？</p>
+<p>难道互联网资本寒冬，互联网从业者就一定会失业么？<br>难道iOS形势不好，iOS开发者就一定很难找到工作或者跳槽么？</p>
+<p>不要听到一些“什么什么形势不好”就给自己找不到工作找借口，给自己受伤的心灵抹上一点自欺欺人的糖。</p>
+<p>为什么简历石沉大海？<br>为什么面试屡屡不中？</p>
+<p>挺起胸膛解决问题好么？！</p>
+<p>不要去抱怨，你抱怨的时候，可能有人在默默刷题，默默刷开源框架。对自己要求不高，必定会被淘汰。</p>
+<p>认清现实吧！以前iOS这边“会拉个线就能月薪过万”的时代已经一去不复返了，如今正是淘汰浑水摸鱼的人的阶段。但这是一个好现象，说明这个行业终于走上正轨了。</p>
+<p>如果觉得做不下去了，最好尽早离开；<br>如果决定坚持做下去，就要拿出你的本事让人家看看。</p>
+<p>怎么看？当然不是靠说的，而是靠你做过什么。</p>
+<p>现在这个时代知识的共享太容易了，绝大多数科目的入门资料在网上都能轻而易举地看到。很多人看得多了，会说了，就以为自己懂了。因此这个时代也过于浮躁，尤其是有一些会上网的年轻人。</p>
+<p>但是，技术领域，对一个人的认可并不是靠说的，而是你做过了什么，或是能拿出什么能证明你以后能做什么。</p>
+<p>举两个三国武将的例子：<br>从什么时候人们觉得关羽厉害？- 温酒斩华雄<br>从什么时候人们觉得吕布厉害？- 三英战吕布</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-b6810305d1803032.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关二爷"></p>
+<p>看出问题了么？<br>看谁牛不牛，是围绕着“事件”说的，而不是围绕花里胡哨的<strong>青龙偃月刀</strong>和<strong>方天画戟</strong>这些表面上的东西说的（虽然能舞得动这些的也能算是不弱）。</p>
+<p>觉得舞刀弄枪离自己太远？举两个程序员界的例子：<br>Python的作者求职谷歌的时候只在简历上写了三个词：“I wrote Python.”<br>在iOS界家喻户晓的网络请求第三方框架AFNetworking的作者听说已经被苹果收编了。<br>（我也是听别人说的，真的假的不知道，但我就是要说，不喜欢来打我呀）</p>
+<p>很现实的问题：<br>武将厉不厉害，拿战功说事儿；<br>技术工作者厉不厉害，拿作品说事儿。你的作品，反映了你的水平，也能反映你的潜力</p>
+<p>所以，对于iOS程序员来说，如果想在这盘淘汰赛中不被抛弃，现在就着手构思真正属于自己的项目。或者用博客记录一下自己的学习历程，勾勒出自己的成长轨迹：“让别人知道你知道”很重要。</p>
+<p>如果没有思路，没有关系，看一些已经开源的好的app和框架，相信我，不久你就会有自己的想法。因为创造无非就是拼凑，你懂得多了，自然就会“拼”了（此处双关[掩面]）。</p>
+<h3 id="6-心得写完了，以后要怎么做呢？"><a href="#6-心得写完了，以后要怎么做呢？" class="headerlink" title="6. 心得写完了，以后要怎么做呢？"></a>6. 心得写完了，以后要怎么做呢？</h3><hr>
+<p>上面说过，我个人感觉这次面试成功率不是很高，而原因也暴露的很明显：项目经验不足。</p>
+<p>因此，笔者打算今后在不影响工作质量的情况下好好研究一些比较好的开源app和第三方框架，仔细阅读源码，从中抽取出值得学习的地方，不断提高自己的技术水平，而不仅仅停留在公司项目中。</p>
+<p>目的并不是为了下次跳槽，而是为了不断搭建自己的技术壁垒，取各家之所长，借此来打造一个无法取代的自己：</p>
+<p>就好比段誉：只会六脉神剑或者凌波微步还不足以独步武林，但是将二者结合在一起就能与萧大侠抗衡了。</p>
+<h2 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h2><hr>
+<p>整个求职过程中心情还是有低落的时候的，特别是第一个星期，面试通知丝毫没有动静。不过还好有一些“道上”的朋友给我鼓励和支持。在这里特别感谢在简书上认识的同行<a href="http://www.jianshu.com/users/55c8fdc3c6e7/latest_articles" target="_blank" rel="external">TianBai</a>， <a href="http://www.jianshu.com/users/a54931de4c9b/latest_articles" target="_blank" rel="external">阿拉斯加的狗</a>，<a href="http://www.jianshu.com/users/e39da354ce50/latest_articles" target="_blank" rel="external">神经骚栋</a>，<a href="http://www.jianshu.com/users/c68741efc396/latest_articles" target="_blank" rel="external">熊皮皮</a>的支持和鼓励，他们都是很优秀的iOS开发者，而且很有潜力，有很多我需要学习的地方。</p>
+<p>如果有小伙伴有问题想问我，评论本文，发简信，加我微信（简书主页有我的微信二维码）都可以。<br>不过因为新东家的知名度比较高，具体新东家是谁就不方便说啦，请谅解~</p>
+<p>最后还是祝愿在最近找工作的小伙伴们马到功成~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-784af8ebfba85366.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：pixabay.com"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;title: 2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer&lt;/p&gt;
+&lt;h2 id=&quot;tags-iOS-Objective-C&quot;&gt;&lt;a href=&quot;#tags-iOS-Objective-C&quot; class=&quot;headerlink&quot; 
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>详解iOS多图下载的缓存机制</title>
@@ -5305,171 +5421,6 @@ self.button.currentTitle
     
       &lt;p&gt;本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。&lt;/p&gt;
 &lt;h1 id=&quot;动态绑定&quot;&gt;&lt;a href=&quot;#动态绑定&quot; class=&quot;headerlink&quot; title=&quot;动态绑定&quot;&gt;&lt;/
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E7%BA%B8%E7%89%8C%E9%85%8D%E5%AF%B9%E6%B8%B8%E6%88%8FDemo/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/</id>
-    <published>2017-01-11T07:05:23.000Z</published>
-    <updated>2017-01-11T08:41:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：<a href="http://www.jianshu.com/p/332324bff10a" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（二） ：翻纸牌Demo</a>），将一张纸牌扩展到一个多张纸牌并进行配对和打分的小游戏。</p>
-<p>本节课的内容虽然简单，但是十分重要，讲师强调了MVC的设计原则并实际运用到了代码中，本文就Demo的具体代码来讲解本节课提到的知识点。</p>
-<h1 id="设计需求"><a href="#设计需求" class="headerlink" title="设计需求"></a>设计需求</h1><hr>
-<ul>
-<li>显示多张纸牌，点击任意一张牌可以翻牌。</li>
-<li>两张牌都显示正面后可以进行配对：<ul>
-<li>花色匹配得1分；数字匹配得4分，匹配后，两张牌切换为不可点击状态（置灰）。</li>
-<li>都不匹配扣2分。</li>
-<li>每次翻牌都减一分。</li>
-</ul>
-</li>
-<li>每次翻牌都要更新分数。</li>
-</ul>
-<h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><hr>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-6371568b2e366281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：初始界面 ；右：游戏中界面"></p>
-<h1 id="重要代码段与知识点"><a href="#重要代码段与知识点" class="headerlink" title="重要代码段与知识点"></a>重要代码段与知识点</h1><hr>
-<h2 id="模型类：CardMatchingGame"><a href="#模型类：CardMatchingGame" class="headerlink" title="模型类：CardMatchingGame"></a>模型类：CardMatchingGame</h2><h4 id="1-在公共接口设置只读属性"><a href="#1-在公共接口设置只读属性" class="headerlink" title="1. 在公共接口设置只读属性"></a>1. 在公共接口设置只读属性</h4><pre><code>
-//CardMatchingGame.h
-@property (nonatomic, readonly) NSInteger score;
-
-//CardMatchingGame.m
-@property (nonatomic, readwrite) NSInteger score;
-</code></pre><blockquote>
-<p>在.h文件中将分数属性设置为只读，并在.m文件中设定该属性为读写，以便在内部计算。</p>
-<p>原因：不希望其他类更改此属性，只能获取该属性。通俗一点地说：“你们就拿我给你算好的分数就好了，你们是不能更改它的！”</p>
-</blockquote>
-<h4 id="2-指定初始化器：Designated-initializer"><a href="#2-指定初始化器：Designated-initializer" class="headerlink" title="2. 指定初始化器：Designated initializer"></a>2. 指定初始化器：Designated initializer</h4><pre><code>
-- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
-{
-    self = [super init];
-
-    if (self) {
-
-        for (int i = 0; i &lt; count; i++) {
-
-            Card *card = [deck drawRandomCard];
-
-            if (card) {
-
-                [self.cards addObject:card];
-
-            }else{
-
-                self = nil;
-                break;
-            }
-        }
-    }
-    return self;
-}
-</code></pre><blockquote>
-<p>有些时候，我们需要在类实例化的时候就要求对象持有某些数据,这就需要设计<strong>指定初始化器</strong>，因为原始的初始化方法<code>-(instancetype)init</code>方法是无法让实例对象持有非零数据的(初始化后，基本数据类型属性=0；对象属性=nil)。</p>
-<p>在这段代码里，该模型类通过数量<code>count</code>和一堆纸牌<code>deck</code>中拿到了自己持有的数组<code>self.cards</code>。</p>
-<p>举个🌰 ：想要从一个有52张牌的堆里抽取了12张牌来作为自己的一堆纸牌的话，就要设置Deck为具有52张牌的数组；而设置count为12即可。</p>
-</blockquote>
-<h4 id="3-设定常量"><a href="#3-设定常量" class="headerlink" title="3. 设定常量"></a>3. 设定常量</h4><pre><code>#define MISMATCH_PENALTY 2 //简单的替换，不具有数据类型
-</code></pre><pre><code>static const int MISMATCH_PENALTY = 2; //非简单替换，具有数据类型
-</code></pre><h2 id="控制器类：CardMathcingGameViewController"><a href="#控制器类：CardMathcingGameViewController" class="headerlink" title="控制器类：CardMathcingGameViewController"></a>控制器类：CardMathcingGameViewController</h2><hr>
-<h4 id="1-接收来自View的点击事件并更新UI"><a href="#1-接收来自View的点击事件并更新UI" class="headerlink" title="1. 接收来自View的点击事件并更新UI"></a>1. 接收来自View的点击事件并更新UI</h4><pre><code>
-/**
- *  接收用户的点击事件
- *
- *  @param sender 点击的按钮对象
- */
-- (IBAction)touchCardButton:(UIButton *)sender {
-
-    //1. 找到界面中所点击的按钮index
-    NSInteger cardIndex = [self.cardButtons indexOfObject:sender];
-
-    //2. 找到模型中相同index的纸牌数据，并判断是否匹配，计算分数
-    [self.game chooseCardAtIndex: cardIndex];
-
-    //3. 更新UI
-    [self updateUI];
-}
-
-/**
- *  更新UI
- */
-- (void)updateUI
-{
-    //1. 更新view上所有牌面
-    for (UIButton *cardButton in self.cardButtons) {
-
-        //1.1 找到界面中的一张纸牌(按照枚举的顺序)
-        NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
-
-        //1.2 找到模型中对应的纸牌数据
-        Card *card  = [self.game cardAtIndex:cardIndex];
-
-        //1.3 根据数据更新纸牌的UI和可点击性
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        [cardButton setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];
-         cardButton.enabled = !card.isMatched;        
-    }
-
-    //2. 更新分数
-    self.scoreLabel.text = [NSString stringWithFormat:@&quot;Score: %ld&quot;, (long)self.game.score];
-}
-</code></pre><blockquote>
-<p>在这里，我们可以很容易看到MVC的工作流程：</p>
-<ol>
-<li>在View里发生了点击事件并通知给了Controller。</li>
-<li>Controller告诉Model发生了点击。</li>
-<li>Model根据点击事件更新自己，然后将更新后的自己告诉Controller。</li>
-<li>Controller根据更新后的模型去更新UI。</li>
-</ol>
-</blockquote>
-<p>这里笔者有一张自己画的图，略逗逼，掩面贴出，独乐乐不如众乐乐~</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-0c8b70fd62292aa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MVC流程图.png"></p>
-<h2 id="零散知识点"><a href="#零散知识点" class="headerlink" title="零散知识点"></a>零散知识点</h2><hr>
-<h4 id="1-在数组里传入其包含的对象返回其所在序号"><a href="#1-在数组里传入其包含的对象返回其所在序号" class="headerlink" title="1. 在数组里传入其包含的对象返回其所在序号"></a>1. 在数组里传入其包含的对象返回其所在序号</h4><pre><code>NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
-</code></pre><h4 id="2-在数组中找到第一个元素"><a href="#2-在数组中找到第一个元素" class="headerlink" title="2. 在数组中找到第一个元素"></a>2. 在数组中找到第一个元素</h4><pre><code>//应该使用：
-PlayingCard *otherCard = [otherCards firstObject];
-
-//不应该使用：
-PlayingCard *otherCard = otherCards[0];
-
-//不应该使用：
-PlayingCard *otherCard = [otherCards objectAtIndex:0];
-</code></pre><blockquote>
-<p>应该使用第一种情况。<br>因为如果数组为空，那么如果使用第一种情况会返回nil,而向nil发送消息是不会造成崩溃的。<br>但是如果使用后两种方法，一旦数组为空，就会立刻造成程序崩溃！而且同样适用与取数组的最后一个元素的情况。<br>在数组中找到最后一个元素：</p>
-<pre><code>PlayingCard *otherCard = [otherCards lastObject];
-</code></pre></blockquote>
-<h4 id="3-在数组中是否包含某元素"><a href="#3-在数组中是否包含某元素" class="headerlink" title="3. 在数组中是否包含某元素"></a>3. 在数组中是否包含某元素</h4><pre><code>if ([ [PlayingCard ValidSuits] containsObject:suit]) {
-        _suit = suit;
-}
-</code></pre><blockquote>
-<p>containsObject:是NSArray的方法，返回布尔值，用来判断是否包含某个元素。</p>
-</blockquote>
-<h4 id="4-JPG格式图片的读取"><a href="#4-JPG格式图片的读取" class="headerlink" title="4. JPG格式图片的读取"></a>4. JPG格式图片的读取</h4><pre><code>- (UIImage *)backgroundImageForCard: (Card *)card
-{
-    //默认是png，如果是jpg需要加上.jpg的后缀
-    return [UIImage imageNamed:card.isChosen? @&quot;cardFront.jpg&quot;:@&quot;CardBack.png&quot;];
-}
-</code></pre><blockquote>
-<p>如果使用<code>imageNamed:</code>方法，仅传入jpg格式的文件名是无法显示出图片的，应该讲后缀<code>.jpg</code>拼接后传入才可以哦~而相同情况下，若要显示<code>png</code>格式的图片的话是不需要另外加后缀的。</p>
-</blockquote>
-<h1 id="最后的话："><a href="#最后的话：" class="headerlink" title="最后的话："></a>最后的话：</h1><hr>
-<p>如果哪位小伙伴想拿到此Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
-<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
-<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
-<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：&lt;a href=&quot;http://www.jianshu.com/p/332324bff10a&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;斯坦福大学iOS开发公开课总结（二） ：翻纸牌
     
     </summary>
     
