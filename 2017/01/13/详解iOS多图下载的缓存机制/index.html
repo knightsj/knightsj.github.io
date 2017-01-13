@@ -158,29 +158,28 @@
     <p>做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。</p>
 <p>第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。</p>
 <p>有一个多图缓存机制的教程是来自李明杰小码哥的，笔者觉得讲得挺不错的，于是就花了2个小时好好学习了一下。</p>
-<h2 id="1-需求点是什么？"><a href="#1-需求点是什么？" class="headerlink" title="#1. 需求点是什么？"></a>#1. 需求点是什么？</h2><p>这里所说的<strong>多图下载</strong>，就是要在tableview的每一个cell里显示一张图片,而且这些图片都需要从网上下载。</p>
-<h2 id="2-容易遇到的问题"><a href="#2-容易遇到的问题" class="headerlink" title="#2. 容易遇到的问题"></a>#2. 容易遇到的问题</h2><p>如果不知道或不使用<strong>异步操作</strong>和<strong>缓存机制</strong>，那么写出来的代码很可能会是这样：</p>
+<h1 id="1-需求点是什么？"><a href="#1-需求点是什么？" class="headerlink" title="1.需求点是什么？"></a>1.需求点是什么？</h1><hr>
+<p>这里所说的<strong>多图下载</strong>，就是要在tableview的每一个cell里显示一张图片,而且这些图片都需要从网上下载。</p>
+<h1 id="2-容易遇到的问题"><a href="#2-容易遇到的问题" class="headerlink" title="2.容易遇到的问题"></a>2.容易遇到的问题</h1><hr>
+<p>如果不知道或不使用<strong>异步操作</strong>和<strong>缓存机制</strong>，那么写出来的代码很可能会是这样：</p>
 <pre><code>cell.textLabel.text = app.name;
 cell.detailTextLabel.text = app.download;
 NSData *imageData = [NSData dataWithContentsOfURL:app.url];
 cell.imageView.image = [UIImage imageWithData:imageData];
 </code></pre><p>这样写有什么后果呢？</p>
-<p>####后果1：不可避免的卡顿（因为没有异步下载操作）</p>
-<blockquote>
+<h4 id="后果1：不可避免的卡顿（因为没有异步下载操作）"><a href="#后果1：不可避免的卡顿（因为没有异步下载操作）" class="headerlink" title="后果1：不可避免的卡顿（因为没有异步下载操作）"></a>后果1：不可避免的卡顿（因为没有异步下载操作）</h4><blockquote>
 <p>dataWithContentsOfURL：是耗时操作，将其放在主线程会造成卡顿。如果图片很多，图片很大，而且网络情况不好的话肯定会卡出翔！</p>
 </blockquote>
-<p>####后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）</p>
-<blockquote>
+<h4 id="后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）"><a href="#后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）" class="headerlink" title="后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）"></a>后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）</h4><blockquote>
 <p>由于没有缓存机制，即使下载完成并显示了当前cell的图片，但是当该cell再一次需要显示的时候还是会下载它所对应的图片：耗费了下载流量，而且还导致重复操作。</p>
 </blockquote>
 <p>很显然，要达到Tableview滚动的<strong>如丝滑般的享受</strong>必须二者兼得才可以，具体怎么做呢？</p>
-<h2 id="3-解决方案"><a href="#3-解决方案" class="headerlink" title="#3. 解决方案"></a>#3. 解决方案</h2><p>####1. 先看一下解决方案的流程图   </p>
-<p>小码哥将他的解决方案在PPT里用流程图画了出来，笔者觉得很不错，但是颜值略低（毕竟人家是一心搞技术，没时间在意这些外在的东西），笔者理了理思路，自己重新画了一张（好看么？）：</p>
+<h1 id="3-解决方案"><a href="#3-解决方案" class="headerlink" title="3.解决方案"></a>3.解决方案</h1><hr>
+<h4 id="1-先看一下解决方案的流程图"><a href="#1-先看一下解决方案的流程图" class="headerlink" title="1.先看一下解决方案的流程图"></a>1.先看一下解决方案的流程图</h4><p>小码哥将他的解决方案在PPT里用流程图画了出来，笔者觉得很不错，但是颜值略低（毕竟人家是一心搞技术，没时间在意这些外在的东西），笔者理了理思路，自己重新画了一张（好看么？）：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-addf3137097c3912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多图下载解决方案流程图"></p>
 <p>要想快速看懂此图，需要先了解该流程所需的所有数据源：</p>
 <p><strong>1. 图片的URL</strong>：因为每张图片对应的URL都是唯一的，所以我们可以通过它来建立<strong>图片缓存</strong>和<strong>下载操作的缓存</strong>的键，以及拼接<strong>沙盒缓存</strong>的路径字符串。<br><strong>2. 图片缓存（字典）</strong>：存放于内存中；键为图片的URL，值为UIImage对象。作用：读取速度快，直接使用UIImage对象。<br><strong>3. 下载操作缓存（字典）</strong>：存放与内存中，键为图片的URL，值为NSBlockOperation对象。作用：用来避免对于同一张图片还要开启多个下载线程。<br><strong>4. 沙盒缓存(文件路径对应NSData)</strong>：存放于磁盘中，位于Cache文件夹内，路径为“Cache/图片URL的最后的部分”，值为NSData对象（将UIImage转化为NSData才能写入磁盘里）。作用：程序断网，再次启动也可以直接在磁盘中拿到图片。</p>
-<p>####2. 再看一下解决方案的代码</p>
-<p><strong>2.1图片缓存，下载操作缓存，沙盒缓存路径</strong></p>
+<h4 id="2-再看一下解决方案的代码"><a href="#2-再看一下解决方案的代码" class="headerlink" title="2.再看一下解决方案的代码"></a>2.再看一下解决方案的代码</h4><p><strong>2.1图片缓存，下载操作缓存，沙盒缓存路径</strong></p>
 <pre><code>/**
  *  存放所有下载完的图片
  */
@@ -277,8 +276,7 @@ cell.imageView.image = [UIImage imageWithData:imageData];
     // 将当前下载操作添加到下载操作缓存中 (为了解决重复下载)
     self.operations[imageUrl] = operation;
 }
-</code></pre><p>####3. 有哪些点是值得注意的？</p>
-<p>要说值得注意的地方，还是离不开对于缓存内容的添加和删除操作。</p>
+</code></pre><h4 id="3-有哪些点是值得注意的？"><a href="#3-有哪些点是值得注意的？" class="headerlink" title="3. 有哪些点是值得注意的？"></a>3. 有哪些点是值得注意的？</h4><p>要说值得注意的地方，还是离不开对于缓存内容的添加和删除操作。</p>
 <p><strong>3.1 关于图片缓存</strong>：<br>很简单，成功下载，拿到了图片，就将图片添加到图片缓存中；下载失败，什么都不做，反正没有图。在这种机制下，就没有删除缓存里某个图片项的情况，因为图片缓存永远不会出现重复添加多个相同图片的情况，缓存中只要有一张对应的图，就直接拿去用了，不会去再下载了。</p>
 <p><strong>3.2 关于沙盒缓存</strong>：<br>同样地，对于沙盒缓存也是一个道理：有图就将其转化为NSData，写入磁盘，并对应唯一的路径，没有图就不写。所以即使是要下载相同的图片，因为当前url对应的沙盒路径已经存在文件了，所以直接拿就可以了，不会再下载。</p>
 <p>但是！<br>下载操作缓存是不同的！</p>
@@ -295,7 +293,8 @@ cell.imageView.image = [UIImage imageWithData:imageData];
 <pre><code>NSBlockOperation *operation = self.operations[imageUrl];
  if (operation) return;//转身就走，毫不留情
 </code></pre><p>因此，无论下载成功或是失败，在图片下载的回调里都要将当前的下载操作从下载操作队列中移走：用来保证如果下载失败了，就可以重新开启对应的下载操作进行下载，逻辑上更加严谨。</p>
-<h2 id="4-最后的话"><a href="#4-最后的话" class="headerlink" title="#4. 最后的话"></a>#4. 最后的话</h2><p>异步+缓存这两个机制双剑合璧的话会对程序新能带来很大的改观。这应该app开发进阶的必经之路。</p>
+<h1 id="4-最后的话"><a href="#4-最后的话" class="headerlink" title="4.最后的话"></a>4.最后的话</h1><hr>
+<p>异步+缓存这两个机制双剑合璧的话会对程序新能带来很大的改观。这应该app开发进阶的必经之路。</p>
 <p>小码哥讲述的这套流程还算比较完整的了，更重要的还是学习其中的思想：</p>
 <blockquote>
 <ol>
