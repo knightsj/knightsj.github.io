@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-12T06:16:04.000Z</updated>
+  <updated>2017-01-11T08:23:00.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -14,1999 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>《Effective Objective-C》超级干货三部曲（三）：技巧篇</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/12/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%8A%80%E5%B7%A7%E7%AF%87/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（三）：技巧篇/</id>
-    <published>2017-01-12T01:44:05.000Z</published>
-    <updated>2017-01-12T06:16:04.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
-<p>《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。</p>
-<p>不知道笔者所谓的三部曲的童鞋们可以看一下这张图：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
-<p>前两篇传送门：<br><a href="http://www.jianshu.com/p/9c93c7ab734d" target="_blank" rel="external">《Effective Objective-C 》超级干货三部曲（一）：概念篇</a><br><a href="http://www.jianshu.com/p/0b895e39eca1" target="_blank" rel="external">《Effective Objective-C 》超级干货三部曲（二）：规范篇</a></p>
-<h1 id="第9条-以“类族模式“隐藏实现细节"><a href="#第9条-以“类族模式“隐藏实现细节" class="headerlink" title="第9条 以“类族模式“隐藏实现细节"></a>第9条 以“类族模式“隐藏实现细节</h1><hr>
-<p>在iOS开发中，我们也会使用“类族”(class cluster)这一设计模式，通过“抽象基类”来实例化不同的实体子类。</p>
-<p>举个🌰 ：</p>
-<pre><code class="objc">+ (UIButton *)buttonWithType:(UIButtonType)type;
-</code></pre>
-<blockquote>
-<p>在这里，我们只需要输入不同的按钮类型(UIButtonType)就可以得到不同的UIButton的子类。在OC框架中普遍使用这一设计模式。</p>
-</blockquote>
-<h4 id="为什么要这么做呢"><a href="#为什么要这么做呢" class="headerlink" title="为什么要这么做呢?"></a>为什么要这么做呢?</h4><p>笔者认为这么做的原因是为了“弱化”子类的具体类型，让开发者无需关心创建出来的子类具体属于哪个类。（这里觉得还有点什么，但是还没有想到，欢迎补充！）</p>
-<p>我们可以看一个具体的例子：<br>对于“员工”这个类，可以有各种不同的“子类型”：开发员工，设计员工和财政员工。这些“实体类”可以由“员工”这个抽象基类来获得：</p>
-<h4 id="1-抽象基类"><a href="#1-抽象基类" class="headerlink" title="1. 抽象基类"></a>1. 抽象基类</h4><pre><code class="objc">//EOCEmployee.h
-
-typedef NS_ENUM(NSUInteger, EOCEmployeeType) {
-    EOCEmployeeTypeDeveloper,
-    EOCEmployeeTypeDesigner,
-    EOCEmployeeTypeFinance,
-};
-
-@interface EOCEmployee : NSObject
-
-@property (copy) NSString *name;
-@property NSUInteger salary;
-
-
-// Helper for creating Employee objects
-+ (EOCEmployee*)employeeWithType:(EOCEmployeeType)type;
-
-// Make Employees do their respective day&#39;s work
-- (void)doADaysWork;
-
-@end
-</code></pre>
-<pre><code>//EOCEmployee.m
-
-@implementation EOCEmployee
-
-+ (EOCEmployee*)employeeWithType:(EOCEmployeeType)type {
-     switch (type) {
-         case EOCEmployeeTypeDeveloper:
-            return [EOCEmployeeDeveloper new];
-         break; 
-
-        case EOCEmployeeTypeDesigner:
-             return [EOCEmployeeDesigner new];
-         break;
-
-        case EOCEmployeeTypeFinance:
-             return [EOCEmployeeFinance new];
-         break;
-    }
-}
-
-- (void)doADaysWork {
- // 需要子类来实现
-}
-
-
-
-@end
-</code></pre><blockquote>
-<p>我们可以看到，将EOCEmployee作为抽象基类，这个抽象基类有一个初始化方法，通过这个方法，我们可以得到多种基于这个抽象基类的实体子类:</p>
-</blockquote>
-<h4 id="2-实体子类（concrete-subclass）"><a href="#2-实体子类（concrete-subclass）" class="headerlink" title="2. 实体子类（concrete subclass）:"></a>2. 实体子类（concrete subclass）:</h4><pre><code>
-@interface EOCEmployeeDeveloper : EOCEmployee
-@end
-
-@implementation EOCEmployeeDeveloper
-
-- (void)doADaysWork {
-    [self writeCode];
-}
-
-@end
-</code></pre><blockquote>
-<p><strong>注意：</strong><br>如果对象所属的类位于某个类族中，那么在查询类型信息时就要小心。因为类族中的实体子类并不与其基类属于同一个类。</p>
-</blockquote>
-<h1 id="第10条：在既有类中使用关联对象存放自定义数据"><a href="#第10条：在既有类中使用关联对象存放自定义数据" class="headerlink" title="第10条：在既有类中使用关联对象存放自定义数据"></a>第10条：在既有类中使用关联对象存放自定义数据</h1><hr>
-<p>我们可以通“关联对象”机制来把两个对象连接起来。这样我们就可以从某个对象中获取相应的关联对象的值。</p>
-<p>先看一下关联对象的语法：</p>
-<h4 id="1-为某个对象设置关联对象的值："><a href="#1-为某个对象设置关联对象的值：" class="headerlink" title="1. 为某个对象设置关联对象的值："></a>1. 为某个对象设置关联对象的值：</h4><p><code>void objc_setAssociatedObject(id object, void *key, id value, objc_AssociationPolicy policy)</code></p>
-<blockquote>
-<p>这里，第一个参数是主对象，第二个参数是键，第三个参数是关联的对象，第四个参数是存储策略:是枚举，定义了内存管理语义。</p>
-</blockquote>
-<h4 id="2-根据给定的键从某对象中获取相应的关联对象值："><a href="#2-根据给定的键从某对象中获取相应的关联对象值：" class="headerlink" title="2. 根据给定的键从某对象中获取相应的关联对象值："></a>2. 根据给定的键从某对象中获取相应的关联对象值：</h4><p><code>id objc_getAssociatedObject(id object, void *key)</code></p>
-<h4 id="3-移除指定对象的关联对象："><a href="#3-移除指定对象的关联对象：" class="headerlink" title="3. 移除指定对象的关联对象："></a>3. 移除指定对象的关联对象：</h4><p><code>void objc_removeAssociatedObjects(id object)</code></p>
-<p>举个例子：</p>
-<pre><code>#import &lt;objc/runtime.h&gt;
-
-static void *EOCMyAlertViewKey = &quot;EOCMyAlertViewKey&quot;;
-
-
-- (void)askUserAQuestion {
-
-         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@&quot;Question&quot;
-                                                         message:@&quot;What do you want to do?&quot;
-                                                        delegate:self
-                                               cancelButtonTitle:@&quot;Cancel&quot;
-                                               otherButtonTitles:@&quot;Continue&quot;, nil];
-
-         void (^block)(NSInteger) = ^(NSInteger buttonIndex){
-
-                     if (buttonIndex == 0) {
-                            [self doCancel];
-                     } else {
-                            [self doContinue];
-                    }
-         };
-
-         //将alert和block关联在了一起
-         objc_setAssociatedObject(alert,EOCMyAlertViewKey,block, OBJC_ASSOCIATION_COPY);
-         [alert show];
-}
-
-// UIAlertViewDelegate protocol method
-- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-     //alert取出关联的block
-      void (^block)(NSInteger) = objc_getAssociatedObject(alertView, EOCMyAlertViewKey)
-     //给block传入index值
-      block(buttonIndex);
-}
-</code></pre><h1 id="第13条：用“方法调配技术”调试“黑盒方法”"><a href="#第13条：用“方法调配技术”调试“黑盒方法”" class="headerlink" title="第13条：用“方法调配技术”调试“黑盒方法”"></a>第13条：用“方法调配技术”调试“黑盒方法”</h1><hr>
-<p>与选择子名称相对应的方法是可以在运行期被改变的，所以，我们可以不用通过继承类并覆写方法就能改变这个类本身的功能。</p>
-<p>那么如何在运行期改变选择子对应的方法呢？<br>答：通过操纵类的方法列表的IMP指针</p>
-<p>什么是类方法表？什么是IMP指针呢？</p>
-<blockquote>
-<p>类的方法列表会把<strong>选择子</strong>的名称映射到相关的方法实现上，使得“动态消息派发系统”能够据此找到应该调用的方法。这些方法均以函数指针的形式来表示，这些指针叫做IMP。例如NSString类的选择子列表：</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-c58274453996f2c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="类方法表的映射"></p>
-<p>有了这张表，OC的运行期系统提供的几个方法就能操纵它。开发者可以向其中增加选择子，也可以改变某选择子对应的方法实现，也可以交换两个选择子所映射到的指针以达到交换方法实现的目的。</p>
-<p>举个 ：交换<code>lowercaseString</code>和<code>uppercaseString</code>方法的实现：</p>
-<pre><code>Method originalMethod = class_getInstanceMethod([NSString class], @selector(lowercaseString));
-Method swappedMethod = class_getInstanceMethod([NSString class],@selector(uppercaseString));
-
-method_exchangeImplementations(originalMethod, swappedMethod);
-</code></pre><blockquote>
-<p>这样一来，类方法表的映射关系就变成了下图：</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-10ddc4e1634625b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="交换两个方法"></p>
-<blockquote>
-<p>这时，如果我们调用lowercaseString方法就会实际调用uppercaseString的方法，反之亦然。</p>
-</blockquote>
-<p><strong>然而！</strong><br>在实际应用中，只交换已经存在的两个方法是没有太大意义的。我们应该利用这个特性来给既有的方法添加新功能（听上去吊吊的）：</p>
-<p>它的实现原理是：先通过分类增加一个新方法，然后将这个新方法和要增加功能的旧方法替换（旧方法名 对应新方法的实现），这样一来，如果我们调用了旧方法，就会实现新方法了。</p>
-<p>不知道这么说是否抽象。还是举个 ：</p>
-<p><strong>需求：</strong>我们要在原有的lowercaseString方法中添加一条输出语句。</p>
-<h4 id="步骤一：我们先将新方法写在NSString的分类里："><a href="#步骤一：我们先将新方法写在NSString的分类里：" class="headerlink" title="步骤一：我们先将新方法写在NSString的分类里："></a>步骤一：我们先将新方法写在NSString的分类里：</h4><pre><code>@interface NSString (EOCMyAdditions)
-- (NSString*)eoc_myLowercaseString;
-@end
-
-
-@implementation NSString (EOCMyAdditions)
-
-- (NSString*)eoc_myLowercaseString {
-     NSString *lowercase = [self eoc_myLowercaseString];//eoc_myLowercaseString方法会在将来方法调换后执行lowercaseString的方法
-     NSLog(@&quot;%@ =&gt; %@&quot;, self, lowercase);//输出语句，便于调试
-     return lowercase;
-}
-@end
-</code></pre><h4 id="步骤二：交换两个方法的实现（操纵调换IMP指针）"><a href="#步骤二：交换两个方法的实现（操纵调换IMP指针）" class="headerlink" title="步骤二：交换两个方法的实现（操纵调换IMP指针）"></a>步骤二：交换两个方法的实现（操纵调换IMP指针）</h4><pre><code>Method originalMethod =
- class_getInstanceMethod([NSString class],
- @selector(lowercaseString));
-Method swappedMethod =
- class_getInstanceMethod([NSString class],
- @selector(eoc_myLowercaseString));
-
-method_exchangeImplementations(originalMethod, swappedMethod);
-</code></pre><p>这样一来，我们如果交换了<code>lowercaseString</code>和<code>eoc_myLowercaseString</code>的方法实现，那么在调用原来的<code>lowercaseString</code>方法后就可以输出新增的语句了。</p>
-<p><code>“NSString *string = @&quot;ThIs iS tHe StRiNg&quot;;
-NSString *lowercaseString = [string lowercaseString];
-// Output: ThIs iS tHe StRiNg =&gt; this is the string”</code></p>
-<h1 id="第16条：提供”全能初始化方法”"><a href="#第16条：提供”全能初始化方法”" class="headerlink" title="第16条：提供”全能初始化方法”"></a>第16条：提供”全能初始化方法”</h1><hr>
-<p>有时，由于要实现各种设计需求，一个类可以有多个创建实例的初始化方法。我们应该<strong>选定其中一个</strong>作为<strong>全能初始化方法</strong>，令其他初始化方法都来调用它。</p>
-<blockquote>
-<p><strong>注意</strong>：</p>
-<ul>
-<li>只有在这个全能初始化方法里面才能存储内部数据。这样一来，当底层数据存储机制改变时，只需修改此方法的代码就好，无需改动其他初始化方法。</li>
-<li>全能初始化方法是所有初始化方法里参数最多的一个，因为它使用了尽可能多的初始化所需要的参数，以便其他的方法来调用自己。</li>
-<li>在我们拥有了一个全能初始化方法后，最好还是要覆写init方法来设置默认值。</li>
-</ul>
-</blockquote>
-<pre><code>//全能初始化方法
-- (id)initWithWidth:(float)width andHeight:(float)height
-{
-     if ((self = [super init])) {
-        _width = width;
-        _height = height;
-    }
-    return self;
-}
-
-//init方法也调用了全能初始化方法
-- (id)init {
-     return [self initWithWidth:5.0f andHeight:10.0f];
-}
-</code></pre><p>现在，我们要创造一个squre类继承这上面这个ractangle类,它有自己的全能初始化方法：</p>
-<pre><code>- (id)initWithDimension: (float)dimension{
-    return [super initWithWidth:dimension andHeight:dimension];
-}
-</code></pre><h4 id="这里有问题！"><a href="#这里有问题！" class="headerlink" title="这里有问题！"></a>这里有问题！</h4><p>然而，因为square类是rectangle类的子类，那么它也可以使用<code>initWithWidth: andHeight:</code>方法，更可以使用<code>init</code>方法。那么这两种情况下，显然是无法确保初始化的图形是正方形。</p>
-<p>因此，我们需要在这里覆写square的父类rectangle的全能初始化方法：</p>
-<pre><code>- (id)initWithWidth:(float)width andHeight:(float)height
-{
-    float dimension = MAX(width, height);
-    return [self initWithDimension:dimension];
-}
-</code></pre><p>这样一来，当square用<code>initWithWidth: andHeight:</code>方法初始化时，就会得到一个正方形。</p>
-<p>并且，如果用<code>init</code>方法来初始化square的话，我们也可以得到一个默认的正方形。因为在rectangle类里覆写了init方法，而这个init方法又调用了<code>initWithWidth: andHeight:</code>方法，并且square类又覆写了<code>initWithWidth: andHeight:</code>方法，所以我们仍然可以得到一个正方形。</p>
-<p>而且，为了让square的init方法得到一个默认的正方形，我们也可以覆写它自己的初始化方法：</p>
-<pre><code>- (id)init{
-    return [self initWithDimension:5.0f];
-}
-</code></pre><p>我们做个总结：</p>
-<p>因为子类的全能初始化方法（initWithDimension:）和其父类的初始化方法并不同，所以我们需要在子类里覆写<code>initWithWidth: andHeight:</code>方法。</p>
-<h4 id="还差一点：initWithCoder-的初始化"><a href="#还差一点：initWithCoder-的初始化" class="headerlink" title="还差一点：initWithCoder:的初始化"></a>还差一点：initWithCoder:的初始化</h4><p>有时，需要定义两种全能初始化方法，因为对象有可能有两种完全不同的创建方式，例如<code>initWithCoder:</code>方法。</p>
-<p>我们仍然需要调用超类的初始化方法：</p>
-<p>在rectangle类：</p>
-<pre><code>// Initializer from NSCoding
-- (id)initWithCoder:(NSCoder*)decoder {
-
-     // Call through to super&#39;s designated initializer
-         if ((self = [super init])) {
-            _width = [decoder decodeFloatForKey:@&quot;width&quot;];
-            _height = [decoder decodeFloatForKey:@&quot;height&quot;];
-        }
-     return self;
-}
-</code></pre><p>在square类：</p>
-<pre><code>// Initializer from NSCoding
-- (id)initWithCoder:(NSCoder*)decoder {
-
- // Call through to super&#39;s designated initializer
-      if ((self = [super initWithCoder:decoder])) {
-     // EOCSquare&#39;s specific initializer
-    }
-     return self;
-}
-</code></pre><p>每个子类的全能初始化方法都应该调用其超类的对应方法，并逐层向上。在调用了超类的初始化方法后，再执行与本类相关的方法。</p>
-<h1 id="第17条：实现description方法"><a href="#第17条：实现description方法" class="headerlink" title="第17条：实现description方法"></a>第17条：实现description方法</h1><hr>
-<p>在打印我们自己定义的类的实例对象时，在控制台输出的结果往往是这样的：</p>
-<pre><code>object = &lt;EOCPerson: 0x7fd9a1600600&gt;
-</code></pre><blockquote>
-<p>这里只包含了类名和内存地址，它的信息显然是不具体的,远达不到调试的要求。</p>
-</blockquote>
-<p><strong>但是！</strong>如果在我们自己定义的类覆写description方法，我们就可以在打印这个类的实例时输出我们想要的信息。</p>
-<p>例如：</p>
-<pre><code>
-- (NSString*)description {
-     return [NSString stringWithFormat:@&quot;&lt;%@: %p, %@ %@&gt;&quot;, [self class], self, firstName, lastName];
-}
-</code></pre><p>在这里，显示了内存地址，还有该类的所有属性。</p>
-<p>而且，如果我们将这些属性值放在字典里打印，则更具有可读性：</p>
-<pre><code>- (NSString*)description {
-
-     return [NSString stringWithFormat:@&quot;&lt;%@: %p, %@&gt;&quot;,[self class],self,
-
-    @{    @&quot;title&quot;:_title,
-       @&quot;latitude&quot;:@(_latitude),
-      @&quot;longitude&quot;:@(_longitude)}
-    ];
-}
-</code></pre><p>输出结果：</p>
-<pre><code>location = &lt;EOCLocation: 0x7f98f2e01d20, {
-
-    latitude = &quot;51.506&quot;;
-   longitude = 0;
-       title = London;
-}&gt;
-</code></pre><blockquote>
-<p>我们可以看到，通过重写<code>description</code>方法可以让我们更加了解对象的情况，便于后期的调试，节省开发时间。</p>
-</blockquote>
-<h1 id="第28条-通过协议提供匿名对象"><a href="#第28条-通过协议提供匿名对象" class="headerlink" title="第28条:通过协议提供匿名对象"></a>第28条:通过协议提供匿名对象</h1><hr>
-<p>匿名对象（Annonymous object），可以理解为“没有名字的对象”。有时我们用协议来提供匿名对象，目的在于说明它仅仅表示“遵从某个协议的对象”，而不是“属于某个类的对象”。</p>
-<p>它的表示方法为：<code>id&lt;protocol&gt;</code>。<br>通过协议提供匿名对象的主要使用场景有两个：</p>
-<ul>
-<li>作为属性</li>
-<li>作为方法参数</li>
-</ul>
-<h4 id="1-匿名对象作为属性"><a href="#1-匿名对象作为属性" class="headerlink" title="1. 匿名对象作为属性"></a>1. 匿名对象作为属性</h4><p>在设定某个类为自己的代理属性时，可以不声明代理的类，而是用id<protocol>，因为<strong>成为</strong>代理的终点并不是<strong>某个类的实例</strong>，而是<strong>遵循了某个协议</strong>。</protocol></p>
-<p>举个 ：</p>
-<pre><code>@property (nonatomic, weak) id &lt;EOCDelegate&gt; delegate;
-</code></pre><p>在这里使用匿名对象的原因有两个：</p>
-<ol>
-<li>将来可能会有很多不同类的实例对象作为该类的代理。</li>
-<li>我们不想指明具体要使用哪个类来作为这个类的代理。</li>
-</ol>
-<p>也就是说，能作为该类的代理的条件只有一个：它遵从了 <eocdelegate>协议。</eocdelegate></p>
-<h4 id="2-匿名对象作为方法参数"><a href="#2-匿名对象作为方法参数" class="headerlink" title="2. 匿名对象作为方法参数"></a>2. 匿名对象作为方法参数</h4><p>有时，我们不会在意方法里某个参数的具体类型，而是遵循了某种协议，这个时候就可以使用匿名对象来作为方法参数。</p>
-<p>举个 ：</p>
-<pre><code>- (void)setObject:(id)object forKey:(id&lt;NSCopying&gt;)key;
-</code></pre><p>这个方法是NSDictionary的设值方法，它的参数只要遵从了<nscopying>协议，就可以作为参数传进去,作为NSDictionary的键。</nscopying></p>
-<h1 id="第32条：编写“异常安全代码”时留意内存管理问题"><a href="#第32条：编写“异常安全代码”时留意内存管理问题" class="headerlink" title="第32条：编写“异常安全代码”时留意内存管理问题"></a>第32条：编写“异常安全代码”时留意内存管理问题</h1><hr>
-<p>在发生异常时的内存管理需要仔细考虑内存管理的问题：</p>
-<blockquote>
-<p>在try块中，如果先保留了某个对象，然后在释放它之前又抛出了异常，那么除非在catch块中能处理此问题，否则对象所占内存就将泄漏。</p>
-</blockquote>
-<h4 id="在MRC环境下："><a href="#在MRC环境下：" class="headerlink" title="在MRC环境下："></a>在MRC环境下：</h4><pre><code>@try {
-     EOCSomeClass *object = [[EOCSomeClass alloc] init];
-      [object doSomethingThatMayThrow];
-      [object release];
-
-}
-
-
-@catch (...) {
-         NSLog(@&quot;Whoops, there was an error. Oh well...&quot;);
-}
-</code></pre><p>这里，我们用release方法释放了try中的对象，但是这样做仍然有问题：如果在<code>doSomthingThatMayThrow</code>方法中抛出了异常了呢？</p>
-<p>这样就无法执行<code>release</code>方法了。</p>
-<p>解决办法是使用@finnaly块，无论是否抛出异常，其中的代码都能运行：</p>
-<p>```EOCSomeClass *object;<br>@try {<br>    object = [[EOCSomeClass alloc] init];<br>    [object doSomethingThatMayThrow];<br>}</p>
-<p>@catch (…) {<br>     NSLog(@”Whoops, there was an error. Oh well…”);<br>}</p>
-<p>@finally {<br>    [object release];<br>}```</p>
-<p>####在ARC环境下呢？</p>
-<pre><code>@try {
-     EOCSomeClass *object = [[EOCSomeClass alloc] init];
-     [object doSomethingThatMayThrow];
-}
-
-
-
-@catch (...) {
- NSLog(@&quot;Whoops, there was an error. Oh well...&quot;);
-}
-</code></pre><p>这时，我们无法手动使用<code>release</code>方法了，解决办法是使用：-fobjc-arc-exceptions 标志来加入清理代码，不过会导致应用程序变大，而且会降低运行效率。</p>
-<h1 id="第33条：以弱引用避免保留环"><a href="#第33条：以弱引用避免保留环" class="headerlink" title="第33条：以弱引用避免保留环"></a>第33条：以弱引用避免保留环</h1><hr>
-<p>对象之间都用强指针引用对方的话会造成保留环。</p>
-<h4 id="两个对象的保留环："><a href="#两个对象的保留环：" class="headerlink" title="两个对象的保留环："></a>两个对象的保留环：</h4><p>两个对象都有一个对方的实例来作为自己的属性：</p>
-<pre><code>@interface EOCClassA : NSObject
-@property (nonatomic, strong) EOCClassB *other;
-@end
-
-
-@interface EOCClassB : NSObject
-@property (nonatomic, strong) EOCClassA *other;
-@end
-</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/859001-4e1aa0647dee51fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两个对象的保留环"></p>
-<p>两个对象都有指向对方的强指针，这样会导致这两个属性里的对象无法被释放掉。</p>
-<h4 id="多个对象的保留环："><a href="#多个对象的保留环：" class="headerlink" title="多个对象的保留环："></a>多个对象的保留环：</h4><p>如果保留环连接了多个对象，而这里其中一个对象被外界引用，那么当这个引用被移除后，整个保留环就泄漏了。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-d99033df1cf5e1ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多个对象的保留环：孤岛"></p>
-<p>解决方案是使用弱引用：</p>
-<pre><code>//EOCClassB.m
-//第一种弱引用：unsafe_unretained
-@property (nonatomic, unsafe_unretained) EOCClassA *other;
-
-
-//第二种弱引用：weak
-@property (nonatomic, weak) EOCClassA *other;
-</code></pre><p>这两种弱引用有什么区别呢？</p>
-<p>unsafe_unretained:当指向EOCClassA实例的引用移除后，unsafe_unretained属性仍然指向那个已经回收的实例，</p>
-<p>而weak指向nil：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-afc3b538527f93da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="unsafe_unretained 和 weak的区别"></p>
-<p>显然，用weak字段应该是更安全的，因为不再使用的对象按理说应该设置为nil,而不应该产生依赖。</p>
-<h1 id="第34条：以“自动释放池快”降低内存峰值"><a href="#第34条：以“自动释放池快”降低内存峰值" class="headerlink" title="第34条：以“自动释放池快”降低内存峰值"></a>第34条：以“自动释放池快”降低内存峰值</h1><hr>
-<p>释放对象的两种方式：</p>
-<ul>
-<li>调用release:保留计数递减</li>
-<li>调用autorelease将其加入自动释放池中。在将来清空自动释放池时，系统会向其中的对象发送release消息。</li>
-</ul>
-<p>内存峰值（high-memory waterline）是指应用程序在某个限定时段内的最大内存用量（highest memory footprint）。新增的自动释放池块可以减少这个峰值：</p>
-<p>不用自动释放池减少峰值：</p>
-<pre><code>
-for (int i = 0; i &lt; 100000; i++) {
-
-      [self doSomethingWithInt:i];
-
-}
-</code></pre><p>在这里，<code>doSomethingWithInt:</code>方法可能会创建临时对象。随着循环次数的增加，临时对象的数量也会飙升，而只有在整个for循环结束后，这些临时对象才会得意释放。</p>
-<p>这种情况是不理想的，尤其在我们无法控制循环长度的情况下，我们会不断占用内存并突然释放掉它们。</p>
-<p>因此，我们需要用自动释放池来降低这种突兀的变化：</p>
-<pre><code>
-NSArray *databaseRecords = /* ... */;
-NSMutableArray *people = [NSMutableArray new];
-for (NSDictionary *record in databaseRecords) {
-     @autoreleasepool {
-             EOCPerson *person = [[EOCPerson alloc] initWithRecord:record];
-            [people addObject:person];
-      }
-}
-</code></pre><blockquote>
-<p>这样一来，每次循环结束，我们都会将临时对象放在这个池里面，而不是线程的主池里面。</p>
-</blockquote>
-<h1 id="第35条：用“僵尸对象”调试内存管理问题"><a href="#第35条：用“僵尸对象”调试内存管理问题" class="headerlink" title="第35条：用“僵尸对象”调试内存管理问题"></a>第35条：用“僵尸对象”调试内存管理问题</h1><hr>
-<p>某个对象被回收后，再向它发送消息是不安全的，这并不一定会引起程序崩溃。</p>
-<p>如果程序没有崩溃，可能是因为：</p>
-<ul>
-<li>该内存的部分原数据没有被覆写。</li>
-<li>该内存恰好被另一个对象占据，而这个对象可以应答这个方法。</li>
-</ul>
-<p>如果被回收的对象占用的原内存被新的对象占据，那么收到消息的对象就不会是我们预想的那个对象。在这样的情况下，如果这个对象无法响应那个方法的话，程序依旧会崩溃。</p>
-<p>因此，我们希望可以通过一种方法捕捉到<strong>对象被释放后收到消息的情况</strong>。</p>
-<p>这种方法就是<strong>利用僵尸对象！</strong></p>
-<p>Cocoa提供了“僵尸对象”的功能。如果开启了这个功能，运行期系统会把所有已经回收的实例转化成特殊的“僵尸对象”（通过修改isa指针，令其指向特殊的僵尸类），而不会真正回收它们，而且它们所占据的核心内存将无法被重用，这样也就避免了覆写的情况。</p>
-<p>在僵尸对象收到消息后，会抛出异常，它会说明发送过来的消息，也会描述回收之前的那个对象。</p>
-<h1 id="第38条：为常用的块类型创建typedef"><a href="#第38条：为常用的块类型创建typedef" class="headerlink" title="第38条：为常用的块类型创建typedef"></a>第38条：为常用的块类型创建typedef</h1><hr>
-<p>如果我们需要重复创建某种块（相同参数，返回值）的变量，我们就可以通过typedef来给某一种块定义属于它自己的新类型</p>
-<p>例如：</p>
-<pre><code>int (^variableName)(BOOL flag, int value) =^(BOOL flag, int value){
-     // Implementation
-     return someInt;
-}
-</code></pre><p>这个块有一个bool参数和一个int参数，并返回int类型。我们可以给它定义类型：</p>
-<p><code>typedef int(^EOCSomeBlock)(BOOL flag, int value);</code></p>
-<p>再次定义的时候，就可以通过简单的赋值来实现：</p>
-<pre><code>EOCSomeBlock block = ^(BOOL flag, int value){
-     // Implementation
-};
-</code></pre><p>定义作为参数的块：</p>
-<pre><code>- (void)startWithCompletionHandler: (void(^)(NSData *data, NSError *error))completion;
-</code></pre><p>这里的块有一个NSData参数，一个NSError参数并没有返回值</p>
-<pre><code>typedef void(^EOCCompletionHandler)(NSData *data, NSError *error);
-- (void)startWithCompletionHandler:(EOCCompletionHandler)completion;”
-</code></pre><p>通过typedef定义块签名的好处是:如果要某种块增加参数，那么只修改定义签名的那行代码即可。</p>
-<h1 id="第39条：用handler块降低代码分散程度"><a href="#第39条：用handler块降低代码分散程度" class="headerlink" title="第39条：用handler块降低代码分散程度"></a>第39条：用handler块降低代码分散程度</h1><hr>
-<p>下载网络数据时，如果使用代理方法，会使得代码分布不紧凑，而且如果有多个下载任务的话，还要在回调的代理中判断当前请求的类型。但是如果使用block的话，就可以让网络下载的代码和回调处理的代码写在一起，这样就可以同时解决上面的两个问题：</p>
-<h4 id="用代理下载："><a href="#用代理下载：" class="headerlink" title="用代理下载："></a>用代理下载：</h4><pre><code>- (void)fetchFooData {
-
-     NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/foo.dat&quot;];
-    _fooFetcher = [[EOCNetworkFetcher alloc] initWithURL:url];
-    _fooFetcher.delegate = self;
-    [_fooFetcher start];
-
-}
-
-- (void)fetchBarData {
-
-     NSURL *url = [[NSURL alloc] initWithString: @&quot;http://www.example.com/bar.dat&quot;];
-    _barFetcher = [[EOCNetworkFetcher alloc] initWithURL:url];
-    _barFetcher.delegate = self;
-    [_barFetcher start];
-
-}
-
-- (void)networkFetcher:(EOCNetworkFetcher*)networkFetcher didFinishWithData:(NSData*)data
-{   //判断下载器类型
-     if (networkFetcher == _fooFetcher) {
-        _fetchedFooData = data;
-        _fooFetcher = nil;
-
-    } else if (networkFetcher == _barFetcher) {
-        _fetchedBarData = data;
-        _barFetcher = nil;
-    }
-}
-</code></pre><h4 id="用块下载："><a href="#用块下载：" class="headerlink" title="用块下载："></a>用块下载：</h4><pre><code>
-- (void)fetchFooData {
-
-     NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/foo.dat&quot;];
-     EOCNetworkFetcher *fetcher =
-     [[EOCNetworkFetcher alloc] initWithURL:url];
-     [fetcher startWithCompletionHandler:^(NSData *data){
-            _fetchedFooData = data;
-   }];
-
-}
-
-- (void)fetchBarData {
-
-     NSURL *url = [[NSURL alloc] initWithString: @&quot;http://www.example.com/bar.dat&quot;];
-     EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-    [fetcher startWithCompletionHandler:^(NSData *data){
-            _fetchedBarData = data;
-    }];
-
-}
-</code></pre><p>还可以将处理成功的代码放在一个块里，处理失败的代码放在另一个块中：</p>
-<pre><code>
-“#import &lt;Foundation/Foundation.h&gt;
-
-@class EOCNetworkFetcher;
-typedef void(^EOCNetworkFetcherCompletionHandler)(NSData *data);
-typedef void(^EOCNetworkFetcherErrorHandler)(NSError *error);
-
-
-@interface EOCNetworkFetcher : NSObject
-
-- (id)initWithURL:(NSURL*)url;
-- (void)startWithCompletionHandler: (EOCNetworkFetcherCompletionHandler)completion failureHandler: (EOCNetworkFetcherErrorHandler)failure;
-
-@end
-
-
-
-EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-[fetcher startWithCompletionHander:^(NSData *data){
-     // Handle success
-}
-
- failureHandler:^(NSError *error){
- // Handle failure
-}];
-</code></pre><blockquote>
-<p>这样写的好处是，我们可以将处理成功和失败的代码分开来写，看上去更加清晰。</p>
-</blockquote>
-<p>我们还可以将 成功和失败的代码都放在同一个块里：</p>
-<pre><code>
-“#import &lt;Foundation/Foundation.h&gt;
-
-
-@class EOCNetworkFetcher;
-typedef void(^EOCNetworkFetcherCompletionHandler)(NSData *data, NSError *error);
-
-@interface EOCNetworkFetcher : NSObject
-
-- (id)initWithURL:(NSURL*)url;
-- (void)startWithCompletionHandler:
-
-(EOCNetworkFetcherCompletionHandler)completion;
-
-@end
-
-
-
-EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-
-[fetcher startWithCompletionHander:
-
-^(NSData *data, NSError *error){
-
-if (error) {
-
-     // Handle failure
-
-} else {
-
-     // Handle success
-
-}
-}];
-</code></pre><blockquote>
-<p>这样做的好处是，如果及时下载失败或中断了，我们仍然可以取到当前所下载的data。而且，如果在需求上指出：下载成功后得到的数据很少，也视为失败，那么单一块的写法就很适用，因为它可以取得数据后（成功）再判断其是否是下载成功的。</p>
-</blockquote>
-<h1 id="第40条：用块引用其所属对象时不要出现保留环"><a href="#第40条：用块引用其所属对象时不要出现保留环" class="headerlink" title="第40条：用块引用其所属对象时不要出现保留环"></a>第40条：用块引用其所属对象时不要出现保留环</h1><hr>
-<p>如果块捕获的对象直接或间接地保留了块本身，那么就需要小心保留环问题:</p>
-<pre><code>@implementation EOCClass {
-
-     EOCNetworkFetcher *_networkFetcher;
-     NSData *_fetchedData;
-
-}
-
-
-- (void)downloadData {
-
-     NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/something.dat&quot;];
-    _networkFetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-
-    [_networkFetcher startWithCompletionHandler:^(NSData *data){
-
-             NSLog(@&quot;Request URL %@ finished&quot;, _networkFetcher.url);
-            _fetchedData = data;
-
-    }];
-
-}
-</code></pre><p>在这里出现了保留环：块要设置_fetchedData变量，就需要捕获self变量。而self（EOCClass实例）通过实例变量保留了获取器_networkFetcher，而_networkFetcher又保留了块。</p>
-<p>解决方案是：在块中取得了data后，将_networkFetcher设为nil。</p>
-<pre><code>
-- (void)downloadData {
-
-     NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/something.dat&quot;];
-    _networkFetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-    [_networkFetcher startWithCompletionHandler:^(NSData *data){
-
-             NSLog(@&quot;Request URL %@ finished&quot;, _networkFetcher.url);
-            _fetchedData = data;
-            _networkFetcher = nil;
-
-    }];
-
-}
-</code></pre><h1 id="第41条：多用派发队列，少用同步锁"><a href="#第41条：多用派发队列，少用同步锁" class="headerlink" title="第41条：多用派发队列，少用同步锁"></a>第41条：多用派发队列，少用同步锁</h1><hr>
-<p>多个线程执行同一份代码时，很可能会造成数据不同步。作者建议使用GCD来为代码加锁的方式解决这个问题。</p>
-<h4 id="方案一：使用串行同步队列来将读写操作都安排到同一个队列里："><a href="#方案一：使用串行同步队列来将读写操作都安排到同一个队列里：" class="headerlink" title="方案一：使用串行同步队列来将读写操作都安排到同一个队列里："></a>方案一：使用串行同步队列来将读写操作都安排到同一个队列里：</h4><pre><code>_syncQueue = dispatch_queue_create(&quot;com.effectiveobjectivec.syncQueue&quot;, NULL);
-
-//读取字符串
-- (NSString*)someString {
-
-         __block NSString *localSomeString;
-         dispatch_sync(_syncQueue, ^{
-            localSomeString = _someString;
-        });
-         return localSomeString;
-
-}
-
-//设置字符串
-- (void)setSomeString:(NSString*)someString {
-
-     dispatch_sync(_syncQueue, ^{
-        _someString = someString;
-    });
-}
-</code></pre><p>这样一来，读写操作都在串行队列进行，就不容易出错。</p>
-<p>但是，还有一种方法可以让性能更高：</p>
-<h4 id="方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"><a href="#方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。" class="headerlink" title="方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"></a>方案二：将<strong>写操作</strong>放入栅栏快中，让他们单独执行；将<strong>读取操作</strong>并发执行。</h4><pre><code>_syncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-
-//读取字符串
-- (NSString*)someString {
-
-     __block NSString *localSomeString;
-     dispatch_sync(_syncQueue, ^{
-        localSomeString = _someString;
-    });
-     return localSomeString;
-}
-</code></pre><pre><code>//设置字符串
-- (void)setSomeString:(NSString*)someString {
-
-     dispatch_barrier_async(_syncQueue, ^{
-        _someString = someString;
-    });
-
-}
-</code></pre><blockquote>
-<p>显然，数据的正确性主要取决于写入操作，那么只要保证写入时，线程是安全的，那么即便读取操作是并发的，也可以保证数据是同步的。</p>
-<p>这里的<code>dispatch_barrier_async</code>方法使得操作放在了同步队列里“有序进行”，保证了写入操作的任务是在串行队列里。</p>
-</blockquote>
-<h1 id="第42条：多用GCD，少用performSelector系列方法"><a href="#第42条：多用GCD，少用performSelector系列方法" class="headerlink" title="第42条：多用GCD，少用performSelector系列方法"></a>第42条：多用GCD，少用performSelector系列方法</h1><hr>
-<p>在iOS开发中，有时会使用performSelector来执行某个方法，但是performSelector系列的方法能处理的选择子很局限：</p>
-<ul>
-<li>它无法处理带有多个参数的选择子。</li>
-<li>返回值只能是void或者对象类型。</li>
-</ul>
-<p>但是如果将方法放在块中，通过GCD来操作就能很好地解决这些问题。尤其是我们如果想要让一个任务在另一个线程上执行，最好应该将任务放到块里，交给GCD来实现，而不是通过performSelector方法。</p>
-<p>举几个 来比较这两种方案：</p>
-<h4 id="1-延后执行某个任务的方法："><a href="#1-延后执行某个任务的方法：" class="headerlink" title="1. 延后执行某个任务的方法："></a>1. 延后执行某个任务的方法：</h4><pre><code>
-// 使用 performSelector:withObject:afterDelay:
-[self performSelector:@selector(doSomething) withObject:nil afterDelay:5.0];
-
-
-// 使用 dispatch_after
-dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC));
-dispatch_after(time, dispatch_get_main_queue(), ^(void){
-    [self doSomething];
-});
-</code></pre><h4 id="2-将任务放在主线程执行："><a href="#2-将任务放在主线程执行：" class="headerlink" title="2. 将任务放在主线程执行："></a>2. 将任务放在主线程执行：</h4><pre><code>// 使用 performSelectorOnMainThread:withObject:waitUntilDone:
-[self performSelectorOnMainThread:@selector(doSomething) withObject:nil waitUntilDone:NO];
-
-
-// 使用 dispatch_async
-// (or if waitUntilDone is YES, then dispatch_sync)
-dispatch_async(dispatch_get_main_queue(), ^{
-        [self doSomething];
-});
-</code></pre><blockquote>
-<p>注意：<br>如果waitUntilDone的参数是Yes，那么就对应GCD的dispatch_sync方法。<br>我们可以看到，使用GCD的方式可以将线程操作代码和方法调用代码写在同一处，一目了然；而且完全不受调用方法的选择子和方法参数个数的限制。</p>
-</blockquote>
-<h1 id="第43条：掌握GCD及操作队列的使用时机"><a href="#第43条：掌握GCD及操作队列的使用时机" class="headerlink" title="第43条：掌握GCD及操作队列的使用时机"></a>第43条：掌握GCD及操作队列的使用时机</h1><hr>
-<p>除了GCD，操作队列（NSOperationQueue）也是解决多线程任务管理问题的一个方案。对于不同的环境，我们要采取不同的策略来解决问题：有时候使用GCD好些，有时则是使用操作队列更加合理。</p>
-<p>使用NSOperation和NSOperationQueue的优点：</p>
-<ol>
-<li>可以取消操作：在运行任务前，可以在NSOperation对象调用cancel方法，标明此任务不需要执行。但是GCD队列是无法取消的，因为它遵循“安排好之后就不管了（fire and forget）”的原则。</li>
-<li>可以指定操作间的依赖关系：例如从服务器下载并处理文件的动作可以用操作来表示。而在处理其他文件之前必须先下载“清单文件”。而后续的下载工作，都要依赖于先下载的清单文件这一操作。</li>
-<li>监控NSOperation对象的属性：可以通过KVO来监听NSOperation的属性：可以通过isCancelled属性来判断任务是否已取消；通过isFinished属性来判断任务是否已经完成。</li>
-<li>可以指定操作的优先级：操作的优先级表示此操作与队列中其他操作之间的优先关系，我们可以指定它。</li>
-</ol>
-<h1 id="第44条：通过Dispath-Group机制，根据系统资源状况来执行任务"><a href="#第44条：通过Dispath-Group机制，根据系统资源状况来执行任务" class="headerlink" title="第44条：通过Dispath Group机制，根据系统资源状况来执行任务"></a>第44条：通过Dispath Group机制，根据系统资源状况来执行任务</h1><hr>
-<p>有时需要<strong>等待</strong>多个并行任务结束的那一刻执行某个任务，这个时候就可以使用dispath group函数来实现这个需求：</p>
-<p>通过dispath group函数，可以把并发执行的多个任务合为一组，于是调用者就可以知道这些任务何时才能全部执行完毕。</p>
-<pre><code>
-//一个优先级低的并发队列
-dispatch_queue_t lowPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-
-//一个优先级高的并发队列
-dispatch_queue_t highPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-
-//创建dispatch_group
-dispatch_group_t dispatchGroup = dispatch_group_create();
-
-//将优先级低的队列放入dispatch_group
-for (id object in lowPriorityObjects) {
- dispatch_group_async(dispatchGroup,lowPriorityQueue,^{ [object performTask]; });
-}
-
-//将优先级高的队列放入dispatch_group
-for (id object in highPriorityObjects) {
- dispatch_group_async(dispatchGroup,highPriorityQueue,^{ [object performTask]; });
-}
-
-//dispatch_group里的任务都结束后调用块中的代码
-dispatch_queue_t notifyQueue = dispatch_get_main_queue();
-dispatch_group_notify(dispatchGroup,notifyQueue,^{
-     // Continue processing after completing tasks
-});
-</code></pre><h1 id="第45条：使用dispatch-once来执行只需运行一次的线程安全代码"><a href="#第45条：使用dispatch-once来执行只需运行一次的线程安全代码" class="headerlink" title="第45条：使用dispatch_once来执行只需运行一次的线程安全代码"></a>第45条：使用dispatch_once来执行只需运行一次的线程安全代码</h1><hr>
-<p>有时我们可能只需要将某段代码执行一次，这时可以通过dispatch_once函数来解决。</p>
-<p>dispatch_once函数比较重要的使用例子是单例模式：<br>我们在创建单例模式的实例时，可以使用dispatch_once函数来令初始化代码只执行一次，并且内部是线程安全的。</p>
-<p>而且，对于执行一次的block来说，每次调用函数时传入的标记都必须完全相同，通常标记变量声明在static或global作用域里。</p>
-<pre><code>+ (id)sharedInstance {
-
-     static EOCClass *sharedInstance = nil;
-     static dispatch_once_t onceToken;
-     dispatch_once(&amp;onceToken, ^{
-﻿            sharedInstance = [[self alloc] init];
-    });
-     return sharedInstance;
-}
-</code></pre><blockquote>
-<p>我们可以这么理解：在dispatch_once块中的代码在程序启动到终止的过程里，只要运行了一次后，就给自己加上了注释符号，不再存在了。</p>
-</blockquote>
-<h1 id="第49条：对自定义其内存管理语义的collection使用无缝桥接"><a href="#第49条：对自定义其内存管理语义的collection使用无缝桥接" class="headerlink" title="第49条：对自定义其内存管理语义的collection使用无缝桥接"></a>第49条：对自定义其内存管理语义的collection使用无缝桥接</h1><hr>
-<p>通过无缝桥接技术，可以再Foundation框架中的OC对象和CoreFoundation框架中的C语言数据结构之间来回转换。</p>
-<p>创建CoreFoundation中的collection时，可以指定如何处理其中的元素。然后利用无缝桥接技术，可以将其转换为OCcollection。</p>
-<p>简单的无缝桥接演示：</p>
-<pre><code>NSArray *anNSArray = @[@1, @2, @3, @4, @5];
-CFArrayRef aCFArray = (__bridge CFArrayRef)anNSArray;
-NSLog(@&quot;Size of array = %li&quot;, CFArrayGetCount(aCFArray));
-</code></pre><p>这里，<code>__bridge</code>表示ARC仍然具备这个OC对象的所有权。<code>CFArrayGetCount</code>用来获取数组的长高度。</p>
-<p>为什么要使用无缝桥接技术呢？因为有些OC对象的特性是其对应的CF数据结构不具备的，反之亦然。因此我们需要通过无缝桥接技术来让这两者进行功能上的“互补”。</p>
-<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
-<p>终于总结完了，还是有个别知识点理解得不是很透彻，需要反复阅读和理解消化。希望各位小伙伴多多提出宝贵意见，交流学习~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《Effective Objective-C》超级干货三部曲（二）：规范篇</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/12/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%A7%84%E8%8C%83%E7%AF%87/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（二）：规范篇/</id>
-    <published>2017-01-12T01:35:29.000Z</published>
-    <updated>2017-01-12T01:57:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
-<p>继上一篇<a href="http://www.jianshu.com/p/9c93c7ab734d" target="_blank" rel="external">《Effective Objective-C 》超级干货三部曲（一）：概念篇</a>之后，本篇即是三部曲的第二篇：规范篇。<br>没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：</p>
-<ul>
-<li>概念类：讲解了一些概念性知识。</li>
-<li>规范类：讲解了一些为了避免一些问题或者为后续开发提供便利所需要遵循的规范性知识。</li>
-<li>技巧类：讲解了一些为了解决某些特定问题而需要用到的技巧性知识。</li>
-</ul>
-<p>然后用思维导图整理了一下：<br><img src="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
-<p>作为三部曲的第二篇，本篇总结抽取了《Effective Objective-C 》这本书中讲解规范性知识的部分：这些知识点都是为了避免在开发过程中出现问题或给开发提供便利的规范性知识点。掌握这些知识有助于形成科学地写OC代码的习惯，使得代码更加容易维护和扩展，学习这类知识是iOS初学者进阶的必经之路。</p>
-<p>好吧，不费话了，开始了！</p>
-<h1 id="第2条：-在类的头文件中尽量少引用其他头文件"><a href="#第2条：-在类的头文件中尽量少引用其他头文件" class="headerlink" title="第2条： 在类的头文件中尽量少引用其他头文件"></a>第2条： 在类的头文件中尽量少引用其他头文件</h1><hr>
-<p>有时，类A需要将类B的实例变量作为它公共API的属性。这个时候，我们不应该引入类B的头文件，而应该使用向前声明（forward declaring）使用class关键字，并且在A的实现文件引用B的头文件。</p>
-<pre><code>// EOCPerson.h
-#import &lt;Foundation/Foundation.h&gt;
-@class EOCEmployer;
-
-@interface EOCPerson : NSObject
-@property (nonatomic, copy) NSString *firstName;
-@property (nonatomic, copy) NSString *lastName;
-@property (nonatomic, strong) EOCEmployer *employer;//将EOCEmployer作为属性
-
-@end
-
-// EOCPerson.m
-#import &quot;EOCEmployer.h&quot;
-</code></pre><p>这样做有什么优点呢：</p>
-<blockquote>
-<ul>
-<li>不在A的头文件中引入B的头文件，就不会一并引入B的全部内容，这样就减少了编译时间。</li>
-<li>可以避免循环引用：因为如果两个类在自己的头文件中都引入了对方的头文件，那么就会导致其中一个类无法被正确编译。</li>
-</ul>
-</blockquote>
-<p>但是个别的时候，必须在头文件中引入其他类的头文件:</p>
-<blockquote>
-<p>主要有两种情况：</p>
-<ol>
-<li>该类继承于某个类，则应该引入父类的头文件。</li>
-<li>该类遵从某个协议，则应该引入该协议的头文件。而且最好将协议单独放在一个头文件中。</li>
-</ol>
-</blockquote>
-<h1 id="第3条：多用字面量语法，少用与之等价的方法"><a href="#第3条：多用字面量语法，少用与之等价的方法" class="headerlink" title="第3条：多用字面量语法，少用与之等价的方法"></a>第3条：多用字面量语法，少用与之等价的方法</h1><hr>
-<h2 id="1-声明时的字面量语法："><a href="#1-声明时的字面量语法：" class="headerlink" title="1. 声明时的字面量语法："></a>1. 声明时的字面量语法：</h2><p>在声明NSNumber，NSArray，NSDictionary时，应该尽量使用简洁字面量语法。</p>
-<pre><code>NSNumber *intNumber = @1;
-NSNumber *floatNumber = @2.5f;
-</code></pre><pre><code>NSArray *animals =[NSArray arrayWithObjects:@&quot;cat&quot;, @&quot;dog&quot;,@&quot;mouse&quot;, @&quot;badger&quot;, nil];
-Dictionary *dict = @{@&quot;animal&quot;:@&quot;tiger&quot;,@&quot;phone&quot;:@&quot;iPhone 6&quot;};
-</code></pre><h2 id="2-集合类取下标的字面量语法："><a href="#2-集合类取下标的字面量语法：" class="headerlink" title="2. 集合类取下标的字面量语法："></a>2. 集合类取下标的字面量语法：</h2><p>NSArray，NSDictionary，NSMutableArray，NSMutableDictionary 的取下标操作也应该尽量使用字面量语法。</p>
-<pre><code>NSString *cat = animals[0];
-NSString *iphone = dict[@&quot;phone&quot;];
-</code></pre><blockquote>
-<p>使用字面量语法的优点：</p>
-<ol>
-<li>代码看起来更加简洁。</li>
-<li>如果存在nil值，则会立即抛出异常。如果在不用字面量语法定义数组的情况下，如果数组内部存在nil，则系统会将其设为数组最后一个元素并终止。所以当这个nil不是最后一个元素的话，就会出现难以排查的错误。</li>
-</ol>
-<p><strong>注意</strong>:<br>字面量语法创建出来的字符串，数组，字典对象都是不可变的。</p>
-</blockquote>
-<h1 id="第4条：多用类型常量，少用-define预处理命令"><a href="#第4条：多用类型常量，少用-define预处理命令" class="headerlink" title="第4条：多用类型常量，少用#define预处理命令"></a>第4条：多用类型常量，少用#define预处理命令</h1><hr>
-<p>在OC中，定义常量通常使用预处理命令，但是并不建议使用它，而是使用类型常量的方法。<br>首先比较一下这两种方法的区别：</p>
-<ul>
-<li>预处理命令：简单的文本替换，不包括类型信息，并且可被任意修改。</li>
-<li>类型常量：包括类型信息，并且可以设置其使用范围，而且不可被修改。</li>
-</ul>
-<p>我们可以看出来，使用预处理虽然能达到替换文本的目的，但是本身还是有局限性的：不具备类型 + 可以被任意修改，总之给人一种不安全的感觉。</p>
-<p>知道了它们的长短处，我们再来简单看一下它们的具体使用方法：</p>
-<h4 id="预处理命令："><a href="#预处理命令：" class="headerlink" title="预处理命令："></a>预处理命令：</h4><p><code>#define W_LABEL (W_SCREEN - 2*GAP)</code></p>
-<blockquote>
-<p>这里，(W_SCREEN - 2*GAP)替换了W_LABEL，它不具备W_LABEL的类型信息。而且要注意一下：如果替换式中存在运算符号，以笔者的经验最好用括号括起来，不然容易出现错误（有体会）。</p>
-</blockquote>
-<h4 id="类型常量："><a href="#类型常量：" class="headerlink" title="类型常量："></a>类型常量：</h4><p><code>static const NSTimeIntervalDuration = 0.3;</code></p>
-<blockquote>
-<p>这里:<br>const 将其设置为常量，不可更改。<br>static意味着该变量仅仅在定义此变量的编译单元中可见。如果不声明static,编译器会为它创建一个外部符号（external symbol）。我们来看一下对外公开的常量的声明方法：</p>
-</blockquote>
-<h4 id="对外公开某个常量："><a href="#对外公开某个常量：" class="headerlink" title="对外公开某个常量："></a>对外公开某个常量：</h4><p>如果我们需要发送通知，那么就需要在不同的地方拿到通知的“频道”字符串，那么显然这个字符串是不能被轻易更改，而且可以在不同的地方获取。这个时候就需要定义一个外界可见的字符串常量。</p>
-<pre><code>//header file
-extern NSString *const NotificationString;
-
-//implementation file
-NSString *const  NotificationString = @&quot;Finish Download&quot;;
-</code></pre><blockquote>
-<p>这里NSString *const NotificationString是指针常量。<br>extern关键字告诉编译器，在全局符号表中将会有一个名叫NotificationString的符号。</p>
-</blockquote>
-<p>我们通常在头文件声明常量，在其实现文件里定义该常量。由实现文件生成目标文件时，编译器会在“数据段”为字符串分配存储空间。</p>
-<p>最后注意一下公开和非公开的常量的命名规范：</p>
-<blockquote>
-<p>公开的常量：常量的名字最好用与之相关的类名做前缀。<br>非公开的常量：局限于某个编译单元（tanslation unit，实现文件 implementation file）内，在签名加上字母k。</p>
-</blockquote>
-<h1 id="第5条：用枚举表示状态，选项，状态码"><a href="#第5条：用枚举表示状态，选项，状态码" class="headerlink" title="第5条：用枚举表示状态，选项，状态码"></a>第5条：用枚举表示状态，选项，状态码</h1><hr>
-<p>我们经常需要给类定义几个状态，这些状态码可以用枚举来管理。下面是关于网络连接状态的状态码枚举：</p>
-<pre><code>typedef NS_ENUM(NSUInteger, EOCConnectionState) {
-  EOCConnectionStateDisconnected,
-  EOCConnectionStateConnecting,
-  EOCConnectionStateConnected,
-};
-</code></pre><p>需要注意的一点是：<br>在枚举类型的switch语句中不要实现default分支。它的好处是，当我们给枚举增加成员时，编译器就会提示开发者：switch语句并未处理所有的枚举。对此，笔者有个教训，又一次在switch语句中将“默认分支”设置为枚举中的第一项，自以为这样写可以让程序更健壮，结果后来导致了严重的崩溃。</p>
-<h1 id="第7条：-在对象内部尽量直接访问实例变量"><a href="#第7条：-在对象内部尽量直接访问实例变量" class="headerlink" title="第7条： 在对象内部尽量直接访问实例变量"></a>第7条： 在对象内部尽量直接访问实例变量</h1><hr>
-<p>关于实例变量的访问，可以直接访问，也可以通过属性的方式(点语法)来访问。书中作者建议在读取实例变量时采用直接访问的形式，而在设置实例变量的时候通过属性来做。</p>
-<h4 id="直接访问属性的特点："><a href="#直接访问属性的特点：" class="headerlink" title="直接访问属性的特点："></a>直接访问属性的特点：</h4><ul>
-<li>绕过set，get语义，速度快；</li>
-</ul>
-<h4 id="通过属性访问属性的特点："><a href="#通过属性访问属性的特点：" class="headerlink" title="通过属性访问属性的特点："></a>通过属性访问属性的特点：</h4><ul>
-<li>不会绕过属性定义的内存管理语义</li>
-<li>有助于打断点排查错误</li>
-<li>可以触发KVO</li>
-</ul>
-<p>因此，有个关于折中的方案：</p>
-<blockquote>
-<p>设置属性：通过属性<br>读取属性：直接访问</p>
-</blockquote>
-<p>不过有两个特例：</p>
-<ol>
-<li>初始化方法和dealloc方法中，需要直接访问实例变量来进行设置属性操作。因为如果在这里没有绕过set方法，就有可能触发其他不必要的操作。</li>
-<li>惰性初始化（lazy initialization）的属性，必须通过属性来读取数据。因为惰性初始化是通过重写get方法来初始化实例变量的，如果不通过属性来读取该实例变量，那么这个实例变量就永远不会被初始化。</li>
-</ol>
-<h1 id="第15条：用前缀-避免命名空间冲突"><a href="#第15条：用前缀-避免命名空间冲突" class="headerlink" title="第15条：用前缀 避免命名空间冲突"></a>第15条：用前缀 避免命名空间冲突</h1><hr>
-<p>Apple宣称其保留使用所有”两字母前缀”的权利，所以我们选用的前缀应该是三个字母的。<br>而且，如果自己开发的程序使用到了第三方库，也应该加上前缀。</p>
-<h1 id="第18条：尽量使用不可变对象"><a href="#第18条：尽量使用不可变对象" class="headerlink" title="第18条：尽量使用不可变对象"></a>第18条：尽量使用不可变对象</h1><hr>
-<p>书中作者建议尽量把对外公布出来的属性设置为只读，在实现文件内部设为读写。具体做法是：</p>
-<p>在头文件中，设置对象属性为<code>readonly</code>，在实现文件中设置为<code>readwrite</code>。这样一来，在外部就只能读取该数据，而不能修改它，使得这个类的实例所持有的数据更加安全。</p>
-<p>而且，对于集合类的对象，更应该仔细考虑是否可以将其设为可变的。</p>
-<p>如果在公开部分只能设置其为只读属性，那么就在非公开部分存储一个可变型。这样一来，当在外部获取这个属性时，获取的只是内部可变型的一个不可变版本,例如：</p>
-<p>在公共API中：</p>
-<pre><code>@interface EOCPerson : NSObject
-
-@property (nonatomic, copy, readonly) NSString *firstName;
-@property (nonatomic, copy, readonly) NSString *lastName;
-@property (nonatomic, strong, readonly) NSSet *friends //向外公开的不可变集合
-
-- (id)initWithFirstName:(NSString*)firstName andLastName:(NSString*)lastName;
-- (void)addFriend:(EOCPerson*)person;
-- (void)removeFriend:(EOCPerson*)person;
-
-@end
-</code></pre><blockquote>
-<p>在这里，我们将friends属性设置为不可变的set。然后，提供了来增加和删除这个set里的元素的公共接口。</p>
-</blockquote>
-<p>在实现文件里：</p>
-<pre><code>@interface EOCPerson ()
-
-@property (nonatomic, copy, readwrite) NSString *firstName;
-@property (nonatomic, copy, readwrite) NSString *lastName;
-
-@end
-
-@implementation EOCPerson {
-     NSMutableSet *_internalFriends;  //实现文件里的可变集合
-}
-
-- (NSSet*)friends {
-     return [_internalFriends copy]; //get方法返回的永远是可变set的不可变型
-}
-
-- (void)addFriend:(EOCPerson*)person {
-    [_internalFriends addObject:person]; //在外部增加集合元素的操作
-    //do something when add element
-}
-
-- (void)removeFriend:(EOCPerson*)person {
-    [_internalFriends removeObject:person]; //在外部移除元素的操作
-    //do something when remove element
-}
-
-- (id)initWithFirstName:(NSString*)firstName andLastName:(NSString*)lastName {
-
-     if ((self = [super init])) {
-        _firstName = firstName;
-        _lastName = lastName;
-        _internalFriends = [NSMutableSet new];
-    }
- return self;
-}
-</code></pre><p>我们可以看到，在实现文件里，保存一个可变set来记录外部的增删操作。</p>
-<p>这里最重要的代码是：</p>
-<pre><code>- (NSSet*)friends {
- return [_internalFriends copy];
-}
-</code></pre><blockquote>
-<p>这个是friends属性的获取方法：它将当前保存的可变set复制了一不可变的set并返回。因此，外部读取到的set都将是不可变的版本。</p>
-</blockquote>
-<h4 id="等一下，有个疑问：在公共接口设置不可变set-和-将增删的代码放在公共接口中是否矛盾的？"><a href="#等一下，有个疑问：在公共接口设置不可变set-和-将增删的代码放在公共接口中是否矛盾的？" class="headerlink" title="等一下，有个疑问：在公共接口设置不可变set 和 将增删的代码放在公共接口中是否矛盾的？"></a>等一下，有个疑问：在公共接口设置不可变set 和 将增删的代码放在公共接口中是否矛盾的？</h4><h4 id="答案：并不矛盾"><a href="#答案：并不矛盾" class="headerlink" title="答案：并不矛盾!"></a>答案：<strong>并不矛盾!</strong></h4><p>因为如果将friends属性设置为可变的，那么外部就可以随便更改set集合里的数据，这里的更改，仅仅是底层数据的更改，并不伴随其他任何操作。<br>然而有时，我们需要在更改set数据的同时<strong>要执行隐秘在实现文件里的其他工作</strong>，那么如果在外部随意更改这个属性的话，显然是达不到这种需求的。</p>
-<p>因此，我们需要提供给外界<strong>我们定制的</strong>增删的方法，并不让外部”自行“增删。</p>
-<h1 id="第19条：使用清晰而协调的命名方式"><a href="#第19条：使用清晰而协调的命名方式" class="headerlink" title="第19条：使用清晰而协调的命名方式"></a>第19条：使用清晰而协调的命名方式</h1><hr>
-<p>在给OC的方法取名字的时候要充分利用OC方法的命名优势，取一个<strong>语义清晰</strong>的方法名！什么叫语义清晰呢?就是说读起来像是一句话一样。</p>
-<p>我们看一个例子：</p>
-<p>先看名字取得不好的：</p>
-<pre><code>//方法定义
-- (id)initWithSize:(float)width :(float)height;
-
-//方法调用
-EOCRectangle *aRectangle =[[EOCRectangle alloc] initWithSize:5.0f :10.0f];
-</code></pre><blockquote>
-<p>这里定义了Rectangle的初始化方法。虽然直观上可以知道这个方法通过传入的两个参数来组成矩形的size，但是我们并不知道哪个是矩形的宽，哪个是矩形的高。<br>来看一下正确的🌰 ：</p>
-</blockquote>
-<pre><code>//方法定义
-- (id)initWithWidth:(float)width andHeight:(float)height;
-
-//方法调用
-EOCRectangle *aRectangle =[[EOCRectangle alloc] initWithWidth:5.0f andHeight:10.0f];
-</code></pre><blockquote>
-<p>这个方法名就很好的诠释了该方法的意图：这个类的初始化是需要宽度和高度的。而且，哪个参数是高度，哪个参数是宽度，看得人一清二楚。永远要记得：<strong>代码是给人看的</strong>。</p>
-</blockquote>
-<p>笔者自己总结的方法命名规则：</p>
-<blockquote>
-<p>每个冒号左边的方法部分最好与右边的参数名一致。</p>
-</blockquote>
-<p>对于返回值是布尔值的方法，我们也要注意命名的规范：</p>
-<ul>
-<li>获取”是否“的布尔值，应该增加“is”前缀：</li>
-</ul>
-<pre><code>- hasPrefix:
-</code></pre><p>获取“是否有”的布尔值，应该增加“has”前缀：</p>
-<pre><code>- isEqualToString:
-</code></pre><h1 id="第20条：为私有方法名加前缀"><a href="#第20条：为私有方法名加前缀" class="headerlink" title="第20条：为私有方法名加前缀"></a>第20条：为私有方法名加前缀</h1><hr>
-<p>建议在实现文件里将非公开的方法都加上前缀，便于调试，而且这样一来也很容易区分哪些是公共方法，哪些是私有方法。因为往往公共方法是不便于任意修改的。</p>
-<p>在这里，作者举了个例子：</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-@interface EOCObject : NSObject
-- (void)publicMethod;
-@end
-
-
-@implementation EOCObject
-
-- (void)publicMethod {
- /* ... */
-}
-
-- (void)p_privateMethod {
- /* ... */
-}
-
-@end
-</code></pre><blockquote>
-<p><strong>注意</strong>：<br>不要用下划线来区分私有方法和公共方法，因为会和苹果公司的API重复。</p>
-</blockquote>
-<h1 id="第23条：通过委托与数据源协议进行对象间通信"><a href="#第23条：通过委托与数据源协议进行对象间通信" class="headerlink" title="第23条：通过委托与数据源协议进行对象间通信"></a>第23条：通过委托与数据源协议进行对象间通信</h1><hr>
-<p>如果给委托对象发送消息，那么必须提前判断该委托对象是否实现了该消息：</p>
-<pre><code>NSData *data = /* data obtained from network */;
-
-if ([_delegate respondsToSelector: @selector(networkFetcher:didReceiveData:)])
-{
-        [_delegate networkFetcher:self didReceiveData:data];
-}
-</code></pre><p>而且，最好再加上一个判断：判断委托对象是否存在</p>
-<pre><code>NSData *data = /* data obtained from network */;
-
-if ( (_delegate) &amp;&amp; ([_delegate respondsToSelector: @selector(networkFetcher:didReceiveData:)]))
-{
-        [_delegate networkFetcher:self didReceiveData:data];
-}
-</code></pre><p>对于代理模式，在iOS中分为两种：</p>
-<ul>
-<li>普通的委托模式:信息从类流向委托者</li>
-<li>信息源模式:信息从数据源流向类</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-d9349b44ab6fba52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="普通的委托 | 信息源"></p>
-<blockquote>
-<p>就好比tableview告诉它的代理（delegate）“我被点击了”；而它的数据源（data Source）告诉它“你有这些数据”。仔细回味一下，这两个信息的传递方向是相反的。</p>
-</blockquote>
-<h1 id="第24条：将类的实现代码分散到便于管理的数个分类中"><a href="#第24条：将类的实现代码分散到便于管理的数个分类中" class="headerlink" title="第24条：将类的实现代码分散到便于管理的数个分类中"></a>第24条：将类的实现代码分散到便于管理的数个分类中</h1><hr>
-<p>通常一个类会有很多方法，而这些方法往往可以用某种特有的逻辑来分组。我们可以利用OC的分类机制，将类的这些方法按一定的逻辑划入几个分区中。</p>
-<p>例子：</p>
-<p>无分类的类：</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@interface EOCPerson : NSObject
-
-@property (nonatomic, copy, readonly) NSString *firstName;
-@property (nonatomic, copy, readonly) NSString *lastName;
-@property (nonatomic, strong, readonly) NSArray *friends;
-
-- (id)initWithFirstName:(NSString*)firstName andLastName:(NSString*)lastName;
-
-/* Friendship methods */
-- (void)addFriend:(EOCPerson*)person;
-- (void)removeFriend:(EOCPerson*)person;
-- (BOOL)isFriendsWith:(EOCPerson*)person;
-
-/* Work methods */
-- (void)performDaysWork;
-- (void)takeVacationFromWork;
-
-/* Play methods */
-- (void)goToTheCinema;
-- (void)goToSportsGame;
-
-@end
-</code></pre><p>分类之后：</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@interface EOCPerson : NSObject
-
-@property (nonatomic, copy, readonly) NSString *firstName;
-@property (nonatomic, copy, readonly) NSString *lastName;
-@property (nonatomic, strong, readonly) NSArray *friends;
-
-
-
-- (id)initWithFirstName:(NSString*)firstName
-andLastName:(NSString*)lastName;
-
-@end
-
-@interface EOCPerson (Friendship)
-
-- (void)addFriend:(EOCPerson*)person;
-- (void)removeFriend:(EOCPerson*)person;
-- (BOOL)isFriendsWith:(EOCPerson*)person;
-@end
-
-
-@interface EOCPerson (Work)
-- (void)performDaysWork;
-- (void)takeVacationFromWork;
-
-@end
-
-@interface EOCPerson (Play)
-- (void)goToTheCinema;
-- (void)goToSportsGame;
-@end
-</code></pre><p>其中，FriendShip分类的实现代码可以这么写：</p>
-<pre><code>// EOCPerson+Friendship.h
-#import &quot;EOCPerson.h&quot;
-
-
-@interface EOCPerson (Friendship)
-
-- (void)addFriend:(EOCPerson*)person;
-- (void)removeFriend:(EOCPerson*)person;
-- (BOOL)isFriendsWith:(EOCPerson*)person;
-
-@end
-
-
-// EOCPerson+Friendship.m
-#import &quot;EOCPerson+Friendship.h&quot;
-
-
-@implementation EOCPerson (Friendship)
-
-- (void)addFriend:(EOCPerson*)person {
- /* ... */
-}
-
-- (void)removeFriend:(EOCPerson*)person {
- /* ... */
-}
-
-- (BOOL)isFriendsWith:(EOCPerson*)person {
- /* ... */
-}
-
-@end
-</code></pre><blockquote>
-<p>注意：在新建分类文件时，一定要引入被分类的类文件。</p>
-</blockquote>
-<p>通过分类机制，可以把类代码分成很多个易于管理的功能区，同时也便于调试。因为分类的方法名称会包含分类的名称，可以马上看到该方法属于哪个分类中。</p>
-<p>利用这一点，我们可以创建名为Private的分类，将所有私有方法都放在该类里。这样一来，我们就可以根据private一词的出现位置来判断调用的合理性，这也是一种编写“自我描述式代码（self-documenting）”的办法。</p>
-<h1 id="第25条：总是为第三方类的分类名称加前缀"><a href="#第25条：总是为第三方类的分类名称加前缀" class="headerlink" title="第25条：总是为第三方类的分类名称加前缀"></a>第25条：总是为第三方类的分类名称加前缀</h1><hr>
-<p>分类机制虽然强大，但是如果分类里的方法与原来的方法名称一致，那么分类的方法就会覆盖掉原来的方法，而且总是以最后一次被覆盖为基准。</p>
-<p>因此，我们应该以命名空间来区别各个分类的名称与其中定义的方法。在OC里的做法就是给这些方法加上某个共用的前缀。例如：</p>
-<pre><code>@interface NSString (ABC_HTTP)
-
-// Encode a string with URL encoding
-- (NSString*)abc_urlEncodedString;
-
-// Decode a URL encoded string
-- (NSString*)abc_urlDecodedString;
-
-@end
-</code></pre><p>因此，如果我们想给第三方库或者iOS框架里的类添加分类时，最好将分类名和方法名加上前缀。</p>
-<h1 id="第26条-勿在分类中声明属性"><a href="#第26条-勿在分类中声明属性" class="headerlink" title="第26条:勿在分类中声明属性"></a>第26条:勿在分类中声明属性</h1><hr>
-<p>除了实现文件里的class-continuation分类中可以声明属性外，其他分类无法向类中新增实例变量。</p>
-<p>因此，类所封装的全部数据都应该定义在主接口中，这里是唯一能够定义实例变量的地方。</p>
-<p>关于分类，需要强调一点：</p>
-<blockquote>
-<p>分类机制，目标在于扩展类的功能，而不是封装数据。</p>
-</blockquote>
-<h2 id="第27条：使用class-continuation分类-隐藏实现细节"><a href="#第27条：使用class-continuation分类-隐藏实现细节" class="headerlink" title="#第27条：使用class-continuation分类 隐藏实现细节"></a>#第27条：使用class-continuation分类 隐藏实现细节</h2><p>通常，我们需要减少在公共接口中向外暴露的部分(包括属性和方法)，而因此带给我们的局限性可以利用class-continuation分类的特性来补偿：</p>
-<ul>
-<li>可以在class-continuation分类中增加实例变量。</li>
-<li>可以在class-continuation分类中将公共接口的只读属性设置为读写。</li>
-<li>可以在class-continuation分类中遵循协议，使其不为人知。</li>
-</ul>
-<h1 id="第31条：在dealloc方法中只释放引用并解除监听"><a href="#第31条：在dealloc方法中只释放引用并解除监听" class="headerlink" title="第31条：在dealloc方法中只释放引用并解除监听"></a>第31条：在dealloc方法中只释放引用并解除监听</h1><hr>
-<p>永远不要自己调用dealloc方法，运行期系统会在适当的时候调用它。根据性能需求我们有时需要在dealloc方法中做一些操作。那么我们可以在dealloc方法里做什么呢？</p>
-<ul>
-<li>释放对象所拥有的所有引用，不过ARC会自动添加这些释放代码，可以不必操心。</li>
-<li>而且对象拥有的其他非OC对象也要释放（CoreFoundation对象就必须手动释放）</li>
-<li>释放原来的观测行为：注销通知。如果没有及时注销，就会向其发送通知，使得程序崩溃。</li>
-</ul>
-<p>举个简单的🌰 ：</p>
-<pre><code>
-- (void)dealloc {
-
-     CFRelease(coreFoundationObject);
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-}
-</code></pre><blockquote>
-<p><strong>尤其注意</strong>：在dealloc方法中不应该调用其他的方法，因为如果这些方法是异步的，并且回调中还要使用当前对象，那么很有可能当前对象已经被释放了，会导致崩溃。</p>
-<p>并且在dealloc方法中也不能调用属性的存取方法，因为很有可能在这些方法里还有其他操作。而且这个属性还有可能处于键值观察状态，该属性的观察者可能会在属性改变时保留或者使用这个即将回收的对象。</p>
-</blockquote>
-<h1 id="第36条：不要使用retainCount"><a href="#第36条：不要使用retainCount" class="headerlink" title="第36条：不要使用retainCount"></a>第36条：不要使用retainCount</h1><hr>
-<p>在非ARC得环境下使用retainCount可以返回当前对象的引用计数，但是在ARC环境下调用会报错，因为该方法已经被废弃了 。</p>
-<p>它被废弃的原因是因为它所返回的引用计数只能反映对象某一时刻的引用计数，而无法“预知”对象将来引用计数的变化（比如对象当前处于自动释放池中，那么将来就会自动递减引用计数）。</p>
-<h1 id="第46条：不要使用dispatch-get-current-queue"><a href="#第46条：不要使用dispatch-get-current-queue" class="headerlink" title="第46条：不要使用dispatch_get_current_queue"></a>第46条：不要使用dispatch_get_current_queue</h1><hr>
-<p>我们无法用某个队列来描述“当前队列”这一属性，因为派发队列是按照层级来组织的。</p>
-<p>那么什么是队列的层级呢?</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-e880be58b75c49c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="队列的层及分布"></p>
-<p>安排在某条队列中的快，会在其上层队列中执行，而层级地位最高的那个队列总是全局并发队列。</p>
-<p>在这里，B，C中的块会在A里执行。但是D中的块，可能与A里的块并行，因为A和D的目标队列是并发队列。</p>
-<p>正因为有了这种层级关系，所以检查当前队列是并发的还是非并发的就不会总是很准确。</p>
-<h1 id="第48条：多用块枚举，少用for循环"><a href="#第48条：多用块枚举，少用for循环" class="headerlink" title="第48条：多用块枚举，少用for循环"></a>第48条：多用块枚举，少用for循环</h1><hr>
-<p>当遍历集合元素时，建议使用块枚举，因为相对于传统的for循环，它更加高效，而且简洁,还能获取到用传统的for循环无法提供的值：</p>
-<p>我们首先看一下传统的遍历：</p>
-<h4 id="传统的for遍历"><a href="#传统的for遍历" class="headerlink" title="传统的for遍历"></a>传统的for遍历</h4><pre><code>NSArray *anArray = /* ... */;
-for (int i = 0; i &lt; anArray.count; i++) {
-   id object = anArray[i];
-   // Do something with &#39;object&#39;
-}
-
-// Dictionary
-NSDictionary *aDictionary = /* ... */;
-NSArray *keys = [aDictionary allKeys];
-for (int i = 0; i &lt; keys.count; i++) {
-   id key = keys[i];
-   id value = aDictionary[key];
-   // Do something with &#39;key&#39; and &#39;value&#39;
-}
-
-// Set
-NSSet *aSet = /* ... */;
-NSArray *objects = [aSet allObjects];
-for (int i = 0; i &lt; objects.count; i++) {
-   id object = objects[i];
-   // Do something with &#39;object&#39;
-}
-</code></pre><p>我们可以看到，在遍历NSDictionary,和NSet时，我们又新创建了一个数组。虽然遍历的目的达成了，但是却加大了系统的开销。</p>
-<h4 id="利用快速遍历："><a href="#利用快速遍历：" class="headerlink" title="利用快速遍历："></a>利用快速遍历：</h4><pre><code>NSArray *anArray = /* ... */;
-for (id object in anArray) {
- // Do something with &#39;object&#39;
-}
-
-// Dictionary
-NSDictionary *aDictionary = /* ... */;
-for (id key in aDictionary) {
- id value = aDictionary[key];
- // Do something with &#39;key&#39; and &#39;value&#39;
-
-}
-
-
-NSSet *aSet = /* ... */;
-for (id object in aSet) {
- // Do something with &#39;object&#39;
-}
-</code></pre><p>这种快速遍历的方法要比传统的遍历方法更加简洁易懂，但是缺点是无法方便获取元素的下标。</p>
-<h4 id="利用基于块（block）的遍历："><a href="#利用基于块（block）的遍历：" class="headerlink" title="利用基于块（block）的遍历："></a>利用基于块（block）的遍历：</h4><pre><code>NSArray *anArray = /* ... */;
-[anArray enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop){
-
-   // Do something with &#39;object&#39;
-   if (shouldStop) {
-      *stop = YES; //使迭代停止
-  }
-
-}];
-
-
-“// Dictionary
-NSDictionary *aDictionary = /* ... */;
-[aDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop){
-     // Do something with &#39;key&#39; and &#39;object&#39;
-     if (shouldStop) {
-        *stop = YES;
-    }
-}];
-
-
-// Set
-NSSet *aSet = /* ... */;
-[aSet enumerateObjectsUsingBlock:^(id object, BOOL *stop){
-     // Do something with &#39;object&#39;
-     if (shouldStop) {
-        *stop = YES;
-    }
-</code></pre><p>我们可以看到，在使用块进行快速枚举的时候，我们可以不创建临时数组。虽然语法上没有快速枚举简洁，但是我们可以获得数组元素对应的序号，字典元素对应的键值，而且，我们还可以随时令遍历终止。</p>
-<p>利用快速枚举和块的枚举还有一个优点：能够修改块的方法签名</p>
-<p><code>for (NSString *key in aDictionary) {
-         NSString *object = (NSString*)aDictionary[key];
-        // Do something with &#39;key&#39; and &#39;object&#39;
-}</code></p>
-<pre><code>
-NSDictionary *aDictionary = /* ... */;
-
-    [aDictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *obj, BOOL *stop){
-
-             // Do something with &#39;key&#39; and &#39;obj&#39;
-
-}];
-</code></pre><p>如果我们可以知道集合里的元素类型，就可以修改签名。这样做的好处是：可以让编译期检查该元素是否可以实现我们想调用的方法，如果不能实现，就做另外的处理。这样一来，程序就能变得更加安全。</p>
-<h1 id="第50条：构建缓存时选用NSCache-而非NSDictionary"><a href="#第50条：构建缓存时选用NSCache-而非NSDictionary" class="headerlink" title="第50条：构建缓存时选用NSCache 而非NSDictionary"></a>第50条：构建缓存时选用NSCache 而非NSDictionary</h1><hr>
-<p>如果我们缓存使用得当，那么应用程序的响应速度就会提高。只有那种“重新计算起来很费事的数据，才值得放入缓存”，比如那些需要从网络获取或从磁盘读取的数据。</p>
-<p>在构建缓存的时候很多人习惯用NSDictionary或者NSMutableDictionary，但是作者建议大家使用NSCache，它作为管理缓存的类，有很多特点要优于字典，因为它本来就是为了管理缓存而设计的。</p>
-<h4 id="NSCache优于NSDictionary的几点："><a href="#NSCache优于NSDictionary的几点：" class="headerlink" title="NSCache优于NSDictionary的几点："></a>NSCache优于NSDictionary的几点：</h4><ul>
-<li>当系统资源将要耗尽时，NSCache具备自动删减缓冲的功能。并且还会先删减“最久未使用”的对象。</li>
-<li>NSCache不拷贝键，而是保留键。因为并不是所有的键都遵从拷贝协议（字典的键是必须要支持拷贝协议的，有局限性）。</li>
-<li>NSCache是线程安全的：不编写加锁代码的前提下，多个线程可以同时访问NSCache。</li>
-</ul>
-<h4 id="关于操控NSCache删减内容的时机"><a href="#关于操控NSCache删减内容的时机" class="headerlink" title="关于操控NSCache删减内容的时机"></a>关于操控NSCache删减内容的时机</h4><p>开发者可以通过两个尺度来调整这个时机：</p>
-<ul>
-<li>缓存中的对象总数.</li>
-<li>将对象加入缓存时，为其指定开销值。</li>
-</ul>
-<p>对于开销值，只有在能很快计算出开销值的情况下，才应该考虑采用这个尺度，不然反而会加大系统的开销。</p>
-<p>下面我们来看一下缓存的用法：缓存网络下载的数据</p>
-<pre><code>// Network fetcher class
-typedef void(^EOCNetworkFetcherCompletionHandler)(NSData *data);
-
-@interface EOCNetworkFetcher : NSObject
-
-- (id)initWithURL:(NSURL*)url;
-- (void)startWithCompletionHandler:(EOCNetworkFetcherCompletionHandler)handler;
-
-@end
-
-// Class that uses the network fetcher and caches results
-@interface EOCClass : NSObject
-@end
-
-@implementation EOCClass {
-     NSCache *_cache;
-}
-
-- (id)init {
-
-     if ((self = [super init])) {
-    _cache = [NSCache new];
-
-     // Cache a maximum of 100 URLs
-    _cache.countLimit = 100;
-
-
-     /**
-     * The size in bytes of data is used as the cost,
-     * so this sets a cost limit of 5MB.
-     */
-    _cache.totalCostLimit = 5 * 1024 * 1024;
-    }
- return self;
-}
-
-
-
-- (void)downloadDataForURL:(NSURL*)url { 
-
-     NSData *cachedData = [_cache objectForKey:url];
-
-     if (cachedData) {
-
-         // Cache hit：存在缓存，读取
-        [self useData:cachedData];
-
-    } else {
-
-         // Cache miss：没有缓存，下载
-         EOCNetworkFetcher *fetcher = [[EOCNetworkFetcher alloc] initWithURL:url];      
-
-        [fetcher startWithCompletionHandler:^(NSData *data){
-         [_cache setObject:data forKey:url cost:data.length];    
-        [self useData:data];
-        }];
-    }
-}
-@end
-</code></pre><p>在这里，我们使用URL作为缓存的key，将总对象数目设置为100，将开销值设置为5MB。</p>
-<h2 id="NSPurgeableData"><a href="#NSPurgeableData" class="headerlink" title="NSPurgeableData"></a>NSPurgeableData</h2><p>NSPurgeableData是NSMutableData的子类，把它和NSCache配合使用效果很好。</p>
-<p>因为当系统资源紧张时，可以把保存NSPurgeableData的那块内存释放掉。</p>
-<p>如果需要访问某个NSPurgeableData对象，可以调用<code>beginContentAccess</code>方发，告诉它现在还不应该丢弃自己所占据的内存。</p>
-<p>在使用完之后，调用<code>endContentAccess</code>方法，告诉系统在必要时可以丢弃自己所占据的内存。</p>
-<blockquote>
-<p>上面这两个方法类似于“引用计数”递增递减的操作，也就是说，只有当“引用计数”为0的时候，才可以在将来删去它所占的内存。</p>
-</blockquote>
-<pre><code>- (void)downloadDataForURL:(NSURL*)url { 
-
-      NSPurgeableData *cachedData = [_cache objectForKey:url];
-
-      if (cachedData) {         
-
-            // 如果存在缓存，需要调用beginContentAccess方法
-            [cacheData beginContentAccess];
-
-             // Use the cached data
-            [self useData:cachedData];
-
-             // 使用后，调用endContentAccess
-            [cacheData endContentAccess];
-
-
-        } else {
-
-                 //没有缓存
-                 EOCNetworkFetcher *fetcher = [[EOCNetworkFetcher alloc] initWithURL:url];    
-
-                  [fetcher startWithCompletionHandler:^(NSData *data){
-
-                         NSPurgeableData *purgeableData = [NSPurgeableData dataWithData:data];
-                         [_cache setObject:purgeableData forKey:url cost:purgeableData.length];
-
-                          // Don&#39;t need to beginContentAccess as it begins            
-                          // with access already marked
-                           // Use the retrieved data
-                            [self useData:data];
-
-                             // Mark that the data may be purged now
-                            [purgeableData endContentAccess];
-
-            }];
-      }
-}
-</code></pre><blockquote>
-<p>注意：</p>
-</blockquote>
-<p>在我们可以直接拿到purgeableData的情况下需要执行<code>beginContentAccess</code>方法。然而，在创建purgeableData的情况下，是不需要执行beginContentAccess，因为在创建了purgeableData之后，其引用计数会自动+1；</p>
-<h1 id="第51条-精简initialize-与-load的实现代码"><a href="#第51条-精简initialize-与-load的实现代码" class="headerlink" title="第51条: 精简initialize 与 load的实现代码"></a>第51条: 精简initialize 与 load的实现代码</h1><hr>
-<h2 id="load方法"><a href="#load方法" class="headerlink" title="load方法"></a>load方法</h2><p><code>+(void)load;</code><br>每个类和分类在加入运行期系统时，都会调用<code>load</code>方法，而且仅仅调用一次，可能有些小伙伴习惯在这里调用一些方法，但是作者建议尽量不要在这个方法里调用其他方法，尤其是使用其他的类。原因是每个类载入程序库的时机是不同的，如果该类调用了还未载入程序库的类，就会很危险。</p>
-<h2 id="initialize方法"><a href="#initialize方法" class="headerlink" title="initialize方法"></a>initialize方法</h2><p><code>+(void)initialize;</code></p>
-<p>这个方法与<code>load</code>方法类似，区别是这个方法会在程序<strong>首次</strong>调用这个类的时候调用（惰性调用），而且只调用一次（绝对不能主动使用代码调用）。</p>
-<p>值得注意的一点是，如果子类没有实现它，它的超类却实现了，那么就会运行超类的代码：这个情况往往很容易让人忽视。</p>
-<p>看一下🌰 ：</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@interface EOCBaseClass : NSObject
-@end
-
-@implementation EOCBaseClass
-+ (void)initialize {
- NSLog(@&quot;%@ initialize&quot;, self);
-}
-@end
-
-@interface EOCSubClass : EOCBaseClass
-@end
-
-@implementation EOCSubClass
-@end
-</code></pre><p>当使用EOCSubClass类时，控制台会输出两次打印方法：<br><code>EOCBaseClass initialize
-EOCSubClass initialize</code></p>
-<p>因为子类EOCSubClass并没有覆写<code>initialize</code>方法，那么自然会调用其父类EOCBaseClass的方法。<br>解决方案是通过检测类的类型的方法：</p>
-<p>``</p>
-<ul>
-<li>(void)initialize {<br> if (self == [EOCBaseClass class]) {<pre><code> NSLog(@&quot;%@ initialized&quot;, self);
-</code></pre>  }<br>}<br>``</li>
-</ul>
-<p>这样一来，EOCBaseClass的子类EOCSubClass就无法再调用<code>initialize</code>方法了。<br>我们可以察觉到，如果在这个方法里执行过多的操作的话，会使得程序难以维护，也可能引起其他的bug。因此，在<code>initialize</code>方法里，最好只是设置内部的数据，不要调用其他的方法，因为将来可能会给这些方法添加其它的功能，那么会可能会引起难以排查的bug。</p>
-<h1 id="第52条-别忘了NSTimer会保留其目标对象"><a href="#第52条-别忘了NSTimer会保留其目标对象" class="headerlink" title="第52条: 别忘了NSTimer会保留其目标对象"></a>第52条: 别忘了NSTimer会保留其目标对象</h1><hr>
-<p>在使用NSTimer的时候，NSTimer会生成指向其使用者的引用，而其使用者如果也引用了NSTimer，那么就会生成保留环。</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@interface EOCClass : NSObject
-- (void)startPolling;
-- (void)stopPolling;
-@end
-
-
-@implementation EOCClass {
-     NSTimer *_pollTimer;
-}
-
-
-- (id)init {
-     return [super init];
-}
-
-
-- (void)dealloc {
-    [_pollTimer invalidate];
-}
-
-
-- (void)stopPolling {
-
-    [_pollTimer invalidate];
-    _pollTimer = nil;
-}
-
-
-- (void)startPolling {
-   _pollTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
-                                                 target:self
-                                               selector:@selector(p_doPoll)
-                                               userInfo:nil
-                                                repeats:YES];
-}
-
-- (void)p_doPoll {
-    // Poll the resource
-}
-
-@end
-</code></pre><blockquote>
-<p>在这里，在EOCClass和_pollTimer之间形成了保留环，如果不主动调用<code>stopPolling</code>方法就无法打破这个保留环。像这种通过主动调用方法来打破保留环的设计显然是不好的。</p>
-</blockquote>
-<p>而且，如果通过回收该类的方法来打破此保留环也是行不通的，因为会将该类和NSTimer孤立出来，形成“孤岛”:</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-d60b4571e7709e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="孤立了类和它的NSTimer"></p>
-<p>这可能是一个极其危险的情况，因为NSTimer没有消失，它还有可能持续执行一些任务，不断消耗系统资源。而且，如果任务涉及到下载，那么可能会更糟。。</p>
-<p>那么如何解决呢？ 通过“块”来解决！</p>
-<p>通过给NSTimer增加一个分类就可以解决：</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@interface NSTimer (EOCBlocksSupport)
-
-+ (NSTimer*)eoc_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void(^)())block
-                                         repeats:(BOOL)repeats;
-@end
-
-
-
-@implementation NSTimer (EOCBlocksSupport)
-
-+ (NSTimer*)eoc_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void(^)())block
-                                        repeats:(BOOL)repeats
-{
-             return [self scheduledTimerWithTimeInterval:interval
-                                                  target:self
-                                                selector:@selector(eoc_blockInvoke:)
-                                                userInfo:[block copy]
-                                                 repeats:repeats];
-
-}
-
-
-+ (void)eoc_blockInvoke:(NSTimer*)timer {
-     void (^block)() = timer.userInfo;
-         if (block) {
-             block();
-        }
-}
-@end
-</code></pre><p>我们在NSTimer类里添加了方法，我们来看一下如何使用它：</p>
-<pre><code>- (void)startPolling {
-
-         __weak EOCClass *weakSelf = self;    
-         _pollTimer = [NSTimer eoc_scheduledTimerWithTimeInterval:5.0 block:^{
-
-               EOCClass *strongSelf = weakSelf;
-               [strongSelf p_doPoll];
-          }
-
-                                                          repeats:YES];
-}
-</code></pre><p>﻿在这里，创建了一个self的弱引用，然后让块捕获了这个self变量，让其在执行期间存活。</p>
-<p>一旦外界指向EOC类的最后一个引用消失，该类就会被释放，被释放的同时，也会向NSTimer发送invalidate消息（因为在该类的dealloc方法中向NSTimer发送了invalidate消息）。</p>
-<p>而且，即使在dealloc方法里没有发送invalidate消息，因为块里的weakSelf会变成nil，所以NSTimer同样会失效。</p>
-<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
-<p>总的来说这一部分还是比较容易理解的，更多的只是教我们一些编写OC程序的规范，并没有深入讲解技术细节。</p>
-<p>而三部曲的最后一篇：技巧篇则着重讲解了一些在编写OC代码的过程中可以使用的一些技巧。广义上来讲，这些技巧也可以被称为“规范”，例如“提供全能初始化方法”这一节，但是这些知识点更像是一些“设计模式”目的更偏向于在于解决一些实际问题，因此将这些知识点归类为“技巧类”。</p>
-<p>因为第三篇的内容稍微难一点，所以笔者打算再好好消化几天，将第三篇的初稿再三润饰之后呈献给大家~</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《Effective Objective-C》超级干货三部曲（一）：概念篇</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/12/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E5%BF%B5%E7%AF%87/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/12/《Effective Objective-C》超级干货三部曲（一）：概念篇/</id>
-    <published>2017-01-12T01:30:51.000Z</published>
-    <updated>2017-01-12T01:53:20.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
-<p>很多文章和大牛都在推荐这本书，说它讲授了很多编写Objective-C语言时所应该遵循的规范。刚好笔者前段时间因为产品刚开发完，有了一点空档期，于是用了3个星期的时间仔细研读和总结了这本书。</p>
-<p>在学习过程中也看过很多总结这本书的博客和文章，但是发现多数只是将每节的总结部分抄了过来，讲得并不是很详细，于是笔者就想按照自己的方式对这本书进行总结，并以博客的形式展现出来：既能分享，同时又能对知识进行一下梳理和二次复习。</p>
-<p>虽然本书的作者按照知识模块来将这本书分成七个章节，共52节，但是笔者在拜读的过程中发现本书介绍的知识点可以大致分为三类：概念类，规范类，和技巧类。笔者打算按照这三类来对这本书进行总结，形成三部曲：</p>
-<ul>
-<li>概念类：讲解了一些概念性知识。</li>
-<li>规范类：讲解了一些为了避免一些问题或者为后续开发提供便利所需要遵循的规范性知识。</li>
-<li>技巧类：讲解了一些为了解决某些特定问题而需要用到的技巧性知识。</li>
-</ul>
-<p>而且，笔者也按照自己的归类将这本书的结构用思维导图工具画了出来：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-539498fef0819472.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
-<blockquote>
-<p>从图中可以看到，笔者并没有打乱原来作者的标题顺序。本篇总结即是三部曲之一：概念篇，后续会呈上规范篇和技巧篇。<br>备注：本总结所有的代码和图片都来自原书。其中，代码会适当加上笔者的注释，便于各位看官理解。</p>
-</blockquote>
-<p>好了，不啰嗦了， 开始吧！</p>
-<h1 id="第1条：了解Objective-C的起源"><a href="#第1条：了解Objective-C的起源" class="headerlink" title="第1条：了解Objective-C的起源"></a>第1条：了解Objective-C的起源</h1><hr>
-<h2 id="1-运行期组件"><a href="#1-运行期组件" class="headerlink" title="1. 运行期组件"></a>1. 运行期组件</h2><p>对于消息结构的语言，运行时所执行的代码由运行环境来决定；在运行时才回去查找索要执行的方法。其实现原理是由运行期组件完成（runtime component），使用Objective-C的面向对象特性所需的全部数据结构以及函数都在运行期组件里面。</p>
-<p>运行期组件本质上是一种与开发者所编写的代码相链接的动态库（dynamic library），其代码能把开发者所编写的所有程序粘合起来，所以只要更新运行期组件，就可以提升应用程序性能。</p>
-<p>内存：对象分配到堆空间,指针分配到栈空间。<br>分配在队中的内存必须直接管理，而分配在栈上用于保存变量的内存则会在其栈帧弹出时自动清理。</p>
-<p>不含*的变量，可能会使用栈空间。结构体保存非对象类型。</p>
-<h1 id="第6条：理解“属性”这一概念"><a href="#第6条：理解“属性”这一概念" class="headerlink" title="第6条：理解“属性”这一概念"></a>第6条：理解“属性”这一概念</h1><hr>
-<blockquote>
-<p>属性用于封装对象中的数据。</p>
-</blockquote>
-<h2 id="1-存取方法"><a href="#1-存取方法" class="headerlink" title="1. 存取方法"></a>1. 存取方法</h2><p>在设置完属性后，编译器会自动写出一套存取方法，用于访问相应名称的变量：</p>
-<pre><code>@interface EOCPerson : NSObject
-@property NSString *firstName;
-@property NSString *lastName;
-@end
-
-@interface EOCPerson : NSObject
-- (NSString*)firstName;
-- (void)setFirstName:(NSString*)firstName;
-- (NSString*)lastName;
-- (void)setLastName:(NSString*)lastName;
-@end
-</code></pre><p>访问属性，可以使用点语法。编译器会把点语法转换为对存取方法的调用：</p>
-<pre><code>aPerson.firstName = @&quot;Bob&quot;; // Same as:
-[aPerson setFirstName:@&quot;Bob&quot;];
-
-NSString *lastName = aPerson.lastName; // Same as:
-NSString *lastName = [aPerson lastName];
-</code></pre><p>如果我们不希望编译器自动生成存取方法的话，需要设置@dynamic 字段：</p>
-<pre><code>@interface EOCPerson : NSManagedObject
-@property NSString *firstName;
-@property NSString *lastName;
-@end
-
-@implementation EOCPerson
-@dynamic firstName, lastName;
-@end
-</code></pre><h2 id="2-属相特质"><a href="#2-属相特质" class="headerlink" title="2. 属相特质"></a>2. 属相特质</h2><blockquote>
-<p>定义属性的时候，通常会赋予它一些特性，来满足一些对类保存数据所要遵循的需求。</p>
-</blockquote>
-<h4 id="原子性："><a href="#原子性：" class="headerlink" title="原子性："></a>原子性：</h4><ul>
-<li>nonatomic：不使用同步锁</li>
-<li>atomic：加同步锁，确保其原子性</li>
-</ul>
-<h4 id="读写"><a href="#读写" class="headerlink" title="读写"></a>读写</h4><ul>
-<li>readwrite:同时存在存取方法</li>
-<li>readonly:只有获取方法</li>
-</ul>
-<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><ul>
-<li>assign:纯量类型(scalar type)的简单赋值操作</li>
-<li>strong:拥有关系保留新值，释放旧值，再设置新值</li>
-<li>weak:非拥有关系(nonowning relationship)，属性所指的对象遭到摧毁时，属性也会清空</li>
-<li>unsafe_unretained ：类似assign，适用于对象类型，非拥有关系，属性所指的对象遭到摧毁时，属性不会清空。</li>
-<li>copy：不保留新值，而是将其拷贝</li>
-</ul>
-<h4 id="注意：遵循属性定义"><a href="#注意：遵循属性定义" class="headerlink" title="注意：遵循属性定义"></a>注意：遵循属性定义</h4><p>如果属性定义为copy，那么在非设置方法里设定属性的时候，也要遵循copy的语义</p>
-<pre><code>- (id)initWithFirstName:(NSString*)firstName lastName:(NSString*)lastName
-{
-         if ((self = [super init])) {
-            _firstName = [firstName copy];
-            _lastName = [lastName copy];
-        }
-       return self;
-}
-</code></pre><h1 id="第8条：理解“对象等同性”这一概念"><a href="#第8条：理解“对象等同性”这一概念" class="headerlink" title="第8条：理解“对象等同性”这一概念"></a>第8条：理解“对象等同性”这一概念</h1><hr>
-<h2 id="1-同等性判断"><a href="#1-同等性判断" class="headerlink" title="1. 同等性判断"></a>1. 同等性判断</h2><blockquote>
-<p>==操作符比较的是指针值，也就是内存地址。</p>
-</blockquote>
-<p>然而有的时候我们只是想比较指针所指向的内容，在这个时候，就需要通过<code>isEqual:</code>方法来比较。</p>
-<p>而且，如果已知两个对象是字符串，最好通过<code>isEqualToString:</code>方法来比较。<br>对于数组和字典，也有<code>isEqualToArray:</code>方法和<code>isEqualToDictionary:</code>方法。</p>
-<p>另外，如果比较的对象类型和当前对象类型相同，就可以采用自己编写的判定方法，否则调用父类的<code>isEqual:</code>方法：</p>
-<pre><code>- (BOOL)isEqualToPerson:(EOCPerson*)otherPerson {
-     //先比较对象类型，然后比较每个属性
-     if (self == object) return YES;
-     if (![_firstName isEqualToString:otherPerson.firstName])
-         return NO;
-     if (![_lastName isEqualToString:otherPerson.lastName])
-         return NO;
-     if (_age != otherPerson.age)
-         return NO;
-     return YES;
-}
-
-- (BOOL)isEqual:(id)object {
-    //如果对象所属类型相同，就调用自己编写的判定方法，如果不同，调用父类的isEqual:方法
-     if ([self class] == [object class]) {    
-         return [self isEqualToPerson:(EOCPerson*)object];
-    } else {    
-         return [super isEqual:object];
-    }
-}
-</code></pre><h2 id="2-深度等同性判定"><a href="#2-深度等同性判定" class="headerlink" title="2. 深度等同性判定"></a>2. 深度等同性判定</h2><p>比较两个数组是否相等的话可以使用深度同等性判断方法：</p>
-<blockquote>
-<p>1.先比较数组的个数<br>2.再比较两个数组对应位置上的对象均相等。</p>
-</blockquote>
-<h1 id="第11条：理解objc-msgSend的作用"><a href="#第11条：理解objc-msgSend的作用" class="headerlink" title="第11条：理解objc_msgSend的作用"></a>第11条：理解objc_msgSend的作用</h1><hr>
-<p>在OC中，如果向某对象传递信息，那就会使用动态绑定机制来决定需要调用的方法。在底层，所有方法都是普通的C语言函数.</p>
-<p>然而对象收到 消息后，究竟该调用哪个方法则完全于运行期决定，甚至可以在程序运行时改变，这些特性使得OC成为一门真正的动态语言。</p>
-<p>在OC中，给对象发送消息的语法是：</p>
-<pre><code>id returnValue = [someObject messageName:parameter];
-</code></pre><blockquote>
-<p>这里，someObject叫做“接收者(receiver)”，messageName:叫做”选择子（selector）”,选择子和参数合起来称为“消息”。编译器看到此消息后，将其转换为一条标准的C语言函数调用，所调用的函数乃是消息传递机制中的核心函数叫做objc_msgSend，它的原型如下：</p>
-</blockquote>
-<pre><code>void objc_msgSend(id self, SEL cmd, ...)
-</code></pre><blockquote>
-<p>第一个参数代表接收者，第二个参数代表选择子，后续参数就是消息中的那些参数，数量是可变的，所以这个函数就是参数个数可变的函数。</p>
-</blockquote>
-<p>因此，上述以OC形式展现出来的函数就会转化成如下函数:</p>
-<pre><code>id returnValue = objc_msgSend(someObject,@selector(messageName:),parameter);
-</code></pre><blockquote>
-<p>这个函数会在接收者所属的类中搜寻其“方法列表”，如果能找到与选择子名称相符的方法，就去实现代码，如果找不到就沿着继承体系继续向上查找。如果找到了就执行，如果最终还是找不到，就执行<strong>消息转发</strong>操作。</p>
-<p><strong>注意</strong>：如果匹配成功的话，这种匹配的结果会缓存在“快速映射表”里面。每个类都有这样一块缓存。所以如果将来再次向该类发送形同的消息，执行速度就会更快了。</p>
-</blockquote>
-<h1 id="第12条：理解消息转发机制"><a href="#第12条：理解消息转发机制" class="headerlink" title="第12条：理解消息转发机制"></a>第12条：理解消息转发机制</h1><hr>
-<p>如果对象所属类和其所有的父类都无法解读收到的消息，就会启动消息转发机制（message forwarding）。</p>
-<p>尤其我们在编写自己的类时，可在消息转发过程中设置挂钩，用以执行预定的逻辑，而不应该使应用程序崩溃。</p>
-<p>消息转发分为两个阶段:</p>
-<ol>
-<li><p>征询接受者，看它能否动态添加方法，以处理这个未知的选择子，这个过程叫做动态方法解析（dynamic method resolution）。</p>
-</li>
-<li><p>请接受者看看有没有其他对象能处理这条消息：</p>
-<p>  2.1 如果有，则运行期系统会把消息转给那个对象。<br>  2.2 如果没有，则启动完整的消息转发机制（full forwarding mechanism），运行期系统会把与消息有关的全部细节都封装到NSInvocation对象中，再给接受者最后一次机会，令其设法解决当前还未处理的这条消息。</p>
-</li>
-</ol>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-6619cbf33830ce3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：《Effective Objective-C 》"></p>
-<p>类方法<code>+(BOOL)resolveInstanceMethod:(SEL)selector</code>:查看这个类是否能新增一个实例方法用以处理此选择子</p>
-<p>实例方法<code>- (id)forwardTargetForSelector:(SEL)selector;</code>:询问是否能找到未知消息的备援接受者，如果能找到备援对象，就将其返回，如果不能，就返回nil。</p>
-<p>实例方法<code>- (void)forwardInvocation:(NSInvocation*)invocation</code>:创建NSInvocation对象，将尚未处理的那条消息 有关的全部细节都封于其中，在触发NSInvocation对象时，“消息派发系统（message-dispatch system）”就会将消息派给目标对象。</p>
-<p>下面来看一个关于动态方法解析的例子：</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@interface EOCAutoDictionary : NSObject
-@property (nonatomic, strong) NSString *string;
-@property (nonatomic, strong) NSNumber *number;
-@property (nonatomic, strong) NSDate *date;
-@property (nonatomic, strong) id opaqueObject;
-
-@end
-
-#import &quot;EOCAutoDictionary.h&quot;
-#import &lt;objc/runtime.h&gt;
-
-
-@interface EOCAutoDictionary ()
-@property (nonatomic, strong) NSMutableDictionary *backingStore;
-@end
-
-
-
-@implementation EOCAutoDictionary
-@dynamic string, number, date, opaqueObject;
-
-- (id)init {
- if ((self = [super init])) {
-    _backingStore = [NSMutableDictionary new];
-}
-   return self;
-}
-
-+ (BOOL)resolveInstanceMethod:(SEL)selector {
-
-     NSString *selectorString = NSStringFromSelector(selector);
-     if ([selectorString hasPrefix:@&quot;set&quot;]) {
-         class_addMethod(self,selector,(IMP)autoDictionarySetter, &quot;v@:@&quot;);
-     } else {
-         class_addMethod(self,selector,(IMP)autoDictionaryGetter, &quot;@@:&quot;);
-    }
-     return YES;
-}
-</code></pre><blockquote>
-<p>在本例中，EOCAutoDictionary类将属性设置为@dynamic，也就是说编译器无法自动为其属性生成set和get方法，因此我们需要动态给其添加set和get方法。</p>
-<p>我们实现了<code>resolveInstanceMethod:</code>方法：首先将选择子转换为String，然后判断字符串是否含有set字段，如果有，则增加处理选择子的set方法；如果没有，则增加处理选择子的get方法。其中<code>class_addMethod</code>可以给类动态添加方法。</p>
-</blockquote>
-<p>实现增加处理选择子的get方法：</p>
-<pre><code>id autoDictionaryGetter(id self, SEL _cmd) {
-
-     // Get the backing store from the object
-     EOCAutoDictionary *typedSelf = (EOCAutoDictionary*)self;
-     NSMutableDictionary *backingStore = typedSelf.backingStore;
-
-     // The key is simply the selector name
-     NSString *key = NSStringFromSelector(_cmd);
-
-     // Return the value
-     return [backingStore objectForKey:key];
-}
-</code></pre><blockquote>
-<p>在这里，键的名字就等于方法名，所以在取出键对应的值之前，要将方法名转换为字符串。</p>
-</blockquote>
-<p>实现增加处理选择子的set方法：</p>
-<pre><code>void autoDictionarySetter(id self, SEL _cmd, id value) {
-
-     // Get the backing store from the object
-     EOCAutoDictionary *typedSelf = (EOCAutoDictionary*)self;
-     NSMutableDictionary *backingStore = typedSelf.backingStore;
-
-     /** The selector will be for example, &quot;setOpaqueObject:&quot;.
-     * We need to remove the &quot;set&quot;, &quot;:&quot; and lowercase the first
-     * letter of the remainder.
-     */
-     NSString *selectorString = NSStringFromSelector(_cmd);
-     NSMutableString *key = [selectorString mutableCopy];
-
-     // Remove the &#39;:&#39; at the end
-    [key deleteCharactersInRange:NSMakeRange(key.length - 1, 1)];
-
-     // Remove the &#39;set&#39; prefix
-    [key deleteCharactersInRange:NSMakeRange(0, 3)];
-
-     // Lowercase the first character
-     NSString *lowercaseFirstChar = [[key substringToIndex:1] lowercaseString];
-    [key replaceCharactersInRange:NSMakeRange(0, 1) withString:lowercaseFirstChar];
-
-     if (value) {
-       [backingStore setObject:value forKey:key];
-    } else {
-        [backingStore removeObjectForKey:key];        
-    }
-}
-</code></pre><blockquote>
-<p>因为key的名字对应了属性名，也就是没有set，首字母小写，尾部没有：的字符串。然而，将set方法转换为字符串后，我们需要将set方法的这些“边角”都处理掉。最后得到了“纯净”的键后，再进行字典的赋值操作。</p>
-</blockquote>
-<h1 id="第14条：理解“类对象”的用意"><a href="#第14条：理解“类对象”的用意" class="headerlink" title="第14条：理解“类对象”的用意"></a>第14条：理解“类对象”的用意</h1><hr>
-<p>在运行期程序库的头文件里定义了描述OC对象所用的数据结构：</p>
-<pre><code>typedef struct objc_class *Class;
-    struct objc_class {
-         Class isa;
-         Class super_class;
-         const char *name;
-         long version;
-         long info;
-         long instance_size;
-         struct objc_ivar_list *ivars;
-         struct objc_method_list **methodLists;
-         struct objc_cache *cache;
-         struct objc_protocol_list *protocols;
-};
-</code></pre><blockquote>
-<p>在这里，isa指针指向了对象所属的类：元类（metaclass），它是整个结构体的第一个变量。super_class定义了本类的超类。</p>
-</blockquote>
-<p>我们也可以向对象发送特定的方法来检视类的继承体系：自身属于哪一类；自身继承与哪一类。</p>
-<p>我们使用<code>isMemberOfClass:</code>能够判断出对象是否为某个特定类的实例；<br>而<code>isKindOfClass:</code>方法能够判断出对象是否为某类或其派生类的实例。</p>
-<p>这两种方法都是利用了isa指针获取对象所属的类，然后通过super_class类在继承体系中查询。在OC语言中，必须使用这种查询类型信息的方法才能完全了解对象的真实类型。因为对象类型无法在编译期决定。</p>
-<p>尤其注意在集合类里获取对象时，通常要查询类型信息因为这些对象不是强类型的（strongly typed），将它们从集合类中取出来的类型通常是id，也就是能响应任何消息（编译期）。</p>
-<p>所以如果我们对这些对象的类型把握不好，那么就会有可能造成对象无法响应消息的情况。因此，在我们从集合里取出对象后，通常要进行类型判断：</p>
-<pre><code>- (NSString*)commaSeparatedStringFromObjects:(NSArray*)array {
-
-         NSMutableString *string = [NSMutableString new];
-
-             for (id object in array) {
-                    if ([object isKindOfClass:[NSString class]]) {
-                            [string appendFormat:@&quot;%@,&quot;, object];
-                    } else if ([object isKindOfClass:[NSNumber class]]) {
-                            [string appendFormat:@&quot;%d,&quot;, [object intValue]];
-                    } else if ([object isKindOfClass:[NSData class]]) {
-                           NSString *base64Encoded = /* base64 encoded data */;
-                            [string appendFormat:@&quot;%@,&quot;, base64Encoded];
-                    } else {
-                            // Type not supported
-                    }
-              }
-             return string;
-}
-</code></pre><h1 id="第21条：理解Objective-C错误类型"><a href="#第21条：理解Objective-C错误类型" class="headerlink" title="第21条：理解Objective-C错误类型"></a>第21条：理解Objective-C错误类型</h1><hr>
-<p>在OC中，我们可以用NSError描述错误。<br>使用NSError可以封装三种信息：</p>
-<ul>
-<li>Error domain:错误范围，类型是字符串</li>
-<li>Error code :错误码，类型是整数</li>
-<li>User info：用户信息，类型是字典</li>
-</ul>
-<h2 id="1-NSError的使用"><a href="#1-NSError的使用" class="headerlink" title="1. NSError的使用"></a>1. NSError的使用</h2><p>用法：</p>
-<p>1.通过委托协议来传递NSError，告诉代理错误类型。</p>
-<pre><code>- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-</code></pre><p>2.作为方法的“输出参数”返回给调用者</p>
-<pre><code>- (BOOL)doSomething:(NSError**)error
-</code></pre><p>使用范例：</p>
-<pre><code>NSError *error = nil;
-BOOL ret = [object doSomething:&amp;error];
-
-if (error) {
-    // There was an error
-}
-</code></pre><h2 id="2-自定义NSError"><a href="#2-自定义NSError" class="headerlink" title="2. 自定义NSError"></a>2. 自定义NSError</h2><p>我们可以设置属于我们自己程序的错误范围和错误码</p>
-<ul>
-<li>错误范围可以用全局常量字符串来定义。</li>
-<li>错误码可以用枚举来定义。</li>
-</ul>
-<pre><code>
-// EOCErrors.h
-extern NSString *const EOCErrorDomain;
-
-//定义错误码
-typedef NS_ENUM(NSUInteger, EOCError) {
-
-    EOCErrorUnknown = –1,
-    EOCErrorInternalInconsistency = 100,
-    EOCErrorGeneralFault = 105,
-    EOCErrorBadInput = 500,
-};
-// EOCErrors.m
-NSString *const EOCErrorDomain = @&quot;EOCErrorDomain&quot;; //定义错误范围
-</code></pre><h1 id="第22条：理解NSCopying协议"><a href="#第22条：理解NSCopying协议" class="headerlink" title="第22条：理解NSCopying协议"></a>第22条：理解NSCopying协议</h1><hr>
-<p>如果我们想令自己的类支持拷贝操作，那就要实现NSCopying协议，该协议只有一个方法：</p>
-<pre><code>- (id)copyWithZone:(NSZone*)zone
-</code></pre><p>作者举了个：</p>
-<pre><code>- (id)copyWithZone:(NSZone*)zone {
-     EOCPerson *copy = [[[self class] allocWithZone:zone] initWithFirstName:_firstName  andLastName:_lastName];
-    copy-&gt;_friends = [_friends mutableCopy];
-     return copy;
-}
-</code></pre><blockquote>
-<p>之所以是copy-&gt;_friends，而不是copy.friends是因为friends并不是属性，而是一个内部使用的实例变量。</p>
-</blockquote>
-<h2 id="1-复制可变的版本："><a href="#1-复制可变的版本：" class="headerlink" title="1. 复制可变的版本："></a>1. 复制可变的版本：</h2><p>遵从<nsmutablecopying>协议</nsmutablecopying></p>
-<p>而且要执行：</p>
-<pre><code>- (id)mutableCopyWithZone:(NSZone*)zone；
-</code></pre><blockquote>
-<p>注意：拷贝可变型和不可变型发送的是<code>copy</code>和<code>mutableCopy</code>消息，而我们实现的却是<code>- (id)copyWithZone:(NSZone*)zone</code>和<code>- (id)mutableCopyWithZone:(NSZone*)zone</code> 方法。</p>
-<p>而且，如果我们想获得某对象的不可变型，统一调用copy方法；获得某对象的可变型，统一调用mutableCopy方法。</p>
-</blockquote>
-<p>例如数组的拷贝：</p>
-<pre><code>-[NSMutableArray copy] =&gt; NSArray
--[NSArray mutableCopy] =&gt; NSMutableArray
-</code></pre><h2 id="2-浅拷贝和深拷贝"><a href="#2-浅拷贝和深拷贝" class="headerlink" title="2. 浅拷贝和深拷贝"></a>2. 浅拷贝和深拷贝</h2><p>Foundation框架中的集合类默认都执行浅拷贝：只拷贝容器对象本身，而不复制其中的数据。<br>而深拷贝的意思是连同对象本身和它的底层数据都要拷贝。</p>
-<p>作者用一个图很形象地体现了浅拷贝和深拷贝的区别：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-0fd10d82cbecd8d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：《Effective Objective-C》"></p>
-<blockquote>
-<p>浅拷贝后的内容和原始内容指向同一个对象<br>深拷贝后的内容所指的对象是原始内容对应对象的拷贝</p>
-</blockquote>
-<h2 id="3-如何深拷贝？"><a href="#3-如何深拷贝？" class="headerlink" title="3. 如何深拷贝？"></a>3. 如何深拷贝？</h2><p>我们需要自己编写深拷贝的方法：遍历每个元素并复制，然后将复制后的所有元素重新组成一个新的集合。</p>
-<pre><code>- (id)initWithSet:(NSArray*)array copyItems:(BOOL)copyItems;
-</code></pre><blockquote>
-<p>在这里，我们自己提供了一个深拷贝的方法：该方法需要传入两个参数：需要拷贝的数组和是否拷贝元素（是否深拷贝）</p>
-</blockquote>
-<pre><code>
-- (id)deepCopy {
-       EOCPerson *copy = [[[self class] alloc] initWithFirstName:_firstName andLastName:_lastName];
-        copy-&gt;_friends = [[NSMutableSet alloc] initWithSet:_friends copyItems:YES];
-        return copy;
-}
-</code></pre><h1 id="第29条：理解引用计数"><a href="#第29条：理解引用计数" class="headerlink" title="第29条：理解引用计数"></a>第29条：理解引用计数</h1><hr>
-<p>尽管在iOS系统已经支持了自动引用计数，但仍然需要开发者了解其内存管理机制。</p>
-<h2 id="1-计数器的操作："><a href="#1-计数器的操作：" class="headerlink" title="1. 计数器的操作："></a>1. 计数器的操作：</h2><ol>
-<li>retain：递增保留计数。</li>
-<li>release：递减保留计数</li>
-<li>autorelease ：待稍后清理“自动释放池时”，再递减保留计数。</li>
-</ol>
-<blockquote>
-<p>注意：在对象初始化后，引用计数不一定是1，还有可能大于1。因为在初始化方法的实现中，或许还有其他的操作使得引用计数+1，例如其他的对象也保留了此对象。</p>
-</blockquote>
-<p>有时，我们无法确定在某个操作后引用计数的确切值，而只能判断这个操作是递增还是递减了保留计数。</p>
-<h2 id="2-自动释放池："><a href="#2-自动释放池：" class="headerlink" title="2. 自动释放池："></a>2. 自动释放池：</h2><p>将对象放入自动释放池之后，不会马上使其引用计数-1，而是在当前线程的下一次事件循环时递减。</p>
-<p>使用举例：如果我们想释放当前需要使用的方法返回值是，可以将其暂时放在自动释放池中：</p>
-<pre><code>
-- (NSString*)stringValue {
-     NSString *str = [[NSString alloc] initWithFormat:@&quot;I am this: %@&quot;, self];
-     return [str autorelease];
-}
-</code></pre><h2 id="3-保留环（retain-cycle）"><a href="#3-保留环（retain-cycle）" class="headerlink" title="3. 保留环（retain cycle）"></a>3. 保留环（retain cycle）</h2><p>对象之间相互用强引用指向对方，会使得全部都无法得以释放。解决方案是讲其中一端的引用改为弱引用（weak reference），在引用的同时不递增引用计数。</p>
-<h1 id="第30条：以ARC简化引用计数"><a href="#第30条：以ARC简化引用计数" class="headerlink" title="第30条：以ARC简化引用计数"></a>第30条：以ARC简化引用计数</h1><hr>
-<p>使用ARC，可以省略对于引用计数的操作，让开发者专注于开发本身：</p>
-<pre><code>if ([self shouldLogMessage]) {
-     NSString *message = [[NSString alloc] initWithFormat:@&quot;I am object, %p&quot;, self];
-     NSLog(@&quot;message = %@&quot;, message);
-      [message release]; ///&lt; Added by ARC
-}
-</code></pre><blockquote>
-<p>显然这里我们不需要message对象了，那么ARC会自动为我们添加内存管理的语句。</p>
-</blockquote>
-<p>因此，在ARC环境下调用内存管理语句是非法的：</p>
-<ul>
-<li>retain</li>
-<li>release</li>
-<li>autorelease</li>
-<li>dealloc</li>
-</ul>
-<blockquote>
-<p>注意：ARC只负责管理OC对象的内存，CoreFoundation对象不归ARC管理</p>
-</blockquote>
-<h1 id="第37条：理解“块”这一概念"><a href="#第37条：理解“块”这一概念" class="headerlink" title="第37条：理解“块”这一概念"></a>第37条：理解“块”这一概念</h1><hr>
-<p>对于“块”的基础知识就不再赘述了，这里强调一下块的种类。</p>
-<p>块(Block)分为三类：</p>
-<ul>
-<li>栈块</li>
-<li>堆块</li>
-<li>全局块</li>
-</ul>
-<h2 id="1-栈块"><a href="#1-栈块" class="headerlink" title="1. 栈块"></a>1. 栈块</h2><p>定义块的时候，其所占内存区域是分配在栈中的，而且只在定义它的那个范围内有效：</p>
-<pre><code>void (^block)();
-
-if ( /* some condition */ ) {
-    block = ^{
-     NSLog(@&quot;Block A&quot;);
-    };
-
-} else {
-    block = ^{
-     NSLog(@&quot;Block B&quot;);
-    };
-}
-
-block();
-</code></pre><p>上面定义的两个块只在if else语句范围内有效，一旦离开了最后一个右括号，如果编译器覆写了分配给块的内存，那么就会造成程序崩溃。</p>
-<h2 id="2-堆块"><a href="#2-堆块" class="headerlink" title="2. 堆块"></a>2. 堆块</h2><p>为了解决这个问题，我们可以给对象发送copy消息，复制一份到堆里，并自带引用计数：</p>
-<pre><code>void (^block)();
-
-if ( /* some condition */ ) {
-    block = [^{
-         NSLog(@&quot;Block A&quot;);
-   } copy];
-} else {
-    block = [^{
-         NSLog(@&quot;Block B&quot;);
-    } copy];
-}
-block();
-</code></pre><h2 id="3-全局块"><a href="#3-全局块" class="headerlink" title="3. 全局块"></a>3. 全局块</h2><p>全局块声明在全局内存里，而不需要在每次用到的时候于栈中创建。</p>
-<pre><code>void (^block)() = ^{
-     NSLog(@&quot;This is a block&quot;);
-﻿};
-</code></pre><h1 id="第47条：熟悉系统框架"><a href="#第47条：熟悉系统框架" class="headerlink" title="第47条：熟悉系统框架"></a>第47条：熟悉系统框架</h1><hr>
-<p>如果我们使用了系统提供的现成的框架，那么用户在升级系统后，就可以直接享受系统升级所带来的改进。</p>
-<p>主要的系统框架：</p>
-<ul>
-<li>Foundation:NSObject,NSArray,NSDictionary等</li>
-<li>CFoundation框架：C语言API，Foundation框架中的许多功能，都可以在这里找到对应的C语言API</li>
-<li>CFNetwork框架:C语言API，提供了C语言级别的网络通信能力</li>
-<li>CoreAudio:C语言API，操作设备上的音频硬件</li>
-<li>AVFoundation框架：提供的OC对象可以回放并录制音频和视频</li>
-<li>CoreData框架：OC的API，将对象写入数据库</li>
-<li>CoreText框架：C语言API，高效执行文字排版和渲染操作</li>
-</ul>
-<p>用C语言来实现API的好处：可以绕过OC的运行期系统，从而提升执行速度。</p>
-<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
-<p>像本文开头所说，本文是三部曲系列的第一篇：概念篇，笔者主要将本书讲解概念的知识点抽取出来合并而成，内容相对后两篇简单一些。笔者会在一周的时间里陆续推出第2篇（规范篇），第3篇（技巧篇）~<br>望各路大神和在大神路上的伙伴们多多交流。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
-    
-    </summary>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
   
   <entry>
     <title>斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI</title>
@@ -5350,6 +3357,380 @@ PlayingCard *otherCard = [otherCards objectAtIndex:0];
       <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
     
       <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>高效能程序员的修炼 - 读书笔记</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/10/%E9%AB%98%E6%95%88%E8%83%BD%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BF%AE%E7%82%BC%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/10/高效能程序员的修炼 - 读书笔记/</id>
+    <published>2017-01-10T11:39:48.000Z</published>
+    <updated>2017-01-11T05:31:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-d4f6ace667765fd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="高效能程序员的修炼"></p>
+<p>俗话说：程序员不能只想着写代码。在编程以外的闲暇时间，读一点这种有助于程序员扩展视野和提高素养的书籍是很好的。</p>
+<p>笔者找到了这本《高效能程序员的修炼》：本书作者是大名鼎鼎<a href="http://stackoverflow.com/" target="_blank" rel="external">Stack Overflow</a>的创始人Jeff Atwood，内容是有关代码以外的，需要每个程序员思考和注意的事情。</p>
+<p>这本书是笔者在今年1月份看的，因为忙于项目开发，所以没有整理好笔记。正好这周五公司app提交过审，有空宅在家里整理一下。笔记内容没有提到书中所说的每个方面，<strong>只是针对了笔者觉得比较重要的几点并结合了笔者自己的想法和感悟整理而成</strong>。</p>
+<p>笔者的<strong>读书笔记的格式</strong>：<br><strong>标题</strong>：与书中目录不符，完全由笔者自己列出。<br><strong>正文</strong>：浅灰色框中的文字为书中摘录，其他部分均为笔者个人观点。</p>
+<p><strong>欢迎各路大侠指点！欢迎各路大侠指点！欢迎各路大侠指点！</strong></p>
+<hr>
+<h2 id="关于选择工作"><a href="#关于选择工作" class="headerlink" title="关于选择工作"></a>关于选择工作</h2><blockquote>
+<p>我更建议人们先花时间想想，什么样的问题才是他们真正热爱和感兴趣的，然后再好好研究这些问题。生命中最难的，是想清楚你真正想要做的事情，而不是学上一堆假设将来会有用的东西。</p>
+</blockquote>
+<p>所以说在决定这种人生大事上，确实要花上心思，就好比笔者自己在通信工程专业从本科一直念完了硕士，拿到硕士学位证后花了一周的时间苦思冥想，探求内心后，毅然决定做软件，顶住各方压力(因为毕竟是换专业择业，不过还好父母还是一直很支持我的)三个月的时间自学了iOS开发。<br>如今已经入职4个月，在工作学习中甚感愉快，虽然有时会有压力，但是每天都过得很开心，因为这正是我想做的。</p>
+<hr>
+<h2 id="关于程序员的表达能力"><a href="#关于程序员的表达能力" class="headerlink" title="关于程序员的表达能力"></a>关于程序员的表达能力</h2><blockquote>
+<p>杰出的程序员和勉强过得去的程序员之间的差别是他们能不能把他们的想法表达清楚。</p>
+</blockquote>
+<p>大家应该不会怀疑程序员的平均智商，但是程序员中每个人的表达能力却参差不齐，差别极大。其实有些时候头脑中想到的方法可能是在潜意识下想到的，如果这时候需要我们有条理地说出来，确实不是一件容易的事。</p>
+<p>像这种用意识层面的语言来表达潜意识的思考的能力确实是值得锻炼的。试想一下，如果我们能把自己潜意识层面的思考准确地再现于意识层面，那么这显然会有助于帮助我们检查思维的缜密性和正确性，而且也会锻炼我们的逻辑思维，从而能更好地去思考，形成良性循环。</p>
+<hr>
+<h2 id="关于程序员的学习："><a href="#关于程序员的学习：" class="headerlink" title="关于程序员的学习："></a>关于程序员的学习：</h2><blockquote>
+<p>勤加练习固然重要，但是只顾着买头写代码，没有讨论和反思的时间，那么是无法得到真正的进步的。在阅读博客和相关书籍的过程中，从自身利益出发去考虑，如果我们能从中找到哪怕一点对我们有用的东西，其实就已经很赚了。</p>
+</blockquote>
+<p>复习和反思是学习过程中很重要的环节，如果没有及时的复习与反思，那么往往事倍公半：忘记知识，而且就算不忘，也无法高效地将知识提取出来。作为程序员，应该适当脱离键盘反复思考，将学到的知识高效地整合到自己的知识结构中，有助于知识的提取和运用。</p>
+<hr>
+<h3 id="关于代码"><a href="#关于代码" class="headerlink" title="关于代码"></a>关于代码</h3><ul>
+<li>评价及代码的几个维度:从简洁性开始，依据测试的结果按需提升其他的维度。<blockquote>
+<ol>
+<li>代码简洁度</li>
+<li>功能完整性</li>
+<li>执行速度</li>
+<li>编码所花费时间</li>
+<li>健壮性</li>
+<li>灵活性</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>你的代码越多，bug能藏身的地方就越多。</li>
+<li>最好的代码就是完全没有代码。</li>
+</ul>
+<hr>
+<h2 id="关于代码的注释"><a href="#关于代码的注释" class="headerlink" title="关于代码的注释"></a>关于代码的注释</h2><blockquote>
+<ul>
+<li>注释需要说：程序<strong>为什么</strong>这样工作。</li>
+<li>你应该总是专注于编写代码，而忘了还有注释这种东西的存在。</li>
+<li>当我脑子里了一个明确的目标，并且有一段复杂的代码要写时，我会把时间花在时间代码上面，而不是写下他的故事，讲给我自己听。</li>
+<li>如果你的代码在没有注释的情况下显得过于复杂，很难被人理解，那只能说明你的代码写得太早了，重写代码，直到它不再需要任何注释。</li>
+</ul>
+</blockquote>
+<p>读到这里的时候笔者很是惭愧。因为笔者在写代码的时候，是将代码和注释一起写的。所以应该将这个习惯改过来：写代码的时候忘记注释，应该尽全力用代码自己解释逻辑。到最后逻辑达到很清晰的程度后，再加上必要的注释：为什么用的是这个逻辑。</p>
+<hr>
+<h3 id="关于请教问题"><a href="#关于请教问题" class="headerlink" title="关于请教问题"></a>关于请教问题</h3><blockquote>
+<ul>
+<li><p>向别人请教问题：</p>
+<ol>
+<li>提供足够多的细节描述发生的状况</li>
+<li>说明你为什么需要这个答案</li>
+<li>表述你所做的研究和发现</li>
+</ol>
+</li>
+<li><p>如果你想让别人花上宝贵的时间来帮助你，你也要花了宝贵的时间酝酿出一个合格的问题才算公平。</p>
+</li>
+</ul>
+</blockquote>
+<p>笔者在工作中也会请教同事问题，前几次问的时候发现自己将问题说出来之后，自己头脑里已经有了解决的办法，而且觉得很简单。所以后来想问问题的时候，保证自己先解决一般问题，将问题深入，然后尽可能问出高质量的问题来。</p>
+<hr>
+<h3 id="关于提出问题"><a href="#关于提出问题" class="headerlink" title="关于提出问题"></a>关于提出问题</h3><blockquote>
+<ul>
+<li>提出正确的问题差不多已经把问题解决了一半。</li>
+<li>完全投入地向一个假想中的人或者是没有生命的物体问一个透彻而相近的问题。</li>
+</ul>
+</blockquote>
+<p>笔者认为如果是对一个无生命体，大脑中负责情感的部分会被抑制，会更加促进理性分析，更加清晰地表述问题(因为你的潜意识知道<em>小黄鸭*</em>是不会“理解”你的话里半点遗漏的点)。</p>
+<hr>
+<h2 id="关于创意和执行"><a href="#关于创意和执行" class="headerlink" title="关于创意和执行"></a>关于创意和执行</h2><blockquote>
+<ul>
+<li>如果你想要赚钱，你必须把这两者相乘，除非创意被执行，否则它一文不值，执行是创意的倍增器，真正价值巨大的是执行。</li>
+</ul>
+<ul>
+<li>与其担心你全心投入等下一个创意是否足够出色，不如担心你能执行的多好。</li>
+</ul>
+<ul>
+<li>在软件开发领域，执行意味着专注于构成你的应用程序的所有微小细节，如果你不是始终沉迷于你的应用程序的每个方面，不去优化和赶紧它的每一处细节，那么你就不是在执行，至少，不是在很好地执行。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="关于团队"><a href="#关于团队" class="headerlink" title="关于团队"></a>关于团队</h2><blockquote>
+<ul>
+<li>如果你把一个好的创意给一个普通的团队，他们会把它搞砸。如果你把一个普通的创意给一个好的团队，他们会对它加以完善，或者他们会把那个创意丢掉，然后相处一些更棒的 - Catmull”</li>
+</ul>
+<ul>
+<li>如果你想取得成功，不要担心没有伟大的创意，转而去专注于培养卓越的团队。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="关于会议："><a href="#关于会议：" class="headerlink" title="关于会议："></a>关于会议：</h3><blockquote>
+<p>会议绝不应该超过一个小时。<br>每个会议都要有一个清晰的目标声明。<br>在开户之前做好功课：提前知道将要讨论和分享的内容。<br>把会议变成可选的：每一个人都因为他们想要在那里，或者需要在那里。<br>会议结束后，概括一下待办事项。</p>
+</blockquote>
+<p>其实会议确实比较耗费时间，所以就要为了提升会议的效率和价值：</p>
+<ol>
+<li>在会议开始前：熟悉会议内容并提前思考。</li>
+<li>在会议结束前：整理会议结果，列个待办事项。</li>
+<li>在会议结束后：执行！执行！执行！</li>
+</ol>
+<hr>
+<h2 id="关于用户和产品"><a href="#关于用户和产品" class="headerlink" title="关于用户和产品"></a>关于用户和产品</h2><blockquote>
+<ul>
+<li><p>用户不会阅读你屏幕上的任何东西。用户只会读取屏幕上足以让他们完成任务的，最少量的文字。</p>
+</li>
+<li><p>与世隔绝在实验室花上三个月的时间修复第一版里的问题，不如把这3个月的时间用于倾听来自真实世界里使用你的软件的用户提出的反馈。</p>
+</li>
+</ul>
+</blockquote>
+<p>这两条分别告诉我们：</p>
+<ol>
+<li>我们在做产品的时候，应该把用户当成“弱视不会思考”的人。</li>
+<li>用户可以“为我们所用”。</li>
+</ol>
+<p>看似是矛盾的两点，但确是提升用户体验的“黄金理论”。<br>对于第一条，笔者深有体验:笔者做了一个类似新手引导的教程，因为队友修改了页面加载的逻辑，导致了用户只能通过，点击，滑动，手动加载后才能出现看到教程的情况，而刚看到页面时，教程是不会自动出来的，其实这个体验是很差的，因为用户需要自己动手。但是当时由于已经处于测试末尾阶段，我个人也没有在意。</p>
+<p>在跟产品经理交流后，产品经理人很好，只是说了最好要加上。我想了想还是加了，添加的方法很简单，只是在<code>viewWillAppear</code>方法里加了触发的逻辑，但却发现体验直线上升。这件事对我感触很大，只是一两行代码就能明显改善用户体验，那么为什么不去做呢？为什么一定要去麻烦用户去动脑，去动手呢？</p>
+<hr>
+<h3 id="笔者结语："><a href="#笔者结语：" class="headerlink" title="笔者结语："></a>笔者结语：</h3><p>本书中，作者说的点还是蛮多的，比较杂，但确是引发程序员代码之外思考的好的启蒙，有助于不让程序员局限于代码之中，能够多角度，多层面考虑问题。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-d4f6ace667765fd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
+    
+    </summary>
+    
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何高效学习 - 读书笔记</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/10/%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/10/如何高效学习 - 读书笔记/</id>
+    <published>2017-01-10T11:29:01.000Z</published>
+    <updated>2017-01-11T07:52:16.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-19e2323f8483e093.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="如何高效学习"></p>
+<p>笔者的话：本书介绍了整体性学习法，强调在学习过程中，需要通过比喻和抽象的方法，将新知识与旧知识相互联系，以提高学习效率和深度的学习方法。笔者亲测，甚是有效，在此强烈推荐给大家。</p>
+<h1 id="Part-1-整体性学习策略"><a href="#Part-1-整体性学习策略" class="headerlink" title="Part 1 整体性学习策略"></a>Part 1 整体性学习策略</h1><hr>
+<h2 id="1-1-什么是整体性学习"><a href="#1-1-什么是整体性学习" class="headerlink" title="1.1 什么是整体性学习"></a>1.1 什么是整体性学习</h2><ul>
+<li>整体性学习需要采取多种途径综合学习，而不是试图在大脑中复制一个完美的拷贝。</li>
+<li>整体性学习是运用你大脑里已有的丰富的神经元网络吸收、整合信息。</li>
+<li>整体性学习在于创造<strong>信息的网络</strong>，一个知识与另一个知识相互关联，那些相互关联的知识网络使你真正做到对知识的完全理解，从而轻松地驾驭知识。</li>
+</ul>
+<h2 id="1-2-整体性学习基于三种主要观点"><a href="#1-2-整体性学习基于三种主要观点" class="headerlink" title="1.2 整体性学习基于三种主要观点"></a>1.2 整体性学习基于三种主要观点</h2><ol>
+<li>结构</li>
+<li>模型</li>
+<li>高速公路</li>
+</ol>
+<h3 id="1-21-结构"><a href="#1-21-结构" class="headerlink" title="1.21 结构"></a>1.21 结构</h3><p>结构就是说一系列紧密联系的知识体系。</p>
+<blockquote>
+<p>打个比方：结构就好像你思想中的一座城市，在城市中有很多建筑物，建筑物之间有道路相连，有些建筑高大而且重要，与城市中的其他建筑有上百条路相连。理解就是结构<strong>高度发达完善</strong>的结果。</p>
+</blockquote>
+<ul>
+<li><p>是不是有些学科你可以轻松“拿下”？你读起这些科目的书毫不费力、兴趣盎然，一切内容看起来那么浅显、通俗，原因何在？因为你的脑袋里已经有这些科目的发达知识结构。假如说结构就是脑袋里的城市的话，那么这些城市一定是道路四通八达、路面整洁而且交通井然有序，虽然车水马龙，却从不见交通堵塞。</p>
+</li>
+<li><p>相反，为什么有些学科理解起来那么困难呢？这说明城市简陋，道路不畅，甚至乱建一气，违章建筑、豆腐渣工程比比皆是，有些道路甚至无所指向。建立良好的知识结构就是绘制一份优秀的地图，就是建造一座设计良好的城市。所以建立知识结构时，你的目标就是<strong>在各种知识之间建立尽可能多的联系</strong>，聪明的人会很自然地这么做，每学习一个新概念，都会自动地与其他知识相联系。</p>
+</li>
+</ul>
+<h3 id="1-22-模型"><a href="#1-22-模型" class="headerlink" title="1.22 模型"></a>1.22 模型</h3><p>模型是简化的结构，是结构的快照，更为简单和更易储存。通过将一些<strong>核心概念</strong>联系在一起，就可以创建一个模型。打个比方：书的目录。模型是一种压缩形式，它把多个关键思想压至一处。模型就像是结构的种子，是一座建筑的地基和框架，是知识最核心的概念，在此基础上将引出全部的知识。</p>
+<h3 id="1-23-高速公路"><a href="#1-23-高速公路" class="headerlink" title="1.23 高速公路"></a>1.23 高速公路</h3><p>高速公路是知识体系(结构)间的联系。</p>
+<blockquote>
+<p>打个比方：城市之间的高速公路。高速公路能激发创造力。“跳出盒子”之外思考最恰当地描述了那些在结构之外思考的人们。高速公路让他们以前所未有的方式思考，以不曾想过的方式将常人眼里风马牛不相及的专业联系在一起思考，这就是创造。利用高速公路可以在专业交叉的领域建立起新的结构。</p>
+</blockquote>
+<h2 id="1-3-整体性学习的顺序"><a href="#1-3-整体性学习的顺序" class="headerlink" title="1.3 整体性学习的顺序"></a>1.3 整体性学习的顺序</h2><ol>
+<li>获取</li>
+<li>理解</li>
+<li>拓展</li>
+<li>纠错</li>
+<li>应用</li>
+</ol>
+<h3 id="1-31-获取"><a href="#1-31-获取" class="headerlink" title="1.31 获取"></a>1.31 获取</h3><ul>
+<li>获取指信息从采集进入到大脑的过程。</li>
+<li>获取信息有三个主要目标:<ol>
+<li>简化：将无用的东西尽量删除，只有那些对于形成模型有帮助的例子才需要认真学习。</li>
+<li>容量：尽可能获得更多的信息。</li>
+<li>速度：尽可能提高获取信息的速度。</li>
+</ol>
+</li>
+</ul>
+<h3 id="1-32-理解"><a href="#1-32-理解" class="headerlink" title="1.32 理解"></a>1.32 理解</h3><ul>
+<li>理解不能指停留在信息的表面意思，还要了解信息(公式)是如何得来的，与其它信息(公式)的关系。</li>
+</ul>
+<h3 id="1-33-拓展"><a href="#1-33-拓展" class="headerlink" title="1.33 拓展"></a>1.33 拓展</h3><ul>
+<li>拓展：利用模型来建华和扩展你的知识结构，也要拓展对知识的理解。</li>
+<li><p>一名整体性学习者在学习新公式时会问道：</p>
+<ul>
+<li>公式是怎么来的？</li>
+<li>公式中的每个成分代表的真实含义是什么？</li>
+<li>公式中的什么成分可以做些改变？</li>
+<li>这种改变会导致结果发生什么样的变化？</li>
+<li>其他公式与这个公式有什么相同之处，又有什么不同之处？</li>
+</ul>
+</li>
+<li><p>拓展有三种主要方式：</p>
+<ol>
+<li>深度拓展(知识背景探究)：在信息内部创造联系。</li>
+<li>横向拓展(类似知识探究)：与此类似的结论有哪些？那些地方类似？那些地方不同？</li>
+<li>纵向拓展(创造性探究)：在结构间建立高速通道，联系不同知识体系。</li>
+</ol>
+</li>
+</ul>
+<h3 id="1-34-纠错"><a href="#1-34-纠错" class="headerlink" title="1.34 纠错"></a>1.34 纠错</h3><ul>
+<li>纠错可以看作在整体性知识网络中做修剪工作，添加一些特殊的例子，删除一些现实中不存在的联系，这不是一个完美的过程，修剪工作是必要的。</li>
+</ul>
+<h3 id="1-35-应用阶段"><a href="#1-35-应用阶段" class="headerlink" title="1.35 应用阶段"></a>1.35 应用阶段</h3><ul>
+<li>应用是学习的最终目的，能做到学以致用方能更好地适应现实世界。对概念不仅仅停留在理解上，而是要<strong>形成一种感觉</strong>。</li>
+</ul>
+<h3 id="1-36-测试阶段"><a href="#1-36-测试阶段" class="headerlink" title="1.36 测试阶段"></a>1.36 测试阶段</h3><ul>
+<li>五个阶段都要进行测试，测试可以让你了解弱点是什么，该如何改进它。<ol>
+<li>获取阶段的测试──我以前看过或听过这个知识吗？</li>
+<li>理解阶段的测试──我理解知识的含义吗？</li>
+<li>拓展阶段的测试──我知道知识从何而来，与哪些知识有关系吗？</li>
+<li>纠错阶段的测试──我删除了那些不恰当的联系吗？我删除了那些错误结论吗？</li>
+<li>应用阶段的测试──我将知识用到实际生活中了吗？</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-4-找出薄弱环节"><a href="#1-4-找出薄弱环节" class="headerlink" title="1.4 找出薄弱环节"></a>1.4 找出薄弱环节</h2><ol>
+<li>获取阶段──养成良好的学习，阅读和记笔记的习惯。</li>
+<li>理解阶段──放慢阅读速度，寻找不同的说法。</li>
+<li>拓展阶段──提高灵活性，做到举一反三，触类旁通。</li>
+<li>纠错阶段──对建立的联系做足够严谨的检查。</li>
+<li>应用阶段──抛开书本，做实验，接触生活。</li>
+</ol>
+<h2 id="1-5-信息结构"><a href="#1-5-信息结构" class="headerlink" title="1.5 信息结构"></a>1.5 信息结构</h2><ol>
+<li>随意信息：缺少逻辑分类多零散知识。</li>
+<li>观点信息：存在争论的信息。</li>
+<li>过程信息：讲述一系列动作，操作的信息。</li>
+<li>具体信息：实际生活中可以观察到，听到，触到的信息。</li>
+<li>抽象信息：难以理解，但是逻辑性很强，需要抽象思维理解的信息。</li>
+</ol>
+<h1 id="Part-2-整体性学习技术"><a href="#Part-2-整体性学习技术" class="headerlink" title="Part 2 整体性学习技术"></a>Part 2 整体性学习技术</h1><hr>
+<h2 id="2-1-获取知识"><a href="#2-1-获取知识" class="headerlink" title="2.1 获取知识"></a>2.1 获取知识</h2><ol>
+<li>快速阅读</li>
+<li>笔记流</li>
+</ol>
+<h3 id="2-11-快速阅读"><a href="#2-11-快速阅读" class="headerlink" title="2.11 快速阅读"></a>2.11 快速阅读</h3><ol>
+<li>指读法:用手指帮助阅读</li>
+<li>练习阅读法:两次在相同时间里阅读相同的资料，比较理解程度</li>
+<li>积极阅读法(针对难以理解的知识) - 这一节主要观点是什么 - 我怎样才能记住主要观点 - 我要怎样将主要观点拓展开以及应用它</li>
+</ol>
+<h3 id="2-12-笔记流笔记流的制作："><a href="#2-12-笔记流笔记流的制作：" class="headerlink" title="2.12 笔记流笔记流的制作："></a>2.12 笔记流笔记流的制作：</h3><ol>
+<li>使用笔记流时，首先写下最主要的观点，尽量用很短的单词来替换完整的句子。</li>
+<li>一旦你写下了一个观点，下一步就是在这个观点和其他观点之间画上一些箭头，观点不是建立成金字塔式的结构，而是呈现出相互关联的关系。两种笔记流：- 课下笔记流：课堂上按常规记笔记，下课后根据笔记内容制作标准的笔记流。- 评注流：首先写下最关键的信息，然后在信息之间加入联系</li>
+</ol>
+<h2 id="2-2-联系观点"><a href="#2-2-联系观点" class="headerlink" title="2.2 联系观点"></a>2.2 联系观点</h2><ul>
+<li>在获得知识之后，仅仅理解知识的表面意思一般是记不牢的，我们需要利用技巧理解和拓展这些知识。</li>
+</ul>
+<h3 id="2-21-比喻"><a href="#2-21-比喻" class="headerlink" title="2.21 比喻"></a>2.21 比喻</h3><ul>
+<li>比喻就是在不熟悉的知识和熟悉的知识之间架起一座沟通的桥梁。</li>
+<li>找出比喻的步骤：<ol>
+<li>确定你要深入理解和记忆的信息。</li>
+<li>在你的个人经验中寻找与信息部分相似的东西，要达到完全符合不太可能，所以与其寻找一个完全符合的东西，不如稍作让步，找到十几个部分符合的“不完美比喻”，在上面的例子里我想到的是雪中行走。</li>
+<li>重复上述过程，检查比喻不恰当的地方。例如，雪中行走是线性的痕迹，而脑神经却是错综复杂的网络。运用比喻法的技巧-  要有寻找比喻的欲望-  注意第一个出现在脑海中的念头- 优化和测试你的比喻(多找几个比喻)</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-22-内在化"><a href="#2-22-内在化" class="headerlink" title="2.22 内在化"></a>2.22 内在化</h3><ul>
+<li>内在化：在脑海中出现图像，而且有声音，触觉和情感。</li>
+<li><p>注意：具体信息的内在化效果最好，而抽象信息最适合比喻法怎样进行内在化</p>
+<ol>
+<li>明确你要内在化的概念。这是一个生物过程，还是编程中的函数或者是一个数学概念？</li>
+<li>从建立脑海中的图像开始。如果你不习惯内在化，可以先试着在纸上画出概念的粗略图，多次尝试后，你就会直接在脑海中想象了。</li>
+<li>脑海中的图像是静态的，还是栩栩如生的动态场景？掌握一个行列式需要好几个步骤，所以要让图像动起来，就仿佛在看一部电影一样。</li>
+<li>现在开始加上其他感官。试着用手去拿它，去摸它，去打开它，去嗅它的味道，去听它的声音，动用你身体的所有感官，将所有的感觉与运动的图像相联系。</li>
+<li>加入更多的感觉或情感。</li>
+<li>不断重复和优化图像，直到你一想到它就能很快地回忆起知识。 </li>
+</ol>
+</li>
+</ul>
+<h3 id="2-23-图表法"><a href="#2-23-图表法" class="headerlink" title="2.23 图表法"></a>2.23 图表法</h3><ol>
+<li>流程图：一系列的步骤；历史事件；一个系统。</li>
+<li>概念图：观点之间的内在关系3. 图像：用粗糙简单的涂鸦来代替文字，包括观点和观点之间的联系。</li>
+</ol>
+<h2 id="2-3-随意信息的处理"><a href="#2-3-随意信息的处理" class="headerlink" title="2.3 随意信息的处理"></a>2.3 随意信息的处理</h2><ol>
+<li>联想法</li>
+<li>挂钩法</li>
+<li>信息压缩技术</li>
+</ol>
+<h3 id="2-31-联想法联想法：将一系列观点串在一起，就像链条。"><a href="#2-31-联想法联想法：将一系列观点串在一起，就像链条。" class="headerlink" title="2.31 联想法联想法：将一系列观点串在一起，就像链条。"></a>2.31 联想法联想法：将一系列观点串在一起，就像链条。</h3><p>联想法的步骤：</p>
+<ol>
+<li>创造顺序</li>
+<li>给每一项预设一个符号</li>
+<li>创建属于自己的联想，前后项的联系</li>
+</ol>
+<h3 id="2-32-挂钩法"><a href="#2-32-挂钩法" class="headerlink" title="2.32 挂钩法"></a>2.32 挂钩法</h3><ul>
+<li>挂钩法：将要记忆的信息与数字联系在一起。</li>
+</ul>
+<h3 id="2-33-信息压缩技术"><a href="#2-33-信息压缩技术" class="headerlink" title="2.33 信息压缩技术"></a>2.33 信息压缩技术</h3><ul>
+<li>信息压缩：减少信息的容量，寻找信息的逻辑关系信息压缩的三种方式：<ol>
+<li>记忆术:用一个短语储存数个信息的方法</li>
+<li>图像联系：简单的符号替代每一个信息，然后将这些符号放在一张图像中</li>
+<li>笔记压缩:  <ul>
+<li>拿几张空白纸。准备好要压缩的笔记，这个练习可能会花费一两小时，所以要确保你有这么多时间。 </li>
+<li>用最小的字，写下笔记中的主要观点。使用尽可能少的字。 - 接着写下与之相联系的观点、公式、概念或定义。尽可能写小一点和写少一点，节省空间。 </li>
+<li>持续上述自由写下观点的过程，直到将笔记中的每一个主要观点都写了下来为止。最后你得到大约1～3张密密麻麻写满信息的纸。 </li>
+<li>有时候，还可以更进一步，将上面压缩后的内容加工、修饰得更有条理，更好看一些。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-4-以项目为基础的学习"><a href="#2-4-以项目为基础的学习" class="headerlink" title="2.4 以项目为基础的学习"></a>2.4 以项目为基础的学习</h2><ul>
+<li>以项目为基础的学习方式简单地说就是设定一个需要1～3个月达成的目标，达成目标的过程就是学习的过程，达成了目标也就达到了学习的效果。为了完成项目，你必须围绕着目标努力学习，以项目为基础的学习符合整体性学习的每一个过程。</li>
+</ul>
+<h2 id="2-5-整体性学习技术的实际应用"><a href="#2-5-整体性学习技术的实际应用" class="headerlink" title="2.5 整体性学习技术的实际应用"></a>2.5 整体性学习技术的实际应用</h2><p>费曼技巧：<br>第一步：选择要学习的概念首先选好你打算深入理解的概念，拿一张空白纸，在最上方写下概念的名称。<br>第二步：设想你是老师，正在试图教会一名新生这个知识点这一步你要假想自己费尽口舌让一名毫无这方面知识的学生听懂，并把你的解释记录下来。这一步至关重要，因为在自我解释那些你理解或不理解的知识过程中，你会理解得更好，而原先不明白的地方也得以理清。<br>第三步：当你感到疑惑时，返回去吧。每当你碰到难题感到疑惑时，别急着往下走，学习不是单行道，回过头来，重新阅读参考材料、听讲座或找老师解答，直到你觉得搞懂了为止，然后把解释记到纸上。<br>第四步：简单化和比喻如果你的解释很啰唆或者艰涩，尽量用简单直白的语言重新表述它，或者找到一个恰当的比喻以更好地理解它。你可以通过这种技术仔细地查明到底是什么地方你不明白，然后你可以去翻阅教材、笔记或询问老师，弄清楚到底你遗漏了哪些关键知识。费曼技巧对于自我测试、考察对知识点的理解程度，是一个真正的好方法。因为如果你不翻阅教科书就能用自己的话把观点解释清楚，那么就意味着你真正理解了该观点。</p>
+<h1 id="Part-3-超越整体性学习"><a href="#Part-3-超越整体性学习" class="headerlink" title="Part 3 超越整体性学习"></a>Part 3 超越整体性学习</h1><hr>
+<h2 id="3-1-成为高效学生的关键点："><a href="#3-1-成为高效学生的关键点：" class="headerlink" title="3.1 成为高效学生的关键点："></a>3.1 成为高效学生的关键点：</h2><ol>
+<li>能量管理</li>
+<li>不要“学习”（Don’t study）</li>
+<li>绝不拖延时间</li>
+<li>批处理</li>
+<li>有组织</li>
+</ol>
+<h3 id="3-11-能量管理"><a href="#3-11-能量管理" class="headerlink" title="3.11 能量管理"></a>3.11 能量管理</h3><ul>
+<li>增加你的能量储备</li>
+<li>坚持运动 </li>
+<li>充足的睡眠 </li>
+<li>多吃粗纤维，粗加工的食物 </li>
+<li>多喝水 </li>
+<li>少吃多餐</li>
+<li>将日程表由线性的改为循环式的 </li>
+<li>一周休息一天 </li>
+<li>工作在白天集中完成 </li>
+<li>设定90分钟集中完成某任务 </li>
+</ul>
+<h3 id="3-12-不要学习"><a href="#3-12-不要学习" class="headerlink" title="3.12 不要学习"></a>3.12 不要学习</h3><p>大多数学生认为如果不能一直待在图书馆、坐在书桌前沉思苦读，就会有负罪感。于是学生生活变成了一种持久的自我斗争过程──总是试图多‘学习’，但总是感到收获少。这就好像总是做出一副吃饭的样子，但是吃下去得不多，消化得不够，吸收得也不好，如此这般学习效果怎么可能好呢？不用“学习”（学习就好比整个食物经过咀嚼、消化、吸收的过程，它不是表面看起来“吃”的动作。人们不可能永远吃个不停，所以学习也不是坐在书桌前越长越好，学习需要挑选要吃的食物（获取信息）、咀嚼（明白阶段）、消化（理解阶段）、吸收（应用阶段）。</p>
+<p> 学习的定义：学习不是指坐在书桌前12个小时，也不是指每天坚持看书。这些是学习的表象，不是学习的实质。</p>
+<h3 id="3-13-绝不拖延周-日目标体系"><a href="#3-13-绝不拖延周-日目标体系" class="headerlink" title="3.13 绝不拖延周/日目标体系:"></a>3.13 绝不拖延周/日目标体系:</h3><ol>
+<li>每周周末，列一个清单，包括所有的任务、作业以及你想在下周完成的读书和学习活动。</li>
+<li>每天晚上，检查周计划，列出每日目标清单。</li>
+</ol>
+<h3 id="3-14-批处理"><a href="#3-14-批处理" class="headerlink" title="3.14 批处理"></a>3.14 批处理</h3><p>批处理的意思就是将那些类似的、散在的工作集中起来一次做完。批处理有助于节省时间，因为你可以集中时间和精力。例如：某个时间把一周需要阅读的材料一次性读完，而抽出另外一个时间连续写三四篇文章。批处理的使用技巧：</p>
+<ul>
+<li>批处理最适用于将那些需要时间不长的零散工作放在一起做。 </li>
+<li>一次性完成作业。如果一项作业花费的时间不会超过8小时，我就坐在凳子上一鼓作气完成它。将一个花3小时就可以写完的文章，分成15次零散时间内完成，肯定会浪费很多时间，每一次都要花时间重新鼓起写作的激情才能开始正式的写作。 </li>
+<li>提髙注意力阈值。注意力阈值就是指集中完成某项工作的最长时间，超过这个时间，注意力就急剧下降。通过不断接受越来越多的批处理，你可以逐渐提高你的注意力阈值。阈值越高，表示能一次完成的工作量也越大。 </li>
+</ul>
+<h3 id="3-15-有组织让你变得有组织："><a href="#3-15-有组织让你变得有组织：" class="headerlink" title="3.15 有组织让你变得有组织："></a>3.15 有组织让你变得有组织：</h3><ul>
+<li>所有的物品都放在固定的位置。作业、课外作业以及约会日期都记录在固定的地方。没有固定地方的结果就是混乱。专门找一个地方放东西，这样会更容易放得有序。</li>
+<li>随身携带一个记事本。每天随时记录，日积月累，必有所获。</li>
+<li>坚持日历和做事清单。应用做事清单记录任务和目标，使用日历来记录要做的事和截止日期。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-19e2323f8483e093.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
+    
+    </summary>
+    
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="Mind" scheme="https://github.com/knightsj/knightsj.github.io/tags/Mind/"/>
     
   </entry>
   
