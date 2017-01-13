@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-13T05:26:33.000Z</updated>
+  <updated>2017-01-13T05:34:06.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -16,11 +16,184 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>教程|浅显易懂讲解的iOS多线程技术-GCD</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E6%95%99%E7%A8%8B%7C%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/教程|浅显易懂讲解的iOS多线程技术-GCD/</id>
+    <title>详解iOS多图下载的缓存机制</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E8%AF%A6%E8%A7%A3iOS%E5%A4%9A%E5%9B%BE%E4%B8%8B%E8%BD%BD%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/详解iOS多图下载的缓存机制/</id>
+    <published>2017-01-13T05:33:55.000Z</published>
+    <updated>2017-01-13T05:34:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。</p>
+<p>第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。</p>
+<p>有一个多图缓存机制的教程是来自李明杰小码哥的，笔者觉得讲得挺不错的，于是就花了2个小时好好学习了一下。</p>
+<h2 id="1-需求点是什么？"><a href="#1-需求点是什么？" class="headerlink" title="#1. 需求点是什么？"></a>#1. 需求点是什么？</h2><p>这里所说的<strong>多图下载</strong>，就是要在tableview的每一个cell里显示一张图片,而且这些图片都需要从网上下载。</p>
+<h2 id="2-容易遇到的问题"><a href="#2-容易遇到的问题" class="headerlink" title="#2. 容易遇到的问题"></a>#2. 容易遇到的问题</h2><p>如果不知道或不使用<strong>异步操作</strong>和<strong>缓存机制</strong>，那么写出来的代码很可能会是这样：</p>
+<pre><code>cell.textLabel.text = app.name;
+cell.detailTextLabel.text = app.download;
+NSData *imageData = [NSData dataWithContentsOfURL:app.url];
+cell.imageView.image = [UIImage imageWithData:imageData];
+</code></pre><p>这样写有什么后果呢？</p>
+<p>####后果1：不可避免的卡顿（因为没有异步下载操作）</p>
+<blockquote>
+<p>dataWithContentsOfURL：是耗时操作，将其放在主线程会造成卡顿。如果图片很多，图片很大，而且网络情况不好的话肯定会卡出翔！</p>
+</blockquote>
+<p>####后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）</p>
+<blockquote>
+<p>由于没有缓存机制，即使下载完成并显示了当前cell的图片，但是当该cell再一次需要显示的时候还是会下载它所对应的图片：耗费了下载流量，而且还导致重复操作。</p>
+</blockquote>
+<p>很显然，要达到Tableview滚动的<strong>如丝滑般的享受</strong>必须二者兼得才可以，具体怎么做呢？</p>
+<h2 id="3-解决方案"><a href="#3-解决方案" class="headerlink" title="#3. 解决方案"></a>#3. 解决方案</h2><p>####1. 先看一下解决方案的流程图   </p>
+<p>小码哥将他的解决方案在PPT里用流程图画了出来，笔者觉得很不错，但是颜值略低（毕竟人家是一心搞技术，没时间在意这些外在的东西），笔者理了理思路，自己重新画了一张（好看么？）：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-addf3137097c3912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多图下载解决方案流程图"></p>
+<p>要想快速看懂此图，需要先了解该流程所需的所有数据源：</p>
+<p><strong>1. 图片的URL</strong>：因为每张图片对应的URL都是唯一的，所以我们可以通过它来建立<strong>图片缓存</strong>和<strong>下载操作的缓存</strong>的键，以及拼接<strong>沙盒缓存</strong>的路径字符串。<br><strong>2. 图片缓存（字典）</strong>：存放于内存中；键为图片的URL，值为UIImage对象。作用：读取速度快，直接使用UIImage对象。<br><strong>3. 下载操作缓存（字典）</strong>：存放与内存中，键为图片的URL，值为NSBlockOperation对象。作用：用来避免对于同一张图片还要开启多个下载线程。<br><strong>4. 沙盒缓存(文件路径对应NSData)</strong>：存放于磁盘中，位于Cache文件夹内，路径为“Cache/图片URL的最后的部分”，值为NSData对象（将UIImage转化为NSData才能写入磁盘里）。作用：程序断网，再次启动也可以直接在磁盘中拿到图片。</p>
+<p>####2. 再看一下解决方案的代码</p>
+<p><strong>2.1图片缓存，下载操作缓存，沙盒缓存路径</strong></p>
+<pre><code>/**
+ *  存放所有下载完的图片
+ */
+@property (nonatomic, strong) NSMutableDictionary *images;
+
+/**
+ *  存放所有的下载操作（key是url，value是operation对象）
+ */
+@property (nonatomic, strong) NSMutableDictionary *operations;
+
+/**
+ *  拼接Cache文件夹的路径与url最后的部分，合并成唯一约定好的缓存路径
+ */
+#define CachedImageFile(url) [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[url lastPathComponent]]
+</code></pre><p><strong>2.2 图片下载之前的查询缓存部分</strong>：</p>
+<pre><code>    // 先从images缓存中取出图片url对应的UIImage
+    UIImage *image = self.images[app.icon];
+    if (image) { 
+
+        // 存在：说明图片已经下载成功，并缓存成功）
+        cell.imageView.image = image;
+
+    } else { 
+
+         // 不存在：说明图片并未下载成功过，或者成功下载但是在images里缓存失败，需要在沙盒里寻找对于的图片
+
+         // 获得url对于的沙盒缓存路径
+        NSString *file = CachedImageFile(app.icon);
+
+        // 先从沙盒中取出图片
+        NSData *data = [NSData dataWithContentsOfFile:file];
+
+        if (data) {
+
+            //data不为空，说明沙盒中存在这个文件
+            cell.imageView.image = [UIImage imageWithData:data];
+
+        } else {
+
+             // 反之沙盒中不存在这个文件
+             // 在下载之前显示占位图片
+            cell.imageView.image = [UIImage imageNamed:@&quot;placeholder&quot;];
+
+            // 下载图片
+            [self download:app.icon indexPath:indexPath];
+        }
+    }
+</code></pre><p><strong>2.3 图片的下载部分</strong>：</p>
+<pre><code>
+/**
+ *  下载图片
+ *
+ *  @param imageUrl 图片的url
+ */
+- (void)download:(NSString *)imageUrl indexPath:(NSIndexPath *)indexPath
+{
+    // 取出当前图片url对应的下载操作（operation对象）
+    NSBlockOperation *operation = self.operations[imageUrl];
+    if (operation) return;
+
+    // 创建操作，下载图片
+    __weak typeof(self) appsVc = self;
+    operation = [NSBlockOperation blockOperationWithBlock:^{
+        NSURL *url = [NSURL URLWithString:imageUrl];
+        NSData *data = [NSData dataWithContentsOfURL:url]; // 下载
+        UIImage *image = [UIImage imageWithData:data]; // NSData -&gt; UIImage
+
+        // 回到主线程
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+
+            if (image) {
+                // 如果存在图片（下载完成），存放图片到图片缓存字典中
+                appsVc.images[imageUrl] = image;
+
+                //将图片存入沙盒中
+                //1. 先将图片转化为NSData
+                NSData *data = UIImagePNGRepresentation(image);
+
+                //2.  再生成缓存路径            
+                [data writeToFile:CachedImageFile(imageUrl) atomically:YES];
+            }
+
+            // 从字典中移除下载操作 (保证下载失败后，能重新下载)
+            [appsVc.operations removeObjectForKey:imageUrl];
+
+            // 刷新当前表格，减少系统开销
+            [appsVc.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    }];
+
+    // 添加下载操作到队列中
+    [self.queue addOperation:operation];
+
+    // 将当前下载操作添加到下载操作缓存中 (为了解决重复下载)
+    self.operations[imageUrl] = operation;
+}
+</code></pre><p>####3. 有哪些点是值得注意的？</p>
+<p>要说值得注意的地方，还是离不开对于缓存内容的添加和删除操作。</p>
+<p><strong>3.1 关于图片缓存</strong>：<br>很简单，成功下载，拿到了图片，就将图片添加到图片缓存中；下载失败，什么都不做，反正没有图。在这种机制下，就没有删除缓存里某个图片项的情况，因为图片缓存永远不会出现重复添加多个相同图片的情况，缓存中只要有一张对应的图，就直接拿去用了，不会去再下载了。</p>
+<p><strong>3.2 关于沙盒缓存</strong>：<br>同样地，对于沙盒缓存也是一个道理：有图就将其转化为NSData，写入磁盘，并对应唯一的路径，没有图就不写。所以即使是要下载相同的图片，因为当前url对应的沙盒路径已经存在文件了，所以直接拿就可以了，不会再下载。</p>
+<p>但是！<br>下载操作缓存是不同的！</p>
+<p><strong>3.3 关于下载操作缓存</strong><br>我们需要在下载回调完成后，立即将当前的下载操作从下载操作缓存中删去！<br>因为要避免下载失败后，无法再次下载的情况的发生！</p>
+<p>为什么呢？<br>注意一下将下载操作加入到下载操作缓存的时机：<br>是在<strong>下载开始的那一刻</strong>而不是<strong>下载成功的那一刻</strong>！</p>
+<p>如果在下载开始的那一刻加入到缓存中的话，这个缓存信息就包括两个情况：下载成功和下载失败：</p>
+<ul>
+<li><p>如果未来下载成功了，那么我们就不会来到判断当前下载操作是否在下载操作缓存这一步，在这之前直接就可以拿图去用了，下载操作是否存在下载操作缓存里并没有什么影响。</p>
+</li>
+<li><p>但是！如果未来下载失败了，那就肯定不会有对应的图片缓存和沙盒缓存，也就肯定会来到判断当前的下载操作是否在下载操作缓存里这一步。不幸的是，因为没有被删去，它是存在的。存在的话就不做任何其他操作，放任自流，导致曾经下载失败的图片永远不会再次下载。</p>
+</li>
+</ul>
+<p>忘了那段代码了么？回看一下代码（看我多好）：</p>
+<pre><code>NSBlockOperation *operation = self.operations[imageUrl];
+ if (operation) return;//转身就走，毫不留情
+</code></pre><p>因此，无论下载成功或是失败，在图片下载的回调里都要将当前的下载操作从下载操作队列中移走：用来保证如果下载失败了，就可以重新开启对应的下载操作进行下载，逻辑上更加严谨。</p>
+<h2 id="4-最后的话"><a href="#4-最后的话" class="headerlink" title="#4. 最后的话"></a>#4. 最后的话</h2><p>异步+缓存这两个机制双剑合璧的话会对程序新能带来很大的改观。这应该app开发进阶的必经之路。</p>
+<p>小码哥讲述的这套流程还算比较完整的了，更重要的还是学习其中的思想：</p>
+<blockquote>
+<ol>
+<li><p>将缓存分级：内存缓存，沙盒缓存，下载操作缓存。</p>
+</li>
+<li><p>而且还要经常使用二分法，将我们的逻辑考虑得滴水不漏。<br>如果我们没有认识到将下载操作添加到下载操作缓存的时机是包含下载成功和下载失败两个情况，那么就不会考虑到即时要将下载操作从下载操作缓存中删去的操作，很容易引起bug。所以在以后的开发中，成功和失败两个情况都要考虑进去，也就是说有if一定要有else！</p>
+</li>
+</ol>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。&lt;/p&gt;
+&lt;p&gt;第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅显易懂讲解iOS多线程技术-GCD</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/浅显易懂讲解的iOS多线程技术-GCD/</id>
     <published>2017-01-13T05:26:33.000Z</published>
-    <updated>2017-01-13T05:26:33.000Z</updated>
+    <updated>2017-01-13T05:28:47.000Z</updated>
     
     <content type="html"><![CDATA[<p>励志打造一篇浅显易懂地介绍iOS中GCD的文章！<br>笔者见过很多其他讲解GCD的博客，有些写得非常详细非常专业，几乎涵盖了GCD大大小小的全部知识，细致庞杂的内容容易让人摸不清主次，笔者觉得这类文章<strong>并不适合初学者学习</strong>，于是决定写一篇针对一些只是听过，但是对GCD还不了解的童鞋们。</p>
 <p>本文排除了一些细枝末节，扰乱人头绪的东西，着重讲解了GCD中重要的知识点，并在最后展示了GCD中<strong>经常使用的函数</strong>并附上结果图和讲解，简单明了。</p>
@@ -3670,125 +3843,6 @@ PlayingCard *otherCard = [otherCards objectAtIndex:0];
       &lt;p&gt;好久木有读书了，因为前两次迭代比较忙，工作下来也在一直写代码。不过还好现在把握好了节奏，有时间读书了。&lt;/p&gt;
 &lt;p&gt;我找了这本《程序员的职业素养》，内容比较简单，但是涵盖了一些程序员在工作过程中需要注意的一些细节问题，如果读者是程序员的话会对职业有很大帮助的。&lt;/p&gt;
 &lt;
-    
-    </summary>
-    
-    
-      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
-    
-      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>程序员的修炼：从优秀到卓越 - 读书笔记</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/01/10/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BF%AE%E7%82%BC%EF%BC%9A%E4%BB%8E%E4%BC%98%E7%A7%80%E5%88%B0%E5%8D%93%E8%B6%8A%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/01/10/程序员的修炼：从优秀到卓越 - 读书笔记/</id>
-    <published>2017-01-10T11:41:15.000Z</published>
-    <updated>2017-01-11T05:32:01.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="程序员的修炼 - 从优秀到卓越"></p>
-<p>本书是笔者上一篇读书笔记<a href="http://www.jianshu.com/p/33933a3ba977" target="_blank" rel="external">高效能程序员的修炼</a>的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。</p>
-<p>和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。</p>
-<hr>
-<h3 id="关于-To-Do-list"><a href="#关于-To-Do-list" class="headerlink" title="关于 To-Do list"></a>关于 To-Do list</h3><blockquote>
-<p>这个冗长的To-Do列表始终存在着，像一把悬挂在我头顶上的利刃，而且每天都在变得更加沉重和锋利。</p>
-<p>每天早上使劲想出这天你需要做的最重要的3件事。</p>
-</blockquote>
-<p>其实对于待办事项列表，笔者也读过相关的书籍，一般都是不推荐使用待办事项列表的。笔者总结出原因有二：</p>
-<ul>
-<li><p>待办事项列表上面的待办事项只是列出了还未完成的事情而已，并不带有“何时开始进行”和“何时完成“的信息。简单说，就是只有“what to do”而没有“when to do”和“when to finish”。也就是它本身能带给列表主人的驱动力不够高。</p>
-</li>
-<li><p>正是因为待办事项列表带给主人的驱动力不高，那么结果就是它们一直会躺在列表里持续很长时间。那么它们的主人在潜意识中一直挂念着它们，分散了主人的精力。因为主人“知道”总有一些事情还是没有完成的。 </p>
-</li>
-</ul>
-<hr>
-<h3 id="关于探索的态度"><a href="#关于探索的态度" class="headerlink" title="关于探索的态度"></a>关于探索的态度</h3><blockquote>
-<p>比起专业技能或者智商，成功更需要一种探索的态度，它是一种对于可能性和失败后果的执着。那些具备良好潜质的人总是会做出类似的回答“我总是在犯一些作物。昨天刚发生了一件挺严重的事情，前因后果是这样的。。。”。</p>
-<p>相反，那些回答“我并没有犯过大错误”或者“我犯过一些严重的错误，但是错误的原因并不在于我”的人是不会成为杰出的外科医生的。</p>
-</blockquote>
-<p>探索的态度对于程序员也是尤为重要的。笔者在开始写代码的时候总是以“解决问题就万事大吉”的标准，遇到了可能的坑却睁一只眼闭一只眼。但是每每这样的时候，后来总是会出bug。</p>
-<p>其实这就是逃避，就是一种缺乏探索精神的表现。其实我把那些坑弄懂了也不需要多少时间嘛。弄懂了，以后再遇到就稳稳当当搞定了。没弄懂，就还是踩坑。突然想到了一句话：遇到问题，你硬着头皮解决了一半，就只剩下一半的问题。但是你逃避，就是两个问题了。</p>
-<blockquote>
-<p>不管你在做什么项目，怀揣着学习和锻炼的态度去完成它吧，这是绝对值得的！与项目结果相比，过程才是最大的财富。如果你没能从一个项目的过程中学到一点东西，这才是真正失败的项目。</p>
-</blockquote>
-<hr>
-<h3 id="关于专家"><a href="#关于专家" class="headerlink" title="关于专家"></a>关于专家</h3><blockquote>
-<p>这个世界上只有少数的专家，却有大量的普通人。当你想要建立一个包含各种信息的网站时，这些普通人的贡献是最重要的。这是一个不规则的世界，里面装满了无穷无尽的细节。</p>
-<p>作为专家，重要的是不是告诉别人你知道什么。而是要清楚你应该问什么样的问题，并且灵活运用你所掌握的知识去解决眼下的具体问题。作为专家，你的作用是提供明确的，可执行的方向。</p>
-</blockquote>
-<p>读到这些，笔者觉得专家理应受到种种质疑，而为了能经得起这些质疑，那么就不应该跟人家说“我读了神马神马著作，精通神马神马技术，你看我的论文，你看我的研究成果等等”，真正证明自己是专家的途径，一般只有帮助非专家人士或者别的专家高效地解决问题。</p>
-<p>其实，庞大的知识体系也是对解决问题帮助很大的：因为这些有着庞大知识体系的专家的晶体智力水平很高，很多时候，他们并不需要动脑子(也就是流体智力)，直接调出相应知识就能解决。所以说，那些自称专家的人如果连连无法解决问题的话，那么真的是low爆了。</p>
-<hr>
-<h3 id="关于软件项目管理"><a href="#关于软件项目管理" class="headerlink" title="关于软件项目管理"></a>关于软件项目管理</h3><blockquote>
-<p>鼓励并强制要求程序员创建一张他们所要做的全部事情的列表，然后尽可能添加所有的子项，这样就能估算这个任务话费多少时间了。</p>
-<p>如果有人问你的时间表，你应该拿出一张你要做的所有事情的列表。如果拿不出来，你所要做的第一件事情，就是要做出这么一张列表。</p>
-</blockquote>
-<p>这种列表和待办事项列表稍有不同。这种列表属于“时间表”，它的目的是监控进度:所以说，它的时间总长度是不变的。但是待办事项列表的时间总长度是趋于“无限的”(当然，只对于执行力很差的人来说)。</p>
-<hr>
-<h3 id="关于“一夜成名”"><a href="#关于“一夜成名”" class="headerlink" title="关于“一夜成名”"></a>关于“一夜成名”</h3><blockquote>
-<p>一夜成名的传说容易让人误入歧途，并且遗毒不浅。如果你打算做一个全新的东西，要有打持久战的准备。</p>
-<p>勤于练习：不是一遍又一遍的简单重复，而是要不断挑战略微超出自身能力之外的任务-努力尝试，并在做的同时以及之后对自己的表现进行评估，然后纠正错误，如此反复。</p>
-</blockquote>
-<p>这里谈到了程序员对自己本身的迭代：快速迭代。其实同软件开发是一个道理：软件迭代的速度远重要于迭代的质量。也就是说，我们在学习的过程中，对自己的提升也应该是快速而轻盈的。</p>
-<p>切忌一口气吃个胖子，肯定是吃不消的。应该结合自己已有的知识水平，再寻找对自己来说稍微有点挑战性的技术来攻克，一来学习效率高，二来可以提升自信，进入到新一轮的学习中去。</p>
-<hr>
-<h3 id="关于优秀和平庸程序员之间的鸿沟"><a href="#关于优秀和平庸程序员之间的鸿沟" class="headerlink" title="关于优秀和平庸程序员之间的鸿沟"></a>关于优秀和平庸程序员之间的鸿沟</h3><blockquote>
-<ul>
-<li>成为更加优秀的程序员的方法是抛开编程。</li>
-<li>你的兴趣越广泛，就能越胜任你的工作。</li>
-<li>为了真正地成为一名更好的程序员，你必须培养自己对于编程周边所有事情的热情。</li>
-<li>单单靠编程，你只能补足或者增强自己已有的变成技能，永远也无法成为一名优秀的程序员。你需要尝试去了解你的客户，你所处的行业以及相关的业务。</li>
-<li>聪明的开发者知道，他们的工作远远不止编写代码和发布产品：他们的工作是开发出人们真正想要使用的软件。这当然包括编码，但还有大量全局性的其他事情，比如撰写技术文档，交互设计，培养用户社区，乃至产品愿景，这些对于软件的全貌成功都是至关重要的。</li>
-</ul>
-<hr>
-</blockquote>
-<h3 id="关于修复bug"><a href="#关于修复bug" class="headerlink" title="关于修复bug"></a>关于修复bug</h3><blockquote>
-<p>在对报告数据的广泛分析之后，我们看到：80%的客服问题在修复了用户报得最多的20%的bug之后就得到解决。即使修复用户报的最多的1%的bug，也能解决50%的客服问题。这个分析结果通常对于各家公司都是成立的。</p>
-<p>如果你修复了一个真实用户永远也碰不到的bug，那你修复有什么价值呢？</p>
-<p>你越快将你的软件推到真实用户面前，就会得到越多的数据来改进你的软件。问题不在于你在发布软件的时候带去了多少bug，而是在于你能多快地修复那些bug。</p>
-</blockquote>
-<p>因此，笔者认为在bug管理的问题上，要注意两点：</p>
-<ul>
-<li>不要怕将bug暴露在用户面前，尽早地收集用户的反馈数据是关键。</li>
-<li>而且，在收到大量的反馈数据之后，也应遵循二八定律，要以bug的影响程度来划分bug的优先级,不应盲目排列修改bug的顺序。</li>
-</ul>
-<hr>
-<h3 id="关于衡量软件的成功"><a href="#关于衡量软件的成功" class="headerlink" title="关于衡量软件的成功"></a>关于衡量软件的成功</h3><blockquote>
-<p>多少用户在真正使用你的软件？这才是衡量成功的终极标准。</p>
-</blockquote>
-<p>其实无论交互多绚丽，功能多么吊炸天，一旦用户不需要，用户不喜欢，不掏钱，其实是没有任何卵用的。而且在一定的技术水准上，如果无法“说服”大量客户使用产品，也同样是让人心痛的。</p>
-<ul>
-<li>技术再牛也要从用户体验出发，少做一些中看不中用的东西。想出数百个功能很容易，但是从中挑出几个可以提升用户体验，真正能吸引用户，让用户掏腰包的功能实在不易。</li>
-</ul>
-<ul>
-<li>产品做出来了，产品有没有人用，营销和推广同时占有举足轻重的作用。突然想到以前在一本营销书籍看到的：能做出比麦当劳好吃的汉堡包很容易，但是能比麦当劳卖得好却是很难得，众人难以模仿麦当劳整体的营销模式。相同的，像ZARA品牌的生产模式和营销模式之高效，是其他品牌无法超越的，这也是其风靡全球的原因。</li>
-</ul>
-<hr>
-<h3 id="关于用户的谎言"><a href="#关于用户的谎言" class="headerlink" title="关于用户的谎言"></a>关于用户的谎言</h3><blockquote>
-<ul>
-<li>我们必须根据用户的实际行为模式来设计产品。</li>
-<li>他们会说喜欢你的软件。但是我们应该去观察他们是否使用了软件，以及他们是怎么使用的。基于行为数据去设计软件，而不是靠用户说的“谎言”。</li>
-</ul>
-</blockquote>
-<p>笔者认为，我们很少能从用户言语上得到用户特别真实的感受。那些善良的客户们有时碍于面子，有时想当和事老，凭着“你好我好大家好”的原则，说一些心里没有的，善意的谎言。</p>
-<p>所以那些问卷调查什么的，走街串巷访问什么的其实意义不大。真正能“窥视”用户内心的是那些技术埋点。我记得有一次参加一个分享会，触宝科技的CEO跟大家分享了他们的埋点:他们通过埋点的方式，甚至会知道导致用户删掉app的是哪几个界面和动作。这让我感触很大，既然能做到这些，那么如果想知道用户喜欢点击那里，喜欢看哪里，喜欢做那几个动作，岂不是轻而易举？知己知彼，百战岂殆？</p>
-<hr>
-<h3 id="最后作者推荐的书籍"><a href="#最后作者推荐的书籍" class="headerlink" title="最后作者推荐的书籍"></a>最后作者推荐的书籍</h3><ol>
-<li>《代码大全(第二版)》</li>
-<li>《点石成金：访客至上的网页设计秘籍》</li>
-<li>《人件》</li>
-<li>《程序员修炼之道：从小工到专家》</li>
-<li>《软件工程的事实与谬误》</li>
-</ol>
-<p>其中第1本和第4本笔者在看。第1本对于非科班出身的笔者来说实在是晦涩难懂。不过既然作者说读完此书就能超过90%的程序员，那么不失为一个节省时间的好方法。以后有机会的话，希望能和各路英雄讨论讨论个中奥妙。</p>
-<hr>
-<h3 id="笔者最后的话"><a href="#笔者最后的话" class="headerlink" title="笔者最后的话"></a>笔者最后的话</h3><p>其实还是希望能和各位相互讨论，其实相比于文章被“喜欢”，笔者更希望诸位能留下评论，毫不留情地指出小弟想法中的不妥之处，这些是远比“打赏”和“喜欢”更让小弟高兴的呢！</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
     
     </summary>
     
