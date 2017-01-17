@@ -155,44 +155,65 @@
   </header>
 
   <section class="post">
-    <script src="/js/highlight.pack.js"></script>
-    <script>hljs.initHighlighting.called = false;</script>
-    <script>hljs.initHighlightingOnLoad();</script>
     <h1 id="UITableview"><a href="#UITableview" class="headerlink" title="UITableview"></a>UITableview</h1><hr>
 <p>UITableview是iOS软件中最常见的视图，用来以表格的形式显示数据。</p>
-<h2 id="数据源方法"><a href="#数据源方法" class="headerlink" title="数据源方法"></a>数据源方法</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSInteger</span>)numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section;<span class="comment">//表格的总section数，默认为返回1，可以不实现</span></div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView; <span class="comment">//返回当前section的行数，必须实现</span></div><div class="line">- (<span class="keyword">nullable</span> __kindof <span class="built_in">UITableViewCell</span> *)cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath; <span class="comment">//返回某section某row的cell，必须实现</span></div></pre></td></tr></table></figure>
-<h2 id="代理方法"><a href="#代理方法" class="headerlink" title="代理方法"></a>代理方法</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">tableView:</span>(UITableView *)tableView <span class="string">didSelectRowAtIndexPath:</span>(NSIndexPath *)indexPath;<span class="comment">//cell被点击是调用的方法</span></div></pre></td></tr></table></figure>
-<h2 id="根据cell获得对应的indexPath"><a href="#根据cell获得对应的indexPath" class="headerlink" title="根据cell获得对应的indexPath"></a>根据cell获得对应的indexPath</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"> NSIndexPath *indexPath = [<span class="keyword">self</span>.tableView  indexPathForCell <span class="symbol">:sender</span>];</div></pre></td></tr></table></figure>
-<h2 id="UITableView-Spinner"><a href="#UITableView-Spinner" class="headerlink" title="UITableView Spinner"></a>UITableView Spinner</h2><p>顶部加载时显示的小圆圈动画<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">nullable</span>) <span class="built_in">UIRefreshControl</span> *refreshControl;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)beginRefreshing;</div><div class="line">- (<span class="keyword">void</span>)endRefreshing;</div></pre></td></tr></table></figure></p>
-<h2 id="模型改变，刷新表格"><a href="#模型改变，刷新表格" class="headerlink" title="模型改变，刷新表格"></a>模型改变，刷新表格</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)reloadData; <span class="comment">//刷新全部表格：一般在模型大部分变化的时候才调用，在某个数据变化时不推荐使用</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)reloadRowsAtIndexPaths:(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSIndexPath</span> *&gt; *)indexPaths withRowAnimation:(<span class="built_in">UITableViewRowAnimation</span>)animation;<span class="comment">//只刷新某一个cell，在某行货少数行数据变化时推荐使用</span></div></pre></td></tr></table></figure>
-<h1 id="Universal-Application"><a href="#Universal-Application" class="headerlink" title="Universal Application"></a>Universal Application</h1><hr>
+<h2 id="数据源方法"><a href="#数据源方法" class="headerlink" title="数据源方法"></a>数据源方法</h2><pre><code>- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView; //返回当前section的行数，必须实现
+- (nullable __kindof UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath; //返回某section某row的cell，必须实现
+</code></pre><h2 id="代理方法"><a href="#代理方法" class="headerlink" title="代理方法"></a>代理方法</h2><pre><code>- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;//cell被点击是调用的方法
+</code></pre><h2 id="根据cell获得对应的indexPath"><a href="#根据cell获得对应的indexPath" class="headerlink" title="根据cell获得对应的indexPath"></a>根据cell获得对应的indexPath</h2><pre><code> NSIndexPath *indexPath = [self.tableView  indexPathForCell :sender];
+</code></pre><h2 id="UITableView-Spinner"><a href="#UITableView-Spinner" class="headerlink" title="UITableView Spinner"></a>UITableView Spinner</h2><p>顶部加载时显示的小圆圈动画</p>
+<pre><code>@property (nonatomic, strong, nullable) UIRefreshControl *refreshControl;
+
+- (void)beginRefreshing;
+- (void)endRefreshing;
+</code></pre><h2 id="模型改变，刷新表格"><a href="#模型改变，刷新表格" class="headerlink" title="模型改变，刷新表格"></a>模型改变，刷新表格</h2><pre><code>- (void)reloadData; //刷新全部表格：一般在模型大部分变化的时候才调用，在某个数据变化时不推荐使用
+
+- (void)reloadRowsAtIndexPaths:(NSArray&lt;NSIndexPath *&gt; *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;//只刷新某一个cell，在某行货少数行数据变化时推荐使用
+</code></pre><h1 id="Universal-Application"><a href="#Universal-Application" class="headerlink" title="Universal Application"></a>Universal Application</h1><hr>
 <p>Universal Application通用应用是指既可以在iPhone上运行，也可以在iPad上运行的应用，它有两个故事版文件，一个是针对iphone的，另一个是针对ipad的。</p>
 <p>iPad有两种独有的视图：</p>
 <ol>
 <li>Split View：拆分视图</li>
 <li>Popover:弹窗</li>
 </ol>
-<p>识别是否是ipad<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">BOOL</span> iPad  = ([&#123;<span class="built_in">UIDevice</span> currentDevice] userInterfaceIdiom] == <span class="built_in">UIUserInterfaceIdiomPad</span>)</div></pre></td></tr></table></figure></p>
-<h1 id="UISplitViewController"><a href="#UISplitViewController" class="headerlink" title="UISplitViewController"></a>UISplitViewController</h1><hr>
+<p>识别是否是ipad</p>
+<pre><code>BOOL iPad  = ([{UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+</code></pre><h1 id="UISplitViewController"><a href="#UISplitViewController" class="headerlink" title="UISplitViewController"></a>UISplitViewController</h1><hr>
 <h2 id="UISplitViewController包括"><a href="#UISplitViewController包括" class="headerlink" title="UISplitViewController包括"></a>UISplitViewController包括</h2><ul>
 <li>Master View Controller</li>
 <li>Detail View Controller</li>
 </ul>
 <p>UISplitViewController是storyboard的最顶层，不能被加入到UIViewController里面</p>
-<h2 id="获得SplitViewController："><a href="#获得SplitViewController：" class="headerlink" title="获得SplitViewController："></a>获得SplitViewController：</h2><p>返回当前UIViewcontroller所在的SplitViewController:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIViewController</span>.h</div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="built_in">UISplitViewController</span>  *splitViewController;</div></pre></td></tr></table></figure></p>
-<h2 id="获得SplitViewController的master和detail："><a href="#获得SplitViewController的master和detail：" class="headerlink" title="获得SplitViewController的master和detail："></a>获得SplitViewController的master和detail：</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">property</span><span class="title"> </span>(copy) NSArray *viewControllers;//<span class="number">0</span>：<span class="literal">master</span>;<span class="number">1</span>: detail</div></pre></td></tr></table></figure>
-<h2 id="UISplitViewControllerDelegate"><a href="#UISplitViewControllerDelegate" class="headerlink" title="UISplitViewControllerDelegate"></a>UISplitViewControllerDelegate</h2><p>在awakeFromNib设置此代理,代理负责 控制master和detail何时出现</p>
+<h2 id="获得SplitViewController："><a href="#获得SplitViewController：" class="headerlink" title="获得SplitViewController："></a>获得SplitViewController：</h2><p>返回当前UIViewcontroller所在的SplitViewController:</p>
+<pre><code>UIViewController.h
+
+@property (strong) UISplitViewController  *splitViewController;
+</code></pre><h2 id="获得SplitViewController的master和detail："><a href="#获得SplitViewController的master和detail：" class="headerlink" title="获得SplitViewController的master和detail："></a>获得SplitViewController的master和detail：</h2><pre><code>@property (copy) NSArray *viewControllers;//0：master;1: detail
+</code></pre><h2 id="UISplitViewControllerDelegate"><a href="#UISplitViewControllerDelegate" class="headerlink" title="UISplitViewControllerDelegate"></a>UISplitViewControllerDelegate</h2><p>在awakeFromNib设置此代理,代理负责 控制master和detail何时出现</p>
 <p>代理的几个方法：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)splitViewController:(<span class="built_in">UISplitViewController</span> *)svc shouldHideViewController:(<span class="built_in">UIViewController</span> *)vc inOrientation:(<span class="built_in">UIInterfaceOrientation</span>)orientation&#123;</div><div class="line">           <span class="keyword">return</span> <span class="literal">NO</span>; <span class="comment">//永远不隐藏master，master和detail将一直在屏幕上显示，无论是横屏或竖屏 </span></div><div class="line">           <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationIsPortrait</span>(orientation);<span class="comment">//竖屏不显示master 但是竖屏时左上角有按键可以显示master，但是</span></div><div class="line">不实现这个代理就不能出现按钮了。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在横屏或竖屏是否该隐藏master</p>
+<pre><code>- (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation{
+           return NO; //永远不隐藏master，master和detail将一直在屏幕上显示，无论是横屏或竖屏 
+           return UIInterfaceOrientationIsPortrait(orientation);//竖屏不显示master 但是竖屏时左上角有按键可以显示master，但是
+不实现这个代理就不能出现按钮了。
+}
+</code></pre><p>在横屏或竖屏是否该隐藏master</p>
 <h1 id="Popovers"><a href="#Popovers" class="headerlink" title="Popovers"></a>Popovers</h1><hr>
 <p>Popover是弹窗控件，它的作用是控制另一个视图控制器弹出到屏幕上，也是ipad独有的控件。<br>因为ipad的面积比较大，所以有时可以只以弹窗的形式提供信息而不用跳转到下一页面。</p>
 <p>注意：这个控件并没有继承UIViewController，是一个NSObject</p>
-<h2 id="Popover的Segue是UIStroyboardPopoverSegue。"><a href="#Popover的Segue是UIStroyboardPopoverSegue。" class="headerlink" title="Popover的Segue是UIStroyboardPopoverSegue。"></a>Popover的Segue是<code>UIStroyboardPopoverSegue</code>。</h2><p>在Popover出现之前：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)prepareForSegue: (<span class="built_in">UIStoryboardSegue</span> *)segue sender: (<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span>([segue isKindOfClass:[<span class="built_in">UIStroyboardPopoverSegue</span> <span class="keyword">class</span>]])&#123;</div><div class="line">        </div><div class="line">         <span class="built_in">UIPopoverController</span> *popoverController = ((<span class="built_in">UIStroyboardPopoverSegue</span> *)segue.)popoverController;</div><div class="line"></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="使Popover消失："><a href="#使Popover消失：" class="headerlink" title="使Popover消失："></a>使Popover消失：</h2><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>dismissPopoverAnimated:<span class="params">(BOOL)</span>animated;</div></pre></td></tr></table></figure>
-<p>默认情况下，点击外部任何的地方都能使它消失，除非我们给它指定即使点击也不会消失的<code>UIVIew</code>。</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">property</span><span class="title"> </span>(copy) NSArray *passthroughViews;</div></pre></td></tr></table></figure>
-<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="Popover的Segue是UIStroyboardPopoverSegue。"><a href="#Popover的Segue是UIStroyboardPopoverSegue。" class="headerlink" title="Popover的Segue是UIStroyboardPopoverSegue。"></a>Popover的Segue是<code>UIStroyboardPopoverSegue</code>。</h2><p>在Popover出现之前：</p>
+<pre><code>- (void)prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender
+{
+    if([segue isKindOfClass:[UIStroyboardPopoverSegue class]]){
+
+         UIPopoverController *popoverController = ((UIStroyboardPopoverSegue *)segue.)popoverController;
+
+     }
+}
+</code></pre><h2 id="使Popover消失："><a href="#使Popover消失：" class="headerlink" title="使Popover消失："></a>使Popover消失：</h2><pre><code>- (void)dismissPopoverAnimated:(BOOL)animated;
+</code></pre><p>默认情况下，点击外部任何的地方都能使它消失，除非我们给它指定即使点击也不会消失的<code>UIVIew</code>。</p>
+<pre><code>@property (copy) NSArray *passthroughViews;
+</code></pre><h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
 <p>该Demo是同时适用iPad 和iPhone的，可惜笔者没有iPad，无法调试，于是只适配了iPhone，以后有机会会补上适配iPad的代码的。</p>
 <h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
 <li>第一个页面用表格显示从Flickr抓取的图片数据，只显示图片名和图片详情。</li>
@@ -202,23 +223,124 @@
 <h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-b0a8e98131ae59b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
 <h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-获取Flickr上的数据"><a href="#1-获取Flickr上的数据" class="headerlink" title="1. 获取Flickr上的数据"></a>1. 获取Flickr上的数据</h4><p>Flickr提供了公共的接口提供了自家的照片，接口文件在本Demo里的<code>Flickr Fetcher</code>文件里，唯一注意的是需要申请<code>APIKEY</code>,<a href="[http://www.flickr.com/services/api/misc.api_keys.html](http://www.flickr.com/services/api/misc.api_keys.html">申请网址</a>)。</p>
 <p>解析照片数据的过程是比较耗时的，所以需要分配到子线程来进行。获得数组后，在主线程将数组赋予当前类的属性里。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)fetchPhotos</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span>.photos = <span class="literal">nil</span>;</div><div class="line">    <span class="built_in">NSURL</span> *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];</div><div class="line"></div><div class="line">    <span class="comment">//手动创建一个子线程</span></div><div class="line">    <span class="built_in">dispatch_queue_t</span> fetchQ = dispatch_queue_create(<span class="string">"flickr fetcher"</span>, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">    <span class="built_in">dispatch_async</span>(fetchQ, ^&#123;</div><div class="line"></div><div class="line">        <span class="comment">//获得json数据，比较耗时</span></div><div class="line">        <span class="built_in">NSData</span> *jsonResults = [<span class="built_in">NSData</span> dataWithContentsOfURL:url];</div><div class="line"></div><div class="line">        <span class="comment">//获得字典</span></div><div class="line">        <span class="built_in">NSDictionary</span> *propertyListResults = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:jsonResults options:<span class="number">0</span> error:<span class="literal">NULL</span>];</div><div class="line">        <span class="built_in">NSArray</span> *photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];</div><div class="line">   </div><div class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">           <span class="comment">//回到主线程     </span></div><div class="line">            <span class="keyword">self</span>.photos = photos;</div><div class="line"></div><div class="line">        &#125;);    </div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>- (void)fetchPhotos
+{
+    self.photos = nil;
+    NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
+
+    //手动创建一个子线程
+    dispatch_queue_t fetchQ = dispatch_queue_create(&quot;flickr fetcher&quot;, NULL);
+
+    dispatch_async(fetchQ, ^{
+
+        //获得json数据，比较耗时
+        NSData *jsonResults = [NSData dataWithContentsOfURL:url];
+
+        //获得字典
+        NSDictionary *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:NULL];
+        NSArray *photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+           //回到主线程     
+            self.photos = photos;
+
+        });    
+    });
+}
+</code></pre><blockquote>
 <p>NULL是C指针，代表指向OC指针的指针没有指向任何对象</p>
 </blockquote>
-<p>什么是指向OC指针的指针？：&amp;error是指向error的指针<br>如果我们这样写，就可以获得error：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> <span class="attribute">NSError</span> *<span class="literal">error</span> = nil;</div><div class="line"> <span class="attribute">NSDictionary</span> *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults options:<span class="number">0</span> <span class="literal">error</span>:&amp;<span class="literal">error</span>];</div></pre></td></tr></table></figure></p>
-<p>如果我们不关心error，就可以传NULL。</p>
+<p>什么是指向OC指针的指针？：&amp;error是指向error的指针<br>如果我们这样写，就可以获得error：</p>
+<pre><code> NSError *error = nil;
+ NSDictionary *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:&amp;error];
+</code></pre><p>如果我们不关心error，就可以传NULL。</p>
 <p>好了，现在我们获得了数据，需要刷新表格：</p>
-<h4 id="2-刷新表格"><a href="#2-刷新表格" class="headerlink" title="2. 刷新表格"></a>2. 刷新表格</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setPhotos:(<span class="built_in">NSArray</span> *)photos</div><div class="line">&#123;</div><div class="line">    _photos = photos;</div><div class="line">    [<span class="keyword">self</span>.tableView reloadData];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>只是刷新表格是不够的，还要实现<code>UITableView</code>的数据源方法来告诉<code>TableView</code>如何显示数据。（调用<code>reload</code>方法后会调用这些数据源方法）</p>
-<h4 id="3-实现数据源方法"><a href="#3-实现数据源方法" class="headerlink" title="3. 实现数据源方法"></a>3. 实现数据源方法</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - Table view data source</span></div><div class="line"></div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView &#123;</div><div class="line">    <span class="comment">//只有一组</span></div><div class="line">     <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section &#123;</div><div class="line">   <span class="comment">//行数为图片的个数</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.photos.count;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line"></div><div class="line">    <span class="comment">//从重用池中拿到cell</span></div><div class="line">    <span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@"Flickr Photo Cell"</span> forIndexPath:indexPath];</div><div class="line"></div><div class="line">    <span class="comment">//通过indexPath来获得在数据里对应的图片数据</span></div><div class="line">    <span class="built_in">NSDictionary</span> *photoDict = <span class="keyword">self</span>.photos[indexPath.row];</div><div class="line">    <span class="comment">//设置主标题和副标题</span></div><div class="line"></div><div class="line">    cell.textLabel.text = [photoDict valueForKeyPath:FLICKR_PHOTO_TITLE];</div><div class="line"></div><div class="line">    cell.detailTextLabel.text = [photoDict valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];    </div><div class="line"></div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="4-点击cell，实现跳转"><a href="#4-点击cell，实现跳转" class="headerlink" title="4. 点击cell，实现跳转"></a>4. 点击cell，实现跳转</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - Navigation</span></div><div class="line"></div><div class="line"><span class="comment">// In a storyboard-based application, you will often want to do a little preparation before navigation</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)prepareForSegue:(<span class="built_in">UIStoryboardSegue</span> *)segue sender:(<span class="keyword">id</span>)sender &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> ([sender isKindOfClass:[<span class="built_in">UITableViewCell</span> <span class="keyword">class</span>]]) &#123;</div><div class="line"></div><div class="line">        <span class="built_in">NSIndexPath</span> *indexPath = [<span class="keyword">self</span>.tableView indexPathForCell:sender];    </div><div class="line"></div><div class="line">        <span class="keyword">if</span> (indexPath) &#123;</div><div class="line">         </div><div class="line">            <span class="keyword">if</span> ([segue.destinationViewController isKindOfClass:[ImageViewController <span class="keyword">class</span>]]) &#123;</div><div class="line"></div><div class="line">                [<span class="keyword">self</span> prepareImageViewController:segue.destinationViewController toDisplayPhoto:<span class="keyword">self</span>.photos[indexPath.row]];                </div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)prepareImageViewController:(ImageViewController *)ivc toDisplayPhoto:(<span class="built_in">NSDictionary</span>*)photo</div><div class="line">&#123;</div><div class="line"></div><div class="line">   <span class="comment">//获得图像的URL传给ImageViewController</span></div><div class="line">    ivc.imageURL = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];</div><div class="line">   <span class="comment">//导航栏的标题为图片的名字</span></div><div class="line">    ivc.title = [photo valueForKey:FLICKR_PHOTO_TITLE];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<h4 id="2-刷新表格"><a href="#2-刷新表格" class="headerlink" title="2. 刷新表格"></a>2. 刷新表格</h4><pre><code>- (void)setPhotos:(NSArray *)photos
+{
+    _photos = photos;
+    [self.tableView reloadData];
+}
+</code></pre><p>只是刷新表格是不够的，还要实现<code>UITableView</code>的数据源方法来告诉<code>TableView</code>如何显示数据。（调用<code>reload</code>方法后会调用这些数据源方法）</p>
+<h4 id="3-实现数据源方法"><a href="#3-实现数据源方法" class="headerlink" title="3. 实现数据源方法"></a>3. 实现数据源方法</h4><pre><code>#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    //只有一组
+     return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+   //行数为图片的个数
+    return self.photos.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    //从重用池中拿到cell
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;Flickr Photo Cell&quot; forIndexPath:indexPath];
+
+    //通过indexPath来获得在数据里对应的图片数据
+    NSDictionary *photoDict = self.photos[indexPath.row];
+    //设置主标题和副标题
+
+    cell.textLabel.text = [photoDict valueForKeyPath:FLICKR_PHOTO_TITLE];
+
+    cell.detailTextLabel.text = [photoDict valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];    
+
+    return cell;
+
+}
+</code></pre><h4 id="4-点击cell，实现跳转"><a href="#4-点击cell，实现跳转" class="headerlink" title="4. 点击cell，实现跳转"></a>4. 点击cell，实现跳转</h4><pre><code>#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];    
+
+        if (indexPath) {
+
+            if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
+
+                [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row]];                
+
+            }
+        }
+    }
+}
+
+- (void)prepareImageViewController:(ImageViewController *)ivc toDisplayPhoto:(NSDictionary*)photo
+{
+
+   //获得图像的URL传给ImageViewController
+    ivc.imageURL = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
+   //导航栏的标题为图片的名字
+    ivc.title = [photo valueForKey:FLICKR_PHOTO_TITLE];
+
+}
+</code></pre><blockquote>
 <p>这里的<code>ImageViewController</code>复用了<a href="http://www.jianshu.com/p/ddb4f528b334" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（十） ：多线程，UIScrollView，图片浏览器Demo</a>里第二个页面。</p>
 </blockquote>
 <h4 id="5-优化"><a href="#5-优化" class="headerlink" title="5. 优化"></a>5. 优化</h4><p>每次跳转到图片详情页，将图片的原点设置在最左上端，并且大小恢复到该图片的原始大小</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setImage:(<span class="built_in">UIImage</span> *)image</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="comment">//重置缩放大小为1</span></div><div class="line">    <span class="keyword">self</span>.scrollView.zoomScale = <span class="number">1.0</span>;</div><div class="line">    <span class="keyword">self</span>.imageView.image = image;</div><div class="line">    [<span class="keyword">self</span>.imageView sizeToFit];</div><div class="line"></div><div class="line">    <span class="comment">//将视图框的原点设在左上角</span></div><div class="line">    <span class="keyword">self</span>.imageView.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">self</span>.image.size.width, <span class="keyword">self</span>.image.size.height);</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.scrollView.contentSize = <span class="keyword">self</span>.image? <span class="keyword">self</span>.image.size : <span class="built_in">CGSizeZero</span>;</div><div class="line"></div><div class="line">    [<span class="keyword">self</span>.spinner stopAnimating];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<pre><code>- (void)setImage:(UIImage *)image
+{
+
+    //重置缩放大小为1
+    self.scrollView.zoomScale = 1.0;
+    self.imageView.image = image;
+    [self.imageView sizeToFit];
+
+    //将视图框的原点设在左上角
+    self.imageView.frame = CGRectMake(0, 0, self.image.size.width, self.image.size.height);
+
+    self.scrollView.contentSize = self.image? self.image.size : CGSizeZero;
+
+    [self.spinner stopAnimating];
+
+}
+</code></pre><h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
 <p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
 <p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>

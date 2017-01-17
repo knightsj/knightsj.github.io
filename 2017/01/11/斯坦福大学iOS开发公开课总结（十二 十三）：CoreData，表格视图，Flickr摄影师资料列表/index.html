@@ -155,9 +155,6 @@
   </header>
 
   <section class="post">
-    <script src="/js/highlight.pack.js"></script>
-    <script>hljs.initHighlighting.called = false;</script>
-    <script>hljs.initHighlightingOnLoad();</script>
     <p>第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。</p>
 <p>笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。</p>
 <p>开始吧！</p>
@@ -214,23 +211,90 @@
 <p>``</p>
 <h4 id="3-在数据库查询对象（实体）："><a href="#3-在数据库查询对象（实体）：" class="headerlink" title="3. 在数据库查询对象（实体）："></a>3. 在数据库查询对象（实体）：</h4><p>我们使用<code>NSFetchRequest</code>类查询数据库的对象，通过设置其不同属性来查找符合不同标准的数据：</p>
 <p>举个🌰 ：查找出100个photo的实体：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@<span class="string">"Photo"</span>]<span class="comment">;</span></div><div class="line">request.fetchLimit = <span class="number">100</span><span class="comment">;</span></div></pre></td></tr></table></figure>
-<h2 id="关于Core-data的线程安全"><a href="#关于Core-data的线程安全" class="headerlink" title="关于Core data的线程安全"></a>关于Core data的线程安全</h2><figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//让context在安全队列中执行的方法</span></div><div class="line">[context performBlock:^<span class="comment">&#123;</span></div><div class="line">    [A doSomething];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
-<h1 id="NSFetchedResultsController"><a href="#NSFetchedResultsController" class="headerlink" title="NSFetchedResultsController"></a>NSFetchedResultsController</h1><hr>
+<pre><code>NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@&quot;Photo&quot;];
+request.fetchLimit = 100;
+</code></pre><h2 id="关于Core-data的线程安全"><a href="#关于Core-data的线程安全" class="headerlink" title="关于Core data的线程安全"></a>关于Core data的线程安全</h2><pre><code>//让context在安全队列中执行的方法
+[context performBlock:^{
+    [A doSomething];
+}];
+</code></pre><h1 id="NSFetchedResultsController"><a href="#NSFetchedResultsController" class="headerlink" title="NSFetchedResultsController"></a>NSFetchedResultsController</h1><hr>
 <p>NSFetchedResultsController的作用是将NSFetchRequest 和 UITalbleView联系到一起。<br>和TableView的数据源方法类似：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSInteger</span>)numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section&#123;</div><div class="line">  <span class="keyword">return</span> [[<span class="keyword">self</span>.fetchedResultsController sections] count];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView&#123;</div><div class="line">   <span class="keyword">return</span> [[<span class="keyword">self</span>.fetchedResultsController sections] count] objectAtIndex:section] numberOfObjects];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>详细的使用方法会在Demo讲解部分中告诉大家。</p>
+<pre><code>- (NSInteger)numberOfRowsInSection:(NSInteger)section{
+  return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+   return [[self.fetchedResultsController sections] count] objectAtIndex:section] numberOfObjects];
+}
+</code></pre><p>详细的使用方法会在Demo讲解部分中告诉大家。</p>
 <h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
 <h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
 <li>每隔20分钟，从flickr拿回最新的摄影者数据。</li>
 <li>用一个TableView显示当前拿回的摄影者的名字和所照的照片数。</li>
 </ul>
 <h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-72dc6873f1c13917.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="摄影师的信息列表"></p>
-<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-在启动接口获取flickr的数组"><a href="#1-在启动接口获取flickr的数组" class="headerlink" title="1. 在启动接口获取flickr的数组"></a>1. 在启动接口获取flickr的数组</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</div><div class="line">     <span class="keyword">self</span>.photoDatabaseContext = [<span class="keyword">self</span> createMainQueueManagedObjectContext];    </div><div class="line">     [<span class="keyword">self</span> startFlickrFetch];   </div><div class="line">     <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)startFlickrFetch</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span>.flickrDownloadSession getTasksWithCompletionHandler:^(<span class="built_in">NSArray</span> *dataTasks, <span class="built_in">NSArray</span> *uploadTasks, <span class="built_in">NSArray</span> *downloadTasks) &#123;</div><div class="line">        <span class="keyword">if</span> (![downloadTasks count]) &#123;</div><div class="line">            <span class="built_in">NSURLSessionDownloadTask</span> *task = [<span class="keyword">self</span>.flickrDownloadSession downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];</div><div class="line">            task.taskDescription = FLICKR_FETCH;</div><div class="line">            [task resume];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="built_in">NSURLSessionDownloadTask</span> *task <span class="keyword">in</span> downloadTasks) [task resume];</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-每隔20分钟获取新的内容"><a href="#2-每隔20分钟获取新的内容" class="headerlink" title="2. 每隔20分钟获取新的内容"></a>2. 每隔20分钟获取新的内容</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setPhotoDatabaseContext:(<span class="built_in">NSManagedObjectContext</span> *)photoDatabaseContext</div><div class="line">&#123;</div><div class="line">    _photoDatabaseContext = photoDatabaseContext;</div><div class="line">    </div><div class="line">    <span class="comment">//photoDatabaseContext设定成功后，每隔20分钟重新获取信息</span></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.photoDatabaseContext)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">self</span>.flickrForegroundFetchTimer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:FOREGROUND_FLICKR_FETCH_INTERVAL</div><div class="line">                                                                           target:<span class="keyword">self</span></div><div class="line">                                                                         selector:<span class="keyword">@selector</span>(startFlickrFetch:)</div><div class="line">                                                                         userInfo:<span class="literal">nil</span></div><div class="line">                                                                          repeats:<span class="literal">YES</span>];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//photoDatabaseContext设定成功后 向控制器发送消息</span></div><div class="line">    <span class="built_in">NSDictionary</span> *userInfo = <span class="keyword">self</span>.photoDatabaseContext ? @&#123; PhotoDatabaseAvailabilityContext : <span class="keyword">self</span>.photoDatabaseContext &#125; : <span class="literal">nil</span>;</div><div class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:PhotoDatabaseAvailabilityNotification</div><div class="line">                                                        object:<span class="keyword">self</span></div><div class="line">                                                      userInfo:userInfo];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="3-在表格视图查询所有摄影师的名字"><a href="#3-在表格视图查询所有摄影师的名字" class="headerlink" title="3. 在表格视图查询所有摄影师的名字"></a>3. 在表格视图查询所有摄影师的名字</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">setManagedObjectContext:</span>(NSManagedObjectContext *)managedObjectContext</div><div class="line">&#123;</div><div class="line">    <span class="comment">//哪个数据库</span></div><div class="line">    _managedObjectContext = managedObjectContext;</div><div class="line">    </div><div class="line">    NSFetchRequest *requet = [NSFetchRequest <span class="string">fetchRequestWithEntityName:</span>@<span class="string">"Photographer"</span>];</div><div class="line">    requet.predicate = nil;<span class="comment">//所有的,无过滤</span></div><div class="line">    requet.sortDescriptors = @[[NSSortDescriptor <span class="string">sortDescriptorWithKey:</span>@<span class="string">"name"</span> <span class="string">ascending:</span>YES <span class="string">selector:</span><span class="meta">@selector</span>(<span class="string">localizedStandardCompare:</span>)]];</div><div class="line"></div><div class="line">    self.fetchedResultsController = [[NSFetchedResultsController alloc] <span class="string">initWithFetchRequest:</span>requet <span class="string">managedObjectContext:</span>managedObjectContext <span class="string">sectionNameKeyPath:</span>nil <span class="string">cacheName:</span>nil];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="4-重写tablelViwe-cellForRowAtIndex-方法，显示摄影师数据"><a href="#4-重写tablelViwe-cellForRowAtIndex-方法，显示摄影师数据" class="headerlink" title="4. 重写tablelViwe:cellForRowAtIndex:方法，显示摄影师数据"></a>4. 重写<code>tablelViwe:cellForRowAtIndex:</code>方法，显示摄影师数据</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@"Photographer cell"</span>];</div><div class="line">    </div><div class="line">    <span class="comment">//拿到摄影师的名字和摄影数量</span></div><div class="line">    Photographer *photographer = [<span class="keyword">self</span>.fetchedResultsController objectAtIndexPath:indexPath];</div><div class="line">    cell.textLabel.text = photographer.name;</div><div class="line">    cell.detailTextLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%lu photos"</span>, [photographer.photos count]];    </div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>本Demo显然是一个未完成品，它只显示了摄影师的相关信息，并且只有一个页面。在接下来的课程中应该会对该Demo进行更多过的扩展。</p>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-在启动接口获取flickr的数组"><a href="#1-在启动接口获取flickr的数组" class="headerlink" title="1. 在启动接口获取flickr的数组"></a>1. 在启动接口获取flickr的数组</h4><pre><code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+     self.photoDatabaseContext = [self createMainQueueManagedObjectContext];    
+     [self startFlickrFetch];   
+     return YES;
+}
+
+- (void)startFlickrFetch
+{
+    [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+        if (![downloadTasks count]) {
+            NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+            task.taskDescription = FLICKR_FETCH;
+            [task resume];
+        } else {
+            for (NSURLSessionDownloadTask *task in downloadTasks) [task resume];
+        }
+    }];
+}
+</code></pre><h4 id="2-每隔20分钟获取新的内容"><a href="#2-每隔20分钟获取新的内容" class="headerlink" title="2. 每隔20分钟获取新的内容"></a>2. 每隔20分钟获取新的内容</h4><pre><code>- (void)setPhotoDatabaseContext:(NSManagedObjectContext *)photoDatabaseContext
+{
+    _photoDatabaseContext = photoDatabaseContext;
+
+    //photoDatabaseContext设定成功后，每隔20分钟重新获取信息
+    if (self.photoDatabaseContext)
+    {
+        self.flickrForegroundFetchTimer = [NSTimer scheduledTimerWithTimeInterval:FOREGROUND_FLICKR_FETCH_INTERVAL
+                                                                           target:self
+                                                                         selector:@selector(startFlickrFetch:)
+                                                                         userInfo:nil
+                                                                          repeats:YES];
+    }
+
+    //photoDatabaseContext设定成功后 向控制器发送消息
+    NSDictionary *userInfo = self.photoDatabaseContext ? @{ PhotoDatabaseAvailabilityContext : self.photoDatabaseContext } : nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:PhotoDatabaseAvailabilityNotification
+                                                        object:self
+                                                      userInfo:userInfo];
+}
+</code></pre><h4 id="3-在表格视图查询所有摄影师的名字"><a href="#3-在表格视图查询所有摄影师的名字" class="headerlink" title="3. 在表格视图查询所有摄影师的名字"></a>3. 在表格视图查询所有摄影师的名字</h4><pre><code>- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
+    //哪个数据库
+    _managedObjectContext = managedObjectContext;
+
+    NSFetchRequest *requet = [NSFetchRequest fetchRequestWithEntityName:@&quot;Photographer&quot;];
+    requet.predicate = nil;//所有的,无过滤
+    requet.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@&quot;name&quot; ascending:YES selector:@selector(localizedStandardCompare:)]];
+
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:requet managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+
+}
+</code></pre><h4 id="4-重写tablelViwe-cellForRowAtIndex-方法，显示摄影师数据"><a href="#4-重写tablelViwe-cellForRowAtIndex-方法，显示摄影师数据" class="headerlink" title="4. 重写tablelViwe:cellForRowAtIndex:方法，显示摄影师数据"></a>4. 重写<code>tablelViwe:cellForRowAtIndex:</code>方法，显示摄影师数据</h4><pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;Photographer cell&quot;];
+
+    //拿到摄影师的名字和摄影数量
+    Photographer *photographer = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = photographer.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@&quot;%lu photos&quot;, [photographer.photos count]];    
+    return cell;
+
+}
+</code></pre><p>本Demo显然是一个未完成品，它只显示了摄影师的相关信息，并且只有一个页面。在接下来的课程中应该会对该Demo进行更多过的扩展。</p>
 <h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
 <p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
@@ -268,7 +332,8 @@ Network Activity
                 
                 UITableview
 UITableview是iOS软件中最常见的视图，用来以表格的形式显示数据。
-数据源方法123- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现- (NSInteg
+数据源方法- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现
+- (NSInteger
                 &hellip;
                 </p>
                 <div class="post-list__meta"><time datetime="2017-01-11T07:20:18.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
