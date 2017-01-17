@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E9%AB%98%E5%BA%A6%E5%B0%81%E8%A3%85FMDB%E6%A1%86%E6%9E%B6%EF%BC%9A%E5%90%84%E7%94%A8%E4%B8%80%E5%8F%A5%E4%BB%A3%E7%A0%81%E6%9B%B4%E6%96%B0%EF%BC%88%E6%B7%BB%E5%8A%A0&%E4%BF%AE%E6%94%B9%EF%BC%89%EF%BC%8C%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF/</loc>
+    <lastmod>2017-01-16T04:42:33.000Z</lastmod>
+    <data>
+        <display>
+        <title>高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息</title>
+        <pubTime>2017-01-13T05:54:08.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93%20%7C%20%E5%96%84%E4%BA%8E%E6%80%BB%E7%BB%93%EF%BC%8C%E6%8A%8A%E6%8F%A1%E6%96%B9%E5%90%91/</loc>
+    <lastmod>2017-01-13T06:10:18.000Z</lastmod>
+    <data>
+        <display>
+        <title>2016年终总结 | 善于总结，把握方向</title>
+        <pubTime>2017-01-13T05:55:17.000Z</pubTime>
+        
+        <tag>Life</tag>
+         
+        <tag>Job</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/2016%E5%B9%B410%E6%9C%88%E6%B1%82%E8%81%8C%E8%AE%B0%EF%BC%9AiOS%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C%E4%B8%8D%E5%88%B01%E5%B9%B4%EF%BC%8C%E5%9C%A81%E4%B8%AA%E6%9C%88%E5%86%85%E6%8B%BF%E5%88%B0%E4%BA%863%E4%B8%AAoffer/</loc>
+    <lastmod>2017-01-13T05:54:44.000Z</lastmod>
+    <data>
+        <display>
+        <title>2016年10月求职记 | iOS工作经验不到1年，在1个月内拿到了3个offer</title>
+        <pubTime>2017-01-13T05:54:44.000Z</pubTime>
+        
+        <tag>Life</tag>
+         
+        <tag>Job</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%8A%80%E5%B7%A7%E7%AF%87/</loc>
+    <lastmod>2017-01-13T05:52:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>《Effective Objective-C》超级干货三部曲（三）：技巧篇</title>
+        <pubTime>2017-01-13T05:52:57.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%A7%84%E8%8C%83%E7%AF%87/</loc>
+    <lastmod>2017-01-13T05:52:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>《Effective Objective-C》超级干货三部曲（二）：规范篇</title>
+        <pubTime>2017-01-13T05:52:04.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E5%BF%B5%E7%AF%87/</loc>
+    <lastmod>2017-01-13T05:50:51.000Z</lastmod>
+    <data>
+        <display>
+        <title>《Effective Objective-C》超级干货三部曲（一）：概念篇</title>
+        <pubTime>2017-01-13T05:50:51.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E8%AF%A6%E8%A7%A3iOS%E5%A4%9A%E5%9B%BE%E4%B8%8B%E8%BD%BD%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</loc>
+    <lastmod>2017-01-13T05:36:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>详解iOS多图下载的缓存机制</title>
+        <pubTime>2017-01-13T05:33:55.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/</loc>
+    <lastmod>2017-01-13T05:28:47.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅显易懂讲解iOS多线程技术-GCD</title>
+        <pubTime>2017-01-13T05:26:33.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%89%8D%E6%98%AF%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E5%92%8C%E5%B9%B8%E7%A6%8F%E7%94%9F%E6%B4%BB%E7%9A%84%E6%9C%89%E6%95%88%E9%80%94%E5%BE%84%20-%20%E8%AF%BB%E3%80%8A%E9%87%8D%E6%9D%A52%E3%80%8B%E6%9C%89%E6%84%9F/</loc>
+    <lastmod>2017-01-13T05:18:18.000Z</lastmod>
+    <data>
+        <display>
+        <title>远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感</title>
+        <pubTime>2017-01-13T05:18:16.000Z</pubTime>
+        
+        <tag>BookNote</tag>
+         
+        <tag>IT</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E6%B5%85%E8%B0%88%E4%BA%92%E8%81%94%E7%BD%91%E5%95%86%E4%B8%9A%E6%80%9D%E7%BB%B4%E7%9A%84%E5%87%A0%E4%B8%AA%E8%AF%AF%E5%8C%BA%20-%20%E8%AF%BB%E3%80%8A%E9%87%8D%E6%9D%A5%E3%80%8B%E6%9C%89%E6%84%9F/</loc>
+    <lastmod>2017-01-13T05:14:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅谈互联网商业思维的几个误区 - 读《重来》有感</title>
+        <pubTime>2017-01-13T05:12:57.000Z</pubTime>
+        
+        <tag>BookNote</tag>
+         
+        <tag>IT</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%83%EF%BC%89%EF%BC%9ACoreMotion%EF%BC%8Capp%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%8C%E6%96%B9%E5%9D%97%E7%A2%B0%E6%92%9E%E6%B8%B8%E6%88%8FDemo/</loc>
+    <lastmod>2017-01-11T08:50:00.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo</title>
+        <pubTime>2017-01-11T07:30:02.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%9B%9B%20%E5%8D%81%E4%BA%94%EF%BC%89%EF%BC%9ACoreLocation%EF%BC%8CMapKit%EF%BC%8C%E5%9C%A8%E5%9C%B0%E5%9B%BE%E4%B8%8A%E6%A0%87%E8%AF%86Flickr%E6%91%84%E5%BD%B1%E5%B8%88%E7%9A%84%E4%BD%9C%E5%93%81/</loc>
+    <lastmod>2017-01-11T08:43:32.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品</title>
+        <pubTime>2017-01-11T07:27:10.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AB%EF%BC%89%EF%BC%9A%E5%8D%8F%E8%AE%AE%EF%BC%8Cblock%EF%BC%8C%E5%8A%A8%E7%94%BB%EF%BC%8C%E4%BF%84%E7%BD%97%E6%96%AF%E6%96%B9%E5%9D%97Demo/</loc>
+    <lastmod>2017-01-11T08:43:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo</title>
+        <pubTime>2017-01-11T07:17:25.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%83%EF%BC%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB%EF%BC%8C%E7%BB%98%E5%88%B6%E7%BA%B8%E7%89%8CDemo/</loc>
+    <lastmod>2017-01-11T08:43:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo</title>
+        <pubTime>2017-01-11T07:16:20.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%BF%BB%E7%BA%B8%E7%89%8CDemo/</loc>
+    <lastmod>2017-01-11T08:42:52.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo</title>
+        <pubTime>2017-01-11T07:01:11.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E7%BA%B8%E7%89%8C%E9%85%8D%E5%AF%B9%E6%B8%B8%E6%88%8FDemo/</loc>
+    <lastmod>2017-01-11T08:41:55.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo</title>
+        <pubTime>2017-01-11T07:05:23.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%9B%9B%20%E4%BA%94%EF%BC%89%EF%BC%9A%E5%B1%9E%E6%80%A7%E5%AD%97%E7%AC%A6%E4%B8%B2Demo/</loc>
+    <lastmod>2017-01-11T08:40:46.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo</title>
+        <pubTime>2017-01-11T07:07:50.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%85%AD%EF%BC%89%EF%BC%9A%E5%A4%9A%E6%80%81%EF%BC%8C%E5%AF%BC%E8%88%AA%E6%8E%A7%E5%88%B6%E5%99%A8%E5%92%8C%E9%80%89%E9%A1%B9%E5%8D%A1%E6%A0%8F%E6%8E%A7%E5%88%B6%E5%99%A8Demo/</loc>
+    <lastmod>2017-01-11T08:39:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo</title>
+        <pubTime>2017-01-11T07:08:50.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B9%9D%EF%BC%89%EF%BC%9AAutoLayout%EF%BC%8C%E8%87%AA%E5%8A%A8%E5%B8%83%E5%B1%80Demo/</loc>
+    <lastmod>2017-01-11T08:35:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo</title>
+        <pubTime>2017-01-11T07:18:19.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%EF%BC%89%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%8CUIScrollView%EF%BC%8C%E5%9B%BE%E7%89%87%E6%B5%8F%E8%A7%88%E5%99%A8Demo/</loc>
+    <lastmod>2017-01-11T08:34:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo</title>
+        <pubTime>2017-01-11T07:19:16.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%80%EF%BC%89%EF%BC%9A%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%EF%BC%8CFlickr-%E7%85%A7%E7%89%87%E6%9F%A5%E7%9C%8B%E5%99%A8Demo/</loc>
+    <lastmod>2017-01-11T08:34:03.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo</title>
+        <pubTime>2017-01-11T07:20:18.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89%EF%BC%9A%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE%EF%BC%8CUITextField,UImagePickerController%EF%BC%8C%E5%9C%A8Flickr%E6%B7%BB%E5%8A%A0%E6%91%84%E5%BD%B1%E5%B8%88%E7%85%A7%E7%89%87Demo/</loc>
+    <lastmod>2017-01-11T08:32:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField，UImagePickerController，在Flickr添加摄影师照片Demo</title>
+        <pubTime>2017-01-11T07:28:46.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%BA%8C%20%E5%8D%81%E4%B8%89%EF%BC%89%EF%BC%9ACoreData%EF%BC%8C%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%EF%BC%8CFlickr%E6%91%84%E5%BD%B1%E5%B8%88%E8%B5%84%E6%96%99%E5%88%97%E8%A1%A8/</loc>
+    <lastmod>2017-01-11T08:26:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo</title>
+        <pubTime>2017-01-11T07:21:28.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AB%EF%BC%89%EF%BC%9A%E5%9B%BD%E9%99%85%E5%8C%96%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AE%BE%E7%BD%AEUI/</loc>
+    <lastmod>2017-01-11T08:23:00.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI</title>
+        <pubTime>2017-01-11T07:30:42.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/10/%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-01-11T07:52:16.000Z</lastmod>
+    <data>
+        <display>
+        <title>如何高效学习 - 读书笔记</title>
+        <pubTime>2017-01-10T11:29:01.000Z</pubTime>
+        
+        <tag>BookNote</tag>
+         
+        <tag>Mind</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AiOS%E7%9A%84MVC%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2017-01-11T06:58:09.000Z</lastmod>
+    <data>
+        <display>
+        <title>斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架</title>
+        <pubTime>2017-01-11T06:58:09.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/10/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BF%AE%E7%82%BC%EF%BC%9A%E4%BB%8E%E4%BC%98%E7%A7%80%E5%88%B0%E5%8D%93%E8%B6%8A%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-01-11T05:32:01.000Z</lastmod>
+    <data>
+        <display>
+        <title>程序员的修炼：从优秀到卓越 - 读书笔记</title>
+        <pubTime>2017-01-10T11:41:15.000Z</pubTime>
+        
+        <tag>BookNote</tag>
+         
+        <tag>IT</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/10/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E7%B4%A0%E5%85%BB%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-01-11T05:31:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>程序员的职业素养 - 读书笔记</title>
+        <pubTime>2017-01-10T11:42:23.000Z</pubTime>
+        
+        <tag>BookNote</tag>
+         
+        <tag>IT</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/10/%E9%AB%98%E6%95%88%E8%83%BD%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BF%AE%E7%82%BC%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-01-11T05:31:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>高效能程序员的修炼 - 读书笔记</title>
+        <pubTime>2017-01-10T11:39:48.000Z</pubTime>
+        
+        <tag>BookNote</tag>
+         
+        <tag>IT</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
