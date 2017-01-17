@@ -12,15 +12,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta name="description" content="正在学hybrid开发的iOS开发者，就职于上海">
+    <meta name="description" content="正在学hybrid开发的iOS开发者">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo | J_Knight">
-    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者，就职于上海">
+    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo | J_Knight">
-    <meta property="og:description" content="正在学hybrid开发的iOS开发者，就职于上海">
+    <meta property="og:description" content="正在学hybrid开发的iOS开发者">
 
     
     <meta name="author" content="Knight_SJ">
@@ -63,7 +63,7 @@
         <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
         
         <hr class="panel-cover__divider" />
-        <p class="panel-cover__description">正在学hybrid开发的iOS开发者，就职于上海</p>
+        <p class="panel-cover__description">正在学hybrid开发的iOS开发者</p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
 
         <div class="navigation-wrapper">
@@ -155,84 +155,42 @@
   </header>
 
   <section class="post">
+    <script src="http://apps.bdimg.com/libs/highlight.js/9.1.0/languages/objectivec.min.js"></script>
+    <script>hljs.initHighlighting.called = false;</script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <p>本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。</p>
 <h1 id="动态绑定"><a href="#动态绑定" class="headerlink" title="动态绑定"></a>动态绑定</h1><hr>
 <p>在OC的编译期，所有的指针都是id类型，只有在运行时，对象的类型才会被确定。</p>
 <p>举个🌰 ：<br>在编译期，<code>NSString*</code> 实际上与id相同，但是加上去的好处是让编译器知道你至少是<strong>意图让该指针指向一个字符串</strong>。所以如果尝试发送非字符串消息给该指针，它会发出警告，但是不会提示错误，仍可以通过编译。但是如果在运行时就会“露馅”，因为此时如果向该对象发送非字符串消息时，就会引起崩溃。</p>
 <p>再举个具体的🌰：</p>
-<pre><code>NSString *hellow = @&quot;hello&quot;;
-Ship *hellowShip = (Ship *)hello;
-[helloShip shoot];
-</code></pre><blockquote>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSString *hellow = @<span class="string">"hello"</span><span class="comment">;</span></div><div class="line"><span class="keyword">Ship </span>*hellowShip = (<span class="keyword">Ship </span>*)hello<span class="comment">;</span></div><div class="line">[helloShip <span class="keyword">shoot];</span></div></pre></td></tr></table></figure>
+<blockquote>
 <p>编译器会认为<code>hellowShip</code>是<code>ship</code>类型，因此向<code>hellowShip</code>发送<code>shoot</code>消息时，在编译器期是可以通过的。<br>但是，<code>hellowShip</code>实际上指向的是字符串，所以会导致在运行时崩溃。</p>
 </blockquote>
 <p>所以就引出了<strong>类型保护机制</strong>用来确定对象的类型：</p>
 <h1 id="类型保护机制"><a href="#类型保护机制" class="headerlink" title="类型保护机制"></a>类型保护机制</h1><hr>
-<h3 id="没有添加类型保护机制："><a href="#没有添加类型保护机制：" class="headerlink" title="没有添加类型保护机制："></a>没有添加类型保护机制：</h3><pre><code>PlayingCard *otherCard = [otherCards firstObject];
-[otherCard play];
-</code></pre><blockquote>
+<h3 id="没有添加类型保护机制："><a href="#没有添加类型保护机制：" class="headerlink" title="没有添加类型保护机制："></a>没有添加类型保护机制：</h3><figure class="highlight abnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PlayingCard *otherCard = [otherCards firstObject]<span class="comment">;</span></div><div class="line">[otherCard play]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<blockquote>
 <p>firstObject 方法返回的是id类型，这里需要保护机制确保取出的对象是<code>PlayingCard</code>的实例，以防止向其发送消息时导致程序崩溃。</p>
 </blockquote>
-<h3 id="添加了类型保护机制："><a href="#添加了类型保护机制：" class="headerlink" title="添加了类型保护机制："></a>添加了类型保护机制：</h3><pre><code>PlayingCard *otherCard = [otherCards firstObject];
-
-id card = [otherCards firstObjct];
-if ([card isKindOfClass:[PlayingCard class]])
-{
-   PlayingCard *otherCard = (PlaytingCard *)card;
-   [otherCard play];
-
-}
-</code></pre><blockquote>
+<h3 id="添加了类型保护机制："><a href="#添加了类型保护机制：" class="headerlink" title="添加了类型保护机制："></a>添加了类型保护机制：</h3><figure class="highlight inform7"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">PlayingCard *otherCard = <span class="comment">[otherCards firstObject]</span>;</div><div class="line"></div><div class="line">id card = <span class="comment">[otherCards firstObjct]</span>;</div><div class="line">if (<span class="comment">[card isKindOfClass:<span class="comment">[PlayingCard class]</span>]</span>)</div><div class="line">&#123;</div><div class="line">   PlayingCard *otherCard = (PlaytingCard *)card;</div><div class="line">   <span class="comment">[otherCard play]</span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>我们可以看到<code>card</code>指针通过<code>isKindOfClass:</code>方法被确认了是<code>PlayingCard</code>类的实例，那么如果我们给<code>card</code>实例发送其消息时，就不会发生崩溃。反之，若<code>card</code>是其他类的实例，如果向其发送<code>card</code>类的消息就会非常危险！</p>
 </blockquote>
 <h1 id="NSRange"><a href="#NSRange" class="headerlink" title="NSRange"></a>NSRange</h1><hr>
 <p>NSRange是一个表示“范围”的结构体，包括起点和长度,主要用于字符串。</p>
 <p>常用方法：</p>
-<h4 id="字符串所有的字符："><a href="#字符串所有的字符：" class="headerlink" title="字符串所有的字符："></a>字符串所有的字符：</h4><pre><code>NSString *title = @&quot;好好学习天天向上&quot;;
-NSMakeRange(0, [title length])
-</code></pre><h4 id="判断某个字符串里包含某个字符："><a href="#判断某个字符串里包含某个字符：" class="headerlink" title="判断某个字符串里包含某个字符："></a>判断某个字符串里包含某个字符：</h4><pre><code>NSString *greeting = @&quot;hellow world&quot;;
-Nsstring *hi = @&quot;hi&quot;;
-NSRange r = [greeting rangeOfString:hi];
-if(r.location != NSNotFound)
-{
-    NSLog(@&quot;Found&quot;);
-}
-</code></pre><h1 id="控制器生命周期"><a href="#控制器生命周期" class="headerlink" title="控制器生命周期"></a>控制器生命周期</h1><hr>
+<h4 id="字符串所有的字符："><a href="#字符串所有的字符：" class="headerlink" title="字符串所有的字符："></a>字符串所有的字符：</h4><figure class="highlight hsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSString *<span class="keyword">title</span> = @<span class="string">"好好学习天天向上"</span><span class="comment">;</span></div><div class="line">NSMakeRange(<span class="number">0</span>, [<span class="keyword">title</span> <span class="keyword">length</span>])</div></pre></td></tr></table></figure>
+<h4 id="判断某个字符串里包含某个字符："><a href="#判断某个字符串里包含某个字符：" class="headerlink" title="判断某个字符串里包含某个字符："></a>判断某个字符串里包含某个字符：</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *greeting = <span class="string">@"hellow world"</span>;</div><div class="line">Nsstring *hi = <span class="string">@"hi"</span>;</div><div class="line"><span class="built_in">NSRange</span> r = [greeting rangeOfString:hi];</div><div class="line"><span class="keyword">if</span>(r.location != <span class="built_in">NSNotFound</span>)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Found"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="控制器生命周期"><a href="#控制器生命周期" class="headerlink" title="控制器生命周期"></a>控制器生命周期</h1><hr>
 <p>在控制器(ViewController)的生命周期里，处于某个特定的时间点会执行某个特定的方法。通过在这些方法里之行某些特定的任务，可以正确地实现其应实现的功能。</p>
 <h3 id="viewDidLoad"><a href="#viewDidLoad" class="headerlink" title="viewDidLoad"></a>viewDidLoad</h3><p>控制器的<code>viewDidLoad</code>方法在控制器的view为nil的时候被调用，在控制器的生命周期中只调用一次。</p>
-<pre><code>
-- （voidviewDidLoad
-{
-   [super viewDidLoad];    
-
-   //可执行：
-   //1. 控制器的初始化数据
-   //2. 网络请求
-
-
-   //不可执行：
-   //1. 视图形状的初始化信息
-}
-</code></pre><h3 id="viewWillAppear"><a href="#viewWillAppear" class="headerlink" title="viewWillAppear:"></a>viewWillAppear:</h3><p>控制器的<code>viewWillAppear:</code>在UIViewController对象的视图即将加入窗口时调用。只要该控制器的view即将要出现，都会调用，在控制器的生命周期中可以调用多次。<br>而且，如果该方法被调用，就说明视图<strong>一定</strong>会出现在屏幕上。</p>
-<pre><code>- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-    //可执行：
-    //1. 更新view离开界面后可能会改变的数据。
-    //2. view的几何变化。
-
-}
-</code></pre><h3 id="viewWillDisappear"><a href="#viewWillDisappear" class="headerlink" title="viewWillDisappear:"></a>viewWillDisappear:</h3><p>控制器的<code>viewWillDisappear:</code>在UIViewController的view即将不显示的时候调用，在控制器的生命周期中可以调用多次。</p>
-<pre><code>- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-
-    //可执行：
-    //1. 记录滚动视图的偏移量(因为要记住滚动位置，便于下次查看)
-    //2. 存储数据，便于再次显示该控制器时使用。
-}
-</code></pre><h1 id="属性字符串Demo"><a href="#属性字符串Demo" class="headerlink" title="属性字符串Demo"></a>属性字符串Demo</h1><hr>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- （voidviewDidLoad</div><div class="line">&#123;</div><div class="line">   [<span class="keyword">super</span> viewDidLoad];    </div><div class="line">   </div><div class="line">   <span class="comment">//可执行：</span></div><div class="line">   <span class="comment">//1. 控制器的初始化数据</span></div><div class="line">   <span class="comment">//2. 网络请求</span></div><div class="line">   </div><div class="line">   </div><div class="line">   <span class="comment">//不可执行：</span></div><div class="line">   <span class="comment">//1. 视图形状的初始化信息</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="viewWillAppear"><a href="#viewWillAppear" class="headerlink" title="viewWillAppear:"></a>viewWillAppear:</h3><p>控制器的<code>viewWillAppear:</code>在UIViewController对象的视图即将加入窗口时调用。只要该控制器的view即将要出现，都会调用，在控制器的生命周期中可以调用多次。<br>而且，如果该方法被调用，就说明视图<strong>一定</strong>会出现在屏幕上。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">viewWillAppear:</span>(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> <span class="string">viewWillAppear:</span>animated];</div><div class="line">    </div><div class="line">    <span class="comment">//可执行：</span></div><div class="line">    <span class="comment">//1. 更新view离开界面后可能会改变的数据。</span></div><div class="line">    <span class="comment">//2. view的几何变化。</span></div><div class="line">        </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="viewWillDisappear"><a href="#viewWillDisappear" class="headerlink" title="viewWillDisappear:"></a>viewWillDisappear:</h3><p>控制器的<code>viewWillDisappear:</code>在UIViewController的view即将不显示的时候调用，在控制器的生命周期中可以调用多次。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">viewWillDisappear:</span>(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> <span class="string">viewWillDisappear:</span>animated];</div><div class="line">    </div><div class="line">    <span class="comment">//可执行：</span></div><div class="line">    <span class="comment">//1. 记录滚动视图的偏移量(因为要记住滚动位置，便于下次查看)</span></div><div class="line">    <span class="comment">//2. 存储数据，便于再次显示该控制器时使用。</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="属性字符串Demo"><a href="#属性字符串Demo" class="headerlink" title="属性字符串Demo"></a>属性字符串Demo</h1><hr>
 <h2 id="设计需求"><a href="#设计需求" class="headerlink" title="设计需求"></a>设计需求</h2><ul>
 <li>布局为TextView下方有四个颜色按钮，再下方有添加轮廓按钮和去除轮廓按钮。</li>
 <li>选中TextView的文本后，点击色彩按钮，选中的文本的颜色变成点击的色彩按钮的背景色。</li>
@@ -248,49 +206,23 @@ if(r.location != NSNotFound)
 <li>向其添加属性字典和制定属性字典被应用的范围。</li>
 </ol>
 <p>举个🌰：</p>
-<pre><code>
-//1. 由现有字符串初始化可变属性字符串
-NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:self.outLineButton.currentTitle];
-
-//2. 添加属性字典和范围
-[title setAttributes:@{NSStrokeWidthAttributeName : @3,
-                      NSStrokeColorAttributeName  : self.outLineButton.tintColor}
-                                             range: NSMakeRange(0, [title length])];
-
-//3. 将属性字符串赋给按钮的属性字符串属性
-[self.outLineButton setAttributedTitle:title forState:UIControlStateNormal];
-</code></pre><pre><code>//设定选中的字都被设置为和点击的按钮一样的背景颜色
-[self.textView.textStorage  addAttribute:NSForegroundColorAttributeName value:sender.backgroundColor range:self.body.selectedRange];
-</code></pre><h4 id="关于按钮的操作"><a href="#关于按钮的操作" class="headerlink" title="关于按钮的操作"></a>关于按钮的操作</h4><pre><code>//获取按钮的背景色
-self.button.backgroundColor
-</code></pre><pre><code>//获取按钮当前的标题
-self.button.currentTitle
-</code></pre><pre><code>//设定按钮当前的属性字符串标题
-[self.button setAttributedTitle:title forState:UIControlStateNormal];
-</code></pre><h4 id="属性字典里的key："><a href="#属性字典里的key：" class="headerlink" title="属性字典里的key："></a>属性字典里的key：</h4><ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//1. 由现有字符串初始化可变属性字符串</span></div><div class="line"><span class="built_in">NSMutableAttributedString</span> *title = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:<span class="keyword">self</span>.outLineButton.currentTitle];</div><div class="line"></div><div class="line"><span class="comment">//2. 添加属性字典和范围</span></div><div class="line">[title setAttributes:@&#123;<span class="built_in">NSStrokeWidthAttributeName</span> : @<span class="number">3</span>,</div><div class="line">                      <span class="built_in">NSStrokeColorAttributeName</span>  : <span class="keyword">self</span>.outLineButton.tintColor&#125;</div><div class="line">                                             range: <span class="built_in">NSMakeRange</span>(<span class="number">0</span>, [title length])];</div><div class="line"></div><div class="line"><span class="comment">//3. 将属性字符串赋给按钮的属性字符串属性</span></div><div class="line">[<span class="keyword">self</span>.outLineButton setAttributedTitle:title forState:<span class="built_in">UIControlStateNormal</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//设定选中的字都被设置为和点击的按钮一样的背景颜色</span></div><div class="line">[self.textView.textStorage  <span class="string">addAttribute:</span>NSForegroundColorAttributeName <span class="string">value:</span>sender.backgroundColor <span class="string">range:</span>self.body.selectedRange];</div></pre></td></tr></table></figure>
+<h4 id="关于按钮的操作"><a href="#关于按钮的操作" class="headerlink" title="关于按钮的操作"></a>关于按钮的操作</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取按钮的背景色</span></div><div class="line">self<span class="selector-class">.button</span><span class="selector-class">.backgroundColor</span></div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取按钮当前的标题</span></div><div class="line">self<span class="selector-class">.button</span><span class="selector-class">.currentTitle</span></div></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//设定按钮当前的属性字符串标题</span></div><div class="line">[self.button <span class="string">setAttributedTitle:</span>title <span class="string">forState:</span>UIControlStateNormal];</div></pre></td></tr></table></figure>
+<h4 id="属性字典里的key："><a href="#属性字典里的key：" class="headerlink" title="属性字典里的key："></a>属性字典里的key：</h4><ul>
 <li><code>NSForegroundColorAttributeName</code>:属性字符串字符的颜色</li>
 <li><code>NSStrokeColorAttributeName</code>:属性字符串字符轮廓的颜色</li>
 <li><code>NSStrokeWidthAttributeName</code>:属性字符串字符轮廓的宽度</li>
 </ul>
-<h4 id="获取TextView被选中的范围"><a href="#获取TextView被选中的范围" class="headerlink" title="获取TextView被选中的范围"></a>获取TextView被选中的范围</h4><pre><code>self.textView.selectedRange
-</code></pre><h4 id="通知机制"><a href="#通知机制" class="headerlink" title="通知机制"></a>通知机制</h4><p>为了实现本Demo最后一个需求，我们需要监听系统字体何时被改变了。所以需要注册一个能收听“系统改变”广播的频道：</p>
+<h4 id="获取TextView被选中的范围"><a href="#获取TextView被选中的范围" class="headerlink" title="获取TextView被选中的范围"></a>获取TextView被选中的范围</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self<span class="selector-class">.textView</span><span class="selector-class">.selectedRange</span></div></pre></td></tr></table></figure>
+<h4 id="通知机制"><a href="#通知机制" class="headerlink" title="通知机制"></a>通知机制</h4><p>为了实现本Demo最后一个需求，我们需要监听系统字体何时被改变了。所以需要注册一个能收听“系统改变”广播的频道：</p>
 <p>注册通知：</p>
-<pre><code> [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(prefredFontsChaged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
-</code></pre><p>这样一来，当系统字体发生变化时，注册该频道的对象会收到通知并执行自定义的方法。<br>当改变系统字体的大小后，该类会收到通知，并调用<code>prefredFontsChaged:</code>方法，此时Demo上的字体也要做相应的改变：</p>
-<pre><code>- (void)prefredFontsChaged: (NSNotification *)notification
-{
-    //收到通知后，调用本地自定义的方法
-    [self userPreferredFonts];
-}
-
-- (void)userPreferredFonts
-{
-    //使用被改变后的系统字体
-    self.body.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.headLine.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-
-}
-</code></pre><blockquote>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[NSNotificationCenter defaultCenter] <span class="string">addObserver:</span>self <span class="string">selector:</span><span class="meta">@selector</span>(<span class="string">prefredFontsChaged:</span>) <span class="string">name:</span>UIContentSizeCategoryDidChangeNotification <span class="string">object:</span>nil];</div></pre></td></tr></table></figure>
+<p>这样一来，当系统字体发生变化时，注册该频道的对象会收到通知并执行自定义的方法。<br>当改变系统字体的大小后，该类会收到通知，并调用<code>prefredFontsChaged:</code>方法，此时Demo上的字体也要做相应的改变：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)prefredFontsChaged: (<span class="built_in">NSNotification</span> *)notification</div><div class="line">&#123;</div><div class="line">    <span class="comment">//收到通知后，调用本地自定义的方法</span></div><div class="line">    [<span class="keyword">self</span> userPreferredFonts];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)userPreferredFonts</div><div class="line">&#123;</div><div class="line">    <span class="comment">//使用被改变后的系统字体</span></div><div class="line">    <span class="keyword">self</span>.body.font = [<span class="built_in">UIFont</span> preferredFontForTextStyle:<span class="built_in">UIFontTextStyleBody</span>];</div><div class="line">    <span class="keyword">self</span>.headLine.font = [<span class="built_in">UIFont</span> preferredFontForTextStyle:<span class="built_in">UIFontTextStyleHeadline</span>];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>这里，显然又是一个MVC的流程：系统字体(模型)被改变了，通过广播(通知)的机制来告诉控制器，然后控制器再调用更改View的方法。还记得在第一篇（详情请见：<a href="http://www.jianshu.com/p/eb58ab21080a" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（一） ：iOS的MVC框架</a>）里强调的，从模型到控制器的通信是通过广播或KVO机制完成的么？</p>
 </blockquote>
 <h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
@@ -390,6 +322,7 @@ self.button.currentTitle
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
     
     </script>
+
     
 </body>
 </html>

@@ -12,15 +12,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta name="description" content="正在学hybrid开发的iOS开发者，就职于上海">
+    <meta name="description" content="正在学hybrid开发的iOS开发者">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="《Effective Objective-C》超级干货三部曲（三）：技巧篇 | J_Knight">
-    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者，就职于上海">
+    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="《Effective Objective-C》超级干货三部曲（三）：技巧篇 | J_Knight">
-    <meta property="og:description" content="正在学hybrid开发的iOS开发者，就职于上海">
+    <meta property="og:description" content="正在学hybrid开发的iOS开发者">
 
     
     <meta name="author" content="Knight_SJ">
@@ -63,7 +63,7 @@
         <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
         
         <hr class="panel-cover__divider" />
-        <p class="panel-cover__description">正在学hybrid开发的iOS开发者，就职于上海</p>
+        <p class="panel-cover__description">正在学hybrid开发的iOS开发者</p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
 
         <div class="navigation-wrapper">
@@ -155,6 +155,9 @@
   </header>
 
   <section class="post">
+    <script src="http://apps.bdimg.com/libs/highlight.js/9.1.0/languages/objectivec.min.js"></script>
+    <script>hljs.initHighlighting.called = false;</script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
 <p>《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。</p>
 <p>不知道笔者所谓的三部曲的童鞋们可以看一下这张图：</p>
@@ -163,77 +166,19 @@
 <h1 id="第9条-以“类族模式“隐藏实现细节"><a href="#第9条-以“类族模式“隐藏实现细节" class="headerlink" title="第9条 以“类族模式“隐藏实现细节"></a>第9条 以“类族模式“隐藏实现细节</h1><hr>
 <p>在iOS开发中，我们也会使用“类族”(class cluster)这一设计模式，通过“抽象基类”来实例化不同的实体子类。</p>
 <p>举个🌰 ：</p>
-<pre><code class="objc">+ (UIButton *)buttonWithType:(UIButtonType)type;
-</code></pre>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">UIButton</span> *)buttonWithType:(<span class="built_in">UIButtonType</span>)type;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>在这里，我们只需要输入不同的按钮类型(UIButtonType)就可以得到不同的UIButton的子类。在OC框架中普遍使用这一设计模式。</p>
 </blockquote>
 <h4 id="为什么要这么做呢"><a href="#为什么要这么做呢" class="headerlink" title="为什么要这么做呢?"></a>为什么要这么做呢?</h4><p>笔者认为这么做的原因是为了“弱化”子类的具体类型，让开发者无需关心创建出来的子类具体属于哪个类。（这里觉得还有点什么，但是还没有想到，欢迎补充！）</p>
 <p>我们可以看一个具体的例子：<br>对于“员工”这个类，可以有各种不同的“子类型”：开发员工，设计员工和财政员工。这些“实体类”可以由“员工”这个抽象基类来获得：</p>
-<h4 id="1-抽象基类"><a href="#1-抽象基类" class="headerlink" title="1. 抽象基类"></a>1. 抽象基类</h4><pre><code class="objc">//EOCEmployee.h
-
-typedef NS_ENUM(NSUInteger, EOCEmployeeType) {
-    EOCEmployeeTypeDeveloper,
-    EOCEmployeeTypeDesigner,
-    EOCEmployeeTypeFinance,
-};
-
-@interface EOCEmployee : NSObject
-
-@property (copy) NSString *name;
-@property NSUInteger salary;
-
-
-// Helper for creating Employee objects
-+ (EOCEmployee*)employeeWithType:(EOCEmployeeType)type;
-
-// Make Employees do their respective day&#39;s work
-- (void)doADaysWork;
-
-@end
-</code></pre>
-<pre><code>//EOCEmployee.m
-
-@implementation EOCEmployee
-
-+ (EOCEmployee*)employeeWithType:(EOCEmployeeType)type {
-     switch (type) {
-         case EOCEmployeeTypeDeveloper:
-            return [EOCEmployeeDeveloper new];
-         break; 
-
-        case EOCEmployeeTypeDesigner:
-             return [EOCEmployeeDesigner new];
-         break;
-
-        case EOCEmployeeTypeFinance:
-             return [EOCEmployeeFinance new];
-         break;
-    }
-}
-
-- (void)doADaysWork {
- // 需要子类来实现
-}
-
-
-
-@end
-</code></pre><blockquote>
+<h4 id="1-抽象基类"><a href="#1-抽象基类" class="headerlink" title="1. 抽象基类"></a>1. 抽象基类</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//EOCEmployee.h</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, EOCEmployeeType) &#123;</div><div class="line">    EOCEmployeeTypeDeveloper,</div><div class="line">    EOCEmployeeTypeDesigner,</div><div class="line">    EOCEmployeeTypeFinance,</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCEmployee</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSUInteger</span> salary;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// Helper for creating Employee objects</span></div><div class="line">+ (EOCEmployee*)employeeWithType:(EOCEmployeeType)type;</div><div class="line"></div><div class="line"><span class="comment">// Make Employees do their respective day's work</span></div><div class="line">- (<span class="keyword">void</span>)doADaysWork;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//EOCEmployee.m</span></div><div class="line"></div><div class="line"><span class="meta">@implementation</span> EOCEmployee</div><div class="line"></div><div class="line">+ (EOCEmployee*)<span class="string">employeeWithType:</span>(EOCEmployeeType)type &#123;</div><div class="line">     <span class="keyword">switch</span> (type) &#123;</div><div class="line">         <span class="keyword">case</span> <span class="string">EOCEmployeeTypeDeveloper:</span></div><div class="line">            <span class="keyword">return</span> [EOCEmployeeDeveloper <span class="keyword">new</span>];</div><div class="line">         <span class="keyword">break</span>; </div><div class="line"></div><div class="line">        <span class="keyword">case</span> <span class="string">EOCEmployeeTypeDesigner:</span></div><div class="line">             <span class="keyword">return</span> [EOCEmployeeDesigner <span class="keyword">new</span>];</div><div class="line">         <span class="keyword">break</span>;</div><div class="line"></div><div class="line">        <span class="keyword">case</span> <span class="string">EOCEmployeeTypeFinance:</span></div><div class="line">             <span class="keyword">return</span> [EOCEmployeeFinance <span class="keyword">new</span>];</div><div class="line">         <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)doADaysWork &#123;</div><div class="line"> <span class="comment">// 需要子类来实现</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@end</span></div></pre></td></tr></table></figure>
+<blockquote>
 <p>我们可以看到，将EOCEmployee作为抽象基类，这个抽象基类有一个初始化方法，通过这个方法，我们可以得到多种基于这个抽象基类的实体子类:</p>
 </blockquote>
-<h4 id="2-实体子类（concrete-subclass）"><a href="#2-实体子类（concrete-subclass）" class="headerlink" title="2. 实体子类（concrete subclass）:"></a>2. 实体子类（concrete subclass）:</h4><pre><code>
-@interface EOCEmployeeDeveloper : EOCEmployee
-@end
-
-@implementation EOCEmployeeDeveloper
-
-- (void)doADaysWork {
-    [self writeCode];
-}
-
-@end
-</code></pre><blockquote>
+<h4 id="2-实体子类（concrete-subclass）"><a href="#2-实体子类（concrete-subclass）" class="headerlink" title="2. 实体子类（concrete subclass）:"></a>2. 实体子类（concrete subclass）:</h4><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="variable">@interface</span> <span class="attribute">EOCEmployeeDeveloper </span>: EOCEmployee</div><div class="line"><span class="variable">@end</span></div><div class="line"></div><div class="line"><span class="variable">@implementation</span> EOCEmployeeDeveloper</div><div class="line"></div><div class="line">- (void)doADaysWork &#123;</div><div class="line">    <span class="selector-attr">[self writeCode]</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="variable">@end</span></div></pre></td></tr></table></figure>
+<blockquote>
 <p><strong>注意：</strong><br>如果对象所属的类位于某个类族中，那么在查询类型信息时就要小心。因为类族中的实体子类并不与其基类属于同一个类。</p>
 </blockquote>
 <h1 id="第10条：在既有类中使用关联对象存放自定义数据"><a href="#第10条：在既有类中使用关联对象存放自定义数据" class="headerlink" title="第10条：在既有类中使用关联对象存放自定义数据"></a>第10条：在既有类中使用关联对象存放自定义数据</h1><hr>
@@ -246,42 +191,8 @@ typedef NS_ENUM(NSUInteger, EOCEmployeeType) {
 <h4 id="2-根据给定的键从某对象中获取相应的关联对象值："><a href="#2-根据给定的键从某对象中获取相应的关联对象值：" class="headerlink" title="2. 根据给定的键从某对象中获取相应的关联对象值："></a>2. 根据给定的键从某对象中获取相应的关联对象值：</h4><p><code>id objc_getAssociatedObject(id object, void *key)</code></p>
 <h4 id="3-移除指定对象的关联对象："><a href="#3-移除指定对象的关联对象：" class="headerlink" title="3. 移除指定对象的关联对象："></a>3. 移除指定对象的关联对象：</h4><p><code>void objc_removeAssociatedObjects(id object)</code></p>
 <p>举个例子：</p>
-<pre><code>#import &lt;objc/runtime.h&gt;
-
-static void *EOCMyAlertViewKey = &quot;EOCMyAlertViewKey&quot;;
-
-
-- (void)askUserAQuestion {
-
-         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@&quot;Question&quot;
-                                                         message:@&quot;What do you want to do?&quot;
-                                                        delegate:self
-                                               cancelButtonTitle:@&quot;Cancel&quot;
-                                               otherButtonTitles:@&quot;Continue&quot;, nil];
-
-         void (^block)(NSInteger) = ^(NSInteger buttonIndex){
-
-                     if (buttonIndex == 0) {
-                            [self doCancel];
-                     } else {
-                            [self doContinue];
-                    }
-         };
-
-         //将alert和block关联在了一起
-         objc_setAssociatedObject(alert,EOCMyAlertViewKey,block, OBJC_ASSOCIATION_COPY);
-         [alert show];
-}
-
-// UIAlertViewDelegate protocol method
-- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-     //alert取出关联的block
-      void (^block)(NSInteger) = objc_getAssociatedObject(alertView, EOCMyAlertViewKey)
-     //给block传入index值
-      block(buttonIndex);
-}
-</code></pre><h1 id="第13条：用“方法调配技术”调试“黑盒方法”"><a href="#第13条：用“方法调配技术”调试“黑盒方法”" class="headerlink" title="第13条：用“方法调配技术”调试“黑盒方法”"></a>第13条：用“方法调配技术”调试“黑盒方法”</h1><hr>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> *EOCMyAlertViewKey = <span class="string">"EOCMyAlertViewKey"</span>;</div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)askUserAQuestion &#123;</div><div class="line"></div><div class="line">         <span class="built_in">UIAlertView</span> *alert = [[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@"Question"</span></div><div class="line">                                                         message:<span class="string">@"What do you want to do?"</span></div><div class="line">                                                        delegate:<span class="keyword">self</span></div><div class="line">                                               cancelButtonTitle:<span class="string">@"Cancel"</span></div><div class="line">                                               otherButtonTitles:<span class="string">@"Continue"</span>, <span class="literal">nil</span>];</div><div class="line"></div><div class="line">         <span class="keyword">void</span> (^block)(<span class="built_in">NSInteger</span>) = ^(<span class="built_in">NSInteger</span> buttonIndex)&#123;</div><div class="line"></div><div class="line">                     <span class="keyword">if</span> (buttonIndex == <span class="number">0</span>) &#123;</div><div class="line">                            [<span class="keyword">self</span> doCancel];</div><div class="line">                     &#125; <span class="keyword">else</span> &#123;</div><div class="line">                            [<span class="keyword">self</span> doContinue];</div><div class="line">                    &#125;</div><div class="line">         &#125;;</div><div class="line"></div><div class="line">         <span class="comment">//将alert和block关联在了一起</span></div><div class="line">         objc_setAssociatedObject(alert,EOCMyAlertViewKey,block, OBJC_ASSOCIATION_COPY);</div><div class="line">         [alert show];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// UIAlertViewDelegate protocol method</span></div><div class="line">- (<span class="keyword">void</span>)alertView:(<span class="built_in">UIAlertView</span>*)alertView clickedButtonAtIndex:(<span class="built_in">NSInteger</span>)buttonIndex</div><div class="line">&#123;</div><div class="line">     <span class="comment">//alert取出关联的block</span></div><div class="line">      <span class="keyword">void</span> (^block)(<span class="built_in">NSInteger</span>) = objc_getAssociatedObject(alertView, EOCMyAlertViewKey)</div><div class="line">     <span class="comment">//给block传入index值</span></div><div class="line">      block(buttonIndex);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="第13条：用“方法调配技术”调试“黑盒方法”"><a href="#第13条：用“方法调配技术”调试“黑盒方法”" class="headerlink" title="第13条：用“方法调配技术”调试“黑盒方法”"></a>第13条：用“方法调配技术”调试“黑盒方法”</h1><hr>
 <p>与选择子名称相对应的方法是可以在运行期被改变的，所以，我们可以不用通过继承类并覆写方法就能改变这个类本身的功能。</p>
 <p>那么如何在运行期改变选择子对应的方法呢？<br>答：通过操纵类的方法列表的IMP指针</p>
 <p>什么是类方法表？什么是IMP指针呢？</p>
@@ -291,11 +202,8 @@ static void *EOCMyAlertViewKey = &quot;EOCMyAlertViewKey&quot;;
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-c58274453996f2c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="类方法表的映射"></p>
 <p>有了这张表，OC的运行期系统提供的几个方法就能操纵它。开发者可以向其中增加选择子，也可以改变某选择子对应的方法实现，也可以交换两个选择子所映射到的指针以达到交换方法实现的目的。</p>
 <p>举个 ：交换<code>lowercaseString</code>和<code>uppercaseString</code>方法的实现：</p>
-<pre><code>Method originalMethod = class_getInstanceMethod([NSString class], @selector(lowercaseString));
-Method swappedMethod = class_getInstanceMethod([NSString class],@selector(uppercaseString));
-
-method_exchangeImplementations(originalMethod, swappedMethod);
-</code></pre><blockquote>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">Method</span> <span class="title">originalMethod</span> = <span class="title">class_getInstanceMethod</span><span class="params">([NSString <span class="keyword">class</span>], @<span class="keyword">selector</span>(lowercaseString)</span>);</span></div><div class="line"><span class="function"><span class="keyword">Method</span> <span class="title">swappedMethod</span> = <span class="title">class_getInstanceMethod</span><span class="params">([NSString <span class="keyword">class</span>],@<span class="keyword">selector</span>(uppercaseString)</span>);</span></div><div class="line"></div><div class="line">method_exchangeImplementations(originalMethod, swappedMethod);</div></pre></td></tr></table></figure>
+<blockquote>
 <p>这样一来，类方法表的映射关系就变成了下图：</p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-10ddc4e1634625b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="交换两个方法"></p>
@@ -306,28 +214,9 @@ method_exchangeImplementations(originalMethod, swappedMethod);
 <p>它的实现原理是：先通过分类增加一个新方法，然后将这个新方法和要增加功能的旧方法替换（旧方法名 对应新方法的实现），这样一来，如果我们调用了旧方法，就会实现新方法了。</p>
 <p>不知道这么说是否抽象。还是举个 ：</p>
 <p><strong>需求：</strong>我们要在原有的lowercaseString方法中添加一条输出语句。</p>
-<h4 id="步骤一：我们先将新方法写在NSString的分类里："><a href="#步骤一：我们先将新方法写在NSString的分类里：" class="headerlink" title="步骤一：我们先将新方法写在NSString的分类里："></a>步骤一：我们先将新方法写在NSString的分类里：</h4><pre><code>@interface NSString (EOCMyAdditions)
-- (NSString*)eoc_myLowercaseString;
-@end
-
-
-@implementation NSString (EOCMyAdditions)
-
-- (NSString*)eoc_myLowercaseString {
-     NSString *lowercase = [self eoc_myLowercaseString];//eoc_myLowercaseString方法会在将来方法调换后执行lowercaseString的方法
-     NSLog(@&quot;%@ =&gt; %@&quot;, self, lowercase);//输出语句，便于调试
-     return lowercase;
-}
-@end
-</code></pre><h4 id="步骤二：交换两个方法的实现（操纵调换IMP指针）"><a href="#步骤二：交换两个方法的实现（操纵调换IMP指针）" class="headerlink" title="步骤二：交换两个方法的实现（操纵调换IMP指针）"></a>步骤二：交换两个方法的实现（操纵调换IMP指针）</h4><pre><code>Method originalMethod =
- class_getInstanceMethod([NSString class],
- @selector(lowercaseString));
-Method swappedMethod =
- class_getInstanceMethod([NSString class],
- @selector(eoc_myLowercaseString));
-
-method_exchangeImplementations(originalMethod, swappedMethod);
-</code></pre><p>这样一来，我们如果交换了<code>lowercaseString</code>和<code>eoc_myLowercaseString</code>的方法实现，那么在调用原来的<code>lowercaseString</code>方法后就可以输出新增的语句了。</p>
+<h4 id="步骤一：我们先将新方法写在NSString的分类里："><a href="#步骤一：我们先将新方法写在NSString的分类里：" class="headerlink" title="步骤一：我们先将新方法写在NSString的分类里："></a>步骤一：我们先将新方法写在NSString的分类里：</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSString</span> (<span class="title">EOCMyAdditions</span>)</span></div><div class="line">- (<span class="built_in">NSString</span>*)eoc_myLowercaseString;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSString</span> (<span class="title">EOCMyAdditions</span>)</span></div><div class="line"></div><div class="line">- (<span class="built_in">NSString</span>*)eoc_myLowercaseString &#123;</div><div class="line">     <span class="built_in">NSString</span> *lowercase = [<span class="keyword">self</span> eoc_myLowercaseString];<span class="comment">//eoc_myLowercaseString方法会在将来方法调换后执行lowercaseString的方法</span></div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"%@ =&gt; %@"</span>, <span class="keyword">self</span>, lowercase);<span class="comment">//输出语句，便于调试</span></div><div class="line">     <span class="keyword">return</span> lowercase;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h4 id="步骤二：交换两个方法的实现（操纵调换IMP指针）"><a href="#步骤二：交换两个方法的实现（操纵调换IMP指针）" class="headerlink" title="步骤二：交换两个方法的实现（操纵调换IMP指针）"></a>步骤二：交换两个方法的实现（操纵调换IMP指针）</h4><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">Method</span> <span class="title">originalMethod</span> =</span></div><div class="line"> <span class="title">class_getInstanceMethod</span><span class="params">([NSString <span class="keyword">class</span>],</span></div><div class="line"> @<span class="keyword">selector</span>(lowercaseString));</div><div class="line"><span class="function"><span class="keyword">Method</span> <span class="title">swappedMethod</span> =</span></div><div class="line"> <span class="title">class_getInstanceMethod</span><span class="params">([NSString <span class="keyword">class</span>],</span></div><div class="line"> @<span class="keyword">selector</span>(eoc_myLowercaseString));</div><div class="line"></div><div class="line">method_exchangeImplementations(originalMethod, swappedMethod);</div></pre></td></tr></table></figure>
+<p>这样一来，我们如果交换了<code>lowercaseString</code>和<code>eoc_myLowercaseString</code>的方法实现，那么在调用原来的<code>lowercaseString</code>方法后就可以输出新增的语句了。</p>
 <p><code>“NSString *string = @&quot;ThIs iS tHe StRiNg&quot;;
 NSString *lowercaseString = [string lowercaseString];
 // Output: ThIs iS tHe StRiNg =&gt; this is the string”</code></p>
@@ -341,94 +230,40 @@ NSString *lowercaseString = [string lowercaseString];
 <li>在我们拥有了一个全能初始化方法后，最好还是要覆写init方法来设置默认值。</li>
 </ul>
 </blockquote>
-<pre><code>//全能初始化方法
-- (id)initWithWidth:(float)width andHeight:(float)height
-{
-     if ((self = [super init])) {
-        _width = width;
-        _height = height;
-    }
-    return self;
-}
-
-//init方法也调用了全能初始化方法
-- (id)init {
-     return [self initWithWidth:5.0f andHeight:10.0f];
-}
-</code></pre><p>现在，我们要创造一个squre类继承这上面这个ractangle类,它有自己的全能初始化方法：</p>
-<pre><code>- (id)initWithDimension: (float)dimension{
-    return [super initWithWidth:dimension andHeight:dimension];
-}
-</code></pre><h4 id="这里有问题！"><a href="#这里有问题！" class="headerlink" title="这里有问题！"></a>这里有问题！</h4><p>然而，因为square类是rectangle类的子类，那么它也可以使用<code>initWithWidth: andHeight:</code>方法，更可以使用<code>init</code>方法。那么这两种情况下，显然是无法确保初始化的图形是正方形。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//全能初始化方法</span></div><div class="line">- (<span class="keyword">id</span>)initWithWidth:(<span class="keyword">float</span>)width andHeight:(<span class="keyword">float</span>)height</div><div class="line">&#123;</div><div class="line">     <span class="keyword">if</span> ((<span class="keyword">self</span> = [<span class="keyword">super</span> init])) &#123;</div><div class="line">        _width = width;</div><div class="line">        _height = height;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//init方法也调用了全能初始化方法</span></div><div class="line">- (<span class="keyword">id</span>)init &#123;</div><div class="line">     <span class="keyword">return</span> [<span class="keyword">self</span> initWithWidth:<span class="number">5.0</span>f andHeight:<span class="number">10.0</span>f];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在，我们要创造一个squre类继承这上面这个ractangle类,它有自己的全能初始化方法：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (id)<span class="string">initWithDimension:</span> (<span class="keyword">float</span>)dimension&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> <span class="string">initWithWidth:</span>dimension <span class="string">andHeight:</span>dimension];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="这里有问题！"><a href="#这里有问题！" class="headerlink" title="这里有问题！"></a>这里有问题！</h4><p>然而，因为square类是rectangle类的子类，那么它也可以使用<code>initWithWidth: andHeight:</code>方法，更可以使用<code>init</code>方法。那么这两种情况下，显然是无法确保初始化的图形是正方形。</p>
 <p>因此，我们需要在这里覆写square的父类rectangle的全能初始化方法：</p>
-<pre><code>- (id)initWithWidth:(float)width andHeight:(float)height
-{
-    float dimension = MAX(width, height);
-    return [self initWithDimension:dimension];
-}
-</code></pre><p>这样一来，当square用<code>initWithWidth: andHeight:</code>方法初始化时，就会得到一个正方形。</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (id)initWithWidth:(<span class="built_in">float</span>)<span class="built_in">width</span> andHeight:(<span class="built_in">float</span>)<span class="built_in">height</span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">float</span> <span class="built_in">dimension</span> = MAX(<span class="built_in">width</span>, <span class="built_in">height</span>);</div><div class="line">    <span class="built_in">return</span> [self initWithDimension:<span class="built_in">dimension</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样一来，当square用<code>initWithWidth: andHeight:</code>方法初始化时，就会得到一个正方形。</p>
 <p>并且，如果用<code>init</code>方法来初始化square的话，我们也可以得到一个默认的正方形。因为在rectangle类里覆写了init方法，而这个init方法又调用了<code>initWithWidth: andHeight:</code>方法，并且square类又覆写了<code>initWithWidth: andHeight:</code>方法，所以我们仍然可以得到一个正方形。</p>
 <p>而且，为了让square的init方法得到一个默认的正方形，我们也可以覆写它自己的初始化方法：</p>
-<pre><code>- (id)init{
-    return [self initWithDimension:5.0f];
-}
-</code></pre><p>我们做个总结：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)init&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithDimension:<span class="number">5.0</span>f];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们做个总结：</p>
 <p>因为子类的全能初始化方法（initWithDimension:）和其父类的初始化方法并不同，所以我们需要在子类里覆写<code>initWithWidth: andHeight:</code>方法。</p>
 <h4 id="还差一点：initWithCoder-的初始化"><a href="#还差一点：initWithCoder-的初始化" class="headerlink" title="还差一点：initWithCoder:的初始化"></a>还差一点：initWithCoder:的初始化</h4><p>有时，需要定义两种全能初始化方法，因为对象有可能有两种完全不同的创建方式，例如<code>initWithCoder:</code>方法。</p>
 <p>我们仍然需要调用超类的初始化方法：</p>
 <p>在rectangle类：</p>
-<pre><code>// Initializer from NSCoding
-- (id)initWithCoder:(NSCoder*)decoder {
-
-     // Call through to super&#39;s designated initializer
-         if ((self = [super init])) {
-            _width = [decoder decodeFloatForKey:@&quot;width&quot;];
-            _height = [decoder decodeFloatForKey:@&quot;height&quot;];
-        }
-     return self;
-}
-</code></pre><p>在square类：</p>
-<pre><code>// Initializer from NSCoding
-- (id)initWithCoder:(NSCoder*)decoder {
-
- // Call through to super&#39;s designated initializer
-      if ((self = [super initWithCoder:decoder])) {
-     // EOCSquare&#39;s specific initializer
-    }
-     return self;
-}
-</code></pre><p>每个子类的全能初始化方法都应该调用其超类的对应方法，并逐层向上。在调用了超类的初始化方法后，再执行与本类相关的方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Initializer from NSCoding</span></div><div class="line">- (<span class="keyword">id</span>)initWithCoder:(<span class="built_in">NSCoder</span>*)decoder &#123;</div><div class="line"></div><div class="line">     <span class="comment">// Call through to super's designated initializer</span></div><div class="line">         <span class="keyword">if</span> ((<span class="keyword">self</span> = [<span class="keyword">super</span> init])) &#123;</div><div class="line">            _width = [decoder decodeFloatForKey:<span class="string">@"width"</span>];</div><div class="line">            _height = [decoder decodeFloatForKey:<span class="string">@"height"</span>];</div><div class="line">        &#125;</div><div class="line">     <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在square类：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">//</span> Initializer from NSCoding</div><div class="line">- (id)initWithCoder:(NSCoder*)decoder &#123;</div><div class="line"></div><div class="line"> <span class="regexp">//</span> Call through to supe<span class="string">r's designated initializer</span></div><div class="line">      if ((self = [super initWithCoder:decoder])) &#123;</div><div class="line">     // EOCSquare's specific initializer</div><div class="line">    &#125;</div><div class="line">     return self;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>每个子类的全能初始化方法都应该调用其超类的对应方法，并逐层向上。在调用了超类的初始化方法后，再执行与本类相关的方法。</p>
 <h1 id="第17条：实现description方法"><a href="#第17条：实现description方法" class="headerlink" title="第17条：实现description方法"></a>第17条：实现description方法</h1><hr>
 <p>在打印我们自己定义的类的实例对象时，在控制台输出的结果往往是这样的：</p>
-<pre><code>object = &lt;EOCPerson: 0x7fd9a1600600&gt;
-</code></pre><blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">object</span> = &lt;EOCPerson: <span class="number">0</span>x7fd9a1600600&gt;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>这里只包含了类名和内存地址，它的信息显然是不具体的,远达不到调试的要求。</p>
 </blockquote>
 <p><strong>但是！</strong>如果在我们自己定义的类覆写description方法，我们就可以在打印这个类的实例时输出我们想要的信息。</p>
 <p>例如：</p>
-<pre><code>
-- (NSString*)description {
-     return [NSString stringWithFormat:@&quot;&lt;%@: %p, %@ %@&gt;&quot;, [self class], self, firstName, lastName];
-}
-</code></pre><p>在这里，显示了内存地址，还有该类的所有属性。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (NSString*)description &#123;</div><div class="line">     <span class="keyword">return</span> [NSString stringWithFormat:@<span class="string">"&lt;%@: %p, %@ %@&gt;"</span>, [self <span class="class"><span class="keyword">class</span>], <span class="type">self</span>, <span class="type">firstName</span>, <span class="type">lastName];</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，显示了内存地址，还有该类的所有属性。</p>
 <p>而且，如果我们将这些属性值放在字典里打印，则更具有可读性：</p>
-<pre><code>- (NSString*)description {
-
-     return [NSString stringWithFormat:@&quot;&lt;%@: %p, %@&gt;&quot;,[self class],self,
-
-    @{    @&quot;title&quot;:_title,
-       @&quot;latitude&quot;:@(_latitude),
-      @&quot;longitude&quot;:@(_longitude)}
-    ];
-}
-</code></pre><p>输出结果：</p>
-<pre><code>location = &lt;EOCLocation: 0x7f98f2e01d20, {
-
-    latitude = &quot;51.506&quot;;
-   longitude = 0;
-       title = London;
-}&gt;
-</code></pre><blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSString</span>*)description &#123;</div><div class="line"></div><div class="line">     <span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"&lt;%@: %p, %@&gt;"</span>,[<span class="keyword">self</span> <span class="keyword">class</span>],<span class="keyword">self</span>,</div><div class="line">   </div><div class="line">    @&#123;    <span class="string">@"title"</span>:_title,</div><div class="line">       <span class="string">@"latitude"</span>:@(_latitude),</div><div class="line">      <span class="string">@"longitude"</span>:@(_longitude)&#125;</div><div class="line">    ];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">location</span> = &lt;EOCLocation: <span class="number">0</span>x7f98f2e01d20, &#123;</div><div class="line"></div><div class="line">    <span class="attr">latitude</span> = <span class="string">"51.506"</span>;</div><div class="line">   <span class="attr">longitude</span> = <span class="number">0</span>;</div><div class="line">       <span class="attr">title</span> = London;</div><div class="line">&#125;&gt;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>我们可以看到，通过重写<code>description</code>方法可以让我们更加了解对象的情况，便于后期的调试，节省开发时间。</p>
 </blockquote>
 <h1 id="第28条-通过协议提供匿名对象"><a href="#第28条-通过协议提供匿名对象" class="headerlink" title="第28条:通过协议提供匿名对象"></a>第28条:通过协议提供匿名对象</h1><hr>
@@ -440,8 +275,8 @@ NSString *lowercaseString = [string lowercaseString];
 </ul>
 <h4 id="1-匿名对象作为属性"><a href="#1-匿名对象作为属性" class="headerlink" title="1. 匿名对象作为属性"></a>1. 匿名对象作为属性</h4><p>在设定某个类为自己的代理属性时，可以不声明代理的类，而是用id<protocol>，因为<strong>成为</strong>代理的终点并不是<strong>某个类的实例</strong>，而是<strong>遵循了某个协议</strong>。</protocol></p>
 <p>举个 ：</p>
-<pre><code>@property (nonatomic, weak) id &lt;EOCDelegate&gt; delegate;
-</code></pre><p>在这里使用匿名对象的原因有两个：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span> &lt;EOCDelegate&gt; delegate;</div></pre></td></tr></table></figure>
+<p>在这里使用匿名对象的原因有两个：</p>
 <ol>
 <li>将来可能会有很多不同类的实例对象作为该类的代理。</li>
 <li>我们不想指明具体要使用哪个类来作为这个类的代理。</li>
@@ -449,66 +284,32 @@ NSString *lowercaseString = [string lowercaseString];
 <p>也就是说，能作为该类的代理的条件只有一个：它遵从了 <eocdelegate>协议。</eocdelegate></p>
 <h4 id="2-匿名对象作为方法参数"><a href="#2-匿名对象作为方法参数" class="headerlink" title="2. 匿名对象作为方法参数"></a>2. 匿名对象作为方法参数</h4><p>有时，我们不会在意方法里某个参数的具体类型，而是遵循了某种协议，这个时候就可以使用匿名对象来作为方法参数。</p>
 <p>举个 ：</p>
-<pre><code>- (void)setObject:(id)object forKey:(id&lt;NSCopying&gt;)key;
-</code></pre><p>这个方法是NSDictionary的设值方法，它的参数只要遵从了<nscopying>协议，就可以作为参数传进去,作为NSDictionary的键。</nscopying></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)object forKey:(<span class="keyword">id</span>&lt;<span class="built_in">NSCopying</span>&gt;)key;</div></pre></td></tr></table></figure>
+<p>这个方法是NSDictionary的设值方法，它的参数只要遵从了<nscopying>协议，就可以作为参数传进去,作为NSDictionary的键。</nscopying></p>
 <h1 id="第32条：编写“异常安全代码”时留意内存管理问题"><a href="#第32条：编写“异常安全代码”时留意内存管理问题" class="headerlink" title="第32条：编写“异常安全代码”时留意内存管理问题"></a>第32条：编写“异常安全代码”时留意内存管理问题</h1><hr>
 <p>在发生异常时的内存管理需要仔细考虑内存管理的问题：</p>
 <blockquote>
 <p>在try块中，如果先保留了某个对象，然后在释放它之前又抛出了异常，那么除非在catch块中能处理此问题，否则对象所占内存就将泄漏。</p>
 </blockquote>
-<h4 id="在MRC环境下："><a href="#在MRC环境下：" class="headerlink" title="在MRC环境下："></a>在MRC环境下：</h4><pre><code>@try {
-     EOCSomeClass *object = [[EOCSomeClass alloc] init];
-      [object doSomethingThatMayThrow];
-      [object release];
-
-}
-
-
-@catch (...) {
-         NSLog(@&quot;Whoops, there was an error. Oh well...&quot;);
-}
-</code></pre><p>这里，我们用release方法释放了try中的对象，但是这样做仍然有问题：如果在<code>doSomthingThatMayThrow</code>方法中抛出了异常了呢？</p>
+<h4 id="在MRC环境下："><a href="#在MRC环境下：" class="headerlink" title="在MRC环境下："></a>在MRC环境下：</h4><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@try</span> &#123;</div><div class="line">     <span class="type">EOCSomeClass</span> *<span class="class"><span class="keyword">object</span> </span>= [[<span class="type">EOCSomeClass</span> alloc] init];</div><div class="line">      [<span class="class"><span class="keyword">object</span> <span class="title">doSomethingThatMayThrow</span>]</span>;</div><div class="line">      [<span class="class"><span class="keyword">object</span> <span class="title">release</span>]</span>;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@catch</span> (...) &#123;</div><div class="line">         <span class="type">NSLog</span>(@<span class="string">"Whoops, there was an error. Oh well..."</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里，我们用release方法释放了try中的对象，但是这样做仍然有问题：如果在<code>doSomthingThatMayThrow</code>方法中抛出了异常了呢？</p>
 <p>这样就无法执行<code>release</code>方法了。</p>
 <p>解决办法是使用@finnaly块，无论是否抛出异常，其中的代码都能运行：</p>
-<p>```EOCSomeClass *object;<br>@try {<br>    object = [[EOCSomeClass alloc] init];<br>    [object doSomethingThatMayThrow];<br>}</p>
-<p>@catch (…) {<br>     NSLog(@”Whoops, there was an error. Oh well…”);<br>}</p>
-<p>@finally {<br>    [object release];<br>}```</p>
+<figure class="highlight plain"><figcaption><span>*object;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@try &#123;</div><div class="line">    object = [[EOCSomeClass alloc] init];</div><div class="line">    [object doSomethingThatMayThrow];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">@catch (...) &#123;</div><div class="line">     NSLog(@&quot;Whoops, there was an error. Oh well...&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">@finally &#123;</div><div class="line">    [object release];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>####在ARC环境下呢？</p>
-<pre><code>@try {
-     EOCSomeClass *object = [[EOCSomeClass alloc] init];
-     [object doSomethingThatMayThrow];
-}
-
-
-
-@catch (...) {
- NSLog(@&quot;Whoops, there was an error. Oh well...&quot;);
-}
-</code></pre><p>这时，我们无法手动使用<code>release</code>方法了，解决办法是使用：-fobjc-arc-exceptions 标志来加入清理代码，不过会导致应用程序变大，而且会降低运行效率。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@try</span> &#123;</div><div class="line">     <span class="type">EOCSomeClass</span> *<span class="class"><span class="keyword">object</span> </span>= [[<span class="type">EOCSomeClass</span> alloc] init];</div><div class="line">     [<span class="class"><span class="keyword">object</span> <span class="title">doSomethingThatMayThrow</span>]</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">@catch</span> (...) &#123;</div><div class="line"> <span class="type">NSLog</span>(@<span class="string">"Whoops, there was an error. Oh well..."</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这时，我们无法手动使用<code>release</code>方法了，解决办法是使用：-fobjc-arc-exceptions 标志来加入清理代码，不过会导致应用程序变大，而且会降低运行效率。</p>
 <h1 id="第33条：以弱引用避免保留环"><a href="#第33条：以弱引用避免保留环" class="headerlink" title="第33条：以弱引用避免保留环"></a>第33条：以弱引用避免保留环</h1><hr>
 <p>对象之间都用强指针引用对方的话会造成保留环。</p>
 <h4 id="两个对象的保留环："><a href="#两个对象的保留环：" class="headerlink" title="两个对象的保留环："></a>两个对象的保留环：</h4><p>两个对象都有一个对方的实例来作为自己的属性：</p>
-<pre><code>@interface EOCClassA : NSObject
-@property (nonatomic, strong) EOCClassB *other;
-@end
-
-
-@interface EOCClassB : NSObject
-@property (nonatomic, strong) EOCClassA *other;
-@end
-</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/859001-4e1aa0647dee51fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两个对象的保留环"></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@interface</span> <span class="attribute">EOCClassA </span>: NSObject</div><div class="line"><span class="variable">@property</span> (nonatomic, strong) EOCClassB *other;</div><div class="line"><span class="variable">@end</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="variable">@interface</span> <span class="attribute">EOCClassB </span>: NSObject</div><div class="line"><span class="variable">@property</span> (nonatomic, strong) EOCClassA *other;</div><div class="line"><span class="variable">@end</span></div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-4e1aa0647dee51fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两个对象的保留环"></p>
 <p>两个对象都有指向对方的强指针，这样会导致这两个属性里的对象无法被释放掉。</p>
 <h4 id="多个对象的保留环："><a href="#多个对象的保留环：" class="headerlink" title="多个对象的保留环："></a>多个对象的保留环：</h4><p>如果保留环连接了多个对象，而这里其中一个对象被外界引用，那么当这个引用被移除后，整个保留环就泄漏了。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-d99033df1cf5e1ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多个对象的保留环：孤岛"></p>
 <p>解决方案是使用弱引用：</p>
-<pre><code>//EOCClassB.m
-//第一种弱引用：unsafe_unretained
-@property (nonatomic, unsafe_unretained) EOCClassA *other;
-
-
-//第二种弱引用：weak
-@property (nonatomic, weak) EOCClassA *other;
-</code></pre><p>这两种弱引用有什么区别呢？</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//EOCClassB.m</span></div><div class="line"><span class="comment">//第一种弱引用：unsafe_unretained</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">unsafe_unretained</span>) EOCClassA *other;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//第二种弱引用：weak</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) EOCClassA *other;</div></pre></td></tr></table></figure>
+<p>这两种弱引用有什么区别呢？</p>
 <p>unsafe_unretained:当指向EOCClassA实例的引用移除后，unsafe_unretained属性仍然指向那个已经回收的实例，</p>
 <p>而weak指向nil：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-afc3b538527f93da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="unsafe_unretained 和 weak的区别"></p>
@@ -521,25 +322,12 @@ NSString *lowercaseString = [string lowercaseString];
 </ul>
 <p>内存峰值（high-memory waterline）是指应用程序在某个限定时段内的最大内存用量（highest memory footprint）。新增的自动释放池块可以减少这个峰值：</p>
 <p>不用自动释放池减少峰值：</p>
-<pre><code>
-for (int i = 0; i &lt; 100000; i++) {
-
-      [self doSomethingWithInt:i];
-
-}
-</code></pre><p>在这里，<code>doSomethingWithInt:</code>方法可能会创建临时对象。随着循环次数的增加，临时对象的数量也会飙升，而只有在整个for循环结束后，这些临时对象才会得意释放。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">for</span> (int <span class="built_in">i</span> = <span class="number">0</span>; <span class="built_in">i</span> &lt; <span class="number">100000</span>; <span class="built_in">i</span>++) &#123;</div><div class="line"></div><div class="line">      [self doSomethingWithInt:i];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，<code>doSomethingWithInt:</code>方法可能会创建临时对象。随着循环次数的增加，临时对象的数量也会飙升，而只有在整个for循环结束后，这些临时对象才会得意释放。</p>
 <p>这种情况是不理想的，尤其在我们无法控制循环长度的情况下，我们会不断占用内存并突然释放掉它们。</p>
 <p>因此，我们需要用自动释放池来降低这种突兀的变化：</p>
-<pre><code>
-NSArray *databaseRecords = /* ... */;
-NSMutableArray *people = [NSMutableArray new];
-for (NSDictionary *record in databaseRecords) {
-     @autoreleasepool {
-             EOCPerson *person = [[EOCPerson alloc] initWithRecord:record];
-            [people addObject:person];
-      }
-}
-</code></pre><blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">NSArray</span> *databaseRecords = <span class="comment">/* ... */</span>;</div><div class="line"><span class="built_in">NSMutableArray</span> *people = [<span class="built_in">NSMutableArray</span> new];</div><div class="line"><span class="keyword">for</span> (<span class="built_in">NSDictionary</span> *record <span class="keyword">in</span> databaseRecords) &#123;</div><div class="line">     <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">             EOCPerson *person = [[EOCPerson alloc] initWithRecord:record];</div><div class="line">            [people addObject:person];</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>这样一来，每次循环结束，我们都会将临时对象放在这个池里面，而不是线程的主池里面。</p>
 </blockquote>
 <h1 id="第35条：用“僵尸对象”调试内存管理问题"><a href="#第35条：用“僵尸对象”调试内存管理问题" class="headerlink" title="第35条：用“僵尸对象”调试内存管理问题"></a>第35条：用“僵尸对象”调试内存管理问题</h1><hr>
@@ -557,224 +345,44 @@ for (NSDictionary *record in databaseRecords) {
 <h1 id="第38条：为常用的块类型创建typedef"><a href="#第38条：为常用的块类型创建typedef" class="headerlink" title="第38条：为常用的块类型创建typedef"></a>第38条：为常用的块类型创建typedef</h1><hr>
 <p>如果我们需要重复创建某种块（相同参数，返回值）的变量，我们就可以通过typedef来给某一种块定义属于它自己的新类型</p>
 <p>例如：</p>
-<pre><code>int (^variableName)(BOOL flag, int value) =^(BOOL flag, int value){
-     // Implementation
-     return someInt;
-}
-</code></pre><p>这个块有一个bool参数和一个int参数，并返回int类型。我们可以给它定义类型：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> (^variableName)(BOOL flag, <span class="keyword">int</span> <span class="keyword">value</span>) =^(BOOL flag, <span class="keyword">int</span> <span class="keyword">value</span>)&#123;</div><div class="line">     <span class="comment">// Implementation</span></div><div class="line">     <span class="keyword">return</span> someInt;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个块有一个bool参数和一个int参数，并返回int类型。我们可以给它定义类型：</p>
 <p><code>typedef int(^EOCSomeBlock)(BOOL flag, int value);</code></p>
 <p>再次定义的时候，就可以通过简单的赋值来实现：</p>
-<pre><code>EOCSomeBlock block = ^(BOOL flag, int value){
-     // Implementation
-};
-</code></pre><p>定义作为参数的块：</p>
-<pre><code>- (void)startWithCompletionHandler: (void(^)(NSData *data, NSError *error))completion;
-</code></pre><p>这里的块有一个NSData参数，一个NSError参数并没有返回值</p>
-<pre><code>typedef void(^EOCCompletionHandler)(NSData *data, NSError *error);
-- (void)startWithCompletionHandler:(EOCCompletionHandler)completion;”
-</code></pre><p>通过typedef定义块签名的好处是:如果要某种块增加参数，那么只修改定义签名的那行代码即可。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">EOCSomeBlock block = ^(BOOL flag, <span class="keyword">int</span> <span class="keyword">value</span>)&#123;</div><div class="line">     <span class="comment">// Implementation</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>定义作为参数的块：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)startWithCompletionHandler: (<span class="keyword">void</span>(^)(NSData *data, NSError *<span class="keyword">error</span>))completion;</div></pre></td></tr></table></figure>
+<p>这里的块有一个NSData参数，一个NSError参数并没有返回值</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">typedef void(^<span class="type">EOCCompletionHandler</span>)(<span class="type">NSData</span> *data, <span class="type">NSError</span> *error);</div><div class="line">- (void)startWithCompletionHandler:(<span class="type">EOCCompletionHandler</span>)completion;”</div></pre></td></tr></table></figure>
+<p>通过typedef定义块签名的好处是:如果要某种块增加参数，那么只修改定义签名的那行代码即可。</p>
 <h1 id="第39条：用handler块降低代码分散程度"><a href="#第39条：用handler块降低代码分散程度" class="headerlink" title="第39条：用handler块降低代码分散程度"></a>第39条：用handler块降低代码分散程度</h1><hr>
 <p>下载网络数据时，如果使用代理方法，会使得代码分布不紧凑，而且如果有多个下载任务的话，还要在回调的代理中判断当前请求的类型。但是如果使用block的话，就可以让网络下载的代码和回调处理的代码写在一起，这样就可以同时解决上面的两个问题：</p>
-<h4 id="用代理下载："><a href="#用代理下载：" class="headerlink" title="用代理下载："></a>用代理下载：</h4><pre><code>- (void)fetchFooData {
-
-     NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/foo.dat&quot;];
-    _fooFetcher = [[EOCNetworkFetcher alloc] initWithURL:url];
-    _fooFetcher.delegate = self;
-    [_fooFetcher start];
-
-}
-
-- (void)fetchBarData {
-
-     NSURL *url = [[NSURL alloc] initWithString: @&quot;http://www.example.com/bar.dat&quot;];
-    _barFetcher = [[EOCNetworkFetcher alloc] initWithURL:url];
-    _barFetcher.delegate = self;
-    [_barFetcher start];
-
-}
-
-- (void)networkFetcher:(EOCNetworkFetcher*)networkFetcher didFinishWithData:(NSData*)data
-{   //判断下载器类型
-     if (networkFetcher == _fooFetcher) {
-        _fetchedFooData = data;
-        _fooFetcher = nil;
-
-    } else if (networkFetcher == _barFetcher) {
-        _fetchedBarData = data;
-        _barFetcher = nil;
-    }
-}
-</code></pre><h4 id="用块下载："><a href="#用块下载：" class="headerlink" title="用块下载："></a>用块下载：</h4><pre><code>
-- (void)fetchFooData {
-
-     NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/foo.dat&quot;];
-     EOCNetworkFetcher *fetcher =
-     [[EOCNetworkFetcher alloc] initWithURL:url];
-     [fetcher startWithCompletionHandler:^(NSData *data){
-            _fetchedFooData = data;
-   }];
-
-}
-
-- (void)fetchBarData {
-
-     NSURL *url = [[NSURL alloc] initWithString: @&quot;http://www.example.com/bar.dat&quot;];
-     EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-    [fetcher startWithCompletionHandler:^(NSData *data){
-            _fetchedBarData = data;
-    }];
-
-}
-</code></pre><p>还可以将处理成功的代码放在一个块里，处理失败的代码放在另一个块中：</p>
-<pre><code>
-“#import &lt;Foundation/Foundation.h&gt;
-
-@class EOCNetworkFetcher;
-typedef void(^EOCNetworkFetcherCompletionHandler)(NSData *data);
-typedef void(^EOCNetworkFetcherErrorHandler)(NSError *error);
-
-
-@interface EOCNetworkFetcher : NSObject
-
-- (id)initWithURL:(NSURL*)url;
-- (void)startWithCompletionHandler: (EOCNetworkFetcherCompletionHandler)completion failureHandler: (EOCNetworkFetcherErrorHandler)failure;
-
-@end
-
-
-
-EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-[fetcher startWithCompletionHander:^(NSData *data){
-     // Handle success
-}
-
- failureHandler:^(NSError *error){
- // Handle failure
-}];
-</code></pre><blockquote>
+<h4 id="用代理下载："><a href="#用代理下载：" class="headerlink" title="用代理下载："></a>用代理下载：</h4><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">- (void)fetchFooData &#123;</div><div class="line"></div><div class="line">     NSURL *url = [[NSURL alloc] initWithString:@<span class="string">"http://www.example.com/foo.dat"</span>];</div><div class="line">    <span class="variable">_fooFetcher</span> = [[EOCNetworkFetcher alloc] initWithURL:url];</div><div class="line">    <span class="variable">_fooFetcher</span>.delegate = self;</div><div class="line">    [<span class="variable">_fooFetcher</span> start];</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)fetchBarData &#123;</div><div class="line"></div><div class="line">     NSURL *url = [[NSURL alloc] initWithString: @<span class="string">"http://www.example.com/bar.dat"</span>];</div><div class="line">    <span class="variable">_barFetcher</span> = [[EOCNetworkFetcher alloc] initWithURL:url];</div><div class="line">    <span class="variable">_barFetcher</span>.delegate = self;</div><div class="line">    [<span class="variable">_barFetcher</span> start];</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)networkFetcher:(EOCNetworkFetcher*)networkFetcher didFinishWithData:(NSData*)data</div><div class="line">&#123;   <span class="comment">//判断下载器类型</span></div><div class="line">     <span class="keyword">if</span> (networkFetcher == <span class="variable">_fooFetcher</span>) &#123;</div><div class="line">        <span class="variable">_fetchedFooData</span> = data;</div><div class="line">        <span class="variable">_fooFetcher</span> = <span class="literal">nil</span>;</div><div class="line"></div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (networkFetcher == <span class="variable">_barFetcher</span>) &#123;</div><div class="line">        <span class="variable">_fetchedBarData</span> = data;</div><div class="line">        <span class="variable">_barFetcher</span> = <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="用块下载："><a href="#用块下载：" class="headerlink" title="用块下载："></a>用块下载：</h4><figure class="highlight roboconf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (void)fetchFooData &#123;</div><div class="line"></div><div class="line">     <span class="attribute">NSURL *url = [[NSURL alloc] initWithString</span>:@"http://www<span class="variable">.example</span><span class="variable">.com</span>/foo<span class="variable">.dat</span>"];</div><div class="line">     <span class="attribute">EOCNetworkFetcher *fetcher =</span></div><div class="line">     [[EOCNetworkFetcher alloc] initWithURL:url];</div><div class="line">     [<span class="attribute">fetcher startWithCompletionHandler</span>:^(NSData *data)&#123;</div><div class="line">            _fetchedFooData = data;</div><div class="line">   &#125;];</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)fetchBarData &#123;</div><div class="line"></div><div class="line">     <span class="attribute">NSURL *url = [[NSURL alloc] initWithString</span>: @"http://www<span class="variable">.example</span><span class="variable">.com</span>/bar<span class="variable">.dat</span>"];</div><div class="line">     <span class="attribute">EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL</span>:url];</div><div class="line">    [<span class="attribute">fetcher startWithCompletionHandler</span>:^(NSData *data)&#123;</div><div class="line">            _fetchedBarData = data;</div><div class="line">    &#125;];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>还可以将处理成功的代码放在一个块里，处理失败的代码放在另一个块中：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">“<span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@class</span> <span class="title">EOCNetworkFetcher</span>;</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^EOCNetworkFetcherCompletionHandler)(<span class="built_in">NSData</span> *data);</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^EOCNetworkFetcherErrorHandler)(<span class="built_in">NSError</span> *error);</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCNetworkFetcher</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)initWithURL:(<span class="built_in">NSURL</span>*)url;</div><div class="line">- (<span class="keyword">void</span>)startWithCompletionHandler: (EOCNetworkFetcherCompletionHandler)completion failureHandler: (EOCNetworkFetcherErrorHandler)failure;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];</div><div class="line">[fetcher startWithCompletionHander:^(<span class="built_in">NSData</span> *data)&#123;</div><div class="line">     <span class="comment">// Handle success</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"> failureHandler:^(<span class="built_in">NSError</span> *error)&#123;</div><div class="line"> <span class="comment">// Handle failure</span></div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<blockquote>
 <p>这样写的好处是，我们可以将处理成功和失败的代码分开来写，看上去更加清晰。</p>
 </blockquote>
 <p>我们还可以将 成功和失败的代码都放在同一个块里：</p>
-<pre><code>
-“#import &lt;Foundation/Foundation.h&gt;
-
-
-@class EOCNetworkFetcher;
-typedef void(^EOCNetworkFetcherCompletionHandler)(NSData *data, NSError *error);
-
-@interface EOCNetworkFetcher : NSObject
-
-- (id)initWithURL:(NSURL*)url;
-- (void)startWithCompletionHandler:
-
-(EOCNetworkFetcherCompletionHandler)completion;
-
-@end
-
-
-
-EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-
-[fetcher startWithCompletionHander:
-
-^(NSData *data, NSError *error){
-
-if (error) {
-
-     // Handle failure
-
-} else {
-
-     // Handle success
-
-}
-}];
-</code></pre><blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">“<span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@class</span> <span class="title">EOCNetworkFetcher</span>;</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^EOCNetworkFetcherCompletionHandler)(<span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error);</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCNetworkFetcher</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)initWithURL:(<span class="built_in">NSURL</span>*)url;</div><div class="line">- (<span class="keyword">void</span>)startWithCompletionHandler:</div><div class="line"></div><div class="line">(EOCNetworkFetcherCompletionHandler)completion;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">EOCNetworkFetcher *fetcher =[[EOCNetworkFetcher alloc] initWithURL:url];</div><div class="line"></div><div class="line">[fetcher startWithCompletionHander:</div><div class="line"></div><div class="line">^(<span class="built_in">NSData</span> *data, <span class="built_in">NSError</span> *error)&#123;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (error) &#123;</div><div class="line"></div><div class="line">     <span class="comment">// Handle failure</span></div><div class="line"></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">     <span class="comment">// Handle success</span></div><div class="line"></div><div class="line">&#125;</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<blockquote>
 <p>这样做的好处是，如果及时下载失败或中断了，我们仍然可以取到当前所下载的data。而且，如果在需求上指出：下载成功后得到的数据很少，也视为失败，那么单一块的写法就很适用，因为它可以取得数据后（成功）再判断其是否是下载成功的。</p>
 </blockquote>
 <h1 id="第40条：用块引用其所属对象时不要出现保留环"><a href="#第40条：用块引用其所属对象时不要出现保留环" class="headerlink" title="第40条：用块引用其所属对象时不要出现保留环"></a>第40条：用块引用其所属对象时不要出现保留环</h1><hr>
 <p>如果块捕获的对象直接或间接地保留了块本身，那么就需要小心保留环问题:</p>
-<pre><code>@implementation EOCClass {
-
-     EOCNetworkFetcher *_networkFetcher;
-     NSData *_fetchedData;
-
-}
-
-
-- (void)downloadData {
-
-     NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/something.dat&quot;];
-    _networkFetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-
-    [_networkFetcher startWithCompletionHandler:^(NSData *data){
-
-             NSLog(@&quot;Request URL %@ finished&quot;, _networkFetcher.url);
-            _fetchedData = data;
-
-    }];
-
-}
-</code></pre><p>在这里出现了保留环：块要设置_fetchedData变量，就需要捕获self变量。而self（EOCClass实例）通过实例变量保留了获取器_networkFetcher，而_networkFetcher又保留了块。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">EOCClass</span> </span>&#123;</div><div class="line"></div><div class="line">     EOCNetworkFetcher *_networkFetcher;</div><div class="line">     <span class="built_in">NSData</span> *_fetchedData;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)downloadData &#123;</div><div class="line"></div><div class="line">     <span class="built_in">NSURL</span> *url = [[<span class="built_in">NSURL</span> alloc] initWithString:<span class="string">@"http://www.example.com/something.dat"</span>];</div><div class="line">    _networkFetcher =[[EOCNetworkFetcher alloc] initWithURL:url];</div><div class="line"></div><div class="line">    [_networkFetcher startWithCompletionHandler:^(<span class="built_in">NSData</span> *data)&#123;</div><div class="line"></div><div class="line">             <span class="built_in">NSLog</span>(<span class="string">@"Request URL %@ finished"</span>, _networkFetcher.url);</div><div class="line">            _fetchedData = data;</div><div class="line"></div><div class="line">    &#125;];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里出现了保留环：块要设置_fetchedData变量，就需要捕获self变量。而self（EOCClass实例）通过实例变量保留了获取器_networkFetcher，而_networkFetcher又保留了块。</p>
 <p>解决方案是：在块中取得了data后，将_networkFetcher设为nil。</p>
-<pre><code>
-- (void)downloadData {
-
-     NSURL *url = [[NSURL alloc] initWithString:@&quot;http://www.example.com/something.dat&quot;];
-    _networkFetcher =[[EOCNetworkFetcher alloc] initWithURL:url];
-    [_networkFetcher startWithCompletionHandler:^(NSData *data){
-
-             NSLog(@&quot;Request URL %@ finished&quot;, _networkFetcher.url);
-            _fetchedData = data;
-            _networkFetcher = nil;
-
-    }];
-
-}
-</code></pre><h1 id="第41条：多用派发队列，少用同步锁"><a href="#第41条：多用派发队列，少用同步锁" class="headerlink" title="第41条：多用派发队列，少用同步锁"></a>第41条：多用派发队列，少用同步锁</h1><hr>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (void)downloadData &#123;</div><div class="line"></div><div class="line">     NSURL *url = [[NSURL alloc] initWithString:@<span class="string">"http://www.example.com/something.dat"</span>]<span class="comment">;</span></div><div class="line">    _networkFetcher =[[EOCNetworkFetcher alloc] initWithURL:url]<span class="comment">;</span></div><div class="line">    [_networkFetcher startWithCompletionHandler:^(NSData *data)&#123;</div><div class="line"></div><div class="line">             NSLog(@<span class="string">"Request URL %@ finished"</span>, _networkFetcher.url)<span class="comment">;</span></div><div class="line">            _fetchedData = data<span class="comment">;</span></div><div class="line">            _networkFetcher = nil<span class="comment">;</span></div><div class="line"></div><div class="line">    &#125;]<span class="comment">;</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="第41条：多用派发队列，少用同步锁"><a href="#第41条：多用派发队列，少用同步锁" class="headerlink" title="第41条：多用派发队列，少用同步锁"></a>第41条：多用派发队列，少用同步锁</h1><hr>
 <p>多个线程执行同一份代码时，很可能会造成数据不同步。作者建议使用GCD来为代码加锁的方式解决这个问题。</p>
-<h4 id="方案一：使用串行同步队列来将读写操作都安排到同一个队列里："><a href="#方案一：使用串行同步队列来将读写操作都安排到同一个队列里：" class="headerlink" title="方案一：使用串行同步队列来将读写操作都安排到同一个队列里："></a>方案一：使用串行同步队列来将读写操作都安排到同一个队列里：</h4><pre><code>_syncQueue = dispatch_queue_create(&quot;com.effectiveobjectivec.syncQueue&quot;, NULL);
-
-//读取字符串
-- (NSString*)someString {
-
-         __block NSString *localSomeString;
-         dispatch_sync(_syncQueue, ^{
-            localSomeString = _someString;
-        });
-         return localSomeString;
-
-}
-
-//设置字符串
-- (void)setSomeString:(NSString*)someString {
-
-     dispatch_sync(_syncQueue, ^{
-        _someString = someString;
-    });
-}
-</code></pre><p>这样一来，读写操作都在串行队列进行，就不容易出错。</p>
+<h4 id="方案一：使用串行同步队列来将读写操作都安排到同一个队列里："><a href="#方案一：使用串行同步队列来将读写操作都安排到同一个队列里：" class="headerlink" title="方案一：使用串行同步队列来将读写操作都安排到同一个队列里："></a>方案一：使用串行同步队列来将读写操作都安排到同一个队列里：</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">_syncQueue = dispatch_queue_create(<span class="string">"com.effectiveobjectivec.syncQueue"</span>, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line"><span class="comment">//读取字符串</span></div><div class="line">- (<span class="built_in">NSString</span>*)someString &#123;</div><div class="line"></div><div class="line">         __block <span class="built_in">NSString</span> *localSomeString;</div><div class="line">         <span class="built_in">dispatch_sync</span>(_syncQueue, ^&#123;</div><div class="line">            localSomeString = _someString;</div><div class="line">        &#125;);</div><div class="line">         <span class="keyword">return</span> localSomeString;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//设置字符串</span></div><div class="line">- (<span class="keyword">void</span>)setSomeString:(<span class="built_in">NSString</span>*)someString &#123;</div><div class="line"></div><div class="line">     <span class="built_in">dispatch_sync</span>(_syncQueue, ^&#123;</div><div class="line">        _someString = someString;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样一来，读写操作都在串行队列进行，就不容易出错。</p>
 <p>但是，还有一种方法可以让性能更高：</p>
-<h4 id="方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"><a href="#方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。" class="headerlink" title="方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"></a>方案二：将<strong>写操作</strong>放入栅栏快中，让他们单独执行；将<strong>读取操作</strong>并发执行。</h4><pre><code>_syncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-
-//读取字符串
-- (NSString*)someString {
-
-     __block NSString *localSomeString;
-     dispatch_sync(_syncQueue, ^{
-        localSomeString = _someString;
-    });
-     return localSomeString;
-}
-</code></pre><pre><code>//设置字符串
-- (void)setSomeString:(NSString*)someString {
-
-     dispatch_barrier_async(_syncQueue, ^{
-        _someString = someString;
-    });
-
-}
-</code></pre><blockquote>
+<h4 id="方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"><a href="#方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。" class="headerlink" title="方案二：将写操作放入栅栏快中，让他们单独执行；将读取操作并发执行。"></a>方案二：将<strong>写操作</strong>放入栅栏快中，让他们单独执行；将<strong>读取操作</strong>并发执行。</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">_syncQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</div><div class="line"></div><div class="line"><span class="comment">//读取字符串</span></div><div class="line">- (<span class="built_in">NSString</span>*)someString &#123;</div><div class="line"></div><div class="line">     __block <span class="built_in">NSString</span> *localSomeString;</div><div class="line">     <span class="built_in">dispatch_sync</span>(_syncQueue, ^&#123;</div><div class="line">        localSomeString = _someString;</div><div class="line">    &#125;);</div><div class="line">     <span class="keyword">return</span> localSomeString;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//设置字符串</div><div class="line">- <span class="params">(void)</span>setSomeString:<span class="params">(NSString*)</span>someString &#123;</div><div class="line"></div><div class="line">     dispatch_barrier_async<span class="params">(_syncQueue, ^&#123;</span></div><div class="line">        _someString = someString;</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>显然，数据的正确性主要取决于写入操作，那么只要保证写入时，线程是安全的，那么即便读取操作是并发的，也可以保证数据是同步的。</p>
 <p>这里的<code>dispatch_barrier_async</code>方法使得操作放在了同步队列里“有序进行”，保证了写入操作的任务是在串行队列里。</p>
 </blockquote>
@@ -786,26 +394,9 @@ if (error) {
 </ul>
 <p>但是如果将方法放在块中，通过GCD来操作就能很好地解决这些问题。尤其是我们如果想要让一个任务在另一个线程上执行，最好应该将任务放到块里，交给GCD来实现，而不是通过performSelector方法。</p>
 <p>举几个 来比较这两种方案：</p>
-<h4 id="1-延后执行某个任务的方法："><a href="#1-延后执行某个任务的方法：" class="headerlink" title="1. 延后执行某个任务的方法："></a>1. 延后执行某个任务的方法：</h4><pre><code>
-// 使用 performSelector:withObject:afterDelay:
-[self performSelector:@selector(doSomething) withObject:nil afterDelay:5.0];
-
-
-// 使用 dispatch_after
-dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC));
-dispatch_after(time, dispatch_get_main_queue(), ^(void){
-    [self doSomething];
-});
-</code></pre><h4 id="2-将任务放在主线程执行："><a href="#2-将任务放在主线程执行：" class="headerlink" title="2. 将任务放在主线程执行："></a>2. 将任务放在主线程执行：</h4><pre><code>// 使用 performSelectorOnMainThread:withObject:waitUntilDone:
-[self performSelectorOnMainThread:@selector(doSomething) withObject:nil waitUntilDone:NO];
-
-
-// 使用 dispatch_async
-// (or if waitUntilDone is YES, then dispatch_sync)
-dispatch_async(dispatch_get_main_queue(), ^{
-        [self doSomething];
-});
-</code></pre><blockquote>
+<h4 id="1-延后执行某个任务的方法："><a href="#1-延后执行某个任务的方法：" class="headerlink" title="1. 延后执行某个任务的方法："></a>1. 延后执行某个任务的方法：</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 使用 performSelector:withObject:afterDelay:</span></div><div class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(doSomething) withObject:<span class="literal">nil</span> afterDelay:<span class="number">5.0</span>];</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 使用 dispatch_after</span></div><div class="line">dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">5.0</span> * <span class="built_in">NSEC_PER_SEC</span>));</div><div class="line">dispatch_after(time, dispatch_get_main_queue(), ^(<span class="keyword">void</span>)&#123;</div><div class="line">    [<span class="keyword">self</span> doSomething];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="2-将任务放在主线程执行："><a href="#2-将任务放在主线程执行：" class="headerlink" title="2. 将任务放在主线程执行："></a>2. 将任务放在主线程执行：</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 使用 performSelectorOnMainThread:withObject:waitUntilDone:</span></div><div class="line">[<span class="keyword">self</span> performSelectorOnMainThread:<span class="keyword">@selector</span>(doSomething) withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">NO</span>];</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 使用 dispatch_async</span></div><div class="line"><span class="comment">// (or if waitUntilDone is YES, then dispatch_sync)</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">        [<span class="keyword">self</span> doSomething];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<blockquote>
 <p>注意：<br>如果waitUntilDone的参数是Yes，那么就对应GCD的dispatch_sync方法。<br>我们可以看到，使用GCD的方式可以将线程操作代码和方法调用代码写在同一处，一目了然；而且完全不受调用方法的选择子和方法参数个数的限制。</p>
 </blockquote>
 <h1 id="第43条：掌握GCD及操作队列的使用时机"><a href="#第43条：掌握GCD及操作队列的使用时机" class="headerlink" title="第43条：掌握GCD及操作队列的使用时机"></a>第43条：掌握GCD及操作队列的使用时机</h1><hr>
@@ -820,55 +411,21 @@ dispatch_async(dispatch_get_main_queue(), ^{
 <h1 id="第44条：通过Dispath-Group机制，根据系统资源状况来执行任务"><a href="#第44条：通过Dispath-Group机制，根据系统资源状况来执行任务" class="headerlink" title="第44条：通过Dispath Group机制，根据系统资源状况来执行任务"></a>第44条：通过Dispath Group机制，根据系统资源状况来执行任务</h1><hr>
 <p>有时需要<strong>等待</strong>多个并行任务结束的那一刻执行某个任务，这个时候就可以使用dispath group函数来实现这个需求：</p>
 <p>通过dispath group函数，可以把并发执行的多个任务合为一组，于是调用者就可以知道这些任务何时才能全部执行完毕。</p>
-<pre><code>
-//一个优先级低的并发队列
-dispatch_queue_t lowPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-
-//一个优先级高的并发队列
-dispatch_queue_t highPriorityQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-
-//创建dispatch_group
-dispatch_group_t dispatchGroup = dispatch_group_create();
-
-//将优先级低的队列放入dispatch_group
-for (id object in lowPriorityObjects) {
- dispatch_group_async(dispatchGroup,lowPriorityQueue,^{ [object performTask]; });
-}
-
-//将优先级高的队列放入dispatch_group
-for (id object in highPriorityObjects) {
- dispatch_group_async(dispatchGroup,highPriorityQueue,^{ [object performTask]; });
-}
-
-//dispatch_group里的任务都结束后调用块中的代码
-dispatch_queue_t notifyQueue = dispatch_get_main_queue();
-dispatch_group_notify(dispatchGroup,notifyQueue,^{
-     // Continue processing after completing tasks
-});
-</code></pre><h1 id="第45条：使用dispatch-once来执行只需运行一次的线程安全代码"><a href="#第45条：使用dispatch-once来执行只需运行一次的线程安全代码" class="headerlink" title="第45条：使用dispatch_once来执行只需运行一次的线程安全代码"></a>第45条：使用dispatch_once来执行只需运行一次的线程安全代码</h1><hr>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//一个优先级低的并发队列</span></div><div class="line">dispatch_queue_t lowPriorityQueue = dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_LOW</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line"><span class="comment">//一个优先级高的并发队列</span></div><div class="line">dispatch_queue_t highPriorityQueue = dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_HIGH</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line"><span class="comment">//创建dispatch_group</span></div><div class="line">dispatch_group_t dispatchGroup = dispatch_group_create();</div><div class="line"></div><div class="line"><span class="comment">//将优先级低的队列放入dispatch_group</span></div><div class="line"><span class="keyword">for</span> (id <span class="class"><span class="keyword">object</span> <span class="title">in</span> <span class="title">lowPriorityObjects</span>) </span>&#123;</div><div class="line"> dispatch_group_async(dispatchGroup,lowPriorityQueue,^&#123; [<span class="class"><span class="keyword">object</span> <span class="title">performTask</span>]</span>; &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//将优先级高的队列放入dispatch_group</span></div><div class="line"><span class="keyword">for</span> (id <span class="class"><span class="keyword">object</span> <span class="title">in</span> <span class="title">highPriorityObjects</span>) </span>&#123;</div><div class="line"> dispatch_group_async(dispatchGroup,highPriorityQueue,^&#123; [<span class="class"><span class="keyword">object</span> <span class="title">performTask</span>]</span>; &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//dispatch_group里的任务都结束后调用块中的代码</span></div><div class="line">dispatch_queue_t notifyQueue = dispatch_get_main_queue();</div><div class="line">dispatch_group_notify(dispatchGroup,notifyQueue,^&#123;</div><div class="line">     <span class="comment">// Continue processing after completing tasks</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h1 id="第45条：使用dispatch-once来执行只需运行一次的线程安全代码"><a href="#第45条：使用dispatch-once来执行只需运行一次的线程安全代码" class="headerlink" title="第45条：使用dispatch_once来执行只需运行一次的线程安全代码"></a>第45条：使用dispatch_once来执行只需运行一次的线程安全代码</h1><hr>
 <p>有时我们可能只需要将某段代码执行一次，这时可以通过dispatch_once函数来解决。</p>
 <p>dispatch_once函数比较重要的使用例子是单例模式：<br>我们在创建单例模式的实例时，可以使用dispatch_once函数来令初始化代码只执行一次，并且内部是线程安全的。</p>
 <p>而且，对于执行一次的block来说，每次调用函数时传入的标记都必须完全相同，通常标记变量声明在static或global作用域里。</p>
-<pre><code>+ (id)sharedInstance {
-
-     static EOCClass *sharedInstance = nil;
-     static dispatch_once_t onceToken;
-     dispatch_once(&amp;onceToken, ^{
-﻿            sharedInstance = [[self alloc] init];
-    });
-     return sharedInstance;
-}
-</code></pre><blockquote>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">+ (id)<span class="keyword">sharedInstance </span>&#123;</div><div class="line"></div><div class="line">     static EOCClass *<span class="keyword">sharedInstance </span>= nil<span class="comment">;</span></div><div class="line">     static <span class="keyword">dispatch_once_t </span>onceToken<span class="comment">;</span></div><div class="line">     <span class="keyword">dispatch_once(&amp;onceToken, </span>^&#123;</div><div class="line">﻿            <span class="keyword">sharedInstance </span>= [[self alloc] init]<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">     return <span class="keyword">sharedInstance;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>我们可以这么理解：在dispatch_once块中的代码在程序启动到终止的过程里，只要运行了一次后，就给自己加上了注释符号，不再存在了。</p>
 </blockquote>
 <h1 id="第49条：对自定义其内存管理语义的collection使用无缝桥接"><a href="#第49条：对自定义其内存管理语义的collection使用无缝桥接" class="headerlink" title="第49条：对自定义其内存管理语义的collection使用无缝桥接"></a>第49条：对自定义其内存管理语义的collection使用无缝桥接</h1><hr>
 <p>通过无缝桥接技术，可以再Foundation框架中的OC对象和CoreFoundation框架中的C语言数据结构之间来回转换。</p>
 <p>创建CoreFoundation中的collection时，可以指定如何处理其中的元素。然后利用无缝桥接技术，可以将其转换为OCcollection。</p>
 <p>简单的无缝桥接演示：</p>
-<pre><code>NSArray *anNSArray = @[@1, @2, @3, @4, @5];
-CFArrayRef aCFArray = (__bridge CFArrayRef)anNSArray;
-NSLog(@&quot;Size of array = %li&quot;, CFArrayGetCount(aCFArray));
-</code></pre><p>这里，<code>__bridge</code>表示ARC仍然具备这个OC对象的所有权。<code>CFArrayGetCount</code>用来获取数组的长高度。</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">NSArray *anNSArray = @[@1, @2, @3, @4, @5];</div><div class="line">CFArrayRef aCFArray = (__bridge CFArrayRef)anNSArray;</div><div class="line">NSLog(@"Size of array = %li<span class="string">", CFArrayGetCount(aCFArray));</span></div></pre></td></tr></table></figure>
+<p>这里，<code>__bridge</code>表示ARC仍然具备这个OC对象的所有权。<code>CFArrayGetCount</code>用来获取数组的长高度。</p>
 <p>为什么要使用无缝桥接技术呢？因为有些OC对象的特性是其对应的CF数据结构不具备的，反之亦然。因此我们需要通过无缝桥接技术来让这两者进行功能上的“互补”。</p>
 <h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
 <p>终于总结完了，还是有个别知识点理解得不是很透彻，需要反复阅读和理解消化。希望各位小伙伴多多提出宝贵意见，交流学习~</p>
@@ -965,6 +522,7 @@ NSLog(@&quot;Size of array = %li&quot;, CFArrayGetCount(aCFArray));
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
     
     </script>
+
     
 </body>
 </html>
