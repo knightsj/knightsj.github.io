@@ -174,90 +174,22 @@
 <h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><hr>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-6371568b2e366281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：初始界面 ；右：游戏中界面"></p>
 <h1 id="重要代码段与知识点"><a href="#重要代码段与知识点" class="headerlink" title="重要代码段与知识点"></a>重要代码段与知识点</h1><hr>
-<h2 id="模型类：CardMatchingGame"><a href="#模型类：CardMatchingGame" class="headerlink" title="模型类：CardMatchingGame"></a>模型类：CardMatchingGame</h2><h4 id="1-在公共接口设置只读属性"><a href="#1-在公共接口设置只读属性" class="headerlink" title="1. 在公共接口设置只读属性"></a>1. 在公共接口设置只读属性</h4><pre><code>
-//CardMatchingGame.h
-@property (nonatomic, readonly) NSInteger score;
-
-//CardMatchingGame.m
-@property (nonatomic, readwrite) NSInteger score;
-</code></pre><blockquote>
+<h2 id="模型类：CardMatchingGame"><a href="#模型类：CardMatchingGame" class="headerlink" title="模型类：CardMatchingGame"></a>模型类：CardMatchingGame</h2><h4 id="1-在公共接口设置只读属性"><a href="#1-在公共接口设置只读属性" class="headerlink" title="1. 在公共接口设置只读属性"></a>1. 在公共接口设置只读属性</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//CardMatchingGame.h</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSInteger</span> score;</div><div class="line"></div><div class="line"><span class="comment">//CardMatchingGame.m</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readwrite</span>) <span class="built_in">NSInteger</span> score;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在.h文件中将分数属性设置为只读，并在.m文件中设定该属性为读写，以便在内部计算。</p>
 <p>原因：不希望其他类更改此属性，只能获取该属性。通俗一点地说：“你们就拿我给你算好的分数就好了，你们是不能更改它的！”</p>
 </blockquote>
-<h4 id="2-指定初始化器：Designated-initializer"><a href="#2-指定初始化器：Designated-initializer" class="headerlink" title="2. 指定初始化器：Designated initializer"></a>2. 指定初始化器：Designated initializer</h4><pre><code>
-- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
-{
-    self = [super init];
-
-    if (self) {
-
-        for (int i = 0; i &lt; count; i++) {
-
-            Card *card = [deck drawRandomCard];
-
-            if (card) {
-
-                [self.cards addObject:card];
-
-            }else{
-
-                self = nil;
-                break;
-            }
-        }
-    }
-    return self;
-}
-</code></pre><blockquote>
+<h4 id="2-指定初始化器：Designated-initializer"><a href="#2-指定初始化器：Designated-initializer" class="headerlink" title="2. 指定初始化器：Designated initializer"></a>2. 指定初始化器：Designated initializer</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)initWithCardCount:(<span class="built_in">NSUInteger</span>)count usingDeck:(Deck *)deck</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</div><div class="line">            </div><div class="line">            Card *card = [deck drawRandomCard];</div><div class="line">            </div><div class="line">            <span class="keyword">if</span> (card) &#123;</div><div class="line">               </div><div class="line">                [<span class="keyword">self</span>.cards addObject:card];</div><div class="line">                </div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">                </div><div class="line">                <span class="keyword">self</span> = <span class="literal">nil</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>有些时候，我们需要在类实例化的时候就要求对象持有某些数据,这就需要设计<strong>指定初始化器</strong>，因为原始的初始化方法<code>-(instancetype)init</code>方法是无法让实例对象持有非零数据的(初始化后，基本数据类型属性=0；对象属性=nil)。</p>
 <p>在这段代码里，该模型类通过数量<code>count</code>和一堆纸牌<code>deck</code>中拿到了自己持有的数组<code>self.cards</code>。</p>
 <p>举个🌰 ：想要从一个有52张牌的堆里抽取了12张牌来作为自己的一堆纸牌的话，就要设置Deck为具有52张牌的数组；而设置count为12即可。</p>
 </blockquote>
-<h4 id="3-设定常量"><a href="#3-设定常量" class="headerlink" title="3. 设定常量"></a>3. 设定常量</h4><pre><code>#define MISMATCH_PENALTY 2 //简单的替换，不具有数据类型
-</code></pre><pre><code>static const int MISMATCH_PENALTY = 2; //非简单替换，具有数据类型
-</code></pre><h2 id="控制器类：CardMathcingGameViewController"><a href="#控制器类：CardMathcingGameViewController" class="headerlink" title="控制器类：CardMathcingGameViewController"></a>控制器类：CardMathcingGameViewController</h2><hr>
-<h4 id="1-接收来自View的点击事件并更新UI"><a href="#1-接收来自View的点击事件并更新UI" class="headerlink" title="1. 接收来自View的点击事件并更新UI"></a>1. 接收来自View的点击事件并更新UI</h4><pre><code>
-/**
- *  接收用户的点击事件
- *
- *  @param sender 点击的按钮对象
- */
-- (IBAction)touchCardButton:(UIButton *)sender {
-
-    //1. 找到界面中所点击的按钮index
-    NSInteger cardIndex = [self.cardButtons indexOfObject:sender];
-
-    //2. 找到模型中相同index的纸牌数据，并判断是否匹配，计算分数
-    [self.game chooseCardAtIndex: cardIndex];
-
-    //3. 更新UI
-    [self updateUI];
-}
-
-/**
- *  更新UI
- */
-- (void)updateUI
-{
-    //1. 更新view上所有牌面
-    for (UIButton *cardButton in self.cardButtons) {
-
-        //1.1 找到界面中的一张纸牌(按照枚举的顺序)
-        NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
-
-        //1.2 找到模型中对应的纸牌数据
-        Card *card  = [self.game cardAtIndex:cardIndex];
-
-        //1.3 根据数据更新纸牌的UI和可点击性
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        [cardButton setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];
-         cardButton.enabled = !card.isMatched;        
-    }
-
-    //2. 更新分数
-    self.scoreLabel.text = [NSString stringWithFormat:@&quot;Score: %ld&quot;, (long)self.game.score];
-}
-</code></pre><blockquote>
+<h4 id="3-设定常量"><a href="#3-设定常量" class="headerlink" title="3. 设定常量"></a>3. 设定常量</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MISMATCH_PENALTY 2 <span class="comment">//简单的替换，不具有数据类型</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> MISMATCH_PENALTY = <span class="number">2</span>; <span class="comment">//非简单替换，具有数据类型</span></div></pre></td></tr></table></figure>
+<h2 id="控制器类：CardMathcingGameViewController"><a href="#控制器类：CardMathcingGameViewController" class="headerlink" title="控制器类：CardMathcingGameViewController"></a>控制器类：CardMathcingGameViewController</h2><hr>
+<h4 id="1-接收来自View的点击事件并更新UI"><a href="#1-接收来自View的点击事件并更新UI" class="headerlink" title="1. 接收来自View的点击事件并更新UI"></a>1. 接收来自View的点击事件并更新UI</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  接收用户的点击事件</div><div class="line"> *</div><div class="line"> *  @param sender 点击的按钮对象</div><div class="line"> */</div><div class="line">- (<span class="keyword">IBAction</span>)touchCardButton:(<span class="built_in">UIButton</span> *)sender &#123;</div><div class="line"></div><div class="line">    <span class="comment">//1. 找到界面中所点击的按钮index</span></div><div class="line">    <span class="built_in">NSInteger</span> cardIndex = [<span class="keyword">self</span>.cardButtons indexOfObject:sender];</div><div class="line">    </div><div class="line">    <span class="comment">//2. 找到模型中相同index的纸牌数据，并判断是否匹配，计算分数</span></div><div class="line">    [<span class="keyword">self</span>.game chooseCardAtIndex: cardIndex];</div><div class="line">    </div><div class="line">    <span class="comment">//3. 更新UI</span></div><div class="line">    [<span class="keyword">self</span> updateUI];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  更新UI</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)updateUI</div><div class="line">&#123;</div><div class="line">    <span class="comment">//1. 更新view上所有牌面</span></div><div class="line">    <span class="keyword">for</span> (<span class="built_in">UIButton</span> *cardButton <span class="keyword">in</span> <span class="keyword">self</span>.cardButtons) &#123;</div><div class="line">        </div><div class="line">        <span class="comment">//1.1 找到界面中的一张纸牌(按照枚举的顺序)</span></div><div class="line">        <span class="built_in">NSInteger</span> cardIndex = [<span class="keyword">self</span>.cardButtons indexOfObject:cardButton];</div><div class="line">        </div><div class="line">        <span class="comment">//1.2 找到模型中对应的纸牌数据</span></div><div class="line">        Card *card  = [<span class="keyword">self</span>.game cardAtIndex:cardIndex];</div><div class="line">        </div><div class="line">        <span class="comment">//1.3 根据数据更新纸牌的UI和可点击性</span></div><div class="line">        [cardButton setTitle:[<span class="keyword">self</span> titleForCard:card] forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">        [cardButton setBackgroundImage: [<span class="keyword">self</span> backgroundImageForCard:card] forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">         cardButton.enabled = !card.isMatched;        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//2. 更新分数</span></div><div class="line">    <span class="keyword">self</span>.scoreLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Score: %ld"</span>, (<span class="keyword">long</span>)<span class="keyword">self</span>.game.score];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在这里，我们可以很容易看到MVC的工作流程：</p>
 <ol>
 <li>在View里发生了点击事件并通知给了Controller。</li>
@@ -269,31 +201,17 @@
 <p>这里笔者有一张自己画的图，略逗逼，掩面贴出，独乐乐不如众乐乐~</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-0c8b70fd62292aa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MVC流程图.png"></p>
 <h2 id="零散知识点"><a href="#零散知识点" class="headerlink" title="零散知识点"></a>零散知识点</h2><hr>
-<h4 id="1-在数组里传入其包含的对象返回其所在序号"><a href="#1-在数组里传入其包含的对象返回其所在序号" class="headerlink" title="1. 在数组里传入其包含的对象返回其所在序号"></a>1. 在数组里传入其包含的对象返回其所在序号</h4><pre><code>NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
-</code></pre><h4 id="2-在数组中找到第一个元素"><a href="#2-在数组中找到第一个元素" class="headerlink" title="2. 在数组中找到第一个元素"></a>2. 在数组中找到第一个元素</h4><pre><code>//应该使用：
-PlayingCard *otherCard = [otherCards firstObject];
-
-//不应该使用：
-PlayingCard *otherCard = otherCards[0];
-
-//不应该使用：
-PlayingCard *otherCard = [otherCards objectAtIndex:0];
-</code></pre><blockquote>
-<p>应该使用第一种情况。<br>因为如果数组为空，那么如果使用第一种情况会返回nil,而向nil发送消息是不会造成崩溃的。<br>但是如果使用后两种方法，一旦数组为空，就会立刻造成程序崩溃！而且同样适用与取数组的最后一个元素的情况。<br>在数组中找到最后一个元素：</p>
-<pre><code>PlayingCard *otherCard = [otherCards lastObject];
-</code></pre></blockquote>
-<h4 id="3-在数组中是否包含某元素"><a href="#3-在数组中是否包含某元素" class="headerlink" title="3. 在数组中是否包含某元素"></a>3. 在数组中是否包含某元素</h4><pre><code>if ([ [PlayingCard ValidSuits] containsObject:suit]) {
-        _suit = suit;
-}
-</code></pre><blockquote>
+<h4 id="1-在数组里传入其包含的对象返回其所在序号"><a href="#1-在数组里传入其包含的对象返回其所在序号" class="headerlink" title="1. 在数组里传入其包含的对象返回其所在序号"></a>1. 在数组里传入其包含的对象返回其所在序号</h4><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">NSInteger cardIndex</span> = [self.cardButtons indexOfObject:cardButton];</div></pre></td></tr></table></figure>
+<h4 id="2-在数组中找到第一个元素"><a href="#2-在数组中找到第一个元素" class="headerlink" title="2. 在数组中找到第一个元素"></a>2. 在数组中找到第一个元素</h4><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//应该使用：</span></div><div class="line">PlayingCard *otherCard = [otherCards firstObject];</div><div class="line"></div><div class="line"><span class="comment">//不应该使用：</span></div><div class="line">PlayingCard *otherCard = otherCards[<span class="number">0</span>];</div><div class="line"></div><div class="line"><span class="comment">//不应该使用：</span></div><div class="line">PlayingCard *otherCard = [otherCards objectAtIndex:<span class="number">0</span>];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>应该使用第一种情况。<br>因为如果数组为空，那么如果使用第一种情况会返回nil,而向nil发送消息是不会造成崩溃的。<br>但是如果使用后两种方法，一旦数组为空，就会立刻造成程序崩溃！而且同样适用与取数组的最后一个元素的情况。<br>在数组中找到最后一个元素：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">PlayingCard</span> *otherCard = [otherCards <span class="literal">last</span>Object];</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="3-在数组中是否包含某元素"><a href="#3-在数组中是否包含某元素" class="headerlink" title="3. 在数组中是否包含某元素"></a>3. 在数组中是否包含某元素</h4><figure class="highlight gcode"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="comment">([ [PlayingCard ValidSuits] containsObject:suit])</span> &#123;</div><div class="line">        _suit = suit;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>containsObject:是NSArray的方法，返回布尔值，用来判断是否包含某个元素。</p>
 </blockquote>
-<h4 id="4-JPG格式图片的读取"><a href="#4-JPG格式图片的读取" class="headerlink" title="4. JPG格式图片的读取"></a>4. JPG格式图片的读取</h4><pre><code>- (UIImage *)backgroundImageForCard: (Card *)card
-{
-    //默认是png，如果是jpg需要加上.jpg的后缀
-    return [UIImage imageNamed:card.isChosen? @&quot;cardFront.jpg&quot;:@&quot;CardBack.png&quot;];
-}
-</code></pre><blockquote>
+<h4 id="4-JPG格式图片的读取"><a href="#4-JPG格式图片的读取" class="headerlink" title="4. JPG格式图片的读取"></a>4. JPG格式图片的读取</h4><figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (UIImage *)backgroundImageForCard: (<span class="keyword">Card</span> *)<span class="keyword">card</span></div><div class="line">&#123;</div><div class="line">    <span class="comment">//默认是png，如果是jpg需要加上.jpg的后缀</span></div><div class="line">    return [UIImage imageNamed:<span class="keyword">card</span>.isChosen? @<span class="string">"cardFront.jpg"</span>:@<span class="string">"CardBack.png"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>如果使用<code>imageNamed:</code>方法，仅传入jpg格式的文件名是无法显示出图片的，应该讲后缀<code>.jpg</code>拼接后传入才可以哦~而相同情况下，若要显示<code>png</code>格式的图片的话是不需要另外加后缀的。</p>
 </blockquote>
 <h1 id="最后的话："><a href="#最后的话：" class="headerlink" title="最后的话："></a>最后的话：</h1><hr>

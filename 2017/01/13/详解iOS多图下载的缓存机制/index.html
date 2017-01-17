@@ -165,11 +165,8 @@
 <p>这里所说的<strong>多图下载</strong>，就是要在tableview的每一个cell里显示一张图片,而且这些图片都需要从网上下载。</p>
 <h1 id="2-容易遇到的问题"><a href="#2-容易遇到的问题" class="headerlink" title="2.容易遇到的问题"></a>2.容易遇到的问题</h1><hr>
 <p>如果不知道或不使用<strong>异步操作</strong>和<strong>缓存机制</strong>，那么写出来的代码很可能会是这样：</p>
-<pre><code>cell.textLabel.text = app.name;
-cell.detailTextLabel.text = app.download;
-NSData *imageData = [NSData dataWithContentsOfURL:app.url];
-cell.imageView.image = [UIImage imageWithData:imageData];
-</code></pre><p>这样写有什么后果呢？</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cell.textLabel<span class="meta">.text</span> = app.name<span class="comment">;</span></div><div class="line">cell.detailTextLabel<span class="meta">.text</span> = app.download<span class="comment">;</span></div><div class="line">NSData *imageData = [NSData dataWithContentsOfURL:app.url]<span class="comment">;</span></div><div class="line">cell.imageView.image = [UIImage imageWithData:imageData]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>这样写有什么后果呢？</p>
 <h4 id="后果1：不可避免的卡顿（因为没有异步下载操作）"><a href="#后果1：不可避免的卡顿（因为没有异步下载操作）" class="headerlink" title="后果1：不可避免的卡顿（因为没有异步下载操作）"></a>后果1：不可避免的卡顿（因为没有异步下载操作）</h4><blockquote>
 <p>dataWithContentsOfURL：是耗时操作，将其放在主线程会造成卡顿。如果图片很多，图片很大，而且网络情况不好的话肯定会卡出翔！</p>
 </blockquote>
@@ -182,104 +179,12 @@ cell.imageView.image = [UIImage imageWithData:imageData];
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-addf3137097c3912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多图下载解决方案流程图"></p>
 <p>要想快速看懂此图，需要先了解该流程所需的所有数据源：</p>
 <p><strong>1. 图片的URL</strong>：因为每张图片对应的URL都是唯一的，所以我们可以通过它来建立<strong>图片缓存</strong>和<strong>下载操作的缓存</strong>的键，以及拼接<strong>沙盒缓存</strong>的路径字符串。<br><strong>2. 图片缓存（字典）</strong>：存放于内存中；键为图片的URL，值为UIImage对象。作用：读取速度快，直接使用UIImage对象。<br><strong>3. 下载操作缓存（字典）</strong>：存放与内存中，键为图片的URL，值为NSBlockOperation对象。作用：用来避免对于同一张图片还要开启多个下载线程。<br><strong>4. 沙盒缓存(文件路径对应NSData)</strong>：存放于磁盘中，位于Cache文件夹内，路径为“Cache/图片URL的最后的部分”，值为NSData对象（将UIImage转化为NSData才能写入磁盘里）。作用：程序断网，再次启动也可以直接在磁盘中拿到图片。</p>
-<h4 id="2-再看一下解决方案的代码"><a href="#2-再看一下解决方案的代码" class="headerlink" title="2.再看一下解决方案的代码"></a>2.再看一下解决方案的代码</h4><p><strong>2.1图片缓存，下载操作缓存，沙盒缓存路径</strong></p>
-<pre><code>/**
- *  存放所有下载完的图片
- */
-@property (nonatomic, strong) NSMutableDictionary *images;
-
-/**
- *  存放所有的下载操作（key是url，value是operation对象）
- */
-@property (nonatomic, strong) NSMutableDictionary *operations;
-
-/**
- *  拼接Cache文件夹的路径与url最后的部分，合并成唯一约定好的缓存路径
- */
-#define CachedImageFile(url) [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[url lastPathComponent]]
-</code></pre><p><strong>2.2 图片下载之前的查询缓存部分</strong>：</p>
-<pre><code>    // 先从images缓存中取出图片url对应的UIImage
-    UIImage *image = self.images[app.icon];
-    if (image) { 
-
-        // 存在：说明图片已经下载成功，并缓存成功）
-        cell.imageView.image = image;
-
-    } else { 
-
-         // 不存在：说明图片并未下载成功过，或者成功下载但是在images里缓存失败，需要在沙盒里寻找对于的图片
-
-         // 获得url对于的沙盒缓存路径
-        NSString *file = CachedImageFile(app.icon);
-
-        // 先从沙盒中取出图片
-        NSData *data = [NSData dataWithContentsOfFile:file];
-
-        if (data) {
-
-            //data不为空，说明沙盒中存在这个文件
-            cell.imageView.image = [UIImage imageWithData:data];
-
-        } else {
-
-             // 反之沙盒中不存在这个文件
-             // 在下载之前显示占位图片
-            cell.imageView.image = [UIImage imageNamed:@&quot;placeholder&quot;];
-
-            // 下载图片
-            [self download:app.icon indexPath:indexPath];
-        }
-    }
-</code></pre><p><strong>2.3 图片的下载部分</strong>：</p>
-<pre><code>
-/**
- *  下载图片
- *
- *  @param imageUrl 图片的url
- */
-- (void)download:(NSString *)imageUrl indexPath:(NSIndexPath *)indexPath
-{
-    // 取出当前图片url对应的下载操作（operation对象）
-    NSBlockOperation *operation = self.operations[imageUrl];
-    if (operation) return;
-
-    // 创建操作，下载图片
-    __weak typeof(self) appsVc = self;
-    operation = [NSBlockOperation blockOperationWithBlock:^{
-        NSURL *url = [NSURL URLWithString:imageUrl];
-        NSData *data = [NSData dataWithContentsOfURL:url]; // 下载
-        UIImage *image = [UIImage imageWithData:data]; // NSData -&gt; UIImage
-
-        // 回到主线程
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-
-            if (image) {
-                // 如果存在图片（下载完成），存放图片到图片缓存字典中
-                appsVc.images[imageUrl] = image;
-
-                //将图片存入沙盒中
-                //1. 先将图片转化为NSData
-                NSData *data = UIImagePNGRepresentation(image);
-
-                //2.  再生成缓存路径            
-                [data writeToFile:CachedImageFile(imageUrl) atomically:YES];
-            }
-
-            // 从字典中移除下载操作 (保证下载失败后，能重新下载)
-            [appsVc.operations removeObjectForKey:imageUrl];
-
-            // 刷新当前表格，减少系统开销
-            [appsVc.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        }];
-    }];
-
-    // 添加下载操作到队列中
-    [self.queue addOperation:operation];
-
-    // 将当前下载操作添加到下载操作缓存中 (为了解决重复下载)
-    self.operations[imageUrl] = operation;
-}
-</code></pre><h4 id="3-有哪些点是值得注意的？"><a href="#3-有哪些点是值得注意的？" class="headerlink" title="3. 有哪些点是值得注意的？"></a>3. 有哪些点是值得注意的？</h4><p>要说值得注意的地方，还是离不开对于缓存内容的添加和删除操作。</p>
+<h4 id="2-再看一下解决方案的代码"><a href="#2-再看一下解决方案的代码" class="headerlink" title="2.再看一下解决方案的代码"></a>2.再看一下解决方案的代码</h4><p><strong>2.1图片缓存，下载操作缓存，沙盒缓存路径</strong><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  存放所有下载完的图片</div><div class="line"> */</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableDictionary</span> *images;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  存放所有的下载操作（key是url，value是operation对象）</div><div class="line"> */</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableDictionary</span> *operations;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  拼接Cache文件夹的路径与url最后的部分，合并成唯一约定好的缓存路径</div><div class="line"> */</div><div class="line"><span class="meta">#define CachedImageFile(url) [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[url lastPathComponent]]</span></div></pre></td></tr></table></figure></p>
+<p><strong>2.2 图片下载之前的查询缓存部分</strong>：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 先从images缓存中取出图片url对应的UIImage</span></div><div class="line">    <span class="built_in">UIImage</span> *image = <span class="keyword">self</span>.images[app.icon];</div><div class="line">    <span class="keyword">if</span> (image) &#123; </div><div class="line"></div><div class="line">    <span class="comment">// 存在：说明图片已经下载成功，并缓存成功）</span></div><div class="line">        cell.imageView.image = image;</div><div class="line"></div><div class="line">    &#125; <span class="keyword">else</span> &#123; </div><div class="line"></div><div class="line">     <span class="comment">// 不存在：说明图片并未下载成功过，或者成功下载但是在images里缓存失败，需要在沙盒里寻找对于的图片</span></div><div class="line"></div><div class="line">         <span class="comment">// 获得url对于的沙盒缓存路径</span></div><div class="line">        <span class="built_in">NSString</span> *file = CachedImageFile(app.icon);</div><div class="line">        </div><div class="line">        <span class="comment">// 先从沙盒中取出图片</span></div><div class="line">        <span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsOfFile:file];</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (data) &#123;</div><div class="line"></div><div class="line">        <span class="comment">//data不为空，说明沙盒中存在这个文件</span></div><div class="line">            cell.imageView.image = [<span class="built_in">UIImage</span> imageWithData:data];</div><div class="line"></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">         <span class="comment">// 反之沙盒中不存在这个文件</span></div><div class="line">             <span class="comment">// 在下载之前显示占位图片</span></div><div class="line">            cell.imageView.image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"placeholder"</span>];</div><div class="line">            </div><div class="line">            <span class="comment">// 下载图片</span></div><div class="line">            [<span class="keyword">self</span> download:app.icon indexPath:indexPath];</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>2.3 图片的下载部分</strong>：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  下载图片</div><div class="line"> *</div><div class="line"> *  @param imageUrl 图片的url</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)download:(<span class="built_in">NSString</span> *)imageUrl indexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 取出当前图片url对应的下载操作（operation对象）</span></div><div class="line">    <span class="built_in">NSBlockOperation</span> *operation = <span class="keyword">self</span>.operations[imageUrl];</div><div class="line">    <span class="keyword">if</span> (operation) <span class="keyword">return</span>;</div><div class="line">    </div><div class="line">    <span class="comment">// 创建操作，下载图片</span></div><div class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) appsVc = <span class="keyword">self</span>;</div><div class="line">    operation = [<span class="built_in">NSBlockOperation</span> blockOperationWithBlock:^&#123;</div><div class="line">        <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:imageUrl];</div><div class="line">        <span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsOfURL:url]; <span class="comment">// 下载</span></div><div class="line">        <span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageWithData:data]; <span class="comment">// NSData -&gt; UIImage</span></div><div class="line">        </div><div class="line">        <span class="comment">// 回到主线程</span></div><div class="line">        [[<span class="built_in">NSOperationQueue</span> mainQueue] addOperationWithBlock:^&#123;</div><div class="line">                     </div><div class="line">            <span class="keyword">if</span> (image) &#123;</div><div class="line">                <span class="comment">// 如果存在图片（下载完成），存放图片到图片缓存字典中</span></div><div class="line">                appsVc.images[imageUrl] = image;</div><div class="line">                </div><div class="line">                <span class="comment">//将图片存入沙盒中</span></div><div class="line">                <span class="comment">//1. 先将图片转化为NSData</span></div><div class="line">                <span class="built_in">NSData</span> *data = <span class="built_in">UIImagePNGRepresentation</span>(image);</div><div class="line">                </div><div class="line">                <span class="comment">//2.  再生成缓存路径            </span></div><div class="line">                [data writeToFile:CachedImageFile(imageUrl) atomically:<span class="literal">YES</span>];</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">// 从字典中移除下载操作 (保证下载失败后，能重新下载)</span></div><div class="line">            [appsVc.operations removeObjectForKey:imageUrl];</div><div class="line">            </div><div class="line">            <span class="comment">// 刷新当前表格，减少系统开销</span></div><div class="line">            [appsVc.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationNone</span>];</div><div class="line">        &#125;];</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    <span class="comment">// 添加下载操作到队列中</span></div><div class="line">    [<span class="keyword">self</span>.queue addOperation:operation];</div><div class="line">    </div><div class="line">    <span class="comment">// 将当前下载操作添加到下载操作缓存中 (为了解决重复下载)</span></div><div class="line">    <span class="keyword">self</span>.operations[imageUrl] = operation;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-有哪些点是值得注意的？"><a href="#3-有哪些点是值得注意的？" class="headerlink" title="3. 有哪些点是值得注意的？"></a>3. 有哪些点是值得注意的？</h4><p>要说值得注意的地方，还是离不开对于缓存内容的添加和删除操作。</p>
 <p><strong>3.1 关于图片缓存</strong>：<br>很简单，成功下载，拿到了图片，就将图片添加到图片缓存中；下载失败，什么都不做，反正没有图。在这种机制下，就没有删除缓存里某个图片项的情况，因为图片缓存永远不会出现重复添加多个相同图片的情况，缓存中只要有一张对应的图，就直接拿去用了，不会去再下载了。</p>
 <p><strong>3.2 关于沙盒缓存</strong>：<br>同样地，对于沙盒缓存也是一个道理：有图就将其转化为NSData，写入磁盘，并对应唯一的路径，没有图就不写。所以即使是要下载相同的图片，因为当前url对应的沙盒路径已经存在文件了，所以直接拿就可以了，不会再下载。</p>
 <p>但是！<br>下载操作缓存是不同的！</p>
@@ -292,10 +197,8 @@ cell.imageView.image = [UIImage imageWithData:imageData];
 <li><p>但是！如果未来下载失败了，那就肯定不会有对应的图片缓存和沙盒缓存，也就肯定会来到判断当前的下载操作是否在下载操作缓存里这一步。不幸的是，因为没有被删去，它是存在的。存在的话就不做任何其他操作，放任自流，导致曾经下载失败的图片永远不会再次下载。</p>
 </li>
 </ul>
-<p>忘了那段代码了么？回看一下代码（看我多好）：</p>
-<pre><code>NSBlockOperation *operation = self.operations[imageUrl];
- if (operation) return;//转身就走，毫不留情
-</code></pre><p>因此，无论下载成功或是失败，在图片下载的回调里都要将当前的下载操作从下载操作队列中移走：用来保证如果下载失败了，就可以重新开启对应的下载操作进行下载，逻辑上更加严谨。</p>
+<p>忘了那段代码了么？回看一下代码（看我多好）：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSBlockOperation</span> *operation = <span class="keyword">self</span>.operations[imageUrl];</div><div class="line"> <span class="keyword">if</span> (operation) <span class="keyword">return</span>;<span class="comment">//转身就走，毫不留情</span></div></pre></td></tr></table></figure></p>
+<p>因此，无论下载成功或是失败，在图片下载的回调里都要将当前的下载操作从下载操作队列中移走：用来保证如果下载失败了，就可以重新开启对应的下载操作进行下载，逻辑上更加严谨。</p>
 <h1 id="4-最后的话"><a href="#4-最后的话" class="headerlink" title="4.最后的话"></a>4.最后的话</h1><hr>
 <p>异步+缓存这两个机制双剑合璧的话会对程序新能带来很大的改观。这应该app开发进阶的必经之路。</p>
 <p>小码哥讲述的这套流程还算比较完整的了，更重要的还是学习其中的思想：</p>

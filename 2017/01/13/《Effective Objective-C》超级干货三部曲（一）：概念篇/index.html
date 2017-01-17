@@ -183,33 +183,12 @@
 <p>属性用于封装对象中的数据。</p>
 </blockquote>
 <h2 id="1-存取方法"><a href="#1-存取方法" class="headerlink" title="1. 存取方法"></a>1. 存取方法</h2><p>在设置完属性后，编译器会自动写出一套存取方法，用于访问相应名称的变量：</p>
-<pre><code>@interface EOCPerson : NSObject
-@property NSString *firstName;
-@property NSString *lastName;
-@end
-
-@interface EOCPerson : NSObject
-- (NSString*)firstName;
-- (void)setFirstName:(NSString*)firstName;
-- (NSString*)lastName;
-- (void)setLastName:(NSString*)lastName;
-@end
-</code></pre><p>访问属性，可以使用点语法。编译器会把点语法转换为对存取方法的调用：</p>
-<pre><code>aPerson.firstName = @&quot;Bob&quot;; // Same as:
-[aPerson setFirstName:@&quot;Bob&quot;];
-
-NSString *lastName = aPerson.lastName; // Same as:
-NSString *lastName = [aPerson lastName];
-</code></pre><p>如果我们不希望编译器自动生成存取方法的话，需要设置@dynamic 字段：</p>
-<pre><code>@interface EOCPerson : NSManagedObject
-@property NSString *firstName;
-@property NSString *lastName;
-@end
-
-@implementation EOCPerson
-@dynamic firstName, lastName;
-@end
-</code></pre><h2 id="2-属相特质"><a href="#2-属相特质" class="headerlink" title="2. 属相特质"></a>2. 属相特质</h2><blockquote>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@interface</span> <span class="attribute">EOCPerson </span>: NSObject</div><div class="line"><span class="variable">@property</span> NSString *firstName;</div><div class="line"><span class="variable">@property</span> NSString *lastName;</div><div class="line"><span class="variable">@end</span></div><div class="line"></div><div class="line"><span class="variable">@interface</span> <span class="attribute">EOCPerson </span>: NSObject</div><div class="line">- (NSString*)firstName;</div><div class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">setFirstName</span><span class="selector-pseudo">:(NSString</span>*)<span class="selector-tag">firstName</span>;</div><div class="line"><span class="selector-tag">-</span> (NSString*)<span class="selector-tag">lastName</span>;</div><div class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">setLastName</span><span class="selector-pseudo">:(NSString</span>*)<span class="selector-tag">lastName</span>;</div><div class="line">@<span class="selector-tag">end</span></div></pre></td></tr></table></figure>
+<p>访问属性，可以使用点语法。编译器会把点语法转换为对存取方法的调用：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">aPerson.firstName = @<span class="string">"Bob"</span><span class="comment">; // Same as:</span></div><div class="line">[aPerson setFirstName:@<span class="string">"Bob"</span>]<span class="comment">;</span></div><div class="line"></div><div class="line">NSString *lastName = aPerson.lastName<span class="comment">; // Same as:</span></div><div class="line">NSString *lastName = [aPerson lastName]<span class="comment">;</span></div></pre></td></tr></table></figure>
+<p>如果我们不希望编译器自动生成存取方法的话，需要设置@dynamic 字段：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@interface</span> <span class="attribute">EOCPerson </span>: NSManagedObject</div><div class="line"><span class="variable">@property</span> NSString *firstName;</div><div class="line"><span class="variable">@property</span> NSString *lastName;</div><div class="line"><span class="variable">@end</span></div><div class="line"></div><div class="line"><span class="variable">@implementation</span> EOCPerson</div><div class="line"><span class="variable">@dynamic</span> firstName, lastName;</div><div class="line"><span class="variable">@end</span></div></pre></td></tr></table></figure>
+<h2 id="2-属相特质"><a href="#2-属相特质" class="headerlink" title="2. 属相特质"></a>2. 属相特质</h2><blockquote>
 <p>定义属性的时候，通常会赋予它一些特性，来满足一些对类保存数据所要遵循的需求。</p>
 </blockquote>
 <h4 id="原子性："><a href="#原子性：" class="headerlink" title="原子性："></a>原子性：</h4><ul>
@@ -228,42 +207,16 @@ NSString *lastName = [aPerson lastName];
 <li>copy：不保留新值，而是将其拷贝</li>
 </ul>
 <h4 id="注意：遵循属性定义"><a href="#注意：遵循属性定义" class="headerlink" title="注意：遵循属性定义"></a>注意：遵循属性定义</h4><p>如果属性定义为copy，那么在非设置方法里设定属性的时候，也要遵循copy的语义</p>
-<pre><code>- (id)initWithFirstName:(NSString*)firstName lastName:(NSString*)lastName
-{
-         if ((self = [super init])) {
-            _firstName = [firstName copy];
-            _lastName = [lastName copy];
-        }
-       return self;
-}
-</code></pre><h1 id="第8条：理解“对象等同性”这一概念"><a href="#第8条：理解“对象等同性”这一概念" class="headerlink" title="第8条：理解“对象等同性”这一概念"></a>第8条：理解“对象等同性”这一概念</h1><hr>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)initWithFirstName:(<span class="built_in">NSString</span>*)firstName lastName:(<span class="built_in">NSString</span>*)lastName</div><div class="line">&#123;</div><div class="line">         <span class="keyword">if</span> ((<span class="keyword">self</span> = [<span class="keyword">super</span> init])) &#123;</div><div class="line">            _firstName = [firstName <span class="keyword">copy</span>];</div><div class="line">            _lastName = [lastName <span class="keyword">copy</span>];</div><div class="line">        &#125;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="第8条：理解“对象等同性”这一概念"><a href="#第8条：理解“对象等同性”这一概念" class="headerlink" title="第8条：理解“对象等同性”这一概念"></a>第8条：理解“对象等同性”这一概念</h1><hr>
 <h2 id="1-同等性判断"><a href="#1-同等性判断" class="headerlink" title="1. 同等性判断"></a>1. 同等性判断</h2><blockquote>
 <p>==操作符比较的是指针值，也就是内存地址。</p>
 </blockquote>
 <p>然而有的时候我们只是想比较指针所指向的内容，在这个时候，就需要通过<code>isEqual:</code>方法来比较。</p>
 <p>而且，如果已知两个对象是字符串，最好通过<code>isEqualToString:</code>方法来比较。<br>对于数组和字典，也有<code>isEqualToArray:</code>方法和<code>isEqualToDictionary:</code>方法。</p>
 <p>另外，如果比较的对象类型和当前对象类型相同，就可以采用自己编写的判定方法，否则调用父类的<code>isEqual:</code>方法：</p>
-<pre><code>- (BOOL)isEqualToPerson:(EOCPerson*)otherPerson {
-     //先比较对象类型，然后比较每个属性
-     if (self == object) return YES;
-     if (![_firstName isEqualToString:otherPerson.firstName])
-         return NO;
-     if (![_lastName isEqualToString:otherPerson.lastName])
-         return NO;
-     if (_age != otherPerson.age)
-         return NO;
-     return YES;
-}
-
-- (BOOL)isEqual:(id)object {
-    //如果对象所属类型相同，就调用自己编写的判定方法，如果不同，调用父类的isEqual:方法
-     if ([self class] == [object class]) {    
-         return [self isEqualToPerson:(EOCPerson*)object];
-    } else {    
-         return [super isEqual:object];
-    }
-}
-</code></pre><h2 id="2-深度等同性判定"><a href="#2-深度等同性判定" class="headerlink" title="2. 深度等同性判定"></a>2. 深度等同性判定</h2><p>比较两个数组是否相等的话可以使用深度同等性判断方法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">- (BOOL)isEqualToPerson:(EOCPerson*)otherPerson &#123;</div><div class="line">     <span class="comment">//先比较对象类型，然后比较每个属性</span></div><div class="line">     <span class="keyword">if</span> (self == <span class="keyword">object</span>) <span class="keyword">return</span> YES;</div><div class="line">     <span class="keyword">if</span> (![_firstName isEqualToString:otherPerson.firstName])</div><div class="line">         <span class="keyword">return</span> NO;</div><div class="line">     <span class="keyword">if</span> (![_lastName isEqualToString:otherPerson.lastName])</div><div class="line">         <span class="keyword">return</span> NO;</div><div class="line">     <span class="keyword">if</span> (_age != otherPerson.age)</div><div class="line">         <span class="keyword">return</span> NO;</div><div class="line">     <span class="keyword">return</span> YES;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (BOOL)isEqual:(id)<span class="keyword">object</span> &#123;</div><div class="line">    <span class="comment">//如果对象所属类型相同，就调用自己编写的判定方法，如果不同，调用父类的isEqual:方法</span></div><div class="line">     <span class="keyword">if</span> ([self <span class="class"><span class="keyword">class</span>] == [<span class="title">object</span> <span class="title">class</span>]) </span>&#123;    </div><div class="line">         <span class="keyword">return</span> [self isEqualToPerson:(EOCPerson*)<span class="keyword">object</span>];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;    </div><div class="line">         <span class="keyword">return</span> [<span class="keyword">super</span> isEqual:<span class="keyword">object</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-深度等同性判定"><a href="#2-深度等同性判定" class="headerlink" title="2. 深度等同性判定"></a>2. 深度等同性判定</h2><p>比较两个数组是否相等的话可以使用深度同等性判断方法：</p>
 <blockquote>
 <p>1.先比较数组的个数<br>2.再比较两个数组对应位置上的对象均相等。</p>
 </blockquote>
@@ -271,17 +224,17 @@ NSString *lastName = [aPerson lastName];
 <p>在OC中，如果向某对象传递信息，那就会使用动态绑定机制来决定需要调用的方法。在底层，所有方法都是普通的C语言函数.</p>
 <p>然而对象收到 消息后，究竟该调用哪个方法则完全于运行期决定，甚至可以在程序运行时改变，这些特性使得OC成为一门真正的动态语言。</p>
 <p>在OC中，给对象发送消息的语法是：</p>
-<pre><code>id returnValue = [someObject messageName:parameter];
-</code></pre><blockquote>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">id returnValue</span> = [someObject messageName:parameter];</div></pre></td></tr></table></figure>
+<blockquote>
 <p>这里，someObject叫做“接收者(receiver)”，messageName:叫做”选择子（selector）”,选择子和参数合起来称为“消息”。编译器看到此消息后，将其转换为一条标准的C语言函数调用，所调用的函数乃是消息传递机制中的核心函数叫做objc_msgSend，它的原型如下：</p>
 </blockquote>
-<pre><code>void objc_msgSend(id self, SEL cmd, ...)
-</code></pre><blockquote>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="literal">void</span> objc_msgSend(id <span class="built_in">self</span>, SEL cmd, <span class="params">...</span>)</div></pre></td></tr></table></figure>
+<blockquote>
 <p>第一个参数代表接收者，第二个参数代表选择子，后续参数就是消息中的那些参数，数量是可变的，所以这个函数就是参数个数可变的函数。</p>
 </blockquote>
 <p>因此，上述以OC形式展现出来的函数就会转化成如下函数:</p>
-<pre><code>id returnValue = objc_msgSend(someObject,@selector(messageName:),parameter);
-</code></pre><blockquote>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id returnValue = objc_msgSend(<span class="name">someObject</span>,@selector(<span class="name">messageName</span>:),parameter)<span class="comment">;</span></div></pre></td></tr></table></figure>
+<blockquote>
 <p>这个函数会在接收者所属的类中搜寻其“方法列表”，如果能找到与选择子名称相符的方法，就去实现代码，如果找不到就沿着继承体系继续向上查找。如果找到了就执行，如果最终还是找不到，就执行<strong>消息转发</strong>操作。</p>
 <p><strong>注意</strong>：如果匹配成功的话，这种匹配的结果会缓存在“快速映射表”里面。每个类都有这样一块缓存。所以如果将来再次向该类发送形同的消息，执行速度就会更快了。</p>
 </blockquote>
@@ -301,115 +254,25 @@ NSString *lastName = [aPerson lastName];
 <p>实例方法<code>- (id)forwardTargetForSelector:(SEL)selector;</code>:询问是否能找到未知消息的备援接受者，如果能找到备援对象，就将其返回，如果不能，就返回nil。</p>
 <p>实例方法<code>- (void)forwardInvocation:(NSInvocation*)invocation</code>:创建NSInvocation对象，将尚未处理的那条消息 有关的全部细节都封于其中，在触发NSInvocation对象时，“消息派发系统（message-dispatch system）”就会将消息派给目标对象。</p>
 <p>下面来看一个关于动态方法解析的例子：</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@interface EOCAutoDictionary : NSObject
-@property (nonatomic, strong) NSString *string;
-@property (nonatomic, strong) NSNumber *number;
-@property (nonatomic, strong) NSDate *date;
-@property (nonatomic, strong) id opaqueObject;
-
-@end
-
-#import &quot;EOCAutoDictionary.h&quot;
-#import &lt;objc/runtime.h&gt;
-
-
-@interface EOCAutoDictionary ()
-@property (nonatomic, strong) NSMutableDictionary *backingStore;
-@end
-
-
-
-@implementation EOCAutoDictionary
-@dynamic string, number, date, opaqueObject;
-
-- (id)init {
- if ((self = [super init])) {
-    _backingStore = [NSMutableDictionary new];
-}
-   return self;
-}
-
-+ (BOOL)resolveInstanceMethod:(SEL)selector {
-
-     NSString *selectorString = NSStringFromSelector(selector);
-     if ([selectorString hasPrefix:@&quot;set&quot;]) {
-         class_addMethod(self,selector,(IMP)autoDictionarySetter, &quot;v@:@&quot;);
-     } else {
-         class_addMethod(self,selector,(IMP)autoDictionaryGetter, &quot;@@:&quot;);
-    }
-     return YES;
-}
-</code></pre><blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCAutoDictionary</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *string;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSNumber</span> *number;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSDate</span> *date;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="keyword">id</span> opaqueObject;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="meta">#import <span class="meta-string">"EOCAutoDictionary.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCAutoDictionary</span> ()</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableDictionary</span> *backingStore;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">EOCAutoDictionary</span></span></div><div class="line"><span class="keyword">@dynamic</span> string, number, date, opaqueObject;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)init &#123;</div><div class="line"> <span class="keyword">if</span> ((<span class="keyword">self</span> = [<span class="keyword">super</span> init])) &#123;</div><div class="line">    _backingStore = [<span class="built_in">NSMutableDictionary</span> new];</div><div class="line">&#125;</div><div class="line">   <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">BOOL</span>)resolveInstanceMethod:(SEL)selector &#123;</div><div class="line"></div><div class="line">     <span class="built_in">NSString</span> *selectorString = <span class="built_in">NSStringFromSelector</span>(selector);</div><div class="line">     <span class="keyword">if</span> ([selectorString hasPrefix:<span class="string">@"set"</span>]) &#123;</div><div class="line">         class_addMethod(<span class="keyword">self</span>,selector,(IMP)autoDictionarySetter, <span class="string">"v@:@"</span>);</div><div class="line">     &#125; <span class="keyword">else</span> &#123;</div><div class="line">         class_addMethod(<span class="keyword">self</span>,selector,(IMP)autoDictionaryGetter, <span class="string">"@@:"</span>);</div><div class="line">    &#125;</div><div class="line">     <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在本例中，EOCAutoDictionary类将属性设置为@dynamic，也就是说编译器无法自动为其属性生成set和get方法，因此我们需要动态给其添加set和get方法。</p>
 <p>我们实现了<code>resolveInstanceMethod:</code>方法：首先将选择子转换为String，然后判断字符串是否含有set字段，如果有，则增加处理选择子的set方法；如果没有，则增加处理选择子的get方法。其中<code>class_addMethod</code>可以给类动态添加方法。</p>
 </blockquote>
 <p>实现增加处理选择子的get方法：</p>
-<pre><code>id autoDictionaryGetter(id self, SEL _cmd) {
-
-     // Get the backing store from the object
-     EOCAutoDictionary *typedSelf = (EOCAutoDictionary*)self;
-     NSMutableDictionary *backingStore = typedSelf.backingStore;
-
-     // The key is simply the selector name
-     NSString *key = NSStringFromSelector(_cmd);
-
-     // Return the value
-     return [backingStore objectForKey:key];
-}
-</code></pre><blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> autoDictionaryGetter(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd) &#123;</div><div class="line"></div><div class="line">     <span class="comment">// Get the backing store from the object</span></div><div class="line">     EOCAutoDictionary *typedSelf = (EOCAutoDictionary*)<span class="keyword">self</span>;</div><div class="line">     <span class="built_in">NSMutableDictionary</span> *backingStore = typedSelf.backingStore;</div><div class="line"></div><div class="line">     <span class="comment">// The key is simply the selector name</span></div><div class="line">     <span class="built_in">NSString</span> *key = <span class="built_in">NSStringFromSelector</span>(_cmd);</div><div class="line"></div><div class="line">     <span class="comment">// Return the value</span></div><div class="line">     <span class="keyword">return</span> [backingStore objectForKey:key];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在这里，键的名字就等于方法名，所以在取出键对应的值之前，要将方法名转换为字符串。</p>
 </blockquote>
 <p>实现增加处理选择子的set方法：</p>
-<pre><code>void autoDictionarySetter(id self, SEL _cmd, id value) {
-
-     // Get the backing store from the object
-     EOCAutoDictionary *typedSelf = (EOCAutoDictionary*)self;
-     NSMutableDictionary *backingStore = typedSelf.backingStore;
-
-     /** The selector will be for example, &quot;setOpaqueObject:&quot;.
-     * We need to remove the &quot;set&quot;, &quot;:&quot; and lowercase the first
-     * letter of the remainder.
-     */
-     NSString *selectorString = NSStringFromSelector(_cmd);
-     NSMutableString *key = [selectorString mutableCopy];
-
-     // Remove the &#39;:&#39; at the end
-    [key deleteCharactersInRange:NSMakeRange(key.length - 1, 1)];
-
-     // Remove the &#39;set&#39; prefix
-    [key deleteCharactersInRange:NSMakeRange(0, 3)];
-
-     // Lowercase the first character
-     NSString *lowercaseFirstChar = [[key substringToIndex:1] lowercaseString];
-    [key replaceCharactersInRange:NSMakeRange(0, 1) withString:lowercaseFirstChar];
-
-     if (value) {
-       [backingStore setObject:value forKey:key];
-    } else {
-        [backingStore removeObjectForKey:key];        
-    }
-}
-</code></pre><blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> autoDictionarySetter(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="keyword">id</span> value) &#123;</div><div class="line"></div><div class="line">     <span class="comment">// Get the backing store from the object</span></div><div class="line">     EOCAutoDictionary *typedSelf = (EOCAutoDictionary*)<span class="keyword">self</span>;</div><div class="line">     <span class="built_in">NSMutableDictionary</span> *backingStore = typedSelf.backingStore;</div><div class="line"></div><div class="line">     <span class="comment">/** The selector will be for example, "setOpaqueObject:".</span></div><div class="line">     * We need to remove the "set", ":" and lowercase the first</div><div class="line">     * letter of the remainder.</div><div class="line">     */</div><div class="line">     <span class="built_in">NSString</span> *selectorString = <span class="built_in">NSStringFromSelector</span>(_cmd);</div><div class="line">     <span class="built_in">NSMutableString</span> *key = [selectorString mutableCopy];</div><div class="line"></div><div class="line">     <span class="comment">// Remove the ':' at the end</span></div><div class="line">    [key deleteCharactersInRange:<span class="built_in">NSMakeRange</span>(key.length - <span class="number">1</span>, <span class="number">1</span>)];</div><div class="line"></div><div class="line">     <span class="comment">// Remove the 'set' prefix</span></div><div class="line">    [key deleteCharactersInRange:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, <span class="number">3</span>)];</div><div class="line"></div><div class="line">     <span class="comment">// Lowercase the first character</span></div><div class="line">     <span class="built_in">NSString</span> *lowercaseFirstChar = [[key substringToIndex:<span class="number">1</span>] lowercaseString];</div><div class="line">    [key replaceCharactersInRange:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, <span class="number">1</span>) withString:lowercaseFirstChar];</div><div class="line"></div><div class="line">     <span class="keyword">if</span> (value) &#123;</div><div class="line">       [backingStore setObject:value forKey:key];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [backingStore removeObjectForKey:key];        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>因为key的名字对应了属性名，也就是没有set，首字母小写，尾部没有：的字符串。然而，将set方法转换为字符串后，我们需要将set方法的这些“边角”都处理掉。最后得到了“纯净”的键后，再进行字典的赋值操作。</p>
 </blockquote>
 <h1 id="第14条：理解“类对象”的用意"><a href="#第14条：理解“类对象”的用意" class="headerlink" title="第14条：理解“类对象”的用意"></a>第14条：理解“类对象”的用意</h1><hr>
 <p>在运行期程序库的头文件里定义了描述OC对象所用的数据结构：</p>
-<pre><code>typedef struct objc_class *Class;
-    struct objc_class {
-         Class isa;
-         Class super_class;
-         const char *name;
-         long version;
-         long info;
-         long instance_size;
-         struct objc_ivar_list *ivars;
-         struct objc_method_list **methodLists;
-         struct objc_cache *cache;
-         struct objc_protocol_list *protocols;
-};
-</code></pre><blockquote>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">typedef <span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span></span> *Class;</div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span></span> &#123;</div><div class="line">         Class isa;</div><div class="line">         Class super_class;</div><div class="line">         <span class="keyword">const</span> <span class="keyword">char</span> *name;</div><div class="line">         long version;</div><div class="line">         long info;</div><div class="line">         long instance_size;</div><div class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">objc_ivar_list</span></span> *ivars;</div><div class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">objc_method_list</span></span> **methodLists;</div><div class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">objc_cache</span></span> *cache;</div><div class="line">         <span class="class"><span class="keyword">struct</span> <span class="title">objc_protocol_list</span></span> *protocols;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在这里，isa指针指向了对象所属的类：元类（metaclass），它是整个结构体的第一个变量。super_class定义了本类的超类。</p>
 </blockquote>
 <p>我们也可以向对象发送特定的方法来检视类的继承体系：自身属于哪一类；自身继承与哪一类。</p>
@@ -417,25 +280,8 @@ NSString *lastName = [aPerson lastName];
 <p>这两种方法都是利用了isa指针获取对象所属的类，然后通过super_class类在继承体系中查询。在OC语言中，必须使用这种查询类型信息的方法才能完全了解对象的真实类型。因为对象类型无法在编译期决定。</p>
 <p>尤其注意在集合类里获取对象时，通常要查询类型信息因为这些对象不是强类型的（strongly typed），将它们从集合类中取出来的类型通常是id，也就是能响应任何消息（编译期）。</p>
 <p>所以如果我们对这些对象的类型把握不好，那么就会有可能造成对象无法响应消息的情况。因此，在我们从集合里取出对象后，通常要进行类型判断：</p>
-<pre><code>- (NSString*)commaSeparatedStringFromObjects:(NSArray*)array {
-
-         NSMutableString *string = [NSMutableString new];
-
-             for (id object in array) {
-                    if ([object isKindOfClass:[NSString class]]) {
-                            [string appendFormat:@&quot;%@,&quot;, object];
-                    } else if ([object isKindOfClass:[NSNumber class]]) {
-                            [string appendFormat:@&quot;%d,&quot;, [object intValue]];
-                    } else if ([object isKindOfClass:[NSData class]]) {
-                           NSString *base64Encoded = /* base64 encoded data */;
-                            [string appendFormat:@&quot;%@,&quot;, base64Encoded];
-                    } else {
-                            // Type not supported
-                    }
-              }
-             return string;
-}
-</code></pre><h1 id="第21条：理解Objective-C错误类型"><a href="#第21条：理解Objective-C错误类型" class="headerlink" title="第21条：理解Objective-C错误类型"></a>第21条：理解Objective-C错误类型</h1><hr>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (<span class="type">NSString</span>*)commaSeparatedStringFromObjects:(<span class="type">NSArray</span>*)array &#123;</div><div class="line"></div><div class="line">         <span class="type">NSMutableString</span> *string = [<span class="type">NSMutableString</span> <span class="keyword">new</span>];</div><div class="line"></div><div class="line">             <span class="keyword">for</span> (id <span class="class"><span class="keyword">object</span> <span class="title">in</span> <span class="title">array</span>) </span>&#123;</div><div class="line">                    <span class="keyword">if</span> ([<span class="class"><span class="keyword">object</span> <span class="title">isKindOfClass</span></span>:[<span class="type">NSString</span> <span class="class"><span class="keyword">class</span>]]) </span>&#123;</div><div class="line">                            [string appendFormat:@<span class="string">"%@,"</span>, <span class="class"><span class="keyword">object</span>]</span>;</div><div class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([<span class="class"><span class="keyword">object</span> <span class="title">isKindOfClass</span></span>:[<span class="type">NSNumber</span> <span class="class"><span class="keyword">class</span>]]) </span>&#123;</div><div class="line">                            [string appendFormat:@<span class="string">"%d,"</span>, [<span class="class"><span class="keyword">object</span> <span class="title">intValue</span>]]</span>;</div><div class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([<span class="class"><span class="keyword">object</span> <span class="title">isKindOfClass</span></span>:[<span class="type">NSData</span> <span class="class"><span class="keyword">class</span>]]) </span>&#123;</div><div class="line">                           <span class="type">NSString</span> *base64Encoded = <span class="comment">/* base64 encoded data */</span>;</div><div class="line">                            [string appendFormat:@<span class="string">"%@,"</span>, base64Encoded];</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                            <span class="comment">// Type not supported</span></div><div class="line">                    &#125;</div><div class="line">              &#125;</div><div class="line">             <span class="keyword">return</span> string;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="第21条：理解Objective-C错误类型"><a href="#第21条：理解Objective-C错误类型" class="headerlink" title="第21条：理解Objective-C错误类型"></a>第21条：理解Objective-C错误类型</h1><hr>
 <p>在OC中，我们可以用NSError描述错误。<br>使用NSError可以封装三种信息：</p>
 <ul>
 <li>Error domain:错误范围，类型是字符串</li>
@@ -444,75 +290,47 @@ NSString *lastName = [aPerson lastName];
 </ul>
 <h2 id="1-NSError的使用"><a href="#1-NSError的使用" class="headerlink" title="1. NSError的使用"></a>1. NSError的使用</h2><p>用法：</p>
 <p>1.通过委托协议来传递NSError，告诉代理错误类型。</p>
-<pre><code>- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-</code></pre><p>2.作为方法的“输出参数”返回给调用者</p>
-<pre><code>- (BOOL)doSomething:(NSError**)error
-</code></pre><p>使用范例：</p>
-<pre><code>NSError *error = nil;
-BOOL ret = [object doSomething:&amp;error];
-
-if (error) {
-    // There was an error
-}
-</code></pre><h2 id="2-自定义NSError"><a href="#2-自定义NSError" class="headerlink" title="2. 自定义NSError"></a>2. 自定义NSError</h2><p>我们可以设置属于我们自己程序的错误范围和错误码</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>connection:<span class="params">(NSURLConnection *)</span>connection didFailWithError:<span class="params">(NSError *)</span>error</div></pre></td></tr></table></figure>
+<p>2.作为方法的“输出参数”返回给调用者</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(BOOL)</span>doSomething:<span class="params">(NSError**)</span>error</div></pre></td></tr></table></figure>
+<p>使用范例：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">NSError *<span class="built_in">error</span> = nil;</div><div class="line"><span class="keyword">BOOL</span> ret = [object doSomething:&amp;<span class="built_in">error</span>];</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="built_in">error</span>) &#123;</div><div class="line">    <span class="comment">// There was an error</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-自定义NSError"><a href="#2-自定义NSError" class="headerlink" title="2. 自定义NSError"></a>2. 自定义NSError</h2><p>我们可以设置属于我们自己程序的错误范围和错误码</p>
 <ul>
 <li>错误范围可以用全局常量字符串来定义。</li>
 <li>错误码可以用枚举来定义。</li>
 </ul>
-<pre><code>
-// EOCErrors.h
-extern NSString *const EOCErrorDomain;
-
-//定义错误码
-typedef NS_ENUM(NSUInteger, EOCError) {
-
-    EOCErrorUnknown = –1,
-    EOCErrorInternalInconsistency = 100,
-    EOCErrorGeneralFault = 105,
-    EOCErrorBadInput = 500,
-};
-// EOCErrors.m
-NSString *const EOCErrorDomain = @&quot;EOCErrorDomain&quot;; //定义错误范围
-</code></pre><h1 id="第22条：理解NSCopying协议"><a href="#第22条：理解NSCopying协议" class="headerlink" title="第22条：理解NSCopying协议"></a>第22条：理解NSCopying协议</h1><hr>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// EOCErrors.h</span></div><div class="line"><span class="keyword">extern</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> EOCErrorDomain;</div><div class="line"></div><div class="line"><span class="comment">//定义错误码</span></div><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, EOCError) &#123;</div><div class="line"></div><div class="line">    EOCErrorUnknown = –<span class="number">1</span>,</div><div class="line">    EOCErrorInternalInconsistency = <span class="number">100</span>,</div><div class="line">    EOCErrorGeneralFault = <span class="number">105</span>,</div><div class="line">    EOCErrorBadInput = <span class="number">500</span>,</div><div class="line">&#125;;</div><div class="line"><span class="comment">// EOCErrors.m</span></div><div class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span> EOCErrorDomain = <span class="string">@"EOCErrorDomain"</span>; <span class="comment">//定义错误范围</span></div></pre></td></tr></table></figure>
+<h1 id="第22条：理解NSCopying协议"><a href="#第22条：理解NSCopying协议" class="headerlink" title="第22条：理解NSCopying协议"></a>第22条：理解NSCopying协议</h1><hr>
 <p>如果我们想令自己的类支持拷贝操作，那就要实现NSCopying协议，该协议只有一个方法：</p>
-<pre><code>- (id)copyWithZone:(NSZone*)zone
-</code></pre><p>作者举了个：</p>
-<pre><code>- (id)copyWithZone:(NSZone*)zone {
-     EOCPerson *copy = [[[self class] allocWithZone:zone] initWithFirstName:_firstName  andLastName:_lastName];
-    copy-&gt;_friends = [_friends mutableCopy];
-     return copy;
-}
-</code></pre><blockquote>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(id)</span>copyWithZone:<span class="params">(NSZone*)</span>zone</div></pre></td></tr></table></figure>
+<p>作者举了个：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (id)copyWithZone:(NSZone*)zone &#123;</div><div class="line">     EOCPerson *<span class="keyword">copy</span><span class="bash"> = [[[self class] allocWithZone:zone] initWithFirstName:_firstName  andLastName:_lastName];</span></div><div class="line">    <span class="keyword">copy</span><span class="bash">-&gt;_friends = [_friends mutableCopy];</span></div><div class="line">     return <span class="keyword">copy</span><span class="bash">;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>之所以是copy-&gt;_friends，而不是copy.friends是因为friends并不是属性，而是一个内部使用的实例变量。</p>
 </blockquote>
 <h2 id="1-复制可变的版本："><a href="#1-复制可变的版本：" class="headerlink" title="1. 复制可变的版本："></a>1. 复制可变的版本：</h2><p>遵从<nsmutablecopying>协议</nsmutablecopying></p>
 <p>而且要执行：</p>
-<pre><code>- (id)mutableCopyWithZone:(NSZone*)zone；
-</code></pre><blockquote>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(id)</span>mutableCopyWithZone:<span class="params">(NSZone*)</span>zone；</div></pre></td></tr></table></figure>
+<blockquote>
 <p>注意：拷贝可变型和不可变型发送的是<code>copy</code>和<code>mutableCopy</code>消息，而我们实现的却是<code>- (id)copyWithZone:(NSZone*)zone</code>和<code>- (id)mutableCopyWithZone:(NSZone*)zone</code> 方法。</p>
 <p>而且，如果我们想获得某对象的不可变型，统一调用copy方法；获得某对象的可变型，统一调用mutableCopy方法。</p>
 </blockquote>
 <p>例如数组的拷贝：</p>
-<pre><code>-[NSMutableArray copy] =&gt; NSArray
--[NSArray mutableCopy] =&gt; NSMutableArray
-</code></pre><h2 id="2-浅拷贝和深拷贝"><a href="#2-浅拷贝和深拷贝" class="headerlink" title="2. 浅拷贝和深拷贝"></a>2. 浅拷贝和深拷贝</h2><p>Foundation框架中的集合类默认都执行浅拷贝：只拷贝容器对象本身，而不复制其中的数据。<br>而深拷贝的意思是连同对象本身和它的底层数据都要拷贝。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-[<span class="built_in">NSMutableArray</span> <span class="keyword">copy</span>] =&gt; <span class="built_in">NSArray</span></div><div class="line">-[<span class="built_in">NSArray</span> mutableCopy] =&gt; <span class="built_in">NSMutableArray</span></div></pre></td></tr></table></figure>
+<h2 id="2-浅拷贝和深拷贝"><a href="#2-浅拷贝和深拷贝" class="headerlink" title="2. 浅拷贝和深拷贝"></a>2. 浅拷贝和深拷贝</h2><p>Foundation框架中的集合类默认都执行浅拷贝：只拷贝容器对象本身，而不复制其中的数据。<br>而深拷贝的意思是连同对象本身和它的底层数据都要拷贝。</p>
 <p>作者用一个图很形象地体现了浅拷贝和深拷贝的区别：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-0fd10d82cbecd8d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：《Effective Objective-C》"></p>
 <blockquote>
 <p>浅拷贝后的内容和原始内容指向同一个对象<br>深拷贝后的内容所指的对象是原始内容对应对象的拷贝</p>
 </blockquote>
 <h2 id="3-如何深拷贝？"><a href="#3-如何深拷贝？" class="headerlink" title="3. 如何深拷贝？"></a>3. 如何深拷贝？</h2><p>我们需要自己编写深拷贝的方法：遍历每个元素并复制，然后将复制后的所有元素重新组成一个新的集合。</p>
-<pre><code>- (id)initWithSet:(NSArray*)array copyItems:(BOOL)copyItems;
-</code></pre><blockquote>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(id)</span>initWithSet:<span class="params">(NSArray*)</span>array copyItems:<span class="params">(BOOL)</span>copyItems;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在这里，我们自己提供了一个深拷贝的方法：该方法需要传入两个参数：需要拷贝的数组和是否拷贝元素（是否深拷贝）</p>
 </blockquote>
-<pre><code>
-- (id)deepCopy {
-       EOCPerson *copy = [[[self class] alloc] initWithFirstName:_firstName andLastName:_lastName];
-        copy-&gt;_friends = [[NSMutableSet alloc] initWithSet:_friends copyItems:YES];
-        return copy;
-}
-</code></pre><h1 id="第29条：理解引用计数"><a href="#第29条：理解引用计数" class="headerlink" title="第29条：理解引用计数"></a>第29条：理解引用计数</h1><hr>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (id)deepCopy &#123;</div><div class="line">       EOCPerson *<span class="keyword">copy</span><span class="bash"> = [[[self class] alloc] initWithFirstName:_firstName andLastName:_lastName];</span></div><div class="line">        <span class="keyword">copy</span><span class="bash">-&gt;_friends = [[NSMutableSet alloc] initWithSet:_friends copyItems:YES];</span></div><div class="line">        return <span class="keyword">copy</span><span class="bash">;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="第29条：理解引用计数"><a href="#第29条：理解引用计数" class="headerlink" title="第29条：理解引用计数"></a>第29条：理解引用计数</h1><hr>
 <p>尽管在iOS系统已经支持了自动引用计数，但仍然需要开发者了解其内存管理机制。</p>
 <h2 id="1-计数器的操作："><a href="#1-计数器的操作：" class="headerlink" title="1. 计数器的操作："></a>1. 计数器的操作：</h2><ol>
 <li>retain：递增保留计数。</li>
@@ -525,20 +343,12 @@ NSString *const EOCErrorDomain = @&quot;EOCErrorDomain&quot;; //定义错误范�
 <p>有时，我们无法确定在某个操作后引用计数的确切值，而只能判断这个操作是递增还是递减了保留计数。</p>
 <h2 id="2-自动释放池："><a href="#2-自动释放池：" class="headerlink" title="2. 自动释放池："></a>2. 自动释放池：</h2><p>将对象放入自动释放池之后，不会马上使其引用计数-1，而是在当前线程的下一次事件循环时递减。</p>
 <p>使用举例：如果我们想释放当前需要使用的方法返回值是，可以将其暂时放在自动释放池中：</p>
-<pre><code>
-- (NSString*)stringValue {
-     NSString *str = [[NSString alloc] initWithFormat:@&quot;I am this: %@&quot;, self];
-     return [str autorelease];
-}
-</code></pre><h2 id="3-保留环（retain-cycle）"><a href="#3-保留环（retain-cycle）" class="headerlink" title="3. 保留环（retain cycle）"></a>3. 保留环（retain cycle）</h2><p>对象之间相互用强引用指向对方，会使得全部都无法得以释放。解决方案是讲其中一端的引用改为弱引用（weak reference），在引用的同时不递增引用计数。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (<span class="built_in">NSString</span>*)stringValue &#123;</div><div class="line">     <span class="built_in">NSString</span> *str = [[<span class="built_in">NSString</span> alloc] initWithFormat:<span class="string">@"I am this: %@"</span>, <span class="keyword">self</span>];</div><div class="line">     <span class="keyword">return</span> [str autorelease];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-保留环（retain-cycle）"><a href="#3-保留环（retain-cycle）" class="headerlink" title="3. 保留环（retain cycle）"></a>3. 保留环（retain cycle）</h2><p>对象之间相互用强引用指向对方，会使得全部都无法得以释放。解决方案是讲其中一端的引用改为弱引用（weak reference），在引用的同时不递增引用计数。</p>
 <h1 id="第30条：以ARC简化引用计数"><a href="#第30条：以ARC简化引用计数" class="headerlink" title="第30条：以ARC简化引用计数"></a>第30条：以ARC简化引用计数</h1><hr>
 <p>使用ARC，可以省略对于引用计数的操作，让开发者专注于开发本身：</p>
-<pre><code>if ([self shouldLogMessage]) {
-     NSString *message = [[NSString alloc] initWithFormat:@&quot;I am object, %p&quot;, self];
-     NSLog(@&quot;message = %@&quot;, message);
-      [message release]; ///&lt; Added by ARC
-}
-</code></pre><blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ([<span class="keyword">self</span> shouldLogMessage]) &#123;</div><div class="line">     <span class="built_in">NSString</span> *message = [[<span class="built_in">NSString</span> alloc] initWithFormat:<span class="string">@"I am object, %p"</span>, <span class="keyword">self</span>];</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"message = %@"</span>, message);</div><div class="line">      [message release]; <span class="comment">///&lt; Added by ARC</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>显然这里我们不需要message对象了，那么ARC会自动为我们添加内存管理的语句。</p>
 </blockquote>
 <p>因此，在ARC环境下调用内存管理语句是非法的：</p>
@@ -560,39 +370,13 @@ NSString *const EOCErrorDomain = @&quot;EOCErrorDomain&quot;; //定义错误范�
 <li>全局块</li>
 </ul>
 <h2 id="1-栈块"><a href="#1-栈块" class="headerlink" title="1. 栈块"></a>1. 栈块</h2><p>定义块的时候，其所占内存区域是分配在栈中的，而且只在定义它的那个范围内有效：</p>
-<pre><code>void (^block)();
-
-if ( /* some condition */ ) {
-    block = ^{
-     NSLog(@&quot;Block A&quot;);
-    };
-
-} else {
-    block = ^{
-     NSLog(@&quot;Block B&quot;);
-    };
-}
-
-block();
-</code></pre><p>上面定义的两个块只在if else语句范围内有效，一旦离开了最后一个右括号，如果编译器覆写了分配给块的内存，那么就会造成程序崩溃。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">void (^<span class="keyword">block)();</span></div><div class="line"></div><div class="line">if ( <span class="comment">/* some condition */</span> ) &#123;</div><div class="line">    <span class="keyword">block </span>= ^&#123;</div><div class="line">     NSLog(@<span class="string">"Block A"</span>)<span class="comment">;</span></div><div class="line">    &#125;<span class="comment">;</span></div><div class="line"></div><div class="line">&#125; else &#123;</div><div class="line">    <span class="keyword">block </span>= ^&#123;</div><div class="line">     NSLog(@<span class="string">"Block B"</span>)<span class="comment">;</span></div><div class="line">    &#125;<span class="comment">;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">block();</span></div></pre></td></tr></table></figure>
+<p>上面定义的两个块只在if else语句范围内有效，一旦离开了最后一个右括号，如果编译器覆写了分配给块的内存，那么就会造成程序崩溃。</p>
 <h2 id="2-堆块"><a href="#2-堆块" class="headerlink" title="2. 堆块"></a>2. 堆块</h2><p>为了解决这个问题，我们可以给对象发送copy消息，复制一份到堆里，并自带引用计数：</p>
-<pre><code>void (^block)();
-
-if ( /* some condition */ ) {
-    block = [^{
-         NSLog(@&quot;Block A&quot;);
-   } copy];
-} else {
-    block = [^{
-         NSLog(@&quot;Block B&quot;);
-    } copy];
-}
-block();
-</code></pre><h2 id="3-全局块"><a href="#3-全局块" class="headerlink" title="3. 全局块"></a>3. 全局块</h2><p>全局块声明在全局内存里，而不需要在每次用到的时候于栈中创建。</p>
-<pre><code>void (^block)() = ^{
-     NSLog(@&quot;This is a block&quot;);
-﻿};
-</code></pre><h1 id="第47条：熟悉系统框架"><a href="#第47条：熟悉系统框架" class="headerlink" title="第47条：熟悉系统框架"></a>第47条：熟悉系统框架</h1><hr>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void (^<span class="keyword">block)();</span></div><div class="line"></div><div class="line">if ( <span class="comment">/* some condition */</span> ) &#123;</div><div class="line">    <span class="keyword">block </span>= [^&#123;</div><div class="line">         NSLog(@<span class="string">"Block A"</span>)<span class="comment">;</span></div><div class="line">   &#125; copy]<span class="comment">;</span></div><div class="line">&#125; else &#123;</div><div class="line">    <span class="keyword">block </span>= [^&#123;</div><div class="line">         NSLog(@<span class="string">"Block B"</span>)<span class="comment">;</span></div><div class="line">    &#125; copy]<span class="comment">;</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">block();</span></div></pre></td></tr></table></figure>
+<h2 id="3-全局块"><a href="#3-全局块" class="headerlink" title="3. 全局块"></a>3. 全局块</h2><p>全局块声明在全局内存里，而不需要在每次用到的时候于栈中创建。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void (^<span class="keyword">block)() </span>= ^&#123;</div><div class="line">     NSLog(@<span class="string">"This is a block"</span>)<span class="comment">;</span></div><div class="line">﻿&#125;<span class="comment">;</span></div></pre></td></tr></table></figure>
+<h1 id="第47条：熟悉系统框架"><a href="#第47条：熟悉系统框架" class="headerlink" title="第47条：熟悉系统框架"></a>第47条：熟悉系统框架</h1><hr>
 <p>如果我们使用了系统提供的现成的框架，那么用户在升级系统后，就可以直接享受系统升级所带来的改进。</p>
 <p>主要的系统框架：</p>
 <ul>
