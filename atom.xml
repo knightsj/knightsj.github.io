@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-01-17T09:04:35.000Z</updated>
+  <updated>2017-01-17T09:27:05.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,10 +20,9 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/17/MBProgressHUD%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/17/MBProgressHUD源码解析/</id>
     <published>2017-01-17T09:02:54.000Z</published>
-    <updated>2017-01-17T09:04:35.000Z</updated>
+    <updated>2017-01-17T09:27:05.000Z</updated>
     
     <content type="html"><![CDATA[<p>听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的<strong>读好源码Project</strong>。</p>
-<hr>
 <p>从哪个框架开始呢？我想到了<code>SDWebImage</code>，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～</p>
 <p>找着找着就找到了<code>MBProgressHUD</code>，这个框架只有两个文件，一个头文件和一个实现文件，很适合我现在的水平（对于一个没怎么读过源码的选手），于是就撸起了袖子开始了。</p>
 <p>连查知识点带记笔记一共花了大概3个小时（虽然文件很少，但是里面好多东西都不知道[捂脸]）。整体说来，收获还是比较大的，除了一些零碎的语法之外，框架作者对于代码结构的设计和各种情况的考虑还是很出色的，很值得学习，而且我在下文也有介绍。</p>
@@ -34,7 +33,6 @@
 <li>方法内部实现</li>
 </ol>
 <p>不多说了，开始吧～</p>
-<hr>
 <h2 id="1-核心Public-API"><a href="#1-核心Public-API" class="headerlink" title="1. 核心Public API"></a>1. 核心Public API</h2><h3 id="属性："><a href="#属性：" class="headerlink" title="属性："></a>属性：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) MBProgressHUDMode mode;<span class="comment">//HUD的类型</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) MBProgressHUDAnimation animationType <span class="built_in">UI_APPEARANCE_SELECTOR</span>;<span class="comment">//动画类型</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSTimeInterval</span> graceTime;<span class="comment">//show函数触发到显示HUD的时间段</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSTimeInterval</span> minShowTime;<span class="comment">//HUD显示的最短时间</span></div></pre></td></tr></table></figure>
 <h3 id="类方法："><a href="#类方法：" class="headerlink" title="类方法："></a>类方法：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 在某个view上添加HUD并显示</div><div class="line"> *</div><div class="line"> * 注意：显示之前，先去掉在当前view上显示的HUD。这个做法很严谨，我们将这个方案抽象出来：如果一个模型是这样的：我们需要将A加入到B中，但是需求上B里面只允许只有一个A。那么每次将A添加到B之前，都要先判断当前的b里面是否有A，如果有，则移除。</div><div class="line"> */</div><div class="line">+ (<span class="keyword">instancetype</span>)showHUDAddedTo:(<span class="built_in">UIView</span> *)view animated:(<span class="built_in">BOOL</span>)animated;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 找到某个view上最上层的HUD并隐藏它。</div><div class="line"> * 如果返回值是YES的话，就表明HUD被找到而且被移除了。</div><div class="line"> */</div><div class="line">+ (<span class="built_in">BOOL</span>)hideHUDForView:(<span class="built_in">UIView</span> *)view animated:(<span class="built_in">BOOL</span>)animated;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 在某个view上找到最上层的HUD并返回它。</div><div class="line"> * 返回值可以是空，所以返回值的关键字为：nullable</div><div class="line"> */</div><div class="line">+ (<span class="keyword">nullable</span> MBProgressHUD *)HUDForView:(<span class="built_in">UIView</span> *)view;</div></pre></td></tr></table></figure>
 <h3 id="对象方法："><a href="#对象方法：" class="headerlink" title="对象方法："></a>对象方法：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 一个HUD的便利构造函数，用某个view来初始化HUD：这个view的bounds就是HUD的bounds</div><div class="line"> */</div><div class="line">- (<span class="keyword">instancetype</span>)initWithView:(<span class="built_in">UIView</span> *)view;</div><div class="line"></div><div class="line"><span class="comment">/** </span></div><div class="line"> * 显示HUD，有无动画。</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)showAnimated:(<span class="built_in">BOOL</span>)animated;</div><div class="line"></div><div class="line"><span class="comment">/** </span></div><div class="line"> * 隐藏HUD，有无动画。</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)hideAnimated:(<span class="built_in">BOOL</span>)animated;</div><div class="line"></div><div class="line"><span class="comment">/** </span></div><div class="line"> * 在delay的时间过后隐藏HUD，有无动画。</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)hideAnimated:(<span class="built_in">BOOL</span>)animated afterDelay:(<span class="built_in">NSTimeInterval</span>)delay;</div></pre></td></tr></table></figure>
@@ -84,8 +82,7 @@
     <summary type="html">
     
       &lt;p&gt;听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的&lt;strong&gt;读好源码Project&lt;/strong&gt;。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;从哪个框架开始呢？我想到了&lt;code&gt;SDWebImage&lt;/code&gt;，但
+&lt;p&gt;从哪个框架开始呢？我想到了&lt;code&gt;SDWebImage&lt;/code&gt;，但是大致看下
     
     </summary>
     

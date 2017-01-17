@@ -6192,6 +6192,9 @@ hr {
 .hidden {
   display: none !important;
 }
+.post-header {
+  margin-bottom: 90px;
+}
 .post-comments {
   border-top: 1px solid #ddd;
   padding: 60px 0;
