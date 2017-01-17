@@ -5988,7 +5988,7 @@ h3,
 h4,
 h5 {
   margin-top: 1em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.1em;
   font-family: "ff-tisa-web-pro-1", "ff-tisa-web-pro-2", "Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-weight: lighter;
   color: #333;
@@ -5996,7 +5996,7 @@ h5 {
 }
 h1 {
   margin-top: 0;
-  font-size: 2.4em;
+  font-size: 2.2em;
   line-height: 1.2em;
   letter-spacing: 0.05em;
 }
@@ -6007,16 +6007,16 @@ h3 {
   font-size: 1.6em;
 }
 h4 {
-  font-size: 1.2em;
+  font-size: 1.4em;
 }
 h4 {
-  font-size: 1.1em;
+  font-size: 1.4em;
 }
 h5 {
-  font-size: 1em;
+  font-size: 1.2em;
 }
 p {
-  line-height: 1.7em;
+  line-height: 1.9em;
 }
 strong {
   font-weight: bold;
@@ -6111,6 +6111,7 @@ pre code {
 .excerpt {
   margin: 0;
   font-size: 0.9em;
+  line-height: 1.7em;
   color: #999;
 }
 .intro {
@@ -6236,8 +6237,8 @@ i.fa.fa-spinner.fa-spin {
 }
 .post hr {
   display: block;
-  width: 30%;
-  margin: 2em 0;
+  width: 100%;
+  margin: 0 0 1.5em 0;
   border-top: 1px solid #ddd;
 }
 .panel {
@@ -6528,7 +6529,7 @@ i {
 .post-list__post-title {
   margin-top: 0;
   margin-bottom: 0.2em;
-  font-size: 1.5em;
+  font-size: 1.6em;
   line-height: 1.3em;
 }
 .post-list__post-title a {
