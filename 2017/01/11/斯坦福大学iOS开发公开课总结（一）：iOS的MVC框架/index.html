@@ -27,6 +27,7 @@
     
     <link rel="stylesheet" href="/css/vno.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
 
     
     <link rel="icon" href="/images/avatar.png">
@@ -206,7 +207,7 @@
 <p>第一讲里的内容比较基础，重点是介绍了MVC模型的通信机制，需要反复推敲并且在实际操作中<strong>严格遵守</strong>。因为只有这样做才能降低类之间的耦合性，写出易于维护和扩展的代码。</p>
 <p>比如在模型类里是不能调用控制器的方法的，模型类只能被控制器调用并且当所拥有的数据改变后通知使用自己的控制器数据的改变。更不能直接给视图通知让视图自己更新UI。</p>
 
-  </section>
+  </section>    
 
 </article>
 <section class="read-more">
@@ -300,6 +301,8 @@
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
     
     </script>
+	
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 
     
 </body>

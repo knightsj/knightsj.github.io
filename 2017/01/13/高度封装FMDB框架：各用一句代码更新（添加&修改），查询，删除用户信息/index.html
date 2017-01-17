@@ -27,6 +27,7 @@
     
     <link rel="stylesheet" href="/css/vno.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
 
     
     <link rel="icon" href="/images/avatar.png">
@@ -182,17 +183,7 @@
 <li>删除某个用户的信息</li>
 </ol>
 <p>下面开始一一讲解：</p>
-<h4 id="1-创建表格"><a href="#1-创建表格" class="headerlink" title="1. 创建表格"></a>1. 创建表格</h4><pre><code class="objc">/*
- ********** Create table with tableName and fieldName **********
- *
- * @param   dataBaseName    tableNameString (表的名字)
- * @param   userInfoField   fieldNameString（自定义字段名）
- *
- * @return  if the table is successfully created
- *
- */
-+ (BOOL)createDataBaseWithName:(NSString *)dataBaseName andUserInfoField:(NSString *)userInfoField;
-</code></pre>
+<h4 id="1-创建表格"><a href="#1-创建表格" class="headerlink" title="1. 创建表格"></a>1. 创建表格</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> ********** Create table with tableName and fieldName **********</div><div class="line"> *</div><div class="line"> * @param   dataBaseName    tableNameString (表的名字)</div><div class="line"> * @param   userInfoField   fieldNameString（自定义字段名）</div><div class="line"> *</div><div class="line"> * @return  if the table is successfully created</div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="built_in">BOOL</span>)createDataBaseWithName:(<span class="built_in">NSString</span> *)dataBaseName andUserInfoField:(<span class="built_in">NSString</span> *)userInfoField;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>这个方法的意图很明显，只要传进去表的名字和自定义字段的名字就能创造一个表。</p>
 <ul>
@@ -201,19 +192,7 @@
 </ul>
 <p>而且这个表有一个默认的字段：user_id。因为通过这个类创建用户信息的表是基于用户id来操作的，前面已有说明。</p>
 </blockquote>
-<h4 id="2-更新用户信息（添加-amp-修改）"><a href="#2-更新用户信息（添加-amp-修改）" class="headerlink" title="2. 更新用户信息（添加&amp;修改）"></a>2. 更新用户信息（添加&amp;修改）</h4><pre><code class="objc">/*
- ********** update specific userInfo with specific userID and userInfoField and userInfoValue **********
- *
- * @param   dataBaseName    tableNameString (表的名字)
- * @param   userID          userIDString（用户id的值）
- * @param   userInfoField   fieldNameString（自定义字段名）
- * @param   userInfoValue   userInfoValueString（字段对应的值）
- *
- * @return  the result of updating specific userInfo 
- *
- */
-+ (NSString *)updateUserInfoIntoDataBase:(NSString *)dataBaseName withUserID:(NSString *)userID andUserInfoField:(NSString *)userInfoField andUserInfoValue:(NSString *)userInfoValue;
-</code></pre>
+<h4 id="2-更新用户信息（添加-amp-修改）"><a href="#2-更新用户信息（添加-amp-修改）" class="headerlink" title="2. 更新用户信息（添加&amp;修改）"></a>2. 更新用户信息（添加&amp;修改）</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> ********** update specific userInfo with specific userID and userInfoField and userInfoValue **********</div><div class="line"> *</div><div class="line"> * @param   dataBaseName    tableNameString (表的名字)</div><div class="line"> * @param   userID          userIDString（用户id的值）</div><div class="line"> * @param   userInfoField   fieldNameString（自定义字段名）</div><div class="line"> * @param   userInfoValue   userInfoValueString（字段对应的值）</div><div class="line"> *</div><div class="line"> * @return  the result of updating specific userInfo </div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="built_in">NSString</span> *)updateUserInfoIntoDataBase:(<span class="built_in">NSString</span> *)dataBaseName withUserID:(<span class="built_in">NSString</span> *)userID andUserInfoField:(<span class="built_in">NSString</span> *)userInfoField andUserInfoValue:(<span class="built_in">NSString</span> *)userInfoValue;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>这个方法用于更新用户信息，传入表的名字，用户id，自定义字段名，和自定义字段对应的值。</p>
 <ul>
@@ -222,18 +201,7 @@
 <li>如果输入的用户id不存在，就添加这个用户的信息。</li>
 </ul>
 </blockquote>
-<h4 id="3-查询某个用户的信息"><a href="#3-查询某个用户的信息" class="headerlink" title="3. 查询某个用户的信息"></a>3. 查询某个用户的信息</h4><pre><code class="objc">/*
- ********** Query specific userInfoValue with tableName and userID and userInfoField **********
- *
- * @param   dataBaseName    tableNameString (表的名字)
- * @param   userID          userIDString（用户id的值）
- * @param   userInfoField   fieldNameString（自定义字段名）
- *
- * @return  specific userInfoValue （表内某用户id对应的用户信息）
- *
- */
-+ (NSString *)queryUserInfoInDataBase:(NSString *)dataBaseName WithUserID:(NSString *)userId andUserInfoField:(NSString *)userInfoField;
-</code></pre>
+<h4 id="3-查询某个用户的信息"><a href="#3-查询某个用户的信息" class="headerlink" title="3. 查询某个用户的信息"></a>3. 查询某个用户的信息</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> ********** Query specific userInfoValue with tableName and userID and userInfoField **********</div><div class="line"> *</div><div class="line"> * @param   dataBaseName    tableNameString (表的名字)</div><div class="line"> * @param   userID          userIDString（用户id的值）</div><div class="line"> * @param   userInfoField   fieldNameString（自定义字段名）</div><div class="line"> *</div><div class="line"> * @return  specific userInfoValue （表内某用户id对应的用户信息）</div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="built_in">NSString</span> *)queryUserInfoInDataBase:(<span class="built_in">NSString</span> *)dataBaseName WithUserID:(<span class="built_in">NSString</span> *)userId andUserInfoField:(<span class="built_in">NSString</span> *)userInfoField;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>该方法用于查询某个用户的信息，传入表的名字，用户id和自定义字段名。</p>
 <ul>
@@ -242,17 +210,7 @@
 <li>如果输入的用户id不存在，则返回相应的错误信息。</li>
 </ul>
 </blockquote>
-<h4 id="4-查询全部用户的信息"><a href="#4-查询全部用户的信息" class="headerlink" title="4. 查询全部用户的信息"></a>4. 查询全部用户的信息</h4><pre><code class="objc">/*
- ********** Query all userInfos in this table with userInfoField **********
- *
- * @param   dataBaseName    tableNameString (表的名字)
- * @param   userInfoField   fieldNameString（自定义字段名）
- *
- * @return  all the userInfos in this table （表内所有的用户信息）
- *
- */
-+ (NSDictionary *)queryUserInfosInDataBase:(NSString *)dataBaseName andUserInfoField:(NSString *)userInfoField;
-</code></pre>
+<h4 id="4-查询全部用户的信息"><a href="#4-查询全部用户的信息" class="headerlink" title="4. 查询全部用户的信息"></a>4. 查询全部用户的信息</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> ********** Query all userInfos in this table with userInfoField **********</div><div class="line"> *</div><div class="line"> * @param   dataBaseName    tableNameString (表的名字)</div><div class="line"> * @param   userInfoField   fieldNameString（自定义字段名）</div><div class="line"> *</div><div class="line"> * @return  all the userInfos in this table （表内所有的用户信息）</div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="built_in">NSDictionary</span> *)queryUserInfosInDataBase:(<span class="built_in">NSString</span> *)dataBaseName andUserInfoField:(<span class="built_in">NSString</span> *)userInfoField;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>该方法用户获取某个表内的所有用户信息，传入表的名字和自定义字段名即可。<br>返回的字典里包含一个数组，数组元素为表的每一行的信息。每一行的信息是一个字典：</p>
 <ul>
@@ -260,17 +218,7 @@
 <li>另一个key为添加的自定义字段名，它对应的值为该字段对应的值。</li>
 </ul>
 </blockquote>
-<h4 id="5-删除某个用户的信息"><a href="#5-删除某个用户的信息" class="headerlink" title="5. 删除某个用户的信息"></a>5. 删除某个用户的信息</h4><pre><code class="objc">/*
- ********** Delete specific userInfo with specific userID **********
- *
- * @param   dataBaseName    tableNameString (表的名字)
- * @param   userId          userIDString（用户id的值）
- *
- * @return  the result of deleting specific userInfo （删除的结果）
- *
- */
-+ (NSString *)deleteUserInfoInDataBase:(NSString *)dataBaseName WithUserID:(NSString *)userId;
-</code></pre>
+<h4 id="5-删除某个用户的信息"><a href="#5-删除某个用户的信息" class="headerlink" title="5. 删除某个用户的信息"></a>5. 删除某个用户的信息</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> ********** Delete specific userInfo with specific userID **********</div><div class="line"> *</div><div class="line"> * @param   dataBaseName    tableNameString (表的名字)</div><div class="line"> * @param   userId          userIDString（用户id的值）</div><div class="line"> *</div><div class="line"> * @return  the result of deleting specific userInfo （删除的结果）</div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="built_in">NSString</span> *)deleteUserInfoInDataBase:(<span class="built_in">NSString</span> *)dataBaseName WithUserID:(<span class="built_in">NSString</span> *)userId;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>该方法用于删除表里的某个用户信息，只要传入表的名字和用户id即可，可以删除表中对应的一整行信息。同样地，如果输入的表不存在，则返回相应的错误信息。</p>
 </blockquote>
@@ -286,111 +234,20 @@
 <h2 id="2-2-效果图"><a href="#2-2-效果图" class="headerlink" title="2.2 效果图"></a>2.2 效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-404e4004af3b981a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左图：数据库操作页面（插入，查询，删除板块）| 右图：数据库全部用户信息"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-f32a934c4eb45af6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="本地沙盒中sqlite表文件内容"></p>
 <h3 id="2-3-代码讲解"><a href="#2-3-代码讲解" class="headerlink" title="2.3 代码讲解"></a>2.3 代码讲解</h3><p><strong>1. 最先导入这个封装类和FMDB框架：</strong></p>
-<pre><code class="objc">#import &quot;SJUserInfoManager.h&quot;
-</code></pre>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"SJUserInfoManager.h"</span></span></div></pre></td></tr></table></figure>
 <p><strong>2. 因为表的名字和自定义字段是固定的，所以就以宏来定义了：</strong></p>
-<pre><code class="objc">#define DATABASENAME  @&quot;userInfoTable&quot; //表的名字
-#define USERINFOFIELD @&quot;user_name&quot;     //自定义字段的名字
-</code></pre>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#define DATABASENAME  @<span class="meta-string">"userInfoTable"</span> //表的名字</span></div><div class="line"><span class="meta">#define USERINFOFIELD @<span class="meta-string">"user_name"</span>     //自定义字段的名字</span></div></pre></td></tr></table></figure>
 <p><strong>3. 添加几个输入框的属性，获取输入框的内容；和查询结果显示</strong>Label：</p>
-<pre><code class="objc">@property (strong, nonatomic) IBOutlet UITextField *insertUserIdTextfield;       //插入输入框：输入用户id
-@property (strong, nonatomic) IBOutlet UITextField *insertUserInfoValueTextfiled;//插入收入框：输入用户名
-
-@property (strong, nonatomic) IBOutlet UITextField *queryUserIdTextfield;        //查询输入框：输入用户id
-@property (strong, nonatomic) IBOutlet UILabel *queryUserInfoValueLabel;         //查询结果显示Label:显示用户id对应的用户名
-
-@property (strong, nonatomic) IBOutlet UITextField *deleteUserIdTextField;       //删除输入框：输入用户id
-</code></pre>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextField</span> *insertUserIdTextfield;       <span class="comment">//插入输入框：输入用户id</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextField</span> *insertUserInfoValueTextfiled;<span class="comment">//插入收入框：输入用户名</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextField</span> *queryUserIdTextfield;        <span class="comment">//查询输入框：输入用户id</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> *queryUserInfoValueLabel;         <span class="comment">//查询结果显示Label:显示用户id对应的用户名</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextField</span> *deleteUserIdTextField;       <span class="comment">//删除输入框：输入用户id</span></div></pre></td></tr></table></figure>
 <p><strong>4. 下面看一下封装的增改&amp;查&amp;删的代码：</strong></p>
-<pre><code class="objc">//插入用户信息
-- (IBAction)insertAction:(id)sender {
-
-    NSString *result = @&quot;&quot;;
-
-    if (self.insertUserInfoValueTextfiled.text.length == 0) {
-
-         result = @&quot;Please Input UserID!&quot;;//没有输入用户id就点击了插入按钮
-
-    }else{
-
-         result = [SJUserInfoManager updateUserInfoIntoDataBase:DATABASENAME withUserID:self.insertUserIdTextfield.text andUserInfoField:USERINFOFIELD andUserInfoValue:self.insertUserInfoValueTextfiled.text];
-    }
-
-   [self showAlertWithTitle:result];
-
-}
-
-//查询用户信息
-- (IBAction)queryUserInfoValue:(UIButton *)sender {
-
-    NSString *result = @&quot;&quot;;
-
-    if (self.queryUserIdTextfield.text.length == 0) {
-
-        result = @&quot;Please Input UserID!&quot;;//没有输入用户id就点击了查询按钮
-        self.queryUserInfoValueLabel.text = @&quot;&quot;;//重置查询输入框
-
-    }else{
-
-        result =  [SJUserInfoManager queryUserInfoInDataBase:DATABASENAME WithUserID:self.queryUserIdTextfield.text andUserInfoField:USERINFOFIELD];
-        self.queryUserInfoValueLabel.text = result;
-        [self showAlertWithTitle:result];
-
-    }
-
-    [self showAlertWithTitle:result];
-}
-
-//删除用户信息
-- (IBAction)deleteUserInfoWithUserID:(UIButton *)sender {
-
-    NSString *result = @&quot;&quot;;
-
-    if (self.deleteUserIdTextField.text.length == 0) {
-
-        result = @&quot;Please Input UserID!&quot;;
-
-    }else{
-
-        result =  [SJUserInfoManager deleteUserInfoInDataBase:DATABASENAME WithUserID:self.deleteUserIdTextField.text];
-    }
-
-    [self showAlertWithTitle:result];
-
-}
-</code></pre>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//插入用户信息</span></div><div class="line">- (<span class="keyword">IBAction</span>)insertAction:(<span class="keyword">id</span>)sender &#123;</div><div class="line">   </div><div class="line">    <span class="built_in">NSString</span> *result = <span class="string">@""</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.insertUserInfoValueTextfiled.text.length == <span class="number">0</span>) &#123;</div><div class="line">        </div><div class="line">         result = <span class="string">@"Please Input UserID!"</span>;<span class="comment">//没有输入用户id就点击了插入按钮</span></div><div class="line">        </div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        </div><div class="line">         result = [SJUserInfoManager updateUserInfoIntoDataBase:DATABASENAME withUserID:<span class="keyword">self</span>.insertUserIdTextfield.text andUserInfoField:USERINFOFIELD andUserInfoValue:<span class="keyword">self</span>.insertUserInfoValueTextfiled.text];</div><div class="line">    &#125;</div><div class="line">   </div><div class="line">   [<span class="keyword">self</span> showAlertWithTitle:result];</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//查询用户信息</span></div><div class="line">- (<span class="keyword">IBAction</span>)queryUserInfoValue:(<span class="built_in">UIButton</span> *)sender &#123;</div><div class="line">    </div><div class="line">    <span class="built_in">NSString</span> *result = <span class="string">@""</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.queryUserIdTextfield.text.length == <span class="number">0</span>) &#123;</div><div class="line">        </div><div class="line">        result = <span class="string">@"Please Input UserID!"</span>;<span class="comment">//没有输入用户id就点击了查询按钮</span></div><div class="line">        <span class="keyword">self</span>.queryUserInfoValueLabel.text = <span class="string">@""</span>;<span class="comment">//重置查询输入框</span></div><div class="line">        </div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        </div><div class="line">        result =  [SJUserInfoManager queryUserInfoInDataBase:DATABASENAME WithUserID:<span class="keyword">self</span>.queryUserIdTextfield.text andUserInfoField:USERINFOFIELD];</div><div class="line">        <span class="keyword">self</span>.queryUserInfoValueLabel.text = result;</div><div class="line">        [<span class="keyword">self</span> showAlertWithTitle:result];</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span> showAlertWithTitle:result];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//删除用户信息</span></div><div class="line">- (<span class="keyword">IBAction</span>)deleteUserInfoWithUserID:(<span class="built_in">UIButton</span> *)sender &#123;</div><div class="line">    </div><div class="line">    <span class="built_in">NSString</span> *result = <span class="string">@""</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.deleteUserIdTextField.text.length == <span class="number">0</span>) &#123;</div><div class="line">        </div><div class="line">        result = <span class="string">@"Please Input UserID!"</span>;</div><div class="line">        </div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        </div><div class="line">        result =  [SJUserInfoManager deleteUserInfoInDataBase:DATABASENAME WithUserID:<span class="keyword">self</span>.deleteUserIdTextField.text];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span> showAlertWithTitle:result];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>其实不难看出，除了处理错误信息的代码以外，数据库的操作代码是非常简洁的:都是一行结束，而且返回一个结果字符串或者布尔值。</p>
 </blockquote>
 <p><strong>5. 在进入第二页之前，需要查询表内所有的用户信息并传递给第二个页面的VC：</strong></p>
-<pre><code class="objc">-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.destinationViewController isKindOfClass:[DataListTableViewController class]]) {
-        if ([segue.identifier isEqualToString:@&quot;userInfosList&quot;]) {
-
-            NSDictionary *userInfosDict = [SJUserInfoManager queryUserInfosInDataBase:DATABASENAME andUserInfoField:USERINFOFIELD];
-            DataListTableViewController *dataListVc = (DataListTableViewController *)segue.destinationViewController;
-            dataListVc.userInfosDict = userInfosDict;
-        }
-    }    
-}
-</code></pre>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)prepareForSegue:(<span class="built_in">UIStoryboardSegue</span> *)segue sender:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> ([segue.destinationViewController isKindOfClass:[DataListTableViewController <span class="keyword">class</span>]]) &#123;</div><div class="line">        <span class="keyword">if</span> ([segue.identifier isEqualToString:<span class="string">@"userInfosList"</span>]) &#123;</div><div class="line">            </div><div class="line">            <span class="built_in">NSDictionary</span> *userInfosDict = [SJUserInfoManager queryUserInfosInDataBase:DATABASENAME andUserInfoField:USERINFOFIELD];</div><div class="line">            DataListTableViewController *dataListVc = (DataListTableViewController *)segue.destinationViewController;</div><div class="line">            dataListVc.userInfosDict = userInfosDict;</div><div class="line">        &#125;</div><div class="line">    &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>6. 在第二页的viewDidLoad方法里获取用户信息列表，并刷新表格将其显示出来：</strong></p>
-<pre><code class="objc">- (void)viewDidLoad {
-
-    [super viewDidLoad];
-
-    NSString *alertTitle = [self.userInfosDict objectForKey:@&quot;result&quot;];
-    [self showAlertWithTitle:alertTitle];
-
-    NSArray *userInfosArray = [self.userInfosDict objectForKey:@&quot;userInfosArray&quot;];
-    if ([userInfosArray count] != 0) {
-         self.userInfosArray = userInfosArray;
-        [self.tableView reloadData];
-    }
-
-}
-</code></pre>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="built_in">NSString</span> *alertTitle = [<span class="keyword">self</span>.userInfosDict objectForKey:<span class="string">@"result"</span>];</div><div class="line">    [<span class="keyword">self</span> showAlertWithTitle:alertTitle];</div><div class="line">    </div><div class="line">    <span class="built_in">NSArray</span> *userInfosArray = [<span class="keyword">self</span>.userInfosDict objectForKey:<span class="string">@"userInfosArray"</span>];</div><div class="line">    <span class="keyword">if</span> ([userInfosArray count] != <span class="number">0</span>) &#123;</div><div class="line">         <span class="keyword">self</span>.userInfosArray = userInfosArray;</div><div class="line">        [<span class="keyword">self</span>.tableView reloadData];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>想知道Demo是如何实现的么？</p>
 <p>Demo传送门：<a href="https://github.com/Shijie0111/SJUserInfoManager">SJUserInfoManager - GitHub</a></p>
 <p>如果可以给星星，或者给笔者提意见，那就再好不过啦~</p>
@@ -408,7 +265,7 @@
 <p>如果在学习后，可以融会贯通，将学到的知识可以按照自己的意图加以改进和运用的话，那么相对于“搬运工”式学习来说，显然收获更大。</p>
 <p>这是笔者第一个开源项目，虽然简单，算上优化和改bug只写了大概3个小时，但是毕竟是开源的第一步，对自己的鼓励还是蛮大的，以后还会封装优化更多的库，加油~</p>
 
-  </section>
+  </section>    
 
 </article>
 <section class="read-more">
@@ -502,6 +359,8 @@
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
     
     </script>
+	
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 
     
 </body>
