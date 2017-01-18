@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo | J_Knight</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="正在学hybrid开发的iOS开发者">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo | J_Knight">
+    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo | J_Knight">
+    <meta property="og:description" content="正在学hybrid开发的iOS开发者">
+
+    
+    <meta name="author" content="Knight_SJ">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    <link rel="icon" href="/images/avatar.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="J_Knight" href="/atom.xml">
+    
+
+    <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/"/>
+
+    
+      
+</head>
+
+<body class="home-template no-js">
+    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg_2.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 J_Knight 的主页"><img src="/images/avatar.png" width="80" alt="J_Knight logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for J_Knight">J_Knight</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">正在学hybrid开发的iOS开发者</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+            
+              <li class="navigation__item"><a href="http://www.jianshu.com/u/3dd433cb3ea1">简书</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/1929625262/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" title="我的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/knightsj" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-disabled"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-01-11T07:18:19.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+ </span>
+      <span class="page-pv">
+      &nbsp;阅读&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+      </span> 
+   
+    </div>
+    <h1 class="post-title">斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo</h1>
+  </header>
+
+  <section class="post">
+    <p>本节课介绍了iOS在故事版里构造AutoLayout(自动布局)的三种方法并通过沿用了第六课的<a href="http://www.jianshu.com/p/8d5a4a8ac2be" target="_blank" rel="external">Demo</a>具体演示了添加约束的过程。内容较少也比较简单，可惜的是没有讲解用纯代码构造自动布局。</p>
+<p><strong>PS：严重多图预警！</strong></p>
+<p>因为操作都是在故事版里进行的，所以只能通过截图来演示具体操作步骤。。。</p>
+<h1 id="AutoLayout"><a href="#AutoLayout" class="headerlink" title="AutoLayout"></a>AutoLayout</h1><hr>
+<h2 id="在故事版里构造AutoLayout的三种方法："><a href="#在故事版里构造AutoLayout的三种方法：" class="headerlink" title="在故事版里构造AutoLayout的三种方法："></a>在故事版里构造AutoLayout的三种方法：</h2><ol>
+<li>使用蓝色辅助线，并选择系统建议约束。</li>
+<li>点击底部的布局菜单，根据需求选择相应的约束。</li>
+<li>按住control按键拖动触发菜单，根据需求选择相应约束。</li>
+</ol>
+<p>下面具体每种方法的做法：</p>
+<h2 id="1-使用蓝色辅助线，并选择系统建议约束"><a href="#1-使用蓝色辅助线，并选择系统建议约束" class="headerlink" title="1. 使用蓝色辅助线，并选择系统建议约束"></a>1. 使用蓝色辅助线，并选择系统建议约束</h2><p>我们现在要将“Thing 1”和“Thing 2”两个标签放在左上角和右下角。<br><img src="http://upload-images.jianshu.io/upload_images/859001-1f209520ddccc48e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用蓝色辅助线"></p>
+<blockquote>
+<p>在拖动空间的时候，系统会在某些时刻给出建议的约束，用蓝色虚线表示，详情看左图。<br>在约束显示出来的前提下放下控件，再选择系统建议的约束可以添加系统建议的约束，也就是之前虚线表示出来的约束，详情看右图。</p>
+</blockquote>
+<h2 id="2-点击底部的布局菜单，根据需求选择相应的约束"><a href="#2-点击底部的布局菜单，根据需求选择相应的约束" class="headerlink" title="2. 点击底部的布局菜单，根据需求选择相应的约束"></a>2. 点击底部的布局菜单，根据需求选择相应的约束</h2><p>我们现在要添加“Bad Thing”按钮，将其置于屏幕正中间。<br><img src="http://upload-images.jianshu.io/upload_images/859001-38cf0f8b7dddb55b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用底部布局菜单"></p>
+<blockquote>
+<p>想让控件居中显示，可以根据底部的按钮弹出的菜单设置，具体看左图。</p>
+<p>添加约束后，生成了黄色虚线框，如中间的图所示。黄色虚线框为控件添加该约束后，控件应有的frame。这时，应该点击左上角的黄色小三角选择“update frame”，具体看右图。</p>
+</blockquote>
+<p>最终效果图如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-4ed297bd355f392e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图1"></p>
+<blockquote>
+<p>点击黄色小三角显示的选项的意义：  </p>
+<ol>
+<li>update frame：通过修改frame 来适应约束。 </li>
+<li>update constrains: 修改约束 适应这个控件的frame。</li>
+<li>reset to suggested constrains:使用建议约束。</li>
+</ol>
+</blockquote>
+<h2 id="3-按住control按键拖动触发菜单，根据需求选择相应约束。"><a href="#3-按住control按键拖动触发菜单，根据需求选择相应约束。" class="headerlink" title="3. 按住control按键拖动触发菜单，根据需求选择相应约束。"></a>3. 按住control按键拖动触发菜单，根据需求选择相应约束。</h2><p>我们现在要将“Bad Thing”和”Thing 2”垂直距离固定，右边对其。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-192fcf72d0c3b71e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="按住control键"></p>
+<p>在拖动控件”Bad Thing”后，并不会改变其原有的约束(出现了黄色虚线框)，如左图。我们需要先删除其原有的约束。<br>然后点击“Bad Thing”按住<code>control</code>拖动到<code>Thing 2</code>,弹出菜单后，设置二者的垂直距离固定，右边对其，如右图所示。</p>
+<p>最终效果图如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-c292148931dab740.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图2"></p>
+<blockquote>
+<p>拖动也有三种方式：</p>
+<ol>
+<li>从一个控件按住control按键到另一个控件，选择相应的排列方式。</li>
+<li>从一个控件拖拽到它的父视图：水平居中，垂直居中等。</li>
+<li>从一个控件拖拽到它自己：选择固定宽度等。</li>
+</ol>
+</blockquote>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<p>首先我们拿到之前的属性字符串Demo，按照第一种设定约束的方法，结果不尽人意：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-143c8a529cb76416.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="宽度不等"></p>
+<p>显然，我们需要让四个彩色按钮宽度保持一致：<br>点击下方弹出菜单，选择“Equal Width”。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-4d27907e6dc68116.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="设置等宽"></p>
+<p>现在确实是等宽了，但是控制台有报错信息，虽然运行木有问题。</p>
+<p>什么问题呢？</p>
+<p>因为我们在让四个彩色按钮宽度相等的同时<strong>硬编码</strong>了它们的宽度，这显然不同时适用于横屏和竖屏的情况，需要将它们的固定宽度删去：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-bf9616a1e7401713.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="删除固定宽度"></p>
+<p>在第二个页面，我们把两个Label放到左下角：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-d8c09edac6a09686.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="垂直固定"></p>
+<ol>
+<li>首先用下方的菜单，将靠左和靠下的距离固定，如左图。</li>
+<li>然后用拖动control键的方法设定第二个标签的左对齐和垂直距离，效果如右图。</li>
+</ol>
+<p>在这里没有固定标签的宽度，这很好，因为如果数字是多位的，固定的宽度可能无法全部显示标签内的内容。</p>
+<p>那么手动固定一下其中一个标签的宽度，通过拖动control键拖动到自己的方法点击“width”，使宽度固定：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-b9ab01e556babf45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="固定宽度.png"></p>
+<blockquote>
+<p>固定宽度的标签无法完整显示了内容，因此这是一个危险的做法。</p>
+</blockquote>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+  </section>    
+
+</article>
+<section class="read-more">
+           
+    
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">最近的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/" title="斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo">斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo</a></h2>
+                <p class="excerpt">
+                
+                本节课讲授了多线程编程和UIScrollview控件，最后通过一个显示图片的Demo综合了本节课讲解的知识。通过本节课的学习，我们可以初步了解该如何处理耗时的任务来提高系统性能的方法以及通过UIScrollview控件来显示超出屏幕大小的图片并实现滚动和缩放的效果。
+多线程
+实现多线程编程（将不同的
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:19:16.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/">继续阅读</a></div>
+                           
+            </div>
+        
+        
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">更早的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/" title="斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo">斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo</a></h2>
+                <p class="excerpt">
+                
+                本节课介绍了协议，block，动画的相关知识，最后结合了这些知识点展示了一个类似俄罗斯方块的小游戏Demo。总体来说本节课的内容比较重要，稍微摆脱了UI层面的知识，对于初学者来说理解起来不是很容易，不过笔者会尽量详细地讲解给大家。
+协议
+关于协议所介绍的知识点比较简单，而且实现起来相对容易，故不做详
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:17:25.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/">继续阅读</a></div>
+                       
+            </div>
+        
+     
+   
+   
+  
+</section>
+
+            
+            <footer class="footer">
+    <span class="footer__copyright">
+        本站点采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2017 - 本站由 <a href="/">@Monniya</a> 创建,
+        使用 <a href="https://github.com/monniya/hexo-theme-new-vno ">hexo-theme-new-vno</a> 主题,
+        修改自 <a href="https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">Vno</a>, 原创出自<a href="http://github.com/onevcat/vno" target="_blank">onevcat</a>
+    </span>
+
+    <span class="footer__copyright">
+	
+     	本站已经被访问了<span id="busuanzi_value_site_pv"></span><span>次</span>
+
+    </span>
+
+   
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</footer>
+        </div>
+    </div>
+</body>
+</html>

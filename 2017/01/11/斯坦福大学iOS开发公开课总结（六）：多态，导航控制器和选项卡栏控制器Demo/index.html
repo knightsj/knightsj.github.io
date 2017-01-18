@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo | J_Knight</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="正在学hybrid开发的iOS开发者">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo | J_Knight">
+    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo | J_Knight">
+    <meta property="og:description" content="正在学hybrid开发的iOS开发者">
+
+    
+    <meta name="author" content="Knight_SJ">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    <link rel="icon" href="/images/avatar.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="J_Knight" href="/atom.xml">
+    
+
+    <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo/"/>
+
+    
+      
+</head>
+
+<body class="home-template no-js">
+    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg_2.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 J_Knight 的主页"><img src="/images/avatar.png" width="80" alt="J_Knight logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for J_Knight">J_Knight</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">正在学hybrid开发的iOS开发者</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+            
+              <li class="navigation__item"><a href="http://www.jianshu.com/u/3dd433cb3ea1">简书</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/1929625262/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" title="我的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/knightsj" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-disabled"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-01-11T07:08:50.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+ </span>
+      <span class="page-pv">
+      &nbsp;阅读&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+      </span> 
+   
+    </div>
+    <h1 class="post-title">斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo</h1>
+  </header>
+
+  <section class="post">
+    <p>本节课的课程地址：<a href="http://open.163.com/movie/2014/1/F/D/M9H7S9F1H_M9H80B3FD.html" target="_blank" rel="external">控制器多态性、导航控制器、选项卡栏控制器</a></p>
+<p>本节课通过延伸第四节课的纸牌配对Demo（详情请见：<a href="http://www.jianshu.com/p/2e9c8af048d8" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（三） ：纸牌配对游戏Demo</a>）讲解了控制器的多态性，扩展了第五节课的属性字符串Demo(详情请见:<a href="http://www.jianshu.com/p/c4e277bbad71" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（四） ：属性字符串Demo</a>)讲解了如何使用导航控制器和选项卡栏控制器。</p>
+<p>建议读者先了解以上两个博客的内容，因为这样有助于对本节课笔记的理解。</p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><hr>
+<p>第四节课做的纸牌配对游戏只有一个ViewController，它导入了<code>PlayingCardDek.h</code>类，说明该ViewController只适用于纸牌游戏。如果我们想换一类牌，那么显然目前使用的ViewController是不适用的。</p>
+<p>具体看一下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line">#import &quot;PlayingCardDeck.h&quot;</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (CardMatchingGame *)game</div><div class="line">&#123;</div><div class="line">    if (!_game) &#123;</div><div class="line">        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];</div><div class="line">    &#125;</div><div class="line">    return _game;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    //实例化了 PlayingCardDeck 类</div><div class="line">    return [[PlayingCardDeck alloc] init];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>为了将该ViewController作为通用的控制器，我们需要将它设置为抽象类。通过创造不同的继承它的字类来实现各种各样的纸牌配对游戏。</p>
+</blockquote>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p><strong>抽象类</strong>就是不能被实例化的类，它具有某种普遍性，可以通过继承它来实现基于这种普遍性并带有其他特性的字类。</p>
+<p>举个🌰：船是一个具有普遍性的抽象类。基于这个抽象来，如果我们添加了木桨，就可以造一个木桨船；如果我们给它添加了帆，就可以早一个帆船等等。。</p>
+<p>因此，在这里，我们需要将纸牌游戏的牌堆抽象出来，如果这个牌堆里是扑克牌，那么这个游戏就是扑克牌配对游戏；如果这个牌堆里的牌是塔罗牌，那么这个牌就是卡洛牌配对游戏。</p>
+<h2 id="如何创建抽象类的具体子类？"><a href="#如何创建抽象类的具体子类？" class="headerlink" title="如何创建抽象类的具体子类？"></a>如何创建抽象类的具体子类？</h2><h4 id="1-将该类抽象化："><a href="#1-将该类抽象化：" class="headerlink" title="1. 将该类抽象化："></a>1. 将该类抽象化：</h4><p>从上面的代码可以看到，控制器的实例化是基于<code>createDeck</code>方法的(这个方法将<code>扑克牌堆</code>的模型交给了控制器), 如果可以阻止模型的生成就阻止控制器的实例化。因此我们将<code>createDeck</code>的方法的返回值设为nil：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line">#import &quot;PlayingCardDeck.h&quot;</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (CardMatchingGame *)game</div><div class="line">&#123;</div><div class="line">    if (!_game) &#123;</div><div class="line">        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];</div><div class="line">    &#125;    </div><div class="line">    return _game;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    return nil;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这样一来，该类无法取得自己的模型实例，就无法正常工作，变得“抽象”。</p>
+</blockquote>
+<h4 id="2-将需要字类实现的方法放在抽象类的公共API中："><a href="#2-将需要字类实现的方法放在抽象类的公共API中：" class="headerlink" title="2. 将需要字类实现的方法放在抽象类的公共API中："></a>2. 将需要字类实现的方法放在抽象类的公共API中：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &quot;Deck.h&quot;</div><div class="line"></div><div class="line">@interface ViewController : UIViewController</div><div class="line"></div><div class="line">/**</div><div class="line"> *  abstract metod, for subclasses</div><div class="line"> *</div><div class="line"> *  @return 各种类型不同的纸牌堆</div><div class="line"> */</div><div class="line">- (Deck *)createDeck;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<blockquote>
+<p>不难想到，子类将该方法实现的过程就是实例化具有不同特性的具体类的过程！这也就实现了类的多态。</p>
+</blockquote>
+<h4 id="3-创造继承抽象的子类"><a href="#3-创造继承抽象的子类" class="headerlink" title="3. 创造继承抽象的子类"></a>3. 创造继承抽象的子类</h4><p>新建一个继承于抽象类<code>ViewController</code>的字类<code>PlayingCardViewController</code>：</p>
+<p><strong>PlayingCardViewController.h</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line"></div><div class="line">@interface PlayingCardViewController : ViewController</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p><strong>PlayingCardViewController.m</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#import &quot;PlayingCardViewController.h&quot;</div><div class="line">#import &quot;PlayingCardDeck.h&quot;</div><div class="line"></div><div class="line">@interface PlayingCardViewController ()</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation PlayingCardViewController</div><div class="line"></div><div class="line">//只需要实现</div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    return [[PlayingCardDeck alloc] init];</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这样一来，我们就获得了一个扑克牌配对游戏的ViewController。<br>将来，如果我们还有别的继承与<code>Deck</code>的牌，就可以用相同的方法：通过创建继承该抽象类并实现<code>createDeck</code>的方法来完成。</p>
+</blockquote>
+<h1 id="多MVC的实现：通过导航控制器管理多个ViewController"><a href="#多MVC的实现：通过导航控制器管理多个ViewController" class="headerlink" title="多MVC的实现：通过导航控制器管理多个ViewController"></a>多MVC的实现：通过导航控制器管理多个ViewController</h1><hr>
+<p><strong>导航控制器</strong>拥有一个<strong>栈数据结构</strong>，它可以将多个控制器压入自己的栈结构中来管理这些控制器。我们经常看到的界面<strong>滑入滑出</strong>的过程就是导航控制器的栈结构在<strong>压入弹出</strong>控制器的过程。而每个控制器管理一个MVC模型，导航控制器通过管理这些控制器实现了管理多MVC的目的。</p>
+<p><strong>需要注意的是</strong>：手机的屏幕每次只能显示一个MVC模型的View。在view的切换过程中，手机界面显示的是<strong>当前处于导航控制器栈顶的控制器的视图！</strong>当该视图被移除界面的时候，该MVC的数据就会被释放。因此，每次要显示一个新的MVC的时候，都会创建一个新的MVC。</p>
+<h2 id="控制器在导航控制器的栈结构中弹出"><a href="#控制器在导航控制器的栈结构中弹出" class="headerlink" title="控制器在导航控制器的栈结构中弹出"></a>控制器在导航控制器的栈结构中弹出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)popViewController</div><div class="line">&#123;</div><div class="line">    //self是当前的控制器，它的navigationController属性指向管理自己的导航控制器</div><div class="line">   [self.navigationController popViewControllerAnimitaed:YES];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="跳转到下一个控制器之前执行的方法："><a href="#跳转到下一个控制器之前执行的方法：" class="headerlink" title="跳转到下一个控制器之前执行的方法："></a>跳转到下一个控制器之前执行的方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (void)prepareForSegue:(UIStroyboardSegue *)segue sender: (id)sender</div><div class="line">&#123;</div><div class="line"></div><div class="line"> //segue的identifier属性用来区分不同的控制器</div><div class="line">  if ([segue.identifier isEqualToString:@&quot;DoSomething&quot;])</div><div class="line">  &#123; </div><div class="line">      //segue的destinationViewController指向的是下一个要滑入界面的控制器</div><div class="line">      if ([segue.destinationViewController isKindOfClass:[DoSomethingVC class]])&#123;</div><div class="line">      </div><div class="line">       DoSomethingVC *doVC = (DoSomethingVC *)segue.desitinationViewController；</div><div class="line">       doVC.infoString = self.infoString;</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="判断是否可以跳转的方法"><a href="#判断是否可以跳转的方法" class="headerlink" title="判断是否可以跳转的方法"></a>判断是否可以跳转的方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (BOOL)shouldPerformSegueWithIdentifier: (NSString *)identifier sender: (id)sender</div><div class="line">&#123;</div><div class="line"></div><div class="line">  if([segue.identifier isEqualToString:@&quot;DoAParticularThing&quot;])</div><div class="line">  &#123;</div><div class="line">     //此方法是用来确定跳转的可行性，因为有时如果缺少下一个界面的数据是不能跳转的</div><div class="line">    return [self canDoAParticularThing]? YES:NO;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="多MVC-Demo"><a href="#多MVC-Demo" class="headerlink" title="多MVC Demo"></a>多MVC Demo</h1><h2 id="DEMO需求："><a href="#DEMO需求：" class="headerlink" title="DEMO需求："></a>DEMO需求：</h2><ul>
+<li>在第一个页面可以设置字符属性</li>
+<li>点击第一个页面导航栏右侧的按钮跳转到第二个页面</li>
+<li>在第二个页面统计第一个页面中添加色彩和边框的字符数量</li>
+</ul>
+<h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-35ed7fcc54dc0c69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="|导航控制器|  左：第一个页面；右：第二个页面"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5788b1865e19247c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="|选项卡栏控制器| 左：第一个Tab；右：第二个Tab"></p>
+<h2 id="重要代码与知识点"><a href="#重要代码与知识点" class="headerlink" title="重要代码与知识点"></a>重要代码与知识点</h2><h4 id="跳转页面传值"><a href="#跳转页面传值" class="headerlink" title="跳转页面传值"></a>跳转页面传值</h4><p>实现跳转页面传值一共有两个步骤：</p>
+<ol>
+<li>我们先通过在第二个页面的公共API中设置属性</li>
+<li>然后在第一个页面跳转到第二个页面之前将数据赋予第二个页面的这个公共属性实现传值。</li>
+</ol>
+<p><strong>1. 在第二个页面设置公共属性</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line"></div><div class="line">@interface TextAnylizeViewController : UIViewController</div><div class="line"></div><div class="line">@property (nonatomic, retain) NSAttributedString *textToAnalyze;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p><strong>2. 在第一个页面跳转到第二个页面之前执行传值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender</div><div class="line">&#123;</div><div class="line">    //1. 首先判断segue的identifier</div><div class="line">    if ([segue.identifier isEqualToString:@&quot;Analyze Text&quot;]) &#123;</div><div class="line">         //2. 然后判断目标控制器的类型</div><div class="line">        if ([segue.destinationViewController isKindOfClass:[TextAnylizeViewController class]]) &#123;</div><div class="line">            //3. 在1和2都确定的情况下，实例化第二个页面</div><div class="line">            TextAnylizeViewController *analyzeVC = (TextAnylizeViewController*)segue.destinationViewController;</div><div class="line">            //4. 将第一个页面的字符串赋予第二个页面，用于第二个页面的分析</div><div class="line">            analyzeVC.textToAnalyze = self.body.textStorage;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="获取一段字符中，具有某种属性的字符串"><a href="#获取一段字符中，具有某种属性的字符串" class="headerlink" title="获取一段字符中，具有某种属性的字符串"></a>获取一段字符中，具有某种属性的字符串</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">- (NSAttributedString *)charactersWithAttribute: (NSString *)attributedName</div><div class="line">&#123;</div><div class="line">    NSMutableAttributedString *characters = [[NSMutableAttributedString alloc] init];</div><div class="line">    </div><div class="line">    NSUInteger index = 0;</div><div class="line">    </div><div class="line">    while (index &lt; [self.textToAnalyze length]) &#123;</div><div class="line">        </div><div class="line">        NSRange range;</div><div class="line">        </div><div class="line">        //查找一段字符串中，具有某种相同属性的值</div><div class="line">        id value = [self.textToAnalyze attribute:attributedName atIndex:index effectiveRange:&amp;range];</div><div class="line">       </div><div class="line">        if (value) &#123;</div><div class="line">            //如果值存在，获取具有该相同属性的字符串</div><div class="line">            [characters appendAttributedString:[self.textToAnalyze attributedSubstringFromRange:range]];</div><div class="line">            </div><div class="line">            //将index移动到具有该相同属性的字符串的下一位</div><div class="line">            index = range.location + range.length;</div><div class="line">        </div><div class="line">        &#125;else&#123;</div><div class="line">            index ++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return characters;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="搭建导航控制器-Navigation-Controller"><a href="#搭建导航控制器-Navigation-Controller" class="headerlink" title="搭建导航控制器(Navigation Controller)"></a>搭建导航控制器(Navigation Controller)</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-7a518741341460be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导航控制器"></p>
+<h4 id="搭建选项卡栏控制器-Tab-Bar-Controller"><a href="#搭建选项卡栏控制器-Tab-Bar-Controller" class="headerlink" title="搭建选项卡栏控制器(Tab Bar Controller)"></a>搭建选项卡栏控制器(Tab Bar Controller)</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-c477e12dc9779726.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选项卡栏控制器"></p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+  </section>    
+
+</article>
+<section class="read-more">
+           
+    
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">最近的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo/" title="斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo">斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo</a></h2>
+                <p class="excerpt">
+                
+                本节课介绍了UIView的一些知识，自定义UIView的方法以及手势识别。最后应用本节所讲的大部分知识点向我们演示了一个绘制纸牌的Demo。
+UIView
+关于UIView，你需要知道的零散知识
+视图是可以多层嵌套的。
+每个视图可以有多个子视图，但是只能有一个父视图。
+控制器的view属性指向自己的
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:16:20.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo/">继续阅读</a></div>
+                           
+            </div>
+        
+        
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">更早的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/" title="斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo">斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo</a></h2>
+                <p class="excerpt">
+                
+                本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。
+动态绑定
+在OC的编译期，所有的指针都是id类型，只有在运行时，对象的类型才会被确定。
+举个🌰 ：在编译期，NSString* 实际上与id相同，但是加上去的好
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:07:50.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/">继续阅读</a></div>
+                       
+            </div>
+        
+     
+   
+   
+  
+</section>
+
+            
+            <footer class="footer">
+    <span class="footer__copyright">
+        本站点采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2017 - 本站由 <a href="/">@Monniya</a> 创建,
+        使用 <a href="https://github.com/monniya/hexo-theme-new-vno ">hexo-theme-new-vno</a> 主题,
+        修改自 <a href="https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">Vno</a>, 原创出自<a href="http://github.com/onevcat/vno" target="_blank">onevcat</a>
+    </span>
+
+    <span class="footer__copyright">
+	
+     	本站已经被访问了<span id="busuanzi_value_site_pv"></span><span>次</span>
+
+    </span>
+
+   
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</footer>
+        </div>
+    </div>
+</body>
+</html>

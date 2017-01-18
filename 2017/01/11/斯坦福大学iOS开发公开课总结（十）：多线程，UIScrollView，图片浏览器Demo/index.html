@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo | J_Knight</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="正在学hybrid开发的iOS开发者">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo | J_Knight">
+    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo | J_Knight">
+    <meta property="og:description" content="正在学hybrid开发的iOS开发者">
+
+    
+    <meta name="author" content="Knight_SJ">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    <link rel="icon" href="/images/avatar.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="J_Knight" href="/atom.xml">
+    
+
+    <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/"/>
+
+    
+      
+</head>
+
+<body class="home-template no-js">
+    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg_2.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 J_Knight 的主页"><img src="/images/avatar.png" width="80" alt="J_Knight logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for J_Knight">J_Knight</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">正在学hybrid开发的iOS开发者</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+            
+              <li class="navigation__item"><a href="http://www.jianshu.com/u/3dd433cb3ea1">简书</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/1929625262/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" title="我的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/knightsj" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-disabled"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-01-11T07:19:16.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+ </span>
+      <span class="page-pv">
+      &nbsp;阅读&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+      </span> 
+   
+    </div>
+    <h1 class="post-title">斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo</h1>
+  </header>
+
+  <section class="post">
+    <p>本节课讲授了多线程编程和UIScrollview控件，最后通过一个显示图片的Demo综合了本节课讲解的知识。通过本节课的学习，我们可以初步了解该如何处理耗时的任务来提高系统性能的方法以及通过UIScrollview控件来显示超出屏幕大小的图片并实现滚动和缩放的效果。</p>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><hr>
+<p>实现多线程编程（将不同的任务放在主线程和子线程工作），可以有效利用系统硬件优势提高系统性能。<br>首先，先介绍几个概念：</p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>队列：在队列中放入用来执行任务的block。这些block按照队列的性质被取出到应该工作的线程(主线程，子线程)。</p>
+<p>队列分为串行队列和并行队列。</p>
+<ul>
+<li>放入串行队列的任务将会在主线程执行，执行顺序是按照顺序执行。</li>
+<li>放入并行队列的任务会在子线程执行，执行顺序是并行执行。</li>
+</ul>
+<p>那么什么样的任务会放在主线程或子线程执行呢？</p>
+<h2 id="主线程-amp-子线程"><a href="#主线程-amp-子线程" class="headerlink" title="主线程&amp;子线程"></a>主线程&amp;子线程</h2><p>主线程：负责执行UI活动，绝大部分的UI活动都要在这里调用，不能让其阻塞，要将耗时的任务放到子线程来做。<br>子线程：负责执行耗时的运算，网络请求等不能放在主线程的任务。</p>
+<p>系统为我们提供了共用的主队列(Main Dispatch Queue)和全局并行队列(Global Dispatch Queue)。我们只需将需要执行的任务放入到这两类队列里就可以实现多线程编程。</p>
+<h2 id="得到主队列"><a href="#得到主队列" class="headerlink" title="得到主队列"></a>得到主队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t mainQ = dispatch_get_main_queue();</div><div class="line">NSOperationQueue *mainQ = [NSOperationQueue mainQueue];</div></pre></td></tr></table></figure>
+<h2 id="得到主队列并布置任务"><a href="#得到主队列并布置任务" class="headerlink" title="得到主队列并布置任务"></a>得到主队列并布置任务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//NSThread</div><div class="line">- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait;</div><div class="line"></div><div class="line">//GCD</div><div class="line"> dispatch_async(dispatch_get_main_queue(), ^&#123;                   </div><div class="line"></div><div class="line">                        [doSomething];</div><div class="line"></div><div class="line">                    &#125;);</div></pre></td></tr></table></figure>
+<h2 id="得到全局并行队列"><a href="#得到全局并行队列" class="headerlink" title="得到全局并行队列"></a>得到全局并行队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch queue_t globalDispatchQueueDefault = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);</div></pre></td></tr></table></figure>
+<h2 id="得到全局并行队列并布置任务"><a href="#得到全局并行队列并布置任务" class="headerlink" title="得到全局并行队列并布置任务"></a>得到全局并行队列并布置任务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</div><div class="line"> </div><div class="line">         [doSomething];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="使用多线程的例子：线程之间通信"><a href="#使用多线程的例子：线程之间通信" class="headerlink" title="使用多线程的例子：线程之间通信"></a>使用多线程的例子：线程之间通信</h2><p>很多情况下，我们需要在子线程进行下载任务，下载完成后在主线程更新UI，这时候就需要线程之间的通信：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</div><div class="line">    </div><div class="line">            //下载图片</div><div class="line">            NSData *dataFromURL = [NSData dataWithContentsOfURL:imageURL];</div><div class="line">            UIImage *imageFromData = [UIImage imageWithData:dataFromURL];</div><div class="line"></div><div class="line">    dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line">        </div><div class="line">            //加载完成更新view</div><div class="line">            UIImageView *imageView = [[UIImageView alloc] initWithImage:imageFromData];</div><div class="line">        </div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>在这里，我们在全局并行队列的回调block里调用了主线程，并在主线程里执行了UI操作。</p>
+</blockquote>
+<h2 id="使用多线程的例子：通过NSURLSession下载"><a href="#使用多线程的例子：通过NSURLSession下载" class="headerlink" title="使用多线程的例子：通过NSURLSession下载"></a>使用多线程的例子：通过NSURLSession下载</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (void)mainQueueCallBack</div><div class="line">&#123;</div><div class="line">    NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];</div><div class="line">    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];</div><div class="line">    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];</div><div class="line">    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;</div><div class="line">         //这里是主队列，可以更新UI        </div><div class="line">    &#125;];</div><div class="line"></div><div class="line">    [task resume];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，<code>delegateQueue</code>的参数是主线程，所以<code>downloadTaskWithRequest::</code>方法的回调函数是在主线程，我们就可以在那里作更新UI的操作。</p>
+</blockquote>
+<p>如果没有<code>delegateQueue</code>呢？我们需要自己获取主线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (void)noDelegateQueueRequest</div><div class="line">&#123;</div><div class="line">    NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];</div><div class="line">    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];</div><div class="line">    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];</div><div class="line">    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;</div><div class="line"></div><div class="line">     //获取主线程-通过NSThread</div><div class="line">     [self performSelectorOnMainThread:(doUIThings) withObject:nil waitUntilDone:NO];</div><div class="line">     //获取主线程-通过GCD</div><div class="line">    dispatch_async(dispatch_get_main_queue(), ^&#123;                   </div><div class="line">                        [doUIThings]</div><div class="line">                    &#125;);         </div><div class="line">    &#125;];    </div><div class="line">    [task resume];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="UIScrollView"><a href="#UIScrollView" class="headerlink" title="UIScrollView"></a>UIScrollView</h1><hr>
+<p>UIScrollView是滚动视图，可以实现滚动和缩放的功能。</p>
+<h2 id="几个比较重要的属性："><a href="#几个比较重要的属性：" class="headerlink" title="几个比较重要的属性："></a>几个比较重要的属性：</h2><p>视图要滚动的区域：<code>contentSize</code><br>目前滚动的位置：<code>contentOffset</code><br>滚动窗口的大小：<code>scrollView.bounds</code></p>
+<h2 id="几个比较重要的方法："><a href="#几个比较重要的方法：" class="headerlink" title="几个比较重要的方法："></a>几个比较重要的方法：</h2><p>获取当前显示的部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CGRect visibleRect = [scrollView convertRect：scrollView.bounds toView:subview];</div></pre></td></tr></table></figure></p>
+<p>用代码滚动视图：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)scrollRectToVisible :(CGRect)aRect animated:(BOOL)animated;</div></pre></td></tr></table></figure></p>
+<p>代码实现缩放：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@property(nonatomic) CGFloat zoomScale;  </div><div class="line">- (void)setZoomScale:(CGFloat)scale animated:(BOOL)animated);</div><div class="line">- (void)zoomToRect:(CGRect)rect animated:(BOOL)animated;</div></pre></td></tr></table></figure></p>
+<p>告诉要缩放哪个<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)</div></pre></td></tr></table></figure></p>
+<h2 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h2><h4 id="设置缩放极限"><a href="#设置缩放极限" class="headerlink" title="设置缩放极限"></a>设置缩放极限</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">scrollView.minimumZoomSize = 0.5;</div><div class="line">scrollView.maximumZoomSize = 2.0;</div></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
+<li>第一个页面显示三个按钮，在跳转后分别下载并显示不同图片。</li>
+<li>在图片的下载过程中给予提示。</li>
+<li>图片显示出来后可以移动，缩放。</li>
+</ul>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-30b1dbbc035c8e1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：第一页 | 右：第二页"></p>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-在跳转之前将图片下载的URL传给第二个页面"><a href="#1-在跳转之前将图片下载的URL传给第二个页面" class="headerlink" title="1. 在跳转之前将图片下载的URL传给第二个页面"></a>1. 在跳转之前将图片下载的URL传给第二个页面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender</div><div class="line">&#123;</div><div class="line">     //通过内省判断跳转的页面类</div><div class="line">     if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) &#123;       </div><div class="line"></div><div class="line">        //告诉编译期，即将跳转的页面类</div><div class="line">        ImageViewController *imageVC = (ImageViewController *)segue.destinationViewController;        </div><div class="line">        //初始化指针，将其设为nil </div><div class="line">        NSString *string = nil;</div><div class="line">        //通过identifier判断跳转界面</div><div class="line">        if ([segue.identifier isEqualToString:@&quot;paint&quot;]) &#123;            </div><div class="line">            //这张图貌似得翻墙，而且图片很大，建议换一张</div><div class="line">            string = @&quot;https://lh6.ggpht.com/ZoD88QrTxZbZnhpJgQbo9SPuosryX9ujjdRaHvjjvbUGeZcI-9C4AFQsWQm7-pVDv1E=h900&quot;;       </div><div class="line"></div><div class="line">        &#125;else if ([segue.identifier isEqualToString:@&quot;earth&quot;]) &#123;</div><div class="line">            //这张图不是很大，可以不用花很久就能显示</div><div class="line">            string = @&quot;http://news.nationalgeographic.com/content/dam/news/2016/02/12/01asteroidearth.jpg&quot;;           </div><div class="line"></div><div class="line">        &#125;else if ([segue.identifier isEqualToString:@&quot;night&quot;])  &#123;</div><div class="line">            //这张图貌似得翻墙，而且图片很大，建议换一张</div><div class="line">            string = @&quot;https://lh5.ggpht.com/j4C_pXnbRc5FnxNO90wIqodn4QA3f_6rB0cyu2sVnCeSwLDmyZf-xSrC9L8c3oxr6NE=h900&quot;;</div><div class="line"></div><div class="line">        &#125;        </div><div class="line"></div><div class="line">        imageVC.imageURL = [NSURL URLWithString:string];</div><div class="line"></div><div class="line">         //设置导航栏的标题</div><div class="line">        imageVC.title = segue.identifier;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-使UIScrollView控件能够拖动"><a href="#2-使UIScrollView控件能够拖动" class="headerlink" title="2. 使UIScrollView控件能够拖动"></a>2. 使UIScrollView控件能够拖动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *  设置图片后，重新imageView的图片和自己的大小，并设置contentSize</div><div class="line"> *</div><div class="line"> *  @param image &lt;#image description#&gt;</div><div class="line"> */</div><div class="line">- (void)setImage:(UIImage *)image</div><div class="line">&#123;</div><div class="line">    self.imageView.image = image;</div><div class="line">    //根据图片大小设置imageview的大小</div><div class="line"></div><div class="line">    [self.imageView sizeToFit];</div><div class="line">    //保护机制：有图片设置size，否则size=0</div><div class="line"></div><div class="line">    self.scrollView.contentSize = self.image? self.image.size : CGSizeZero;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>为了使UIScrollView控件能够拖动，<strong>必须</strong>要设置它的contentSize大小，否则无法滚动！</p>
+</blockquote>
+<h4 id="3-设置UIScrollView伸缩"><a href="#3-设置UIScrollView伸缩" class="headerlink" title="3. 设置UIScrollView伸缩"></a>3. 设置UIScrollView伸缩</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (void)setScrollView:(UIScrollView *)scrollView</div><div class="line">&#123;</div><div class="line">    _scrollView = scrollView;</div><div class="line">    _scrollView.minimumZoomScale = 0.2;</div><div class="line">    _scrollView.maximumZoomScale = 2.0;</div><div class="line">    _scrollView.delegate = self;</div><div class="line">    //设置两次contSize的原因是我们不确保这两个方法哪个是先被调用的</div><div class="line"></div><div class="line">    self.scrollView.contentSize = self.image? self.image.size : CGSizeZero;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-2d0da3c643a5b7d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="实现伸缩效果"></p>
+<h4 id="4-下载图片"><a href="#4-下载图片" class="headerlink" title="4. 下载图片"></a>4. 下载图片</h4><p>错误做法：阻塞主线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)setImageURL:(NSURL *)imageURL</div><div class="line">&#123;</div><div class="line">    _imageURL = imageURL;   </div><div class="line">    self.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>永远不要在主线程调用下载的方法！主线程负责UI相应，如果调用耗时的方法会使得其下一项任务在下载完成之前无法执行（主线程是串行队列），造成卡死的情况。<br>所以，我们应该另外开一个子线程让其负责下载：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">- (void)startDownloading</div><div class="line">&#123;</div><div class="line">    //先清空现有图片</div><div class="line">    self.image = nil;   </div><div class="line"></div><div class="line">    if (self.imageURL) &#123;        </div><div class="line"></div><div class="line">        //转动的小动画，提示正在下载</div><div class="line">       [self.spinner startAnimating];</div><div class="line">        NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];</div><div class="line">        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];</div><div class="line">        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];</div><div class="line">        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;            </div><div class="line"></div><div class="line">            if(!error)&#123;</div><div class="line">               </div><div class="line">                //判断URL是否被更改，因为这是一个异步操作，无法保证在下载过程中一定能保持原来的数据</div><div class="line">                if ([request.URL isEqual:self.imageURL])</div><div class="line">                &#123;</div><div class="line">                    //下载完成，拿到本地的路径</div><div class="line">                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];                    </div><div class="line">                    //获得主队列</div><div class="line">                    dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">                        //在主队列更新UI</div><div class="line">                        self.image = image;</div><div class="line"></div><div class="line">                    &#125;);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;];        </div><div class="line"></div><div class="line">        [task resume];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。</p>
+<p>笔者这两天会总结一下这一系列的Demo，发布到我的个人GitHub账号上去，以后就可以方便很多了~</p>
+<p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+
+  </section>    
+
+</article>
+<section class="read-more">
+           
+    
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">最近的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo/" title="斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo">斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo</a></h2>
+                <p class="excerpt">
+                
+                UITableview
+UITableview是iOS软件中最常见的视图，用来以表格的形式显示数据。
+数据源方法123- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现- (NSInteg
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:20:18.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo/">继续阅读</a></div>
+                           
+            </div>
+        
+        
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">更早的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/" title="斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo">斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo</a></h2>
+                <p class="excerpt">
+                
+                本节课介绍了iOS在故事版里构造AutoLayout(自动布局)的三种方法并通过沿用了第六课的Demo具体演示了添加约束的过程。内容较少也比较简单，可惜的是没有讲解用纯代码构造自动布局。
+PS：严重多图预警！
+因为操作都是在故事版里进行的，所以只能通过截图来演示具体操作步骤。。。
+AutoLayou
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:18:19.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/">继续阅读</a></div>
+                       
+            </div>
+        
+     
+   
+   
+  
+</section>
+
+            
+            <footer class="footer">
+    <span class="footer__copyright">
+        本站点采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2017 - 本站由 <a href="/">@Monniya</a> 创建,
+        使用 <a href="https://github.com/monniya/hexo-theme-new-vno ">hexo-theme-new-vno</a> 主题,
+        修改自 <a href="https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">Vno</a>, 原创出自<a href="http://github.com/onevcat/vno" target="_blank">onevcat</a>
+    </span>
+
+    <span class="footer__copyright">
+	
+     	本站已经被访问了<span id="busuanzi_value_site_pv"></span><span>次</span>
+
+    </span>
+
+   
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</footer>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI | J_Knight</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="正在学hybrid开发的iOS开发者">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI | J_Knight">
+    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI | J_Knight">
+    <meta property="og:description" content="正在学hybrid开发的iOS开发者">
+
+    
+    <meta name="author" content="Knight_SJ">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    <link rel="icon" href="/images/avatar.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="J_Knight" href="/atom.xml">
+    
+
+    <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI/"/>
+
+    
+      
+</head>
+
+<body class="home-template no-js">
+    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg_2.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 J_Knight 的主页"><img src="/images/avatar.png" width="80" alt="J_Knight logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for J_Knight">J_Knight</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">正在学hybrid开发的iOS开发者</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+            
+              <li class="navigation__item"><a href="http://www.jianshu.com/u/3dd433cb3ea1">简书</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/1929625262/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" title="我的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/knightsj" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-disabled"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-01-11T07:30:42.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+ </span>
+      <span class="page-pv">
+      &nbsp;阅读&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+      </span> 
+   
+    </div>
+    <h1 class="post-title">斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI</h1>
+  </header>
+
+  <section class="post">
+    <p>本篇是斯坦福大学iOS7系列课程（CS193P）的最后一节课的总结，终于把18节课的内容都总结完了，而且这个文集也画上了句号，有点不舍的赶脚。。</p>
+<p>好了，不煽情了，开始！</p>
+<h1 id="国际化-Internationalization"><a href="#国际化-Internationalization" class="headerlink" title="国际化 Internationalization"></a>国际化 Internationalization</h1><hr>
+<p>如果我们想要将app推广到国际市场，那么就免不了将我们的app翻译成其他国家的语言以便于当地人去使用。</p>
+<p>而翻译的内容主要集中于“非内容”部分：例如标题类文字，按钮上的文字，提示框的文字等等。</p>
+<p>所谓“翻译”app的过程主要分为<strong>国际化</strong>和<strong>本地化</strong>两个步骤：</p>
+<ol>
+<li>国际化：是让app能够本地化的过程。</li>
+<li>本地化：将程序翻译另外一种语言。<ul>
+<li>故事版字符串的本地化：改变故事版中出现的字符串。</li>
+<li>类文件字符串的本地化：改变文件中出现的字符串，包括字符串面量和非字符串面量。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>好的UI设计：给用户呈现出的内容大多数都需要显示的（内容），而不是自己添加的（提示）。这样一来，也会减少我们本地化的工作量。</li>
+<li>所有的地方都要设置好自动布局，否则本地化将无从谈起，因为将文字翻译成其他语言后，长度很可能是不一样的。</li>
+</ol>
+</blockquote>
+<p>下面来来具体看一下本地化的方法，分为<strong>故事版中字符串</strong>的本地化和<strong>类文件中字符串</strong>的本地化。</p>
+<h2 id="1-故事版中的本地化"><a href="#1-故事版中的本地化" class="headerlink" title="1. 故事版中的本地化"></a>1. 故事版中的本地化</h2><p>在故事版中本地化的过程是：</p>
+<ol>
+<li>在项目里添加其他语言。</li>
+<li>在被添加语言的故事版文件中找到相应的.string文件，加以更改。</li>
+</ol>
+<p>具体过程如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-917657136741d815.gif?imageMogr2/auto-orient/strip" alt="故事版的本地化.gif"></p>
+<h2 id="2-类文件中字符串的本地化"><a href="#2-类文件中字符串的本地化" class="headerlink" title="2. 类文件中字符串的本地化"></a>2. 类文件中字符串的本地化</h2><p>除了需要本地化故事版中的字符串，类文件中的字符串也需要本地化，因为故事版并不能显示所有需要翻译的字符串。</p>
+<p>而且，类文件中的字符串分为两种形式：</p>
+<ol>
+<li>字符串面量。</li>
+<li>非字符串面量。</li>
+</ol>
+<p>字符串面量:</p>
+<p><code>NSString *myName = @“Jack”;</code></p>
+<p>类似这样的字符串是比较好找的，只需要搜索<code>@</code>即可很容易找到。<br>但是，我们仍然会通过该方法搜索到不应该本地化的字符串：<br>也就是不出现在UI中的字符串面量。</p>
+<p>例如：</p>
+<ul>
+<li>文件扩展名</li>
+<li>segure的identifier</li>
+<li>stiringWithFormat:</li>
+</ul>
+<h4 id="2-1字符串面量的本地化步骤："><a href="#2-1字符串面量的本地化步骤：" class="headerlink" title="2.1字符串面量的本地化步骤："></a>2.1字符串面量的本地化步骤：</h4><ol>
+<li>找到需要本地化的字符串面量。</li>
+<li>通过宏，将字符串面量添加到表中。</li>
+<li>创建表的.string文件。</li>
+<li>本地化.string文件</li>
+</ol>
+<p>﻿<br>1.找到 <code>@&quot;Sorry, this device cannot add a photo.&quot;</code> 字符串面量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidAppear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [super viewDidAppear:animated];</div><div class="line">    if (![[self class] canAddPhoto]) &#123;</div><div class="line">        [self fatalAlert:@&quot;Sorry, this device cannot add a photo.&quot;]; //</div><div class="line">    &#125; else &#123;</div><div class="line">        [self.locationManager startUpdatingLocation];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.通过宏，将字符串面量添加到表中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidAppear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">   [super viewDidAppear: animated];</div><div class="line">   </div><div class="line">   if (![[self class] canAddPhoto]) &#123;</div><div class="line">       [self fatalAlert:ALERT_CANT_ADD_PHOTO]; // @&quot;Sorry, this device cannot add a photo.&quot;</div><div class="line">   &#125; else &#123;</div><div class="line">       [self.locationManager startUpdatingLocation];</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define ALERT_CANT_ADD_PHOTO NSLocalizedStringFromTable(@&quot;ALERT_CANT_ADD_PHOTO&quot;, @&quot;AddPhotoViewController&quot;, @&quot;Alert message delivered when there is something that prevents the user from adding a new photo to the database that the user can do nothing about.&quot;)</div></pre></td></tr></table></figure>
+<p>3.创建表的.string文件</p>
+<p>我们已经在AddPhotoViewController.m文件里将需要本地化的字符串添加到了叫做AddPhotoViewController的表里，下面就需要用命令行工具找到该.m文件：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-a043fa2da855615c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="找到.m文件所在目录"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-b3adf539663b1269.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="输入genstrigns ^*m命令"></p>
+<p>4.本地化.string文件</p>
+<p>在第三步中，我们需要手动创建<code>AddPhotoViewController</code>表的.string文件，然后在文件内部将对应的key进行翻译。因为过程略繁琐，所以以动图的形式呈献给大家：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-100dfbddbe7399bb.gif?imageMogr2/auto-orient/strip" alt="本地化string.gif"></p>
+<blockquote>
+<p>失误了，右侧的字符串应该是没有“@”的，大家注意。因为到最后才发现的，不好改了 额。。 理解万岁。。</p>
+</blockquote>
+<h2 id="2-2-非字面量字符串的本地化："><a href="#2-2-非字面量字符串的本地化：" class="headerlink" title="2.2 非字面量字符串的本地化："></a>2.2 非字面量字符串的本地化：</h2><p>在类文件里，有些显示出来的字符串并不都是通过字符串面量赋值的，比如下面这个例子：</p>
+<p><code>self.title = newfrc.fetchRequest.entity.name;</code></p>
+<p>在这里，title取的是模型里的字段，并没有用字面量语法来表示。<br>对于这种情况，我们需要用NSBundle的<code>localizedStringForKey:value:table:</code>方法来进行本地化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self.title = [[NSBundle mainBundle] localizedStringForKey:newfrc.fetchRequest.entity.name</div><div class="line">                         value:newfrc.fetchRequest.entity.name     </div><div class="line">                         table:@&quot;Entities&quot;];</div></pre></td></tr></table></figure>
+<p>这样一来，我们就生成了对应名字叫<strong>Entities</strong>的表的映射。但是这张表对应的.string文件还没有生成，需要我们手动去生成，并设置对应的key和value。生成方法如下所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-965d85e9b008d0c8.gif?imageMogr2/auto-orient/strip" alt="手动生成.string文件"></p>
+<h1 id="设置页的UI"><a href="#设置页的UI" class="headerlink" title="设置页的UI"></a>设置页的UI</h1><hr>
+<p>在苹果系统的设置里，会有我们装入的app的信息和设置。有时，我们需要将一些设置选项放在这里面供用户使用。</p>
+<p>而这里的UI是通过通过Settings bundle来设定的。我们首先要新建一个Settings Bundle:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-d49a21d343306156.gif?imageMogr2/auto-orient/strip" alt="创建Settings Bundle"></p>
+<p>创建成功后，分别有一个slider，switch，和textfield来对应设置页里的UI。</p>
+<p>在设置页里的样子是这样的：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-6dc1b24f8d070871.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建的Settings Bundle 后的设置页效果"></p>
+<p>那么如何使用呢？我们设置一下上一节课的Bouncer Demo的弹性系数：让用户通过调节设置里的slider来调整app里的弹性系数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)resetElasticity</div><div class="line">&#123;</div><div class="line">    //连接代码与Setting Bundle</div><div class="line">    NSNumber *elasticity = [[NSUserDefaults standardUserDefaults] valueForKey:@&quot;Setting_Elasticity&quot;];//连接setting bundle</div><div class="line">    if (elasticity) &#123;</div><div class="line">        //如果有，就取当前设定的</div><div class="line">        self.elastic.elasticity = [elasticity floatValue];</div><div class="line">    &#125; else &#123;</div><div class="line">        //如果没有，就设置为1</div><div class="line">        self.elastic.elasticity = 1.0;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，通过<code>valueForKey</code>的键值对应了Setting Bundle plist 文件里的<code>identifier</code>，我们将plist文件里的<code>identifier</code>修改成了<code>Setting_Elasticity</code>而且更改了<code>Title</code>，而且将按钮和文本框删除掉，只保留了slider：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-f195429739d8262b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Setting Bundle plist"></p>
+<p>所对应的设置页的UI：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-1d15dcab18d5df94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新的设置页UI"></p>
+<p>现在我们可以通过identifier连接了代码和plist文件，获取到了键对应的值。</p>
+<p>而且，我们还需考虑在程序运行过程中，用户跳转到了设置页面来设置弹性系数的情况。因此，我们需要监听用户是否更改了设置里的选项：</p>
+<p>监听用户在设置中的行为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[[NSNotificationCenter defaultCenter] addObserverForName:NSUserDefaultsDidChangeNotification</div><div class="line">                                                  object:nil</div><div class="line">                                                   queue:nil</div><div class="line">                                              usingBlock:^(NSNotification *note) &#123;</div><div class="line">                                                  [self resetElasticity];</div><div class="line">                                              &#125;];</div></pre></td></tr></table></figure>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>当~当~当~当~！<br>笔者终于利用了2个月的部分业余时间总结了所有斯坦福iOS7的课程和相关Demo。通过以博客的形式总结，更加加深了对知识的理解和认识，也对基础知识进行了一次查缺补漏，或许也在一定程度上给其他看到这些博客的同仁们一些帮助吧~</p>
+<p>最后附上这一系列笔者总结的所有Demo在GitHub上的地址：<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">Stanford_iOS_Lecture_DemoBundle</a>。</p>
+<p>笔者下一阶段应该是总结下面两本书的内容：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-0eeac0652f909c84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Effective Objective- C 2.0"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-c1046257878a01d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Swift 基础教程"></p>
+<p>这两本书笔者都已经看了3分之一，因为要总结归纳，所以应该进度不是很快，不过还是会坚持写博客的！</p>
+<p>加油~</p>
+
+  </section>    
+
+</article>
+<section class="read-more">
+           
+    
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">最近的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/13/浅谈互联网商业思维的几个误区 - 读《重来》有感/" title="浅谈互联网商业思维的几个误区 - 读《重来》有感">浅谈互联网商业思维的几个误区 - 读《重来》有感</a></h2>
+                <p class="excerpt">
+                
+                最近读了一些关于互联网思维和管理的一些书籍，感触颇深，想从团队，产品，公司方向和个人几个方面，结合笔者的个人经历分享一下笔者的思考和感悟。
+
+
+关于团队“鸡尾酒会”并不是一个好的氛围鸡尾酒会就是关系并不熟的人的聚会，人们都把自己与他们拉开一段距离，秉承着“你好我好大家好，井水不犯河水”的原则，互不侵
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-13T05:12:57.000Z" class="post-list__meta--date date">2017-01-13</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/BookNote/">BookNote</a>, <a class="tag-link" href="/tags/IT/">IT</a>
+</span><a class="btn-border-small" href="/2017/01/13/浅谈互联网商业思维的几个误区 - 读《重来》有感/">继续阅读</a></div>
+                           
+            </div>
+        
+        
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">更早的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/" title="斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo">斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo</a></h2>
+                <p class="excerpt">
+                
+                本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。
+Core Motion
+CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:30:02.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/">继续阅读</a></div>
+                       
+            </div>
+        
+     
+   
+   
+  
+</section>
+
+            
+            <footer class="footer">
+    <span class="footer__copyright">
+        本站点采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2017 - 本站由 <a href="/">@Monniya</a> 创建,
+        使用 <a href="https://github.com/monniya/hexo-theme-new-vno ">hexo-theme-new-vno</a> 主题,
+        修改自 <a href="https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">Vno</a>, 原创出自<a href="http://github.com/onevcat/vno" target="_blank">onevcat</a>
+    </span>
+
+    <span class="footer__copyright">
+	
+     	本站已经被访问了<span id="busuanzi_value_site_pv"></span><span>次</span>
+
+    </span>
+
+   
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</footer>
+        </div>
+    </div>
+</body>
+</html>
