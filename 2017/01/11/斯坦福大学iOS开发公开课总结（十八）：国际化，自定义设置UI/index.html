@@ -218,11 +218,28 @@
 <li>本地化.string文件</li>
 </ol>
 <p>﻿<br>1.找到 <code>@&quot;Sorry, this device cannot add a photo.&quot;</code> 字符串面量。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">viewDidAppear:</span>(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> <span class="string">viewDidAppear:</span>animated];</div><div class="line">    <span class="keyword">if</span> (![[self <span class="class"><span class="keyword">class</span>] <span class="title">canAddPhoto</span>]) &#123;</span></div><div class="line">        [self <span class="string">fatalAlert:</span>@<span class="string">"Sorry, this device cannot add a photo."</span>]; <span class="comment">//</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [self.locationManager startUpdatingLocation];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>2.通过宏，将字符串面量添加到表中。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">viewDidAppear:</span>(BOOL)animated</div><div class="line">&#123;</div><div class="line">   [<span class="keyword">super</span> <span class="string">viewDidAppear:</span> animated];</div><div class="line">   </div><div class="line">   <span class="keyword">if</span> (![[self <span class="class"><span class="keyword">class</span>] <span class="title">canAddPhoto</span>]) &#123;</span></div><div class="line">       [self <span class="string">fatalAlert:</span>ALERT_CANT_ADD_PHOTO]; <span class="comment">// @"Sorry, this device cannot add a photo."</span></div><div class="line">   &#125; <span class="keyword">else</span> &#123;</div><div class="line">       [self.locationManager startUpdatingLocation];</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">#define</span> <span class="type">ALERT_CANT_ADD_PHOTO</span> <span class="type">NSLocalizedStringFromTable</span>(@<span class="comment">"ALERT_CANT_ADD_PHOTO"</span>, @<span class="comment">"AddPhotoViewController"</span>, @<span class="comment">"Alert message delivered when there is something that prevents the user from adding a new photo to the database that the user can do nothing about."</span>)</div></pre></td></tr></table></figure>
-<p>3.创建表的.string文件</p>
+<pre><code>- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (![[self class] canAddPhoto]) {
+        [self fatalAlert:@&quot;Sorry, this device cannot add a photo.&quot;]; //
+    } else {
+        [self.locationManager startUpdatingLocation];
+    }
+}
+</code></pre><p>2.通过宏，将字符串面量添加到表中。</p>
+<pre><code> - (void)viewDidAppear:(BOOL)animated
+ {
+    [super viewDidAppear: animated];
+
+    if (![[self class] canAddPhoto]) {
+        [self fatalAlert:ALERT_CANT_ADD_PHOTO]; // @&quot;Sorry, this device cannot add a photo.&quot;
+    } else {
+        [self.locationManager startUpdatingLocation];
+    }
+ }
+</code></pre><pre><code>#define ALERT_CANT_ADD_PHOTO NSLocalizedStringFromTable(@&quot;ALERT_CANT_ADD_PHOTO&quot;, @&quot;AddPhotoViewController&quot;, @&quot;Alert message delivered when there is something that prevents the user from adding a new photo to the database that the user can do nothing about.&quot;)
+</code></pre><p>3.创建表的.string文件</p>
 <p>我们已经在AddPhotoViewController.m文件里将需要本地化的字符串添加到了叫做AddPhotoViewController的表里，下面就需要用命令行工具找到该.m文件：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-a043fa2da855615c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="找到.m文件所在目录"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-b3adf539663b1269.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="输入genstrigns ^*m命令"></p>
@@ -235,8 +252,10 @@
 <h2 id="2-2-非字面量字符串的本地化："><a href="#2-2-非字面量字符串的本地化：" class="headerlink" title="2.2 非字面量字符串的本地化："></a>2.2 非字面量字符串的本地化：</h2><p>在类文件里，有些显示出来的字符串并不都是通过字符串面量赋值的，比如下面这个例子：</p>
 <p><code>self.title = newfrc.fetchRequest.entity.name;</code></p>
 <p>在这里，title取的是模型里的字段，并没有用字面量语法来表示。<br>对于这种情况，我们需要用NSBundle的<code>localizedStringForKey:value:table:</code>方法来进行本地化。</p>
-<figure class="highlight profile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">self.title = [[NSBundle mainBundle] localizedStringForKey:newfrc.fetchRequest.entity.name</div><div class="line">                         value:newfrc.fetchRequest.entity.name     </div><div class="line">                         table:@<span class="string">"Entities"</span>];</div></pre></td></tr></table></figure>
-<p>这样一来，我们就生成了对应名字叫<strong>Entities</strong>的表的映射。但是这张表对应的.string文件还没有生成，需要我们手动去生成，并设置对应的key和value。生成方法如下所示：</p>
+<pre><code>self.title = [[NSBundle mainBundle] localizedStringForKey:newfrc.fetchRequest.entity.name
+                         value:newfrc.fetchRequest.entity.name     
+                         table:@&quot;Entities&quot;];
+</code></pre><p>这样一来，我们就生成了对应名字叫<strong>Entities</strong>的表的映射。但是这张表对应的.string文件还没有生成，需要我们手动去生成，并设置对应的key和value。生成方法如下所示：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-965d85e9b008d0c8.gif?imageMogr2/auto-orient/strip" alt="手动生成.string文件"></p>
 <h1 id="设置页的UI"><a href="#设置页的UI" class="headerlink" title="设置页的UI"></a>设置页的UI</h1><hr>
 <p>在苹果系统的设置里，会有我们装入的app的信息和设置。有时，我们需要将一些设置选项放在这里面供用户使用。</p>
@@ -246,16 +265,32 @@
 <p>在设置页里的样子是这样的：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-6dc1b24f8d070871.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新建的Settings Bundle 后的设置页效果"></p>
 <p>那么如何使用呢？我们设置一下上一节课的Bouncer Demo的弹性系数：让用户通过调节设置里的slider来调整app里的弹性系数。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)resetElasticity</div><div class="line">&#123;</div><div class="line">    <span class="comment">//连接代码与Setting Bundle</span></div><div class="line">    <span class="built_in">NSNumber</span> *elasticity = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] valueForKey:<span class="string">@"Setting_Elasticity"</span>];<span class="comment">//连接setting bundle</span></div><div class="line">    <span class="keyword">if</span> (elasticity) &#123;</div><div class="line">        <span class="comment">//如果有，就取当前设定的</span></div><div class="line">        <span class="keyword">self</span>.elastic.elasticity = [elasticity floatValue];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//如果没有，就设置为1</span></div><div class="line">        <span class="keyword">self</span>.elastic.elasticity = <span class="number">1.0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这里，通过<code>valueForKey</code>的键值对应了Setting Bundle plist 文件里的<code>identifier</code>，我们将plist文件里的<code>identifier</code>修改成了<code>Setting_Elasticity</code>而且更改了<code>Title</code>，而且将按钮和文本框删除掉，只保留了slider：</p>
+<pre><code>- (void)resetElasticity
+{
+    //连接代码与Setting Bundle
+    NSNumber *elasticity = [[NSUserDefaults standardUserDefaults] valueForKey:@&quot;Setting_Elasticity&quot;];//连接setting bundle
+    if (elasticity) {
+        //如果有，就取当前设定的
+        self.elastic.elasticity = [elasticity floatValue];
+    } else {
+        //如果没有，就设置为1
+        self.elastic.elasticity = 1.0;
+    }
+}
+</code></pre><p>在这里，通过<code>valueForKey</code>的键值对应了Setting Bundle plist 文件里的<code>identifier</code>，我们将plist文件里的<code>identifier</code>修改成了<code>Setting_Elasticity</code>而且更改了<code>Title</code>，而且将按钮和文本框删除掉，只保留了slider：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-f195429739d8262b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Setting Bundle plist"></p>
 <p>所对应的设置页的UI：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-1d15dcab18d5df94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="新的设置页UI"></p>
 <p>现在我们可以通过identifier连接了代码和plist文件，获取到了键对应的值。</p>
 <p>而且，我们还需考虑在程序运行过程中，用户跳转到了设置页面来设置弹性系数的情况。因此，我们需要监听用户是否更改了设置里的选项：</p>
 <p>监听用户在设置中的行为：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[[NSNotificationCenter defaultCenter] addObserverForName:NSUserDefaultsDidChangeNotification</div><div class="line">                                                  object:nil</div><div class="line">                                                   queue:nil</div><div class="line">                                              usingBlock:^(<span class="name">NSNotification</span> *note) &#123;</div><div class="line">                                                  [self resetElasticity]<span class="comment">;</span></div><div class="line">                                              &#125;]<span class="comment">;</span></div></pre></td></tr></table></figure>
-<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<pre><code>    [[NSNotificationCenter defaultCenter] addObserverForName:NSUserDefaultsDidChangeNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self resetElasticity];
+                                                  }];
+</code></pre><h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
 <p>当~当~当~当~！<br>笔者终于利用了2个月的部分业余时间总结了所有斯坦福iOS7的课程和相关Demo。通过以博客的形式总结，更加加深了对知识的理解和认识，也对基础知识进行了一次查缺补漏，或许也在一定程度上给其他看到这些博客的同仁们一些帮助吧~</p>
 <p>最后附上这一系列笔者总结的所有Demo在GitHub上的地址：<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">Stanford_iOS_Lecture_DemoBundle</a>。</p>
 <p>笔者下一阶段应该是总结下面两本书的内容：</p>
@@ -338,9 +373,5 @@ CoreMotion是一个专门处理设备“动作”的框架，其中包含了加�
 </footer>
         </div>
     </div>
-	
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-
-    
 </body>
 </html>

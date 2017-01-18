@@ -171,47 +171,98 @@
 <p>在本篇总结的最后，会给大家讲解在地图上显示Flickr上摄影师的照片作品。</p>
 <h1 id="Network-Activity-Indicator"><a href="#Network-Activity-Indicator" class="headerlink" title="Network Activity Indicator"></a>Network Activity Indicator</h1><hr>
 <p>顾名思义，该控件叫做网络活动指示器。当app有网络活动时，可以让状态栏左边的小圆圈滚动用来提示用户当前的网络状态。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">getter</span>=<span class="keyword">isNetworkActivityIndicatorVisible</span>) BOOL networkActivityIndicatorVisible;</div></pre></td></tr></table></figure>
-<p>如果设定为YES，状态栏上的小转轮就会转，反之亦然。</p>
+<pre><code>@property(nonatomic,getter=isNetworkActivityIndicatorVisible) BOOL networkActivityIndicatorVisible;
+</code></pre><p>如果设定为YES，状态栏上的小转轮就会转，反之亦然。</p>
 <blockquote>
 <p>注意：应用中的所有线程都可使用这个转轮，我们需要通过各种方法来向用户准确显示转轮的状态。</p>
 </blockquote>
 <h1 id="Core-Location"><a href="#Core-Location" class="headerlink" title="Core Location"></a>Core Location</h1><hr>
 <p>通过该框架的基本类：<code>CLLocation</code>，我们能获得设备处于地球上的位置信息。</p>
-<h2 id="Core-Location几个重要的属性："><a href="#Core-Location几个重要的属性：" class="headerlink" title="Core Location几个重要的属性："></a>Core Location几个重要的属性：</h2><h4 id="1-坐标属性"><a href="#1-坐标属性" class="headerlink" title="1. 坐标属性"></a>1. 坐标属性</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</div><div class="line"><span class="built_in">CLLocationDegrees</span> latitude;    <span class="comment">//double value</span></div><div class="line"><span class="built_in">CLLocationDegrees</span> longitude;   <span class="comment">//double value</span></div><div class="line">&#125; <span class="built_in">CLLocationCoordinate2D</span>;</div></pre></td></tr></table></figure>
-<h4 id="2-高度"><a href="#2-高度" class="headerlink" title="2. 高度"></a>2. 高度</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CLLocationDistance</span> altitude; <span class="comment">//单位是米</span></div></pre></td></tr></table></figure>
-<h4 id="3-变化精度："><a href="#3-变化精度：" class="headerlink" title="3. 变化精度："></a>3. 变化精度：</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CLLocationAccuracy</span> horizontalAccuracy;<span class="comment">//水平精度</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CLLocationAccuracy</span> verticalAccuracy;<span class="comment">//高度精度</span></div></pre></td></tr></table></figure>
-<p>如何获得CLLocation？<br>通过实例化<code>CLLocationManager</code>类，让其告诉它的代理当前设备所处的位置。<br>下面来介绍一下<code>CLLocationManager</code>:</p>
+<h2 id="Core-Location几个重要的属性："><a href="#Core-Location几个重要的属性：" class="headerlink" title="Core Location几个重要的属性："></a>Core Location几个重要的属性：</h2><h4 id="1-坐标属性"><a href="#1-坐标属性" class="headerlink" title="1. 坐标属性"></a>1. 坐标属性</h4><pre><code>typedef struct {
+CLLocationDegrees latitude;    //double value
+CLLocationDegrees longitude;   //double value
+} CLLocationCoordinate2D;
+</code></pre><h4 id="2-高度"><a href="#2-高度" class="headerlink" title="2. 高度"></a>2. 高度</h4><pre><code>@property(readonly, nonatomic) CLLocationDistance altitude; //单位是米
+</code></pre><h4 id="3-变化精度："><a href="#3-变化精度：" class="headerlink" title="3. 变化精度："></a>3. 变化精度：</h4><pre><code>@property(readonly, nonatomic) CLLocationAccuracy horizontalAccuracy;//水平精度
+@property(readonly, nonatomic) CLLocationAccuracy verticalAccuracy;//高度精度
+</code></pre><p>如何获得CLLocation？<br>通过实例化<code>CLLocationManager</code>类，让其告诉它的代理当前设备所处的位置。<br>下面来介绍一下<code>CLLocationManager</code>:</p>
 <h1 id="CLLocationManager"><a href="#CLLocationManager" class="headerlink" title="CLLocationManager"></a>CLLocationManager</h1><hr>
 <h2 id="CLLocationManager的工作步骤："><a href="#CLLocationManager的工作步骤：" class="headerlink" title="CLLocationManager的工作步骤："></a>CLLocationManager的工作步骤：</h2><p>1.查看硬件是否支持位置更新。<br>2.实例化<code>CLLocationManager</code>让其告诉它的代理当前的位置。<br>3.设置位置更新的类型(精度)。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span>(<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CLLocationAccuracy</span> desiredAccuracy; <span class="comment">//期望的经度</span></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CLLocationDistance</span> distanceFilter;  <span class="comment">//更新到该距离之内不要告诉我更新了多少</span></div></pre></td></tr></table></figure>
-<p>4.开始位置监控。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)startUpdatingLocation;<span class="comment">//开始更新位置</span></div><div class="line">- (<span class="keyword">void</span>)stopUpdatingLocation;<span class="comment">//停止位置更新</span></div><div class="line">- (<span class="keyword">void</span>)locationManager:(<span class="built_in">CLLocationManager</span> *)manager didUpdateLocations:(<span class="built_in">NSArray</span>&lt;<span class="built_in">CLLocation</span> *&gt; *)locations;<span class="comment">//位置更新的代理方法</span></div><div class="line">- (<span class="keyword">void</span>)locationManager:(<span class="built_in">CLLocationManager</span> *)manager didFailWithError:(<span class="built_in">NSError</span> *)error;<span class="comment">//更新失败</span></div></pre></td></tr></table></figure>
-<h2 id="位置监控的类型："><a href="#位置监控的类型：" class="headerlink" title="位置监控的类型："></a>位置监控的类型：</h2><h4 id="1-基于精度的监控"><a href="#1-基于精度的监控" class="headerlink" title="1. 基于精度的监控"></a>1. 基于精度的监控</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="built_in">CLLocationAccuracy</span> kCLLocationAccuracyBestForNavigation; <span class="comment">//最精确，但是非常耗能</span></div><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="built_in">CLLocationAccuracy</span> kCLLocationAccuracyBest;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="built_in">CLLocationAccuracy</span> kCLLocationAccuracyNearestTenMeters;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="built_in">CLLocationAccuracy</span> kCLLocationAccuracyHundredMeters;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="built_in">CLLocationAccuracy</span> kCLLocationAccuracyKilometer;</div><div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="built_in">CLLocationAccuracy</span> kCLLocationAccuracyThreeKilometers;</div></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>@property(assign, nonatomic) CLLocationAccuracy desiredAccuracy; //期望的经度
+@property(assign, nonatomic) CLLocationDistance distanceFilter;  //更新到该距离之内不要告诉我更新了多少
+</code></pre><p>4.开始位置监控。</p>
+<pre><code>- (void)startUpdatingLocation;//开始更新位置
+- (void)stopUpdatingLocation;//停止位置更新
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray&lt;CLLocation *&gt; *)locations;//位置更新的代理方法
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error;//更新失败
+</code></pre><h2 id="位置监控的类型："><a href="#位置监控的类型：" class="headerlink" title="位置监控的类型："></a>位置监控的类型：</h2><h4 id="1-基于精度的监控"><a href="#1-基于精度的监控" class="headerlink" title="1. 基于精度的监控"></a>1. 基于精度的监控</h4><pre><code>extern const CLLocationAccuracy kCLLocationAccuracyBestForNavigation; //最精确，但是非常耗能
+extern const CLLocationAccuracy kCLLocationAccuracyBest;
+extern const CLLocationAccuracy kCLLocationAccuracyNearestTenMeters;
+extern const CLLocationAccuracy kCLLocationAccuracyHundredMeters;
+extern const CLLocationAccuracy kCLLocationAccuracyKilometer;
+extern const CLLocationAccuracy kCLLocationAccuracyThreeKilometers;
+</code></pre><blockquote>
 <p>注意：精度越高，耗电量越大</p>
 </blockquote>
-<h4 id="2-位置发生重大变化时更新。"><a href="#2-位置发生重大变化时更新。" class="headerlink" title="2. 位置发生重大变化时更新。"></a>2. 位置发生重大变化时更新。</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="name">void</span>)startMonitoringSignificantLocationChanges<span class="comment">;</span></div><div class="line">- (<span class="name">void</span>)stopMonitoringSignificantLocationChanges <span class="comment">;</span></div></pre></td></tr></table></figure>
-<p>该方法在前台和后台都能监控位置的变化，甚至关掉app后，也可以启动应用告诉用户位置更新:<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (BOOL)<span class="symbol">application:</span>(UIApplication *)application <span class="symbol">didFinishLaunchingWithOptions:</span>(NSDictionary *)launchOptions &#123;</div><div class="line">    <span class="regexp">//</span>如果<span class="string">``</span>launchOptions<span class="string">``</span>存在<span class="string">``</span>UIApplicationLaunchOptionsLocationKey<span class="string">``</span>，说明程序启动的原因是因为位置发生了重大变化</div><div class="line">    <span class="keyword">return</span> YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="3-进入某个区域更新。"><a href="#3-进入某个区域更新。" class="headerlink" title="3. 进入某个区域更新。"></a>3. 进入某个区域更新。</h4><p>3.1设定一个圆形的区域，经过该区域的时候会更新</p>
-<figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>startMonitoringForRegion:<span class="params">(CLRegion *)</span>region;</div><div class="line">- <span class="params">(void)</span>requestStateForRegion:<span class="params">(CLRegion *)</span>region;</div></pre></td></tr></table></figure>
-<p>3.2 通过一个信标来监控</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CLLocationDistance</span> maximumRegionMonitoringDistance;<span class="comment">//设置最大监控距离</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)startRangingBeaconsInRegion:(<span class="built_in">CLBeaconRegion</span> *)region;<span class="comment">//设置信标</span></div></pre></td></tr></table></figure>
-<h4 id="4-监控前进的方向"><a href="#4-监控前进的方向" class="headerlink" title="4. 监控前进的方向"></a>4. 监控前进的方向</h4><h1 id="MapKit"><a href="#MapKit" class="headerlink" title="MapKit"></a>MapKit</h1><hr>
+<h4 id="2-位置发生重大变化时更新。"><a href="#2-位置发生重大变化时更新。" class="headerlink" title="2. 位置发生重大变化时更新。"></a>2. 位置发生重大变化时更新。</h4><pre><code>- (void)startMonitoringSignificantLocationChanges;
+- (void)stopMonitoringSignificantLocationChanges ;
+</code></pre><p>该方法在前台和后台都能监控位置的变化，甚至关掉app后，也可以启动应用告诉用户位置更新:</p>
+<pre><code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //如果``launchOptions``存在``UIApplicationLaunchOptionsLocationKey``，说明程序启动的原因是因为位置发生了重大变化
+    return YES;
+}
+</code></pre><h4 id="3-进入某个区域更新。"><a href="#3-进入某个区域更新。" class="headerlink" title="3. 进入某个区域更新。"></a>3. 进入某个区域更新。</h4><p>3.1设定一个圆形的区域，经过该区域的时候会更新</p>
+<pre><code>- (void)startMonitoringForRegion:(CLRegion *)region;
+- (void)requestStateForRegion:(CLRegion *)region;
+</code></pre><p>3.2 通过一个信标来监控</p>
+<pre><code>@property (readonly, nonatomic) CLLocationDistance maximumRegionMonitoringDistance;//设置最大监控距离
+
+- (void)startRangingBeaconsInRegion:(CLBeaconRegion *)region;//设置信标
+</code></pre><h4 id="4-监控前进的方向"><a href="#4-监控前进的方向" class="headerlink" title="4. 监控前进的方向"></a>4. 监控前进的方向</h4><h1 id="MapKit"><a href="#MapKit" class="headerlink" title="MapKit"></a>MapKit</h1><hr>
 <p>MapKit是用于显示地图的框架，它通过<code>MKMapView</code>来显示地图。<br>我们来看一下该框架中几个比较重要的元素：</p>
 <h2 id="1-MKMapView"><a href="#1-MKMapView" class="headerlink" title="1. MKMapView"></a>1. MKMapView</h2><p>MKMapView就是用来显示地图的View。</p>
-<p>MKMapView的属性：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">MKMapType</span> mapType;<span class="comment">// MKMapTypeStandard : 标准；MKMapTypeSatellite:卫星；MKMapTypeHybrid：叠加</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> showsUserLocation; <span class="comment">//显示用户的地点</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">getter</span>=isUserLocationVisible) <span class="built_in">BOOL</span> userLocationVisible;</div><div class="line"><span class="comment">//用户坐标是否可见</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">getter</span>=isZoomEnabled) <span class="built_in">BOOL</span> zoomEnabled; <span class="comment">//是否可放大缩小</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">getter</span>=isRotateEnabled) <span class="built_in">BOOL</span> rotateEnabled; <span class="comment">//是否可旋转</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">getter</span>=isPitchEnabled) <span class="built_in">BOOL</span> pitchEnabled; <span class="comment">//3D效果</span></div></pre></td></tr></table></figure></p>
-<h2 id="2-MKAnnotationView"><a href="#2-MKAnnotationView" class="headerlink" title="2. MKAnnotationView"></a>2. MKAnnotationView</h2><p>在<code>MKMapView</code>视图里，可以显示用于标注具体位置的“大头针” ，它是MapKit框架里的<code>AnnotationView</code>。</p>
-<p>MKAnnotationView的属性：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">nullable</span>) <span class="keyword">id</span> &lt;<span class="built_in">MKAnnotation</span>&gt; annotation;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">nullable</span>) <span class="built_in">UIImage</span> *image;<span class="comment">//大头针的图像</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>, <span class="keyword">nullable</span>) <span class="built_in">UIView</span> *leftCalloutAccessoryView;<span class="comment">//左附属对话框</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>, <span class="keyword">nullable</span>) <span class="built_in">UIView</span> *rightCalloutAccessoryView;<span class="comment">//右附属对话框</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">getter</span>=isDraggable) <span class="built_in">BOOL</span> draggable <span class="comment">//是否可拖动</span></div></pre></td></tr></table></figure></p>
-<p>大头针被点击时调用的方法：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>mapView:<span class="params">(MKMapView *)</span>mapView didSelectAnnotationView:<span class="params">(MKAnnotationView *)</span>view</div></pre></td></tr></table></figure></p>
-<h2 id="3-id"><a href="#3-id" class="headerlink" title="3. id"></a>3. id<mkannotation></mkannotation></h2><p>AnnotationView的数据源就是：id<mkannotation>，任何遵从该协议的对象都可以成为AnnotationView的数据源，也就是说，任何遵守    <code>MKAnootation</code>协议的对象你都可以将其放入地图中。</mkannotation></p>
-<p>我们先看一下在MKMapView里的关于MKAnnotation的属性：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSArray</span>&lt;<span class="keyword">id</span>&lt;<span class="built_in">MKAnnotation</span>&gt;&gt; *annotations;<span class="comment">//包含MapView所显示的所有Annotaion</span></div></pre></td></tr></table></figure></p>
-<p>注意：annotations是只读的数组，只能添加或者删除。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)addAnnotation:(<span class="keyword">id</span> &lt;<span class="built_in">MKAnnotation</span>&gt;)annotation;</div><div class="line">- (<span class="keyword">void</span>)addAnnotations:(<span class="built_in">NSArray</span>&lt;<span class="keyword">id</span>&lt;<span class="built_in">MKAnnotation</span>&gt;&gt; *)annotations;</div><div class="line">- (<span class="keyword">void</span>)removeAnnotation:(<span class="keyword">id</span> &lt;<span class="built_in">MKAnnotation</span>&gt;)annotation;</div><div class="line">- (<span class="keyword">void</span>)removeAnnotations:(<span class="built_in">NSArray</span>&lt;<span class="keyword">id</span>&lt;<span class="built_in">MKAnnotation</span>&gt;&gt; *)annotations;</div></pre></td></tr></table></figure>
-<p>MKAnnotation协议的方法：</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="less"><span class="variable">@protocol</span> MKAnnotation &lt;NSObject&gt;</span></div><div class="line"><span class="variable">@property</span> (nonatomic, readonly) CLLocationCoordinate2D coordinate; <span class="comment">//坐标</span></div><div class="line"></div><div class="line"><span class="variable">@optional</span></div><div class="line"><span class="variable">@property</span> (nonatomic, readonly, copy, nullable) NSString *title;<span class="comment">//标题</span></div><div class="line"><span class="variable">@property</span> (nonatomic, readonly, copy, nullable) NSString *subtitle;<span class="comment">//副标题</span></div><div class="line"></div><div class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">setCoordinate</span><span class="selector-pseudo">:(CLLocationCoordinate2D)newCoordinate</span> ;<span class="comment">//设置坐标</span></div></pre></td></tr></table></figure>
-<p>那么二者是如何关联的呢？<br>通过MKMapView的代理方法：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">MKAnnotationView</span> *)mapView:(<span class="built_in">MKMapView</span> *)mapView viewForAnnotation:(<span class="keyword">id</span>&lt;<span class="built_in">MKAnnotation</span>&gt;)annotation</div><div class="line">&#123;</div><div class="line">    <span class="comment">//提供一个 annotation，返回一个 MKAnnotationView</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="4-Callout-对话框"><a href="#4-Callout-对话框" class="headerlink" title="4. Callout(对话框)"></a>4. Callout(对话框)</h2><p>点击大头针（MKAnnotationView），会出现一个白底的对话框，它被叫做<code>callout</code>,可以设置它的主标题和副标题。另外还有左右附属实图，它们可以显示图片或者箭头，也可被点击。
+<p>MKMapView的属性：</p>
+<pre><code>@property (nonatomic) MKMapType mapType;// MKMapTypeStandard : 标准；MKMapTypeSatellite:卫星；MKMapTypeHybrid：叠加
+@property (nonatomic) BOOL showsUserLocation; //显示用户的地点
+@property (nonatomic, readonly, getter=isUserLocationVisible) BOOL userLocationVisible;
+//用户坐标是否可见
+@property (nonatomic, getter=isZoomEnabled) BOOL zoomEnabled; //是否可放大缩小
+@property (nonatomic, getter=isRotateEnabled) BOOL rotateEnabled; //是否可旋转
+@property (nonatomic, getter=isPitchEnabled) BOOL pitchEnabled; //3D效果
+</code></pre><h2 id="2-MKAnnotationView"><a href="#2-MKAnnotationView" class="headerlink" title="2. MKAnnotationView"></a>2. MKAnnotationView</h2><p>在<code>MKMapView</code>视图里，可以显示用于标注具体位置的“大头针” ，它是MapKit框架里的<code>AnnotationView</code>。</p>
+<p>MKAnnotationView的属性：</p>
+<pre><code>@property (nonatomic, strong, nullable) id &lt;MKAnnotation&gt; annotation;
+@property (nonatomic, strong, nullable) UIImage *image;//大头针的图像
+@property (strong, nonatomic, nullable) UIView *leftCalloutAccessoryView;//左附属对话框
+@property (strong, nonatomic, nullable) UIView *rightCalloutAccessoryView;//右附属对话框
+@property (nonatomic, getter=isDraggable) BOOL draggable //是否可拖动
+</code></pre><p>大头针被点击时调用的方法：</p>
+<pre><code>- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+</code></pre><h2 id="3-id"><a href="#3-id" class="headerlink" title="3. id"></a>3. id<mkannotation></mkannotation></h2><p>AnnotationView的数据源就是：id<mkannotation>，任何遵从该协议的对象都可以成为AnnotationView的数据源，也就是说，任何遵守    <code>MKAnootation</code>协议的对象你都可以将其放入地图中。</mkannotation></p>
+<p>我们先看一下在MKMapView里的关于MKAnnotation的属性：</p>
+<pre><code>@property (nonatomic, readonly) NSArray&lt;id&lt;MKAnnotation&gt;&gt; *annotations;//包含MapView所显示的所有Annotaion
+</code></pre><p>注意：annotations是只读的数组，只能添加或者删除。</p>
+<pre><code>- (void)addAnnotation:(id &lt;MKAnnotation&gt;)annotation;
+- (void)addAnnotations:(NSArray&lt;id&lt;MKAnnotation&gt;&gt; *)annotations;
+- (void)removeAnnotation:(id &lt;MKAnnotation&gt;)annotation;
+- (void)removeAnnotations:(NSArray&lt;id&lt;MKAnnotation&gt;&gt; *)annotations;
+</code></pre><p>MKAnnotation协议的方法：</p>
+<pre><code>
+
+@protocol MKAnnotation &lt;NSObject&gt;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate; //坐标
+
+@optional
+@property (nonatomic, readonly, copy, nullable) NSString *title;//标题
+@property (nonatomic, readonly, copy, nullable) NSString *subtitle;//副标题
+
+- (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate ;//设置坐标
+</code></pre><p>那么二者是如何关联的呢？<br>通过MKMapView的代理方法：</p>
+<pre><code>- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id&lt;MKAnnotation&gt;)annotation
+{
+    //提供一个 annotation，返回一个 MKAnnotationView
+}
+</code></pre><h2 id="4-Callout-对话框"><a href="#4-Callout-对话框" class="headerlink" title="4. Callout(对话框)"></a>4. Callout(对话框)</h2><p>点击大头针（MKAnnotationView），会出现一个白底的对话框，它被叫做<code>callout</code>,可以设置它的主标题和副标题。另外还有左右附属实图，它们可以显示图片或者箭头，也可被点击。
 ﻿</p>
 <h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
 <h2 id="Demo需求："><a href="#Demo需求：" class="headerlink" title="Demo需求："></a>Demo需求：</h2><ul>
@@ -224,22 +275,162 @@
 <h2 id="重要代码段和知识点："><a href="#重要代码段和知识点：" class="headerlink" title="重要代码段和知识点："></a>重要代码段和知识点：</h2><h4 id="1-更改Core-Data模型"><a href="#1-更改Core-Data模型" class="headerlink" title="1. 更改Core Data模型"></a>1. 更改Core Data模型</h4><p>在上一节课的基础上，我们需要在模型里的<code>Photo</code>实体添加经度和纬度的属性，还有大头针缩略图的URL属性。<br>在更新属性后，一定要重新生成对应该实体的类文件，并且要将原app删除，因为数据库前后是不兼容的。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-0bf538fa1a08fe3d.gif?imageMogr2/auto-orient/strip" alt="更新模型"></p>
 <h4 id="2-新建PhotosByPhotographerMapViewController-h，用来显示MKMapView"><a href="#2-新建PhotosByPhotographerMapViewController-h，用来显示MKMapView" class="headerlink" title="2. 新建PhotosByPhotographerMapViewController.h，用来显示MKMapView"></a>2. 新建PhotosByPhotographerMapViewController.h，用来显示<code>MKMapView</code></h4><p>因为要在地图上显示摄影师所照照片的位置，因此，该类的数据源来自摄影师模型：<code>Photographer</code>。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Photographer.h"</span></span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">PhotosByPhotographerMapViewController</span> : <span class="title">UIViewController</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) Photographer *photographer;<span class="comment">//公共API：摄影师</span></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p>``</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+#import &quot;Photographer.h&quot;
+@interface PhotosByPhotographerMapViewController : UIViewController
+@property (nonatomic, strong) Photographer *photographer;//公共API：摄影师
+@end
+</code></pre><p>``</p>
 <p>#import “PhotosByPhotographerMapViewController.h”</p>
 <p>#import <mapkit mapkit.h=""></mapkit></p>
 <p>@interface PhotosByPhotographerMapViewController ()<mkmapviewdelegate><br>@property (strong, nonatomic) IBOutlet MKMapView <em>mapView;//地图view<br>@property (nonatomic,strong) NSArray </em>photosByPhotographer;//装入摄影师拥有的照片的数组<br>@end</mkmapviewdelegate></p>
 <p>@implementation PhotosByPhotographerMapViewController<br>@end<br>``</p>
 <h4 id="3-导入Mapkit的framework"><a href="#3-导入Mapkit的framework" class="headerlink" title="3. 导入Mapkit的framework"></a>3. 导入Mapkit的framework</h4><p>需要注意的是，除了要在类文件引用<code>&lt;MapKit/MapKit.h&gt;</code>框架以外，还要手动向项目中添加该框架：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-8fb04dfbac7bbdd7.gif?imageMogr2/auto-orient/strip" alt="手动添加MapKit框架.gif"></p>
-<h4 id="4-更新photographer和mapView后更新annotation："><a href="#4-更新photographer和mapView后更新annotation：" class="headerlink" title="4. 更新photographer和mapView后更新annotation："></a>4. 更新photographer和mapView后更新annotation：</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setMapView:(<span class="built_in">MKMapView</span> *)mapView</div><div class="line">&#123;</div><div class="line">    _mapView = mapView;</div><div class="line"></div><div class="line">    <span class="comment">//设置代理</span></div><div class="line">    <span class="keyword">self</span>.mapView.delegate = <span class="keyword">self</span>;</div><div class="line"></div><div class="line">    <span class="comment">//更新</span></div><div class="line">    [<span class="keyword">self</span> updateMapViewAnnotations];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setPhotographer:(Photographer *)photographer</div><div class="line">&#123;</div><div class="line">    _photographer = photographer;</div><div class="line">    <span class="comment">//导航栏标题</span></div><div class="line">    <span class="keyword">self</span>.title = photographer.name;</div><div class="line">    <span class="comment">//准备更新数组，要事先设置其为nil，否则不会生成新的</span></div><div class="line">    <span class="keyword">self</span>.photosByPhotographer = <span class="literal">nil</span>;</div><div class="line">    [<span class="keyword">self</span> updateMapViewAnnotations];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)updateMapViewAnnotations</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span>.mapView removeAnnotations:<span class="keyword">self</span>.mapView.annotations];</div><div class="line">    [<span class="keyword">self</span>.mapView addAnnotations:<span class="keyword">self</span>.photosByPhotographer];</div><div class="line">    [<span class="keyword">self</span>.mapView showAnnotations:<span class="keyword">self</span>.photosByPhotographer animated:<span class="literal">YES</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="5-自定义点击大头针后显示的view"><a href="#5-自定义点击大头针后显示的view" class="headerlink" title="5. 自定义点击大头针后显示的view"></a>5. 自定义点击大头针后显示的view</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">MKAnnotationView</span> *)mapView:(<span class="built_in">MKMapView</span> *)mapView viewForAnnotation:(<span class="keyword">id</span>&lt;<span class="built_in">MKAnnotation</span>&gt;)annotation</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="comment">//类似UITableviewCell的复用</span></div><div class="line">    <span class="keyword">static</span> <span class="built_in">NSString</span> *reuseId = <span class="string">@"PhotosByPhotographerMapViewController"</span>;    </div><div class="line"></div><div class="line">    <span class="built_in">MKPinAnnotationView</span> *view = (<span class="built_in">MKPinAnnotationView</span>*)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];    </div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!view) &#123;</div><div class="line">        view = [[<span class="built_in">MKPinAnnotationView</span> alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];</div><div class="line">       <span class="comment">//是否显示callout</span></div><div class="line">        view.canShowCallout = <span class="literal">YES</span>;</div><div class="line">        <span class="comment">//设置左部分的callout：UIImageView</span></div><div class="line">        <span class="built_in">UIImageView</span> *imageView = [[<span class="built_in">UIImageView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">46</span>, <span class="number">46</span>)];</div><div class="line">        view.leftCalloutAccessoryView = imageView;</div><div class="line">        <span class="comment">//设置右部分的callout：UIButton</span></div><div class="line">        <span class="built_in">UIButton</span> *disclosurebutton = [[<span class="built_in">UIButton</span> alloc] init];</div><div class="line">        [disclosurebutton setBackgroundImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"disclosure"</span>] forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">        [disclosurebutton sizeToFit];</div><div class="line">        view.rightCalloutAccessoryView = disclosurebutton;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    view.annotation = annotation;</div><div class="line">    <span class="keyword">return</span> view;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="6-点击大头针，更新callout左侧显示的缩略图"><a href="#6-点击大头针，更新callout左侧显示的缩略图" class="headerlink" title="6. 点击大头针，更新callout左侧显示的缩略图"></a>6. 点击大头针，更新callout左侧显示的缩略图</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  点击大头针view</div><div class="line"> *</div><div class="line"> *  @param mapView 大头针所属的mapView</div><div class="line"> *  @param view    大头针view</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)mapView:(<span class="built_in">MKMapView</span> *)mapView didSelectAnnotationView:(<span class="built_in">MKAnnotationView</span> *)view</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span> updateLeftCalloutAccessoryViewInAnnotationView:view];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  更新callout里的图片（在左侧）</div><div class="line"> *</div><div class="line"> *  @param annotationView 当前被点击的大头针view</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)updateLeftCalloutAccessoryViewInAnnotationView:(<span class="built_in">MKAnnotationView</span> *)annotationView</div><div class="line">&#123;</div><div class="line">    <span class="built_in">UIImageView</span> *imageView = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">if</span> ([annotationView.leftCalloutAccessoryView isKindOfClass:[<span class="built_in">UIImageView</span> <span class="keyword">class</span>]]) &#123;</div><div class="line">        imageView = (<span class="built_in">UIImageView</span> *)annotationView.leftCalloutAccessoryView;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (imageView) &#123;</div><div class="line">        Photo *photo = <span class="literal">nil</span>;</div><div class="line">        <span class="keyword">if</span> ([annotationView.annotation isKindOfClass:[Photo <span class="keyword">class</span>]]) &#123;</div><div class="line">            photo = (Photo *)annotationView.annotation;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (photo) &#123;</div><div class="line">            <span class="built_in">NSString</span> *urlString = photo.thumbnailURL;</div><div class="line">            imageView.image = [<span class="built_in">UIImage</span> imageWithData:[<span class="built_in">NSData</span> dataWithContentsOfURL:[<span class="built_in">NSURL</span> URLWithString:urlString]]];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<h4 id="4-更新photographer和mapView后更新annotation："><a href="#4-更新photographer和mapView后更新annotation：" class="headerlink" title="4. 更新photographer和mapView后更新annotation："></a>4. 更新photographer和mapView后更新annotation：</h4><pre><code>- (void)setMapView:(MKMapView *)mapView
+{
+    _mapView = mapView;
+
+    //设置代理
+    self.mapView.delegate = self;
+
+    //更新
+    [self updateMapViewAnnotations];
+}
+
+- (void)setPhotographer:(Photographer *)photographer
+{
+    _photographer = photographer;
+    //导航栏标题
+    self.title = photographer.name;
+    //准备更新数组，要事先设置其为nil，否则不会生成新的
+    self.photosByPhotographer = nil;
+    [self updateMapViewAnnotations];
+}
+
+- (void)updateMapViewAnnotations
+{
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    [self.mapView addAnnotations:self.photosByPhotographer];
+    [self.mapView showAnnotations:self.photosByPhotographer animated:YES];
+}
+</code></pre><h4 id="5-自定义点击大头针后显示的view"><a href="#5-自定义点击大头针后显示的view" class="headerlink" title="5. 自定义点击大头针后显示的view"></a>5. 自定义点击大头针后显示的view</h4><pre><code>- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id&lt;MKAnnotation&gt;)annotation
+{
+
+    //类似UITableviewCell的复用
+    static NSString *reuseId = @&quot;PhotosByPhotographerMapViewController&quot;;    
+
+    MKPinAnnotationView *view = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseId];    
+
+    if (!view) {
+        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseId];
+       //是否显示callout
+        view.canShowCallout = YES;
+        //设置左部分的callout：UIImageView
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 46, 46)];
+        view.leftCalloutAccessoryView = imageView;
+        //设置右部分的callout：UIButton
+        UIButton *disclosurebutton = [[UIButton alloc] init];
+        [disclosurebutton setBackgroundImage:[UIImage imageNamed:@&quot;disclosure&quot;] forState:UIControlStateNormal];
+        [disclosurebutton sizeToFit];
+        view.rightCalloutAccessoryView = disclosurebutton;
+    }
+
+    view.annotation = annotation;
+    return view;
+
+}
+</code></pre><h4 id="6-点击大头针，更新callout左侧显示的缩略图"><a href="#6-点击大头针，更新callout左侧显示的缩略图" class="headerlink" title="6. 点击大头针，更新callout左侧显示的缩略图"></a>6. 点击大头针，更新callout左侧显示的缩略图</h4><pre><code>
+/**
+ *  点击大头针view
+ *
+ *  @param mapView 大头针所属的mapView
+ *  @param view    大头针view
+ */
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    [self updateLeftCalloutAccessoryViewInAnnotationView:view];
+}
+
+/**
+ *  更新callout里的图片（在左侧）
+ *
+ *  @param annotationView 当前被点击的大头针view
+ */
+- (void)updateLeftCalloutAccessoryViewInAnnotationView:(MKAnnotationView *)annotationView
+{
+    UIImageView *imageView = nil;
+    if ([annotationView.leftCalloutAccessoryView isKindOfClass:[UIImageView class]]) {
+        imageView = (UIImageView *)annotationView.leftCalloutAccessoryView;
+    }
+    if (imageView) {
+        Photo *photo = nil;
+        if ([annotationView.annotation isKindOfClass:[Photo class]]) {
+            photo = (Photo *)annotationView.annotation;
+        }
+        if (photo) {
+            NSString *urlString = photo.thumbnailURL;
+            imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]]];
+        }
+    }
+}
+</code></pre><blockquote>
 <p>注意：显示图片的代码：<code>imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]]];</code>方法会阻塞主线程，实际操作中应该放在子线程中执行。详情请参考笔者另一篇讲解关于多线程的博客：<a href="http://www.jianshu.com/p/6e74f5438f2c" target="_blank" rel="external">最浅显易懂的iOS多线程技术 - GCD的教程</a>。</p>
 </blockquote>
-<h4 id="7-点击callout，在下一页面显示原图"><a href="#7-点击callout，在下一页面显示原图" class="headerlink" title="7. 点击callout，在下一页面显示原图"></a>7. 点击callout，在下一页面显示原图</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  点击callout实行跳转</div><div class="line"> *</div><div class="line"> *  <span class="doctag">@param</span> mapView 当前的mapView</div><div class="line"> *  <span class="doctag">@param</span> view    当前callout所属的AnnotationView</div><div class="line"> *  <span class="doctag">@param</span> control callout内部被点击的控件</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)<span class="string">mapView:</span>(MKMapView *)mapView <span class="string">annotationView:</span>(MKAnnotationView *)view <span class="string">calloutAccessoryControlTapped:</span>(UIControl *)control</div><div class="line">&#123;</div><div class="line">    [self <span class="string">performSegueWithIdentifier:</span>@<span class="string">"Show Photo"</span> <span class="string">sender:</span>view];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  调转执行前的代码</div><div class="line"> *</div><div class="line"> *  <span class="doctag">@param</span> segue  连接前后两个控制器的segue</div><div class="line"> *  <span class="doctag">@param</span> sender 被点击的AnnotaionView</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)<span class="string">prepareForSegue:</span>(UIStoryboardSegue *)segue <span class="string">sender:</span>(id)sender</div><div class="line">&#123;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span> ([sender <span class="string">isKindOfClass:</span>[MKAnnotationView <span class="class"><span class="keyword">class</span>]]) &#123;</span></div><div class="line">        [self <span class="string">prepareViewController:</span>segue.destinationViewController</div><div class="line"><span class="symbol">                           forSegue:</span>segue.identifier</div><div class="line"><span class="symbol">                   toShowAnnotation:</span>((MKAnnotationView *)sender).annotation];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  为目标控制器准备数据（图片的URL）</div><div class="line"> *</div><div class="line"> *  <span class="doctag">@param</span> vc              目标控制器</div><div class="line"> *  <span class="doctag">@param</span> segueIdentifier segue.identifier</div><div class="line"> *  <span class="doctag">@param</span> annotation      被点击的AnnotaionView</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)<span class="string">prepareViewController:</span>(id)vc</div><div class="line"><span class="symbol">                     forSegue:</span>(NSString *)segueIdentifier</div><div class="line"><span class="symbol">             toShowAnnotation:</span>(id &lt;MKAnnotation&gt;)annotation</div><div class="line">&#123;</div><div class="line">    Photo *photo = nil;</div><div class="line">    <span class="keyword">if</span> ([annotation <span class="string">isKindOfClass:</span>[Photo <span class="class"><span class="keyword">class</span>]]) &#123;</span></div><div class="line">        photo = (Photo *)annotation;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (photo) &#123;</div><div class="line">        <span class="keyword">if</span> (![segueIdentifier length] || [segueIdentifier <span class="string">isEqualToString:</span>@<span class="string">"Show Photo"</span>]) &#123;</div><div class="line">            <span class="keyword">if</span> ([vc <span class="string">isKindOfClass:</span>[ImageViewController <span class="class"><span class="keyword">class</span>]]) &#123;</span></div><div class="line">                ImageViewController *ivc = (ImageViewController *)vc;</div><div class="line">                ivc.imageURL = [NSURL <span class="string">URLWithString:</span>photo.imageURL];</div><div class="line">                ivc.title = photo.title;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<h4 id="7-点击callout，在下一页面显示原图"><a href="#7-点击callout，在下一页面显示原图" class="headerlink" title="7. 点击callout，在下一页面显示原图"></a>7. 点击callout，在下一页面显示原图</h4><pre><code>/**
+ *  点击callout实行跳转
+ *
+ *  @param mapView 当前的mapView
+ *  @param view    当前callout所属的AnnotationView
+ *  @param control callout内部被点击的控件
+ */
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    [self performSegueWithIdentifier:@&quot;Show Photo&quot; sender:view];
+}
+
+/**
+ *  调转执行前的代码
+ *
+ *  @param segue  连接前后两个控制器的segue
+ *  @param sender 被点击的AnnotaionView
+ */
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+
+    if ([sender isKindOfClass:[MKAnnotationView class]]) {
+        [self prepareViewController:segue.destinationViewController
+                           forSegue:segue.identifier
+                   toShowAnnotation:((MKAnnotationView *)sender).annotation];
+    }
+}
+
+/**
+ *  为目标控制器准备数据（图片的URL）
+ *
+ *  @param vc              目标控制器
+ *  @param segueIdentifier segue.identifier
+ *  @param annotation      被点击的AnnotaionView
+ */
+- (void)prepareViewController:(id)vc
+                     forSegue:(NSString *)segueIdentifier
+             toShowAnnotation:(id &lt;MKAnnotation&gt;)annotation
+{
+    Photo *photo = nil;
+    if ([annotation isKindOfClass:[Photo class]]) {
+        photo = (Photo *)annotation;
+    }
+    if (photo) {
+        if (![segueIdentifier length] || [segueIdentifier isEqualToString:@&quot;Show Photo&quot;]) {
+            if ([vc isKindOfClass:[ImageViewController class]]) {
+                ImageViewController *ivc = (ImageViewController *)vc;
+                ivc.imageURL = [NSURL URLWithString:photo.imageURL];
+                ivc.title = photo.title;
+            }
+        }
+    }
+}
+</code></pre><blockquote>
 <p>注意：这里的<code>ivc.imageURL = [NSURL URLWithString:photo.imageURL];</code>代码同样会阻塞主线程，实际操作中应该放在子线程来做！</p>
 <p>而且,本demo的图片地址应该都是在墙外的，所以最好先让电脑翻墙，然后在模拟器上运行比较好。</p>
 </blockquote>
@@ -264,7 +455,7 @@
 模态视图
 模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。
 显示模态视图：
-1  [
+  [s
                 &hellip;
                 </p>
                 <div class="post-list__meta"><time datetime="2017-01-11T07:28:46.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
@@ -322,9 +513,5 @@
 </footer>
         </div>
     </div>
-	
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-
-    
 </body>
 </html>

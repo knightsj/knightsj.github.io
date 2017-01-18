@@ -176,12 +176,28 @@
 <li>令视图透明会加大系统的开销。</li>
 <li>通过判断控制器view的<code>self.view.window</code>是否存在来判断控制器view是否被显示出来。</li>
 </ul>
-<h2 id="UIView的一些属性和方法"><a href="#UIView的一些属性和方法" class="headerlink" title="UIView的一些属性和方法"></a>UIView的一些属性和方法</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@property</span> CGFloat contentScaleFactor; <span class="comment">//返回每个点所有的像素数 ：非retina为1，retina为2</span></div><div class="line"></div><div class="line"><span class="selector-tag">-</span> (UIView *)<span class="selector-tag">superView</span>; <span class="comment">//指向自己的父视图</span></div><div class="line"><span class="selector-tag">-</span> (NSArray *)<span class="selector-tag">subview</span>; <span class="comment">//自己的所有子视图的数组</span></div><div class="line"></div><div class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">addSubview</span>: (Uiview *)<span class="selector-tag">aView</span>;<span class="comment">// 发送给目标父视图，让其把aView作为自己的子视图</span></div><div class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">removeFromSuperview</span>;  <span class="comment">//消息发送给要移除的vie</span></div></pre></td></tr></table></figure>
-<h2 id="View的初始化方法："><a href="#View的初始化方法：" class="headerlink" title="View的初始化方法："></a>View的初始化方法：</h2><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">void</span>)awakeFromNib &#123;[self setup];&#125;  //通过故事版创建的<span class="type">View</span>的初始化</div><div class="line">- (id)initWithFrame: (<span class="type">CGRect</span>)aRect    //通过纯代码创建的<span class="type">View</span>的初始化</div><div class="line">&#123;</div><div class="line">     self = [super initWithFrame:aRect];</div><div class="line">     [self setup];</div><div class="line">     <span class="keyword">return</span> self;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">void</span>)setup <span class="meta">&#123;....&#125;</span>;</div></pre></td></tr></table></figure>
-<h2 id="Custom-View-自定义视图"><a href="#Custom-View-自定义视图" class="headerlink" title="Custom View 自定义视图"></a>Custom View 自定义视图</h2><p>在iOS中，自定义是图的方法是创建一个UIView的子类并重写 <code>- (void)drawInRect:(Rect)rect</code>方法。</p>
+<h2 id="UIView的一些属性和方法"><a href="#UIView的一些属性和方法" class="headerlink" title="UIView的一些属性和方法"></a>UIView的一些属性和方法</h2><pre><code>@property CGFloat contentScaleFactor; //返回每个点所有的像素数 ：非retina为1，retina为2
+
+- (UIView *)superView; //指向自己的父视图
+- (NSArray *)subview; //自己的所有子视图的数组
+
+- (void)addSubview: (Uiview *)aView;// 发送给目标父视图，让其把aView作为自己的子视图
+- (void)removeFromSuperview;  //消息发送给要移除的vie
+</code></pre><h2 id="View的初始化方法："><a href="#View的初始化方法：" class="headerlink" title="View的初始化方法："></a>View的初始化方法：</h2><pre><code>- (void)awakeFromNib {[self setup];}  //通过故事版创建的View的初始化
+- (id)initWithFrame: (CGRect)aRect    //通过纯代码创建的View的初始化
+{
+     self = [super initWithFrame:aRect];
+     [self setup];
+     return self;
+}
+
+- (void)setup {....};
+</code></pre><h2 id="Custom-View-自定义视图"><a href="#Custom-View-自定义视图" class="headerlink" title="Custom View 自定义视图"></a>Custom View 自定义视图</h2><p>在iOS中，自定义是图的方法是创建一个UIView的子类并重写 <code>- (void)drawInRect:(Rect)rect</code>方法。</p>
 <blockquote>
-<p>注意：永远都不要自己调用这个方法，要交给系统负责！<br>可以调用以下的方法，告诉系统这个视图要被重绘：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- <span class="params">(void)</span>setNeedsDisplay;</div><div class="line">- <span class="params">(void)</span>setNeedsDisplayInRect: <span class="params">(CGRect)</span>aRect</div></pre></td></tr></table></figure></p>
-</blockquote>
+<p>注意：永远都不要自己调用这个方法，要交给系统负责！<br>可以调用以下的方法，告诉系统这个视图要被重绘：</p>
+<pre><code>- (void)setNeedsDisplay;
+- (void)setNeedsDisplayInRect: (CGRect)aRect
+</code></pre></blockquote>
 <p>那么具体怎样重写 <code>- (void)drawInRect:(Rect)rect</code>方法来绘图呢？<br>答：应用Core Graphics的相关知识。</p>
 <h2 id="Core-Graphics"><a href="#Core-Graphics" class="headerlink" title="Core Graphics"></a>Core Graphics</h2><p>Core Graphics是一套基于C的API框架，使用了Quartz作为绘图引擎，使用Core Graphics，可以创建直线、路径、渐变、文字与图像等内容，并可以做变形处理。</p>
 <h3 id="Core-Grephics的工作步骤："><a href="#Core-Grephics的工作步骤：" class="headerlink" title="Core Grephics的工作步骤："></a>Core Grephics的工作步骤：</h3><ol>
@@ -197,12 +213,26 @@
 <li>在视图中添加手势识别对象。</li>
 <li>提供手势发生时所需要调用的方法。</li>
 </ol>
-<h2 id="手势种类："><a href="#手势种类：" class="headerlink" title="手势种类："></a>手势种类：</h2><p><strong>1. UIPanGestureRecognizer ： 拖动手势</strong><br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">setPannableView:</span>(UIView*)pannableView</div><div class="line">&#123;</div><div class="line">     _pannableView = pananbleView;</div><div class="line">     UIPanGestureRecognizer *pangr = [UIPanGestureRecognizer alloc] <span class="string">initWithTarget:</span>pannableView <span class="string">action:</span> <span class="meta">@selector</span>(<span class="string">pan:</span>)];</div><div class="line">     [pannableView <span class="string">addGestureRecognnizer:</span>panr];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>2. UIPinchGestureReccognizer ：捏合手势</strong><br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">property</span><span class="title"> </span>CGFloat scale;   捏合手势距离</div><div class="line">@<span class="keyword">property</span><span class="title"> </span>(readonly) CGFloat velocity; 每分钟变化的速度</div></pre></td></tr></table></figure></p>
-<p><strong>3. UIRotationGestureRecgnizer 旋转手势</strong><br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">property</span><span class="title"> </span>CGFloat rotation;   弧度</div><div class="line">@<span class="keyword">property</span><span class="title"> </span>(readonly) CGFloat velocity; 每秒变化的速度</div></pre></td></tr></table></figure></p>
-<p><strong>4. UISwipeGestureRecgnizer ： 滑动手势</strong><br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@property</span> UISwipeGestureRecognizerDirection direction 滑动方向</div><div class="line"><span class="variable">@property</span> NSUInteger numberOfTouchesRequired; 几只手指来完成</div></pre></td></tr></table></figure></p>
-<p><strong>5. UITapGestureRecognizer ：点击手势</strong><br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@property</span> NSUInteger numberOfTapsReqired；几次点击</div><div class="line"><span class="variable">@property</span> NSUInteger numberOfTouchesRequired;     几只手指来完成</div></pre></td></tr></table></figure></p>
-<blockquote>
+<h2 id="手势种类："><a href="#手势种类：" class="headerlink" title="手势种类："></a>手势种类：</h2><p><strong>1. UIPanGestureRecognizer ： 拖动手势</strong></p>
+<pre><code>- (void)setPannableView:(UIView*)pannableView
+{
+     _pannableView = pananbleView;
+     UIPanGestureRecognizer *pangr = [UIPanGestureRecognizer alloc] initWithTarget:pannableView action: @selector(pan:)];
+     [pannableView addGestureRecognnizer:panr];
+}
+</code></pre><p><strong>2. UIPinchGestureReccognizer ：捏合手势</strong></p>
+<pre><code>@property CGFloat scale;   捏合手势距离
+@property (readonly) CGFloat velocity; 每分钟变化的速度
+</code></pre><p><strong>3. UIRotationGestureRecgnizer 旋转手势</strong></p>
+<pre><code>@property CGFloat rotation;   弧度
+@property (readonly) CGFloat velocity; 每秒变化的速度
+</code></pre><p><strong>4. UISwipeGestureRecgnizer ： 滑动手势</strong></p>
+<pre><code>@property UISwipeGestureRecognizerDirection direction 滑动方向
+@property NSUInteger numberOfTouchesRequired; 几只手指来完成
+</code></pre><p><strong>5. UITapGestureRecognizer ：点击手势</strong></p>
+<pre><code>@property NSUInteger numberOfTapsReqired；几次点击
+@property NSUInteger numberOfTouchesRequired;     几只手指来完成
+</code></pre><blockquote>
 <p>以上第4，5项手势是非连续手势；1，2，3属于连续手势。<br>注意区分滑动手势和拖动手势。滑动手势是指短促，快速地滑动的手势，而拖动手势是相对较慢，路径较长的手势。</p>
 </blockquote>
 <h1 id="绘制纸牌Demo"><a href="#绘制纸牌Demo" class="headerlink" title="绘制纸牌Demo"></a>绘制纸牌Demo</h1><hr>
@@ -212,14 +242,110 @@
 <li>捏合手势可以伸缩纸牌正面的图案大小。</li>
 </ul>
 <h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-aedaf67a6c46a092.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左二图：翻牌 | 右二图：伸缩"></p>
-<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-绘制纸牌正反面"><a href="#1-绘制纸牌正反面" class="headerlink" title="1. 绘制纸牌正反面"></a>1. 绘制纸牌正反面</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect &#123;</div><div class="line"></div><div class="line">    <span class="comment">//初始化一个圆角矩形</span></div><div class="line">    <span class="built_in">UIBezierPath</span> *roundRect = [<span class="built_in">UIBezierPath</span> bezierPathWithRoundedRect:<span class="keyword">self</span>.bounds cornerRadius:[<span class="keyword">self</span> cornerRadius]];</div><div class="line"></div><div class="line">    <span class="comment">//裁剪，保证不会绘制四角</span></div><div class="line">    [roundRect addClip];</div><div class="line"></div><div class="line">    <span class="comment">//填充白色</span></div><div class="line">    [[<span class="built_in">UIColor</span> whiteColor] setFill];</div><div class="line">     <span class="built_in">UIRectFill</span>(<span class="keyword">self</span>.bounds);</div><div class="line"></div><div class="line">    <span class="comment">//轮廓</span></div><div class="line">    [[<span class="built_in">UIColor</span> blackColor] setStroke];</div><div class="line">    [roundRect stroke];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.faceUp) &#123;</div><div class="line"></div><div class="line">        <span class="comment">//1. 纸牌正面</span></div><div class="line">        <span class="comment">//1.1 纸牌正面中间的图</span></div><div class="line">        <span class="built_in">UIImage</span> *faceImage = [<span class="built_in">UIImage</span> imageNamed:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@%@"</span>,[<span class="keyword">self</span> rankAsString],<span class="keyword">self</span>.suit]];</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (faceImage) &#123;</div><div class="line"></div><div class="line">            <span class="built_in">CGRect</span> imageRect = <span class="built_in">CGRectInset</span>(<span class="keyword">self</span>.bounds, <span class="keyword">self</span>.bounds.size.width * (<span class="number">1.0</span> - <span class="keyword">self</span>.faceCardScaleFactor) + <span class="number">20</span>, <span class="keyword">self</span>.bounds.size.height * ( <span class="number">1.0</span> - <span class="keyword">self</span>.faceCardScaleFactor  ) + <span class="number">20</span>);</div><div class="line">            [faceImage drawInRect:imageRect];</div><div class="line">        &#125;</div><div class="line">      </div><div class="line">        <span class="comment">//1.2 纸牌正面四个角</span></div><div class="line">        [<span class="keyword">self</span> drawCorners];</div><div class="line"></div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//2. 纸牌背面</span></div><div class="line">        [[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"cardBack"</span>] drawInRect:<span class="keyword">self</span>.bounds];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-绘制纸牌边角的花色和数字"><a href="#2-绘制纸牌边角的花色和数字" class="headerlink" title="2. 绘制纸牌边角的花色和数字"></a>2. 绘制纸牌边角的花色和数字</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)drawCorners</div><div class="line">&#123;    </div><div class="line">    <span class="comment">//设定段落排列</span></div><div class="line">    <span class="built_in">NSMutableParagraphStyle</span> *paragraphStype = [[<span class="built_in">NSMutableParagraphStyle</span> alloc] init];</div><div class="line">    paragraphStype.alignment = <span class="built_in">NSTextAlignmentCenter</span>;</div><div class="line"></div><div class="line">   <span class="comment">//设定字体</span></div><div class="line">    <span class="built_in">UIFont</span> *cornerFont = [<span class="built_in">UIFont</span> preferredFontForTextStyle:<span class="built_in">UIFontTextStyleBody</span>];</div><div class="line">    cornerFont = [cornerFont fontWithSize:cornerFont.pointSize * [<span class="keyword">self</span> cornerScaleFactor]]; </div><div class="line"></div><div class="line">    <span class="comment">//角落文字</span></div><div class="line">    <span class="built_in">NSAttributedString</span> *cornerText = [[<span class="built_in">NSAttributedString</span> alloc] initWithString:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@\n%@"</span>, [<span class="keyword">self</span> rankAsString], <span class="keyword">self</span>.suit] attributes:@&#123;<span class="built_in">NSFontAttributeName</span>:cornerFont,<span class="built_in">NSParagraphStyleAttributeName</span>:paragraphStype&#125;];</div><div class="line"></div><div class="line">    <span class="comment">//左上角</span></div><div class="line">    <span class="comment">//1. 获得图片的rect</span></div><div class="line">    <span class="built_in">CGRect</span> textBounds;</div><div class="line">    textBounds.origin = <span class="built_in">CGPointMake</span>([<span class="keyword">self</span> cornerOffset], [<span class="keyword">self</span> cornerOffset]);</div><div class="line">    textBounds.size = [cornerText size];</div><div class="line"></div><div class="line">     <span class="comment">//2.绘制文字</span></div><div class="line">    [cornerText drawInRect:textBounds];</div><div class="line"></div><div class="line">    <span class="comment">//右下角</span></div><div class="line">    <span class="comment">//1. 获取上下文</span></div><div class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</div><div class="line">    <span class="comment">// 2. 移动上下文</span></div><div class="line">    <span class="built_in">CGContextTranslateCTM</span>(context, <span class="keyword">self</span>.bounds.size.width, <span class="keyword">self</span>.bounds.size.height);</div><div class="line">     <span class="comment">//3. 翻转上下文（翻转180度）</span></div><div class="line">    <span class="built_in">CGContextRotateCTM</span>(context, M_PI);</div><div class="line">     <span class="comment">//4. 绘制</span></div><div class="line">    [cornerText drawInRect:textBounds];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-绘制纸牌正反面"><a href="#1-绘制纸牌正反面" class="headerlink" title="1. 绘制纸牌正反面"></a>1. 绘制纸牌正反面</h4><pre><code>- (void)drawRect:(CGRect)rect {
+
+    //初始化一个圆角矩形
+    UIBezierPath *roundRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:[self cornerRadius]];
+
+    //裁剪，保证不会绘制四角
+    [roundRect addClip];
+
+    //填充白色
+    [[UIColor whiteColor] setFill];
+     UIRectFill(self.bounds);
+
+    //轮廓
+    [[UIColor blackColor] setStroke];
+    [roundRect stroke];
+
+    if (self.faceUp) {
+
+        //1. 纸牌正面
+        //1.1 纸牌正面中间的图
+        UIImage *faceImage = [UIImage imageNamed:[NSString stringWithFormat:@&quot;%@%@&quot;,[self rankAsString],self.suit]];
+
+        if (faceImage) {
+
+            CGRect imageRect = CGRectInset(self.bounds, self.bounds.size.width * (1.0 - self.faceCardScaleFactor) + 20, self.bounds.size.height * ( 1.0 - self.faceCardScaleFactor  ) + 20);
+            [faceImage drawInRect:imageRect];
+        }
+
+        //1.2 纸牌正面四个角
+        [self drawCorners];
+
+    }else{
+
+        //2. 纸牌背面
+        [[UIImage imageNamed:@&quot;cardBack&quot;] drawInRect:self.bounds];
+    }
+}
+</code></pre><h4 id="2-绘制纸牌边角的花色和数字"><a href="#2-绘制纸牌边角的花色和数字" class="headerlink" title="2. 绘制纸牌边角的花色和数字"></a>2. 绘制纸牌边角的花色和数字</h4><pre><code>- (void)drawCorners
+{    
+    //设定段落排列
+    NSMutableParagraphStyle *paragraphStype = [[NSMutableParagraphStyle alloc] init];
+    paragraphStype.alignment = NSTextAlignmentCenter;
+
+   //设定字体
+    UIFont *cornerFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cornerFont = [cornerFont fontWithSize:cornerFont.pointSize * [self cornerScaleFactor]]; 
+
+    //角落文字
+    NSAttributedString *cornerText = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@&quot;%@\n%@&quot;, [self rankAsString], self.suit] attributes:@{NSFontAttributeName:cornerFont,NSParagraphStyleAttributeName:paragraphStype}];
+
+    //左上角
+    //1. 获得图片的rect
+    CGRect textBounds;
+    textBounds.origin = CGPointMake([self cornerOffset], [self cornerOffset]);
+    textBounds.size = [cornerText size];
+
+     //2.绘制文字
+    [cornerText drawInRect:textBounds];
+
+    //右下角
+    //1. 获取上下文
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    // 2. 移动上下文
+    CGContextTranslateCTM(context, self.bounds.size.width, self.bounds.size.height);
+     //3. 翻转上下文（翻转180度）
+    CGContextRotateCTM(context, M_PI);
+     //4. 绘制
+    [cornerText drawInRect:textBounds];
+}
+</code></pre><blockquote>
 <p>我们可以看到，图片和文字的绘图方法都是可以通过<code>drawInRect:</code>方法来进行：通过传入需要绘制的<code>rect</code>，可以让系统根据原始的素材（图片，文字）来绘图。</p>
 </blockquote>
-<h4 id="3-添加手势：连线方式"><a href="#3-添加手势：连线方式" class="headerlink" title="3. 添加手势：连线方式"></a>3. 添加手势：连线方式</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  滑动手势翻转牌</div><div class="line"> *</div><div class="line"> *  @param sender 滑动手势</div><div class="line"> */</div><div class="line"></div><div class="line">- (<span class="keyword">IBAction</span>)swipe:(<span class="keyword">id</span>)sender &#123;</div><div class="line"> </div><div class="line">   <span class="comment">//翻转牌面</span></div><div class="line">    <span class="keyword">self</span>.playCardView.faceUp  = !<span class="keyword">self</span>.playCardView.faceUp;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="4-添加手势：代码方式"><a href="#4-添加手势：代码方式" class="headerlink" title="4. 添加手势：代码方式"></a>4. 添加手势：代码方式</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1. 添加捏合手势</span></div><div class="line"> [<span class="keyword">self</span>.playCardView addGestureRecognizer:[[<span class="built_in">UIPinchGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span>.playCardView</div><div class="line">                                                                                    action:<span class="keyword">@selector</span>(pinch:)]];</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  2. 捏合手势调用的方法</div><div class="line"> *</div><div class="line"> *  @param gesture 捏合手势</div><div class="line"> */</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)pinch:(<span class="built_in">UIPinchGestureRecognizer</span> *)gesture</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (gesture.state == <span class="built_in">UIGestureRecognizerStateChanged</span> || gesture.state == <span class="built_in">UIGestureRecognizerStateEnded</span>) &#123;</div><div class="line">       <span class="comment">//根据捏合的程度来伸缩图片</span></div><div class="line">        <span class="keyword">self</span>.faceCardScaleFactor *= gesture.scale;</div><div class="line">        gesture.scale = <span class="number">1.0</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<h4 id="3-添加手势：连线方式"><a href="#3-添加手势：连线方式" class="headerlink" title="3. 添加手势：连线方式"></a>3. 添加手势：连线方式</h4><pre><code>/**
+ *  滑动手势翻转牌
+ *
+ *  @param sender 滑动手势
+ */
+
+- (IBAction)swipe:(id)sender {
+
+   //翻转牌面
+    self.playCardView.faceUp  = !self.playCardView.faceUp;
+
+}
+</code></pre><h4 id="4-添加手势：代码方式"><a href="#4-添加手势：代码方式" class="headerlink" title="4. 添加手势：代码方式"></a>4. 添加手势：代码方式</h4><pre><code>//1. 添加捏合手势
+ [self.playCardView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.playCardView
+                                                                                    action:@selector(pinch:)]];
+
+/**
+ *  2. 捏合手势调用的方法
+ *
+ *  @param gesture 捏合手势
+ */
+
+- (void)pinch:(UIPinchGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateChanged || gesture.state == UIGestureRecognizerStateEnded) {
+       //根据捏合的程度来伸缩图片
+        self.faceCardScaleFactor *= gesture.scale;
+        gesture.scale = 1.0;
+
+    }
+}
+</code></pre><blockquote>
 <p>在手势识别调用的方法里，我们需要对手势本身的状态加以判断以确保各种交互的实现都是正确的。</p>
 </blockquote>
 <h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
@@ -300,9 +426,5 @@
 </footer>
         </div>
     </div>
-	
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-
-    
 </body>
 </html>

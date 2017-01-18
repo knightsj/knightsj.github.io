@@ -173,37 +173,131 @@
 <h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><hr>
 <p>第四节课做的纸牌配对游戏只有一个ViewController，它导入了<code>PlayingCardDek.h</code>类，说明该ViewController只适用于纸牌游戏。如果我们想换一类牌，那么显然目前使用的ViewController是不适用的。</p>
 <p>具体看一下代码：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"PlayingCardDeck.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line"></div><div class="line">- (CardMatchingGame *)game</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!_game) &#123;</div><div class="line">        _game = [[CardMatchingGame alloc] initWithCardCount:[<span class="keyword">self</span>.cardButtons count] usingDeck:[<span class="keyword">self</span> createDeck]];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> _game;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    <span class="comment">//实例化了 PlayingCardDeck 类</span></div><div class="line">    <span class="keyword">return</span> [[PlayingCardDeck alloc] init];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>#import &quot;ViewController.h&quot;
+#import &quot;PlayingCardDeck.h&quot;
+
+@implementation ViewController
+
+- (CardMatchingGame *)game
+{
+    if (!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    }
+    return _game;
+}
+
+
+- (Deck *)createDeck
+{
+    //实例化了 PlayingCardDeck 类
+    return [[PlayingCardDeck alloc] init];
+}
+</code></pre><blockquote>
 <p>为了将该ViewController作为通用的控制器，我们需要将它设置为抽象类。通过创造不同的继承它的字类来实现各种各样的纸牌配对游戏。</p>
 </blockquote>
 <h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><p><strong>抽象类</strong>就是不能被实例化的类，它具有某种普遍性，可以通过继承它来实现基于这种普遍性并带有其他特性的字类。</p>
 <p>举个🌰：船是一个具有普遍性的抽象类。基于这个抽象来，如果我们添加了木桨，就可以造一个木桨船；如果我们给它添加了帆，就可以早一个帆船等等。。</p>
 <p>因此，在这里，我们需要将纸牌游戏的牌堆抽象出来，如果这个牌堆里是扑克牌，那么这个游戏就是扑克牌配对游戏；如果这个牌堆里的牌是塔罗牌，那么这个牌就是卡洛牌配对游戏。</p>
 <h2 id="如何创建抽象类的具体子类？"><a href="#如何创建抽象类的具体子类？" class="headerlink" title="如何创建抽象类的具体子类？"></a>如何创建抽象类的具体子类？</h2><h4 id="1-将该类抽象化："><a href="#1-将该类抽象化：" class="headerlink" title="1. 将该类抽象化："></a>1. 将该类抽象化：</h4><p>从上面的代码可以看到，控制器的实例化是基于<code>createDeck</code>方法的(这个方法将<code>扑克牌堆</code>的模型交给了控制器), 如果可以阻止模型的生成就阻止控制器的实例化。因此我们将<code>createDeck</code>的方法的返回值设为nil：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"PlayingCardDeck.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line"></div><div class="line">- (CardMatchingGame *)game</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!_game) &#123;</div><div class="line">        _game = [[CardMatchingGame alloc] initWithCardCount:[<span class="keyword">self</span>.cardButtons count] usingDeck:[<span class="keyword">self</span> createDeck]];</div><div class="line">    &#125;    </div><div class="line">    <span class="keyword">return</span> _game;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>#import &quot;ViewController.h&quot;
+#import &quot;PlayingCardDeck.h&quot;
+
+@implementation ViewController
+
+- (CardMatchingGame *)game
+{
+    if (!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    }    
+    return _game;
+}
+
+- (Deck *)createDeck
+{
+    return nil;
+}
+</code></pre><blockquote>
 <p>这样一来，该类无法取得自己的模型实例，就无法正常工作，变得“抽象”。</p>
 </blockquote>
-<h4 id="2-将需要字类实现的方法放在抽象类的公共API中："><a href="#2-将需要字类实现的方法放在抽象类的公共API中：" class="headerlink" title="2. 将需要字类实现的方法放在抽象类的公共API中："></a>2. 将需要字类实现的方法放在抽象类的公共API中：</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"Deck.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span></span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  abstract metod, for subclasses</div><div class="line"> *</div><div class="line"> *  @return 各种类型不同的纸牌堆</div><div class="line"> */</div><div class="line">- (Deck *)createDeck;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<blockquote>
+<h4 id="2-将需要字类实现的方法放在抽象类的公共API中："><a href="#2-将需要字类实现的方法放在抽象类的公共API中：" class="headerlink" title="2. 将需要字类实现的方法放在抽象类的公共API中："></a>2. 将需要字类实现的方法放在抽象类的公共API中：</h4><pre><code>#import &lt;UIKit/UIKit.h&gt;
+#import &quot;Deck.h&quot;
+
+@interface ViewController : UIViewController
+
+/**
+ *  abstract metod, for subclasses
+ *
+ *  @return 各种类型不同的纸牌堆
+ */
+- (Deck *)createDeck;
+
+@end
+</code></pre><blockquote>
 <p>不难想到，子类将该方法实现的过程就是实例化具有不同特性的具体类的过程！这也就实现了类的多态。</p>
 </blockquote>
 <h4 id="3-创造继承抽象的子类"><a href="#3-创造继承抽象的子类" class="headerlink" title="3. 创造继承抽象的子类"></a>3. 创造继承抽象的子类</h4><p>新建一个继承于抽象类<code>ViewController</code>的字类<code>PlayingCardViewController</code>：</p>
 <p><strong>PlayingCardViewController.h</strong></p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">PlayingCardViewController</span> : <span class="title">ViewController</span></span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p><strong>PlayingCardViewController.m</strong></p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"PlayingCardViewController.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"PlayingCardDeck.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">PlayingCardViewController</span> ()</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">PlayingCardViewController</span></span></div><div class="line"></div><div class="line"><span class="comment">//只需要实现</span></div><div class="line">- (Deck *)createDeck</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [[PlayingCardDeck alloc] init];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>#import &quot;ViewController.h&quot;
+
+@interface PlayingCardViewController : ViewController
+
+@end
+</code></pre><p><strong>PlayingCardViewController.m</strong></p>
+<pre><code>#import &quot;PlayingCardViewController.h&quot;
+#import &quot;PlayingCardDeck.h&quot;
+
+@interface PlayingCardViewController ()
+
+@end
+
+@implementation PlayingCardViewController
+
+//只需要实现
+- (Deck *)createDeck
+{
+    return [[PlayingCardDeck alloc] init];
+}
+
+@end
+</code></pre><blockquote>
 <p>这样一来，我们就获得了一个扑克牌配对游戏的ViewController。<br>将来，如果我们还有别的继承与<code>Deck</code>的牌，就可以用相同的方法：通过创建继承该抽象类并实现<code>createDeck</code>的方法来完成。</p>
 </blockquote>
 <h1 id="多MVC的实现：通过导航控制器管理多个ViewController"><a href="#多MVC的实现：通过导航控制器管理多个ViewController" class="headerlink" title="多MVC的实现：通过导航控制器管理多个ViewController"></a>多MVC的实现：通过导航控制器管理多个ViewController</h1><hr>
 <p><strong>导航控制器</strong>拥有一个<strong>栈数据结构</strong>，它可以将多个控制器压入自己的栈结构中来管理这些控制器。我们经常看到的界面<strong>滑入滑出</strong>的过程就是导航控制器的栈结构在<strong>压入弹出</strong>控制器的过程。而每个控制器管理一个MVC模型，导航控制器通过管理这些控制器实现了管理多MVC的目的。</p>
 <p><strong>需要注意的是</strong>：手机的屏幕每次只能显示一个MVC模型的View。在view的切换过程中，手机界面显示的是<strong>当前处于导航控制器栈顶的控制器的视图！</strong>当该视图被移除界面的时候，该MVC的数据就会被释放。因此，每次要显示一个新的MVC的时候，都会创建一个新的MVC。</p>
-<h2 id="控制器在导航控制器的栈结构中弹出"><a href="#控制器在导航控制器的栈结构中弹出" class="headerlink" title="控制器在导航控制器的栈结构中弹出"></a>控制器在导航控制器的栈结构中弹出</h2><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)<span class="keyword">popViewController</span></div><div class="line">&#123;</div><div class="line">    //<span class="keyword">self是当前的控制器，它的navigationController属性指向管理自己的导航控制器</span></div><div class="line">   [<span class="keyword">self.navigationController </span><span class="keyword">popViewControllerAnimitaed:YES];</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="跳转到下一个控制器之前执行的方法："><a href="#跳转到下一个控制器之前执行的方法：" class="headerlink" title="跳转到下一个控制器之前执行的方法："></a>跳转到下一个控制器之前执行的方法：</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">prepareForSegue:</span>(UIStroyboardSegue *)segue <span class="string">sender:</span> (id)sender</div><div class="line">&#123;</div><div class="line"></div><div class="line"> <span class="comment">//segue的identifier属性用来区分不同的控制器</span></div><div class="line">  <span class="keyword">if</span> ([segue.identifier <span class="string">isEqualToString:</span>@<span class="string">"DoSomething"</span>])</div><div class="line">  &#123; </div><div class="line">      <span class="comment">//segue的destinationViewController指向的是下一个要滑入界面的控制器</span></div><div class="line">      <span class="keyword">if</span> ([segue.destinationViewController <span class="string">isKindOfClass:</span>[DoSomethingVC <span class="class"><span class="keyword">class</span>]])&#123;</span></div><div class="line">      </div><div class="line">       DoSomethingVC *doVC = (DoSomethingVC *)segue.desitinationViewController；</div><div class="line">       doVC.infoString = self.infoString;</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="判断是否可以跳转的方法"><a href="#判断是否可以跳转的方法" class="headerlink" title="判断是否可以跳转的方法"></a>判断是否可以跳转的方法</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)shouldPerformSegueWithIdentifier: (<span class="built_in">NSString</span> *)identifier sender: (<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line"></div><div class="line">  <span class="keyword">if</span>([segue.identifier isEqualToString:<span class="string">@"DoAParticularThing"</span>])</div><div class="line">  &#123;</div><div class="line">     <span class="comment">//此方法是用来确定跳转的可行性，因为有时如果缺少下一个界面的数据是不能跳转的</span></div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> canDoAParticularThing]? <span class="literal">YES</span>:<span class="literal">NO</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="多MVC-Demo"><a href="#多MVC-Demo" class="headerlink" title="多MVC Demo"></a>多MVC Demo</h1><h2 id="DEMO需求："><a href="#DEMO需求：" class="headerlink" title="DEMO需求："></a>DEMO需求：</h2><ul>
+<h2 id="控制器在导航控制器的栈结构中弹出"><a href="#控制器在导航控制器的栈结构中弹出" class="headerlink" title="控制器在导航控制器的栈结构中弹出"></a>控制器在导航控制器的栈结构中弹出</h2><pre><code>- (void)popViewController
+{
+    //self是当前的控制器，它的navigationController属性指向管理自己的导航控制器
+   [self.navigationController popViewControllerAnimitaed:YES];
+
+}
+</code></pre><h2 id="跳转到下一个控制器之前执行的方法："><a href="#跳转到下一个控制器之前执行的方法：" class="headerlink" title="跳转到下一个控制器之前执行的方法："></a>跳转到下一个控制器之前执行的方法：</h2><pre><code>- (void)prepareForSegue:(UIStroyboardSegue *)segue sender: (id)sender
+{
+
+ //segue的identifier属性用来区分不同的控制器
+  if ([segue.identifier isEqualToString:@&quot;DoSomething&quot;])
+  { 
+      //segue的destinationViewController指向的是下一个要滑入界面的控制器
+      if ([segue.destinationViewController isKindOfClass:[DoSomethingVC class]]){
+
+       DoSomethingVC *doVC = (DoSomethingVC *)segue.desitinationViewController；
+       doVC.infoString = self.infoString;
+      }
+
+    }
+
+}
+</code></pre><h2 id="判断是否可以跳转的方法"><a href="#判断是否可以跳转的方法" class="headerlink" title="判断是否可以跳转的方法"></a>判断是否可以跳转的方法</h2><pre><code>- (BOOL)shouldPerformSegueWithIdentifier: (NSString *)identifier sender: (id)sender
+{
+
+  if([segue.identifier isEqualToString:@&quot;DoAParticularThing&quot;])
+  {
+     //此方法是用来确定跳转的可行性，因为有时如果缺少下一个界面的数据是不能跳转的
+    return [self canDoAParticularThing]? YES:NO;
+  }
+
+}
+</code></pre><h1 id="多MVC-Demo"><a href="#多MVC-Demo" class="headerlink" title="多MVC Demo"></a>多MVC Demo</h1><h2 id="DEMO需求："><a href="#DEMO需求：" class="headerlink" title="DEMO需求："></a>DEMO需求：</h2><ul>
 <li>在第一个页面可以设置字符属性</li>
 <li>点击第一个页面导航栏右侧的按钮跳转到第二个页面</li>
 <li>在第二个页面统计第一个页面中添加色彩和边框的字符数量</li>
@@ -216,11 +310,55 @@
 <li>然后在第一个页面跳转到第二个页面之前将数据赋予第二个页面的这个公共属性实现传值。</li>
 </ol>
 <p><strong>1. 在第二个页面设置公共属性</strong>：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"ViewController.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">TextAnylizeViewController</span> : <span class="title">UIViewController</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">retain</span>) <span class="built_in">NSAttributedString</span> *textToAnalyze;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p><strong>2. 在第一个页面跳转到第二个页面之前执行传值</strong></p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)<span class="string">prepareForSegue:</span>(UIStoryboardSegue *)segue <span class="string">sender:</span>(id)sender</div><div class="line">&#123;</div><div class="line">    <span class="comment">//1. 首先判断segue的identifier</span></div><div class="line">    <span class="keyword">if</span> ([segue.identifier <span class="string">isEqualToString:</span>@<span class="string">"Analyze Text"</span>]) &#123;</div><div class="line">         <span class="comment">//2. 然后判断目标控制器的类型</span></div><div class="line">        <span class="keyword">if</span> ([segue.destinationViewController <span class="string">isKindOfClass:</span>[TextAnylizeViewController <span class="class"><span class="keyword">class</span>]]) &#123;</span></div><div class="line">            <span class="comment">//3. 在1和2都确定的情况下，实例化第二个页面</span></div><div class="line">            TextAnylizeViewController *analyzeVC = (TextAnylizeViewController*)segue.destinationViewController;</div><div class="line">            <span class="comment">//4. 将第一个页面的字符串赋予第二个页面，用于第二个页面的分析</span></div><div class="line">            analyzeVC.textToAnalyze = self.body.textStorage;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="获取一段字符中，具有某种属性的字符串"><a href="#获取一段字符中，具有某种属性的字符串" class="headerlink" title="获取一段字符中，具有某种属性的字符串"></a>获取一段字符中，具有某种属性的字符串</h4><figure class="highlight fortran"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">- (NSAttributedString *)charactersWithAttribute: (NSString *)attributedName</div><div class="line">&#123;</div><div class="line">    NSMutableAttributedString *characters = [[NSMutableAttributedString alloc] init];</div><div class="line">    </div><div class="line">    NSUInteger <span class="built_in">index</span> = <span class="number">0</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">while</span> (<span class="built_in">index</span> &lt; [self.textToAnalyze length]) &#123;</div><div class="line">        </div><div class="line">        NSRange <span class="built_in">range</span>;</div><div class="line">        </div><div class="line">        //查找一段字符串中，具有某种相同属性的值</div><div class="line">        id <span class="keyword">value</span> = [self.textToAnalyze attribute:attributedName atIndex:<span class="built_in">index</span> effectiveRange:&amp;<span class="built_in">range</span>];</div><div class="line">       </div><div class="line">        <span class="keyword">if</span> (<span class="keyword">value</span>) &#123;</div><div class="line">            //如果值存在，获取具有该相同属性的字符串</div><div class="line">            [characters appendAttributedString:[self.textToAnalyze attributedSubstringFromRange:<span class="built_in">range</span>]];</div><div class="line">            </div><div class="line">            //将<span class="built_in">index</span>移动到具有该相同属性的字符串的下一位</div><div class="line">            <span class="built_in">index</span> = <span class="built_in">range</span>.location + <span class="built_in">range</span>.length;</div><div class="line">        </div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="built_in">index</span> ++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> characters;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="搭建导航控制器-Navigation-Controller"><a href="#搭建导航控制器-Navigation-Controller" class="headerlink" title="搭建导航控制器(Navigation Controller)"></a>搭建导航控制器(Navigation Controller)</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-7a518741341460be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导航控制器"></p>
+<pre><code>#import &quot;ViewController.h&quot;
+
+@interface TextAnylizeViewController : UIViewController
+
+@property (nonatomic, retain) NSAttributedString *textToAnalyze;
+
+@end
+</code></pre><p><strong>2. 在第一个页面跳转到第二个页面之前执行传值</strong></p>
+<pre><code>- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //1. 首先判断segue的identifier
+    if ([segue.identifier isEqualToString:@&quot;Analyze Text&quot;]) {
+         //2. 然后判断目标控制器的类型
+        if ([segue.destinationViewController isKindOfClass:[TextAnylizeViewController class]]) {
+            //3. 在1和2都确定的情况下，实例化第二个页面
+            TextAnylizeViewController *analyzeVC = (TextAnylizeViewController*)segue.destinationViewController;
+            //4. 将第一个页面的字符串赋予第二个页面，用于第二个页面的分析
+            analyzeVC.textToAnalyze = self.body.textStorage;
+        }
+    }
+}
+</code></pre><h4 id="获取一段字符中，具有某种属性的字符串"><a href="#获取一段字符中，具有某种属性的字符串" class="headerlink" title="获取一段字符中，具有某种属性的字符串"></a>获取一段字符中，具有某种属性的字符串</h4><pre><code>- (NSAttributedString *)charactersWithAttribute: (NSString *)attributedName
+{
+    NSMutableAttributedString *characters = [[NSMutableAttributedString alloc] init];
+
+    NSUInteger index = 0;
+
+    while (index &lt; [self.textToAnalyze length]) {
+
+        NSRange range;
+
+        //查找一段字符串中，具有某种相同属性的值
+        id value = [self.textToAnalyze attribute:attributedName atIndex:index effectiveRange:&amp;range];
+
+        if (value) {
+            //如果值存在，获取具有该相同属性的字符串
+            [characters appendAttributedString:[self.textToAnalyze attributedSubstringFromRange:range]];
+
+            //将index移动到具有该相同属性的字符串的下一位
+            index = range.location + range.length;
+
+        }else{
+            index ++;
+        }
+    }
+
+    return characters;
+}
+</code></pre><h4 id="搭建导航控制器-Navigation-Controller"><a href="#搭建导航控制器-Navigation-Controller" class="headerlink" title="搭建导航控制器(Navigation Controller)"></a>搭建导航控制器(Navigation Controller)</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-7a518741341460be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导航控制器"></p>
 <h4 id="搭建选项卡栏控制器-Tab-Bar-Controller"><a href="#搭建选项卡栏控制器-Tab-Bar-Controller" class="headerlink" title="搭建选项卡栏控制器(Tab Bar Controller)"></a>搭建选项卡栏控制器(Tab Bar Controller)</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-c477e12dc9779726.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选项卡栏控制器"></p>
 <h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
 <p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
@@ -305,9 +443,5 @@ UIView
 </footer>
         </div>
     </div>
-	
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-
-    
 </body>
 </html>

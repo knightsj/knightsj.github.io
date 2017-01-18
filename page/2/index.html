@@ -180,7 +180,8 @@ Core Data是一种持久化技术，它能将模型对象的状态持
     
       UITableview
 UITableview是iOS软件中最常见的视图，用来以表格的形式显示数据。
-数据源方法123- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现- (NSInteger)numberOfSectionsInTableView:(UITableView *)tabl
+数据源方法- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableV
     &hellip;
       </p>
       <div class="post-list__meta"><time datetime="2017-01-11T07:20:18.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
@@ -324,7 +325,9 @@ UIView
       本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。
 懒加载(lazy instantiation)
 懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。
-123456789101112131415161718@int
+@interface ViewController ()
+
+@
     &hellip;
       </p>
       <div class="post-list__meta"><time datetime="2017-01-11T07:01:11.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
@@ -470,9 +473,5 @@ Part 1 整体性学习策略
 </footer>
         </div>
     </div>
-	
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-
-    
 </body>
 </html>

@@ -203,8 +203,8 @@
 <blockquote>
 <p><strong>注意</strong>：<br>这里的线程都为子线程，如果给数据加了锁，就等于将这些异步的子线程变成同步的了，这也叫做线程同步技术。</p>
 </blockquote>
-<h4 id="3-2-互斥锁使用："><a href="#3-2-互斥锁使用：" class="headerlink" title="3.2 互斥锁使用："></a>3.2 互斥锁使用：</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@synchronized(锁对象)</span> &#123; <span class="comment">// 需要锁定的代码  &#125;;</span></div></pre></td></tr></table></figure>
-<h4 id="3-3-互斥锁的优缺点"><a href="#3-3-互斥锁的优缺点" class="headerlink" title="3.3 互斥锁的优缺点"></a>3.3 互斥锁的优缺点</h4><p>优点：能有效防止因多线程抢夺资源造成的数据安全问题<br>缺点：需要消耗大量的CPU资源</p>
+<h4 id="3-2-互斥锁使用："><a href="#3-2-互斥锁使用：" class="headerlink" title="3.2 互斥锁使用："></a>3.2 互斥锁使用：</h4><pre><code>@synchronized(锁对象) { // 需要锁定的代码  };
+</code></pre><h4 id="3-3-互斥锁的优缺点"><a href="#3-3-互斥锁的优缺点" class="headerlink" title="3.3 互斥锁的优缺点"></a>3.3 互斥锁的优缺点</h4><p>优点：能有效防止因多线程抢夺资源造成的数据安全问题<br>缺点：需要消耗大量的CPU资源</p>
 <p>互斥锁的使用前提：多条线程抢夺同一块资源的时候使用。</p>
 <h4 id="3-4互斥锁在iOS开发中的使用"><a href="#3-4互斥锁在iOS开发中的使用" class="headerlink" title="3.4互斥锁在iOS开发中的使用"></a>3.4互斥锁在iOS开发中的使用</h4><p>OC在定义属性时有<code>nonatomic</code>和<code>atomic</code>两种选择</p>
 <ul>
@@ -244,107 +244,197 @@
 </blockquote>
 <h2 id="5-队列的创建"><a href="#5-队列的创建" class="headerlink" title="5. 队列的创建"></a>5. 队列的创建</h2><h3 id="5-1-串行队列的创建："><a href="#5-1-串行队列的创建：" class="headerlink" title="5.1 串行队列的创建："></a>5.1 串行队列的创建：</h3><p>GCD中获得串行有2种途径：</p>
 <p>1.使用<code>dispatch_queue_create</code>函数创建串行队列</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建串行队列（队列类型传递NULL或者DISPATCH_QUEUE_SERIAL）</span></div><div class="line"><span class="keyword">dispatch_queue_t</span> <span class="built_in">queue</span> = dispatch_queue_create(<span class="string">"serial_queue"</span>, <span class="literal">NULL</span>);</div></pre></td></tr></table></figure>
-<p>2.使用主队列（跟主线程相关联的队列）</p>
+<pre><code>// 创建串行队列（队列类型传递NULL或者DISPATCH_QUEUE_SERIAL）
+dispatch_queue_t queue = dispatch_queue_create(&quot;serial_queue&quot;, NULL);
+</code></pre><p>2.使用主队列（跟主线程相关联的队列）</p>
 <p>主队列是GCD自带的一种特殊的串行队列：放在主队列中的任务，都会放到主线程中执行。<br>可以使用dispatch_get_main_queue()获得系统提供的主队列：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">dispatch_queue_t</span> <span class="built_in">queue</span> = dispatch_get_main_queue();</div></pre></td></tr></table></figure>
-<h3 id="5-2-并发队列的创建："><a href="#5-2-并发队列的创建：" class="headerlink" title="5.2 并发队列的创建："></a>5.2 并发队列的创建：</h3><p>1.使用<code>dispatch_queue_create</code>函数创建并发队列。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">dispatch_queue_t</span> <span class="built_in">queue</span> = dispatch_queue_create(<span class="string">"concurrent.queue"</span>, DISPATCH_QUEUE_CONCURRENT);</div></pre></td></tr></table></figure>
-<p>2.使用<code>dispatch_get_global_queue</code>获得全局并发队列。</p>
+<pre><code>dispatch_queue_t queue = dispatch_get_main_queue();
+</code></pre><h3 id="5-2-并发队列的创建："><a href="#5-2-并发队列的创建：" class="headerlink" title="5.2 并发队列的创建："></a>5.2 并发队列的创建：</h3><p>1.使用<code>dispatch_queue_create</code>函数创建并发队列。</p>
+<pre><code>dispatch_queue_t queue = dispatch_queue_create(&quot;concurrent.queue&quot;, DISPATCH_QUEUE_CONCURRENT);
+</code></pre><p>2.使用<code>dispatch_get_global_queue</code>获得全局并发队列。</p>
 <p>GCD默认已经提供了全局的并发队列，供整个应用使用，可以无需手动创建。</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">dispatch_queue_t </span>queue = <span class="keyword">dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, </span><span class="number">0</span>)<span class="comment">;</span></div></pre></td></tr></table></figure>
-<h2 id="6-GCD的几种重要的应用"><a href="#6-GCD的几种重要的应用" class="headerlink" title="6. GCD的几种重要的应用"></a>6. GCD的几种重要的应用</h2><h3 id="6-1-子线程与主线程的通信"><a href="#6-1-子线程与主线程的通信" class="headerlink" title="6.1 子线程与主线程的通信"></a>6.1 子线程与主线程的通信</h3><p>需求点:我们有时需要在子线程处理一个耗时比较长的任务，而且此任务完成后，要在主线程执行另一个任务。<br>例子：从网络加载图片（在子线程），加载完成就更新UIView（在主线程）。</p>
+<pre><code>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+</code></pre><h2 id="6-GCD的几种重要的应用"><a href="#6-GCD的几种重要的应用" class="headerlink" title="6. GCD的几种重要的应用"></a>6. GCD的几种重要的应用</h2><h3 id="6-1-子线程与主线程的通信"><a href="#6-1-子线程与主线程的通信" class="headerlink" title="6.1 子线程与主线程的通信"></a>6.1 子线程与主线程的通信</h3><p>需求点:我们有时需要在子线程处理一个耗时比较长的任务，而且此任务完成后，要在主线程执行另一个任务。<br>例子：从网络加载图片（在子线程），加载完成就更新UIView（在主线程）。</p>
 <p>为了实现这个需求，我们需要首先拿到全局并发队列（或自己开启一个子线程）来执行耗时的操作，然后在其完成block中拿到全局串行队列来执行UI刷新的任务。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line"></div><div class="line">            <span class="comment">//加载图片</span></div><div class="line">            <span class="built_in">NSData</span> *dataFromURL = [<span class="built_in">NSData</span> dataWithContentsOfURL:imageURL];</div><div class="line">            <span class="built_in">UIImage</span> *imageFromData = [<span class="built_in">UIImage</span> imageWithData:dataFromURL];</div><div class="line"></div><div class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">        </div><div class="line">            <span class="comment">//加载完成更新view</span></div><div class="line">            <span class="built_in">UIImageView</span> *imageView = [[<span class="built_in">UIImageView</span> alloc] initWithImage:imageFromData];          </div><div class="line">    &#125;);      </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<blockquote>
+<pre><code>  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+              //加载图片
+              NSData *dataFromURL = [NSData dataWithContentsOfURL:imageURL];
+              UIImage *imageFromData = [UIImage imageWithData:dataFromURL];
+
+      dispatch_async(dispatch_get_main_queue(), ^{
+
+              //加载完成更新view
+              UIImageView *imageView = [[UIImageView alloc] initWithImage:imageFromData];          
+      });      
+  });
+</code></pre><blockquote>
 <p>以笔者的拙见，除了复杂的算法，网络请求以外，大多数<code>dataWithContentsOf。。。</code>函数可能也会比较耗时，所以以后遇到与NSData交互的操作时，尽量将其放在子线程执行。</p>
 </blockquote>
 <h4 id="6-2-dispatch-once"><a href="#6-2-dispatch-once" class="headerlink" title="6.2 dispatch_once"></a>6.2 dispatch_once</h4><p>需求点：用于在程序启动到终止，只执行一次的代码。此代码被执行后，相当于自身全部被加上了注释，不会再执行了。<br>为了实现这个需求，我们需要使用<code>dispatch_once</code>让代码在运行一次后即刻被“雪藏”。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用dispatch_once函数能保证某段代码在程序运行过程中只被执行1次</span></div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line"><span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">    <span class="comment">// 只执行1次的代码，这里默认是线程安全的：不会有其他线程可以访问到这里</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h4 id="6-3-dispatch-group"><a href="#6-3-dispatch-group" class="headerlink" title="6.3 dispatch_group"></a>6.3 dispatch_group</h4><p>需求点：执行多个耗时的异步任务，但是只能等到这些任务都执行完毕后，才能在主线程执行某个任务。<br>为了实现这个需求，我们需要让将这些异步执行的操作放在<code>dispatch_group_async</code>函数中执行，最后再调用<code>dispatch_group_notify</code>来执行最后执行的任务。</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">dispatch_group_t group =  dispatch_group_create()<span class="comment">;</span></div><div class="line">dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">    // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">&#125;)<span class="comment">;</span></div><div class="line"></div><div class="line">dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">    // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">&#125;)<span class="comment">;</span></div><div class="line"></div><div class="line">dispatch_group_notify(<span class="name">group</span>, dispatch_get_main_queue(), ^&#123;</div><div class="line">    // 等前面的异步操作都执行完毕后，回到主线程...</div><div class="line">&#125;)<span class="comment">;</span></div></pre></td></tr></table></figure>
-<p>让我们看一下示例代码和运行结果：</p>
+<pre><code>//使用dispatch_once函数能保证某段代码在程序运行过程中只被执行1次
+
+static dispatch_once_t onceToken;
+dispatch_once(&amp;onceToken, ^{
+    // 只执行1次的代码，这里默认是线程安全的：不会有其他线程可以访问到这里
+});
+</code></pre><h4 id="6-3-dispatch-group"><a href="#6-3-dispatch-group" class="headerlink" title="6.3 dispatch_group"></a>6.3 dispatch_group</h4><p>需求点：执行多个耗时的异步任务，但是只能等到这些任务都执行完毕后，才能在主线程执行某个任务。<br>为了实现这个需求，我们需要让将这些异步执行的操作放在<code>dispatch_group_async</code>函数中执行，最后再调用<code>dispatch_group_notify</code>来执行最后执行的任务。</p>
+<pre><code>  dispatch_group_t group =  dispatch_group_create();
+  dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      // 执行1个耗时的异步操作
+  });
+
+  dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      // 执行1个耗时的异步操作
+  });
+
+  dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+      // 等前面的异步操作都执行完毕后，回到主线程...
+  });
+</code></pre><p>让我们看一下示例代码和运行结果：</p>
 <p>示例代码：</p>
-<p>为了使对比明显，笔者多开了几条线程，这样更容易看清问题。<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line">    dispatch_group_t group =  dispatch_group_create()<span class="comment">;    </span></div><div class="line">    dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">        </div><div class="line">        // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">        for (<span class="name">NSInteger</span> index = <span class="number">0</span><span class="comment">; index &lt; 10000; index ++) &#123;</span></div><div class="line">        &#125;</div><div class="line">        NSLog(@<span class="string">"完成了任务1"</span>)<span class="comment">;                </span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">    </div><div class="line">    dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">        </div><div class="line">        // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">        for (<span class="name">NSInteger</span> index = <span class="number">0</span><span class="comment">; index &lt; 20000; index ++) &#123;</span></div><div class="line">        &#125;</div><div class="line">        NSLog(@<span class="string">"完成了任务2"</span>)<span class="comment">;        </span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">    </div><div class="line">    dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">        </div><div class="line">        // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">        for (<span class="name">NSInteger</span> index = <span class="number">0</span><span class="comment">; index &lt; 200000; index ++) &#123;</span></div><div class="line">        &#125;</div><div class="line">        NSLog(@<span class="string">"完成了任务3"</span>)<span class="comment">;</span></div><div class="line">        </div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">    </div><div class="line">    dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">        </div><div class="line">        // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">        for (<span class="name">NSInteger</span> index = <span class="number">0</span><span class="comment">; index &lt; 400000; index ++) &#123;</span></div><div class="line">        &#125;</div><div class="line">        NSLog(@<span class="string">"完成了任务4"</span>)<span class="comment">;</span></div><div class="line">        </div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">    </div><div class="line">    dispatch_group_async(<span class="name">group</span>, dispatch_get_global_queue(<span class="name">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>), ^&#123;</div><div class="line">        </div><div class="line">        // 执行<span class="number">1</span>个耗时的异步操作</div><div class="line">        for (<span class="name">NSInteger</span> index = <span class="number">0</span><span class="comment">; index &lt; 1000000; index ++) &#123;</span></div><div class="line">        &#125;</div><div class="line">        NSLog(@<span class="string">"完成了任务5"</span>)<span class="comment">;</span></div><div class="line">        </div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">            </div><div class="line">    dispatch_group_notify(<span class="name">group</span>, dispatch_get_main_queue(), ^&#123;</div><div class="line">        </div><div class="line">        // 等前面的异步操作都执行完毕后，回到主线程...</div><div class="line">        NSLog(@<span class="string">"都完成了"</span>)<span class="comment">;        </span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">```  </div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">运行结果:</div><div class="line"></div><div class="line"></div><div class="line">![  dispatch_group 的使用运行结果](<span class="name">http</span><span class="symbol">://upload-images</span>.jianshu.io/upload_images/859001-3c8d5886442ce7b2.png?imageMogr2/auto-orient/strip%<span class="number">7</span>CimageView2/2/w/1240)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&gt;从三次运行的结果来看:</div><div class="line"><span class="number">1</span>. 异步执行的任务<span class="number">1</span><span class="number">-5</span>的最终完成时间是与其自身完成任务所需要的时间并无绝对关联。因为任务<span class="number">5</span>是最耗时的，它在第一次运行结果里并不是最后才完成的。任务<span class="number">1</span>是最不耗时的，但是它在第二次运行结果里也不是最先完成的。</div><div class="line"></div><div class="line">&gt;2. 异步执行的任务<span class="number">1</span><span class="number">-5</span>无论完成顺序如何，只有当他们都完成后才会调用主线程的打印“都完成了”。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#### <span class="number">6.4</span> dispatch_barrier</div><div class="line"></div><div class="line">需求点：虽然我们有时要执行几个不同的异步任务，但是我们还是要将其分成两组：当第一组异步任务都执行完成后才执行第二组的异步任务。这里的组可以包含一个任务，也可以包含多个任务。</div><div class="line"></div><div class="line">为了实现这个需求，我们需要使用``dispatch_barrier_async(<span class="name">dispatch_queue_t</span> queue, dispatch_block_t block)<span class="comment">;``在两组任务之间形成“栅栏”，使其“下方”的异步任务在其“上方”的异步任务都完成之前是无法执行的。</span></div></pre></td></tr></table></figure></p>
-<pre><code>dispatch_queue_t queue = dispatch_queue_create(&quot;12312312&quot;, DISPATCH_QUEUE_CONCURRENT);
+<p>为了使对比明显，笔者多开了几条线程，这样更容易看清问题。</p>
+<pre><code>    dispatch_group_t group =  dispatch_group_create();    
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-dispatch_async(queue, ^{
-    NSLog(@&quot;----任务 1-----&quot;);
-});
+        // 执行1个耗时的异步操作
+        for (NSInteger index = 0; index &lt; 10000; index ++) {
+        }
+        NSLog(@&quot;完成了任务1&quot;);                
+    });
 
-dispatch_async(queue, ^{
-    NSLog(@&quot;----任务 2-----&quot;);
-});    
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-dispatch_barrier_async(queue, ^{
-    NSLog(@&quot;----barrier-----&quot;);
-});
+        // 执行1个耗时的异步操作
+        for (NSInteger index = 0; index &lt; 20000; index ++) {
+        }
+        NSLog(@&quot;完成了任务2&quot;);        
+    });
 
-dispatch_async(queue, ^{
-    NSLog(@&quot;----任务 3-----&quot;);
-});
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-dispatch_async(queue, ^{
-    NSLog(@&quot;----任务 4-----&quot;);
-});
-</code></pre><figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="http"></span></div><div class="line"></div><div class="line"><span class="undefined"></span></div><div class="line">示例代码：</div></pre></td></tr></table></figure>
-<pre><code>dispatch_queue_t queue = dispatch_queue_create(&quot;12312312&quot;, DISPATCH_QUEUE_CONCURRENT);
+        // 执行1个耗时的异步操作
+        for (NSInteger index = 0; index &lt; 200000; index ++) {
+        }
+        NSLog(@&quot;完成了任务3&quot;);
 
-dispatch_async(queue, ^{
+    });
 
-    for (NSInteger index = 0; index &lt; 10000; index ++) {
-    }
-    NSLog(@&quot;完成了任务1&quot;);
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-});
+        // 执行1个耗时的异步操作
+        for (NSInteger index = 0; index &lt; 400000; index ++) {
+        }
+        NSLog(@&quot;完成了任务4&quot;);
 
-dispatch_async(queue, ^{
+    });
 
-    for (NSInteger index = 0; index &lt; 20000; index ++) {
-    }
-    NSLog(@&quot;完成了任务2&quot;);
+    dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-});
+        // 执行1个耗时的异步操作
+        for (NSInteger index = 0; index &lt; 1000000; index ++) {
+        }
+        NSLog(@&quot;完成了任务5&quot;);
 
-dispatch_async(queue, ^{
+    });
 
-    for (NSInteger index = 0; index &lt; 200000; index ++) {
-    }
-    NSLog(@&quot;完成了任务3&quot;);
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
 
-});
+        // 等前面的异步操作都执行完毕后，回到主线程...
+        NSLog(@&quot;都完成了&quot;);        
+    });
+</code></pre><p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-3c8d5886442ce7b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="  dispatch_group 的使用运行结果"></p>
+<blockquote>
+<p>从三次运行的结果来看:</p>
+<ol>
+<li><p>异步执行的任务1-5的最终完成时间是与其自身完成任务所需要的时间并无绝对关联。因为任务5是最耗时的，它在第一次运行结果里并不是最后才完成的。任务1是最不耗时的，但是它在第二次运行结果里也不是最先完成的。</p>
+</li>
+<li><p>异步执行的任务1-5无论完成顺序如何，只有当他们都完成后才会调用主线程的打印“都完成了”。</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="6-4-dispatch-barrier"><a href="#6-4-dispatch-barrier" class="headerlink" title="6.4 dispatch_barrier"></a>6.4 dispatch_barrier</h4><p>需求点：虽然我们有时要执行几个不同的异步任务，但是我们还是要将其分成两组：当第一组异步任务都执行完成后才执行第二组的异步任务。这里的组可以包含一个任务，也可以包含多个任务。</p>
+<p>为了实现这个需求，我们需要使用<code>dispatch_barrier_async(dispatch_queue_t queue, dispatch_block_t block);</code>在两组任务之间形成“栅栏”，使其“下方”的异步任务在其“上方”的异步任务都完成之前是无法执行的。</p>
+<pre><code>
+    dispatch_queue_t queue = dispatch_queue_create(&quot;12312312&quot;, DISPATCH_QUEUE_CONCURRENT);
+
+    dispatch_async(queue, ^{
+        NSLog(@&quot;----任务 1-----&quot;);
+    });
+
+    dispatch_async(queue, ^{
+        NSLog(@&quot;----任务 2-----&quot;);
+    });    
+
+    dispatch_barrier_async(queue, ^{
+        NSLog(@&quot;----barrier-----&quot;);
+    });
+
+    dispatch_async(queue, ^{
+        NSLog(@&quot;----任务 3-----&quot;);
+    });
+
+    dispatch_async(queue, ^{
+        NSLog(@&quot;----任务 4-----&quot;);
+    });
+</code></pre><p>示例代码：</p>
+<pre><code>    dispatch_queue_t queue = dispatch_queue_create(&quot;12312312&quot;, DISPATCH_QUEUE_CONCURRENT);
+
+    dispatch_async(queue, ^{
+
+        for (NSInteger index = 0; index &lt; 10000; index ++) {
+        }
+        NSLog(@&quot;完成了任务1&quot;);
+
+    });
+
+    dispatch_async(queue, ^{
+
+        for (NSInteger index = 0; index &lt; 20000; index ++) {
+        }
+        NSLog(@&quot;完成了任务2&quot;);
+
+    });
+
+    dispatch_async(queue, ^{
+
+        for (NSInteger index = 0; index &lt; 200000; index ++) {
+        }
+        NSLog(@&quot;完成了任务3&quot;);
+
+    });
 
 
-dispatch_barrier_async(queue, ^{        
-    NSLog(@&quot;--------我是分割线--------&quot;);        
-});
+    dispatch_barrier_async(queue, ^{        
+        NSLog(@&quot;--------我是分割线--------&quot;);        
+    });
 
 
-dispatch_async(queue, ^{
+    dispatch_async(queue, ^{
 
-    for (NSInteger index = 0; index &lt; 400000; index ++) {
-    }
-    NSLog(@&quot;完成了任务4&quot;);
+        for (NSInteger index = 0; index &lt; 400000; index ++) {
+        }
+        NSLog(@&quot;完成了任务4&quot;);
 
-});
+    });
 
-dispatch_async(queue, ^{
+    dispatch_async(queue, ^{
 
-    for (NSInteger index = 0; index &lt; 1000000; index ++) {
-    }
-    NSLog(@&quot;完成了任务5&quot;);
+        for (NSInteger index = 0; index &lt; 1000000; index ++) {
+        }
+        NSLog(@&quot;完成了任务5&quot;);
 
-});
+    });
 
-dispatch_async(queue, ^{
+    dispatch_async(queue, ^{
 
-    for (NSInteger index = 0; index &lt; 1000; index ++) {
-    }
-    NSLog(@&quot;完成了任务6&quot;);
+        for (NSInteger index = 0; index &lt; 1000; index ++) {
+        }
+        NSLog(@&quot;完成了任务6&quot;);
 
-});
-</code></pre><p>```</p>
-<p>运行结果：</p>
+    });
+</code></pre><p>运行结果：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-ca923e54d3839b2c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="dispatch_barrier 的使用运行结果"></p>
 <blockquote>
 <p>从这三次运行结果来看:</p>
@@ -426,9 +516,5 @@ dispatch_async(queue, ^{
 </footer>
         </div>
     </div>
-	
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-
-    
 </body>
 </html>

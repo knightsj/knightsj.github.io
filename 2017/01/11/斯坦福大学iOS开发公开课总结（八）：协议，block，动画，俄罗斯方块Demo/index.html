@@ -176,13 +176,38 @@
 </blockquote>
 <h1 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h1><hr>
 <p>关于block的概念和语法在这里就不赘述了，因为有文档和很多牛人已经总结地很好了。<br>在这里只强调两点关于block的使用注意事项。</p>
-<h2 id="修改block内部变量的方案"><a href="#修改block内部变量的方案" class="headerlink" title="修改block内部变量的方案"></a>修改block内部变量的方案</h2><p>如果我们要在block里将<code>found</code>值设为YES,就应该在block外部添加<code>__block</code>关键字。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">    __block <span class="built_in">BOOL</span> found = <span class="literal">NO</span>;</div><div class="line">    <span class="comment">//通过__block关键字，将found从栈中移动到堆中保证其可以被修改；block结束后，将该变量复制一份到堆中，再放回栈上</span></div><div class="line"></div><div class="line">    [dict enumerateKeysAndObjectsUsingBlock:^(<span class="keyword">id</span>  _Nonnull key, <span class="keyword">id</span>  _Nonnull obj, <span class="built_in">BOOL</span> * _Nonnull stop)&#123;        </div><div class="line"></div><div class="line">        <span class="keyword">if</span> ([targetString isEqualToString:obj]) &#123;            </div><div class="line"></div><div class="line">            *stop = <span class="literal">YES</span>; <span class="comment">//停止</span></div><div class="line">            found = <span class="literal">YES</span>;</div><div class="line">        &#125;        </div><div class="line">    &#125;];</div></pre></td></tr></table></figure></p>
-<h2 id="存储循环的解决方案"><a href="#存储循环的解决方案" class="headerlink" title="存储循环的解决方案"></a>存储循环的解决方案</h2><p>只要block存在，block内部消息中的每个对象都会被block的一个强指针指着。此时，如果这些对象里的某个或几个对象也有指向该block的指针，就会造成存储循环。</p>
+<h2 id="修改block内部变量的方案"><a href="#修改block内部变量的方案" class="headerlink" title="修改block内部变量的方案"></a>修改block内部变量的方案</h2><p>如果我们要在block里将<code>found</code>值设为YES,就应该在block外部添加<code>__block</code>关键字。</p>
+<pre><code>    __block BOOL found = NO;
+    //通过__block关键字，将found从栈中移动到堆中保证其可以被修改；block结束后，将该变量复制一份到堆中，再放回栈上
+
+    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop){        
+
+        if ([targetString isEqualToString:obj]) {            
+
+            *stop = YES; //停止
+            found = YES;
+        }        
+    }];
+</code></pre><h2 id="存储循环的解决方案"><a href="#存储循环的解决方案" class="headerlink" title="存储循环的解决方案"></a>存储循环的解决方案</h2><p>只要block存在，block内部消息中的每个对象都会被block的一个强指针指着。此时，如果这些对象里的某个或几个对象也有指向该block的指针，就会造成存储循环。</p>
 <p>问题重现：</p>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    //这个<span class="built_in">block</span>有强指针指向<span class="literal">self</span>，而<span class="literal">self</span>也通过myBlocks数组有强指针指向<span class="built_in">block</span></div><div class="line"></div><div class="line">    [<span class="literal">self</span>.myBlocks addObject:^&#123;    </div><div class="line"></div><div class="line">        [<span class="literal">self</span> doSomething];</div><div class="line"></div><div class="line">    &#125;];</div></pre></td></tr></table></figure>
-<p>解决方案：创建弱类型的局部变量</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    __weak ViewController *weakSelf = self<span class="comment">; //创建弱类型的局部变量</span></div><div class="line"></div><div class="line">    [self.myBlocks <span class="keyword">addObject:^&#123; </span>   </div><div class="line"></div><div class="line">        [weakSelf doSomething]<span class="comment">;</span></div><div class="line"></div><div class="line">    &#125;]<span class="comment">;</span></div></pre></td></tr></table></figure>
-<h2 id="Block的应用"><a href="#Block的应用" class="headerlink" title="Block的应用"></a>Block的应用</h2><p>block可以直接保存在变量中，属性中，字典和数组中。</p>
+<pre><code>
+    //这个block有强指针指向self，而self也通过myBlocks数组有强指针指向block
+
+    [self.myBlocks addObject:^{    
+
+        [self doSomething];
+
+    }];
+</code></pre><p>解决方案：创建弱类型的局部变量</p>
+<pre><code>
+    __weak ViewController *weakSelf = self; //创建弱类型的局部变量
+
+    [self.myBlocks addObject:^{    
+
+        [weakSelf doSomething];
+
+    }];
+</code></pre><h2 id="Block的应用"><a href="#Block的应用" class="headerlink" title="Block的应用"></a>Block的应用</h2><p>block可以直接保存在变量中，属性中，字典和数组中。</p>
 <p>具体使用环境：</p>
 <ul>
 <li>多线程：用于主线程，子线程的回调。</li>
@@ -200,54 +225,262 @@
 <li>改变<code>alpha</code></li>
 </ul>
 <p>具体通过UIView的类方法来改变</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)animateWithDuration:(<span class="built_in">NSTimeInterval</span>)duration   <span class="comment">//动画在这个屏幕上出现的时间</span></div><div class="line">                                     delay:(<span class="built_in">NSTimeInterval</span>)delay       <span class="comment">//等待多长时间再执行</span></div><div class="line">                                  options:(<span class="built_in">UIViewAnimationOptions</span>)options </div><div class="line">                             animations:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))animations  <span class="comment">//在此代码块中修改frame，transform 和 alpha</span></div><div class="line">                             completion:(<span class="keyword">void</span> (^ __<span class="keyword">nullable</span>)(<span class="built_in">BOOL</span> finished))completion;</div></pre></td></tr></table></figure>
-<p>options参数：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">    <span class="attribute">U</span><span class="attribute">I</span><span class="attribute">V</span><span class="attribute">i</span><span class="attribute">e</span><span class="attribute">w</span><span class="attribute">A</span><span class="attribute">n</span><span class="attribute">i</span><span class="attribute">m</span><span class="attribute">a</span><span class="attribute">t</span><span class="attribute">i</span><span class="attribute">o</span><span class="attribute">n</span><span class="attribute">O</span><span class="attribute">p</span><span class="attribute">t</span><span class="attribute">i</span><span class="attribute">o</span><span class="attribute">n</span><span class="attribute">L</span><span class="attribute">a</span><span class="attribute">y</span><span class="attribute">o</span><span class="attribute">u</span><span class="attribute">t</span><span class="attribute">S</span><span class="attribute">u</span><span class="attribute">b</span><span class="attribute">v</span><span class="attribute">i</span><span class="attribute">e</span><span class="attribute">w</span><span class="attribute">s</span>            = 1 &lt;&lt;  0,</div><div class="line">    UIViewAnimationOptionAllowUserInteraction      = 1 &lt;&lt;  1, // turn on user interaction while animating</div><div class="line">    UIViewAnimationOptionBeginFromCurrentState     = 1 &lt;&lt;  2, // start all views from current value, not initial value</div><div class="line">    UIViewAnimationOptionRepeat                    = 1 &lt;&lt;  3, // repeat animation indefinitely</div><div class="line">    UIViewAnimationOptionAutoreverse               = 1 &lt;&lt;  4, // if repeat, run animation back and forth</div><div class="line">    UIViewAnimationOptionOverrideInheritedDuration = 1 &lt;&lt;  5, // ignore nested duration</div><div class="line">    UIViewAnimationOptionOverrideInheritedCurve    = 1 &lt;&lt;  6, // ignore nested curve</div><div class="line">    UIViewAnimationOptionAllowAnimatedContent      = 1 &lt;&lt;  7, // animate contents (applies to transitions only)</div><div class="line">    UIViewAnimationOptionShowHideTransitionViews   = 1 &lt;&lt;  8, // flip to/from hidden state instead of adding/removing</div><div class="line">    UIViewAnimationOptionOverrideInheritedOptions  = 1 &lt;&lt;  9, // do not inherit any options or animation type</div></pre></td></tr></table></figure></p>
-<h1 id="通过给视图添加物理效果实现动画"><a href="#通过给视图添加物理效果实现动画" class="headerlink" title="通过给视图添加物理效果实现动画"></a>通过给视图添加物理效果实现动画</h1><hr>
+<pre><code>+ (void)animateWithDuration:(NSTimeInterval)duration   //动画在这个屏幕上出现的时间
+                                     delay:(NSTimeInterval)delay       //等待多长时间再执行
+                                  options:(UIViewAnimationOptions)options 
+                             animations:(void (^)(void))animations  //在此代码块中修改frame，transform 和 alpha
+                             completion:(void (^ __nullable)(BOOL finished))completion;
+</code></pre><p>options参数：</p>
+<pre><code>    UIViewAnimationOptionLayoutSubviews            = 1 &lt;&lt;  0,
+    UIViewAnimationOptionAllowUserInteraction      = 1 &lt;&lt;  1, // turn on user interaction while animating
+    UIViewAnimationOptionBeginFromCurrentState     = 1 &lt;&lt;  2, // start all views from current value, not initial value
+    UIViewAnimationOptionRepeat                    = 1 &lt;&lt;  3, // repeat animation indefinitely
+    UIViewAnimationOptionAutoreverse               = 1 &lt;&lt;  4, // if repeat, run animation back and forth
+    UIViewAnimationOptionOverrideInheritedDuration = 1 &lt;&lt;  5, // ignore nested duration
+    UIViewAnimationOptionOverrideInheritedCurve    = 1 &lt;&lt;  6, // ignore nested curve
+    UIViewAnimationOptionAllowAnimatedContent      = 1 &lt;&lt;  7, // animate contents (applies to transitions only)
+    UIViewAnimationOptionShowHideTransitionViews   = 1 &lt;&lt;  8, // flip to/from hidden state instead of adding/removing
+    UIViewAnimationOptionOverrideInheritedOptions  = 1 &lt;&lt;  9, // do not inherit any options or animation type
+</code></pre><h1 id="通过给视图添加物理效果实现动画"><a href="#通过给视图添加物理效果实现动画" class="headerlink" title="通过给视图添加物理效果实现动画"></a>通过给视图添加物理效果实现动画</h1><hr>
 <p>添加物理效果主要需要三个元素：</p>
 <ol>
 <li>DynamicAnimator</li>
 <li>UIGravityBehavior</li>
 <li>遵守<uidynamicitem>协议的item(大部分情况是UIView)</uidynamicitem></li>
 </ol>
-<h2 id="DynamicAnimator：动力动画"><a href="#DynamicAnimator：动力动画" class="headerlink" title="DynamicAnimator：动力动画"></a>DynamicAnimator：动力动画</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIDynamicAnimator</span> *animator =[ [ <span class="built_in">UIDynamicAnimator</span> alloc] initWithReferenceView:aView]; <span class="comment">//aview是动画Views的顶级视图</span></div></pre></td></tr></table></figure>
-<p>动力动画的初始化需要给其添加要进行动画的顶级视图，详细内容后面再介绍。</p>
+<h2 id="DynamicAnimator：动力动画"><a href="#DynamicAnimator：动力动画" class="headerlink" title="DynamicAnimator：动力动画"></a>DynamicAnimator：动力动画</h2><pre><code>UIDynamicAnimator *animator =[ [ UIDynamicAnimator alloc] initWithReferenceView:aView]; //aview是动画Views的顶级视图
+</code></pre><p>动力动画的初始化需要给其添加要进行动画的顶级视图，详细内容后面再介绍。</p>
 <h2 id="UIDynamicBehavior：动力行为"><a href="#UIDynamicBehavior：动力行为" class="headerlink" title="UIDynamicBehavior：动力行为"></a>UIDynamicBehavior：动力行为</h2><p>动力行为分为重力动力行为，碰撞行为等具体的行为。<br>这个类有很多子类：</p>
-<h3 id="1-UIGravityBehavior：重力行为"><a href="#1-UIGravityBehavior：重力行为" class="headerlink" title="1. UIGravityBehavior：重力行为"></a>1. UIGravityBehavior：重力行为</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> angle;<span class="comment">//重力方向</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> magnitude; <span class="comment">//重力加速度值</span></div></pre></td></tr></table></figure>
-<h3 id="2-UICollisionBehavior：碰撞行为"><a href="#2-UICollisionBehavior：碰撞行为" class="headerlink" title="2. UICollisionBehavior：碰撞行为"></a>2. UICollisionBehavior：碰撞行为</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readwrite</span>) <span class="built_in">UICollisionBehaviorMode</span> collisionMode;<span class="comment">//互相碰撞弹开还是只是从边界碰撞弹开</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readwrite</span>) <span class="built_in">BOOL</span> translatesReferenceBoundsIntoBoundary; <span class="comment">//是否是有弹性的边界</span></div></pre></td></tr></table></figure>
-<h3 id="3-UIAttachmentBehavior-：吸附行为"><a href="#3-UIAttachmentBehavior-：吸附行为" class="headerlink" title="3. UIAttachmentBehavior ：吸附行为"></a>3. UIAttachmentBehavior ：吸附行为</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGPoint</span> anchorPoint; <span class="comment">//设置锚点</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithItem:(<span class="keyword">id</span> &lt;<span class="built_in">UIDynamicItem</span>&gt;)item attachedToAnchor:(<span class="built_in">CGPoint</span>)point;<span class="comment">//将动力项吸附在锚点上</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithItem:(<span class="keyword">id</span> &lt;<span class="built_in">UIDynamicItem</span>&gt;)item1 attachedToItem:(<span class="keyword">id</span> &lt;<span class="built_in">UIDynamicItem</span>&gt;)item2;<span class="comment">//吸附两个动力项</span></div></pre></td></tr></table></figure>
-<h3 id="4-UISnapBehavior：速甩行为"><a href="#4-UISnapBehavior：速甩行为" class="headerlink" title="4. UISnapBehavior：速甩行为"></a>4. UISnapBehavior：速甩行为</h3><figure class="highlight elm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (instance<span class="keyword">type</span>)initWithItem:(id &lt;<span class="type">UIDynamicItem</span>&gt;)item snapToPoint:(<span class="type">CGPoint</span>)point <span class="type">NS_DESIGNATED_INITIALIZER</span>;</div></pre></td></tr></table></figure>
-<h3 id="5-UIPushBehavior：推动行为"><a href="#5-UIPushBehavior：推动行为" class="headerlink" title="5. UIPushBehavior：推动行为"></a>5. UIPushBehavior：推动行为</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">UIPushBehaviorMode</span> mode;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> magnitude;<span class="comment">//推力</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGVector</span> pushDirection;<span class="comment">//推动方向</span></div></pre></td></tr></table></figure>
-<h3 id="6-UIDynamicItemBehavior：动力项行为"><a href="#6-UIDynamicItemBehavior：动力项行为" class="headerlink" title="6. UIDynamicItemBehavior：动力项行为"></a>6. UIDynamicItemBehavior：动力项行为</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> elasticity; <span class="comment">// Usually between 0 (inelastic) and 1 (collide elastically) </span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> friction; <span class="comment">// 0 being no friction between objects slide along each other</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> density; <span class="comment">// 1 by default</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">readwrite</span>, <span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> resistance; <span class="comment">// 0: no velocity damping</span></div><div class="line"></div><div class="line">- (<span class="built_in">CGPoint</span>)linearVelocityForItem:(<span class="keyword">id</span> &lt;<span class="built_in">UIDynamicItem</span>&gt;)item;<span class="comment">//线速度</span></div><div class="line">- (<span class="built_in">CGFloat</span>)angularVelocityForItem:(<span class="keyword">id</span> &lt;<span class="built_in">UIDynamicItem</span>&gt;)item;<span class="comment">//角速度</span></div></pre></td></tr></table></figure>
-<h2 id="遵守协议的item-大部分情况是UIView"><a href="#遵守协议的item-大部分情况是UIView" class="headerlink" title="遵守协议的item(大部分情况是UIView)"></a>遵守<uidynamicitem>协议的item(大部分情况是UIView)</uidynamicitem></h2><p>只要是遵守了<uidynamicitem>协议（动力项协议）的对象，都可以添加动力行为。<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">id&lt;UIDynamicItem&gt;item1 = ....;</div><div class="line">id&lt;UIDynamicItem&gt;item2 = ....;</div><div class="line">[gravity addItem:itme2];</div></pre></td></tr></table></figure></uidynamicitem></p>
-<p>动力项协议的属性：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readwrite</span>) <span class="built_in">CGPoint</span> center;<span class="comment">//动力项的中心</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">CGRect</span> bounds; <span class="comment">//动力项的绘制区域，只读，通过变换，居中，移动进行修改</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readwrite</span>) <span class="built_in">CGAffineTransform</span> transform;<span class="comment">//动力项的旋转或缩放比例</span></div></pre></td></tr></table></figure></p>
-<p>若想与animator的动画相抗争，需要调用animator的以下方法：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)updateItemUsingCurrentState:(<span class="keyword">id</span> &lt;<span class="built_in">UIDynamicItem</span>&gt;)item;</div></pre></td></tr></table></figure>
-<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h3 id="1-UIGravityBehavior：重力行为"><a href="#1-UIGravityBehavior：重力行为" class="headerlink" title="1. UIGravityBehavior：重力行为"></a>1. UIGravityBehavior：重力行为</h3><pre><code>@property (readwrite, nonatomic) CGFloat angle;//重力方向
+@property (readwrite, nonatomic) CGFloat magnitude; //重力加速度值
+</code></pre><h3 id="2-UICollisionBehavior：碰撞行为"><a href="#2-UICollisionBehavior：碰撞行为" class="headerlink" title="2. UICollisionBehavior：碰撞行为"></a>2. UICollisionBehavior：碰撞行为</h3><pre><code>@property (nonatomic, readwrite) UICollisionBehaviorMode collisionMode;//互相碰撞弹开还是只是从边界碰撞弹开
+
+@property (nonatomic, readwrite) BOOL translatesReferenceBoundsIntoBoundary; //是否是有弹性的边界
+</code></pre><h3 id="3-UIAttachmentBehavior-：吸附行为"><a href="#3-UIAttachmentBehavior-：吸附行为" class="headerlink" title="3. UIAttachmentBehavior ：吸附行为"></a>3. UIAttachmentBehavior ：吸附行为</h3><pre><code>@property (readwrite, nonatomic) CGPoint anchorPoint; //设置锚点
+- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item attachedToAnchor:(CGPoint)point;//将动力项吸附在锚点上
+- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item1 attachedToItem:(id &lt;UIDynamicItem&gt;)item2;//吸附两个动力项
+</code></pre><h3 id="4-UISnapBehavior：速甩行为"><a href="#4-UISnapBehavior：速甩行为" class="headerlink" title="4. UISnapBehavior：速甩行为"></a>4. UISnapBehavior：速甩行为</h3><pre><code>- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item snapToPoint:(CGPoint)point NS_DESIGNATED_INITIALIZER;
+</code></pre><h3 id="5-UIPushBehavior：推动行为"><a href="#5-UIPushBehavior：推动行为" class="headerlink" title="5. UIPushBehavior：推动行为"></a>5. UIPushBehavior：推动行为</h3><pre><code>@property (nonatomic, readonly) UIPushBehaviorMode mode;
+@property (readwrite, nonatomic) CGFloat magnitude;//推力
+@property (readwrite, nonatomic) CGVector pushDirection;//推动方向
+</code></pre><h3 id="6-UIDynamicItemBehavior：动力项行为"><a href="#6-UIDynamicItemBehavior：动力项行为" class="headerlink" title="6. UIDynamicItemBehavior：动力项行为"></a>6. UIDynamicItemBehavior：动力项行为</h3><pre><code>@property (readwrite, nonatomic) CGFloat elasticity; // Usually between 0 (inelastic) and 1 (collide elastically) 
+
+@property (readwrite, nonatomic) CGFloat friction; // 0 being no friction between objects slide along each other
+
+@property (readwrite, nonatomic) CGFloat density; // 1 by default
+
+@property (readwrite, nonatomic) CGFloat resistance; // 0: no velocity damping
+
+- (CGPoint)linearVelocityForItem:(id &lt;UIDynamicItem&gt;)item;//线速度
+- (CGFloat)angularVelocityForItem:(id &lt;UIDynamicItem&gt;)item;//角速度
+</code></pre><h2 id="遵守协议的item-大部分情况是UIView"><a href="#遵守协议的item-大部分情况是UIView" class="headerlink" title="遵守协议的item(大部分情况是UIView)"></a>遵守<uidynamicitem>协议的item(大部分情况是UIView)</uidynamicitem></h2><p>只要是遵守了<uidynamicitem>协议（动力项协议）的对象，都可以添加动力行为。</uidynamicitem></p>
+<pre><code>id&lt;UIDynamicItem&gt;item1 = ....;
+id&lt;UIDynamicItem&gt;item2 = ....;
+[gravity addItem:itme2];
+</code></pre><p>动力项协议的属性：</p>
+<pre><code>@property (nonatomic, readwrite) CGPoint center;//动力项的中心
+
+@property (nonatomic, readonly) CGRect bounds; //动力项的绘制区域，只读，通过变换，居中，移动进行修改
+
+@property (nonatomic, readwrite) CGAffineTransform transform;//动力项的旋转或缩放比例
+</code></pre><p>若想与animator的动画相抗争，需要调用animator的以下方法：</p>
+<pre><code>- (void)updateItemUsingCurrentState:(id &lt;UIDynamicItem&gt;)item;
+</code></pre><h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
 <h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
 <li>点击屏幕后，在顶部随机位置生成具有随机色的正方形，正方形显示后立即下落并停止。</li>
 <li>方块排满的行会自动被炸飞，而且带动画。</li>
 </ul>
 <h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-6116d4bb61ba202a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：炸飞前 | 右：炸飞后"></p>
 <h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><p>因为每个方块的动作行为都是一致的，所以在这里自定义了一个<code>UIDynamicBehavior</code>类，给每个方块增加相同的动作行为。</p>
-<p><strong>1. 自定义统一行为类：DropItBehavior</strong><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">instancetype</span>)init</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];    </div><div class="line">   <span class="comment">//重写初始化方法，同时增加重力和碰撞行为</span></div><div class="line">    [<span class="keyword">self</span> addChildBehavior:<span class="keyword">self</span>.gravity];</div><div class="line">    [<span class="keyword">self</span> addChildBehavior:<span class="keyword">self</span>.collider];</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//同时增加重力和碰撞行为</span></div><div class="line">- (<span class="keyword">void</span>)addItem:(<span class="keyword">id</span>&lt;<span class="built_in">UIDynamicItem</span>&gt;)item</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span>.gravity addItem:item];</div><div class="line">    [<span class="keyword">self</span>.collider addItem:item];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//同时移除重力和碰撞行为</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)removeItem:(<span class="keyword">id</span>&lt;<span class="built_in">UIDynamicItem</span>&gt;)item</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span>.gravity removeItem:item];</div><div class="line">    [<span class="keyword">self</span>.collider removeItem:item];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UIGravityBehavior</span> *)gravity</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!_gravity) &#123;</div><div class="line"></div><div class="line">        _gravity = [[<span class="built_in">UIGravityBehavior</span> alloc] init];</div><div class="line">         <span class="comment">//设置重力加速度</span></div><div class="line">        _gravity.magnitude = <span class="number">1.9</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> _gravity;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UICollisionBehavior</span> *)collider</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!_collider) &#123;</div><div class="line">        _collider = [[<span class="built_in">UICollisionBehavior</span> alloc] init];</div><div class="line">        <span class="comment">//触碰边缘弹性 </span></div><div class="line">        _collider.translatesReferenceBoundsIntoBoundary = <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> _collider;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>2. 初始化animator</strong><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UIDynamicAnimator</span> *)animator</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!_animator) &#123;</div><div class="line">        <span class="comment">//self.gameView 是动画实现的顶级视图，它的子视图是掉落的方块</span></div><div class="line">        _animator = [[<span class="built_in">UIDynamicAnimator</span> alloc] initWithReferenceView:<span class="keyword">self</span>.gameView];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> _animator;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>3. 给<code>UIDynamicAnimator</code>添加行为</strong><br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (DropItBehavior *)dropitBehavior</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="variable">_dropitBehavior</span>) &#123;</div><div class="line">         <span class="variable">_dropitBehavior</span> = [[DropItBehavior alloc] init];</div><div class="line">        [self.animator addBehavior:<span class="variable">_dropitBehavior</span>];</div><div class="line">    &#125;</div><div class="line">    return <span class="variable">_dropitBehavior</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>4. 生成随机方块并让其下落</strong></p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> *  生成随机方块并下落</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)drop</div><div class="line">&#123;</div><div class="line">    <span class="comment">//1. 随机位置</span></div><div class="line"></div><div class="line">    <span class="built_in">CGRect</span> frame;</div><div class="line">    frame.origin = <span class="built_in">CGPointZero</span>;</div><div class="line">    frame.size = DROP_SIZE;</div><div class="line">    <span class="keyword">int</span> x = (arc4random()%(<span class="keyword">int</span>)<span class="keyword">self</span>.gameView.bounds.size.width)/DROP_SIZE.width;</div><div class="line">    frame.origin.x = x * DROP_SIZE.width;</div><div class="line">    <span class="built_in">UIView</span> *dropView = [[<span class="built_in">UIView</span> alloc] initWithFrame:frame];</div><div class="line">  </div><div class="line">    <span class="comment">//2. 随机颜色</span></div><div class="line">    dropView.backgroundColor = [<span class="keyword">self</span> randomColor];</div><div class="line">    [<span class="keyword">self</span>.gameView addSubview:dropView];</div><div class="line">    </div><div class="line">    <span class="comment">//3. 添加下落</span></div><div class="line">    [<span class="keyword">self</span>.dropitBehavior addItem:dropView];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
+<p><strong>1. 自定义统一行为类：DropItBehavior</strong></p>
+<pre><code>- (instancetype)init
+{
+    self = [super init];    
+   //重写初始化方法，同时增加重力和碰撞行为
+    [self addChildBehavior:self.gravity];
+    [self addChildBehavior:self.collider];
+    return self;
+}
+
+//同时增加重力和碰撞行为
+- (void)addItem:(id&lt;UIDynamicItem&gt;)item
+{
+    [self.gravity addItem:item];
+    [self.collider addItem:item];
+}
+
+//同时移除重力和碰撞行为
+
+- (void)removeItem:(id&lt;UIDynamicItem&gt;)item
+{
+    [self.gravity removeItem:item];
+    [self.collider removeItem:item];
+}
+
+- (UIGravityBehavior *)gravity
+{
+
+    if (!_gravity) {
+
+        _gravity = [[UIGravityBehavior alloc] init];
+         //设置重力加速度
+        _gravity.magnitude = 1.9;
+    }
+    return _gravity;
+}
+
+- (UICollisionBehavior *)collider
+{
+    if (!_collider) {
+        _collider = [[UICollisionBehavior alloc] init];
+        //触碰边缘弹性 
+        _collider.translatesReferenceBoundsIntoBoundary = YES;
+    }
+    return _collider;
+}
+</code></pre><p><strong>2. 初始化animator</strong></p>
+<pre><code>- (UIDynamicAnimator *)animator
+{
+    if (!_animator) {
+        //self.gameView 是动画实现的顶级视图，它的子视图是掉落的方块
+        _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.gameView];
+    }
+    return _animator;
+}
+</code></pre><p><strong>3. 给<code>UIDynamicAnimator</code>添加行为</strong></p>
+<pre><code>
+- (DropItBehavior *)dropitBehavior
+{
+    if (!_dropitBehavior) {
+         _dropitBehavior = [[DropItBehavior alloc] init];
+        [self.animator addBehavior:_dropitBehavior];
+    }
+    return _dropitBehavior;
+}
+</code></pre><p><strong>4. 生成随机方块并让其下落</strong></p>
+<pre><code>/**
+ *  生成随机方块并下落
+ */
+- (void)drop
+{
+    //1. 随机位置
+
+    CGRect frame;
+    frame.origin = CGPointZero;
+    frame.size = DROP_SIZE;
+    int x = (arc4random()%(int)self.gameView.bounds.size.width)/DROP_SIZE.width;
+    frame.origin.x = x * DROP_SIZE.width;
+    UIView *dropView = [[UIView alloc] initWithFrame:frame];
+
+    //2. 随机颜色
+    dropView.backgroundColor = [self randomColor];
+    [self.gameView addSubview:dropView];
+
+    //3. 添加下落
+    [self.dropitBehavior addItem:dropView];
+}
+</code></pre><blockquote>
 <p>目前小方块下落碰到障碍物后会旋转，所以容易让这些小方块散落成堆。这样一来，就不能计算好整行的排列情况，所以我们应该让小方块们没有旋转的特性。</p>
 </blockquote>
 <p><strong>5.取消旋转特性</strong></p>
 <p>在公用的behavior类<code>DropItBehavior</code>里增加一个<code>UIDynamicItemBehavior</code>实例，取消其旋转特性。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UIDynamicItemBehavior</span> *)animationOptions</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!_animationOptions) &#123;</div><div class="line"></div><div class="line">        _animationOptions = [[<span class="built_in">UIDynamicItemBehavior</span> alloc] init];</div><div class="line">        _animationOptions.allowsRotation = <span class="literal">NO</span>;        </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> _animationOptions;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样就能整齐排列小方块了：</p>
+<pre><code>- (UIDynamicItemBehavior *)animationOptions
+{
+    if (!_animationOptions) {
+
+        _animationOptions = [[UIDynamicItemBehavior alloc] init];
+        _animationOptions.allowsRotation = NO;        
+    }
+    return _animationOptions;
+}
+</code></pre><p>这样就能整齐排列小方块了：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-a6bc68132ab0425a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：可旋转 | 右：不可旋转"></p>
 <p><strong>6. 动画炸掉排满的行</strong></p>
 <p>最好在方块都静止了之后再判断是否有排满的行，这里需要遵守协议<code>&lt;UIDynamicAnimatorDelegate&gt;</code></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  监听动力动画内部的所有动画停止后调用炸飞整行的方法</div><div class="line"> *</div><div class="line"> *  @param animator 动力动画</div><div class="line"> */</div><div class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">dynamicAnimatorDidPause</span><span class="selector-pseudo">:(UIDynamicAnimator</span> *)<span class="selector-tag">animator</span></div><div class="line"></div><div class="line">&#123;</div><div class="line">    <span class="selector-attr">[self removeCompleteRows]</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面来看一下炸飞整行的方法：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  炸飞整行的方法：包括查看是否存在整行的算法和炸飞整行的动画</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)removeCompleteRows</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSMutableArray</span> *dropsToRemove = [[<span class="built_in">NSMutableArray</span> alloc] init];</div><div class="line">    </div><div class="line">    <span class="comment">//遍历每一行</span></div><div class="line">    <span class="keyword">for</span> (<span class="built_in">CGFloat</span> y = <span class="keyword">self</span>.gameView.bounds.size.height - DROP_SIZE.height/<span class="number">2</span>;y &gt; <span class="number">0</span>;y-= DROP_SIZE.height) &#123;</div><div class="line">        </div><div class="line">        <span class="built_in">BOOL</span> rowIsComplete = <span class="literal">YES</span>;</div><div class="line">        <span class="built_in">NSMutableArray</span> *dropsFound = [[<span class="built_in">NSMutableArray</span> alloc] init];</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="built_in">CGFloat</span> x = DROP_SIZE.width/<span class="number">2</span>; x &lt; <span class="keyword">self</span>.gameView.bounds.size.width - DROP_SIZE.width/<span class="number">2</span>; x+=DROP_SIZE.width) &#123;</div><div class="line">            </div><div class="line">            <span class="comment">//移动(x,y)获取这个点所在的view</span></div><div class="line">            <span class="built_in">UIView</span> *hitView = [<span class="keyword">self</span>.gameView hitTest:<span class="built_in">CGPointMake</span>(x, y) withEvent:<span class="literal">NULL</span>];</div><div class="line"></div><div class="line">            <span class="keyword">if</span> ([hitView superview] == <span class="keyword">self</span>.gameView) &#123;</div><div class="line">               </div><div class="line">                <span class="comment">//如果获取的view的父视图是gameView,就说明它是方块</span></div><div class="line">                [dropsFound addObject:hitView];</div><div class="line">                </div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line"></div><div class="line">                <span class="comment">//否则这个行肯定是不完整的</span></div><div class="line">                rowIsComplete = <span class="literal">NO</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (![dropsFound count]) <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">if</span> (rowIsComplete)[dropsToRemove addObjectsFromArray:dropsFound];</div><div class="line">  </div><div class="line">    &#125;    </div><div class="line"></div><div class="line">    <span class="comment">//如果有排满的行，则炸掉它</span></div><div class="line">    <span class="keyword">if</span> ([dropsToRemove count])&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="built_in">UIView</span> *drop <span class="keyword">in</span> dropsToRemove)&#123;</div><div class="line">            [<span class="keyword">self</span>.dropitBehavior removeItem:drop];</div><div class="line">        &#125;</div><div class="line">        [<span class="keyword">self</span> animatedRemovingDrops:dropsToRemove];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  炸飞整行</div><div class="line"> *</div><div class="line"> *  @param dropsToRemove 需要炸飞的View的数组</div><div class="line"> */</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)animatedRemovingDrops:(<span class="built_in">NSArray</span> *)dropsToRemove</div><div class="line">&#123;</div><div class="line">    [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.5</span> animations:^&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> (<span class="built_in">UIView</span> *drop <span class="keyword">in</span> dropsToRemove) &#123;</div><div class="line">           </div><div class="line">            <span class="comment">//设定炸飞后终点的位置</span></div><div class="line">            <span class="keyword">int</span> x = (arc4random()%(<span class="keyword">int</span>)(<span class="keyword">self</span>.gameView.bounds.size.width*<span class="number">5</span>)) - (<span class="keyword">int</span>)<span class="keyword">self</span>.gameView.bounds.size.width*<span class="number">2</span>;</div><div class="line">            <span class="keyword">int</span> y = <span class="keyword">self</span>.gameView.bounds.size.height;</div><div class="line">            drop.center = <span class="built_in">CGPointMake</span>(x,-y);</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</div><div class="line"></div><div class="line">        [dropsToRemove makeObjectsPerformSelector:<span class="keyword">@selector</span>(removeFromSuperview)];</div><div class="line"></div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="思考一下"><a href="#思考一下" class="headerlink" title="思考一下"></a>思考一下</h1><hr>
+<pre><code>
+/**
+ *  监听动力动画内部的所有动画停止后调用炸飞整行的方法
+ *
+ *  @param animator 动力动画
+ */
+- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator
+
+{
+    [self removeCompleteRows];
+}
+</code></pre><p>下面来看一下炸飞整行的方法：</p>
+<pre><code>
+/**
+ *  炸飞整行的方法：包括查看是否存在整行的算法和炸飞整行的动画
+ */
+- (void)removeCompleteRows
+{
+    NSMutableArray *dropsToRemove = [[NSMutableArray alloc] init];
+
+    //遍历每一行
+    for (CGFloat y = self.gameView.bounds.size.height - DROP_SIZE.height/2;y &gt; 0;y-= DROP_SIZE.height) {
+
+        BOOL rowIsComplete = YES;
+        NSMutableArray *dropsFound = [[NSMutableArray alloc] init];
+
+        for (CGFloat x = DROP_SIZE.width/2; x &lt; self.gameView.bounds.size.width - DROP_SIZE.width/2; x+=DROP_SIZE.width) {
+
+            //移动(x,y)获取这个点所在的view
+            UIView *hitView = [self.gameView hitTest:CGPointMake(x, y) withEvent:NULL];
+
+            if ([hitView superview] == self.gameView) {
+
+                //如果获取的view的父视图是gameView,就说明它是方块
+                [dropsFound addObject:hitView];
+
+            }else{
+
+                //否则这个行肯定是不完整的
+                rowIsComplete = NO;
+                break;
+            }
+        }
+
+        if (![dropsFound count]) break;
+        if (rowIsComplete)[dropsToRemove addObjectsFromArray:dropsFound];
+
+    }    
+
+    //如果有排满的行，则炸掉它
+    if ([dropsToRemove count]){
+        for (UIView *drop in dropsToRemove){
+            [self.dropitBehavior removeItem:drop];
+        }
+        [self animatedRemovingDrops:dropsToRemove];
+    }
+}
+
+/**
+ *  炸飞整行
+ *
+ *  @param dropsToRemove 需要炸飞的View的数组
+ */
+
+- (void)animatedRemovingDrops:(NSArray *)dropsToRemove
+{
+    [UIView animateWithDuration:0.5 animations:^{
+
+        for (UIView *drop in dropsToRemove) {
+
+            //设定炸飞后终点的位置
+            int x = (arc4random()%(int)(self.gameView.bounds.size.width*5)) - (int)self.gameView.bounds.size.width*2;
+            int y = self.gameView.bounds.size.height;
+            drop.center = CGPointMake(x,-y);
+
+        }
+
+    } completion:^(BOOL finished) {
+
+        [dropsToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
+    }];
+}
+</code></pre><h1 id="思考一下"><a href="#思考一下" class="headerlink" title="思考一下"></a>思考一下</h1><hr>
 <p>关于通过给view添加物理效果的方法添加动画，需要弄清楚<code>DynamicAnimator</code>,<code>UIDynamicBehavior</code>和遵守<uidynamicitem>协议的item三者之间的关系。</uidynamicitem></p>
 <p>通过对代码的分析以及讲师的讲解，笔者将这三者以比喻的方法将他们的关系梳理了一下：</p>
 <ul>
@@ -258,8 +491,12 @@
 <p>我们从代码看一下如何映射他们的关系：</p>
 <h4 id="DynamicAnimator"><a href="#DynamicAnimator" class="headerlink" title="DynamicAnimator"></a>DynamicAnimator</h4><p><code>UIDynamicAnimator *animator =[ [ UIDynamicAnimator alloc] initWithReferenceView:aView];</code><br>在这里，<code>aView</code>代表了一片空地，这句话的意思是我们把游乐场建在了这片空地上。</p>
 <h4 id="UIDynamicBehavior"><a href="#UIDynamicBehavior" class="headerlink" title="UIDynamicBehavior"></a>UIDynamicBehavior</h4><p><code>[self.animator addBehavior:_dropitBehavior];</code><br>在这里，代表了我们在这个游乐场里增加了某个娱乐设施。</p>
-<h4 id="遵守协议的item"><a href="#遵守协议的item" class="headerlink" title="遵守协议的item"></a>遵守<uidynamicitem>协议的item</uidynamicitem></h4><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)<span class="keyword">addItem:(id&lt;UIDynamicItem&gt;)item</span></div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self.gravity </span><span class="keyword">addItem:item];</span></div><div class="line">    [<span class="keyword">self.collider </span><span class="keyword">addItem:item];</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这里，代表了我们让某个小孩来玩儿某个娱乐设施。</p>
+<h4 id="遵守协议的item"><a href="#遵守协议的item" class="headerlink" title="遵守协议的item"></a>遵守<uidynamicitem>协议的item</uidynamicitem></h4><pre><code>- (void)addItem:(id&lt;UIDynamicItem&gt;)item
+{
+    [self.gravity addItem:item];
+    [self.collider addItem:item];
+}
+</code></pre><p>在这里，代表了我们让某个小孩来玩儿某个娱乐设施。</p>
 <p>这样就理清了：我们要让一个小孩玩儿一个娱乐设施就应该:</p>
 <ol>
 <li>找一片空地建设游乐场。</li>
@@ -350,9 +587,5 @@ UIView
 </footer>
         </div>
     </div>
-	
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
-
-    
 </body>
 </html>
