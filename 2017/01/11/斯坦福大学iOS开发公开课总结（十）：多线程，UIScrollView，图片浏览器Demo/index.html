@@ -178,202 +178,48 @@
 <p>那么什么样的任务会放在主线程或子线程执行呢？</p>
 <h2 id="主线程-amp-子线程"><a href="#主线程-amp-子线程" class="headerlink" title="主线程&amp;子线程"></a>主线程&amp;子线程</h2><p>主线程：负责执行UI活动，绝大部分的UI活动都要在这里调用，不能让其阻塞，要将耗时的任务放到子线程来做。<br>子线程：负责执行耗时的运算，网络请求等不能放在主线程的任务。</p>
 <p>系统为我们提供了共用的主队列(Main Dispatch Queue)和全局并行队列(Global Dispatch Queue)。我们只需将需要执行的任务放入到这两类队列里就可以实现多线程编程。</p>
-<h2 id="得到主队列"><a href="#得到主队列" class="headerlink" title="得到主队列"></a>得到主队列</h2><pre><code>dispatch_queue_t mainQ = dispatch_get_main_queue();
-NSOperationQueue *mainQ = [NSOperationQueue mainQueue];
-</code></pre><h2 id="得到主队列并布置任务"><a href="#得到主队列并布置任务" class="headerlink" title="得到主队列并布置任务"></a>得到主队列并布置任务</h2><pre><code>//NSThread
-- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait;
-
-//GCD
- dispatch_async(dispatch_get_main_queue(), ^{                   
-
-                        [doSomething];
-
-                    });
-</code></pre><h2 id="得到全局并行队列"><a href="#得到全局并行队列" class="headerlink" title="得到全局并行队列"></a>得到全局并行队列</h2><pre><code>dispatch queue_t globalDispatchQueueDefault = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-</code></pre><h2 id="得到全局并行队列并布置任务"><a href="#得到全局并行队列并布置任务" class="headerlink" title="得到全局并行队列并布置任务"></a>得到全局并行队列并布置任务</h2><pre><code>  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-           [doSomething];
-  });
-</code></pre><h2 id="使用多线程的例子：线程之间通信"><a href="#使用多线程的例子：线程之间通信" class="headerlink" title="使用多线程的例子：线程之间通信"></a>使用多线程的例子：线程之间通信</h2><p>很多情况下，我们需要在子线程进行下载任务，下载完成后在主线程更新UI，这时候就需要线程之间的通信：</p>
-<pre><code>  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-              //下载图片
-              NSData *dataFromURL = [NSData dataWithContentsOfURL:imageURL];
-              UIImage *imageFromData = [UIImage imageWithData:dataFromURL];
-
-      dispatch_async(dispatch_get_main_queue(), ^{
-
-              //加载完成更新view
-              UIImageView *imageView = [[UIImageView alloc] initWithImage:imageFromData];
-
-      });
-
-  });
-</code></pre><blockquote>
+<h2 id="得到主队列"><a href="#得到主队列" class="headerlink" title="得到主队列"></a>得到主队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t mainQ = dispatch_get_main_queue();</div><div class="line">NSOperationQueue *mainQ = [NSOperationQueue mainQueue];</div></pre></td></tr></table></figure>
+<h2 id="得到主队列并布置任务"><a href="#得到主队列并布置任务" class="headerlink" title="得到主队列并布置任务"></a>得到主队列并布置任务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//NSThread</div><div class="line">- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait;</div><div class="line"></div><div class="line">//GCD</div><div class="line"> dispatch_async(dispatch_get_main_queue(), ^&#123;                   </div><div class="line"></div><div class="line">                        [doSomething];</div><div class="line"></div><div class="line">                    &#125;);</div></pre></td></tr></table></figure>
+<h2 id="得到全局并行队列"><a href="#得到全局并行队列" class="headerlink" title="得到全局并行队列"></a>得到全局并行队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch queue_t globalDispatchQueueDefault = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);</div></pre></td></tr></table></figure>
+<h2 id="得到全局并行队列并布置任务"><a href="#得到全局并行队列并布置任务" class="headerlink" title="得到全局并行队列并布置任务"></a>得到全局并行队列并布置任务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</div><div class="line"> </div><div class="line">         [doSomething];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="使用多线程的例子：线程之间通信"><a href="#使用多线程的例子：线程之间通信" class="headerlink" title="使用多线程的例子：线程之间通信"></a>使用多线程的例子：线程之间通信</h2><p>很多情况下，我们需要在子线程进行下载任务，下载完成后在主线程更新UI，这时候就需要线程之间的通信：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</div><div class="line">    </div><div class="line">            //下载图片</div><div class="line">            NSData *dataFromURL = [NSData dataWithContentsOfURL:imageURL];</div><div class="line">            UIImage *imageFromData = [UIImage imageWithData:dataFromURL];</div><div class="line"></div><div class="line">    dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line">        </div><div class="line">            //加载完成更新view</div><div class="line">            UIImageView *imageView = [[UIImageView alloc] initWithImage:imageFromData];</div><div class="line">        </div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<blockquote>
 <p>在这里，我们在全局并行队列的回调block里调用了主线程，并在主线程里执行了UI操作。</p>
 </blockquote>
-<h2 id="使用多线程的例子：通过NSURLSession下载"><a href="#使用多线程的例子：通过NSURLSession下载" class="headerlink" title="使用多线程的例子：通过NSURLSession下载"></a>使用多线程的例子：通过NSURLSession下载</h2><pre><code>- (void)mainQueueCallBack
-{
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-         //这里是主队列，可以更新UI        
-    }];
-
-    [task resume];
-}
-</code></pre><blockquote>
+<h2 id="使用多线程的例子：通过NSURLSession下载"><a href="#使用多线程的例子：通过NSURLSession下载" class="headerlink" title="使用多线程的例子：通过NSURLSession下载"></a>使用多线程的例子：通过NSURLSession下载</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (void)mainQueueCallBack</div><div class="line">&#123;</div><div class="line">    NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];</div><div class="line">    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];</div><div class="line">    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];</div><div class="line">    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;</div><div class="line">         //这里是主队列，可以更新UI        </div><div class="line">    &#125;];</div><div class="line"></div><div class="line">    [task resume];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在这里，<code>delegateQueue</code>的参数是主线程，所以<code>downloadTaskWithRequest::</code>方法的回调函数是在主线程，我们就可以在那里作更新UI的操作。</p>
 </blockquote>
-<p>如果没有<code>delegateQueue</code>呢？我们需要自己获取主线程</p>
-<pre><code>- (void)noDelegateQueueRequest
-{
-    NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-
-     //获取主线程-通过NSThread
-     [self performSelectorOnMainThread:(doUIThings) withObject:nil waitUntilDone:NO];
-     //获取主线程-通过GCD
-    dispatch_async(dispatch_get_main_queue(), ^{                   
-                        [doUIThings]
-                    });         
-    }];    
-    [task resume];
-}
-</code></pre><h1 id="UIScrollView"><a href="#UIScrollView" class="headerlink" title="UIScrollView"></a>UIScrollView</h1><hr>
+<p>如果没有<code>delegateQueue</code>呢？我们需要自己获取主线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (void)noDelegateQueueRequest</div><div class="line">&#123;</div><div class="line">    NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];</div><div class="line">    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];</div><div class="line">    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];</div><div class="line">    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;</div><div class="line"></div><div class="line">     //获取主线程-通过NSThread</div><div class="line">     [self performSelectorOnMainThread:(doUIThings) withObject:nil waitUntilDone:NO];</div><div class="line">     //获取主线程-通过GCD</div><div class="line">    dispatch_async(dispatch_get_main_queue(), ^&#123;                   </div><div class="line">                        [doUIThings]</div><div class="line">                    &#125;);         </div><div class="line">    &#125;];    </div><div class="line">    [task resume];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="UIScrollView"><a href="#UIScrollView" class="headerlink" title="UIScrollView"></a>UIScrollView</h1><hr>
 <p>UIScrollView是滚动视图，可以实现滚动和缩放的功能。</p>
 <h2 id="几个比较重要的属性："><a href="#几个比较重要的属性：" class="headerlink" title="几个比较重要的属性："></a>几个比较重要的属性：</h2><p>视图要滚动的区域：<code>contentSize</code><br>目前滚动的位置：<code>contentOffset</code><br>滚动窗口的大小：<code>scrollView.bounds</code></p>
-<h2 id="几个比较重要的方法："><a href="#几个比较重要的方法：" class="headerlink" title="几个比较重要的方法："></a>几个比较重要的方法：</h2><p>获取当前显示的部分：</p>
-<pre><code>CGRect visibleRect = [scrollView convertRect：scrollView.bounds toView:subview];
-</code></pre><p>用代码滚动视图：</p>
-<pre><code>- (void)scrollRectToVisible :(CGRect)aRect animated:(BOOL)animated;
-</code></pre><p>代码实现缩放：</p>
-<pre><code>@property(nonatomic) CGFloat zoomScale;  
-- (void)setZoomScale:(CGFloat)scale animated:(BOOL)animated);
-- (void)zoomToRect:(CGRect)rect animated:(BOOL)animated;
-</code></pre><p>告诉要缩放哪个<code>UIView</code>:</p>
-<pre><code>- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)
-</code></pre><h2 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h2><h4 id="设置缩放极限"><a href="#设置缩放极限" class="headerlink" title="设置缩放极限"></a>设置缩放极限</h4><pre><code>scrollView.minimumZoomSize = 0.5;
-scrollView.maximumZoomSize = 2.0;
-</code></pre><h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="几个比较重要的方法："><a href="#几个比较重要的方法：" class="headerlink" title="几个比较重要的方法："></a>几个比较重要的方法：</h2><p>获取当前显示的部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CGRect visibleRect = [scrollView convertRect：scrollView.bounds toView:subview];</div></pre></td></tr></table></figure></p>
+<p>用代码滚动视图：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)scrollRectToVisible :(CGRect)aRect animated:(BOOL)animated;</div></pre></td></tr></table></figure></p>
+<p>代码实现缩放：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@property(nonatomic) CGFloat zoomScale;  </div><div class="line">- (void)setZoomScale:(CGFloat)scale animated:(BOOL)animated);</div><div class="line">- (void)zoomToRect:(CGRect)rect animated:(BOOL)animated;</div></pre></td></tr></table></figure></p>
+<p>告诉要缩放哪个<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)</div></pre></td></tr></table></figure></p>
+<h2 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h2><h4 id="设置缩放极限"><a href="#设置缩放极限" class="headerlink" title="设置缩放极限"></a>设置缩放极限</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">scrollView.minimumZoomSize = 0.5;</div><div class="line">scrollView.maximumZoomSize = 2.0;</div></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
 <h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
 <li>第一个页面显示三个按钮，在跳转后分别下载并显示不同图片。</li>
 <li>在图片的下载过程中给予提示。</li>
 <li>图片显示出来后可以移动，缩放。</li>
 </ul>
 <h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-30b1dbbc035c8e1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：第一页 | 右：第二页"></p>
-<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-在跳转之前将图片下载的URL传给第二个页面"><a href="#1-在跳转之前将图片下载的URL传给第二个页面" class="headerlink" title="1. 在跳转之前将图片下载的URL传给第二个页面"></a>1. 在跳转之前将图片下载的URL传给第二个页面</h4><pre><code>- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-     //通过内省判断跳转的页面类
-     if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {       
-
-        //告诉编译期，即将跳转的页面类
-        ImageViewController *imageVC = (ImageViewController *)segue.destinationViewController;        
-        //初始化指针，将其设为nil 
-        NSString *string = nil;
-        //通过identifier判断跳转界面
-        if ([segue.identifier isEqualToString:@&quot;paint&quot;]) {            
-            //这张图貌似得翻墙，而且图片很大，建议换一张
-            string = @&quot;https://lh6.ggpht.com/ZoD88QrTxZbZnhpJgQbo9SPuosryX9ujjdRaHvjjvbUGeZcI-9C4AFQsWQm7-pVDv1E=h900&quot;;       
-
-        }else if ([segue.identifier isEqualToString:@&quot;earth&quot;]) {
-            //这张图不是很大，可以不用花很久就能显示
-            string = @&quot;http://news.nationalgeographic.com/content/dam/news/2016/02/12/01asteroidearth.jpg&quot;;           
-
-        }else if ([segue.identifier isEqualToString:@&quot;night&quot;])  {
-            //这张图貌似得翻墙，而且图片很大，建议换一张
-            string = @&quot;https://lh5.ggpht.com/j4C_pXnbRc5FnxNO90wIqodn4QA3f_6rB0cyu2sVnCeSwLDmyZf-xSrC9L8c3oxr6NE=h900&quot;;
-
-        }        
-
-        imageVC.imageURL = [NSURL URLWithString:string];
-
-         //设置导航栏的标题
-        imageVC.title = segue.identifier;
-
-    }
-}
-</code></pre><h4 id="2-使UIScrollView控件能够拖动"><a href="#2-使UIScrollView控件能够拖动" class="headerlink" title="2. 使UIScrollView控件能够拖动"></a>2. 使UIScrollView控件能够拖动</h4><pre><code>/**
- *  设置图片后，重新imageView的图片和自己的大小，并设置contentSize
- *
- *  @param image &lt;#image description#&gt;
- */
-- (void)setImage:(UIImage *)image
-{
-    self.imageView.image = image;
-    //根据图片大小设置imageview的大小
-
-    [self.imageView sizeToFit];
-    //保护机制：有图片设置size，否则size=0
-
-    self.scrollView.contentSize = self.image? self.image.size : CGSizeZero;
-
-}
-</code></pre><blockquote>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-在跳转之前将图片下载的URL传给第二个页面"><a href="#1-在跳转之前将图片下载的URL传给第二个页面" class="headerlink" title="1. 在跳转之前将图片下载的URL传给第二个页面"></a>1. 在跳转之前将图片下载的URL传给第二个页面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender</div><div class="line">&#123;</div><div class="line">     //通过内省判断跳转的页面类</div><div class="line">     if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) &#123;       </div><div class="line"></div><div class="line">        //告诉编译期，即将跳转的页面类</div><div class="line">        ImageViewController *imageVC = (ImageViewController *)segue.destinationViewController;        </div><div class="line">        //初始化指针，将其设为nil </div><div class="line">        NSString *string = nil;</div><div class="line">        //通过identifier判断跳转界面</div><div class="line">        if ([segue.identifier isEqualToString:@&quot;paint&quot;]) &#123;            </div><div class="line">            //这张图貌似得翻墙，而且图片很大，建议换一张</div><div class="line">            string = @&quot;https://lh6.ggpht.com/ZoD88QrTxZbZnhpJgQbo9SPuosryX9ujjdRaHvjjvbUGeZcI-9C4AFQsWQm7-pVDv1E=h900&quot;;       </div><div class="line"></div><div class="line">        &#125;else if ([segue.identifier isEqualToString:@&quot;earth&quot;]) &#123;</div><div class="line">            //这张图不是很大，可以不用花很久就能显示</div><div class="line">            string = @&quot;http://news.nationalgeographic.com/content/dam/news/2016/02/12/01asteroidearth.jpg&quot;;           </div><div class="line"></div><div class="line">        &#125;else if ([segue.identifier isEqualToString:@&quot;night&quot;])  &#123;</div><div class="line">            //这张图貌似得翻墙，而且图片很大，建议换一张</div><div class="line">            string = @&quot;https://lh5.ggpht.com/j4C_pXnbRc5FnxNO90wIqodn4QA3f_6rB0cyu2sVnCeSwLDmyZf-xSrC9L8c3oxr6NE=h900&quot;;</div><div class="line"></div><div class="line">        &#125;        </div><div class="line"></div><div class="line">        imageVC.imageURL = [NSURL URLWithString:string];</div><div class="line"></div><div class="line">         //设置导航栏的标题</div><div class="line">        imageVC.title = segue.identifier;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-使UIScrollView控件能够拖动"><a href="#2-使UIScrollView控件能够拖动" class="headerlink" title="2. 使UIScrollView控件能够拖动"></a>2. 使UIScrollView控件能够拖动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *  设置图片后，重新imageView的图片和自己的大小，并设置contentSize</div><div class="line"> *</div><div class="line"> *  @param image &lt;#image description#&gt;</div><div class="line"> */</div><div class="line">- (void)setImage:(UIImage *)image</div><div class="line">&#123;</div><div class="line">    self.imageView.image = image;</div><div class="line">    //根据图片大小设置imageview的大小</div><div class="line"></div><div class="line">    [self.imageView sizeToFit];</div><div class="line">    //保护机制：有图片设置size，否则size=0</div><div class="line"></div><div class="line">    self.scrollView.contentSize = self.image? self.image.size : CGSizeZero;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>为了使UIScrollView控件能够拖动，<strong>必须</strong>要设置它的contentSize大小，否则无法滚动！</p>
 </blockquote>
-<h4 id="3-设置UIScrollView伸缩"><a href="#3-设置UIScrollView伸缩" class="headerlink" title="3. 设置UIScrollView伸缩"></a>3. 设置UIScrollView伸缩</h4><pre><code>
-- (void)setScrollView:(UIScrollView *)scrollView
-{
-    _scrollView = scrollView;
-    _scrollView.minimumZoomScale = 0.2;
-    _scrollView.maximumZoomScale = 2.0;
-    _scrollView.delegate = self;
-    //设置两次contSize的原因是我们不确保这两个方法哪个是先被调用的
-
-    self.scrollView.contentSize = self.image? self.image.size : CGSizeZero;
-
-}
-</code></pre><p>效果图：</p>
+<h4 id="3-设置UIScrollView伸缩"><a href="#3-设置UIScrollView伸缩" class="headerlink" title="3. 设置UIScrollView伸缩"></a>3. 设置UIScrollView伸缩</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (void)setScrollView:(UIScrollView *)scrollView</div><div class="line">&#123;</div><div class="line">    _scrollView = scrollView;</div><div class="line">    _scrollView.minimumZoomScale = 0.2;</div><div class="line">    _scrollView.maximumZoomScale = 2.0;</div><div class="line">    _scrollView.delegate = self;</div><div class="line">    //设置两次contSize的原因是我们不确保这两个方法哪个是先被调用的</div><div class="line"></div><div class="line">    self.scrollView.contentSize = self.image? self.image.size : CGSizeZero;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-2d0da3c643a5b7d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="实现伸缩效果"></p>
-<h4 id="4-下载图片"><a href="#4-下载图片" class="headerlink" title="4. 下载图片"></a>4. 下载图片</h4><p>错误做法：阻塞主线程</p>
-<pre><code>- (void)setImageURL:(NSURL *)imageURL
-{
-    _imageURL = imageURL;   
-    self.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];
-}
-</code></pre><blockquote>
+<h4 id="4-下载图片"><a href="#4-下载图片" class="headerlink" title="4. 下载图片"></a>4. 下载图片</h4><p>错误做法：阻塞主线程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)setImageURL:(NSURL *)imageURL</div><div class="line">&#123;</div><div class="line">    _imageURL = imageURL;   </div><div class="line">    self.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
 <p>永远不要在主线程调用下载的方法！主线程负责UI相应，如果调用耗时的方法会使得其下一项任务在下载完成之前无法执行（主线程是串行队列），造成卡死的情况。<br>所以，我们应该另外开一个子线程让其负责下载：</p>
 </blockquote>
-<pre><code>- (void)startDownloading
-{
-    //先清空现有图片
-    self.image = nil;   
-
-    if (self.imageURL) {        
-
-        //转动的小动画，提示正在下载
-       [self.spinner startAnimating];
-        NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {            
-
-            if(!error){
-
-                //判断URL是否被更改，因为这是一个异步操作，无法保证在下载过程中一定能保持原来的数据
-                if ([request.URL isEqual:self.imageURL])
-                {
-                    //下载完成，拿到本地的路径
-                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];                    
-                    //获得主队列
-                    dispatch_async(dispatch_get_main_queue(), ^{
-
-                        //在主队列更新UI
-                        self.image = image;
-
-                    });
-                }
-            }
-        }];        
-
-        [task resume];
-    }
-}
-</code></pre><h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">- (void)startDownloading</div><div class="line">&#123;</div><div class="line">    //先清空现有图片</div><div class="line">    self.image = nil;   </div><div class="line"></div><div class="line">    if (self.imageURL) &#123;        </div><div class="line"></div><div class="line">        //转动的小动画，提示正在下载</div><div class="line">       [self.spinner startAnimating];</div><div class="line">        NSURLRequest *request = [NSURLRequest requestWithURL:self.imageURL];</div><div class="line">        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];</div><div class="line">        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];</div><div class="line">        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) &#123;            </div><div class="line"></div><div class="line">            if(!error)&#123;</div><div class="line">               </div><div class="line">                //判断URL是否被更改，因为这是一个异步操作，无法保证在下载过程中一定能保持原来的数据</div><div class="line">                if ([request.URL isEqual:self.imageURL])</div><div class="line">                &#123;</div><div class="line">                    //下载完成，拿到本地的路径</div><div class="line">                    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:location]];                    </div><div class="line">                    //获得主队列</div><div class="line">                    dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">                        //在主队列更新UI</div><div class="line">                        self.image = image;</div><div class="line"></div><div class="line">                    &#125;);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;];        </div><div class="line"></div><div class="line">        [task resume];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
 <p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。</p>
 <p>笔者这两天会总结一下这一系列的Demo，发布到我的个人GitHub账号上去，以后就可以方便很多了~</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
@@ -395,8 +241,7 @@ scrollView.maximumZoomSize = 2.0;
                 
                 UITableview
 UITableview是iOS软件中最常见的视图，用来以表格的形式显示数据。
-数据源方法- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现
-- (NSInteger
+数据源方法123- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现- (NSInteg
                 &hellip;
                 </p>
                 <div class="post-list__meta"><time datetime="2017-01-11T07:20:18.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;

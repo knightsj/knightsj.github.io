@@ -170,27 +170,12 @@
 <h1 id="Core-Motion"><a href="#Core-Motion" class="headerlink" title="Core Motion"></a>Core Motion</h1><hr>
 <p>CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作，可以根据用户的动作做出相应的动作；磁力针可以判断设备的方向。</p>
 <p>CoreMotion的工作是基于<code>CMMotionManager</code>类来执行的。我们看一下该类的API：</p>
-<h2 id="CMMotionManager"><a href="#CMMotionManager" class="headerlink" title="CMMotionManager"></a>CMMotionManager</h2><h3 id="检测硬件设备："><a href="#检测硬件设备：" class="headerlink" title="检测硬件设备："></a>检测硬件设备：</h3><pre><code>@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable __TVOS_PROHIBITED;
-@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable __TVOS_PROHIBITED;
-@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;
-@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable __TVOS_PROHIBITED;
-</code></pre><h3 id="开启相应的模块："><a href="#开启相应的模块：" class="headerlink" title="开启相应的模块："></a>开启相应的模块：</h3><pre><code>- (void)startAccelerometerUpdates __TVOS_PROHIBITED;
-- (void)startGyroUpdates __TVOS_PROHIBITED;
-- (void)startMagnetometerUpdates NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;
-- (void)startDeviceMotionUpdates __TVOS_PROHIBITED;
-</code></pre><h3 id="检测相应的模块是否正在收集数据："><a href="#检测相应的模块是否正在收集数据：" class="headerlink" title="检测相应的模块是否正在收集数据："></a>检测相应的模块是否正在收集数据：</h3><pre><code>@property(readonly, nonatomic, getter=isAccelerometerActive) BOOL accelerometerActive __TVOS_PROHIBITED;
-@property(readonly, nonatomic, getter=isGyroActive) BOOL gyroActive __TVOS_PROHIBITED;
-@property(readonly, nonatomic, getter=isMagnetometerActive) BOOL magnetometerActive NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;
-@property(readonly, nonatomic, getter=isDeviceMotionActive) BOOL deviceMotionActive __TVOS_PROHIBITED;
-</code></pre><h3 id="关闭相应的模块："><a href="#关闭相应的模块：" class="headerlink" title="关闭相应的模块："></a>关闭相应的模块：</h3><pre><code>- (void)stopAccelerometerUpdates __TVOS_PROHIBITED;
-- (void)stopGyroUpdates __TVOS_PROHIBITED;
-- (void)stopMagnetometerUpdates NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;
-- (void)stopDeviceMotionUpdates __TVOS_PROHIBITED;
-</code></pre><h3 id="使用block监听"><a href="#使用block监听" class="headerlink" title="使用block监听"></a>使用block监听</h3><pre><code>- (void)startAccelerometerUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMAccelerometerHandler)handler __TVOS_PROHIBITED;
-- (void)startGyroUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMGyroHandler)handler __TVOS_PROHIBITED;
-- (void)startMagnetometerUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMMagnetometerHandler)handler NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;
-- (void)startDeviceMotionUpdatesUsingReferenceFrame:(CMAttitudeReferenceFrame)referenceFrame toQueue:(NSOperationQueue *)queue withHandler:(CMDeviceMotionHandler)handler NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;
-</code></pre><h3 id="CMMotionManager的工作步骤"><a href="#CMMotionManager的工作步骤" class="headerlink" title="CMMotionManager的工作步骤"></a>CMMotionManager的工作步骤</h3><ol>
+<h2 id="CMMotionManager"><a href="#CMMotionManager" class="headerlink" title="CMMotionManager"></a>CMMotionManager</h2><h3 id="检测硬件设备："><a href="#检测硬件设备：" class="headerlink" title="检测硬件设备："></a>检测硬件设备：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
+<h3 id="开启相应的模块："><a href="#开启相应的模块：" class="headerlink" title="开启相应的模块："></a>开启相应的模块：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)startAccelerometerUpdates __TVOS_PROHIBITED;</div><div class="line">- (void)startGyroUpdates __TVOS_PROHIBITED;</div><div class="line">- (void)startMagnetometerUpdates NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">- (void)startDeviceMotionUpdates __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
+<h3 id="检测相应的模块是否正在收集数据："><a href="#检测相应的模块是否正在收集数据：" class="headerlink" title="检测相应的模块是否正在收集数据："></a>检测相应的模块是否正在收集数据：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@property(readonly, nonatomic, getter=isAccelerometerActive) BOOL accelerometerActive __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isGyroActive) BOOL gyroActive __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isMagnetometerActive) BOOL magnetometerActive NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isDeviceMotionActive) BOOL deviceMotionActive __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
+<h3 id="关闭相应的模块："><a href="#关闭相应的模块：" class="headerlink" title="关闭相应的模块："></a>关闭相应的模块：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)stopAccelerometerUpdates __TVOS_PROHIBITED;</div><div class="line">- (void)stopGyroUpdates __TVOS_PROHIBITED;</div><div class="line">- (void)stopMagnetometerUpdates NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">- (void)stopDeviceMotionUpdates __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
+<h3 id="使用block监听"><a href="#使用block监听" class="headerlink" title="使用block监听"></a>使用block监听</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)startAccelerometerUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMAccelerometerHandler)handler __TVOS_PROHIBITED;</div><div class="line">- (void)startGyroUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMGyroHandler)handler __TVOS_PROHIBITED;</div><div class="line">- (void)startMagnetometerUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMMagnetometerHandler)handler NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">- (void)startDeviceMotionUpdatesUsingReferenceFrame:(CMAttitudeReferenceFrame)referenceFrame toQueue:(NSOperationQueue *)queue withHandler:(CMDeviceMotionHandler)handler NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
+<h3 id="CMMotionManager的工作步骤"><a href="#CMMotionManager的工作步骤" class="headerlink" title="CMMotionManager的工作步骤"></a>CMMotionManager的工作步骤</h3><ol>
 <li>首先初始化<code>CMMotionManager</code>类。</li>
 <li>判断硬件设备的可使用性。</li>
 <li>调用API<br>详细的使用方法请看Demo部分的讲解部分。</li>
@@ -204,131 +189,31 @@
 <li>Backgroud:后台, 程序在后台而且能执行代码。大多数程序进入这个状态后会在在这个状态上停留一会， 时间到之后会进入挂起状态(Suspended)。</li>
 <li>Suspended:挂起 ,程序在后台不能执行代码。系统会自动把程序变成这个状态而且不会发出通知。当挂起时，程序还是停留在内存中的，当系统内存低时，系统就把挂起的程序清除掉，为当前处于前台程序提供更多的内存。</li>
 </ul>
-<h2 id="应用程序的状态之间切换时调用的代理方法（AppDelegate）："><a href="#应用程序的状态之间切换时调用的代理方法（AppDelegate）：" class="headerlink" title="应用程序的状态之间切换时调用的代理方法（AppDelegate）："></a>应用程序的状态之间切换时调用的代理方法（AppDelegate）：</h2><pre><code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions   //启动基本完成，程序准备开始运行时调用。
-- (void)applicationWillResignActive:(UIApplication *)application          //当应用程序将要入非活动状态执行。在此期间，应用程序不接收消息或事件，比如来电话时。
-- (void)applicationDidBecomeActive:(UIApplication *)application           //当应用程序入活动状态执行。
-- (void)applicationDidEnterBackground:(UIApplication *)application        //当程序被推到后台的时候调用。
-- (void)applicationWillEnterForeground:(UIApplication *)application       //当程序从后台将要重新回到前台时候调用。
-- (void)applicationWillTerminate:(UIApplication *)application             // 当程序将要退出时调用，通常是用来保存数据和一些退出前的清理工作。
-</code></pre><h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="应用程序的状态之间切换时调用的代理方法（AppDelegate）："><a href="#应用程序的状态之间切换时调用的代理方法（AppDelegate）：" class="headerlink" title="应用程序的状态之间切换时调用的代理方法（AppDelegate）："></a>应用程序的状态之间切换时调用的代理方法（AppDelegate）：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions   //启动基本完成，程序准备开始运行时调用。</div><div class="line">- (void)applicationWillResignActive:(UIApplication *)application          //当应用程序将要入非活动状态执行。在此期间，应用程序不接收消息或事件，比如来电话时。</div><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application           //当应用程序入活动状态执行。</div><div class="line">- (void)applicationDidEnterBackground:(UIApplication *)application        //当程序被推到后台的时候调用。</div><div class="line">- (void)applicationWillEnterForeground:(UIApplication *)application       //当程序从后台将要重新回到前台时候调用。</div><div class="line">- (void)applicationWillTerminate:(UIApplication *)application             // 当程序将要退出时调用，通常是用来保存数据和一些退出前的清理工作。</div></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
 <h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求:"></a>Demo需求:</h2><ul>
 <li>显示两个小方块，一黑一红，二者可以随着屏幕的转动而移动。</li>
 <li>由红色方块碰撞黑色方块来得分。</li>
 </ul>
 <h2 id="Demo效果图："><a href="#Demo效果图：" class="headerlink" title="Demo效果图："></a>Demo效果图：</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-baa2c6607140ad2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：游戏进行中 | 右：游戏暂停"></p>
-<h2 id="重要知识点和代码段："><a href="#重要知识点和代码段：" class="headerlink" title="重要知识点和代码段："></a>重要知识点和代码段：</h2><h4 id="1-添加animator和重力行为和碰撞行为"><a href="#1-添加animator和重力行为和碰撞行为" class="headerlink" title="1. 添加animator和重力行为和碰撞行为"></a>1. 添加animator和重力行为和碰撞行为</h4><pre><code>- (UIDynamicAnimator *)animator
-{
-    if (!_animator) _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    return _animator;
-}
-- (UICollisionBehavior *)collider
-{
-    if (!_collider) {
-        UICollisionBehavior *collider = [[UICollisionBehavior alloc] init];
-        collider.translatesReferenceBoundsIntoBoundary = YES;
-        [self.animator addBehavior:collider];
-        self.collider = collider;
-    }
-    return _collider;
-}
-- (UIGravityBehavior *)gravity
-{
-    if (!_gravity) {
-        UIGravityBehavior *gravity = [[UIGravityBehavior alloc] init];
-        [self.animator addBehavior:gravity];
-        self.gravity = gravity;
-    }
-    return _gravity;
-}
-</code></pre><blockquote>
+<h2 id="重要知识点和代码段："><a href="#重要知识点和代码段：" class="headerlink" title="重要知识点和代码段："></a>重要知识点和代码段：</h2><h4 id="1-添加animator和重力行为和碰撞行为"><a href="#1-添加animator和重力行为和碰撞行为" class="headerlink" title="1. 添加animator和重力行为和碰撞行为"></a>1. 添加animator和重力行为和碰撞行为</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">- (UIDynamicAnimator *)animator</div><div class="line">&#123;</div><div class="line">    if (!_animator) _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];</div><div class="line">    return _animator;</div><div class="line">&#125;</div><div class="line">- (UICollisionBehavior *)collider</div><div class="line">&#123;</div><div class="line">    if (!_collider) &#123;</div><div class="line">        UICollisionBehavior *collider = [[UICollisionBehavior alloc] init];</div><div class="line">        collider.translatesReferenceBoundsIntoBoundary = YES;</div><div class="line">        [self.animator addBehavior:collider];</div><div class="line">        self.collider = collider;</div><div class="line">    &#125;</div><div class="line">    return _collider;</div><div class="line">&#125;</div><div class="line">- (UIGravityBehavior *)gravity</div><div class="line">&#123;</div><div class="line">    if (!_gravity) &#123;</div><div class="line">        UIGravityBehavior *gravity = [[UIGravityBehavior alloc] init];</div><div class="line">        [self.animator addBehavior:gravity];</div><div class="line">        self.gravity = gravity;</div><div class="line">    &#125;</div><div class="line">    return _gravity;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>老规矩，还是要将animtor添加到view里面再向其添加各种动作行为。有关动画的讲解请参考笔者之前一篇总结：<a href="http://www.jianshu.com/p/5f1f40f963ac" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（八） ：协议，block，动画，俄罗斯方块Demo</a>。</p>
 </blockquote>
-<h4 id="2-根据偏移量来设置方块的位置"><a href="#2-根据偏移量来设置方块的位置" class="headerlink" title="2. 根据偏移量来设置方块的位置"></a>2. 根据偏移量来设置方块的位置</h4><pre><code>- (UIView *)addBlockOffsetFromCenterBy:(UIOffset)offset
-{
-    CGPoint blockCenter = CGPointMake(CGRectGetMidX(self.view.bounds)+offset.horizontal,
-                                      CGRectGetMidY(self.view.bounds)+offset.vertical);
-
-    CGRect blockFrame = CGRectMake(blockCenter.x-blockSize.width/2,
-                                   blockCenter.y-blockSize.height/2,
-                                   blockSize.width,
-                                   blockSize.height);
-
-    UIView *block = [[UIView alloc] initWithFrame:blockFrame];
-    [self.view addSubview:block];
-    return block;
-}
-</code></pre><blockquote>
+<h4 id="2-根据偏移量来设置方块的位置"><a href="#2-根据偏移量来设置方块的位置" class="headerlink" title="2. 根据偏移量来设置方块的位置"></a>2. 根据偏移量来设置方块的位置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (UIView *)addBlockOffsetFromCenterBy:(UIOffset)offset</div><div class="line">&#123;</div><div class="line">    CGPoint blockCenter = CGPointMake(CGRectGetMidX(self.view.bounds)+offset.horizontal,</div><div class="line">                                      CGRectGetMidY(self.view.bounds)+offset.vertical);</div><div class="line"></div><div class="line">    CGRect blockFrame = CGRectMake(blockCenter.x-blockSize.width/2,</div><div class="line">                                   blockCenter.y-blockSize.height/2,</div><div class="line">                                   blockSize.width,</div><div class="line">                                   blockSize.height);</div><div class="line"></div><div class="line">    UIView *block = [[UIView alloc] initWithFrame:blockFrame];</div><div class="line">    [self.view addSubview:block];</div><div class="line">    return block;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在这里，使用了<code>CGRectGetMidX</code>函数来获得view的横向中心点。</p>
 </blockquote>
-<h4 id="3-初始化红色和黑色方块"><a href="#3-初始化红色和黑色方块" class="headerlink" title="3. 初始化红色和黑色方块"></a>3. 初始化红色和黑色方块</h4><pre><code>        self.redBlock = [self addBlockOffsetFromCenterBy:UIOffsetMake(-100, 0)];
-        self.redBlock.backgroundColor = [UIColor redColor];
-        [self.collider addItem:self.redBlock];
-        [self.gravity addItem:self.redBlock];
-
-        self.blackBlock = [self addBlockOffsetFromCenterBy:UIOffsetMake(+100, 0)];
-        self.blackBlock.backgroundColor = [UIColor blackColor];
-        [self.collider addItem:self.blackBlock];
-
-        //将开始的重力设为0：方块将不感受重力，只能通过人为手段施加
-        self.gravity.gravityDirection = CGVectorMake(0, 0);
-</code></pre><blockquote>
+<h4 id="3-初始化红色和黑色方块"><a href="#3-初始化红色和黑色方块" class="headerlink" title="3. 初始化红色和黑色方块"></a>3. 初始化红色和黑色方块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">        self.redBlock = [self addBlockOffsetFromCenterBy:UIOffsetMake(-100, 0)];</div><div class="line">        self.redBlock.backgroundColor = [UIColor redColor];</div><div class="line">        [self.collider addItem:self.redBlock];</div><div class="line">        [self.gravity addItem:self.redBlock];</div><div class="line">        </div><div class="line">        self.blackBlock = [self addBlockOffsetFromCenterBy:UIOffsetMake(+100, 0)];</div><div class="line">        self.blackBlock.backgroundColor = [UIColor blackColor];</div><div class="line">        [self.collider addItem:self.blackBlock];</div><div class="line"></div><div class="line">        //将开始的重力设为0：方块将不感受重力，只能通过人为手段施加</div><div class="line">        self.gravity.gravityDirection = CGVectorMake(0, 0);</div></pre></td></tr></table></figure>
+<blockquote>
 <p>在这里，红色方块具有碰撞和重力行为，但是黑色方块却只有碰撞行为。因为黑色是不受重力控制的，它的运动的触发只来自红色方块的碰撞。</p>
 </blockquote>
-<h4 id="4-在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作："><a href="#4-在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作：" class="headerlink" title="4. 在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作："></a>4. 在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作：</h4><pre><code>    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note) {
-                                                      [self pauseGame];
-                                                  }];
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                     object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note) {
-                                                      if (self.view.window) [self resumeGame];
-                                                  }];
-</code></pre><blockquote>
+<h4 id="4-在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作："><a href="#4-在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作：" class="headerlink" title="4. 在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作："></a>4. 在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification</div><div class="line">                                                      object:nil</div><div class="line">                                                       queue:nil</div><div class="line">                                                  usingBlock:^(NSNotification *note) &#123;</div><div class="line">                                                      [self pauseGame];</div><div class="line">                                                  &#125;];</div><div class="line"></div><div class="line">    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification</div><div class="line">                                                     object:nil</div><div class="line">                                                       queue:nil</div><div class="line">                                                  usingBlock:^(NSNotification *note) &#123;</div><div class="line">                                                      if (self.view.window) [self resumeGame];</div><div class="line">                                                  &#125;];</div></pre></td></tr></table></figure>
+<blockquote>
 <p>我们也可以在appdelegate里面来实现这些方法，不过个人认为将方法写在一起看起来比较直观</p>
 </blockquote>
-<h4 id="5-CMMotionManager的初始化和使用"><a href="#5-CMMotionManager的初始化和使用" class="headerlink" title="5. CMMotionManager的初始化和使用"></a>5. CMMotionManager的初始化和使用</h4><pre><code>//初始化
-- (CMMotionManager *)motionManager
-{
-    if (!_motionManager) {
-        _motionManager = [[CMMotionManager alloc] init];
-        _motionManager.accelerometerUpdateInterval = 0.1;
-    }
-    return _motionManager;
-}
-
-//将方法放在主线程的代码块中
- if (!self.motionManager.isAccelerometerActive) {
-
-        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue]
-
-                                                 withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
-    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿//获取加速器的方向
-                                                     CGFloat x = accelerometerData.acceleration.x;
-                                                     CGFloat y = accelerometerData.acceleration.y;
-    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿
-    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿//根据设备的方向来给方块施加不同方向的重力
-                                                     switch (self.interfaceOrientation) {
-                                                         case UIInterfaceOrientationLandscapeRight:
-                                                            self.gravity.gravityDirection = CGVectorMake(- y, - x); break;
-
-                                                       case UIInterfaceOrientationLandscapeLeft:
-                                                             self.gravity.gravityDirection = CGVectorMake(y, x); break;
-
-                                                         case UIInterfaceOrientationPortrait:
-                                                             self.gravity.gravityDirection = CGVectorMake(x, - y); break;
-
-                                                         case UIInterfaceOrientationPortraitUpsideDown:
-                                                            self.gravity.gravityDirection = CGVectorMake(- x, y); break;
-                                                     }
-
-                                                     [self updateScore];
-                                                 }];
-    }
-</code></pre><h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<h4 id="5-CMMotionManager的初始化和使用"><a href="#5-CMMotionManager的初始化和使用" class="headerlink" title="5. CMMotionManager的初始化和使用"></a>5. CMMotionManager的初始化和使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">//初始化</div><div class="line">- (CMMotionManager *)motionManager</div><div class="line">&#123;</div><div class="line">    if (!_motionManager) &#123;</div><div class="line">        _motionManager = [[CMMotionManager alloc] init];</div><div class="line">        _motionManager.accelerometerUpdateInterval = 0.1;</div><div class="line">    &#125;</div><div class="line">    return _motionManager;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//将方法放在主线程的代码块中</div><div class="line"> if (!self.motionManager.isAccelerometerActive) &#123;</div><div class="line"></div><div class="line">        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue]</div><div class="line"></div><div class="line">                                                 withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) &#123;</div><div class="line">    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿//获取加速器的方向</div><div class="line">                                                     CGFloat x = accelerometerData.acceleration.x;</div><div class="line">                                                     CGFloat y = accelerometerData.acceleration.y;</div><div class="line">    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿</div><div class="line">    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿//根据设备的方向来给方块施加不同方向的重力</div><div class="line">                                                     switch (self.interfaceOrientation) &#123;</div><div class="line">                                                         case UIInterfaceOrientationLandscapeRight:</div><div class="line">                                                            self.gravity.gravityDirection = CGVectorMake(- y, - x); break;</div><div class="line">  </div><div class="line">                                                       case UIInterfaceOrientationLandscapeLeft:</div><div class="line">                                                             self.gravity.gravityDirection = CGVectorMake(y, x); break;</div><div class="line"></div><div class="line">                                                         case UIInterfaceOrientationPortrait:</div><div class="line">                                                             self.gravity.gravityDirection = CGVectorMake(x, - y); break;</div><div class="line"></div><div class="line">                                                         case UIInterfaceOrientationPortraitUpsideDown:</div><div class="line">                                                            self.gravity.gravityDirection = CGVectorMake(- x, y); break;</div><div class="line">                                                     &#125;</div><div class="line"></div><div class="line">                                                     [self updateScore];</div><div class="line">                                                 &#125;];</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
 <p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
 <p>如果嫌麻烦的童鞋可以在留言留下邮箱，笔者会将Demo包发给你~</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
@@ -369,7 +254,7 @@
 模态视图
 模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。
 显示模态视图：
-  [s
+1  [
                 &hellip;
                 </p>
                 <div class="post-list__meta"><time datetime="2017-01-11T07:28:46.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
