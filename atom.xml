@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-02-09T04:42:41.000Z</updated>
+  <updated>2017-02-09T04:47:11.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/09/PNChart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/09/PNChart源码解析/</id>
     <published>2017-02-09T03:33:20.000Z</published>
-    <updated>2017-02-09T04:42:41.000Z</updated>
+    <updated>2017-02-09T04:47:11.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="框架介绍"><a href="#框架介绍" class="headerlink" title="框架介绍"></a>框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
 <p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
