@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-02-09T04:47:11.000Z</updated>
+  <updated>2017-02-09T05:06:43.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/09/PNChart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/09/PNChart源码解析/</id>
     <published>2017-02-09T03:33:20.000Z</published>
-    <updated>2017-02-09T04:47:11.000Z</updated>
+    <updated>2017-02-09T05:06:43.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="框架介绍"><a href="#框架介绍" class="headerlink" title="框架介绍"></a>框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
+    <content type="html"><![CDATA[<h2 id="一-框架介绍"><a href="#一-框架介绍" class="headerlink" title="一. 框架介绍"></a>一. 框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
 <p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
 <p><img src="http://oih3a9o4n.bkt.clouddn.com/PNChart_00.png" alt="层级图"></p>
 <blockquote>
@@ -51,7 +51,7 @@
 </ol>
 <p>简单的代码演示上述过程：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIBezierPath</span> *path = [<span class="built_in">UIBezierPath</span> bezierPath];</div><div class="line">...自定义path...</div><div class="line"><span class="built_in">CAShapeLayer</span> *shapLayer = [<span class="built_in">CAShapeLayer</span> alloc] init];</div><div class="line">shapLayer.path = path;</div><div class="line">[<span class="keyword">self</span>.view.layer addSubLayer:shapeLayer];</div></pre></td></tr></table></figure></p>
 <p>现在大致了解了画图的过程，我们来看一下该框架的作者是如何实现一个折线图的吧！</p>
-<h2 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h2><p>首先看一下整个绘制折线图的步骤：</p>
+<h2 id="二-源码解析"><a href="#二-源码解析" class="headerlink" title="二. 源码解析"></a>二. 源码解析</h2><p>首先看一下整个绘制折线图的步骤：</p>
 <ol>
 <li>图表的初始化。</li>
 <li>获取横轴和纵轴的数据。</li>
@@ -173,12 +173,12 @@
 <p>这下就完整了，一个带有响应功能的图表就做好啦！</p>
 <h3 id="关于自定义UIView"><a href="#关于自定义UIView" class="headerlink" title="关于自定义UIView"></a>关于自定义UIView</h3><p>这里只是将图表的<code>layer</code>加在了<code>UIView</code>的layer上，那如果想完全自定义view的话，只需将图表的<code>layer</code>完全赋给<code>UIView</code>的layer即可，这样一来，想要画出任意形状的<code>UIView</code>都可以。</p>
 <hr>
-<h2 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h2><p>关于图表的绘制，相对贝塞尔曲线与<code>CALayer</code>来说，数据的处理是一个比较麻烦的点。但是一旦学会了折线图的绘制，了解了绘图原理，那么其他类型的图表就可以触类旁通。</p>
+<h2 id="三-最后的话"><a href="#三-最后的话" class="headerlink" title="三. 最后的话"></a>三. 最后的话</h2><p>关于图表的绘制，相对贝塞尔曲线与<code>CALayer</code>来说，数据的处理是一个比较麻烦的点。但是一旦学会了折线图的绘制，了解了绘图原理，那么其他类型的图表就可以触类旁通。</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;框架介绍&quot;&gt;&lt;a href=&quot;#框架介绍&quot; class=&quot;headerlink&quot; title=&quot;框架介绍&quot;&gt;&lt;/a&gt;框架介绍&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kevinzhow/PNChart&quot;&gt;PNChart&lt;/a&gt;是国内开
+      &lt;h2 id=&quot;一-框架介绍&quot;&gt;&lt;a href=&quot;#一-框架介绍&quot; class=&quot;headerlink&quot; title=&quot;一. 框架介绍&quot;&gt;&lt;/a&gt;一. 框架介绍&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kevinzhow/PNChart&quot;&gt;PNCha
     
     </summary>
     
