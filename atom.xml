@@ -5,11 +5,11 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-03-20T05:52:57.000Z</updated>
+  <updated>2017-03-20T07:27:19.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
-    <name>Knight_SJ</name>
+    <name>J_Knight</name>
     
   </author>
   
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/03/20/%E5%9F%BA%E4%BA%8EMVVM%EF%BC%8C%E7%94%A8%E4%BA%8E%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E8%AE%BE%E7%BD%AE%E9%A1%B5%EF%BC%8C%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E9%A1%B5%E7%9A%84%E6%A1%86%E6%9E%B6%EF%BC%88%E9%99%84%EF%BC%9A%E4%BB%BF%E5%BE%AE%E4%BF%A1iOS%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E7%8E%B0%E9%A1%B5%EF%BC%8C%E4%B8%AA%E4%BA%BA%E9%A1%B5%EF%BC%8C%E8%AE%BE%E7%BD%AE%E9%A1%B5Demo%EF%BC%89/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/03/20/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/</id>
     <published>2017-03-20T05:47:51.000Z</published>
-    <updated>2017-03-20T05:52:57.000Z</updated>
+    <updated>2017-03-20T07:27:19.000Z</updated>
     
     <content type="html"><![CDATA[<p>写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。</p>
 <p>而且这些页面的共性比较多：</p>
@@ -37,7 +37,7 @@
 <li><a href="http://www.jianshu.com/p/81d0c573f7a8" target="_blank" rel="external">利用MVVM设计快速开发个人中心、设置等模块</a></li>
 </ol>
 <p>看完总结之后，利用上周3天的业余时间写好了这个框架，为了它实用性，我仿照了微信客户端的发现页，个人页和设置页写了一个Demo，来看一下效果图：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/sjstatictableview_1.png" alt="发现页 | 个人页 | 个人信息页 | 设置页"></p>
+<p><img src="http://oih3a9o4n.bkt.clouddn.com/sjstatictableview_1.png" alt="发现页 | 个人页 | 个人信息页 | 设置页"><br><a id="more"></a></p>
 <blockquote>
 <p>项目所用资源来自：<a href="https://github.com/zhengwenming/WeChat">GitHub:zhengwenming/WeChat</a><br>Demo地址：<a href="https://github.com/knightsj/SJStaticTableView">GitHub: knightsj/SJStaticTableView</a></p>
 </blockquote>
@@ -193,7 +193,19 @@
       &lt;p&gt;写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。&lt;/p&gt;
 &lt;p&gt;而且这些页面的共性比较多：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;大多数
+&lt;li&gt;大多数情况下在进入页面之前就已经拿到所有数据。&lt;/li&gt;
+&lt;li&gt;cell样式单一，自定义cell出现的几率比较小（几乎都是高度为44的cell）。&lt;/li&gt;
+&lt;li&gt;多数都分组。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因为自己非常想写一个开源的东西出来（也可以暴露自己的不足），同时又受限于水平，所以就打算写这么一个比较简单，又具有通用性的框架：&lt;strong&gt;一个定制性比较高的适合在个人页和设置页使用的UITableView&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;在真正写之前，看了几篇类似的文章，挑出两篇自己觉得比较好的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.objc.io/issues/1-view-controllers/table-views/&quot;&gt;Clean Table View Code&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/504c61a9dc82&quot;&gt;如何写好一个UITableView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/81d0c573f7a8&quot;&gt;利用MVVM设计快速开发个人中心、设置等模块&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;看完总结之后，利用上周3天的业余时间写好了这个框架，为了它实用性，我仿照了微信客户端的发现页，个人页和设置页写了一个Demo，来看一下效果图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/sjstatictableview_1.png&quot; alt=&quot;发现页 | 个人页 | 个人信息页 | 设置页&quot;&gt;&lt;br&gt;
     
     </summary>
     
@@ -209,7 +221,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/03/14/%E5%85%88%E6%98%AF%E7%A8%8B%E5%BA%8F%E5%91%98%EF%BC%8C%E7%84%B6%E5%90%8E%E6%89%8D%E6%98%AFiOS%E7%A8%8B%E5%BA%8F%E5%91%98%20%E2%80%94%20%E5%86%99%E7%BB%99%E5%B9%BF%E5%A4%A7%E9%9D%9E%E7%A7%91%E7%8F%ADiOS%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E4%B8%80%E7%AF%87%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/03/14/先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结/</id>
     <published>2017-03-14T00:37:08.000Z</published>
-    <updated>2017-03-14T00:37:08.000Z</updated>
+    <updated>2017-03-20T07:31:29.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-10c56d4121bfe78d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Objective-C | Swift | C"></p>
 <p>这篇面试总结很短，也没有面试题的答案，只是写给像我一样的非科班iOS开发者的一些话。</p>
@@ -225,6 +237,7 @@
 <li>分类是如何实现的？它为什么会覆盖掉原来的方法？</li>
 </ol>
 <p>另外值得一提的就是问了我自己写的博客里的东西（JSONModel的解析，EOC的笔记）等等。。</p>
+<a id="more"></a>
 <h4 id="这次面试让我深刻意识到了两点："><a href="#这次面试让我深刻意识到了两点：" class="headerlink" title="这次面试让我深刻意识到了两点："></a>这次面试让我深刻意识到了两点：</h4><ol>
 <li>对于每个设计，不能只停留在“会用”而已，应该理解它的实现机制，而且几乎每个设计都是与数据结构息息相关的，理解了数据结构和指针会有助于理解这些设计。</li>
 <li>了解设计的原理之后，还要知其所以然：为什么这么设计？最好还要知道这个设计存在什么缺陷，这个缺陷是哪个解决类似问题的设计所没有的？</li>
@@ -243,7 +256,20 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-10c56d4121bfe78d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-10c56d4121bfe78d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;Objective-C | Swift | C&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这篇面试总结很短，也没有面试题的答案，只是写给像我一样的非科班iOS开发者的一些话。&lt;/p&gt;
+&lt;p&gt;昨天进行了人生第一次视频面试，一共三个小时的技术面，还没见到人事，应该是挂了。&lt;/p&gt;
+&lt;p&gt;不过整个过程下来感触还是蛮多的，除了感受到面试官的牛X之外，也知道自己平时在学习中的不足。&lt;/p&gt;
+&lt;h4 id=&quot;先介绍一下面试中觉得比较吃力的问题：&quot;&gt;&lt;a href=&quot;#先介绍一下面试中觉得比较吃力的问题：&quot; class=&quot;headerlink&quot; title=&quot;先介绍一下面试中觉得比较吃力的问题：&quot;&gt;&lt;/a&gt;先介绍一下面试中觉得比较吃力的问题：&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;如果让你实现属性的weak，如何实现的？&lt;/li&gt;
+&lt;li&gt;如果让你来实现属性的atomic，如何实现？&lt;/li&gt;
+&lt;li&gt;KVO为什么要创建一个子类来实现？&lt;/li&gt;
+&lt;li&gt;类结构体的组成，isa指针指向了什么？（这里应该将元类和根元类也说一下）&lt;/li&gt;
+&lt;li&gt;RunLoop有几种事件源？有几种模式？&lt;/li&gt;
+&lt;li&gt;方法列表的数据结构是什么？&lt;/li&gt;
+&lt;li&gt;分类是如何实现的？它为什么会覆盖掉原来的方法？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;另外值得一提的就是问了我自己写的博客里的东西（JSONModel的解析，EOC的笔记）等等。。&lt;/p&gt;
     
     </summary>
     
@@ -259,12 +285,13 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/22/JSONModel%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/22/JSONModel源码解析/</id>
     <published>2017-02-22T01:16:56.000Z</published>
-    <updated>2017-02-22T01:29:25.000Z</updated>
+    <updated>2017-03-20T07:30:30.000Z</updated>
     
     <content type="html"><![CDATA[<p>这一系列的<a href="http://www.jianshu.com/nb/9137726" target="_blank" rel="external">源码解析</a>分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。</p>
 <p>想来想去，还是从<a href="https://github.com/jsonmodel/jsonmodel">JSONModel</a>开始吧～</p>
 <p>首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋还是很有帮助的。</p>
 <p>该框架的核心代码并不是很多，主要还是错误类型判断和容错处理占了不少内容。读过一遍之后，感觉到作者思维的严谨性是非常值得我们学习的：作者专门建立了一个展示错误(NSError)的类，里面封装了很多错误类型，而且这个框架还允许用户根据自己的需求来自定义错误类型并阻止最终模型的生成，在后文会有详细讲解。</p>
+<a id="more"></a>
 <p>在讲解源码之前，有必要先给不会使用JSONModel的同学们通过实际的例子来介绍一下它的使用方法（而且后面的源码解析部分也是结合这些例子给出的，因为结合例子有助于加快理解）：</p>
 <h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="1-最基本的使用"><a href="#1-最基本的使用" class="headerlink" title="1. 最基本的使用"></a>1. 最基本的使用</h2><p>第一种就是单纯地传入一个字典，并转换成模型：<br>首先我们需要定义我们自己的模型类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">JSONModel</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *name;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *sex;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> age;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
 <p>然后再使用字典来转换为模型：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSDictionary</span> *dict = @&#123;</div><div class="line">                        <span class="string">@"name"</span>:<span class="string">@"Jack"</span>,</div><div class="line">                        <span class="string">@"age"</span>:@<span class="number">23</span>,</div><div class="line">                        <span class="string">@"gender"</span>:<span class="string">@"male"</span>,</div><div class="line">                      &#125;;</div><div class="line"> <span class="built_in">NSError</span> *error;</div><div class="line"> Person *person = [[Person alloc] initWithDictionary:dict error:&amp;error];</div></pre></td></tr></table></figure></p>
@@ -370,7 +397,10 @@
     
     <summary type="html">
     
-      &lt;p&gt;这一系列的&lt;a href=&quot;http://www.jianshu.com/nb/9137726&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;源码解析&lt;/a&gt;分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，
+      &lt;p&gt;这一系列的&lt;a href=&quot;http://www.jianshu.com/nb/9137726&quot;&gt;源码解析&lt;/a&gt;分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。&lt;/p&gt;
+&lt;p&gt;想来想去，还是从&lt;a href=&quot;https://github.com/jsonmodel/jsonmodel&quot;&gt;JSONModel&lt;/a&gt;开始吧～&lt;/p&gt;
+&lt;p&gt;首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋还是很有帮助的。&lt;/p&gt;
+&lt;p&gt;该框架的核心代码并不是很多，主要还是错误类型判断和容错处理占了不少内容。读过一遍之后，感觉到作者思维的严谨性是非常值得我们学习的：作者专门建立了一个展示错误(NSError)的类，里面封装了很多错误类型，而且这个框架还允许用户根据自己的需求来自定义错误类型并阻止最终模型的生成，在后文会有详细讲解。&lt;/p&gt;
     
     </summary>
     
@@ -388,7 +418,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/14/VVeboTableView%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/14/VVeboTableView源码解析/</id>
     <published>2017-02-14T02:57:30.000Z</published>
-    <updated>2017-02-14T03:03:24.000Z</updated>
+    <updated>2017-03-20T07:31:18.000Z</updated>
     
     <content type="html"><![CDATA[<p>这次分享一个关于性能优化的源码。</p>
 <p>我们知道<code>UITabelView</code>在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，<code>UITabelView</code>的性能将直接影响这个app的性能。</p>
@@ -399,6 +429,7 @@
 <p>看了源码之后，我把作者的思路整理了出来：</p>
 <p><img src="http://oih3a9o4n.bkt.clouddn.com/VVeboTableView_0.png" alt="优化思路图"></p>
 <p>下面我就从左到右，从上到下，结合代码来展示一下作者是如何实现每一点的。</p>
+<a id="more"></a>
 <h2 id="1-减少CPU／GPU计算量"><a href="#1-减少CPU／GPU计算量" class="headerlink" title="1. 减少CPU／GPU计算量"></a>1. 减少CPU／GPU计算量</h2><h3 id="1-1-cell的重用机制"><a href="#1-1-cell的重用机制" class="headerlink" title="1.1 cell的重用机制"></a>1.1 cell的重用机制</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath&#123;</div><div class="line">    </div><div class="line">    <span class="comment">//cell重用</span></div><div class="line">    VVeboTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@"cell"</span>];</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (cell==<span class="literal">nil</span>) &#123;</div><div class="line">        cell = [[VVeboTableViewCell alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:<span class="string">@"cell"</span>];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//绘制</span></div><div class="line">    [<span class="keyword">self</span> drawCell:cell withIndexPath:indexPath];</div><div class="line">    <span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这部分就不赘述了，相信大家都可以掌握。</p>
 <h3 id="1-2-将cell高度和-cell里的控件的frame缓存在model里"><a href="#1-2-将cell高度和-cell里的控件的frame缓存在model里" class="headerlink" title="1.2 将cell高度和 cell里的控件的frame缓存在model里"></a>1.2 将cell高度和 cell里的控件的frame缓存在model里</h3><p>这一步我们需要在字典转模型里统一计算(不需要看代码细节，只需要知道这里在模型里保存了需要保存的控件的frame和整个cell的高度即可)：</p>
@@ -474,7 +505,14 @@
     <summary type="html">
     
       &lt;p&gt;这次分享一个关于性能优化的源码。&lt;/p&gt;
-&lt;p&gt;我们知道&lt;code&gt;UITabelView&lt;/code&gt;在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，&lt;code&gt;UITabelView&lt;/code&gt;的性能将
+&lt;p&gt;我们知道&lt;code&gt;UITabelView&lt;/code&gt;在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，&lt;code&gt;UITabelView&lt;/code&gt;的性能将直接影响这个app的性能。&lt;/p&gt;
+&lt;p&gt;如果&lt;code&gt;UITabelView&lt;/code&gt;里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。&lt;/p&gt;
+&lt;p&gt;但是，当cell里面涉及到图文混排，cell高度不都相等的设计时，如果不进行一些操作的话，会非常影响性能，甚至会出现卡顿，造成非常不好的用户体验。&lt;/p&gt;
+&lt;p&gt;最近在看一些iOS性能优化的文章，我找到了&lt;a href=&quot;https://github.com/johnil/VVeboTableViewDemo&quot;&gt;VVeboTableView&lt;/a&gt;这个框架。严格来说这个不属于框架，而是作者用自己的方式优化&lt;code&gt;UITableView&lt;/code&gt;的一个实现。&lt;/p&gt;
+&lt;p&gt;作者模仿了新浪微博的cell样式，在里面展示了各种微博的cell。虽然样式比较复杂，但是性能却很好：我在我的iphone 4s上进行了Core Animation测试，在滑动的时候帧率没有低于56，而且也没有觉得有半点卡顿，那么他是怎么做到的呢？&lt;/p&gt;
+&lt;p&gt;看了源码之后，我把作者的思路整理了出来：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/VVeboTableView_0.png&quot; alt=&quot;优化思路图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;下面我就从左到右，从上到下，结合代码来展示一下作者是如何实现每一点的。&lt;/p&gt;
     
     </summary>
     
@@ -492,7 +530,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/09/PNChart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/09/PNChart源码解析/</id>
     <published>2017-02-09T03:33:20.000Z</published>
-    <updated>2017-02-09T05:06:43.000Z</updated>
+    <updated>2017-03-20T07:30:49.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="一-框架介绍"><a href="#一-框架介绍" class="headerlink" title="一. 框架介绍"></a>一. 框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
 <p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
@@ -506,6 +544,7 @@
 <li><code>BarChart</code>类里面的每一根柱子都是<code>PNBar</code>的实例（该类型的图表不在本篇讲解的范围之内）。</li>
 </ol>
 </blockquote>
+<a id="more"></a>
 <p>今天就来介绍一下该框架里的折线图的源码。上文提到过，该框架的折线图是支持多组数据的，也就是在同一张图表上显示多条折线。先带大家看一下效果图：</p>
 <p><img src="http://oih3a9o4n.bkt.clouddn.com/PNChart_2.png" alt="折线图"></p>
 <p>折线图在效果上还是很简洁美观的，如果现在的你还不知道如何使用<code>CAShapeLayer</code>和<code>UIBezierPath</code>画图并附加动画效果，那么本篇源码解析非常适合你。</p>
@@ -650,7 +689,18 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;一-框架介绍&quot;&gt;&lt;a href=&quot;#一-框架介绍&quot; class=&quot;headerlink&quot; title=&quot;一. 框架介绍&quot;&gt;&lt;/a&gt;一. 框架介绍&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kevinzhow/PNChart&quot;&gt;PNCha
+      &lt;h2 id=&quot;一-框架介绍&quot;&gt;&lt;a href=&quot;#一-框架介绍&quot; class=&quot;headerlink&quot; title=&quot;一. 框架介绍&quot;&gt;&lt;/a&gt;一. 框架介绍&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kevinzhow/PNChart&quot;&gt;PNChart&lt;/a&gt;是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。&lt;/p&gt;
+&lt;p&gt;该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类&lt;code&gt;PNGenericChart&lt;/code&gt;,第二层就是所有类型的图表。提供一张图来直观感受一下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/PNChart_00.png&quot; alt=&quot;层级图&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在这张图里，需要注意以下几点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;带箭头的线和不带箭头的线的区别。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Data&lt;/code&gt;类对应图表的一组数据，因为当前类型的图表支持多组数据（例如：饼状图没有&lt;code&gt;Data&lt;/code&gt;类，因为饼状图没有多组数据，而折线图&lt;code&gt;LineChart&lt;/code&gt;是支持多组数据的，所以有&lt;code&gt;Data&lt;/code&gt;类。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Item&lt;/code&gt;类负责将传入图表的某个真实值转化为图表中显示的值，具体做法会在下文详细讲解。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;BarChart&lt;/code&gt;类里面的每一根柱子都是&lt;code&gt;PNBar&lt;/code&gt;的实例（该类型的图表不在本篇讲解的范围之内）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
@@ -668,11 +718,12 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/04/MJRefresh%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/04/MJRefresh 源码解析/</id>
     <published>2017-02-04T01:30:17.000Z</published>
-    <updated>2017-02-09T03:32:42.000Z</updated>
+    <updated>2017-03-20T07:30:40.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/CoderMJLee/MJRefresh">MJRefresh</a>是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。</p>
 <p>该框架的结构设计得很清晰，使用一个基类<code>MJRefreshComponent</code>来做一些基本的设定，然后通过继承的方式，让<code>MJRefreshHeader</code>和<code>MJRefreshFooter</code>分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：</p>
 <p><img src="http://oih3a9o4n.bkt.clouddn.com/MJRefresh_1.png" alt="框架组织结构图"></p>
+<a id="more"></a>
 <p>首先来看一下该控件的基类：MJRefreshComponent：</p>
 <h2 id="MJRefreshComponent"><a href="#MJRefreshComponent" class="headerlink" title="MJRefreshComponent"></a>MJRefreshComponent</h2><p>这个类作为该控件几类，涵盖了基类所具备的成份：状态，回调block等，大致分成下面这5种职能：</p>
 <h3 id="有哪些职能"><a href="#有哪些职能" class="headerlink" title="有哪些职能?"></a>有哪些职能?</h3><ol>
@@ -797,7 +848,9 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;a href=&quot;https://github.com/CoderMJLee/MJRefresh&quot;&gt;MJRefresh&lt;/a&gt;是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可
+      &lt;p&gt;&lt;a href=&quot;https://github.com/CoderMJLee/MJRefresh&quot;&gt;MJRefresh&lt;/a&gt;是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。&lt;/p&gt;
+&lt;p&gt;该框架的结构设计得很清晰，使用一个基类&lt;code&gt;MJRefreshComponent&lt;/code&gt;来做一些基本的设定，然后通过继承的方式，让&lt;code&gt;MJRefreshHeader&lt;/code&gt;和&lt;code&gt;MJRefreshFooter&lt;/code&gt;分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/MJRefresh_1.png&quot; alt=&quot;框架组织结构图&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -815,7 +868,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/04/SDWebImage%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/04/SDWebImage源码解析/</id>
     <published>2017-02-04T01:24:37.000Z</published>
-    <updated>2017-02-04T01:28:58.000Z</updated>
+    <updated>2017-03-20T07:31:10.000Z</updated>
     
     <content type="html"><![CDATA[<p>相信对于广大的iOS开发者，对<a href="https://github.com/rs/SDWebImage">SDWebImage</a>并不会陌生，这个框架通过给UIImageView和UIButton添加分类，实现一个异步下载图片并且支持缓存的功能。整个框架的接口非常简洁，每个类的分工都很明确，是很值得大家学习的。</p>
 <p>在使用这个框架的时候，只需要提供一个下载的url和占位图就可以在回调里拿到下载后的图片：</p>
@@ -828,6 +881,7 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-7ad6493a2b2f0b43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SDWebImage"></p>
 <p>从这个流程图里可以大致看出，该框架分为两个层：UIKit层（负责接收下载参数）和工具层（负责下载操作和缓存）。</p>
 <p>OK～基本流程大概清楚了，我们看一下每个层具体实现吧～</p>
+<a id="more"></a>
 <hr>
 <p>##UIKit层</p>
 <p>该框架最外层的类是<code>UIImageView +WebCache</code>，我们将图片的URL，占位图片直接给这个类。下面是这个类的公共接口：</p>
@@ -887,7 +941,17 @@
     
     <summary type="html">
     
-      &lt;p&gt;相信对于广大的iOS开发者，对&lt;a href=&quot;https://github.com/rs/SDWebImage&quot;&gt;SDWebImage&lt;/a&gt;并不会陌生，这个框架通过给UIImageView和UIButton添加分类，实现一个异步下载图片并且支持缓存的功能。整个框架的接口
+      &lt;p&gt;相信对于广大的iOS开发者，对&lt;a href=&quot;https://github.com/rs/SDWebImage&quot;&gt;SDWebImage&lt;/a&gt;并不会陌生，这个框架通过给UIImageView和UIButton添加分类，实现一个异步下载图片并且支持缓存的功能。整个框架的接口非常简洁，每个类的分工都很明确，是很值得大家学习的。&lt;/p&gt;
+&lt;p&gt;在使用这个框架的时候，只需要提供一个下载的url和占位图就可以在回调里拿到下载后的图片：&lt;/p&gt;
+&lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[imageview sd_setImageWithURL:[&lt;span class=&quot;built_in&quot;&gt;NSURL&lt;/span&gt; URLWithString:&lt;span class=&quot;string&quot;&gt;@&quot;pic.jpg&quot;&lt;/span&gt;] placeholderImage:[&lt;span class=&quot;built_in&quot;&gt;UIImage&lt;/span&gt; imageNamed:&lt;span class=&quot;string&quot;&gt;@&quot;placeholder&quot;&lt;/span&gt;] completed:^(&lt;span class=&quot;built_in&quot;&gt;UIImage&lt;/span&gt; * _Nullable image, &lt;span class=&quot;built_in&quot;&gt;NSError&lt;/span&gt; * _Nullable error, SDImageCacheType cacheType, &lt;span class=&quot;built_in&quot;&gt;NSURL&lt;/span&gt; * _Nullable imageURL) &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        imageview.image = image;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;NSLog&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;@&quot;图片加载完成&quot;&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;];&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;而且我们还可以不设置占位图片，也可以不使用回调的block，非常灵活:&lt;/p&gt;
+&lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//图片下载完成后直接显示下载后的图片&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;[imageview sd_setImageWithURL:[&lt;span class=&quot;built_in&quot;&gt;NSURL&lt;/span&gt; URLWithString:&lt;span class=&quot;string&quot;&gt;@&quot;pic.jpg&quot;&lt;/span&gt;]];&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在最开始先简单介绍这个框架：&lt;/p&gt;
+&lt;p&gt;这个框架的核心类是&lt;code&gt;SDWebImageManger&lt;/code&gt;，在外部有&lt;code&gt;UIImageView+WebCache&lt;/code&gt; 和 &lt;code&gt;UIButton+WebCache&lt;/code&gt; 为下载图片的操作提供接口。内部有&lt;code&gt;SDWebImageManger&lt;/code&gt;负责处理和协调 &lt;code&gt;SDWebImageDownloader&lt;/code&gt; 和 &lt;code&gt;SDWebImageCache&lt;/code&gt;：&lt;code&gt;SDWebImageDownloader&lt;/code&gt;负责具体的下载任务，&lt;code&gt;SDWebImageCache&lt;/code&gt;负责关于缓存的工作：添加，删除，查询缓存。&lt;/p&gt;
+&lt;p&gt;首先我们大致看一下这个框架的调用流程图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-7ad6493a2b2f0b43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;SDWebImage&quot;&gt;&lt;/p&gt;
+&lt;p&gt;从这个流程图里可以大致看出，该框架分为两个层：UIKit层（负责接收下载参数）和工具层（负责下载操作和缓存）。&lt;/p&gt;
+&lt;p&gt;OK～基本流程大概清楚了，我们看一下每个层具体实现吧～&lt;/p&gt;
     
     </summary>
     
@@ -905,7 +969,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/17/MBProgressHUD%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/17/MBProgressHUD源码解析/</id>
     <published>2017-01-17T09:02:54.000Z</published>
-    <updated>2017-01-18T00:52:01.000Z</updated>
+    <updated>2017-03-20T07:30:35.000Z</updated>
     
     <content type="html"><![CDATA[<p>听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的<strong>读好源码Project</strong>。</p>
 <p>从哪个框架开始呢？我想到了<code>SDWebImage</code>，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～</p>
@@ -918,6 +982,7 @@
 <li>方法内部实现</li>
 </ol>
 <p>不多说了，开始吧～</p>
+<a id="more"></a>
 <h2 id="1-核心Public-API"><a href="#1-核心Public-API" class="headerlink" title="1. 核心Public API"></a>1. 核心Public API</h2><h3 id="属性："><a href="#属性：" class="headerlink" title="属性："></a>属性：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) MBProgressHUDMode mode;<span class="comment">//HUD的类型</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) MBProgressHUDAnimation animationType <span class="built_in">UI_APPEARANCE_SELECTOR</span>;<span class="comment">//动画类型</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSTimeInterval</span> graceTime;<span class="comment">//show函数触发到显示HUD的时间段</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSTimeInterval</span> minShowTime;<span class="comment">//HUD显示的最短时间</span></div></pre></td></tr></table></figure>
 <h3 id="类方法："><a href="#类方法：" class="headerlink" title="类方法："></a>类方法：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 在某个view上添加HUD并显示</div><div class="line"> *</div><div class="line"> * 注意：显示之前，先去掉在当前view上显示的HUD。这个做法很严谨，我们将这个方案抽象出来：如果一个模型是这样的：我们需要将A加入到B中，但是需求上B里面只允许只有一个A。那么每次将A添加到B之前，都要先判断当前的b里面是否有A，如果有，则移除。</div><div class="line"> */</div><div class="line">+ (<span class="keyword">instancetype</span>)showHUDAddedTo:(<span class="built_in">UIView</span> *)view animated:(<span class="built_in">BOOL</span>)animated;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 找到某个view上最上层的HUD并隐藏它。</div><div class="line"> * 如果返回值是YES的话，就表明HUD被找到而且被移除了。</div><div class="line"> */</div><div class="line">+ (<span class="built_in">BOOL</span>)hideHUDForView:(<span class="built_in">UIView</span> *)view animated:(<span class="built_in">BOOL</span>)animated;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 在某个view上找到最上层的HUD并返回它。</div><div class="line"> * 返回值可以是空，所以返回值的关键字为：nullable</div><div class="line"> */</div><div class="line">+ (<span class="keyword">nullable</span> MBProgressHUD *)HUDForView:(<span class="built_in">UIView</span> *)view;</div></pre></td></tr></table></figure>
 <h3 id="对象方法："><a href="#对象方法：" class="headerlink" title="对象方法："></a>对象方法：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 一个HUD的便利构造函数，用某个view来初始化HUD：这个view的bounds就是HUD的bounds</div><div class="line"> */</div><div class="line">- (<span class="keyword">instancetype</span>)initWithView:(<span class="built_in">UIView</span> *)view;</div><div class="line"><span class="comment">/** </span></div><div class="line"> * 显示HUD，有无动画。</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)showAnimated:(<span class="built_in">BOOL</span>)animated;</div><div class="line"><span class="comment">/** </span></div><div class="line"> * 隐藏HUD，有无动画。</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)hideAnimated:(<span class="built_in">BOOL</span>)animated;</div><div class="line"><span class="comment">/** </span></div><div class="line"> * 在delay的时间过后隐藏HUD，有无动画。</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)hideAnimated:(<span class="built_in">BOOL</span>)animated afterDelay:(<span class="built_in">NSTimeInterval</span>)delay;</div></pre></td></tr></table></figure>
@@ -965,7 +1030,16 @@
     <summary type="html">
     
       &lt;p&gt;听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的&lt;strong&gt;读好源码Project&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;从哪个框架开始呢？我想到了&lt;code&gt;SDWebImage&lt;/code&gt;，但是大致看下
+&lt;p&gt;从哪个框架开始呢？我想到了&lt;code&gt;SDWebImage&lt;/code&gt;，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～&lt;/p&gt;
+&lt;p&gt;找着找着就找到了&lt;code&gt;MBProgressHUD&lt;/code&gt;，这个框架只有两个文件，一个头文件和一个实现文件，很适合我现在的水平（对于一个没怎么读过源码的选手），于是就撸起了袖子开始了。&lt;/p&gt;
+&lt;p&gt;连查知识点带记笔记一共花了大概3个小时（虽然文件很少，但是里面好多东西都不知道[捂脸]）。整体说来，收获还是比较大的，除了一些零碎的语法之外，框架作者对于代码结构的设计和各种情况的考虑还是很出色的，很值得学习，而且我在下文也有介绍。&lt;/p&gt;
+&lt;p&gt;这篇总结主要分三个部分来介绍这个框架：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;核心Public API&lt;/li&gt;
+&lt;li&gt;方法调用流程图&lt;/li&gt;
+&lt;li&gt;方法内部实现&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;不多说了，开始吧～&lt;/p&gt;
     
     </summary>
     
@@ -983,7 +1057,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93%20%7C%20%E5%96%84%E4%BA%8E%E6%80%BB%E7%BB%93%EF%BC%8C%E6%8A%8A%E6%8F%A1%E6%96%B9%E5%90%91/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/2016年终总结 | 善于总结，把握方向/</id>
     <published>2017-01-13T05:55:17.000Z</published>
-    <updated>2017-01-13T06:10:18.000Z</updated>
+    <updated>2017-03-20T07:29:16.000Z</updated>
     
     <content type="html"><![CDATA[<p>记得去年这个时候看到很多同行写了年终总结，当时只工作了1个月的我觉得很是高大上。转眼一年过去了，从第一家公司来到现在的这家公司，无论技术上还是思想上都成熟了一些，巧的是简书在这个时候给我们这个平台来写年终总结。贵在参与，也为了自己，写一篇吧～</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-88a964d0151cb8b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="GoodBye 2016，Welcome 2017"></p>
@@ -996,6 +1070,7 @@
 <li><strong>明年方向定位期（12月）</strong>：决定研究Hybrid app开发。</li>
 </ol>
 <p>下面开始按时间顺序分别总结一下每个时期里我的所做所思。</p>
+<a id="more"></a>
 <h2 id="基础形成期：2016年1月～5月"><a href="#基础形成期：2016年1月～5月" class="headerlink" title="基础形成期：2016年1月～5月"></a>基础形成期：2016年1月～5月</h2><hr>
 <p>我的第一份工作就是iOS开发，从2015年11月入职，熟悉了一段时间的项目代码，在12月份又接了一段时间的测试工作，所以真正开始做iOS的时间应该是今年的1月份。</p>
 <p>从开始接手简单的需求到独立负责完成前公司第二个项目上线一共经历了5个月的时间，在这个阶段里，我从一个连UITableView的代理都不怎么会用的小白中的小白逐渐成长为一个独立负责app上线的小白。</p>
@@ -1100,7 +1175,16 @@
     <summary type="html">
     
       &lt;p&gt;记得去年这个时候看到很多同行写了年终总结，当时只工作了1个月的我觉得很是高大上。转眼一年过去了，从第一家公司来到现在的这家公司，无论技术上还是思想上都成熟了一些，巧的是简书在这个时候给我们这个平台来写年终总结。贵在参与，也为了自己，写一篇吧～&lt;/p&gt;
-&lt;p&gt;&lt;img src
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-88a964d0151cb8b6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;GoodBye 2016，Welcome 2017&quot;&gt;&lt;/p&gt;
+&lt;p&gt;2016年，是我事业起步的第一年，现在回头看去，这一年大致分为五个时期：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;技术基础建设期（1月～5月）&lt;/strong&gt;：从iOS小白的小白到独立上线app。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;技术快速成长期（6月～9月）&lt;/strong&gt;：简书更新30篇文章，粉丝达到1000+。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;写简历找工作期（10月）&lt;/strong&gt;：8家面试，3个offer。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;适应新的公司期（11月）&lt;/strong&gt;：新项目1个月内上架。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;明年方向定位期（12月）&lt;/strong&gt;：决定研究Hybrid app开发。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;下面开始按时间顺序分别总结一下每个时期里我的所做所思。&lt;/p&gt;
     
     </summary>
     
@@ -1116,12 +1200,13 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/2016%E5%B9%B410%E6%9C%88%E6%B1%82%E8%81%8C%E8%AE%B0%EF%BC%9AiOS%E5%B7%A5%E4%BD%9C%E7%BB%8F%E9%AA%8C%E4%B8%8D%E5%88%B01%E5%B9%B4%EF%BC%8C%E5%9C%A81%E4%B8%AA%E6%9C%88%E5%86%85%E6%8B%BF%E5%88%B0%E4%BA%863%E4%B8%AAoffer/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/</id>
     <published>2017-01-13T05:54:44.000Z</published>
-    <updated>2017-01-13T05:54:44.000Z</updated>
+    <updated>2017-03-20T07:29:08.000Z</updated>
     
     <content type="html"><![CDATA[<p>真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~</p>
 <p>新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。</p>
 <p>笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简历到拿到最后一个offer历时3周多。因为在这段求职时间里感触很多，所以想专门写一篇博客来讲述一下自己的求职心得，希望能给各位年底求职的小伙伴，特别是做iOS的同行一些值得借鉴的东西。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-23f60ab52ef7bafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：pixabay.com"></p>
+<a id="more"></a>
 <h3 id="1-总求职数据："><a href="#1-总求职数据：" class="headerlink" title="1. 总求职数据："></a>1. 总求职数据：</h3><hr>
 <ol>
 <li>从写简历到拿到最后一个offer历时26天。</li>
@@ -1217,7 +1302,9 @@
     <summary type="html">
     
       &lt;p&gt;真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~&lt;/p&gt;
-&lt;p&gt;新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。
+&lt;p&gt;新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。&lt;/p&gt;
+&lt;p&gt;笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简历到拿到最后一个offer历时3周多。因为在这段求职时间里感触很多，所以想专门写一篇博客来讲述一下自己的求职心得，希望能给各位年底求职的小伙伴，特别是做iOS的同行一些值得借鉴的东西。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-23f60ab52ef7bafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图片来自：pixabay.com&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1233,12 +1320,13 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E9%AB%98%E5%BA%A6%E5%B0%81%E8%A3%85FMDB%E6%A1%86%E6%9E%B6%EF%BC%9A%E5%90%84%E7%94%A8%E4%B8%80%E5%8F%A5%E4%BB%A3%E7%A0%81%E6%9B%B4%E6%96%B0%EF%BC%88%E6%B7%BB%E5%8A%A0&amp;%E4%BF%AE%E6%94%B9%EF%BC%89%EF%BC%8C%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/高度封装FMDB框架：各用一句代码更新（添加&amp;修改），查询，删除用户信息/</id>
     <published>2017-01-13T05:54:08.000Z</published>
-    <updated>2017-01-18T00:53:34.000Z</updated>
+    <updated>2017-03-20T07:28:32.000Z</updated>
     
     <content type="html"><![CDATA[<p>在移动开发中，有时不得不在客户端本地保存一些数据。在iOS端，我们可以使用plist，属性列表等技术来存储数据，而相比而下更高端一点的，我们也可以使用<strong>数据库</strong>来存储数据。</p>
 <p>有趣的是，很多iOS开发者没有去选择使用苹果自家的Core Data技术来操作数据库，而是选择了<a href="[https://github.com/ccgus/fmdb](https://github.com/ccgus/fmdb">FMDB</a>)这个第三方框架。</p>
 <p>该框架很好地封装了操作繁琐的SQLite语句，让数据库的操作更加面向对象，而且上手快，门槛低，不用学习数据库的相关知识就可以使用自如。如此优秀流行的框架是值得学习的，于是笔者这两天研究了一下FMDB。研究后，略有所思，将它封装了一下，写了一个<code>Manager</code>类，最后结合了一个Demo演示如何使用这个类。</p>
 <p>该博客分为两个部分:第一个部分讲解笔者封装的这个<code>Manager</code>类；第二部分结合Demo来体现该类的实用性。</p>
+<a id="more"></a>
 <h1 id="1-封装FMDB"><a href="#1-封装FMDB" class="headerlink" title="1. 封装FMDB"></a>1. 封装FMDB</h1><hr>
 <h2 id="1-1-封装类的功能"><a href="#1-1-封装类的功能" class="headerlink" title="1.1 封装类的功能"></a>1.1 封装类的功能</h2><p>首先看一下这个类的大名：SJUserInfoManager</p>
 <ul>
@@ -1348,7 +1436,9 @@
     <summary type="html">
     
       &lt;p&gt;在移动开发中，有时不得不在客户端本地保存一些数据。在iOS端，我们可以使用plist，属性列表等技术来存储数据，而相比而下更高端一点的，我们也可以使用&lt;strong&gt;数据库&lt;/strong&gt;来存储数据。&lt;/p&gt;
-&lt;p&gt;有趣的是，很多iOS开发者没有去选择使用苹果自家的Cor
+&lt;p&gt;有趣的是，很多iOS开发者没有去选择使用苹果自家的Core Data技术来操作数据库，而是选择了&lt;a href=&quot;[https://github.com/ccgus/fmdb](https://github.com/ccgus/fmdb&quot;&gt;FMDB&lt;/a&gt;)这个第三方框架。&lt;/p&gt;
+&lt;p&gt;该框架很好地封装了操作繁琐的SQLite语句，让数据库的操作更加面向对象，而且上手快，门槛低，不用学习数据库的相关知识就可以使用自如。如此优秀流行的框架是值得学习的，于是笔者这两天研究了一下FMDB。研究后，略有所思，将它封装了一下，写了一个&lt;code&gt;Manager&lt;/code&gt;类，最后结合了一个Demo演示如何使用这个类。&lt;/p&gt;
+&lt;p&gt;该博客分为两个部分:第一个部分讲解笔者封装的这个&lt;code&gt;Manager&lt;/code&gt;类；第二部分结合Demo来体现该类的实用性。&lt;/p&gt;
     
     </summary>
     
@@ -1364,13 +1454,14 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%8A%80%E5%B7%A7%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/《Effective Objective-C》超级干货三部曲（三）：技巧篇/</id>
     <published>2017-01-13T05:52:57.000Z</published>
-    <updated>2017-01-18T01:16:13.000Z</updated>
+    <updated>2017-03-20T07:28:58.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
 <p>《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。</p>
 <p>不知道笔者所谓的三部曲的童鞋们可以看一下这张图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
 <p>前两篇传送门：<br><a href="http://www.jianshu.com/p/9c93c7ab734d" target="_blank" rel="external">《Effective Objective-C 》超级干货三部曲（一）：概念篇</a><br><a href="http://www.jianshu.com/p/0b895e39eca1" target="_blank" rel="external">《Effective Objective-C 》超级干货三部曲（二）：规范篇</a></p>
+<a id="more"></a>
 <h1 id="第9条-以“类族模式“隐藏实现细节"><a href="#第9条-以“类族模式“隐藏实现细节" class="headerlink" title="第9条 以“类族模式“隐藏实现细节"></a>第9条 以“类族模式“隐藏实现细节</h1><hr>
 <p>在iOS开发中，我们也会使用“类族”(class cluster)这一设计模式，通过“抽象基类”来实例化不同的实体子类。</p>
 <p>举个🌰 ：</p>
@@ -1639,7 +1730,11 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》&quot;&gt;&lt;/p&gt;
+&lt;p&gt;《Effective Objective-C 》超级干货三部曲系列迎来了最后一篇：技巧篇，这一篇总结汇总了这本书中一些用来解决问题的偏向“设计模式”的知识点。&lt;/p&gt;
+&lt;p&gt;不知道笔者所谓的三部曲的童鞋们可以看一下这张图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;三部曲分布图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;前两篇传送门：&lt;br&gt;&lt;a href=&quot;http://www.jianshu.com/p/9c93c7ab734d&quot;&gt;《Effective Objective-C 》超级干货三部曲（一）：概念篇&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.jianshu.com/p/0b895e39eca1&quot;&gt;《Effective Objective-C 》超级干货三部曲（二）：规范篇&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1655,7 +1750,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%A7%84%E8%8C%83%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/《Effective Objective-C》超级干货三部曲（二）：规范篇/</id>
     <published>2017-01-13T05:52:04.000Z</published>
-    <updated>2017-01-18T01:21:56.000Z</updated>
+    <updated>2017-03-20T07:28:48.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
 <p>继上一篇<a href="http://www.jianshu.com/p/9c93c7ab734d" target="_blank" rel="external">《Effective Objective-C 》超级干货三部曲（一）：概念篇</a>之后，本篇即是三部曲的第二篇：规范篇。<br>没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：</p>
@@ -1667,6 +1762,7 @@
 <p>然后用思维导图整理了一下：<br><img src="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
 <p>作为三部曲的第二篇，本篇总结抽取了《Effective Objective-C 》这本书中讲解规范性知识的部分：这些知识点都是为了避免在开发过程中出现问题或给开发提供便利的规范性知识点。掌握这些知识有助于形成科学地写OC代码的习惯，使得代码更加容易维护和扩展，学习这类知识是iOS初学者进阶的必经之路。</p>
 <p>好吧，不费话了，开始了！</p>
+<a id="more"></a>
 <h1 id="第2条：-在类的头文件中尽量少引用其他头文件"><a href="#第2条：-在类的头文件中尽量少引用其他头文件" class="headerlink" title="第2条： 在类的头文件中尽量少引用其他头文件"></a>第2条： 在类的头文件中尽量少引用其他头文件</h1><hr>
 <p>有时，类A需要将类B的实例变量作为它公共API的属性。这个时候，我们不应该引入类B的头文件，而应该使用向前声明（forward declaring）使用class关键字，并且在A的实现文件引用B的头文件。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// EOCPerson.h</span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="class"><span class="keyword">@class</span> <span class="title">EOCEmployer</span>;</span></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> : <span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *lastName;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) EOCEmployer *employer;<span class="comment">//将EOCEmployer作为属性</span></div><div class="line"><span class="keyword">@end</span></div><div class="line"><span class="comment">// EOCPerson.m</span></div><div class="line"><span class="meta">#import <span class="meta-string">"EOCEmployer.h"</span></span></div></pre></td></tr></table></figure>
@@ -1948,7 +2044,16 @@ EOCSubClass initialize</code></p>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》&quot;&gt;&lt;/p&gt;
+&lt;p&gt;继上一篇&lt;a href=&quot;http://www.jianshu.com/p/9c93c7ab734d&quot;&gt;《Effective Objective-C 》超级干货三部曲（一）：概念篇&lt;/a&gt;之后，本篇即是三部曲的第二篇：规范篇。&lt;br&gt;没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;概念类：讲解了一些概念性知识。&lt;/li&gt;
+&lt;li&gt;规范类：讲解了一些为了避免一些问题或者为后续开发提供便利所需要遵循的规范性知识。&lt;/li&gt;
+&lt;li&gt;技巧类：讲解了一些为了解决某些特定问题而需要用到的技巧性知识。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;然后用思维导图整理了一下：&lt;br&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;三部曲分布图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;作为三部曲的第二篇，本篇总结抽取了《Effective Objective-C 》这本书中讲解规范性知识的部分：这些知识点都是为了避免在开发过程中出现问题或给开发提供便利的规范性知识点。掌握这些知识有助于形成科学地写OC代码的习惯，使得代码更加容易维护和扩展，学习这类知识是iOS初学者进阶的必经之路。&lt;/p&gt;
+&lt;p&gt;好吧，不费话了，开始了！&lt;/p&gt;
     
     </summary>
     
@@ -1964,7 +2069,7 @@ EOCSubClass initialize</code></p>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E3%80%8AEffective%20Objective-C%E3%80%8B%E8%B6%85%E7%BA%A7%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E5%BF%B5%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/《Effective Objective-C》超级干货三部曲（一）：概念篇/</id>
     <published>2017-01-13T05:50:51.000Z</published>
-    <updated>2017-01-18T01:55:37.000Z</updated>
+    <updated>2017-03-20T07:28:41.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
 <p>很多文章和大牛都在推荐这本书，说它讲授了很多编写Objective-C语言时所应该遵循的规范。刚好笔者前段时间因为产品刚开发完，有了一点空档期，于是用了3个星期的时间仔细研读和总结了这本书。</p>
@@ -1981,6 +2086,7 @@ EOCSubClass initialize</code></p>
 <p>从图中可以看到，笔者并没有打乱原来作者的标题顺序。本篇总结即是三部曲之一：概念篇，后续会呈上规范篇和技巧篇。<br>备注：本总结所有的代码和图片都来自原书。其中，代码会适当加上笔者的注释，便于各位看官理解。</p>
 </blockquote>
 <p>好了，不啰嗦了， 开始吧！</p>
+<a id="more"></a>
 <h1 id="第1条：了解Objective-C的起源"><a href="#第1条：了解Objective-C的起源" class="headerlink" title="第1条：了解Objective-C的起源"></a>第1条：了解Objective-C的起源</h1><hr>
 <h2 id="1-运行期组件"><a href="#1-运行期组件" class="headerlink" title="1. 运行期组件"></a>1. 运行期组件</h2><p>对于消息结构的语言，运行时所执行的代码由运行环境来决定；在运行时才回去查找索要执行的方法。其实现原理是由运行期组件完成（runtime component），使用Objective-C的面向对象特性所需的全部数据结构以及函数都在运行期组件里面。</p>
 <p>运行期组件本质上是一种与开发者所编写的代码相链接的动态库（dynamic library），其代码能把开发者所编写的所有程序粘合起来，所以只要更新运行期组件，就可以提升应用程序性能。</p>
@@ -2203,7 +2309,21 @@ EOCSubClass initialize</code></p>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; a
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》&quot;&gt;&lt;/p&gt;
+&lt;p&gt;很多文章和大牛都在推荐这本书，说它讲授了很多编写Objective-C语言时所应该遵循的规范。刚好笔者前段时间因为产品刚开发完，有了一点空档期，于是用了3个星期的时间仔细研读和总结了这本书。&lt;/p&gt;
+&lt;p&gt;在学习过程中也看过很多总结这本书的博客和文章，但是发现多数只是将每节的总结部分抄了过来，讲得并不是很详细，于是笔者就想按照自己的方式对这本书进行总结，并以博客的形式展现出来：既能分享，同时又能对知识进行一下梳理和二次复习。&lt;/p&gt;
+&lt;p&gt;虽然本书的作者按照知识模块来将这本书分成七个章节，共52节，但是笔者在拜读的过程中发现本书介绍的知识点可以大致分为三类：概念类，规范类，和技巧类。笔者打算按照这三类来对这本书进行总结，形成三部曲：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;概念类：讲解了一些概念性知识。&lt;/li&gt;
+&lt;li&gt;规范类：讲解了一些为了避免一些问题或者为后续开发提供便利所需要遵循的规范性知识。&lt;/li&gt;
+&lt;li&gt;技巧类：讲解了一些为了解决某些特定问题而需要用到的技巧性知识。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而且，笔者也按照自己的归类将这本书的结构用思维导图工具画了出来：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-539498fef0819472.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;三部曲分布图&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;从图中可以看到，笔者并没有打乱原来作者的标题顺序。本篇总结即是三部曲之一：概念篇，后续会呈上规范篇和技巧篇。&lt;br&gt;备注：本总结所有的代码和图片都来自原书。其中，代码会适当加上笔者的注释，便于各位看官理解。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;好了，不啰嗦了， 开始吧！&lt;/p&gt;
     
     </summary>
     
@@ -2219,11 +2339,12 @@ EOCSubClass initialize</code></p>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E8%AF%A6%E8%A7%A3iOS%E5%A4%9A%E5%9B%BE%E4%B8%8B%E8%BD%BD%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/详解iOS多图下载的缓存机制/</id>
     <published>2017-01-13T05:33:55.000Z</published>
-    <updated>2017-01-18T01:56:07.000Z</updated>
+    <updated>2017-03-20T07:30:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。</p>
 <p>第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。</p>
 <p>有一个多图缓存机制的教程是来自李明杰小码哥的，笔者觉得讲得挺不错的，于是就花了2个小时好好学习了一下。</p>
+<a id="more"></a>
 <h1 id="1-需求点是什么？"><a href="#1-需求点是什么？" class="headerlink" title="1.需求点是什么？"></a>1.需求点是什么？</h1><hr>
 <p>这里所说的<strong>多图下载</strong>，就是要在tableview的每一个cell里显示一张图片,而且这些图片都需要从网上下载。</p>
 <h1 id="2-容易遇到的问题"><a href="#2-容易遇到的问题" class="headerlink" title="2.容易遇到的问题"></a>2.容易遇到的问题</h1><hr>
@@ -2278,7 +2399,8 @@ EOCSubClass initialize</code></p>
     <summary type="html">
     
       &lt;p&gt;做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。&lt;/p&gt;
-&lt;p&gt;第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处
+&lt;p&gt;第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。&lt;/p&gt;
+&lt;p&gt;有一个多图缓存机制的教程是来自李明杰小码哥的，笔者觉得讲得挺不错的，于是就花了2个小时好好学习了一下。&lt;/p&gt;
     
     </summary>
     
@@ -2294,10 +2416,11 @@ EOCSubClass initialize</code></p>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/浅显易懂讲解的iOS多线程技术-GCD/</id>
     <published>2017-01-13T05:26:33.000Z</published>
-    <updated>2017-01-18T01:57:35.000Z</updated>
+    <updated>2017-03-20T07:29:54.000Z</updated>
     
     <content type="html"><![CDATA[<p>励志打造一篇浅显易懂地介绍iOS中GCD的文章！<br>笔者见过很多其他讲解GCD的博客，有些写得非常详细非常专业，几乎涵盖了GCD大大小小的全部知识，细致庞杂的内容容易让人摸不清主次，笔者觉得这类文章<strong>并不适合初学者学习</strong>，于是决定写一篇针对一些只是听过，但是对GCD还不了解的童鞋们。</p>
 <p>本文排除了一些细枝末节，扰乱人头绪的东西，着重讲解了GCD中重要的知识点，并在最后展示了GCD中<strong>经常使用的函数</strong>并附上结果图和讲解，简单明了。</p>
+<a id="more"></a>
 <h1 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h1><hr>
 <p>在了解多线程之前，需要弄清进程和线程的概念和他们之间的区别。</p>
 <h3 id="进程："><a href="#进程：" class="headerlink" title="进程："></a>进程：</h3><p>系统中正在运行的一个程序，进程之间是相互独立的，每个进程都有属于自己的内存空间。比如手机中的<strong>微信</strong>应用和<strong>印象笔记</strong>应用，他们都是iOS系统中独立的进程，有着自己的内存空间。</p>
@@ -2411,7 +2534,8 @@ EOCSubClass initialize</code></p>
     
     <summary type="html">
     
-      &lt;p&gt;励志打造一篇浅显易懂地介绍iOS中GCD的文章！&lt;br&gt;笔者见过很多其他讲解GCD的博客，有些写得非常详细非常专业，几乎涵盖了GCD大大小小的全部知识，细致庞杂的内容容易让人摸不清主次，笔者觉得这类文章&lt;strong&gt;并不适合初学者学习&lt;/strong&gt;，于是决定写一篇针对
+      &lt;p&gt;励志打造一篇浅显易懂地介绍iOS中GCD的文章！&lt;br&gt;笔者见过很多其他讲解GCD的博客，有些写得非常详细非常专业，几乎涵盖了GCD大大小小的全部知识，细致庞杂的内容容易让人摸不清主次，笔者觉得这类文章&lt;strong&gt;并不适合初学者学习&lt;/strong&gt;，于是决定写一篇针对一些只是听过，但是对GCD还不了解的童鞋们。&lt;/p&gt;
+&lt;p&gt;本文排除了一些细枝末节，扰乱人头绪的东西，着重讲解了GCD中重要的知识点，并在最后展示了GCD中&lt;strong&gt;经常使用的函数&lt;/strong&gt;并附上结果图和讲解，简单明了。&lt;/p&gt;
     
     </summary>
     
@@ -2427,13 +2551,14 @@ EOCSubClass initialize</code></p>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%89%8D%E6%98%AF%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E5%92%8C%E5%B9%B8%E7%A6%8F%E7%94%9F%E6%B4%BB%E7%9A%84%E6%9C%89%E6%95%88%E9%80%94%E5%BE%84%20-%20%E8%AF%BB%E3%80%8A%E9%87%8D%E6%9D%A52%E3%80%8B%E6%9C%89%E6%84%9F/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感/</id>
     <published>2017-01-13T05:18:16.000Z</published>
-    <updated>2017-01-13T05:18:18.000Z</updated>
+    <updated>2017-03-20T07:30:23.000Z</updated>
     
     <content type="html"><![CDATA[<p>朝九晚五，被禁锢在办公室里的工作模式是工业社会的产物。然而，在互联网崛起的今天，这种固定死板的工作模式反而拖累了我们。办公室早已变成了干扰工厂，把你的时间切成七零八碎的小块儿，工作无法顺利、及时地完成，更会造成心理上的疲惫。</p>
 <p>如果您也是一名互联网从业者，特别是程序员，问问周围的人：如果你可以自己选择时间地点来完成工作你会选择哪里？你能在哪一时间段或是哪一地点才能高效地完成工作？我想答案<strong>一定不是下午的办公室</strong>。</p>
 <p>笔者自己就是一名程序员，上班的时候被会议和同行的打断弄得苦不堪言，虽然有些沟通确是必要的。不过有一点我很清楚，我经常是在早上上班之前或是晚上睡觉之前才能<strong>完完全全，满意地</strong>完成一个模块的开发。在下午的时候，我就会给自己安排做一些难度不高的任务，这样一来，打断所带来的负面影响会很低。</p>
 <p>因此笔者非常期望自己可以远程工作，摆脱这种固话的工作和生活方式，因为它能带来的好处真的是太多太多了！</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-92f9e8f6e5690223.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="远程工作"></p>
+<a id="more"></a>
 <h1 id="远程工作好处多："><a href="#远程工作好处多：" class="headerlink" title="远程工作好处多："></a>远程工作好处多：</h1><hr>
 <h2 id="再也不用通勤了"><a href="#再也不用通勤了" class="headerlink" title="再也不用通勤了"></a>再也不用通勤了</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-3c7fb69828e09480.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="通勤路上"></p>
 <p>有的人为了减少通勤时间在自己的公司附近花费了高额租金。。。<br>有的人为了节省开支，住的离公司很远，但却在拥挤的地铁里倍受煎熬。。。<br>有的人虽然有私家车通勤，但是持续性需要支付的燃油费和停车费也是不可避免的。。。</p>
@@ -2495,7 +2620,10 @@ EOCSubClass initialize</code></p>
     <summary type="html">
     
       &lt;p&gt;朝九晚五，被禁锢在办公室里的工作模式是工业社会的产物。然而，在互联网崛起的今天，这种固定死板的工作模式反而拖累了我们。办公室早已变成了干扰工厂，把你的时间切成七零八碎的小块儿，工作无法顺利、及时地完成，更会造成心理上的疲惫。&lt;/p&gt;
-&lt;p&gt;如果您也是一名互联网从业者，特别是
+&lt;p&gt;如果您也是一名互联网从业者，特别是程序员，问问周围的人：如果你可以自己选择时间地点来完成工作你会选择哪里？你能在哪一时间段或是哪一地点才能高效地完成工作？我想答案&lt;strong&gt;一定不是下午的办公室&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;笔者自己就是一名程序员，上班的时候被会议和同行的打断弄得苦不堪言，虽然有些沟通确是必要的。不过有一点我很清楚，我经常是在早上上班之前或是晚上睡觉之前才能&lt;strong&gt;完完全全，满意地&lt;/strong&gt;完成一个模块的开发。在下午的时候，我就会给自己安排做一些难度不高的任务，这样一来，打断所带来的负面影响会很低。&lt;/p&gt;
+&lt;p&gt;因此笔者非常期望自己可以远程工作，摆脱这种固话的工作和生活方式，因为它能带来的好处真的是太多太多了！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-92f9e8f6e5690223.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;远程工作&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2511,10 +2639,11 @@ EOCSubClass initialize</code></p>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/13/%E6%B5%85%E8%B0%88%E4%BA%92%E8%81%94%E7%BD%91%E5%95%86%E4%B8%9A%E6%80%9D%E7%BB%B4%E7%9A%84%E5%87%A0%E4%B8%AA%E8%AF%AF%E5%8C%BA%20-%20%E8%AF%BB%E3%80%8A%E9%87%8D%E6%9D%A5%E3%80%8B%E6%9C%89%E6%84%9F/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/13/浅谈互联网商业思维的几个误区 - 读《重来》有感/</id>
     <published>2017-01-13T05:12:57.000Z</published>
-    <updated>2017-01-13T05:14:26.000Z</updated>
+    <updated>2017-03-20T07:29:46.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近读了一些关于互联网思维和管理的一些书籍，感触颇深，想从团队，产品，公司方向和个人几个方面，结合笔者的个人经历分享一下笔者的思考和感悟。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-063cce725ad58f38.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：www.pexels.com"></p>
+<a id="more"></a>
 <hr>
 <h1 id="关于团队"><a href="#关于团队" class="headerlink" title="关于团队"></a>关于团队</h1><h3 id="“鸡尾酒会”并不是一个好的氛围"><a href="#“鸡尾酒会”并不是一个好的氛围" class="headerlink" title="“鸡尾酒会”并不是一个好的氛围"></a>“鸡尾酒会”并不是一个好的氛围</h3><p>鸡尾酒会就是关系并不熟的人的聚会，人们都把自己与他们拉开一段距离，秉承着“你好我好大家好，井水不犯河水”的原则，互不侵犯，生怕说错话，想赶紧结束走人。</p>
 <p>很显然，这种工作氛围是及其危险的，因为没人敢说实话。笔者个人非常不喜欢这种工作氛围。</p>
@@ -2551,7 +2680,7 @@ EOCSubClass initialize</code></p>
     <summary type="html">
     
       &lt;p&gt;最近读了一些关于互联网思维和管理的一些书籍，感触颇深，想从团队，产品，公司方向和个人几个方面，结合笔者的个人经历分享一下笔者的思考和感悟。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/8590
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-063cce725ad58f38.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图片来自：www.pexels.com&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2567,10 +2696,10 @@ EOCSubClass initialize</code></p>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AB%EF%BC%89%EF%BC%9A%E5%9B%BD%E9%99%85%E5%8C%96%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AE%BE%E7%BD%AEUI/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI/</id>
     <published>2017-01-11T07:30:42.000Z</published>
-    <updated>2017-01-11T08:23:00.000Z</updated>
+    <updated>2017-03-20T07:32:32.000Z</updated>
     
     <content type="html"><![CDATA[<p>本篇是斯坦福大学iOS7系列课程（CS193P）的最后一节课的总结，终于把18节课的内容都总结完了，而且这个文集也画上了句号，有点不舍的赶脚。。</p>
-<p>好了，不煽情了，开始！</p>
+<p>好了，不煽情了，开始！<br><a id="more"></a></p>
 <h1 id="国际化-Internationalization"><a href="#国际化-Internationalization" class="headerlink" title="国际化 Internationalization"></a>国际化 Internationalization</h1><hr>
 <p>如果我们想要将app推广到国际市场，那么就免不了将我们的app翻译成其他国家的语言以便于当地人去使用。</p>
 <p>而翻译的内容主要集中于“非内容”部分：例如标题类文字，按钮上的文字，提示框的文字等等。</p>
@@ -2670,8 +2799,7 @@ EOCSubClass initialize</code></p>
     <summary type="html">
     
       &lt;p&gt;本篇是斯坦福大学iOS7系列课程（CS193P）的最后一节课的总结，终于把18节课的内容都总结完了，而且这个文集也画上了句号，有点不舍的赶脚。。&lt;/p&gt;
-&lt;p&gt;好了，不煽情了，开始！&lt;/p&gt;
-&lt;h1 id=&quot;国际化-Internationalization&quot;&gt;&lt;a href
+&lt;p&gt;好了，不煽情了，开始！&lt;br&gt;
     
     </summary>
     
@@ -2687,13 +2815,14 @@ EOCSubClass initialize</code></p>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/01/11/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%83%EF%BC%89%EF%BC%9ACoreMotion%EF%BC%8Capp%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%8C%E6%96%B9%E5%9D%97%E7%A2%B0%E6%92%9E%E6%B8%B8%E6%88%8FDemo/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/</id>
     <published>2017-01-11T07:30:02.000Z</published>
-    <updated>2017-01-11T08:50:00.000Z</updated>
+    <updated>2017-03-20T07:32:11.000Z</updated>
     
     <content type="html"><![CDATA[<p>本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。</p>
 <h1 id="Core-Motion"><a href="#Core-Motion" class="headerlink" title="Core Motion"></a>Core Motion</h1><hr>
 <p>CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作，可以根据用户的动作做出相应的动作；磁力针可以判断设备的方向。</p>
 <p>CoreMotion的工作是基于<code>CMMotionManager</code>类来执行的。我们看一下该类的API：</p>
 <h2 id="CMMotionManager"><a href="#CMMotionManager" class="headerlink" title="CMMotionManager"></a>CMMotionManager</h2><h3 id="检测硬件设备："><a href="#检测硬件设备：" class="headerlink" title="检测硬件设备："></a>检测硬件设备：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="开启相应的模块："><a href="#开启相应的模块：" class="headerlink" title="开启相应的模块："></a>开启相应的模块：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)startAccelerometerUpdates __TVOS_PROHIBITED;</div><div class="line">- (void)startGyroUpdates __TVOS_PROHIBITED;</div><div class="line">- (void)startMagnetometerUpdates NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">- (void)startDeviceMotionUpdates __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
 <h3 id="检测相应的模块是否正在收集数据："><a href="#检测相应的模块是否正在收集数据：" class="headerlink" title="检测相应的模块是否正在收集数据："></a>检测相应的模块是否正在收集数据：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@property(readonly, nonatomic, getter=isAccelerometerActive) BOOL accelerometerActive __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isGyroActive) BOOL gyroActive __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isMagnetometerActive) BOOL magnetometerActive NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">@property(readonly, nonatomic, getter=isDeviceMotionActive) BOOL deviceMotionActive __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
 <h3 id="关闭相应的模块："><a href="#关闭相应的模块：" class="headerlink" title="关闭相应的模块："></a>关闭相应的模块：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)stopAccelerometerUpdates __TVOS_PROHIBITED;</div><div class="line">- (void)stopGyroUpdates __TVOS_PROHIBITED;</div><div class="line">- (void)stopMagnetometerUpdates NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</div><div class="line">- (void)stopDeviceMotionUpdates __TVOS_PROHIBITED;</div></pre></td></tr></table></figure>
@@ -2746,7 +2875,10 @@ EOCSubClass initialize</code></p>
     <summary type="html">
     
       &lt;p&gt;本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。&lt;/p&gt;
-&lt;h1 id=&quot;Core-Motion&quot;&gt;&lt;a href=&quot;#Core-Motion&quot; class=&quot;headerlink&quot; title=&quot;Co
+&lt;h1 id=&quot;Core-Motion&quot;&gt;&lt;a href=&quot;#Core-Motion&quot; class=&quot;headerlink&quot; title=&quot;Core Motion&quot;&gt;&lt;/a&gt;Core Motion&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作，可以根据用户的动作做出相应的动作；磁力针可以判断设备的方向。&lt;/p&gt;
+&lt;p&gt;CoreMotion的工作是基于&lt;code&gt;CMMotionManager&lt;/code&gt;类来执行的。我们看一下该类的API：&lt;/p&gt;
+&lt;h2 id=&quot;CMMotionManager&quot;&gt;&lt;a href=&quot;#CMMotionManager&quot; class=&quot;headerlink&quot; title=&quot;CMMotionManager&quot;&gt;&lt;/a&gt;CMMotionManager&lt;/h2&gt;&lt;h3 id=&quot;检测硬件设备：&quot;&gt;&lt;a href=&quot;#检测硬件设备：&quot; class=&quot;headerlink&quot; title=&quot;检测硬件设备：&quot;&gt;&lt;/a&gt;检测硬件设备：&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable __TVOS_PROHIBITED;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable __TVOS_PROHIBITED;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable __TVOS_PROHIBITED;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
