@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结 | J_Knight</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="正在学hybrid开发的iOS开发者">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结 | J_Knight">
+    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结 | J_Knight">
+    <meta property="og:description" content="正在学hybrid开发的iOS开发者">
+
+    
+    <meta name="author" content="Knight_SJ">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    <link rel="icon" href="/images/avatar.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="J_Knight" href="/atom.xml">
+    
+
+    <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/03/14/先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结/"/>
+
+    
+      
+</head>
+
+<body class="home-template no-js">
+    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg_2.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 J_Knight 的主页"><img src="/images/avatar.png" width="80" alt="J_Knight logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for J_Knight">J_Knight</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">正在学hybrid开发的iOS开发者</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+            
+              <li class="navigation__item"><a href="http://www.jianshu.com/u/3dd433cb3ea1">简书</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/1929625262/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" title="我的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/knightsj" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-disabled"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-03-14T00:37:08.000Z" class="post-list__meta--date date">2017-03-14</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Job/">Job</a>, <a class="tag-link" href="/tags/Life/">Life</a>
+ </span>
+      <span class="page-pv">
+      &nbsp;阅读&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+      </span> 
+   
+    </div>
+    <h1 class="post-title">先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结</h1>
+  </header>
+
+  <section class="post">
+    <p><img src="http://upload-images.jianshu.io/upload_images/859001-10c56d4121bfe78d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Objective-C | Swift | C"></p>
+<p>这篇面试总结很短，也没有面试题的答案，只是写给像我一样的非科班iOS开发者的一些话。</p>
+<p>昨天进行了人生第一次视频面试，一共三个小时的技术面，还没见到人事，应该是挂了。</p>
+<p>不过整个过程下来感触还是蛮多的，除了感受到面试官的牛X之外，也知道自己平时在学习中的不足。</p>
+<h4 id="先介绍一下面试中觉得比较吃力的问题："><a href="#先介绍一下面试中觉得比较吃力的问题：" class="headerlink" title="先介绍一下面试中觉得比较吃力的问题："></a>先介绍一下面试中觉得比较吃力的问题：</h4><ol>
+<li>如果让你实现属性的weak，如何实现的？</li>
+<li>如果让你来实现属性的atomic，如何实现？</li>
+<li>KVO为什么要创建一个子类来实现？</li>
+<li>类结构体的组成，isa指针指向了什么？（这里应该将元类和根元类也说一下）</li>
+<li>RunLoop有几种事件源？有几种模式？</li>
+<li>方法列表的数据结构是什么？</li>
+<li>分类是如何实现的？它为什么会覆盖掉原来的方法？</li>
+</ol>
+<p>另外值得一提的就是问了我自己写的博客里的东西（JSONModel的解析，EOC的笔记）等等。。</p>
+<h4 id="这次面试让我深刻意识到了两点："><a href="#这次面试让我深刻意识到了两点：" class="headerlink" title="这次面试让我深刻意识到了两点："></a>这次面试让我深刻意识到了两点：</h4><ol>
+<li>对于每个设计，不能只停留在“会用”而已，应该理解它的实现机制，而且几乎每个设计都是与数据结构息息相关的，理解了数据结构和指针会有助于理解这些设计。</li>
+<li>了解设计的原理之后，还要知其所以然：为什么这么设计？最好还要知道这个设计存在什么缺陷，这个缺陷是哪个解决类似问题的设计所没有的？</li>
+</ol>
+<p>第一点是“how”的问题，第二点是“why”的问题，然而我相信有不少人只停留在“what”和“using”上。</p>
+<p>在面试的时候，我强烈感受到了面试官的功力之深：给我的感觉，对他而言，几乎所有的设计都可以用某种数据结构解释出来（有的时候也会结合指针），对知识点理解得非常透彻：即便是很简单知识点，也能说出很多深层次的东西来。而我自己只是刚开始学数据结构不久，在面对提到数据结构的问题几乎是没有思路的。</p>
+<h4 id="我想说的："><a href="#我想说的：" class="headerlink" title="我想说的："></a>我想说的：</h4><p>所以我觉得对于广大非科班的iOS开发来说，如果想在iOS开发上走远，就必须尽快补充数据结构，算法，指针等计算机基础知识，不然会对知识的理解形成很大的阻力。因为只有知道了这些基础知识，才能更深入得理解每一个技术点，而且以后如果学习其他的语言，也会更高效一些。</p>
+<p>简单来说就一句话：先是程序员，然后才是iOS程序员。只有这样思考，路才能越走越宽，越走越快，越走越远。</p>
+<p>现在iOS开发形势这么不好，市场要过滤掉那些计算机基础知识薄弱的人也是情有可原的。</p>
+<blockquote>
+<p>所谓的现在的“不好”，只是相对于之前“不正常的好”的不好。现在这个行业变得“不好”，其实是因为这个行业正在变得好，应该值得我们高兴才是。</p>
+</blockquote>
+<p>所以对于我们这群人（非科班的iOS开发者），应该提高忧患意识，未雨绸缪，更何况，雨已经来过了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-0dc7553fc98a04f7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：pixabay.com"></p>
+
+  </section>    
+
+</article>
+<section class="read-more">
+           
+    
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">最近的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/03/20/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/" title="基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）">基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）</a></h2>
+                <p class="excerpt">
+                
+                写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。
+而且这些页面的共性比较多：
+
+大多数情况下在进入页面之前就已经拿到所有数据。
+cell样式单一，自定
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-03-20T05:47:51.000Z" class="post-list__meta--date date">2017-03-20</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/03/20/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/">继续阅读</a></div>
+                           
+            </div>
+        
+        
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">更早的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/02/22/JSONModel源码解析/" title="JSONModel源码解析">JSONModel源码解析</a></h2>
+                <p class="excerpt">
+                
+                这一系列的源码解析分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。
+想来想去，还是从JSONModel开始吧～
+首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-02-22T01:16:56.000Z" class="post-list__meta--date date">2017-02-22</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>, <a class="tag-link" href="/tags/源码解析/">源码解析</a>
+</span><a class="btn-border-small" href="/2017/02/22/JSONModel源码解析/">继续阅读</a></div>
+                       
+            </div>
+        
+     
+   
+   
+  
+</section>
+
+            
+            <footer class="footer">
+    <span class="footer__copyright">
+        本站点采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2017 - 本站由 <a href="/">@Monniya</a> 创建,
+        使用 <a href="https://github.com/monniya/hexo-theme-new-vno ">hexo-theme-new-vno</a> 主题,
+        修改自 <a href="https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">Vno</a>, 原创出自<a href="http://github.com/onevcat/vno" target="_blank">onevcat</a>
+    </span>
+
+    <span class="footer__copyright">
+	
+     	本站已经被访问了<span id="busuanzi_value_site_pv"></span><span>次</span>
+
+    </span>
+
+   
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</footer>
+        </div>
+    </div>
+</body>
+</html>

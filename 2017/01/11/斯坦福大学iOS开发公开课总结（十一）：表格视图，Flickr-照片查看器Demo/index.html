@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    
+    <title>斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo | J_Knight</title>
+    <meta name="renderer" content="webkit">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta name="description" content="正在学hybrid开发的iOS开发者">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo | J_Knight">
+    <meta name="twitter:description" content="正在学hybrid开发的iOS开发者">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo | J_Knight">
+    <meta property="og:description" content="正在学hybrid开发的iOS开发者">
+
+    
+    <meta name="author" content="Knight_SJ">
+    
+    <link rel="stylesheet" href="/css/vno.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    
+    <link rel="icon" href="/images/avatar.png">
+    
+
+    <meta name="generator" content="hexo"/>
+    
+    <link rel="alternate" type="application/rss+xml" title="J_Knight" href="/atom.xml">
+    
+
+    <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo/"/>
+
+    
+      
+</head>
+
+<body class="home-template no-js">
+    <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <span class="mobile btn-mobile-menu">
+        <i class="fa fa-list btn-mobile-menu__icon"></i>
+        <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+<header class="panel-cover panel-cover--collapsed" style="background-image: url(/images/bg_2.jpg)">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        <a href="/" title="前往 J_Knight 的主页"><img src="/images/avatar.png" width="80" alt="J_Knight logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage for J_Knight">J_Knight</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">每天进步一点点</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">正在学hybrid开发的iOS开发者</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        <div class="navigation-wrapper">
+          <div>
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="访问博客" class="blog-button">博客</a></li>
+            
+              <li class="navigation__item"><a href="http://www.jianshu.com/u/3dd433cb3ea1">简书</a></li>
+            
+            </ul>
+          </nav>
+          </div>
+          <div>
+          <nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  <!-- Weibo-->
+  
+  <li class="navigation__item">
+    <a href="http://weibo.com/1929625262/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" title="我的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li> 
+
+
+  <!-- Github -->
+  
+  <li class="navigation__item">
+    <a href="https://github.com/knightsj" title="查看我的GitHub主页" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+
+
+<!-- Stack Overflow -->
+        
+
+  <!-- Google Plus -->
+  
+
+<!-- Facebook -->
+
+  
+<!-- Twitter -->
+
+  
+
+  <li class="navigation__item">
+    <a href="/atom.xml" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+
+
+  </ul>
+</nav>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay cover-disabled"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner">
+            <article class="post-container post-container--single">
+
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2017-01-11T07:20:18.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-meta__tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+ </span>
+      <span class="page-pv">
+      &nbsp;阅读&nbsp;<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+      </span> 
+   
+    </div>
+    <h1 class="post-title">斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo</h1>
+  </header>
+
+  <section class="post">
+    <h1 id="UITableview"><a href="#UITableview" class="headerlink" title="UITableview"></a>UITableview</h1><hr>
+<p>UITableview是iOS软件中最常见的视图，用来以表格的形式显示数据。</p>
+<h2 id="数据源方法"><a href="#数据源方法" class="headerlink" title="数据源方法"></a>数据源方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现</div><div class="line">- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView; //返回当前section的行数，必须实现</div><div class="line">- (nullable __kindof UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath; //返回某section某row的cell，必须实现</div></pre></td></tr></table></figure>
+<h2 id="代理方法"><a href="#代理方法" class="headerlink" title="代理方法"></a>代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;//cell被点击是调用的方法</div></pre></td></tr></table></figure>
+<h2 id="根据cell获得对应的indexPath"><a href="#根据cell获得对应的indexPath" class="headerlink" title="根据cell获得对应的indexPath"></a>根据cell获得对应的indexPath</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"> NSIndexPath *indexPath = [self.tableView  indexPathForCell :sender];</div></pre></td></tr></table></figure>
+<h2 id="UITableView-Spinner"><a href="#UITableView-Spinner" class="headerlink" title="UITableView Spinner"></a>UITableView Spinner</h2><p>顶部加载时显示的小圆圈动画<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic, strong, nullable) UIRefreshControl *refreshControl;</div><div class="line"></div><div class="line">- (void)beginRefreshing;</div><div class="line">- (void)endRefreshing;</div></pre></td></tr></table></figure></p>
+<h2 id="模型改变，刷新表格"><a href="#模型改变，刷新表格" class="headerlink" title="模型改变，刷新表格"></a>模型改变，刷新表格</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)reloadData; //刷新全部表格：一般在模型大部分变化的时候才调用，在某个数据变化时不推荐使用</div><div class="line"></div><div class="line">- (void)reloadRowsAtIndexPaths:(NSArray&lt;NSIndexPath *&gt; *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;//只刷新某一个cell，在某行货少数行数据变化时推荐使用</div></pre></td></tr></table></figure>
+<h1 id="Universal-Application"><a href="#Universal-Application" class="headerlink" title="Universal Application"></a>Universal Application</h1><hr>
+<p>Universal Application通用应用是指既可以在iPhone上运行，也可以在iPad上运行的应用，它有两个故事版文件，一个是针对iphone的，另一个是针对ipad的。</p>
+<p>iPad有两种独有的视图：</p>
+<ol>
+<li>Split View：拆分视图</li>
+<li>Popover:弹窗</li>
+</ol>
+<p>识别是否是ipad<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BOOL iPad  = ([&#123;UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)</div></pre></td></tr></table></figure></p>
+<h1 id="UISplitViewController"><a href="#UISplitViewController" class="headerlink" title="UISplitViewController"></a>UISplitViewController</h1><hr>
+<h2 id="UISplitViewController包括"><a href="#UISplitViewController包括" class="headerlink" title="UISplitViewController包括"></a>UISplitViewController包括</h2><ul>
+<li>Master View Controller</li>
+<li>Detail View Controller</li>
+</ul>
+<p>UISplitViewController是storyboard的最顶层，不能被加入到UIViewController里面</p>
+<h2 id="获得SplitViewController："><a href="#获得SplitViewController：" class="headerlink" title="获得SplitViewController："></a>获得SplitViewController：</h2><p>返回当前UIViewcontroller所在的SplitViewController:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIViewController.h</div><div class="line"></div><div class="line">@property (strong) UISplitViewController  *splitViewController;</div></pre></td></tr></table></figure></p>
+<h2 id="获得SplitViewController的master和detail："><a href="#获得SplitViewController的master和detail：" class="headerlink" title="获得SplitViewController的master和detail："></a>获得SplitViewController的master和detail：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (copy) NSArray *viewControllers;//0：master;1: detail</div></pre></td></tr></table></figure>
+<h2 id="UISplitViewControllerDelegate"><a href="#UISplitViewControllerDelegate" class="headerlink" title="UISplitViewControllerDelegate"></a>UISplitViewControllerDelegate</h2><p>在awakeFromNib设置此代理,代理负责 控制master和detail何时出现</p>
+<p>代理的几个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation&#123;</div><div class="line">           return NO; //永远不隐藏master，master和detail将一直在屏幕上显示，无论是横屏或竖屏 </div><div class="line">           return UIInterfaceOrientationIsPortrait(orientation);//竖屏不显示master 但是竖屏时左上角有按键可以显示master，但是</div><div class="line">不实现这个代理就不能出现按钮了。</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在横屏或竖屏是否该隐藏master</p>
+<h1 id="Popovers"><a href="#Popovers" class="headerlink" title="Popovers"></a>Popovers</h1><hr>
+<p>Popover是弹窗控件，它的作用是控制另一个视图控制器弹出到屏幕上，也是ipad独有的控件。<br>因为ipad的面积比较大，所以有时可以只以弹窗的形式提供信息而不用跳转到下一页面。</p>
+<p>注意：这个控件并没有继承UIViewController，是一个NSObject</p>
+<h2 id="Popover的Segue是UIStroyboardPopoverSegue。"><a href="#Popover的Segue是UIStroyboardPopoverSegue。" class="headerlink" title="Popover的Segue是UIStroyboardPopoverSegue。"></a>Popover的Segue是<code>UIStroyboardPopoverSegue</code>。</h2><p>在Popover出现之前：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)prepareForSegue: (UIStoryboardSegue *)segue sender: (id)sender</div><div class="line">&#123;</div><div class="line">    if([segue isKindOfClass:[UIStroyboardPopoverSegue class]])&#123;</div><div class="line">        </div><div class="line">         UIPopoverController *popoverController = ((UIStroyboardPopoverSegue *)segue.)popoverController;</div><div class="line"></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="使Popover消失："><a href="#使Popover消失：" class="headerlink" title="使Popover消失："></a>使Popover消失：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)dismissPopoverAnimated:(BOOL)animated;</div></pre></td></tr></table></figure>
+<p>默认情况下，点击外部任何的地方都能使它消失，除非我们给它指定即使点击也不会消失的<code>UIVIew</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (copy) NSArray *passthroughViews;</div></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<p>该Demo是同时适用iPad 和iPhone的，可惜笔者没有iPad，无法调试，于是只适配了iPhone，以后有机会会补上适配iPad的代码的。</p>
+<h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
+<li>第一个页面用表格显示从Flickr抓取的图片数据，只显示图片名和图片详情。</li>
+<li>点击第一个页面的cell，跳转到图片详情页。</li>
+<li>图片详情页显示具体的大图，可以伸缩，可以移动。</li>
+</ul>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-b0a8e98131ae59b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-获取Flickr上的数据"><a href="#1-获取Flickr上的数据" class="headerlink" title="1. 获取Flickr上的数据"></a>1. 获取Flickr上的数据</h4><p>Flickr提供了公共的接口提供了自家的照片，接口文件在本Demo里的<code>Flickr Fetcher</code>文件里，唯一注意的是需要申请<code>APIKEY</code>,<a href="[http://www.flickr.com/services/api/misc.api_keys.html](http://www.flickr.com/services/api/misc.api_keys.html">申请网址</a>)。</p>
+<p>解析照片数据的过程是比较耗时的，所以需要分配到子线程来进行。获得数组后，在主线程将数组赋予当前类的属性里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">- (void)fetchPhotos</div><div class="line">&#123;</div><div class="line">    self.photos = nil;</div><div class="line">    NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];</div><div class="line"></div><div class="line">    //手动创建一个子线程</div><div class="line">    dispatch_queue_t fetchQ = dispatch_queue_create(&quot;flickr fetcher&quot;, NULL);</div><div class="line"></div><div class="line">    dispatch_async(fetchQ, ^&#123;</div><div class="line"></div><div class="line">        //获得json数据，比较耗时</div><div class="line">        NSData *jsonResults = [NSData dataWithContentsOfURL:url];</div><div class="line"></div><div class="line">        //获得字典</div><div class="line">        NSDictionary *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:NULL];</div><div class="line">        NSArray *photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];</div><div class="line">   </div><div class="line">        dispatch_async(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">           //回到主线程     </div><div class="line">            self.photos = photos;</div><div class="line"></div><div class="line">        &#125;);    </div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>NULL是C指针，代表指向OC指针的指针没有指向任何对象</p>
+</blockquote>
+<p>什么是指向OC指针的指针？：&amp;error是指向error的指针<br>如果我们这样写，就可以获得error：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> NSError *error = nil;</div><div class="line"> NSDictionary *propertyListResults = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:&amp;error];</div></pre></td></tr></table></figure></p>
+<p>如果我们不关心error，就可以传NULL。</p>
+<p>好了，现在我们获得了数据，需要刷新表格：</p>
+<h4 id="2-刷新表格"><a href="#2-刷新表格" class="headerlink" title="2. 刷新表格"></a>2. 刷新表格</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (void)setPhotos:(NSArray *)photos</div><div class="line">&#123;</div><div class="line">    _photos = photos;</div><div class="line">    [self.tableView reloadData];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>只是刷新表格是不够的，还要实现<code>UITableView</code>的数据源方法来告诉<code>TableView</code>如何显示数据。（调用<code>reload</code>方法后会调用这些数据源方法）</p>
+<h4 id="3-实现数据源方法"><a href="#3-实现数据源方法" class="headerlink" title="3. 实现数据源方法"></a>3. 实现数据源方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">#pragma mark - Table view data source</div><div class="line"></div><div class="line">- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView &#123;</div><div class="line">    //只有一组</div><div class="line">     return 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section &#123;</div><div class="line">   //行数为图片的个数</div><div class="line">    return self.photos.count;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath &#123;</div><div class="line"></div><div class="line">    //从重用池中拿到cell</div><div class="line">    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;Flickr Photo Cell&quot; forIndexPath:indexPath];</div><div class="line"></div><div class="line">    //通过indexPath来获得在数据里对应的图片数据</div><div class="line">    NSDictionary *photoDict = self.photos[indexPath.row];</div><div class="line">    //设置主标题和副标题</div><div class="line"></div><div class="line">    cell.textLabel.text = [photoDict valueForKeyPath:FLICKR_PHOTO_TITLE];</div><div class="line"></div><div class="line">    cell.detailTextLabel.text = [photoDict valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];    </div><div class="line"></div><div class="line">    return cell;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4-点击cell，实现跳转"><a href="#4-点击cell，实现跳转" class="headerlink" title="4. 点击cell，实现跳转"></a>4. 点击cell，实现跳转</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">#pragma mark - Navigation</div><div class="line"></div><div class="line">// In a storyboard-based application, you will often want to do a little preparation before navigation</div><div class="line"></div><div class="line">- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender &#123;</div><div class="line"></div><div class="line">    if ([sender isKindOfClass:[UITableViewCell class]]) &#123;</div><div class="line"></div><div class="line">        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];    </div><div class="line"></div><div class="line">        if (indexPath) &#123;</div><div class="line">         </div><div class="line">            if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) &#123;</div><div class="line"></div><div class="line">                [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row]];                </div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)prepareImageViewController:(ImageViewController *)ivc toDisplayPhoto:(NSDictionary*)photo</div><div class="line">&#123;</div><div class="line"></div><div class="line">   //获得图像的URL传给ImageViewController</div><div class="line">    ivc.imageURL = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];</div><div class="line">   //导航栏的标题为图片的名字</div><div class="line">    ivc.title = [photo valueForKey:FLICKR_PHOTO_TITLE];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里的<code>ImageViewController</code>复用了<a href="http://www.jianshu.com/p/ddb4f528b334" target="_blank" rel="external">斯坦福大学iOS开发公开课总结（十） ：多线程，UIScrollView，图片浏览器Demo</a>里第二个页面。</p>
+</blockquote>
+<h4 id="5-优化"><a href="#5-优化" class="headerlink" title="5. 优化"></a>5. 优化</h4><p>每次跳转到图片详情页，将图片的原点设置在最左上端，并且大小恢复到该图片的原始大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">- (void)setImage:(UIImage *)image</div><div class="line">&#123;</div><div class="line"></div><div class="line">    //重置缩放大小为1</div><div class="line">    self.scrollView.zoomScale = 1.0;</div><div class="line">    self.imageView.image = image;</div><div class="line">    [self.imageView sizeToFit];</div><div class="line"></div><div class="line">    //将视图框的原点设在左上角</div><div class="line">    self.imageView.frame = CGRectMake(0, 0, self.image.size.width, self.image.size.height);</div><div class="line"></div><div class="line">    self.scrollView.contentSize = self.image? self.image.size : CGSizeZero;</div><div class="line"></div><div class="line">    [self.spinner stopAnimating];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
+<p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+
+  </section>    
+
+</article>
+<section class="read-more">
+           
+    
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">最近的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/" title="斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo">斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo</a></h2>
+                <p class="excerpt">
+                
+                第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。
+笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:21:28.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/">继续阅读</a></div>
+                           
+            </div>
+        
+        
+               
+            <div class="read-more-item">
+                <span class="read-more-item-dim">更早的文章</span>
+                <h2 class="post-list__post-title post-title"><a href="/2017/01/11/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/" title="斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo">斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo</a></h2>
+                <p class="excerpt">
+                
+                本节课讲授了多线程编程和UIScrollview控件，最后通过一个显示图片的Demo综合了本节课讲解的知识。通过本节课的学习，我们可以初步了解该如何处理耗时的任务来提高系统性能的方法以及通过UIScrollview控件来显示超出屏幕大小的图片并实现滚动和缩放的效果。
+多线程
+实现多线程编程（将不同的
+                &hellip;
+                </p>
+                <div class="post-list__meta"><time datetime="2017-01-11T07:19:16.000Z" class="post-list__meta--date date">2017-01-11</time> &#8226; <span class="post-list__meta--tags tags">于&nbsp;
+  <a class="tag-link" href="/tags/Objective-C/">Objective-C</a>, <a class="tag-link" href="/tags/iOS/">iOS</a>
+</span><a class="btn-border-small" href="/2017/01/11/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/">继续阅读</a></div>
+                       
+            </div>
+        
+     
+   
+   
+  
+</section>
+
+            
+            <footer class="footer">
+    <span class="footer__copyright">
+        本站点采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+    </span>
+    <span class="footer__copyright">
+        基于 <a href="http://hexo.io">Hexo</a> 搭建，感谢 <a href="https://pages.github.com/">GitHub Pages</a> 提供免费的托管服务
+    </span>
+    <span class="footer__copyright">
+        &copy; 2017 - 本站由 <a href="/">@Monniya</a> 创建,
+        使用 <a href="https://github.com/monniya/hexo-theme-new-vno ">hexo-theme-new-vno</a> 主题,
+        修改自 <a href="https://github.com/lenbo-ma/hexo-theme-vno" target="_blank">Vno</a>, 原创出自<a href="http://github.com/onevcat/vno" target="_blank">onevcat</a>
+    </span>
+
+    <span class="footer__copyright">
+	
+     	本站已经被访问了<span id="busuanzi_value_site_pv"></span><span>次</span>
+
+    </span>
+
+   
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</footer>
+        </div>
+    </div>
+</body>
+</html>
