@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-03-20T08:11:37.000Z</updated>
+  <updated>2017-03-21T00:08:26.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/03/20/%E5%9F%BA%E4%BA%8EMVVM%EF%BC%8C%E7%94%A8%E4%BA%8E%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E8%AE%BE%E7%BD%AE%E9%A1%B5%EF%BC%8C%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E9%A1%B5%E7%9A%84%E6%A1%86%E6%9E%B6%EF%BC%88%E9%99%84%EF%BC%9A%E4%BB%BF%E5%BE%AE%E4%BF%A1iOS%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E7%8E%B0%E9%A1%B5%EF%BC%8C%E4%B8%AA%E4%BA%BA%E9%A1%B5%EF%BC%8C%E8%AE%BE%E7%BD%AE%E9%A1%B5Demo%EF%BC%89/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/03/20/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/</id>
     <published>2017-03-20T05:47:51.000Z</published>
-    <updated>2017-03-20T08:11:37.000Z</updated>
+    <updated>2017-03-21T00:08:26.000Z</updated>
     
     <content type="html"><![CDATA[<p>写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。</p>
 <p>而且这些页面的共性比较多：</p>
@@ -30,7 +30,7 @@
 <li>多数都分组。</li>
 </ol>
 <p>因为自己非常想写一个开源的东西出来（也可以暴露自己的不足），同时又受限于水平，所以就打算写这么一个比较简单，又具有通用性的框架：<strong>一个定制性比较高的适合在个人页和设置页使用的UITableView</strong>。</p>
-<p>在真正写之前，看了几篇类似的文章，挑出两篇自己觉得比较好的：</p>
+<p>在真正写之前，看了几篇类似的文章，挑出三篇自己觉得比较好的：</p>
 <ol>
 <li><a href="https://www.objc.io/issues/1-view-controllers/table-views/" target="_blank" rel="external">Clean Table View Code</a> </li>
 <li><a href="http://www.jianshu.com/p/504c61a9dc82" target="_blank" rel="external">如何写好一个UITableView</a></li>
@@ -198,7 +198,7 @@
 &lt;li&gt;多数都分组。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;因为自己非常想写一个开源的东西出来（也可以暴露自己的不足），同时又受限于水平，所以就打算写这么一个比较简单，又具有通用性的框架：&lt;strong&gt;一个定制性比较高的适合在个人页和设置页使用的UITableView&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;在真正写之前，看了几篇类似的文章，挑出两篇自己觉得比较好的：&lt;/p&gt;
+&lt;p&gt;在真正写之前，看了几篇类似的文章，挑出三篇自己觉得比较好的：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.objc.io/issues/1-view-controllers/table-views/&quot;&gt;Clean Table View Code&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/504c61a9dc82&quot;&gt;如何写好一个UITableView&lt;/a&gt;&lt;/li&gt;
