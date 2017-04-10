@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-04-10T00:40:50.000Z</updated>
+  <updated>2017-04-10T00:44:49.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/04/10/%E3%80%8AObjective-C%20%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/04/10/《Objective-C 高级编程》干货三部曲（一）：引用计数篇/</id>
     <published>2017-04-10T00:40:50.000Z</published>
-    <updated>2017-04-10T00:40:50.000Z</updated>
+    <updated>2017-04-10T00:44:49.000Z</updated>
     
     <content type="html"><![CDATA[<p>总结了<a href="http://www.jianshu.com/nb/6074358" target="_blank" rel="external">Effective Objective-C</a>之后，还想读一本进阶的iOS书，毫不犹豫选中了《Objective-C 高级编程》：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
@@ -380,6 +380,7 @@
 <p>说一下<strong>unsafe_unretained：
 </strong>unsafe_unretained表示存取方法会直接为实例变量赋值。</p>
 <p>这里的“unsafe”是相对于weak而言的。我们知道weak指向的对象被销毁时，指针会自动设置为nil。而__unsafe_unretained却不会，而是成为空指针。需要注意的是：当处理非对象属性的时候就不会出现空指针的问题。</p>
+<p>这样第一章就介绍完了，第二篇会在下周一发布^^</p>
 <hr>
 <p>扩展文献：</p>
 <ol>
@@ -388,7 +389,6 @@
 <li><a href="http://www.jianshu.com/p/0ad9957e3716" target="_blank" rel="external">微笑和飞飞:可能碰到的iOS笔试面试题（6）–内存管理</a></li>
 <li><a href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B00RWORA1O/ref=sr_1_1?ie=UTF8&amp;qid=1491531635&amp;sr=8-1&amp;keywords=ios%E7%BC%96%E7%A8%8B" target="_blank" rel="external">《iOS编程(第4版)》</a> </li>
 </ol>
-<p>终于写完了～ 第二篇会在一周之内发布～</p>
 ]]></content>
     
     <summary type="html">
