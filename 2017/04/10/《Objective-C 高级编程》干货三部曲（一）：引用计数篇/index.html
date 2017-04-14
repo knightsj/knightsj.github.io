@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-f2164aea2490deac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-98777f8ef5bbfc13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-6dcb0d1fd878deeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-04-10T00:44:49.000Z">
+<meta property="og:updated_time" content="2017-04-14T04:19:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Objective-C 高级编程》干货三部曲（一）：引用计数篇">
 <meta name="twitter:description" content="总结了Effective Objective-C之后，还想读一本进阶的iOS书，毫不犹豫选中了《Objective-C 高级编程》：
@@ -412,6 +412,7 @@ var _hmt = _hmt || [];
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-169518e948933744.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程》 干货三部曲"></p>
 <p>注意，这个结构并不和书中的结构一致，而是以书中的结构为参考，稍作了调整。</p>
 <p>本篇是第一篇：引用计数，简单说两句：<br>Objective-C通过 retainCount 的机制来决定对象是否需要释放。 每次runloop迭代结束后，都会检查对象的 retainCount，如果retainCount等于0，就说明该对象没有地方需要继续使用它，可以被释放掉了。无论是手动管理内存，还是ARC机制，都是通过对retainCount来进行内存管理的。</p>
+<a id="more"></a>
 <p>先看一下手动内存管理：</p>
 <h1 id="手动内存管理"><a href="#手动内存管理" class="headerlink" title="手动内存管理"></a>手动内存管理</h1><p>我个人觉得，学习一项新的技术之前，需要先了解一下它的核心思想。理解了核心思想之后，对技术点的把握就会更快一些：</p>
 <h2 id="内存管理的思想"><a href="#内存管理的思想" class="headerlink" title="内存管理的思想"></a>内存管理的思想</h2><ul>
