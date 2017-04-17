@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-04-17T00:23:05.000Z</updated>
+  <updated>2017-04-17T00:41:17.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/04/17/%E3%80%8AObjective-C%20%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9ABlocks%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/04/17/《Objective-C 高级编程》干货三部曲（二）：Blocks篇/</id>
     <published>2017-04-17T00:22:24.000Z</published>
-    <updated>2017-04-17T00:23:05.000Z</updated>
+    <updated>2017-04-17T00:41:17.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
-<p>这一章讲解了Block相关的知识。因为作者讲OC的代码转成了C++的代码，所以第一次看的时候非常吃力，我自己也不记得看了多少遍了。</p>
+<p>这一章讲解了Block相关的知识。因为作者将Objective-C的代码转成了C++的代码，所以第一次看的时候非常吃力，我自己也不记得看了多少遍了。</p>
 <p>这篇总结不仅仅只有这本书中的内容，还有一点在其他博客里看过的Block的相关知识，并加上了自己的理解，而且文章结构也和原书不太一致，是经过我的整理重新排列出来的。</p>
 <p>先看一下本文结构（Blocks部分）：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-169518e948933744.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程》 干货三部曲"></p>
@@ -332,7 +332,7 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《Objective-C高级编程：iOS与OS X多线程和内存管理》&quot;&gt;&lt;/p&gt;
-&lt;p&gt;这一章讲解了Block相关的知识。因为作者讲OC的代码转成了C++的代码，所以第一次看的时候非常吃力，我自己也不记得看了多少遍了。&lt;/p&gt;
+&lt;p&gt;这一章讲解了Block相关的知识。因为作者将Objective-C的代码转成了C++的代码，所以第一次看的时候非常吃力，我自己也不记得看了多少遍了。&lt;/p&gt;
 &lt;p&gt;这篇总结不仅仅只有这本书中的内容，还有一点在其他博客里看过的Block的相关知识，并加上了自己的理解，而且文章结构也和原书不太一致，是经过我的整理重新排列出来的。&lt;/p&gt;
 &lt;p&gt;先看一下本文结构（Blocks部分）：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-169518e948933744.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《Objective-C高级编程》 干货三部曲&quot;&gt;&lt;/p&gt;
