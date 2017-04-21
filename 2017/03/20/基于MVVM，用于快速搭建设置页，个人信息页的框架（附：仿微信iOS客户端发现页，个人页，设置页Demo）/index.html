@@ -96,7 +96,7 @@ cell样式单一，自定义cell出现的几率比较小（几乎都是高度为
 
 因为自己非常想写一个开">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）">
+<meta property="og:title" content="基于MVVM，用于快速搭建设置页，个人信息页的框架（2017.4.21更新：添加CocoaPods支持）">
 <meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2017/03/20/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/index.html">
 <meta property="og:site_name" content="J_Knight">
 <meta property="og:description" content="写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。
@@ -112,9 +112,9 @@ cell样式单一，自定义cell出现的几率比较小（几乎都是高度为
 <meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/sjstatictableview_6.png">
 <meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/sjstatictableview_3.png">
 <meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/sjstatictableview_2.png">
-<meta property="og:updated_time" content="2017-03-21T00:08:26.000Z">
+<meta property="og:updated_time" content="2017-04-21T07:26:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）">
+<meta name="twitter:title" content="基于MVVM，用于快速搭建设置页，个人信息页的框架（2017.4.21更新：添加CocoaPods支持）">
 <meta name="twitter:description" content="写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。
 而且这些页面的共性比较多：
 
@@ -157,7 +157,7 @@ cell样式单一，自定义cell出现的几率比较小（几乎都是高度为
 
 
 
-  <title> 基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo） | J_Knight </title>
+  <title> 基于MVVM，用于快速搭建设置页，个人信息页的框架（2017.4.21更新：添加CocoaPods支持） | J_Knight </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -315,7 +315,7 @@ var _hmt = _hmt || [];
             
             
               
-                基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）
+                基于MVVM，用于快速搭建设置页，个人信息页的框架（2017.4.21更新：添加CocoaPods支持）
               
             
           </h1>
@@ -467,9 +467,12 @@ var _hmt = _hmt || [];
 </ol>
 <p>在了解了该框架的功能之后，我们先看一下如何使用这个框架：</p>
 <h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><hr>
-<p>最开始先用文字说明一下：</p>
+<h2 id="集成方法："><a href="#集成方法：" class="headerlink" title="集成方法："></a>集成方法：</h2><ol>
+<li>静态：手动将SJStaticTableViewComponent文件夹拖入到工程中。</li>
+<li>动态：CocoaPods：<code>pod &#39;SJStaticTableView&#39;, &#39;~&gt; 1.0.3&#39;</code>。</li>
+</ol>
+<p>具体的方法先用文字说明一下：</p>
 <ol>
-<li>将SJStaticTableViewComponent文件夹复制到工程里。</li>
 <li>将要开发的页面的ViewController继承<code>SJStaticTableViewController</code>。</li>
 <li>在新ViewController里实现<code>createDataSource</code>方法，将viewModel数组传给控制器的<code>dataSource</code>属性。</li>
 <li>根据不同的cell类型，调用不同的cell绘制方法。</li>
@@ -762,7 +765,7 @@ var _hmt = _hmt || [];
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用到的技术点"><span class="nav-number">1.</span> <span class="nav-text">用到的技术点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#功能介绍"><span class="nav-number">2.</span> <span class="nav-text">功能介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题1：UITableViewDataSource方法哪儿去了？"><span class="nav-number">3.1.</span> <span class="nav-text">问题1：UITableViewDataSource方法哪儿去了？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题2：-viewModel数组是如何设置的？"><span class="nav-number">3.2.</span> <span class="nav-text">问题2： viewModel数组是如何设置的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题3：cell的绘制方法是如何区分的？"><span class="nav-number">3.3.</span> <span class="nav-text">问题3：cell的绘制方法是如何区分的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题4：UITableViewDelegate的方法哪里去了？"><span class="nav-number">3.4.</span> <span class="nav-text">问题4：UITableViewDelegate的方法哪里去了？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定制性"><span class="nav-number">4.</span> <span class="nav-text">定制性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用到的技术点"><span class="nav-number">1.</span> <span class="nav-text">用到的技术点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#功能介绍"><span class="nav-number">2.</span> <span class="nav-text">功能介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集成方法："><span class="nav-number">3.1.</span> <span class="nav-text">集成方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题1：UITableViewDataSource方法哪儿去了？"><span class="nav-number">3.2.</span> <span class="nav-text">问题1：UITableViewDataSource方法哪儿去了？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题2：-viewModel数组是如何设置的？"><span class="nav-number">3.3.</span> <span class="nav-text">问题2： viewModel数组是如何设置的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题3：cell的绘制方法是如何区分的？"><span class="nav-number">3.4.</span> <span class="nav-text">问题3：cell的绘制方法是如何区分的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题4：UITableViewDelegate的方法哪里去了？"><span class="nav-number">3.5.</span> <span class="nav-text">问题4：UITableViewDelegate的方法哪里去了？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定制性"><span class="nav-number">4.</span> <span class="nav-text">定制性</span></a></li></ol></div>
             
 
           </div>
