@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://github.com/knightsj/knightsj.github.io/2017/03/20/%E5%9F%BA%E4%BA%8EMVVM%EF%BC%8C%E7%94%A8%E4%BA%8E%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E8%AE%BE%E7%BD%AE%E9%A1%B5%EF%BC%8C%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E9%A1%B5%E7%9A%84%E6%A1%86%E6%9E%B6%EF%BC%88%E9%99%84%EF%BC%9A%E4%BB%BF%E5%BE%AE%E4%BF%A1iOS%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E7%8E%B0%E9%A1%B5%EF%BC%8C%E4%B8%AA%E4%BA%BA%E9%A1%B5%EF%BC%8C%E8%AE%BE%E7%BD%AE%E9%A1%B5Demo%EF%BC%89/</loc>
-    <lastmod>2017-04-21T07:26:30.000Z</lastmod>
+    <lastmod>2017-04-23T17:46:06.000Z</lastmod>
     <data>
         <display>
         <title>基于MVVM，用于快速搭建设置页，个人信息页的框架（2017.4.21更新：添加CocoaPods支持）</title>
