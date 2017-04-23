@@ -750,7 +750,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/03/20/%E5%9F%BA%E4%BA%8EMVVM%EF%BC%8C%E7%94%A8%E4%BA%8E%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E8%AE%BE%E7%BD%AE%E9%A1%B5%EF%BC%8C%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E9%A1%B5%E7%9A%84%E6%A1%86%E6%9E%B6%EF%BC%88%E9%99%84%EF%BC%9A%E4%BB%BF%E5%BE%AE%E4%BF%A1iOS%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E7%8E%B0%E9%A1%B5%EF%BC%8C%E4%B8%AA%E4%BA%BA%E9%A1%B5%EF%BC%8C%E8%AE%BE%E7%BD%AE%E9%A1%B5Demo%EF%BC%89/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/03/20/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/</id>
     <published>2017-03-20T05:47:51.000Z</published>
-    <updated>2017-04-23T17:48:03.000Z</updated>
+    <updated>2017-04-23T17:49:41.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="更新记录："><a href="#更新记录：" class="headerlink" title="更新记录："></a>更新记录：</h3><p><strong>2017.4.23：新增支持数据源完全依赖网络请求的情况。</strong><br><strong>2017.4.22：新增支持请求新数据后刷新表格。</strong><br><strong>2017.4.21： 新增CocoaPods支持：pod ‘SJStaticTableView’, ‘~&gt; 1.2.0’。</strong></p>
 <hr>
@@ -774,6 +774,7 @@
 <blockquote>
 <p>项目所用资源来自：<a href="https://github.com/zhengwenming/WeChat">GitHub:zhengwenming/WeChat</a><br>Demo地址：<a href="https://github.com/knightsj/SJStaticTableView">GitHub: knightsj/SJStaticTableView</a></p>
 </blockquote>
+<a id="more"></a>
 <p>为了体现出这个框架的定制性，我自己也在里面添加了两个页面，入口在设置页里面：</p>
 <p><img src="https://user-gold-cdn.xitu.io/2017/4/24/a38f9f8459fbd168e3f434e5cff27526" alt="分组定制 | 同组定制"></p>
 <blockquote>
@@ -941,7 +942,28 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;更新记录：&quot;&gt;&lt;a href=&quot;#更新记录：&quot; class=&quot;headerlink&quot; title=&quot;更新记录：&quot;&gt;&lt;/a&gt;更新记录：&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;2017.4.23：新增支持数据源完全依赖网络请求的情况。&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;
+      &lt;h3 id=&quot;更新记录：&quot;&gt;&lt;a href=&quot;#更新记录：&quot; class=&quot;headerlink&quot; title=&quot;更新记录：&quot;&gt;&lt;/a&gt;更新记录：&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;2017.4.23：新增支持数据源完全依赖网络请求的情况。&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;2017.4.22：新增支持请求新数据后刷新表格。&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;2017.4.21： 新增CocoaPods支持：pod ‘SJStaticTableView’, ‘~&amp;gt; 1.2.0’。&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;写一个小小轮子～&lt;/p&gt;
+&lt;p&gt;写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。&lt;/p&gt;
+&lt;p&gt;而且这些页面的共性比较多：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;大多数情况下在进入页面之前就已经拿到所有数据。&lt;/li&gt;
+&lt;li&gt;cell样式单一，自定义cell出现的几率比较小（几乎都是高度为44的cell）。&lt;/li&gt;
+&lt;li&gt;多数都分组。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因为自己非常想写一个开源的东西出来（也可以暴露自己的不足），同时又受限于水平，所以就打算写这么一个比较简单，又具有通用性的框架：&lt;strong&gt;一个定制性比较高的适合在个人页和设置页使用的UITableView&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;在真正写之前，看了几篇类似的文章，挑出三篇自己觉得比较好的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.objc.io/issues/1-view-controllers/table-views/&quot;&gt;Clean Table View Code&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/504c61a9dc82&quot;&gt;如何写好一个UITableView&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.jianshu.com/p/81d0c573f7a8&quot;&gt;利用MVVM设计快速开发个人中心、设置等模块&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;看完总结之后，利用上周3天的业余时间写好了这个框架，为了它实用性，我仿照了微信客户端的发现页，个人页和设置页写了一个Demo，来看一下效果图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2017/4/24/85789de80b62c93ff0c9f77b603dba70&quot; alt=&quot;发现页 | 个人页 | 个人信息页 | 设置页&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;项目所用资源来自：&lt;a href=&quot;https://github.com/zhengwenming/WeChat&quot;&gt;GitHub:zhengwenming/WeChat&lt;/a&gt;&lt;br&gt;Demo地址：&lt;a href=&quot;https://github.com/knightsj/SJStaticTableView&quot;&gt;GitHub: knightsj/SJStaticTableView&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
