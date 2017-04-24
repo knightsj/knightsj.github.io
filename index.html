@@ -268,6 +268,166 @@ var _hmt = _hmt || [];
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/04/24/《Objective-C 高级编程》干货三部曲（三）：GCD篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/24/《Objective-C 高级编程》干货三部曲（三）：GCD篇/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-24T09:21:34+08:00">
+                2017-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <hr>
+<p>title: 《Objective-C 高级编程》干货三部曲（三）：GCD篇<br>tags: [iOS,Objective-C]</p>
+<h2 id="categories-Objective-C"><a href="#categories-Objective-C" class="headerlink" title="categories: Objective-C"></a>categories: Objective-C</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
+<p>我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：</p>
+<ul>
+<li>前两者是面向线程开发的多线程技术，需要开发者自己去维护线程的生命周期，比较繁琐。</li>
+<li>后两者是面向队列开发的多线程技术，开发者仅仅定义想执行的任务追加到适当的Dispatch Queue（队列）中并设置一些优先级，依赖等操作就可以了，其他的事情可以交给系统来做。</li>
+</ul>
+<p>在这一章里，作者主要介绍了GCD技术，它是基于C语言的API，开发者只需要将任务放在block内，并指定好追加的队列，就可以完成多线程开发。</p>
+<p>但是多线程开发时容易发生的一些问题：</p>
+<ul>
+<li>多个线程更新相同的资源：数据竞争。</li>
+<li>多个线程相互持续等待：死锁。</li>
+<li>使用太多的线程导致消耗内存。</li>
+</ul>
+<p>虽然解决这些问题的代价是会使程序的复杂度上升，但是多线程技术仍然是必须使用的：因为使用多线程编程可以保证应用程序的响应性能。如果耗时操作阻塞了主线程的RunLoop，会导致用户界面无法响应用户的操作，所以必须开启子线程将耗时操作放在子线程中处理。那么我们应该怎么进行多线程开发呢？在讲解之前先看一下本文结构（GCD部分）：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-169518e948933744.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程》 干货三部曲"></p>
+<p>本文的Demo地址：<a href="https://github.com/knightsj/iOS_Demo/tree/master/%5B12%5D.%20gcd_demo">knightsj/iOS_Demo/gcd_demo</a><br>虽然文章里应给出了详细的输出结果，但还是希望读者可以将demo下载后仔细对照一下代码并体会。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/24/《Objective-C 高级编程》干货三部曲（三）：GCD篇/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/04/17/《Objective-C 高级编程》干货三部曲（二）：Blocks篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2676,180 +2836,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/13/《Effective Objective-C》超级干货三部曲（二）：规范篇/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/13/《Effective Objective-C》超级干货三部曲（二）：规范篇/" itemprop="url">
-                  《Effective Objective-C》超级干货三部曲（二）：规范篇
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-13T13:52:04+08:00">
-                2017-01-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
-<p>继上一篇<a href="http://www.jianshu.com/p/9c93c7ab734d">《Effective Objective-C 》超级干货三部曲（一）：概念篇</a>之后，本篇即是三部曲的第二篇：规范篇。<br>没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：</p>
-<ul>
-<li>概念类：讲解了一些概念性知识。</li>
-<li>规范类：讲解了一些为了避免一些问题或者为后续开发提供便利所需要遵循的规范性知识。</li>
-<li>技巧类：讲解了一些为了解决某些特定问题而需要用到的技巧性知识。</li>
-</ul>
-<p>然后用思维导图整理了一下：<br><img src="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
-<p>作为三部曲的第二篇，本篇总结抽取了《Effective Objective-C 》这本书中讲解规范性知识的部分：这些知识点都是为了避免在开发过程中出现问题或给开发提供便利的规范性知识点。掌握这些知识有助于形成科学地写OC代码的习惯，使得代码更加容易维护和扩展，学习这类知识是iOS初学者进阶的必经之路。</p>
-<p>好吧，不费话了，开始了！</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/13/《Effective Objective-C》超级干货三部曲（二）：规范篇/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2899,7 +2885,7 @@ var _hmt = _hmt || [];
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
