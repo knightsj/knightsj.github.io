@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="iOS,Objective-C," />
 
 
 
@@ -87,33 +87,33 @@
 
 
 
-<meta name="description" content="title: 《Objective-C 高级编程》干货三部曲（三）：GCD篇tags: [iOS,Objective-C]
-categories: Objective-C
-我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：
+<meta name="description" content="我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：
 
 前两者是面向线程开发的多线程技术，需要开发者自己去维护线程的生命周期，比较繁琐。
-后两者是面向队列开发的多线程">
+后两者是面向队列开发的多线程技术，开发者仅仅定义想执行的任务追加到适当的Dispatch Queue（队列）中并设置一些优先级，依赖等操作就可以了，其他的事情可以交给系统来做。
+
+在这一章里，作者主要">
 <meta property="og:type" content="article">
-<meta property="og:title" content="J_Knight">
+<meta property="og:title" content="《Objective-C 高级编程》干货三部曲（三）：GCD篇">
 <meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2017/04/24/《Objective-C 高级编程》干货三部曲（三）：GCD篇/index.html">
 <meta property="og:site_name" content="J_Knight">
-<meta property="og:description" content="title: 《Objective-C 高级编程》干货三部曲（三）：GCD篇tags: [iOS,Objective-C]
-categories: Objective-C
-我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：
+<meta property="og:description" content="我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：
 
 前两者是面向线程开发的多线程技术，需要开发者自己去维护线程的生命周期，比较繁琐。
-后两者是面向队列开发的多线程">
+后两者是面向队列开发的多线程技术，开发者仅仅定义想执行的任务追加到适当的Dispatch Queue（队列）中并设置一些优先级，依赖等操作就可以了，其他的事情可以交给系统来做。
+
+在这一章里，作者主要">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-169518e948933744.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-04-24T01:21:34.000Z">
+<meta property="og:updated_time" content="2017-04-24T01:23:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="J_Knight">
-<meta name="twitter:description" content="title: 《Objective-C 高级编程》干货三部曲（三）：GCD篇tags: [iOS,Objective-C]
-categories: Objective-C
-我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：
+<meta name="twitter:title" content="《Objective-C 高级编程》干货三部曲（三）：GCD篇">
+<meta name="twitter:description" content="我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：
 
 前两者是面向线程开发的多线程技术，需要开发者自己去维护线程的生命周期，比较繁琐。
-后两者是面向队列开发的多线程">
+后两者是面向队列开发的多线程技术，开发者仅仅定义想执行的任务追加到适当的Dispatch Queue（队列）中并设置一些优先级，依赖等操作就可以了，其他的事情可以交给系统来做。
+
+在这一章里，作者主要">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -148,7 +148,7 @@ categories: Objective-C
 
 
 
-  <title>  | J_Knight </title>
+  <title> 《Objective-C 高级编程》干货三部曲（三）：GCD篇 | J_Knight </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -306,7 +306,7 @@ var _hmt = _hmt || [];
             
             
               
-                
+                《Objective-C 高级编程》干货三部曲（三）：GCD篇
               
             
           </h1>
@@ -331,6 +331,28 @@ var _hmt = _hmt || [];
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -375,9 +397,7 @@ var _hmt = _hmt || [];
       
 
       
-        <hr>
-<p>title: 《Objective-C 高级编程》干货三部曲（三）：GCD篇<br>tags: [iOS,Objective-C]</p>
-<h2 id="categories-Objective-C"><a href="#categories-Objective-C" class="headerlink" title="categories: Objective-C"></a>categories: Objective-C</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
+        <p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
 <p>我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：</p>
 <ul>
 <li>前两者是面向线程开发的多线程技术，需要开发者自己去维护线程的生命周期，比较繁琐。</li>
@@ -562,6 +582,14 @@ var _hmt = _hmt || [];
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
 
       
         
@@ -715,7 +743,7 @@ var _hmt = _hmt || [];
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-Objective-C"><span class="nav-number">1.</span> <span class="nav-text">categories: Objective-C</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#队列"><span class="nav-number"></span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串行队列"><span class="nav-number">1.</span> <span class="nav-text">串行队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行队列"><span class="nav-number">2.</span> <span class="nav-text">并行队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的命名"><span class="nav-number">3.</span> <span class="nav-text">队列的命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统提供的队列"><span class="nav-number">4.</span> <span class="nav-text">系统提供的队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-Dispatch-Queue"><span class="nav-number">4.1.</span> <span class="nav-text">Main Dispatch Queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Globle-Dispatch-Queue"><span class="nav-number">4.2.</span> <span class="nav-text">Globle Dispatch Queue</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GCD的各种函数"><span class="nav-number"></span> <span class="nav-text">GCD的各种函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-set-target-queue"><span class="nav-number">1.</span> <span class="nav-text">dispatch_set_target_queue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变队列的优先级"><span class="nav-number">1.1.</span> <span class="nav-text">改变队列的优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止多个串行队列的并行执行"><span class="nav-number">1.2.</span> <span class="nav-text">防止多个串行队列的并行执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-after"><span class="nav-number">2.</span> <span class="nav-text">dispatch_after</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-group"><span class="nav-number">3.</span> <span class="nav-text">dispatch_group</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预处理任务需要一个接一个的执行："><span class="nav-number">3.1.</span> <span class="nav-text">预处理任务需要一个接一个的执行：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预处理任务需要一个接一个的执行：-1"><span class="nav-number">3.2.</span> <span class="nav-text">预处理任务需要一个接一个的执行：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-group-wait"><span class="nav-number">4.</span> <span class="nav-text">dispatch_group_wait</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超时的情况："><span class="nav-number">4.1.</span> <span class="nav-text">超时的情况：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没有超时的情况："><span class="nav-number">4.2.</span> <span class="nav-text">没有超时的情况：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-barrier-async"><span class="nav-number">5.</span> <span class="nav-text">dispatch_barrier_async</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-sync"><span class="nav-number">6.</span> <span class="nav-text">dispatch_sync</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-apply"><span class="nav-number">7.</span> <span class="nav-text">dispatch_apply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-suspend-dispatch-resume"><span class="nav-number">8.</span> <span class="nav-text">dispatch_suspend/dispatch_resume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-once"><span class="nav-number">9.</span> <span class="nav-text">dispatch_once</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#队列"><span class="nav-number">1.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串行队列"><span class="nav-number">1.1.</span> <span class="nav-text">串行队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行队列"><span class="nav-number">1.2.</span> <span class="nav-text">并行队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的命名"><span class="nav-number">1.3.</span> <span class="nav-text">队列的命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统提供的队列"><span class="nav-number">1.4.</span> <span class="nav-text">系统提供的队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-Dispatch-Queue"><span class="nav-number">1.4.1.</span> <span class="nav-text">Main Dispatch Queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Globle-Dispatch-Queue"><span class="nav-number">1.4.2.</span> <span class="nav-text">Globle Dispatch Queue</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GCD的各种函数"><span class="nav-number">2.</span> <span class="nav-text">GCD的各种函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-set-target-queue"><span class="nav-number">2.1.</span> <span class="nav-text">dispatch_set_target_queue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改变队列的优先级"><span class="nav-number">2.1.1.</span> <span class="nav-text">改变队列的优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防止多个串行队列的并行执行"><span class="nav-number">2.1.2.</span> <span class="nav-text">防止多个串行队列的并行执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-after"><span class="nav-number">2.2.</span> <span class="nav-text">dispatch_after</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-group"><span class="nav-number">2.3.</span> <span class="nav-text">dispatch_group</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预处理任务需要一个接一个的执行："><span class="nav-number">2.3.1.</span> <span class="nav-text">预处理任务需要一个接一个的执行：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预处理任务需要一个接一个的执行：-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">预处理任务需要一个接一个的执行：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-group-wait"><span class="nav-number">2.4.</span> <span class="nav-text">dispatch_group_wait</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超时的情况："><span class="nav-number">2.4.1.</span> <span class="nav-text">超时的情况：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没有超时的情况："><span class="nav-number">2.4.2.</span> <span class="nav-text">没有超时的情况：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-barrier-async"><span class="nav-number">2.5.</span> <span class="nav-text">dispatch_barrier_async</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-sync"><span class="nav-number">2.6.</span> <span class="nav-text">dispatch_sync</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-apply"><span class="nav-number">2.7.</span> <span class="nav-text">dispatch_apply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-suspend-dispatch-resume"><span class="nav-number">2.8.</span> <span class="nav-text">dispatch_suspend/dispatch_resume</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-once"><span class="nav-number">2.9.</span> <span class="nav-text">dispatch_once</span></a></li></ol></li></ol></div>
             
 
           </div>

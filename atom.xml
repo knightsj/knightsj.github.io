@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-04-24T01:21:34.000Z</updated>
+  <updated>2017-04-24T01:23:49.000Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -16,15 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>《Objective-C 高级编程》干货三部曲（三）：GCD篇</title>
     <link href="https://github.com/knightsj/knightsj.github.io/2017/04/24/%E3%80%8AObjective-C%20%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9AGCD%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/04/24/《Objective-C 高级编程》干货三部曲（三）：GCD篇/</id>
     <published>2017-04-24T01:21:34.000Z</published>
-    <updated>2017-04-24T01:21:34.000Z</updated>
+    <updated>2017-04-24T01:23:49.000Z</updated>
     
-    <content type="html"><![CDATA[<hr>
-<p>title: 《Objective-C 高级编程》干货三部曲（三）：GCD篇<br>tags: [iOS,Objective-C]</p>
-<h2 id="categories-Objective-C"><a href="#categories-Objective-C" class="headerlink" title="categories: Objective-C"></a>categories: Objective-C</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
 <p>我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：</p>
 <ul>
 <li>前两者是面向线程开发的多线程技术，需要开发者自己去维护线程的生命周期，比较繁琐。</li>
@@ -186,9 +184,7 @@
     
     <summary type="html">
     
-      &lt;hr&gt;
-&lt;p&gt;title: 《Objective-C 高级编程》干货三部曲（三）：GCD篇&lt;br&gt;tags: [iOS,Objective-C]&lt;/p&gt;
-&lt;h2 id=&quot;categories-Objective-C&quot;&gt;&lt;a href=&quot;#categories-Objective-C&quot; class=&quot;headerlink&quot; title=&quot;categories: Objective-C&quot;&gt;&lt;/a&gt;categories: Objective-C&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《Objective-C高级编程：iOS与OS X多线程和内存管理》&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《Objective-C高级编程：iOS与OS X多线程和内存管理》&quot;&gt;&lt;/p&gt;
 &lt;p&gt;我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;前两者是面向线程开发的多线程技术，需要开发者自己去维护线程的生命周期，比较繁琐。&lt;/li&gt;
@@ -207,6 +203,12 @@
     
     </summary>
     
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
     
   </entry>
   
