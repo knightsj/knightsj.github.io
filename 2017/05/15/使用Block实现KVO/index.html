@@ -69,7 +69,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="iOS,Objective-C," />
 
 
 
@@ -87,26 +87,29 @@
 
 
 
-<meta name="description" content="title: 使用Block实现KVOtags: [iOS,Objective-C]
-categories: Production在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。
-用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加">
+<meta name="description" content="在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。
+用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了ImplementKVO的实现以后，自己也写了一个：SJKVOController
+
+S">
 <meta property="og:type" content="article">
-<meta property="og:title" content="J_Knight">
+<meta property="og:title" content="使用Block实现KVO">
 <meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2017/05/15/使用Block实现KVO/index.html">
 <meta property="og:site_name" content="J_Knight">
-<meta property="og:description" content="title: 使用Block实现KVOtags: [iOS,Objective-C]
-categories: Production在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。
-用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加">
+<meta property="og:description" content="在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。
+用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了ImplementKVO的实现以后，自己也写了一个：SJKVOController
+
+S">
 <meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/sjkvocontrollerblogimage.png">
 <meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/sjkvocontrolllergif1.gif">
 <meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/sjkvocontrolllergif2.gif">
 <meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/sjkvocontrolllergif3.gif">
-<meta property="og:updated_time" content="2017-05-15T00:24:32.000Z">
+<meta property="og:updated_time" content="2017-05-15T00:27:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="J_Knight">
-<meta name="twitter:description" content="title: 使用Block实现KVOtags: [iOS,Objective-C]
-categories: Production在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。
-用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加">
+<meta name="twitter:title" content="使用Block实现KVO">
+<meta name="twitter:description" content="在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。
+用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了ImplementKVO的实现以后，自己也写了一个：SJKVOController
+
+S">
 <meta name="twitter:image" content="http://oih3a9o4n.bkt.clouddn.com/sjkvocontrollerblogimage.png">
 
 
@@ -141,7 +144,7 @@ categories: Production在iOS开发中，我们可以通过KVO机制来监听某�
 
 
 
-  <title>  | J_Knight </title>
+  <title> 使用Block实现KVO | J_Knight </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -299,7 +302,7 @@ var _hmt = _hmt || [];
             
             
               
-                
+                使用Block实现KVO
               
             
           </h1>
@@ -324,6 +327,28 @@ var _hmt = _hmt || [];
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Production/" itemprop="url" rel="index">
+                    <span itemprop="name">Production</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -368,9 +393,7 @@ var _hmt = _hmt || [];
       
 
       
-        <hr>
-<p>title: 使用Block实现KVO<br>tags: [iOS,Objective-C]</p>
-<h2 id="categories-Production"><a href="#categories-Production" class="headerlink" title="categories: Production"></a>categories: Production</h2><p>在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。</p>
+        <p>在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。</p>
 <p>用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了<a href="https://github.com/okcomp/ImplementKVO">ImplementKVO</a>的实现以后，自己也写了一个：<a href="https://github.com/knightsj/SJKVOController">SJKVOController</a></p>
 <p><img src="http://oih3a9o4n.bkt.clouddn.com/sjkvocontrollerblogimage.png" alt="使用Block来实现KVO"></p>
 <h1 id="SJKVOController的用法"><a href="#SJKVOController的用法" class="headerlink" title="SJKVOController的用法"></a>SJKVOController的用法</h1><p>只需要引入<code>NSObject+SJKVOController.h</code>头文件就可以使用SJKVOController。<br>先看一下它的头文件：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"SJKVOHeader.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">SJKVOController</span>)</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//============== add observer ===============//</span></div><div class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys withBlock:(SJKVOBlock)block;</div><div class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key withBlock:(SJKVOBlock)block;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//============= remove observer =============//</span></div><div class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys;</div><div class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key;</div><div class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer;</div><div class="line">- (<span class="keyword">void</span>)sj_removeAllObservers;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//============= list observers ===============//</span></div><div class="line">- (<span class="keyword">void</span>)sj_listAllObservers;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
@@ -496,6 +519,14 @@ var _hmt = _hmt || [];
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
       
 
       
@@ -650,7 +681,7 @@ var _hmt = _hmt || [];
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-Production"><span class="nav-number">1.</span> <span class="nav-text">categories: Production</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SJKVOController的用法"><span class="nav-number"></span> <span class="nav-text">SJKVOController的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证1-在添加number和color的观察后，移除nunber的观察："><span class="nav-number">0.0.1.</span> <span class="nav-text">验证1:在添加number和color的观察后，移除nunber的观察：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证2-在添加number和color的观察后，移除nunber和color的观察："><span class="nav-number">0.0.2.</span> <span class="nav-text">验证2:在添加number和color的观察后，移除nunber和color的观察：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SJKVOController代码解析"><span class="nav-number"></span> <span class="nav-text">SJKVOController代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOController"><span class="nav-number">1.</span> <span class="nav-text">SJKVOController</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sj-addObserver-forKey-withBlock-方法："><span class="nav-number">1.1.</span> <span class="nav-text">sj_addObserver:forKey withBlock:方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-判断当前被观察的类是否存在与传入key对应的setter方法："><span class="nav-number">1.1.1.</span> <span class="nav-text">1.判断当前被观察的类是否存在与传入key对应的setter方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-如果有，判断当前被观察到类是否已经是KVO类-在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例-。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）："><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 如果有，判断当前被观察到类是否已经是KVO类(在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例)。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类："><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面："><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察："><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOObserverItem"><span class="nav-number">2.</span> <span class="nav-text">SJKVOObserverItem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOTool"><span class="nav-number">3.</span> <span class="nav-text">SJKVOTool</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SJKVOController的用法"><span class="nav-number">1.</span> <span class="nav-text">SJKVOController的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证1-在添加number和color的观察后，移除nunber的观察："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">验证1:在添加number和color的观察后，移除nunber的观察：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证2-在添加number和color的观察后，移除nunber和color的观察："><span class="nav-number">1.0.0.2.</span> <span class="nav-text">验证2:在添加number和color的观察后，移除nunber和color的观察：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SJKVOController代码解析"><span class="nav-number">2.</span> <span class="nav-text">SJKVOController代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOController"><span class="nav-number">2.1.</span> <span class="nav-text">SJKVOController</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sj-addObserver-forKey-withBlock-方法："><span class="nav-number">2.1.1.</span> <span class="nav-text">sj_addObserver:forKey withBlock:方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-判断当前被观察的类是否存在与传入key对应的setter方法："><span class="nav-number">2.1.1.1.</span> <span class="nav-text">1.判断当前被观察的类是否存在与传入key对应的setter方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-如果有，判断当前被观察到类是否已经是KVO类-在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例-。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）："><span class="nav-number">2.1.1.2.</span> <span class="nav-text">2. 如果有，判断当前被观察到类是否已经是KVO类(在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例)。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类："><span class="nav-number">2.1.1.3.</span> <span class="nav-text">3. 如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面："><span class="nav-number">2.1.1.4.</span> <span class="nav-text">4. 查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察："><span class="nav-number">2.1.1.5.</span> <span class="nav-text">5. 判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOObserverItem"><span class="nav-number">2.2.</span> <span class="nav-text">SJKVOObserverItem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOTool"><span class="nav-number">2.3.</span> <span class="nav-text">SJKVOTool</span></a></li></ol></li></ol></div>
             
 
           </div>

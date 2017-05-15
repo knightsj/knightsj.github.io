@@ -291,7 +291,7 @@ var _hmt = _hmt || [];
               
                 
                 <a class="post-title-link" href="/2017/05/15/使用Block实现KVO/" itemprop="url">
-                  未命名
+                  使用Block实现KVO
                 </a>
               
             
@@ -317,6 +317,28 @@ var _hmt = _hmt || [];
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Production/" itemprop="url" rel="index">
+                    <span itemprop="name">Production</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -362,9 +384,7 @@ var _hmt = _hmt || [];
 
       
         
-          <hr>
-<p>title: 使用Block实现KVO<br>tags: [iOS,Objective-C]</p>
-<h2 id="categories-Production"><a href="#categories-Production" class="headerlink" title="categories: Production"></a>categories: Production</h2><p>在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。</p>
+          <p>在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。</p>
 <p>用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了<a href="https://github.com/okcomp/ImplementKVO">ImplementKVO</a>的实现以后，自己也写了一个：<a href="https://github.com/knightsj/SJKVOController">SJKVOController</a></p>
 <p><img src="http://oih3a9o4n.bkt.clouddn.com/sjkvocontrollerblogimage.png" alt="使用Block来实现KVO"></p>
 <h1 id="SJKVOController的用法"><a href="#SJKVOController的用法" class="headerlink" title="SJKVOController的用法"></a>SJKVOController的用法</h1><p>只需要引入<code>NSObject+SJKVOController.h</code>头文件就可以使用SJKVOController。<br>先看一下它的头文件：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"SJKVOHeader.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">SJKVOController</span>)</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//============== add observer ===============//</span></div><div class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys withBlock:(SJKVOBlock)block;</div><div class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key withBlock:(SJKVOBlock)block;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//============= remove observer =============//</span></div><div class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys;</div><div class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key;</div><div class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer;</div><div class="line">- (<span class="keyword">void</span>)sj_removeAllObservers;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//============= list observers ===============//</span></div><div class="line">- (<span class="keyword">void</span>)sj_listAllObservers;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
