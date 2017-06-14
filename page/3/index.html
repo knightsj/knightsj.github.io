@@ -268,6 +268,182 @@ var _hmt = _hmt || [];
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/11/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/" itemprop="url">
+                  斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-11T15:19:16+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective-C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本节课讲授了多线程编程和UIScrollview控件，最后通过一个显示图片的Demo综合了本节课讲解的知识。通过本节课的学习，我们可以初步了解该如何处理耗时的任务来提高系统性能的方法以及通过UIScrollview控件来显示超出屏幕大小的图片并实现滚动和缩放的效果。</p>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><hr>
+<p>实现多线程编程（将不同的任务放在主线程和子线程工作），可以有效利用系统硬件优势提高系统性能。<br>首先，先介绍几个概念：</p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>队列：在队列中放入用来执行任务的block。这些block按照队列的性质被取出到应该工作的线程(主线程，子线程)。</p>
+<p>队列分为串行队列和并行队列。</p>
+<ul>
+<li>放入串行队列的任务将会在主线程执行，执行顺序是按照顺序执行。</li>
+<li>放入并行队列的任务会在子线程执行，执行顺序是并行执行。</li>
+</ul>
+<p>那么什么样的任务会放在主线程或子线程执行呢？</p>
+<h2 id="主线程-amp-子线程"><a href="#主线程-amp-子线程" class="headerlink" title="主线程&amp;子线程"></a>主线程&amp;子线程</h2><p>主线程：负责执行UI活动，绝大部分的UI活动都要在这里调用，不能让其阻塞，要将耗时的任务放到子线程来做。<br>子线程：负责执行耗时的运算，网络请求等不能放在主线程的任务。</p>
+<p>系统为我们提供了共用的主队列(Main Dispatch Queue)和全局并行队列(Global Dispatch Queue)。我们只需将需要执行的任务放入到这两类队列里就可以实现多线程编程。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/01/11/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/01/11/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2325,7 +2501,7 @@ var _hmt = _hmt || [];
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
