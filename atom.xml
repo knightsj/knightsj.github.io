@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-11-13T04:23:39.933Z</updated>
+  <updated>2017-11-13T04:34:52.965Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -16,14 +16,14 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>如何提高代码的可读性? - 读《编写可读代码的艺术》</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2017/11/13/%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E8%AF%BB%E6%80%A7?%20-%20%E8%AF%BB%E3%80%8A%E7%BC%96%E5%86%99%E5%8F%AF%E8%AF%BB%E4%BB%A3%E7%A0%81%E7%9A%84%E8%89%BA%E6%9C%AF%E3%80%8B/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2017/11/13/如何提高代码的可读性? - 读《编写可读代码的艺术》/</id>
+    <title>如何提高代码的可读性? -读《编写可读代码的艺术》</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2017/11/13/%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E8%AF%BB%E6%80%A7/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2017/11/13/如何提高代码的可读性/</id>
     <published>2017-11-13T04:13:23.282Z</published>
-    <updated>2017-11-13T04:23:39.933Z</updated>
+    <updated>2017-11-13T04:34:52.965Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="一-为什么读这本书"><a href="#一-为什么读这本书" class="headerlink" title="一. 为什么读这本书"></a>一. 为什么读这本书</h1><p><img src="http://upload-images.jianshu.io/upload_images/859001-63f87902508af82e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《编写可读代码的艺术》封面"></p>
-<p>很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用<strong>代码的可读性</strong>来概括。</p>
+    <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-63f87902508af82e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《编写可读代码的艺术》封面"></p>
+<h1 id="一-为什么读这本书"><a href="#一-为什么读这本书" class="headerlink" title="一. 为什么读这本书"></a>一. 为什么读这本书</h1><p>很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用<strong>代码的可读性</strong>来概括。</p>
 <p>不同于宏观上的架构，设计模式等需要好几个类，好几个模块才能看出来：代码的可读性是能够立刻从微观上的，一个变量的命名，函数的逻辑划分，注释的信息质量里面看出来的。</p>
 <p>宏观层面上的东西固然重要，但是代码的可读性也属于评价代码质量的一个无法让人忽视的指标：它影响了阅读代码的成本（毕竟代码注意是给人看的），甚至会影响代码出错的概率！</p>
 <p>这里引用《编写可读代码的艺术》这本书里的一句话:</p>
@@ -388,8 +388,8 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;一-为什么读这本书&quot;&gt;&lt;a href=&quot;#一-为什么读这本书&quot; class=&quot;headerlink&quot; title=&quot;一. 为什么读这本书&quot;&gt;&lt;/a&gt;一. 为什么读这本书&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-63f87902508af82e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《编写可读代码的艺术》封面&quot;&gt;&lt;/p&gt;
-&lt;p&gt;很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用&lt;strong&gt;代码的可读性&lt;/strong&gt;来概括。&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-63f87902508af82e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;《编写可读代码的艺术》封面&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;一-为什么读这本书&quot;&gt;&lt;a href=&quot;#一-为什么读这本书&quot; class=&quot;headerlink&quot; title=&quot;一. 为什么读这本书&quot;&gt;&lt;/a&gt;一. 为什么读这本书&lt;/h1&gt;&lt;p&gt;很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用&lt;strong&gt;代码的可读性&lt;/strong&gt;来概括。&lt;/p&gt;
 &lt;p&gt;不同于宏观上的架构，设计模式等需要好几个类，好几个模块才能看出来：代码的可读性是能够立刻从微观上的，一个变量的命名，函数的逻辑划分，注释的信息质量里面看出来的。&lt;/p&gt;
 &lt;p&gt;宏观层面上的东西固然重要，但是代码的可读性也属于评价代码质量的一个无法让人忽视的指标：它影响了阅读代码的成本（毕竟代码注意是给人看的），甚至会影响代码出错的概率！&lt;/p&gt;
 &lt;p&gt;这里引用《编写可读代码的艺术》这本书里的一句话:&lt;/p&gt;
