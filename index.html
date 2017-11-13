@@ -268,6 +268,192 @@ var _hmt = _hmt || [];
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/11/13/如何提高代码的可读性? - 读《编写可读代码的艺术》/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/11/13/如何提高代码的可读性? - 读《编写可读代码的艺术》/" itemprop="url">
+                  如何提高代码的可读性? - 读《编写可读代码的艺术》
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T12:13:23+08:00">
+                2017-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BookNote/" itemprop="url" rel="index">
+                    <span itemprop="name">BookNote</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://upload-images.jianshu.io/upload_images/859001-63f87902508af82e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《编写可读代码的艺术》封面"></p>
+<h1 id="一-为什么读这本书"><a href="#一-为什么读这本书" class="headerlink" title="一. 为什么读这本书"></a>一. 为什么读这本书</h1><p>很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用<strong>代码的可读性</strong>来概括。</p>
+<p>不同于宏观上的架构，设计模式等需要好几个类，好几个模块才能看出来：代码的可读性是能够立刻从微观上的，一个变量的命名，函数的逻辑划分，注释的信息质量里面看出来的。</p>
+<p>宏观层面上的东西固然重要，但是代码的可读性也属于评价代码质量的一个无法让人忽视的指标：它影响了阅读代码的成本（毕竟代码注意是给人看的），甚至会影响代码出错的概率！</p>
+<p>这里引用《编写可读代码的艺术》这本书里的一句话:</p>
+<blockquote>
+<p>对于一个整体的软件系统而言，既需要宏观的架构决策，设计与指导原则，也必须重视围观的代码细节。在软件历史中，有许多影响深远的重大失败，其根源往往是编码细节出现了疏漏。</p>
+</blockquote>
+<p>因此笔者认为代码的可读性可以作为考量一名程序员专业程度的指标。</p>
+<p>或许已经有很多同行也正在努力提高自己代码的可读性。然而这里有一个很典型的错觉（笔者之前就有这种错觉）是：越少的代码越容易让人理解。</p>
+<p>但是事实上，并不是代码越精简就越容易让人理解。相对于追求最小化代码行数，一个更好的提高可读性方法是<strong>最小化人们理解代码所需要的时间。</strong></p>
+<p>这就引出了这本中的一个核心定理：</p>
+<blockquote>
+<p>可读性基本定理：代码的写法应当使别人理解它所需要的时间最小化。</p>
+</blockquote>
+<p>正式这句话深深地吸引了我，于是决定利用这两周的业余时间读完并总结了这本书。</p>
+<p>这本书讲的就是关于”如何提高代码的可读性“。<br>总结下来，这本书从浅入深，在三个层次告诉了我们如何让代码易于理解：</p>
+<ul>
+<li>表层上的改进：在命名方法（变量名，方法名），变量声明，代码格式，注释等方面的改进。</li>
+<li>控制流和逻辑的改进：在控制流，逻辑表达式上让代码变得更容易了解。</li>
+<li>结构上的改进：善于抽取逻辑，借助自然语言的描述来改善代码。</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/13/如何提高代码的可读性? - 读《编写可读代码的艺术》/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/10/10/结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2699,173 +2885,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/02/04/MJRefresh 源码解析/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/04/MJRefresh 源码解析/" itemprop="url">
-                  MJRefresh源码解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-04T09:30:17+08:00">
-                2017-02-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="https://github.com/CoderMJLee/MJRefresh">MJRefresh</a>是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。</p>
-<p>该框架的结构设计得很清晰，使用一个基类<code>MJRefreshComponent</code>来做一些基本的设定，然后通过继承的方式，让<code>MJRefreshHeader</code>和<code>MJRefreshFooter</code>分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/MJRefresh_1.png" alt="框架组织结构图"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/04/MJRefresh 源码解析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2915,7 +2934,7 @@ var _hmt = _hmt || [];
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
