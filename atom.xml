@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2017-12-27T00:46:44.258Z</updated>
+  <updated>2017-12-27T00:50:45.828Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/12/27/%E5%BC%80%E6%BA%90%E4%B8%80%E4%B8%AA%E5%B0%81%E8%A3%85AFNetworking%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%20-%20SJNetwork/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/12/27/开源一个封装AFNetworking的网络框架 - SJNetwork/</id>
     <published>2017-12-27T00:35:41.042Z</published>
-    <updated>2017-12-27T00:46:44.258Z</updated>
+    <updated>2017-12-27T00:50:45.828Z</updated>
     
     <content type="html"><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>该框架是一个通用的网络层，可以供给不同app的业务层调用。该框架封装了AFNetworking，而且有些地方借鉴了YTKNetwork的设计思路：以对象的形式封装并管理请求。</p>
 <p>它在功能上支持：</p>
@@ -122,7 +122,7 @@
 </blockquote>
 <h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p><strong>Step1:下载与导入框架</strong></p>
 <p>通过Pod:</p>
-<figure class="highlight plain"><figcaption><span>'SJNetwork'```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">或者 手动将 ``SJNetwork``文件夹拖入到工程里面。</div><div class="line"></div><div class="line">&gt;因为代码刚上传到Cocoapods，所以很可能还没有审核通过。</div><div class="line"></div><div class="line">**Step2:引入头文件：**</div><div class="line"></div><div class="line">```objective-c</div><div class="line">#import &quot;SJNetwork.h&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>'SJNetwork'```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">或者 手动将 ``SJNetwork``文件夹拖入到工程里面。</div><div class="line"></div><div class="line">&gt;因为代码刚上传到Cocoapods，所以很可能还没有审核通过。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">**Step2:引入头文件：**</div><div class="line"></div><div class="line">```objective-c</div><div class="line">#import &quot;SJNetwork.h&quot;</div></pre></td></tr></table></figure>
 <h1 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h1><h2 id="基本的配置"><a href="#基本的配置" class="headerlink" title="基本的配置"></a>基本的配置</h2><p>因为配置对象是一个单例（<code>SJNetworkConfig</code>），所以可以在项目任何地方来使用。看一下该框架支持哪些配置项：</p>
 <h3 id="服务器地址："><a href="#服务器地址：" class="headerlink" title="服务器地址："></a>服务器地址：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[SJNetworkConfig sharedConfig].baseUrl = @&quot;http://v.juhe.cn&quot;;</div></pre></td></tr></table></figure>
 <h3 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数:"></a>默认参数:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[SJNetworkConfig sharedConfig].defailtParameters = @&#123;@&quot;app_version&quot;:[SJNetworkUtils appVersionStr],</div><div class="line">                                                        @&quot;platform&quot;:@&quot;iOS&quot;&#125;;</div></pre></td></tr></table></figure>
