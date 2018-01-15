@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>J_Knight</title>
+  <title>J_Knight_</title>
   <subtitle>每天进步一点点</subtitle>
   <link href="/atom.xml" rel="self"/>
   
@@ -9,7 +9,7 @@
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
-    <name>J_Knight</name>
+    <name>J_Knight_</name>
     
   </author>
   
