@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-01-31T01:03:10.449Z</updated>
+  <updated>2018-01-31T01:54:40.476Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>数据结构 &amp; 算法 in Swift （一）：Swift 基础语法与简单数据结构的实现</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/01/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9ASwift%20%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E4%B8%8E%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/01/31/数据结构 &amp; 算法 in Swift （一）：Swift 基础语法与简单数据结构的实现/</id>
+    <title>数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/01/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/01/31/数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构/</id>
     <published>2018-01-31T00:47:58.980Z</published>
-    <updated>2018-01-31T01:03:10.449Z</updated>
+    <updated>2018-01-31T01:54:40.476Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oih3a9o4n.bkt.clouddn.com/da_header_2.png" alt=""></p>
 <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>从本文标题中的序号可以看出，本文是一个连载的开篇。</p>
