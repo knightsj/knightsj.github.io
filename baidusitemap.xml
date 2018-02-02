@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/</loc>
+    <lastmod>2018-02-02T16:21:25.453Z</lastmod>
+    <data>
+        <display>
+        <title>浅显易懂讲解iOS多线程技术-GCD</title>
+        <pubTime>2017-01-13T05:26:33.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+        <tag>Objective-C</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://github.com/knightsj/knightsj.github.io/2018/01/23/YYCache%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</loc>
     <lastmod>2018-02-02T16:18:08.344Z</lastmod>
     <data>
@@ -937,28 +959,6 @@
            
              
               <breadCrumb title="BookNote" url="https://github.com/knightsj/knightsj.github.io/categories/BookNote/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://github.com/knightsj/knightsj.github.io/2017/01/13/%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/</loc>
-    <lastmod>2017-03-20T07:53:15.000Z</lastmod>
-    <data>
-        <display>
-        <title>浅显易懂讲解iOS多线程技术-GCD</title>
-        <pubTime>2017-01-13T05:26:33.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>Objective-C</tag>
-         
-         
-           
-             
-              <breadCrumb title="Objective-C" url="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
           
         </display>
     </data>
