@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-01-31T01:54:40.476Z</updated>
+  <updated>2018-02-02T16:11:30.967Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/01/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/01/31/数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构/</id>
     <published>2018-01-31T00:47:58.980Z</published>
-    <updated>2018-01-31T01:54:40.476Z</updated>
+    <updated>2018-02-02T16:11:30.967Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oih3a9o4n.bkt.clouddn.com/da_header_2.png" alt=""></p>
 <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>从本文标题中的序号可以看出，本文是一个连载的开篇。</p>
@@ -390,7 +390,7 @@
     
     </summary>
     
-      <category term="Production" scheme="https://github.com/knightsj/knightsj.github.io/categories/Production/"/>
+      <category term="Data Structure &amp; Algorithm" scheme="https://github.com/knightsj/knightsj.github.io/categories/Data-Structure-Algorithm/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -408,7 +408,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/01/23/YYCache%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/01/23/YYCache 源码解析/</id>
     <published>2018-01-23T00:37:36.671Z</published>
-    <updated>2018-01-29T00:45:49.879Z</updated>
+    <updated>2018-02-02T16:18:08.344Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/ibireme/YYCache">YYCache</a>是国内开发者<a href="https://blog.ibireme.com/" target="_blank" rel="external">ibireme</a>开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。</p>
 <p>阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。</p>
@@ -754,7 +754,7 @@
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -2155,10 +2155,9 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2017/07/18/YTKNetwork%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/07/18/YTKNetwork源码解析/</id>
     <published>2017-07-18T05:35:08.000Z</published>
-    <updated>2017-07-18T05:35:08.000Z</updated>
+    <updated>2018-02-02T16:18:02.120Z</updated>
     
-    <content type="html"><![CDATA[<p>对于iOS开发来说，就算是没有用过<a href="https://github.com/yuantiku/YTKNetwork">YTKNetwork框架</a>，应该也见过，听过了。它是猿题库技术团队开源的一个网络请求框架，内部封装了AFNetworking。它把每个请求实例化，管理它的生命周期，也可以管理多个请求。</p>
-<p>在正式讲解源码之前，我会先讲一下该框架所用的架构和设计模式。我总觉得对架构和设计有一定的了解的话，会有助于对源码的理解。</p>
+    <content type="html"><![CDATA[<p>对于iOS开发来说，就算是没有用过<a href="https://github.com/yuantiku/YTKNetwork">YTKNetwork框架</a>，应该也见过，听过了。它是猿题库技术团队开源的一个网络请求框架，内部封装了AFNetworking。它把每个请求实例化，管理它的生命周期，也可以管理多个请求。<br>​<br>在正式讲解源码之前，我会先讲一下该框架所用的架构和设计模式。我总觉得对架构和设计有一定的了解的话，会有助于对源码的理解。</p>
 <h1 id="1-架构"><a href="#1-架构" class="headerlink" title="1. 架构"></a>1. 架构</h1><hr>
 <p>先上图：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-054321f909402be5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="YTKRequest架构图"></p>
@@ -2192,7 +2191,7 @@
 <tbody>
 <tr>
 <td>Command</td>
-<td>抽象命令类    </td>
+<td>抽象命令类</td>
 </tr>
 <tr>
 <td>ConcreteCommand</td>
@@ -2200,7 +2199,7 @@
 </tr>
 <tr>
 <td>Invoker</td>
-<td>调用者    </td>
+<td>调用者</td>
 </tr>
 <tr>
 <td>Receiver</td>
@@ -2545,8 +2544,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;对于iOS开发来说，就算是没有用过&lt;a href=&quot;https://github.com/yuantiku/YTKNetwork&quot;&gt;YTKNetwork框架&lt;/a&gt;，应该也见过，听过了。它是猿题库技术团队开源的一个网络请求框架，内部封装了AFNetworking。它把每个请求实例化，管理它的生命周期，也可以管理多个请求。&lt;/p&gt;
-&lt;p&gt;在正式讲解源码之前，我会先讲一下该框架所用的架构和设计模式。我总觉得对架构和设计有一定的了解的话，会有助于对源码的理解。&lt;/p&gt;
+      &lt;p&gt;对于iOS开发来说，就算是没有用过&lt;a href=&quot;https://github.com/yuantiku/YTKNetwork&quot;&gt;YTKNetwork框架&lt;/a&gt;，应该也见过，听过了。它是猿题库技术团队开源的一个网络请求框架，内部封装了AFNetworking。它把每个请求实例化，管理它的生命周期，也可以管理多个请求。&lt;br&gt;​&lt;br&gt;在正式讲解源码之前，我会先讲一下该框架所用的架构和设计模式。我总觉得对架构和设计有一定的了解的话，会有助于对源码的理解。&lt;/p&gt;
 &lt;h1 id=&quot;1-架构&quot;&gt;&lt;a href=&quot;#1-架构&quot; class=&quot;headerlink&quot; title=&quot;1. 架构&quot;&gt;&lt;/a&gt;1. 架构&lt;/h1&gt;&lt;hr&gt;
 &lt;p&gt;先上图：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-054321f909402be5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;YTKRequest架构图&quot;&gt;&lt;/p&gt;
@@ -2563,7 +2561,7 @@
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -3406,7 +3404,7 @@ _internalFriends = [NSMutableSet new];
     <link href="https://github.com/knightsj/knightsj.github.io/2017/04/24/%E3%80%8AObjective-C%20%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9AGCD%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/04/24/《Objective-C 高级编程》干货三部曲（三）：GCD篇/</id>
     <published>2017-04-24T01:21:34.000Z</published>
-    <updated>2017-04-24T08:28:36.000Z</updated>
+    <updated>2018-02-02T16:14:18.149Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
 <p>我们知道在iOS开发中，一共有四种多线程技术：pthread，NSThread，GCD，NSOperation：</p>
@@ -3589,7 +3587,7 @@ _internalFriends = [NSMutableSet new];
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -3603,7 +3601,7 @@ _internalFriends = [NSMutableSet new];
     <link href="https://github.com/knightsj/knightsj.github.io/2017/04/17/%E3%80%8AObjective-C%20%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9ABlocks%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/04/17/《Objective-C 高级编程》干货三部曲（二）：Blocks篇/</id>
     <published>2017-04-17T00:22:24.000Z</published>
-    <updated>2017-04-17T00:41:17.000Z</updated>
+    <updated>2018-02-02T16:14:12.028Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
 <p>这一章讲解了Block相关的知识。因为作者将Objective-C的代码转成了C++的代码，所以第一次看的时候非常吃力，我自己也不记得看了多少遍了。</p>
@@ -3767,7 +3765,7 @@ _internalFriends = [NSMutableSet new];
 <p>接下来我们还是用clang工具看一下C++的代码：</p>
 <p>OC代码<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line">    __block <span class="keyword">int</span> val = <span class="number">10</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">void</span> (^blk)(<span class="keyword">void</span>) = ^&#123;</div><div class="line">        val = <span class="number">1</span>;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>C++代码<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> __Block_byref_val_0 &#123;</div><div class="line">  <span class="keyword">void</span> *__isa;</div><div class="line">__Block_byref_val_0 *__forwarding;</div><div class="line"> <span class="keyword">int</span> __flags;</div><div class="line"> <span class="keyword">int</span> __size;</div><div class="line"> <span class="keyword">int</span> val;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> __main_block_impl_0 &#123;</div><div class="line">  <span class="keyword">struct</span> __block_impl impl;</div><div class="line">  <span class="keyword">struct</span> __main_block_desc_0* Desc;</div><div class="line">  __Block_byref_val_0 *val; <span class="comment">// by ref</span></div><div class="line">  __main_block_impl_0(<span class="keyword">void</span> *fp, <span class="keyword">struct</span> __main_block_desc_0 *desc, __Block_byref_val_0 *_val, <span class="keyword">int</span> flags=<span class="number">0</span>) : val(_val-&gt;__forwarding) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __main_block_func_0(<span class="keyword">struct</span> __main_block_impl_0 *__cself) &#123;</div><div class="line">  __Block_byref_val_0 *val = __cself-&gt;val; <span class="comment">// bound by ref</span></div><div class="line"></div><div class="line">        (val-&gt;__forwarding-&gt;val) = <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __main_block_copy_0(<span class="keyword">struct</span> __main_block_impl_0*dst, <span class="keyword">struct</span> __main_block_impl_0*src) &#123;_Block_object_assign((<span class="keyword">void</span>*)&amp;dst-&gt;val, (<span class="keyword">void</span>*)src-&gt;val, <span class="number">8</span><span class="comment">/*BLOCK_FIELD_IS_BYREF*/</span>);&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __main_block_dispose_0(<span class="keyword">struct</span> __main_block_impl_0*src) &#123;_Block_object_dispose((<span class="keyword">void</span>*)src-&gt;val, <span class="number">8</span><span class="comment">/*BLOCK_FIELD_IS_BYREF*/</span>);&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> __main_block_desc_0 &#123;</div><div class="line">  size_t reserved;</div><div class="line">  size_t Block_size;</div><div class="line">  <span class="keyword">void</span> (*<span class="keyword">copy</span>)(<span class="keyword">struct</span> __main_block_impl_0*, <span class="keyword">struct</span> __main_block_impl_0*);</div><div class="line">  <span class="keyword">void</span> (*dispose)(<span class="keyword">struct</span> __main_block_impl_0*);</div><div class="line">&#125; __main_block_desc_0_DATA = &#123; <span class="number">0</span>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0&#125;;</div><div class="line"><span class="keyword">int</span> main()</div><div class="line">&#123;</div><div class="line">    __attribute__((__blocks__(<span class="keyword">byref</span>))) __Block_byref_val_0 val = &#123;(<span class="keyword">void</span>*)<span class="number">0</span>,(__Block_byref_val_0 *)&amp;val, <span class="number">0</span>, <span class="keyword">sizeof</span>(__Block_byref_val_0), <span class="number">10</span>&#125;;</div><div class="line"></div><div class="line">    <span class="keyword">void</span> (*blk)(<span class="keyword">void</span>) = ((<span class="keyword">void</span> (*)())&amp;__main_block_impl_0((<span class="keyword">void</span> *)__main_block_func_0, &amp;__main_block_desc_0_DATA, (__Block_byref_val_0 *)&amp;val, <span class="number">570425344</span>));</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在__main_block_impl_0里面发生了什么呢？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> __main_block_impl_0 &#123;</div><div class="line">  <span class="keyword">struct</span> __block_impl impl;</div><div class="line">  <span class="keyword">struct</span> __main_block_desc_0* Desc;</div><div class="line">  __Block_byref_val_0 *val; <span class="comment">// by ref</span></div><div class="line">  </div><div class="line">  __main_block_impl_0(<span class="keyword">void</span> *fp, <span class="keyword">struct</span> __main_block_desc_0 *desc, __Block_byref_val_0 *_val, <span class="keyword">int</span> flags=<span class="number">0</span>) : val(_val-&gt;__forwarding) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">&gt;__main_block_impl_0里面增加了一个成员变量，它是一个结构体指针，指向了 __Block_byref_val_0结构体的一个实例。那么这个结构体是什么呢？</div><div class="line"></div><div class="line">这个结构体是变量val在被__block修饰后生成的！！</div><div class="line">该结构体声明如下：</div><div class="line">```objc</div><div class="line"><span class="keyword">struct</span> __Block_byref_val_0 &#123;</div><div class="line">  <span class="keyword">void</span> *__isa;</div><div class="line">__Block_byref_val_0 *__forwarding;</div><div class="line"> <span class="keyword">int</span> __flags;</div><div class="line"> <span class="keyword">int</span> __size;</div><div class="line"> <span class="keyword">int</span> val;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>在__main_block_impl_0里面发生了什么呢？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> __main_block_impl_0 &#123;</div><div class="line">  <span class="keyword">struct</span> __block_impl impl;</div><div class="line">  <span class="keyword">struct</span> __main_block_desc_0* Desc;</div><div class="line">  __Block_byref_val_0 *val; <span class="comment">// by ref</span></div><div class="line">  </div><div class="line">  __main_block_impl_0(<span class="keyword">void</span> *fp, <span class="keyword">struct</span> __main_block_desc_0 *desc, __Block_byref_val_0 *_val, <span class="keyword">int</span> flags=<span class="number">0</span>) : val(_val-&gt;__forwarding) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">&gt;__main_block_impl_0里面增加了一个成员变量，它是一个结构体指针，指向了 __Block_byref_val_0结构体的一个实例。那么这个结构体是什么呢？</div><div class="line"></div><div class="line">这个结构体是变量val在被__block修饰后生成的！！</div><div class="line">该结构体声明如下：</div><div class="line">​```objc</div><div class="line"><span class="keyword">struct</span> __Block_byref_val_0 &#123;</div><div class="line">  <span class="keyword">void</span> *__isa;</div><div class="line">__Block_byref_val_0 *__forwarding;</div><div class="line"> <span class="keyword">int</span> __flags;</div><div class="line"> <span class="keyword">int</span> __size;</div><div class="line"> <span class="keyword">int</span> val;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>我们可以看到，这个结构体最后的成员变量就相当于原来自动变量。<br>这里有两个成员变量需要特别注意：</p>
 <ol>
 <li>val：保存了最初的val变量，也就是说原来单纯的int类型的val变量被__block修饰后生成了一个结构体。这个结构体其中一个成员变量持有原来的val变量。</li>
@@ -3922,7 +3920,7 @@ _internalFriends = [NSMutableSet new];
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -3936,7 +3934,7 @@ _internalFriends = [NSMutableSet new];
     <link href="https://github.com/knightsj/knightsj.github.io/2017/04/10/%E3%80%8AObjective-C%20%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B%E5%B9%B2%E8%B4%A7%E4%B8%89%E9%83%A8%E6%9B%B2%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AF%87/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/04/10/《Objective-C 高级编程》干货三部曲（一）：引用计数篇/</id>
     <published>2017-04-10T00:40:50.000Z</published>
-    <updated>2017-04-14T04:19:08.000Z</updated>
+    <updated>2018-02-02T16:14:26.255Z</updated>
     
     <content type="html"><![CDATA[<p>总结了<a href="http://www.jianshu.com/nb/6074358" target="_blank" rel="external">Effective Objective-C</a>之后，还想读一本进阶的iOS书，毫不犹豫选中了《Objective-C 高级编程》：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-7ceabf4418ec5228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Objective-C高级编程：iOS与OS X多线程和内存管理》"></p>
@@ -4319,7 +4317,7 @@ _internalFriends = [NSMutableSet new];
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -4630,7 +4628,7 @@ _internalFriends = [NSMutableSet new];
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/22/JSONModel%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/22/JSONModel源码解析/</id>
     <published>2017-02-22T01:16:56.000Z</published>
-    <updated>2017-03-20T07:56:37.000Z</updated>
+    <updated>2018-02-02T16:17:27.392Z</updated>
     
     <content type="html"><![CDATA[<p>这一系列的<a href="http://www.jianshu.com/nb/9137726" target="_blank" rel="external">源码解析</a>分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。</p>
 <p>想来想去，还是从<a href="https://github.com/jsonmodel/jsonmodel">JSONModel</a>开始吧～</p>
@@ -4749,7 +4747,7 @@ _internalFriends = [NSMutableSet new];
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -4765,7 +4763,7 @@ _internalFriends = [NSMutableSet new];
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/14/VVeboTableView%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/14/VVeboTableView源码解析/</id>
     <published>2017-02-14T02:57:30.000Z</published>
-    <updated>2017-03-20T07:57:06.000Z</updated>
+    <updated>2018-02-02T16:17:55.590Z</updated>
     
     <content type="html"><![CDATA[<p>这次分享一个关于性能优化的源码。</p>
 <p>我们知道<code>UITabelView</code>在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，<code>UITabelView</code>的性能将直接影响这个app的性能。</p>
@@ -4863,7 +4861,7 @@ _internalFriends = [NSMutableSet new];
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -4879,7 +4877,7 @@ _internalFriends = [NSMutableSet new];
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/09/PNChart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/09/PNChart源码解析/</id>
     <published>2017-02-09T03:33:20.000Z</published>
-    <updated>2017-03-20T07:56:54.000Z</updated>
+    <updated>2018-02-02T16:17:45.548Z</updated>
     
     <content type="html"><![CDATA[<h2 id="一-框架介绍"><a href="#一-框架介绍" class="headerlink" title="一. 框架介绍"></a>一. 框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
 <p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
@@ -5053,7 +5051,7 @@ _internalFriends = [NSMutableSet new];
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -5069,7 +5067,7 @@ _internalFriends = [NSMutableSet new];
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/04/MJRefresh%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/04/MJRefresh 源码解析/</id>
     <published>2017-02-04T01:30:17.000Z</published>
-    <updated>2017-03-20T07:56:49.000Z</updated>
+    <updated>2018-02-02T16:17:40.330Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/CoderMJLee/MJRefresh">MJRefresh</a>是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。</p>
 <p>该框架的结构设计得很清晰，使用一个基类<code>MJRefreshComponent</code>来做一些基本的设定，然后通过继承的方式，让<code>MJRefreshHeader</code>和<code>MJRefreshFooter</code>分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：</p>
@@ -5205,7 +5203,7 @@ _internalFriends = [NSMutableSet new];
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
@@ -5221,7 +5219,7 @@ _internalFriends = [NSMutableSet new];
     <link href="https://github.com/knightsj/knightsj.github.io/2017/02/04/SDWebImage%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2017/02/04/SDWebImage源码解析/</id>
     <published>2017-02-04T01:24:37.000Z</published>
-    <updated>2017-03-20T07:57:00.000Z</updated>
+    <updated>2018-02-02T16:17:50.661Z</updated>
     
     <content type="html"><![CDATA[<p>相信对于广大的iOS开发者，对<a href="https://github.com/rs/SDWebImage">SDWebImage</a>并不会陌生，这个框架通过给UIImageView和UIButton添加分类，实现一个异步下载图片并且支持缓存的功能。整个框架的接口非常简洁，每个类的分工都很明确，是很值得大家学习的。</p>
 <p>在使用这个框架的时候，只需要提供一个下载的url和占位图就可以在回调里拿到下载后的图片：</p>
@@ -5308,7 +5306,7 @@ _internalFriends = [NSMutableSet new];
     
     </summary>
     
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/categories/Objective-C/"/>
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
     
     
       <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>

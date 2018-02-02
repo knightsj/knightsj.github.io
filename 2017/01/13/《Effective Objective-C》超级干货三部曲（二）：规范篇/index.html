@@ -104,7 +104,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-d9349b44ab6fba52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-e880be58b75c49c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-d60b4571e7709e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-20T07:47:52.000Z">
+<meta property="og:updated_time" content="2018-02-02T16:13:44.402Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Effective Objective-C》超级干货三部曲（二）：规范篇">
 <meta name="twitter:description" content="继上一篇《Effective Objective-C 》超级干货三部曲（一）：概念篇之后，本篇即是三部曲的第二篇：规范篇。没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：
@@ -341,8 +341,8 @@ var _hmt = _hmt || [];
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -670,7 +670,7 @@ EOCSubClass initialize</code></p>
 <p>``</p>
 <ul>
 <li>(void)initialize {<br> if (self == [EOCBaseClass class]) {<pre><code>NSLog(@&quot;%@ initialized&quot;, self);
-</code></pre>  }<br>}<br>``</li>
+</code></pre>  }<br> }<br> ``</li>
 </ul>
 <p>这样一来，EOCBaseClass的子类EOCSubClass就无法再调用<code>initialize</code>方法了。<br>我们可以察觉到，如果在这个方法里执行过多的操作的话，会使得程序难以维护，也可能引起其他的bug。因此，在<code>initialize</code>方法里，最好只是设置内部的数据，不要调用其他的方法，因为将来可能会给这些方法添加其它的功能，那么会可能会引起难以排查的bug。</p>
 <h1 id="第52条-别忘了NSTimer会保留其目标对象"><a href="#第52条-别忘了NSTimer会保留其目标对象" class="headerlink" title="第52条: 别忘了NSTimer会保留其目标对象"></a>第52条: 别忘了NSTimer会保留其目标对象</h1><hr>
@@ -854,7 +854,7 @@ EOCSubClass initialize</code></p>
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

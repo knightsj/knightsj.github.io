@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-1d15dcab18d5df94.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-0eeac0652f909c84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-c1046257878a01d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-03-20T07:55:02.000Z">
+<meta property="og:updated_time" content="2018-02-02T16:15:47.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI">
 <meta name="twitter:description" content="本篇是斯坦福大学iOS7系列课程（CS193P）的最后一节课的总结，终于把18节课的内容都总结完了，而且这个文集也画上了句号，有点不舍的赶脚。。
@@ -341,8 +341,8 @@ var _hmt = _hmt || [];
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Objective-C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective-C</span>
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -456,7 +456,7 @@ var _hmt = _hmt || [];
 <li>创建表的.string文件。</li>
 <li>本地化.string文件</li>
 </ol>
-<p>﻿<br>1.找到 <code>@&quot;Sorry, this device cannot add a photo.&quot;</code> 字符串面量。</p>
+<p>1.找到 <code>@&quot;Sorry, this device cannot add a photo.&quot;</code> 字符串面量。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidAppear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [super viewDidAppear:animated];</div><div class="line">    if (![[self class] canAddPhoto]) &#123;</div><div class="line">        [self fatalAlert:@&quot;Sorry, this device cannot add a photo.&quot;]; //</div><div class="line">    &#125; else &#123;</div><div class="line">        [self.locationManager startUpdatingLocation];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>2.通过宏，将字符串面量添加到表中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidAppear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">   [super viewDidAppear: animated];</div><div class="line">   </div><div class="line">   if (![[self class] canAddPhoto]) &#123;</div><div class="line">       [self fatalAlert:ALERT_CANT_ADD_PHOTO]; // @&quot;Sorry, this device cannot add a photo.&quot;</div><div class="line">   &#125; else &#123;</div><div class="line">       [self.locationManager startUpdatingLocation];</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -662,7 +662,7 @@ var _hmt = _hmt || [];
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
