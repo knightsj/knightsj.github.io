@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-02-08T00:47:15.070Z</updated>
+  <updated>2018-02-08T00:53:22.421Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0%E5%92%8C%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/08/数据结构 &amp; 算法 in Swift （二）：算法概述和排序算法/</id>
     <published>2018-02-07T18:18:34.625Z</published>
-    <updated>2018-02-08T00:47:15.070Z</updated>
+    <updated>2018-02-08T00:53:22.421Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oih3a9o4n.bkt.clouddn.com/da_header_2.png" alt=""></p>
 <p>本篇是《数据结构 &amp; 算法 in Swift》系列连载的第二篇，内容分为如下两个部分：</p>
@@ -123,31 +123,31 @@
 <tbody>
 <tr>
 <td>冒泡</td>
-<td>O（n^2）</td>
-<td>O（n）</td>
-<td>O（n^2）</td>
+<td>O(n^2)</td>
+<td>O(n）</td>
+<td>O(n^2)</td>
 <td>稳定</td>
 <td>1</td>
 </tr>
 <tr>
 <td>选择排序</td>
-<td>O（n^2）</td>
-<td>O（n^2）</td>
-<td>O（n^2）</td>
+<td>O(n^2)</td>
+<td>O(n^2)</td>
+<td>O(n^2)</td>
 <td>不稳定</td>
 <td>1</td>
 </tr>
 <tr>
 <td>插入排序</td>
-<td>O（n^2）</td>
-<td>O（n）</td>
-<td>O（n^2）</td>
+<td>O(n^2)</td>
+<td>O(n）</td>
+<td>O(n^2)</td>
 <td>稳定</td>
 <td>1</td>
 </tr>
 <tr>
 <td>希尔排序</td>
-<td>O（nlogn）</td>
+<td>O(nlogn)</td>
 <td>依赖步长</td>
 <td>依赖步长</td>
 <td>稳定</td>
@@ -155,27 +155,27 @@
 </tr>
 <tr>
 <td>堆排序</td>
-<td>O（nlogn）</td>
-<td>O（nlogn）</td>
-<td>O（nlogn）</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
 <td>稳定</td>
 <td>1</td>
 </tr>
 <tr>
 <td>归并排序</td>
-<td>O（nlogn）</td>
-<td>O（nlogn）</td>
-<td>O（nlogn）</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
 <td>稳定</td>
-<td>O（n）</td>
+<td>O(n）</td>
 </tr>
 <tr>
 <td>快速排序</td>
-<td>O（nlogn）</td>
-<td>O（nlogn）</td>
-<td>O（n^2）</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(n^2)</td>
 <td>不稳定</td>
-<td>O（logn）</td>
+<td>O(logn)</td>
 </tr>
 </tbody>
 </table>
