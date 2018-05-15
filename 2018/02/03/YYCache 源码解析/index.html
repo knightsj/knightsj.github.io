@@ -88,24 +88,21 @@
 
 
 <meta name="description" content="YYCache是国内开发者ibireme开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。
-阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。
-在正式开始讲解源码之前，先简单看一下该框架的使用方法">
+阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="YYCache 源码解析">
 <meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/02/03/YYCache 源码解析/index.html">
 <meta property="og:site_name" content="J_Knight_">
 <meta property="og:description" content="YYCache是国内开发者ibireme开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。
-阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。
-在正式开始讲解源码之前，先简单看一下该框架的使用方法">
+阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5bd7907?w=604&h=344&f=png&s=21874">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5e027e5?w=1001&h=333&f=png&s=34319">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5e027e5?w=1001&h=333&f=png&s=34319">
-<meta property="og:updated_time" content="2018-02-02T16:18:08.000Z">
+<meta property="og:updated_time" content="2018-05-15T13:08:27.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="YYCache 源码解析">
 <meta name="twitter:description" content="YYCache是国内开发者ibireme开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。
-阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。
-在正式开始讲解源码之前，先简单看一下该框架的使用方法">
+阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。">
 <meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5bd7907?w=604&h=344&f=png&s=21874">
 
 
@@ -403,6 +400,7 @@ var _hmt = _hmt || [];
       
         <p><a href="https://github.com/ibireme/YYCache">YYCache</a>是国内开发者<a href="https://blog.ibireme.com/" target="_blank" rel="external">ibireme</a>开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。</p>
 <p>阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。</p>
+<a id="more"></a>
 <p>在正式开始讲解源码之前，先简单看一下该框架的使用方法。</p>
 <h1 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h1><p>举一个缓存用户姓名的例子来看一下YYCache的几个API：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//需要缓存的对象</span></div><div class="line"> <span class="built_in">NSString</span> *userName = <span class="string">@"Jack"</span>;</div><div class="line"></div><div class="line"><span class="comment">//需要缓存的对象在缓存里对应的键</span></div><div class="line"> <span class="built_in">NSString</span> *key = <span class="string">@"user_name"</span>;</div><div class="line"> </div><div class="line"> <span class="comment">//创建一个YYCache实例:userInfoCache</span></div><div class="line"> YYCache *userInfoCache = [YYCache cacheWithName:<span class="string">@"userInfo"</span>];</div><div class="line"> </div><div class="line"> <span class="comment">//存入键值对</span></div><div class="line"> [userInfoCache setObject:userName forKey:key withBlock:^&#123;</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"caching object succeed"</span>);</div><div class="line"> &#125;];</div><div class="line"> </div><div class="line"> <span class="comment">//判断缓存是否存在</span></div><div class="line"> [userInfoCache containsObjectForKey:key withBlock:^(<span class="built_in">NSString</span> * _Nonnull key, <span class="built_in">BOOL</span> contains) &#123;</div><div class="line">     <span class="keyword">if</span> (contains)&#123;</div><div class="line">         <span class="built_in">NSLog</span>(<span class="string">@"object exists"</span>);</div><div class="line">     &#125;</div><div class="line"> &#125;];</div><div class="line"></div><div class="line"> <span class="comment">//根据key读取数据</span></div><div class="line"> [userInfoCache objectForKey:key withBlock:^(<span class="built_in">NSString</span> * _Nonnull key, <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;  _Nonnull object) &#123;</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"user name : %@"</span>,object);</div><div class="line"> &#125;];</div><div class="line"></div><div class="line"> <span class="comment">//根据key移除缓存</span></div><div class="line"> [userInfoCache removeObjectForKey:key withBlock:^(<span class="built_in">NSString</span> * _Nonnull key) &#123;</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"remove user name %@"</span>,key);</div><div class="line"> &#125;];</div><div class="line"> </div><div class="line"> <span class="comment">//移除所有缓存</span></div><div class="line"> [userInfoCache removeAllObjectsWithBlock:^&#123;</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"removing all cache succeed"</span>);</div><div class="line"> &#125;];</div><div class="line"></div><div class="line"> <span class="comment">//移除所有缓存带进度</span></div><div class="line"> [userInfoCache removeAllObjectsWithProgressBlock:^(<span class="keyword">int</span> removedCount, <span class="keyword">int</span> totalCount) &#123;</div><div class="line">     <span class="built_in">NSLog</span>(<span class="string">@"remove all cache objects: removedCount :%d  totalCount : %d"</span>,removedCount,totalCount);</div><div class="line"> &#125; endBlock:^(<span class="built_in">BOOL</span> error) &#123;</div><div class="line">     <span class="keyword">if</span>(!error)&#123;</div><div class="line">         <span class="built_in">NSLog</span>(<span class="string">@"remove all cache objects: succeed"</span>);</div><div class="line">     &#125;<span class="keyword">else</span>&#123;</div><div class="line">         <span class="built_in">NSLog</span>(<span class="string">@"remove all cache objects: failed"</span>);</div><div class="line">     &#125;</div><div class="line"> &#125;];</div></pre></td></tr></table></figure>
@@ -420,7 +418,6 @@ var _hmt = _hmt || [];
 <li>YYKVStorageItem：内置在YYKVStorage中，是YYKVStorage内部用于封装某个缓存的类。</li>
 </ul>
 <p>每个成员的详细的功能会在下文结合代码介绍。</p>
-<a id="more"></a>
 <h1 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h1><p>知道了YYCache的架构和职责划分以后，现在结合代码开始正式讲解。<br>讲解分为下面6个部分：</p>
 <ul>
 <li>YYCache</li>
@@ -582,8 +579,10 @@ var _hmt = _hmt || [];
 <li>判断filename是否为空字符串：<ol>
 <li>如果不为空：写入文件，并将缓存的key，等信息写入数据库，但是不将key对应的data写入数据库。</li>
 <li>如果为空：<ol>
-<li>如果缓存类型为YYKVStorageTypeSQLite：将缓存文件删除</li>
+<li>如果缓存类型为YYKVStorageTypeSQLite：将缓存文件删除<ol>
 <li>如果缓存类型不为YYKVStorageTypeSQLite：则将缓存的key和对应的data等其他信息存入数据库。</li>
+</ol>
+</li>
 </ol>
 </li>
 </ol>
