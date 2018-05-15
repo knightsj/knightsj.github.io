@@ -8,6 +8,8 @@ categories: iOS
 
 阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。
 
+<!-- more -->
+
 在正式开始讲解源码之前，先简单看一下该框架的使用方法。
 
 
@@ -90,7 +92,7 @@ categories: iOS
 
 每个成员的详细的功能会在下文结合代码介绍。
 
-<!-- more -->
+
 
 
 # 代码讲解
@@ -1210,8 +1212,8 @@ YYKVStorage实例负责保存和管理所有磁盘缓存。和YYMemoryCache里�
 3. 判断filename是否为空字符串：
   1. 如果不为空：写入文件，并将缓存的key，等信息写入数据库，但是不将key对应的data写入数据库。
   2. 如果为空：
-    1. 如果缓存类型为YYKVStorageTypeSQLite：将缓存文件删除
-    2. 如果缓存类型不为YYKVStorageTypeSQLite：则将缓存的key和对应的data等其他信息存入数据库。
+        1. 如果缓存类型为YYKVStorageTypeSQLite：将缓存文件删除
+            2. 如果缓存类型不为YYKVStorageTypeSQLite：则将缓存的key和对应的data等其他信息存入数据库。
 
 
 
