@@ -586,7 +586,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构/</id>
     <published>2018-02-03T08:25:26.000Z</published>
-    <updated>2018-02-03T08:25:26.000Z</updated>
+    <updated>2018-07-15T15:00:09.738Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oih3a9o4n.bkt.clouddn.com/da_header_2.png" alt=""></p>
 <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>从本文标题中的序号可以看出，本文是一个连载的开篇。</p>
@@ -596,9 +596,9 @@
 <li><p><strong>选择哪个语言并不重要，重要的是数据结构和算法本身的理解</strong>：通过两个星期的学习，如今笔者已经可以使用Swift语言来实现几种数据结构和算法了，但我相信如果我使用C语言或者Objective-C语言的话会学得更快些，因为在实现的时候由于对该语言的不熟悉导致在实现过程中踩了不少坑。不过可以反过来思考：如果我可以使用Swift来实现这些，那么我今后用C，Objective-C，甚至是Java就容易多了，再加上我还顺便学习了Swift不是么？</p>
 </li>
 <li><p><strong>如今Swift的势头还在上涨</strong>：笔者已经观察到很多新的库，教学都使用了Swift语言。而且听说一些面试的朋友在面试过程中多少有问过Swift相关的知识，一些公司的新项目也有用Swift写了。</p>
-<p>​</p>
 </li>
 </ol>
+<a id="more"></a>
 <p>基于上面这些原因，在今年年初把<strong>数据结构，算法和Swift</strong>的学习提上了日程，并且计划以连载的形式把学习过程中的笔记和知识分享出来。</p>
 <p>该系列的<strong>最佳受众</strong>是那些已经会Swift，但是对数据结构和算法还没有过多接触过的iOS开发者。其次是那些不会Swift也不会数据结构和算法的iOS开发者，毕竟Swift是大势所趋。</p>
 <p>不过对于那些非iOS开发者来说也同样适合，因为还是那句话：<strong>重点不在于使用哪种语言，而是数据结构和算法本身</strong>。除了第一篇会讲解一些在这个系列文章会使用到的Swift基础语法以外，后续的文章我会逐渐<strong>弱化对Swift语言的讲解，将重点放在数据结构和算法这里</strong>。而且后续我还会不断增加其他语言的实现（Java语言是肯定要加的，其他的语言还待定）。</p>
@@ -611,7 +611,6 @@
 <blockquote>
 <p>注：该系列涉及到的Swift语法最低基于Swift4.0。</p>
 </blockquote>
-<a id="more"></a>
 <h1 id="Swift-语法基础"><a href="#Swift-语法基础" class="headerlink" title="Swift 语法基础"></a>Swift 语法基础</h1><p>Swift语法基础从以下几点来展开：</p>
 <ol>
 <li>循环语句</li>
@@ -938,21 +937,8 @@
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;选择哪个语言并不重要，重要的是数据结构和算法本身的理解&lt;/strong&gt;：通过两个星期的学习，如今笔者已经可以使用Swift语言来实现几种数据结构和算法了，但我相信如果我使用C语言或者Objective-C语言的话会学得更快些，因为在实现的时候由于对该语言的不熟悉导致在实现过程中踩了不少坑。不过可以反过来思考：如果我可以使用Swift来实现这些，那么我今后用C，Objective-C，甚至是Java就容易多了，再加上我还顺便学习了Swift不是么？&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;如今Swift的势头还在上涨&lt;/strong&gt;：笔者已经观察到很多新的库，教学都使用了Swift语言。而且听说一些面试的朋友在面试过程中多少有问过Swift相关的知识，一些公司的新项目也有用Swift写了。&lt;/p&gt;
-&lt;p&gt;​&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;基于上面这些原因，在今年年初把&lt;strong&gt;数据结构，算法和Swift&lt;/strong&gt;的学习提上了日程，并且计划以连载的形式把学习过程中的笔记和知识分享出来。&lt;/p&gt;
-&lt;p&gt;该系列的&lt;strong&gt;最佳受众&lt;/strong&gt;是那些已经会Swift，但是对数据结构和算法还没有过多接触过的iOS开发者。其次是那些不会Swift也不会数据结构和算法的iOS开发者，毕竟Swift是大势所趋。&lt;/p&gt;
-&lt;p&gt;不过对于那些非iOS开发者来说也同样适合，因为还是那句话：&lt;strong&gt;重点不在于使用哪种语言，而是数据结构和算法本身&lt;/strong&gt;。除了第一篇会讲解一些在这个系列文章会使用到的Swift基础语法以外，后续的文章我会逐渐&lt;strong&gt;弱化对Swift语言的讲解，将重点放在数据结构和算法这里&lt;/strong&gt;。而且后续我还会不断增加其他语言的实现（Java语言是肯定要加的，其他的语言还待定）。&lt;/p&gt;
-&lt;p&gt;好了，背景介绍完了，现在正式开始：&lt;/p&gt;
-&lt;p&gt;作为该系列的开篇，本文分为两个部分：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Swift语法基&lt;/strong&gt;础：讲解一下后续连载中讲到的数据结构和算法所涉及到的Swift语法知识（并不是很全面，也不是很深入，但是在实现数据结构和算法这块应该是够了）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;数据结构&lt;/strong&gt;：简单介绍数据结构和算法的相关概念，以及用Swift来实现几个简单的数据结构（链表，栈，队列）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注：该系列涉及到的Swift语法最低基于Swift4.0。&lt;/p&gt;
-&lt;/blockquote&gt;
     
     </summary>
     
