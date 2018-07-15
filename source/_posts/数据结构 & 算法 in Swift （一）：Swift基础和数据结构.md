@@ -33,7 +33,9 @@ categories: Data Structure & Algorithm
 
 2. **如今Swift的势头还在上涨**：笔者已经观察到很多新的库，教学都使用了Swift语言。而且听说一些面试的朋友在面试过程中多少有问过Swift相关的知识，一些公司的新项目也有用Swift写了。
 
-   ​
+   
+
+<!-- more -->
 
 基于上面这些原因，在今年年初把**数据结构，算法和Swift**的学习提上了日程，并且计划以连载的形式把学习过程中的笔记和知识分享出来。
 
@@ -57,7 +59,7 @@ categories: Data Structure & Algorithm
 
 > 注：该系列涉及到的Swift语法最低基于Swift4.0。
 
-<!-- more -->
+
 
 
 # Swift 语法基础
