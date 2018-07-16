@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-06-28T17:32:12.504Z</updated>
+  <updated>2018-07-16T16:44:37.693Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0%E5%92%8C%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/08/数据结构 &amp; 算法 in Swift （二）：算法概述和排序算法/</id>
     <published>2018-02-08T00:53:22.000Z</published>
-    <updated>2018-06-28T17:32:12.504Z</updated>
+    <updated>2018-07-16T16:44:37.693Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oih3a9o4n.bkt.clouddn.com/da_header_2.png" alt=""></p>
 <p>本篇是《数据结构 &amp; 算法 in Swift》系列连载的第二篇，内容分为如下两个部分：</p>
@@ -555,6 +555,20 @@
 <p>《数据结构与算法分析：C语言描述》</p>
 <p><strong>下篇预告</strong></p>
 <p>下篇会介绍堆这个数据结构以及堆排序算法。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -586,7 +600,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构/</id>
     <published>2018-02-03T08:25:26.000Z</published>
-    <updated>2018-07-15T15:00:09.738Z</updated>
+    <updated>2018-07-16T16:44:42.696Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://oih3a9o4n.bkt.clouddn.com/da_header_2.png" alt=""></p>
 <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>从本文标题中的序号可以看出，本文是一个连载的开篇。</p>
@@ -925,6 +939,20 @@
 </ul>
 <p>下篇预告：</p>
 <p>从下一篇会开始正式讲解算法。本系列第二篇的主题是<strong>排序算法</strong>，内容是用Swift语言实现并讲解几种比较常见的排序算法：冒泡排序，选择排序，插入排序，希尔排序，堆排序，快速排序。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -960,7 +988,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/浅显易懂讲解的iOS多线程技术-GCD/</id>
     <published>2018-02-02T16:21:25.000Z</published>
-    <updated>2018-02-02T16:21:25.000Z</updated>
+    <updated>2018-07-16T16:44:12.325Z</updated>
     
     <content type="html"><![CDATA[<p>励志打造一篇浅显易懂地介绍iOS中GCD的文章！<br>笔者见过很多其他讲解GCD的博客，有些写得非常详细非常专业，几乎涵盖了GCD大大小小的全部知识，细致庞杂的内容容易让人摸不清主次，笔者觉得这类文章<strong>并不适合初学者学习</strong>，于是决定写一篇针对一些只是听过，但是对GCD还不了解的童鞋们。</p>
 <p>本文排除了一些细枝末节，扰乱人头绪的东西，着重讲解了GCD中重要的知识点，并在最后展示了GCD中<strong>经常使用的函数</strong>并附上结果图和讲解，简单明了。</p>
@@ -1088,6 +1116,20 @@
 </ol>
 </blockquote>
 <p>本文介绍了需要了解GCD所需的最重要的知识，因为怕打断读者思路，并没有涵盖所有细节。以后有机会会再写一篇深入介绍GCD的文章，查缺补漏。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -1111,7 +1153,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/YYCache%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/YYCache 源码解析/</id>
     <published>2018-02-02T16:18:08.000Z</published>
-    <updated>2018-05-15T13:08:27.561Z</updated>
+    <updated>2018-07-16T16:47:18.950Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/ibireme/YYCache">YYCache</a>是国内开发者<a href="https://blog.ibireme.com/" target="_blank" rel="external">ibireme</a>开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。</p>
 <p>阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。</p>
@@ -1433,6 +1475,20 @@
 <li>变量，方法的命名以及接口的设计</li>
 </ul>
 <p>相信读过这篇文章的你也会有一些收获~<br>如果能趁热打铁，下载一个<a href="https://github.com/ibireme/YYCache">YYCache</a>源码看就更好啦~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -1458,7 +1514,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/YTKNetwork%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/YTKNetwork源码解析/</id>
     <published>2018-02-02T16:18:02.000Z</published>
-    <updated>2018-02-02T16:18:02.000Z</updated>
+    <updated>2018-07-16T16:47:11.157Z</updated>
     
     <content type="html"><![CDATA[<p>对于iOS开发来说，就算是没有用过<a href="https://github.com/yuantiku/YTKNetwork">YTKNetwork框架</a>，应该也见过，听过了。它是猿题库技术团队开源的一个网络请求框架，内部封装了AFNetworking。它把每个请求实例化，管理它的生命周期，也可以管理多个请求。<br>​<br>在正式讲解源码之前，我会先讲一下该框架所用的架构和设计模式。我总觉得对架构和设计有一定的了解的话，会有助于对源码的理解。</p>
 <h1 id="1-架构"><a href="#1-架构" class="headerlink" title="1. 架构"></a>1. 架构</h1><hr>
@@ -1843,6 +1899,20 @@
 <p>我还记得当初听说YTKNetwork能发起链式请求的时候觉得毫无思路的感觉，不过现在应该没什么问题了。</p>
 <p>所以说多阅读源码对技术水平的提升是很有帮助的，除了能增多对本语言API的了解，其实更有意义的是它能让你接触到一些新的设计和解决问题的办法，这些都是脱离某个语言本身的东西，也是作为一名程序员所必不可少的东西。</p>
 <p>希望这篇文章能对读者们有所帮助~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -1880,7 +1950,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/VVeboTableView%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/VVeboTableView源码解析/</id>
     <published>2018-02-02T16:17:55.000Z</published>
-    <updated>2018-02-02T16:17:55.000Z</updated>
+    <updated>2018-07-16T16:47:05.245Z</updated>
     
     <content type="html"><![CDATA[<p>这次分享一个关于性能优化的源码。</p>
 <p>我们知道<code>UITabelView</code>在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，<code>UITabelView</code>的性能将直接影响这个app的性能。</p>
@@ -1962,6 +2032,20 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//使用coretext将文本绘制到图片。</span></div><div class="line">- (<span class="keyword">void</span>)setText:(<span class="built_in">NSString</span> *)text&#123;</div><div class="line">   </div><div class="line">    <span class="comment">//labelImageView 普通状态时的imageview</span></div><div class="line">    <span class="comment">//highlightImageView 高亮状态时的iamgeview</span></div><div class="line">    </div><div class="line">    ...</div><div class="line">    </div><div class="line">    <span class="comment">//绘制标记，初始化时赋一个随机值；clear之后更新一个随机值</span></div><div class="line">    <span class="built_in">NSInteger</span> flag = drawFlag;</div><div class="line">    </div><div class="line">    <span class="comment">//是否正在高亮（在点击label的时候设置为yes，松开的时候设置为NO）</span></div><div class="line">    <span class="built_in">BOOL</span> isHighlight = highlighting;</div><div class="line">    </div><div class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</div><div class="line">        </div><div class="line">        <span class="built_in">NSString</span> *temp = text;</div><div class="line">        _text = text;</div><div class="line">        <span class="built_in">CGSize</span> size = <span class="keyword">self</span>.frame.size;</div><div class="line">        size.height += <span class="number">10</span>;</div><div class="line">       </div><div class="line">        <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(size, ![<span class="keyword">self</span>.backgroundColor isEqual:[<span class="built_in">UIColor</span> clearColor]], <span class="number">0</span>);</div><div class="line">        <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</div><div class="line">        <span class="keyword">if</span> (context==<span class="literal">NULL</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (![<span class="keyword">self</span>.backgroundColor isEqual:[<span class="built_in">UIColor</span> clearColor]]) &#123;</div><div class="line">            [<span class="keyword">self</span>.backgroundColor set];</div><div class="line">            <span class="built_in">CGContextFillRect</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, size.width, size.height));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="built_in">CGContextSetTextMatrix</span>(context,<span class="built_in">CGAffineTransformIdentity</span>);</div><div class="line">        <span class="built_in">CGContextTranslateCTM</span>(context,<span class="number">0</span>,size.height);</div><div class="line">        <span class="built_in">CGContextScaleCTM</span>(context,<span class="number">1.0</span>,<span class="number">-1.0</span>);</div><div class="line">        </div><div class="line">        <span class="comment">//Determine default text color</span></div><div class="line">        <span class="built_in">UIColor</span>* textColor = <span class="keyword">self</span>.textColor;</div><div class="line">        </div><div class="line">        <span class="comment">//Set line height, font, color and break mode</span></div><div class="line">        <span class="built_in">CGFloat</span> minimumLineHeight = <span class="keyword">self</span>.font.pointSize,maximumLineHeight = minimumLineHeight, linespace = <span class="keyword">self</span>.lineSpace;</div><div class="line">        </div><div class="line">        <span class="built_in">CTFontRef</span> font = <span class="built_in">CTFontCreateWithName</span>((__bridge <span class="built_in">CFStringRef</span>)<span class="keyword">self</span>.font.fontName, <span class="keyword">self</span>.font.pointSize,<span class="literal">NULL</span>);</div><div class="line">        <span class="built_in">CTLineBreakMode</span> lineBreakMode = kCTLineBreakByWordWrapping;</div><div class="line">        <span class="built_in">CTTextAlignment</span> alignment = <span class="built_in">CTTextAlignmentFromUITextAlignment</span>(<span class="keyword">self</span>.textAlignment);</div><div class="line">        <span class="comment">//Apply paragraph settings</span></div><div class="line">        <span class="built_in">CTParagraphStyleRef</span> style = <span class="built_in">CTParagraphStyleCreate</span>((<span class="built_in">CTParagraphStyleSetting</span>[<span class="number">6</span>])&#123;</div><div class="line">            &#123;kCTParagraphStyleSpecifierAlignment, <span class="keyword">sizeof</span>(alignment), &amp;alignment&#125;,</div><div class="line">            &#123;kCTParagraphStyleSpecifierMinimumLineHeight,<span class="keyword">sizeof</span>(minimumLineHeight),&amp;minimumLineHeight&#125;,</div><div class="line">            &#123;kCTParagraphStyleSpecifierMaximumLineHeight,<span class="keyword">sizeof</span>(maximumLineHeight),&amp;maximumLineHeight&#125;,</div><div class="line">            &#123;kCTParagraphStyleSpecifierMaximumLineSpacing, <span class="keyword">sizeof</span>(linespace), &amp;linespace&#125;,</div><div class="line">            &#123;kCTParagraphStyleSpecifierMinimumLineSpacing, <span class="keyword">sizeof</span>(linespace), &amp;linespace&#125;,</div><div class="line">            &#123;kCTParagraphStyleSpecifierLineBreakMode,<span class="keyword">sizeof</span>(<span class="built_in">CTLineBreakMode</span>),&amp;lineBreakMode&#125;</div><div class="line">        &#125;,<span class="number">6</span>);</div><div class="line">    </div><div class="line">        <span class="comment">//属性字典</span></div><div class="line">        <span class="built_in">NSDictionary</span>* attributes = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:(__bridge <span class="keyword">id</span>)font,(<span class="built_in">NSString</span>*)kCTFontAttributeName,</div><div class="line">                                    textColor.CGColor,kCTForegroundColorAttributeName,</div><div class="line">                                    style,kCTParagraphStyleAttributeName,</div><div class="line">                                    <span class="literal">nil</span>];</div><div class="line">        </div><div class="line">        <span class="comment">//拿到CFAttributedStringRef</span></div><div class="line">        <span class="built_in">NSMutableAttributedString</span> *attributedStr = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:text attributes:attributes];</div><div class="line">        <span class="built_in">CFAttributedStringRef</span> attributedString = (__bridge <span class="built_in">CFAttributedStringRef</span>)[<span class="keyword">self</span> highlightText:attributedStr];</div><div class="line">        </div><div class="line">        <span class="comment">//根据attributedStringRef 获取CTFramesetterRef</span></div><div class="line">        <span class="built_in">CTFramesetterRef</span> framesetter = <span class="built_in">CTFramesetterCreateWithAttributedString</span>((<span class="built_in">CFAttributedStringRef</span>)attributedString);</div><div class="line">        </div><div class="line">        <span class="built_in">CGRect</span> rect = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">5</span>,(size.width),(size.height<span class="number">-5</span>));</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> ([temp isEqualToString:text]) &#123;</div><div class="line">            </div><div class="line">            <span class="comment">//根据 framesetter 和 attributedString 绘制text</span></div><div class="line">            [<span class="keyword">self</span> drawFramesetter:framesetter attributedString:attributedStr textRange:<span class="built_in">CFRangeMake</span>(<span class="number">0</span>, text.length) inRect:rect context:context];</div><div class="line">            </div><div class="line">            <span class="comment">//恢复context</span></div><div class="line">            <span class="built_in">CGContextSetTextMatrix</span>(context,<span class="built_in">CGAffineTransformIdentity</span>);</div><div class="line">            <span class="built_in">CGContextTranslateCTM</span>(context,<span class="number">0</span>,size.height);</div><div class="line">            <span class="built_in">CGContextScaleCTM</span>(context,<span class="number">1.0</span>,<span class="number">-1.0</span>);</div><div class="line">            </div><div class="line">            <span class="comment">//截取当前图片</span></div><div class="line">            <span class="built_in">UIImage</span> *screenShotimage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</div><div class="line">            <span class="built_in">UIGraphicsEndImageContext</span>();</div><div class="line">            </div><div class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">                </div><div class="line">                <span class="built_in">CFRelease</span>(font);</div><div class="line">                <span class="built_in">CFRelease</span>(framesetter);</div><div class="line">                [[attributedStr mutableString] setString:<span class="string">@""</span>];</div><div class="line">                </div><div class="line">                <span class="keyword">if</span> (drawFlag==flag) &#123;</div><div class="line">                    </div><div class="line">                    <span class="keyword">if</span> (isHighlight) &#123;</div><div class="line">                        </div><div class="line">                        <span class="comment">//高亮状态：把图片付给highlightImageView</span></div><div class="line">                        <span class="keyword">if</span> (highlighting) &#123;</div><div class="line">                            highlightImageView.image = <span class="literal">nil</span>;</div><div class="line">                            <span class="keyword">if</span> (highlightImageView.width!=screenShotimage.size.width) &#123;</div><div class="line">                                highlightImageView.width = screenShotimage.size.width;</div><div class="line">                            &#125;</div><div class="line">                            <span class="keyword">if</span> (highlightImageView.height!=screenShotimage.size.height) &#123;</div><div class="line">                                highlightImageView.height = screenShotimage.size.height;</div><div class="line">                            &#125;</div><div class="line">                            highlightImageView.image = screenShotimage;</div><div class="line">                        &#125;</div><div class="line">                    </div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        </div><div class="line">                        <span class="comment">//非高亮状态，把图片付给labelImageView</span></div><div class="line">                        <span class="keyword">if</span> ([temp isEqualToString:text]) &#123;</div><div class="line">                            <span class="keyword">if</span> (labelImageView.width!=screenShotimage.size.width) &#123;</div><div class="line">                                labelImageView.width = screenShotimage.size.width;</div><div class="line">                            &#125;</div><div class="line">                            <span class="keyword">if</span> (labelImageView.height!=screenShotimage.size.height) &#123;</div><div class="line">                                labelImageView.height = screenShotimage.size.height;</div><div class="line">                            &#125;</div><div class="line">                            highlightImageView.image = <span class="literal">nil</span>;</div><div class="line">                            labelImageView.image = <span class="literal">nil</span>;</div><div class="line">                            labelImageView.image = screenShotimage;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line"><span class="comment">//                    [self debugDraw];//绘制可触摸区域</span></div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这个被作者封装好的Label里面还有很多其他的方法，比如用正则表达式高亮显示特殊字符串等等。</p>
 <p>关于tableView的优化，作者做了很多处理，使得这种显示内容比较丰富的cell在4s真机上好不卡顿，非常值得学习。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -1994,7 +2078,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/SDWebImage%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/SDWebImage源码解析/</id>
     <published>2018-02-02T16:17:50.000Z</published>
-    <updated>2018-02-02T16:17:50.000Z</updated>
+    <updated>2018-07-16T16:47:00.154Z</updated>
     
     <content type="html"><![CDATA[<p>相信对于广大的iOS开发者，对<a href="https://github.com/rs/SDWebImage">SDWebImage</a>并不会陌生，这个框架通过给UIImageView和UIButton添加分类，实现一个异步下载图片并且支持缓存的功能。整个框架的接口非常简洁，每个类的分工都很明确，是很值得大家学习的。</p>
 <p>在使用这个框架的时候，只需要提供一个下载的url和占位图就可以在回调里拿到下载后的图片：</p>
@@ -2063,6 +2147,20 @@
 </blockquote>
 <hr>
 <p>貌似还有图片解码等内容没有详细看，以后会逐渐补充哒～</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -2097,7 +2195,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/PNChart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/PNChart源码解析/</id>
     <published>2018-02-02T16:17:45.000Z</published>
-    <updated>2018-02-02T16:17:45.000Z</updated>
+    <updated>2018-07-16T16:46:54.672Z</updated>
     
     <content type="html"><![CDATA[<h2 id="一-框架介绍"><a href="#一-框架介绍" class="headerlink" title="一. 框架介绍"></a>一. 框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
 <p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
@@ -2252,6 +2350,20 @@
 <h3 id="关于自定义UIView"><a href="#关于自定义UIView" class="headerlink" title="关于自定义UIView"></a>关于自定义UIView</h3><p>这里只是将图表的<code>layer</code>加在了<code>UIView</code>的layer上，那如果想完全自定义view的话，只需将图表的<code>layer</code>完全赋给<code>UIView</code>的layer即可，这样一来，想要画出任意形状的<code>UIView</code>都可以。</p>
 <hr>
 <h2 id="三-最后的话"><a href="#三-最后的话" class="headerlink" title="三. 最后的话"></a>三. 最后的话</h2><p>关于图表的绘制，相对贝塞尔曲线与<code>CALayer</code>来说，数据的处理是一个比较麻烦的点。但是一旦学会了折线图的绘制，了解了绘图原理，那么其他类型的图表就可以触类旁通。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -2287,7 +2399,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/MJRefresh%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/MJRefresh 源码解析/</id>
     <published>2018-02-02T16:17:40.000Z</published>
-    <updated>2018-02-02T16:17:40.000Z</updated>
+    <updated>2018-07-16T16:46:47.506Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/CoderMJLee/MJRefresh">MJRefresh</a>是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。</p>
 <p>该框架的结构设计得很清晰，使用一个基类<code>MJRefreshComponent</code>来做一些基本的设定，然后通过继承的方式，让<code>MJRefreshHeader</code>和<code>MJRefreshFooter</code>分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：</p>
@@ -2413,6 +2525,20 @@
 <hr>
 <p>Footer类是用来处理上拉加载的，实现原理和下拉刷新很类似，在这里先不介绍了～</p>
 <p>总的来说，该框架设计得非常工整：通过一个基类来定义一些状态和一些需要子类实现的接口。通过一层一层地继承，让每一层的子类各司其职，只完成真正属于自己的任务，提高了框架的可定制性，而且对于功能的扩展和bug的追踪也很有帮助，非常值得我们参考与借鉴。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -2439,7 +2565,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/MBProgressHUD%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/MBProgressHUD源码解析/</id>
     <published>2018-02-02T16:17:34.000Z</published>
-    <updated>2018-05-15T13:14:38.448Z</updated>
+    <updated>2018-07-16T16:46:42.492Z</updated>
     
     <content type="html"><![CDATA[<p>听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的<strong>读好源码Project</strong>。</p>
 <p>从哪个框架开始呢？我想到了<code>SDWebImage</code>，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～</p>
@@ -2495,6 +2621,20 @@
 <li>使用NSAssert来捕获各种异常。</li>
 </ol>
 <p>就这样大致写完了，没有怎么读过第三方框架的源码，所以第一次可能显得稍许不足。有不好的地方还希望多多指点哈～</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -2520,7 +2660,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/JSONModel%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/JSONModel源码解析/</id>
     <published>2018-02-02T16:17:27.000Z</published>
-    <updated>2018-02-02T16:17:27.000Z</updated>
+    <updated>2018-07-16T16:46:37.927Z</updated>
     
     <content type="html"><![CDATA[<p>这一系列的<a href="http://www.jianshu.com/nb/9137726" target="_blank" rel="external">源码解析</a>分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。</p>
 <p>想来想去，还是从<a href="https://github.com/jsonmodel/jsonmodel">JSONModel</a>开始吧～</p>
@@ -2628,6 +2768,20 @@
 <li>作者两次用到了NSSet：当集合里的元素顺序不重要的时候，优先考虑用NSSet。</li>
 </ul>
 <p>总的来说这个框架的难度还是不大的，但可能因为是第一次阅读不涉及UIVIiew的框架，感觉有些枯燥，不过慢慢习惯就好啦～</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -2655,7 +2809,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E8%AF%A6%E8%A7%A3iOS%E5%A4%9A%E5%9B%BE%E4%B8%8B%E8%BD%BD%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/详解iOS多图下载的缓存机制/</id>
     <published>2018-02-02T16:17:12.000Z</published>
-    <updated>2018-02-02T16:17:12.000Z</updated>
+    <updated>2018-07-16T16:46:19.502Z</updated>
     
     <content type="html"><![CDATA[<p>做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。</p>
 <p>第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。</p>
@@ -2710,6 +2864,20 @@
 </li>
 </ol>
 </blockquote>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -2734,7 +2902,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AiOS%E7%9A%84MVC%E6%A1%86%E6%9E%B6/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/</id>
     <published>2018-02-02T16:17:05.000Z</published>
-    <updated>2018-02-02T16:17:05.000Z</updated>
+    <updated>2018-07-16T16:46:07.608Z</updated>
     
     <content type="html"><![CDATA[<h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><hr>
 <p>入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。</p>
@@ -2787,6 +2955,20 @@
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><hr>
 <p>第一讲里的内容比较基础，重点是介绍了MVC模型的通信机制，需要反复推敲并且在实际操作中<strong>严格遵守</strong>。因为只有这样做才能降低类之间的耦合性，写出易于维护和扩展的代码。</p>
 <p>比如在模型类里是不能调用控制器的方法的，模型类只能被控制器调用并且当所拥有的数据改变后通知使用自己的控制器数据的改变。更不能直接给视图通知让视图自己更新UI。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -2812,7 +2994,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%9B%9B%20%E4%BA%94%EF%BC%89%EF%BC%9A%E5%B1%9E%E6%80%A7%E5%AD%97%E7%AC%A6%E4%B8%B2Demo/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/</id>
     <published>2018-02-02T16:16:23.000Z</published>
-    <updated>2018-02-02T16:16:23.000Z</updated>
+    <updated>2018-07-16T16:46:02.555Z</updated>
     
     <content type="html"><![CDATA[<p>本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。</p>
 <a id="more"></a>
@@ -2887,6 +3069,20 @@
 <p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
 <h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
 <p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -2909,7 +3105,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%80%EF%BC%89%EF%BC%9A%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%EF%BC%8CFlickr-%E7%85%A7%E7%89%87%E6%9F%A5%E7%9C%8B%E5%99%A8Demo/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo/</id>
     <published>2018-02-02T16:16:18.000Z</published>
-    <updated>2018-02-02T16:16:18.000Z</updated>
+    <updated>2018-07-16T16:45:55.680Z</updated>
     
     <content type="html"><![CDATA[<h1 id="UITableview"><a href="#UITableview" class="headerlink" title="UITableview"></a>UITableview</h1><hr>
 <p>UITableview是iOS软件中最常见的视图，用来以表格的形式显示数据。</p>
@@ -2976,6 +3172,20 @@
 <p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
 <p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -3004,7 +3214,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%9B%9B%20%E5%8D%81%E4%BA%94%EF%BC%89%EF%BC%9ACoreLocation%EF%BC%8CMapKit%EF%BC%8C%E5%9C%A8%E5%9C%B0%E5%9B%BE%E4%B8%8A%E6%A0%87%E8%AF%86Flickr%E6%91%84%E5%BD%B1%E5%B8%88%E7%9A%84%E4%BD%9C%E5%93%81/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品/</id>
     <published>2018-02-02T16:16:13.000Z</published>
-    <updated>2018-02-02T16:16:13.000Z</updated>
+    <updated>2018-07-16T16:45:50.412Z</updated>
     
     <content type="html"><![CDATA[<p>本总结将第十四和十五课放在了一起，原因有二：第一是略去了ipad开发Demo的部分（因为笔者木有ipad，无法进行调试）。第二是两节课都讲解了关于地图框架的相关知识，故将二者放在一起总结。</p>
 <p>在本篇总结的最后，会给大家讲解在地图上显示Flickr上摄影师的照片作品。</p>
@@ -3087,6 +3297,20 @@
 <p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
 <p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -3117,7 +3341,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%83%EF%BC%89%EF%BC%9ACoreMotion%EF%BC%8Capp%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%8C%E6%96%B9%E5%9D%97%E7%A2%B0%E6%92%9E%E6%B8%B8%E6%88%8FDemo/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/</id>
     <published>2018-02-02T16:16:07.000Z</published>
-    <updated>2018-02-02T16:16:07.000Z</updated>
+    <updated>2018-07-16T16:45:44.157Z</updated>
     
     <content type="html"><![CDATA[<p>本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。</p>
 <h1 id="Core-Motion"><a href="#Core-Motion" class="headerlink" title="Core Motion"></a>Core Motion</h1><hr>
@@ -3172,6 +3396,20 @@
 <p>如果嫌麻烦的童鞋可以在留言留下邮箱，笔者会将Demo包发给你~</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
 <p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -3198,7 +3436,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89%EF%BC%9A%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE%EF%BC%8CUITextField,UImagePickerController%EF%BC%8C%E5%9C%A8Flickr%E6%B7%BB%E5%8A%A0%E6%91%84%E5%BD%B1%E5%B8%88%E7%85%A7%E7%89%87Demo/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField,UImagePickerController，在Flickr添加摄影师照片Demo/</id>
     <published>2018-02-02T16:16:01.000Z</published>
-    <updated>2018-02-02T16:16:01.000Z</updated>
+    <updated>2018-07-16T16:45:38.690Z</updated>
     
     <content type="html"><![CDATA[<p>本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。</p>
 <h1 id="模态视图"><a href="#模态视图" class="headerlink" title="模态视图"></a>模态视图</h1><hr>
@@ -3270,6 +3508,20 @@
 <p>如果嫌麻烦的童鞋可以在留言留下邮箱，笔者会将Demo包发给你~</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
 <p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -3301,7 +3553,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%BA%8C%20%E5%8D%81%E4%B8%89%EF%BC%89%EF%BC%9ACoreData%EF%BC%8C%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%EF%BC%8CFlickr%E6%91%84%E5%BD%B1%E5%B8%88%E8%B5%84%E6%96%99%E5%88%97%E8%A1%A8/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/</id>
     <published>2018-02-02T16:15:56.000Z</published>
-    <updated>2018-02-02T16:15:56.000Z</updated>
+    <updated>2018-07-16T16:45:33.283Z</updated>
     
     <content type="html"><![CDATA[<p>第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。</p>
 <p>笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。</p>
@@ -3381,6 +3633,20 @@
 <p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
 <p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
 <p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">
@@ -3405,7 +3671,7 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AB%EF%BC%89%EF%BC%9A%E5%9B%BD%E9%99%85%E5%8C%96%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AE%BE%E7%BD%AEUI/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI/</id>
     <published>2018-02-02T16:15:47.000Z</published>
-    <updated>2018-02-02T16:15:47.000Z</updated>
+    <updated>2018-07-16T16:45:28.063Z</updated>
     
     <content type="html"><![CDATA[<p>本篇是斯坦福大学iOS7系列课程（CS193P）的最后一节课的总结，终于把18节课的内容都总结完了，而且这个文集也画上了句号，有点不舍的赶脚。。</p>
 <p>好了，不煽情了，开始！<br><a id="more"></a></p>
@@ -3503,6 +3769,20 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/859001-c1046257878a01d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Swift 基础教程"></p>
 <p>这两本书笔者都已经看了3分之一，因为要总结归纳，所以应该进度不是很快，不过还是会坚持写博客的！</p>
 <p>加油~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 ]]></content>
     
     <summary type="html">

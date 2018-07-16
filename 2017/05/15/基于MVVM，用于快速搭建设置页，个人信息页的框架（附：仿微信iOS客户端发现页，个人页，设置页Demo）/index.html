@@ -106,7 +106,8 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/dc3d7675b3eedb3dbe4ac3b7bb20d7db">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/8906383a490f9507e37f9f122e2a4eee">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/dddb4eed3379c043133ba38d2d8ef1a4.png">
-<meta property="og:updated_time" content="2017-05-15T00:13:57.000Z">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-07-16T16:43:47.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于MVVM，用于快速搭建设置页，个人信息页的框架">
 <meta name="twitter:description" content="更新记录：2017.4.23：新增支持数据源完全依赖网络请求的情况。2017.4.22：新增支持请求新数据后刷新表格。2017.4.21： 新增CocoaPods支持：pod ‘SJStaticTableView’, ‘~&amp;gt; 1.2.0’。
@@ -373,7 +374,7 @@ var _hmt = _hmt || [];
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  6,931 字
+                  7,201 字
                 </span>
               
 
@@ -389,7 +390,7 @@ var _hmt = _hmt || [];
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  29 分钟
+                  30 分钟
                 </span>
               
             </div>
@@ -594,6 +595,20 @@ var _hmt = _hmt || [];
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">     <span class="keyword">self</span>.navigationItem.title = <span class="string">@"表情"</span>;</div><div class="line">    [<span class="keyword">self</span> networkRequest];</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)networkRequest</div><div class="line">&#123;</div><div class="line">    [MBProgressHUD showHUDAddedTo: <span class="keyword">self</span>.view animated:<span class="literal">YES</span>];</div><div class="line">    </div><div class="line">    <span class="comment">//模拟网络请求</span></div><div class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1.5</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</div><div class="line">        </div><div class="line">        [MBProgressHUD hideHUDForView: <span class="keyword">self</span>.view animated:<span class="literal">YES</span>];</div><div class="line">         <span class="keyword">self</span>.modelsArray = [Factory emoticonPage];<span class="comment">//网络请求后，将数据保存在self.modelsArray里面</span></div><div class="line">        [<span class="keyword">self</span> configureTableView];<span class="comment">//手动调用</span></div><div class="line">        </div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)createDataSource</div><div class="line">&#123;</div><div class="line">    <span class="keyword">self</span>.dataSource = [[SJStaticTableViewDataSource alloc] initWithViewModelsArray:<span class="keyword">self</span>.modelsArray configureBlock:^(SJStaticTableViewCell *cell, SJStaticTableviewCellViewModel *viewModel) &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">switch</span> (viewModel.staticCellType) &#123;</div><div class="line">                </div><div class="line">            <span class="keyword">case</span> SJStaticCellTypeSystemAccessoryDisclosureIndicator:</div><div class="line">            &#123;</div><div class="line">                [cell configureAccessoryDisclosureIndicatorCellWithViewModel:viewModel];</div><div class="line">            &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">                </div><div class="line">            <span class="keyword">default</span>:</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>看一下效果图：<br><img src="https://user-gold-cdn.xitu.io/2017/4/24/dddb4eed3379c043133ba38d2d8ef1a4.png" alt=""><br>好了，到这里就讲差不多了，代码量虽然不多，但是都说清楚还是感觉挺需要时间想的。</p>
 <p>希望如果各位觉得哪里不好，可以给出您的宝贵意见～</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
 
       
     </div>
