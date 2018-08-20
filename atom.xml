@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-07-24T00:46:10.818Z</updated>
+  <updated>2018-08-20T13:59:24.639Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -14,6 +14,134 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《如何有效整理信息》- 读书笔记</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/08/20/%E3%80%8A%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E6%95%B4%E7%90%86%E4%BF%A1%E6%81%AF%E3%80%8B%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/08/20/《如何有效整理信息》 - 读书笔记/</id>
+    <published>2018-08-20T13:56:40.870Z</published>
+    <updated>2018-08-20T13:59:24.639Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://oih3a9o4n.bkt.clouddn.com/rhyxzlxx2.png" alt="《如何有效整理信息》封面"></p>
+<p>本书作者（奥野宣之）介绍了一个关于整理笔记的方法：“一元笔记法”。该方法摒弃了将笔记进行分类整理的方式，而是采用了一元化的方案：<strong>不采用分类记录的方式，而是将所有分类的笔记按照时间顺序写到一起记录</strong>。</p>
+<a id="more"></a> 
+<p><img src="http://oih3a9o4n.bkt.clouddn.com/mergenotes2.png" alt="一元化笔记法"></p>
+<p>最开始笔者看到这种整理笔记的方式的时候觉得非常诧异，很多人都应该是将笔记分类整理。包括笔者本人也是在自己的笔记软件里面分了。包括笔者本人，笔者使用不同类别来管理不同类型的笔记：iOS类，个人心得类，英语类，读书笔记类（而读书笔记里面又会分为心理学，经济学，职场等二级类别）等等。</p>
+<p>但是当看到本书作者这种整理笔记的实践方法和带来的好处以后，笔者内心不得不对本书作者的这套理念以及将此套方法论付诸实践的持之以恒产生敬佩（作者亲身实践了18年）。</p>
+<p>那么到底这种“一元化”笔记法好在哪里呢？</p>
+<p>它好在<strong>能更好地让笔记成为产生创意和新想法的素材</strong>：</p>
+<p>因为作者认为，笔记的作用不仅仅是记录和整理，而是应该将笔记作为能够容易产生知识的素材。而为了达到这一目的，就需要将一些平时对自己有触动的事物或者事件，以及平时看到的一些资讯，知识和自己的思考按照时间顺序夹杂在一起记录（而不是分类整理），反复查阅，让不同类的部分激荡碰撞从而迸射出创新的火花。</p>
+<p>以上简单介绍了一元笔记法的实践方法和意图，下面笔者从以下几点来详细介绍：</p>
+<ul>
+<li>一元笔记法的三原则</li>
+<li>一元笔记法的方法论</li>
+<li>一元笔记法的小技巧</li>
+</ul>
+<p>在介绍笔记的方法论之前，我们先看一下一元化笔记的使用需要遵循哪些原则：</p>
+<h1 id="一元笔记法的三原则"><a href="#一元笔记法的三原则" class="headerlink" title="一元笔记法的三原则"></a>一元笔记法的三原则</h1><p>一元化笔记法的实践有三个原则，即：</p>
+<ul>
+<li>一元化</li>
+<li>时序化</li>
+<li>索引化</li>
+</ul>
+<h2 id="原则一：一元化"><a href="#原则一：一元化" class="headerlink" title="原则一：一元化"></a>原则一：一元化</h2><p><img src="http://oih3a9o4n.bkt.clouddn.com/puzzle-1794612_1280111.jpg" alt=""></p>
+<blockquote>
+<p>像上面所提到过的，所谓一元化就是所有的内容聚集到一起。</p>
+</blockquote>
+<p>一旦履行一元化原则，你就再不需要有：</p>
+<ol>
+<li>按照分类整理笔记的成本：思考这条笔记到底属于哪一分类。</li>
+<li>按照分类查询的成本：只需要全局搜索即可。分类整理也支持搜索，但是如果你在一个分类里面没有找到，还需要想在其他哪个分类里面会有这个内容。</li>
+</ol>
+<p>而且最重要的一点好处是，也是上面提到的，更容易让不同类的笔记之间产生化学反应，从而产生灵感，新的想法。</p>
+<h3 id="原则二：时序化"><a href="#原则二：时序化" class="headerlink" title="原则二：时序化"></a>原则二：时序化</h3><p><img src="http://oih3a9o4n.bkt.clouddn.com/pexels-photo-1020323222.jpeg" alt=""></p>
+<blockquote>
+<p>所谓时序化就是指按照时间顺序记录所有的笔记。</p>
+</blockquote>
+<p>这样一来就默认地给笔记本增加了时间线，一条条笔记就像按照时间顺序发生的故事一样呈现出来。而且也会方便看到当时记录这条笔记的时候所发生的其他事情，清楚了前后文更加有助于帮助理解和记忆。</p>
+<h3 id="原则三：索引化"><a href="#原则三：索引化" class="headerlink" title="原则三：索引化"></a>原则三：索引化</h3><p><img src="http://oih3a9o4n.bkt.clouddn.com/blank-2970215_1920111.jpg" alt=""></p>
+<blockquote>
+<p>所谓索引化就是给笔记添加标签，也是一个类似分类的操作，而且如果加了标签也更便于搜索。</p>
+</blockquote>
+<p>比如有一些想法是关于iOS的，就可以在这段笔记前面加上“iOS”这个标签；同样，关于面试的技巧，自己面试的经历，关于面试的感悟等这些关于面试的笔记，可以给其填上“面试”这个标签。</p>
+<p>这样做产生的效果是：一旦你搜索某个标签，那么被添加该标签的笔记内容就会按照时间顺序呈现在你眼前：你的思考，你的经历，你收集的信息交织在一起，所形成的感觉就会更加立体。</p>
+<p>了解一元化笔记的三个原则有助于在实际中规范一元化笔记法的使用。下面就来看一下我们应该如何使用一元化笔记法：</p>
+<h1 id="一元笔记法的方法论"><a href="#一元笔记法的方法论" class="headerlink" title="一元笔记法的方法论"></a>一元笔记法的方法论</h1><p>一元笔记法的方法论其实就是作者所说的让笔记带来新想法的实践过程：</p>
+<h2 id="如何利用笔记产生新想法"><a href="#如何利用笔记产生新想法" class="headerlink" title="如何利用笔记产生新想法"></a>如何利用笔记产生新想法</h2><p>利用笔记产生新想法一共分为以下几个步骤：</p>
+<p><img src="http://oih3a9o4n.bkt.clouddn.com/bjflowchart2.png" alt="利用笔记产生新想法的几个步骤"></p>
+<h3 id="步骤1：收集"><a href="#步骤1：收集" class="headerlink" title="步骤1：收集"></a>步骤1：收集</h3><p>这里讲的收集是：信息，知识和想法的收集。</p>
+<p>用书中作者的话：</p>
+<blockquote>
+<p>你要相信自己的直觉，把有趣的、炫酷的、美丽的、可爱的、想要的、想尝试的、能让工作生活更方便的事物和想去的地点不断记录和粘贴在笔记本上。 关键的是，要从浩瀚广博的信息中收集能让你眼前一亮的东西。</p>
+</blockquote>
+<p>从作者的话中可以看出来，不管是什么样的内容，最重要的就是它可以让你“眼前一亮”。那么为什么要记录这类内容呢？这里面隐藏的原理是什么呢？</p>
+<p>笔者对这个问题进行了思考：</p>
+<p>能够让你眼前一亮的东西，必定是一个超出你的认知但却让你觉得好的东西：比如一个你不曾想到过的好点子，使用过APP里面的一个比较炫酷的效果，开源框架里面某个精彩的设计等等。</p>
+<p>所以说如果你可以记录并活用它，必定对你是有帮助的，因为它可以让你对某些事物的认知提升几个点，因为：</p>
+<ol>
+<li>你自己想不出来</li>
+<li>它是好的</li>
+</ol>
+<p>那么试想一下，如果你的笔记里面充斥着这类东西，对你来说会意味着什么？</p>
+<p>而且又因为这些不同类别的内容交织在一起，又可以进行互相作用，产生化学反应，可能会不断地激发，刺激出新的想法。</p>
+<p>另外，那些让人犹豫，看似觉得目前对自己没有帮助的内容也可以先记下来，因为可能以后对自己也会有启发，作者说：</p>
+<blockquote>
+<p>就算是无意义的想法也应该先记下来。因为判断笔记本上内容的价值的并不是现在的自己，而是你现在根本不知道会变成怎样的将来的自己。</p>
+</blockquote>
+<p>关于笔记内容的表现形式，可以不拘泥于文字，图片，截图都可以放在里面。</p>
+<p>关于笔记本的使用方面，笔者没有使用作者推荐的纸质笔记本，因为毕竟还要随身携带。<br>笔者还是比较喜欢使用笔记软件来做这些事情。笔者使用的软件是有道笔记，它支持电脑端，手机端，网页端。</p>
+<ul>
+<li>使用手机端可以在身边无网络，无电脑的时候记录笔记。</li>
+<li>网页端可以在电脑里没有安装有道笔记的地方登陆你的笔记账号进行同步。</li>
+<li>有道笔记还有谷歌浏览器的插件，可以保存网页信息同步到有道笔记里面。</li>
+<li>也可以将微信公众号的文章分享到有道笔记里面，非常方便。</li>
+</ul>
+<p>使用笔记本软件的好处还有一个就是便于搜索。只要在搜索框输入想要看的文字，所有带有该文字的笔记就都会被搜索出来，非常方便。而使用纸质笔记本则需要不断翻阅。</p>
+<h3 id="步骤2：咀嚼"><a href="#步骤2：咀嚼" class="headerlink" title="步骤2：咀嚼"></a>步骤2：咀嚼</h3><p>虽然我们可以记录很多让我们眼前一亮的东西，但是如果我们没有反复地去咀嚼，理解，思考，那么我们始终无法形成我们自己的东西。用作者的话说：</p>
+<blockquote>
+<p>最能产生知识的是自己输出的知识，而不是从别人那里搬过来的</p>
+</blockquote>
+<p>所以笔记记下来之后，需要我们不断地去翻阅，去品尝。并不需要当时就产生新的想法或是思考，给大脑一点时间，一部分思考也可以留给我们的潜意识来做，这就到了下一环节：发酵。</p>
+<h3 id="步骤3：发酵"><a href="#步骤3：发酵" class="headerlink" title="步骤3：发酵"></a>步骤3：发酵</h3><p>发酵指的是通过不断咀嚼我们记下来的内容，在我们头脑里可能会留下一个个问号。而当我们不再去看笔记的时候，这些问号可能会让我们的潜意识开始工作，不断地去寻找答案。而随着时间的推移，就可能会在将来的某一个时间点茅塞顿开 - 问号变成了叹号，你找到了新的想法！</p>
+<h3 id="步骤4：顿悟"><a href="#步骤4：顿悟" class="headerlink" title="步骤4：顿悟"></a>步骤4：顿悟</h3><p>顿悟就是你想到新想法的时候，这时候你不妨拿出你的笔记本，赶紧将你的新想法记录下来。避免忘记。而且你在记录这个新想法之后，也没准大脑还会在潜意识里继续对它进行优化。</p>
+<h3 id="步骤5：具体化"><a href="#步骤5：具体化" class="headerlink" title="步骤5：具体化"></a>步骤5：具体化</h3><p>所谓具体化就是将你的新想法转为实际可操作的方法论：看看在实际操作中如何来实践它。</p>
+<p>因为毕竟想法是要转变成实际行动才有意义，如果不行动，那么改变则无从谈起。所以一旦有了新的想法和创意，就要继续思考如何将这些运用到实际当中。</p>
+<h2 id="一元笔记法的小技巧"><a href="#一元笔记法的小技巧" class="headerlink" title="一元笔记法的小技巧"></a>一元笔记法的小技巧</h2><p><img src="http://oih3a9o4n.bkt.clouddn.com/coffee-2306471_1920111.jpg" alt=""></p>
+<p>​        </p>
+<p>作者除了介绍一元化笔记的方法论和原则，还介绍了几个可以使用的几个小技巧，有了这些技巧，可以更加灵活方便地使用我们的笔记。在这里笔者挑出3个来说一下：</p>
+<ul>
+<li>添加标题</li>
+<li>添加日期</li>
+<li>添加标记</li>
+</ul>
+<h3 id="技巧一：添加标题"><a href="#技巧一：添加标题" class="headerlink" title="技巧一：添加标题"></a>技巧一：添加标题</h3><p>给每条笔记添加标题可以使整个笔记流显得更加工整；同时标题也可以作为该条笔记内容的简短介绍，便于使用笔记的人快速查阅和浏览这个笔记流。</p>
+<h3 id="技巧二：添加日期"><a href="#技巧二：添加日期" class="headerlink" title="技巧二：添加日期"></a>技巧二：添加日期</h3><p>作者介绍了他所使用的6位日期记录法：将年月日用6位数字来表示。比如2018年8月8日可以表示位：180808。</p>
+<p>这样一来，笔记的使用这可以快速用时间来定位笔记的位置和具体内容。因为可能有的时候只能记住某条笔记大概是哪天（哪个日期区间）来记录的。而且反过来，也可以在看到笔记的时候知道当时记录这条笔记的日期。</p>
+<h3 id="技巧三：添加标记"><a href="#技巧三：添加标记" class="headerlink" title="技巧三：添加标记"></a>技巧三：添加标记</h3><p>在笔记里面也可以给不同的内容添加不同的标记：</p>
+<p>作者用<code>“#”</code>代表信息，用<code>“@”</code>代表从信息里面得出的自己的想法。</p>
+<p>使用这种标记的方法可以一目了然地区分出哪些内容属于从外部得来的信息，哪些内容属于从内部输出的自己的想法。</p>
+<p>而随着时间的推移，从内部输出的自己的想法所占的比重应该越来越大，这样才说明了我们真正地思考了，真正利用好了这些外部的信息。</p>
+<p>而且随着我们自己的思考的比重的增加，会刺激大脑产生更多的新的想法。</p>
+<h1 id="笔记的最终目的"><a href="#笔记的最终目的" class="headerlink" title="笔记的最终目的"></a>笔记的最终目的</h1><p><img src="http://oih3a9o4n.bkt.clouddn.com/directory-1273088_1920.jpg" alt=""></p>
+<p>对于“一元笔记法”的目的，作者只是说到了“产生新的创意和想法”就结束了，并没有强调对新想法的实践。然而如果新的创意和想法并没有落地实践的话也只能算是空谈而已。</p>
+<p>因此即使是产生了新的想法我们也要将它转化为行动。只有这样，之前的努力才是有意义的。</p>
+<p>我们可以将所有新的创意和想法将我们当前的认知和行为做关联，看是否能改变我们现在或是将来的某些行为：可以是技术上的，可以是生活上的，也可以是情感上的等等~</p>
+<p>如果找到切入点，可以列一个计划，在合理的时候付诸实践。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/rhyxzlxx2.png&quot; alt=&quot;《如何有效整理信息》封面&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本书作者（奥野宣之）介绍了一个关于整理笔记的方法：“一元笔记法”。该方法摒弃了将笔记进行分类整理的方式，而是采用了一元化的方案：&lt;strong&gt;不采用分类记录的方式，而是将所有分类的笔记按照时间顺序写到一起记录&lt;/strong&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/categories/BookNote/"/>
+    
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+  </entry>
   
   <entry>
     <title>出一套 iOS 高级面试题</title>
@@ -3803,123 +3931,6 @@
 &lt;p&gt;CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作，可以根据用户的动作做出相应的动作；磁力针可以判断设备的方向。&lt;/p&gt;
 &lt;p&gt;CoreMotion的工作是基于&lt;code&gt;CMMotionManager&lt;/code&gt;类来执行的。我们看一下该类的API：&lt;/p&gt;
 &lt;h2 id=&quot;CMMotionManager&quot;&gt;&lt;a href=&quot;#CMMotionManager&quot; class=&quot;headerlink&quot; title=&quot;CMMotionManager&quot;&gt;&lt;/a&gt;CMMotionManager&lt;/h2&gt;&lt;h3 id=&quot;检测硬件设备：&quot;&gt;&lt;a href=&quot;#检测硬件设备：&quot; class=&quot;headerlink&quot; title=&quot;检测硬件设备：&quot;&gt;&lt;/a&gt;检测硬件设备：&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable __TVOS_PROHIBITED;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable __TVOS_PROHIBITED;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable __TVOS_PROHIBITED;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField，UImagePickerController，在Flickr添加摄影师照片Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89%EF%BC%9A%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE%EF%BC%8CUITextField,UImagePickerController%EF%BC%8C%E5%9C%A8Flickr%E6%B7%BB%E5%8A%A0%E6%91%84%E5%BD%B1%E5%B8%88%E7%85%A7%E7%89%87Demo/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField,UImagePickerController，在Flickr添加摄影师照片Demo/</id>
-    <published>2018-02-02T16:16:01.000Z</published>
-    <updated>2018-07-16T16:45:38.690Z</updated>
-    
-    <content type="html"><![CDATA[<p>本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。</p>
-<h1 id="模态视图"><a href="#模态视图" class="headerlink" title="模态视图"></a>模态视图</h1><hr>
-<p>模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。</p>
-<p>显示模态视图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">  [self presentViewController:(nonnull UIViewController *) animated:(BOOL) completion:^&#123;&#125;];</div></pre></td></tr></table></figure>
-<p>让模态视图消失：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)dissmissViewControllerAnimated:(BOOL)animated completion:(void(^))block;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意:该消息是发送给present该模态视图的控制器，而不是该模态视图本身。因此，调用方法应该是：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[self.presentingViewController dissmissViewControllerAnimated:YES ...];</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h1 id="UITextField"><a href="#UITextField" class="headerlink" title="UITextField"></a>UITextField</h1><hr>
-<p>UITextField是文本框，可以用来输入文字，类似于UILabel。</p>
-<h3 id="让键盘出现和消失："><a href="#让键盘出现和消失：" class="headerlink" title="让键盘出现和消失："></a>让键盘出现和消失：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[textField becomeFirstResponder];</div><div class="line">[textField resignFirstResponder];</div></pre></td></tr></table></figure>
-<h2 id="代理方法："><a href="#代理方法：" class="headerlink" title="代理方法："></a>代理方法：</h2><h4 id="1-当点击了确定按键-让键盘消失"><a href="#1-当点击了确定按键-让键盘消失" class="headerlink" title="1. 当点击了确定按键,让键盘消失"></a>1. 当点击了确定按键,让键盘消失</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (BOOL)textFieldShouldReturn:(UITextField *)textField</div><div class="line">&#123;</div><div class="line">    [textField resignFirstResponder];</div><div class="line">    return YES;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-当resignFirstResponder完成后执行："><a href="#2-当resignFirstResponder完成后执行：" class="headerlink" title="2. 当resignFirstResponder完成后执行："></a>2. 当resignFirstResponder完成后执行：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)textFieldDidEndEditing:(UITextField *)textField;</div></pre></td></tr></table></figure>
-<h4 id="3-内容发生变化时收到通知："><a href="#3-内容发生变化时收到通知：" class="headerlink" title="3. 内容发生变化时收到通知："></a>3. 内容发生变化时收到通知：</h4><p>注册这个广播，就可以收到该通知：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UIKIT_EXTERN NSString *const UITextFieldTextDidChangeNotification;</div></pre></td></tr></table></figure></p>
-<h4 id="4-键盘"><a href="#4-键盘" class="headerlink" title="4. 键盘"></a>4. 键盘</h4><p>设置键盘的类型需要通过给实现<code>UITextInputTraits</code>的协议方法，通常是<code>UITextField</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@protocol UITextInputTraits &lt;NSObject&gt;</div><div class="line"></div><div class="line">@optional</div><div class="line">@property(nonatomic) UITextAutocapitalizationType autocapitalizationType; // 自动大写</div><div class="line">@property(nonatomic) UIKeyboardType keyboardType;                         // default is UIKeyboardTypeDefault</div><div class="line">@property(nonatomic) UIReturnKeyType returnKeyType;                       // 回车键，返回键，搜索键盘</div><div class="line">@property(nonatomic,getter=isSecureTextEntry) BOOL secureTextEntry;       // 密码</div><div class="line">@end</div></pre></td></tr></table></figure>
-<h4 id="5-监听键盘的高度："><a href="#5-监听键盘的高度：" class="headerlink" title="5. 监听键盘的高度："></a>5. 监听键盘的高度：</h4><p>通过注册<code>UIKeyboard{will,did} {show hide}</code>广播来计算键盘弹出后的高度。</p>
-<h1 id="Alert"><a href="#Alert" class="headerlink" title="Alert"></a>Alert</h1><p>Alert是用来提醒用户某些消息的控件，它会出现在屏幕的正中央。我们可以自定义它的显示消息和按钮。也可以设定点击某个按钮执行的操作。</p>
-<h2 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (instancetype)initWithTitle:(nullable NSString *)title delegate:(nullable id&lt;UIActionSheetDelegate&gt;)delegate cancelButtonTitle:(nullable NSString *)cancelButtonTitle destructiveButtonTitle:(nullable NSString *)destructiveButtonTitle otherButtonTitles:(nullable NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION NS_EXTENSION_UNAVAILABLE_IOS(&quot;Use UIAlertController instead.&quot;);</div></pre></td></tr></table></figure>
-<h2 id="增加按钮"><a href="#增加按钮" class="headerlink" title="增加按钮"></a>增加按钮</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (NSInteger)addButtonWithTitle:(nullable NSString *)title;</div></pre></td></tr></table></figure>
-<h2 id="显示在屏幕上"><a href="#显示在屏幕上" class="headerlink" title="显示在屏幕上:"></a>显示在屏幕上:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (void)showFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated NS_AVAILABLE_IOS(3_2);</div><div class="line">- (void)showInView:(UIView *)view;</div></pre></td></tr></table></figure>
-<h2 id="处理点击事件："><a href="#处理点击事件：" class="headerlink" title="处理点击事件："></a>处理点击事件：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex NS_DEPRECATED_IOS(2_0, 8_3) __TVOS_PROHIBITED;  // after animation</div></pre></td></tr></table></figure>
-<h2 id="手动让其消失"><a href="#手动让其消失" class="headerlink" title="手动让其消失"></a>手动让其消失</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated;</div></pre></td></tr></table></figure>
-<h1 id="UImagePickerController"><a href="#UImagePickerController" class="headerlink" title="UImagePickerController"></a>UImagePickerController</h1><hr>
-<p>UImagePickerController是用来选取图片，视频资源的控制器，也可以进行拍照。</p>
-<h2 id="使用步骤："><a href="#使用步骤：" class="headerlink" title="使用步骤："></a>使用步骤：</h2><ol>
-<li>alloc/init, set delegate</li>
-<li>配置摄像头，照片库，用户是否可以编辑相片</li>
-<li>显示</li>
-<li>实现代理方法，获取媒体</li>
-</ol>
-<h2 id="检查硬件设备："><a href="#检查硬件设备：" class="headerlink" title="检查硬件设备："></a>检查硬件设备：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">+ (BOOL)isSourceTypeAvailable:(UIImagePickerControllerSourceType)sourceType;  </div><div class="line"></div><div class="line">typedef NS_ENUM(NSInteger, UIImagePickerControllerSourceType) &#123;</div><div class="line">    UIImagePickerControllerSourceTypePhotoLibrary,</div><div class="line">    UIImagePickerControllerSourceTypeCamera,</div><div class="line">    UIImagePickerControllerSourceTypeSavedPhotosAlbum</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="检查是否可以摄像："><a href="#检查是否可以摄像：" class="headerlink" title="检查是否可以摄像："></a>检查是否可以摄像：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+ (nullable NSArray&lt;NSString *&gt; *)availableMediaTypesForSourceType:(UIImagePickerControllerSourceType)sourceType;</div></pre></td></tr></table></figure>
-<p>返回的数组是否有相应的字段：<br>kUTTypeImage<br>kUTTypeMovie</p>
-<h2 id="允许用户编辑（裁剪）："><a href="#允许用户编辑（裁剪）：" class="headerlink" title="允许用户编辑（裁剪）："></a>允许用户编辑（裁剪）：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property BOOL allowEditing;</div></pre></td></tr></table></figure>
-<h2 id="获取了媒体（照片）后的代理方法"><a href="#获取了媒体（照片）后的代理方法" class="headerlink" title="获取了媒体（照片）后的代理方法"></a>获取了媒体（照片）后的代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary&lt;NSString *,id&gt; *)info;</div></pre></td></tr></table></figure>
-<h2 id="点击了取消后的代理方法："><a href="#点击了取消后的代理方法：" class="headerlink" title="点击了取消后的代理方法："></a>点击了取消后的代理方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker</div><div class="line">&#123;</div><div class="line">    [self dismissViewControllerAnimated:YES completion:NULL];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
-<h2 id="Demo需求："><a href="#Demo需求：" class="headerlink" title="Demo需求："></a>Demo需求：</h2><ul>
-<li>在原摄影师列表的第一行添加“我的照片”。</li>
-<li>点击“我的照片”后，显示地图上“我”所照照片的地点。</li>
-<li>点击大头针，显示相应照片详情。</li>
-<li>在导航栏右上角显示照相机按钮。</li>
-<li>点击照相机按钮，从底部弹出添加照片的页面。</li>
-<li>点击“Take Photo”,启动相机，照相并可以裁剪。</li>
-<li>裁剪后，回到添加剂照片的页面。设置标题和副标题后，保存照片。</li>
-<li>回到地图页面，自动添加刚才所增加照片的大头针。</li>
-</ul>
-<h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-b1f9ecf0f562f5c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：添加照片 | 中：在地图上标注位置 | 右：点击查看大图"></p>
-<h2 id="重要知识点和代码段"><a href="#重要知识点和代码段" class="headerlink" title="重要知识点和代码段"></a>重要知识点和代码段</h2><h4 id="1-在添加照片页面显示后判断是否可以拍照"><a href="#1-在添加照片页面显示后判断是否可以拍照" class="headerlink" title="1. 在添加照片页面显示后判断是否可以拍照"></a>1. 在添加照片页面显示后判断是否可以拍照</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (void)viewDidAppear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [super viewDidAppear:animated];</div><div class="line">    </div><div class="line">    if (![[self class] canAddPhoto]) &#123;</div><div class="line">        [self fatalAlert:@&quot;Sorry, this device cannot add a photo.&quot;];</div><div class="line">    &#125; else &#123;</div><div class="line">        [self.locationManager startUpdatingLocation];//开始更新位置</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)viewWillDisappear:(BOOL)animated</div><div class="line">&#123;</div><div class="line">    [super viewWillDisappear:animated];</div><div class="line">    //页面消失前，停止更新位置，避免耗能    </div><div class="line">    [self.locationManager stopUpdatingLocation];</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  判断当前设备是否可以添加照片</div><div class="line"> *</div><div class="line"> *  @return 是否</div><div class="line"> */</div><div class="line"></div><div class="line">+ (BOOL)canAddPhoto</div><div class="line">&#123;</div><div class="line">    //判断相机是否可用</div><div class="line">    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) &#123;</div><div class="line">        //返回支持媒体类型的数组</div><div class="line">        NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];</div><div class="line"></div><div class="line">        //判断数组里有无照片类型</div><div class="line">        if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) &#123;</div><div class="line"></div><div class="line">            //判断可以支持照片类型后，判断当前设备是否可以获取位置信息</div><div class="line">            if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted) &#123;</div><div class="line"></div><div class="line">                return YES;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return NO;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)fatalAlert:(NSString *)msg</div><div class="line">&#123;</div><div class="line">    [[[UIAlertView alloc] initWithTitle:@&quot;Add Photo&quot;</div><div class="line">                                message:msg</div><div class="line">                               delegate:self</div><div class="line">                      cancelButtonTitle:nil</div><div class="line">                      otherButtonTitles:@&quot;Cancel&quot;, nil] show];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="2-CLLocationManager的初始化和使用"><a href="#2-CLLocationManager的初始化和使用" class="headerlink" title="2. CLLocationManager的初始化和使用"></a>2. CLLocationManager的初始化和使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (CLLocationManager *)locationManager</div><div class="line">&#123;</div><div class="line">    if (!_locationManager) &#123;</div><div class="line"></div><div class="line">        //1. 初始化</div><div class="line">        CLLocationManager *locationManager = [[CLLocationManager alloc] init];</div><div class="line"></div><div class="line">        //2. 设置代理</div><div class="line">        locationManager.delegate = self;</div><div class="line"></div><div class="line">        //3. 设置精度</div><div class="line">        locationManager.desiredAccuracy = kCLLocationAccuracyBest;</div><div class="line">        _locationManager = locationManager;</div><div class="line">        //4. iOS8以上要调用，否则无法监听位置！</div><div class="line">        [_locationManager requestAlwaysAuthorization];</div><div class="line">        [_locationManager requestWhenInUseAuthorization];</div><div class="line">    &#125;</div><div class="line">    return _locationManager;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations</div><div class="line">&#123;</div><div class="line">    //获取最后得到的位置信息（最准确）</div><div class="line">    self.location = [locations lastObject];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error</div><div class="line">&#123;</div><div class="line">    //获取错误码</div><div class="line">    self.locationErrorCode = error.code;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="3-UIImagePickerController的初始化和使用"><a href="#3-UIImagePickerController的初始化和使用" class="headerlink" title="3. UIImagePickerController的初始化和使用"></a>3. UIImagePickerController的初始化和使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> *  点击了“Take Photo 添加照片”</div><div class="line"> */</div><div class="line">- (IBAction)takePhoto</div><div class="line">&#123;</div><div class="line">    //1. 初始化</div><div class="line">    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];</div><div class="line"></div><div class="line">    //2. 设置代理</div><div class="line">    uiipc.delegate = self;</div><div class="line"></div><div class="line">    //3. 获取图片媒体</div><div class="line">    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];</div><div class="line">    uiipc.sourceType = UIImagePickerControllerSourceTypeCamera | UIImagePickerControllerSourceTypePhotoLibrary;</div><div class="line"></div><div class="line">    //4. 允许裁剪</div><div class="line">    uiipc.allowsEditing = YES;</div><div class="line"></div><div class="line">    //5. 弹出UIImagePickerController</div><div class="line">    [self presentViewController:uiipc animated:YES completion:NULL];</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  拍照成功</div><div class="line"> *</div><div class="line"> *  @param picker 当前的UIImagePickerController</div><div class="line"> *  @param info   获取的照片信息</div><div class="line"> */</div><div class="line"></div><div class="line">- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info</div><div class="line">&#123;</div><div class="line">    //获取裁剪后的图片</div><div class="line">    UIImage *image = info[UIImagePickerControllerEditedImage];</div><div class="line"></div><div class="line">    //如果无法获取裁剪后的图片，获取原图</div><div class="line">    if (!image) image = info[UIImagePickerControllerOriginalImage];</div><div class="line"></div><div class="line">    //更新当前的image属性</div><div class="line">    self.image = image;</div><div class="line"></div><div class="line">    [self dismissViewControllerAnimated:YES completion:NULL];</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  点击了取消</div><div class="line"> *</div><div class="line"> *  @param picker 当前的UIImagePickerController</div><div class="line"> */</div><div class="line">- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker</div><div class="line">&#123;</div><div class="line">    [self dismissViewControllerAnimated:YES completion:NULL];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="4-判断是否执行某个Segue的Identifier"><a href="#4-判断是否执行某个Segue的Identifier" class="headerlink" title="4. 判断是否执行某个Segue的Identifier"></a>4. 判断是否执行某个Segue的Identifier</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender</div><div class="line">&#123;</div><div class="line"></div><div class="line">    if ([identifier isEqualToString:@&quot;Do Add Photo&quot;]) &#123;</div><div class="line">        if (!self.image) &#123;</div><div class="line">            //无照片</div><div class="line">            [self alert:@&quot;No photo taken!&quot;];</div><div class="line">            return NO;</div><div class="line">            </div><div class="line">        &#125; else if (![self.titleTextField.text length]) &#123;</div><div class="line"></div><div class="line">            //无标题</div><div class="line">            [self alert:@&quot;Title required!&quot;];</div><div class="line">            return NO;</div><div class="line">       </div><div class="line">        &#125; else if (!self.location) &#123;</div><div class="line">            </div><div class="line">            //没有获取到位置信息</div><div class="line">            switch (self.locationErrorCode) &#123;</div><div class="line"></div><div class="line">                case kCLErrorLocationUnknown:</div><div class="line">                    [self alert:@&quot;Couldn&apos;t figure out where this photo was taken (yet).&quot;]; break;</div><div class="line"></div><div class="line">                case kCLErrorDenied:</div><div class="line">                    [self alert:@&quot;Location Services disabled under Privacy in Settings application.&quot;]; break;</div><div class="line"></div><div class="line">                case kCLErrorNetwork:</div><div class="line">                    [self alert:@&quot;Can&apos;t figure out where this photo is being taken.  Verify your connection to the network.&quot;]; break;</div><div class="line"></div><div class="line">                default:</div><div class="line">                    [self alert:@&quot;Cant figure out where this photo is being taken, sorry.&quot;]; break;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            return NO;</div><div class="line"></div><div class="line">        &#125; else &#123;</div><div class="line">            return YES;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125; else &#123;</div><div class="line"></div><div class="line">        return [super shouldPerformSegueWithIdentifier:identifier sender:sender];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)alert:(NSString *)msg</div><div class="line">&#123;</div><div class="line"></div><div class="line">    [[[UIAlertView alloc] initWithTitle:@&quot;Add Photo&quot;</div><div class="line">                                message:msg</div><div class="line">                               delegate:nil</div><div class="line">                      cancelButtonTitle:nil</div><div class="line">                      otherButtonTitles:@&quot;Cancel&quot;, nil] show];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>在添加照片后，我们需要将该页面取消并储存相应的数据。但由于业务需求，如果想要储存数据的前提下取消页面的话，那么就需要在取消页面之前来判断当前的数据是否满足储存的条件：是否有照片；是否设置了标题；是否获取了位置信息等。</p>
-</blockquote>
-<h4 id="5-确定页面可以被取消后，在页面被取消前储存数据："><a href="#5-确定页面可以被取消后，在页面被取消前储存数据：" class="headerlink" title="5. 确定页面可以被取消后，在页面被取消前储存数据："></a>5. 确定页面可以被取消后，在页面被取消前储存数据：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender</div><div class="line">&#123;</div><div class="line"></div><div class="line">    if ([segue.identifier isEqualToString:@&quot;Do Add Photo&quot;]) &#123;</div><div class="line"></div><div class="line">        NSManagedObjectContext *context = self.photographerTakingPhoto.managedObjectContext;</div><div class="line"></div><div class="line">        if (context) &#123;</div><div class="line"></div><div class="line">            Photo *photo = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Photo&quot;  inManagedObjectContext:context];</div><div class="line"></div><div class="line">            photo.title = self.titleTextField.text;</div><div class="line">            photo.subtittle = self.subtitleTextField.text;</div><div class="line">            photo.whoTook = self.photographerTakingPhoto;</div><div class="line">            photo.latitude = @(self.location.coordinate.latitude);</div><div class="line">            photo.longitude = @(self.location.coordinate.longitude);</div><div class="line">            photo.imageURL = [self.imageURL absoluteString];</div><div class="line">            photo.thumbnailURL = [self.thumbnailURL absoluteString];            </div><div class="line"></div><div class="line">            self.addedPhoto = photo;         </div><div class="line">            self.imageURL = nil;</div><div class="line">            self.thumbnailURL = nil;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="6-获取新增图片的本地路径"><a href="#6-获取新增图片的本地路径" class="headerlink" title="6. 获取新增图片的本地路径"></a>6. 获取新增图片的本地路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> *  获取图片的本地URL</div><div class="line"> *</div><div class="line"> *  @return 图片的本地URL</div><div class="line"> */</div><div class="line"></div><div class="line">- (NSURL *)imageURL</div><div class="line">&#123;</div><div class="line">    if (!_imageURL &amp;&amp; self.image) &#123;</div><div class="line">        NSURL *url = [self uniqueDocumentURL];</div><div class="line">        if (url) &#123;</div><div class="line">            //UIImage -&gt; NSData</div><div class="line">            NSData *imageData = UIImageJPEGRepresentation(self.image, 1.0);</div><div class="line">            //将data写入url</div><div class="line">            if ([imageData writeToURL:url atomically:YES]) &#123;</div><div class="line">                //如果写入成功，更新imageURL属性</div><div class="line">                _imageURL = url;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return _imageURL;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  获取图片缩略图的本地URL</div><div class="line"> *</div><div class="line"> *  @return 缩略图的本地URL</div><div class="line"> */</div><div class="line"></div><div class="line">- (NSURL *)thumbnailURL</div><div class="line">&#123;</div><div class="line"></div><div class="line">    NSURL *url = [self.imageURL URLByAppendingPathExtension:@&quot;thumbnail&quot;];</div><div class="line">    if (![_thumbnailURL isEqual:url]) &#123;</div><div class="line"></div><div class="line">        _thumbnailURL = nil;</div><div class="line">        if (url) &#123;</div><div class="line">            //以某Size压缩图片（详情请看本Demo添加的image分类）</div><div class="line">            UIImage *thumbnail = [self.image imageByScalingToSize:CGSizeMake(75, 75)];</div><div class="line"></div><div class="line">            //0.5倍压缩</div><div class="line">            NSData *imageData = UIImageJPEGRepresentation(thumbnail, 0.5);</div><div class="line"></div><div class="line">            if ([imageData writeToURL:url atomically:YES]) &#123;</div><div class="line">                _thumbnailURL = url;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return _thumbnailURL;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> *  以时间来生成唯一本地路径</div><div class="line"> *</div><div class="line"> *  @return 本地路径</div><div class="line"> */</div><div class="line"></div><div class="line">- (NSURL *)uniqueDocumentURL</div><div class="line">&#123;</div><div class="line"></div><div class="line">    NSArray *documentDirectories = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];</div><div class="line"></div><div class="line">    NSString *unique = [NSString stringWithFormat:@&quot;%.0f&quot;, floor([NSDate timeIntervalSinceReferenceDate])];</div><div class="line">    return [[documentDirectories firstObject] URLByAppendingPathComponent:unique];</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>在这里，我们用当前的时间来拼接Document路径，获得了图片的唯一地址。</p>
-</blockquote>
-<p>笔者今天在公司附近拍了一张照片来验证效果：一张南京东路苹果旗舰店的照片，不过定位比较不准。可能是由于周围高楼比较多，而且定位时间不够长的关系。</p>
-<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
-<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
-<p>如果嫌麻烦的童鞋可以在留言留下邮箱，笔者会将Demo包发给你~</p>
-<p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
-<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
-<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
-<p><strong>注意注意！！！</strong></p>
-<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
-<ul>
-<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
-<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
-<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
-</ul>
-<blockquote>
-<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
-</blockquote>
-<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
-<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。&lt;/p&gt;
-&lt;h1 id=&quot;模态视图&quot;&gt;&lt;a href=&quot;#模态视图&quot; class=&quot;headerlink&quot; title=&quot;模态视图&quot;&gt;&lt;/a&gt;模态视图&lt;/h1&gt;&lt;hr&gt;
-&lt;p&gt;模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。&lt;/p&gt;
-&lt;p&gt;显示模态视图：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;  [self presentViewController:(nonnull UIViewController *) animated:(BOOL) completion:^&amp;#123;&amp;#125;];&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;让模态视图消失：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;- (void)dissmissViewControllerAnimated:(BOOL)animated completion:(void(^))block;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注意:该消息是发送给present该模态视图的控制器，而不是该模态视图本身。因此，调用方法应该是：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[self.presentingViewController dissmissViewControllerAnimated:YES ...];&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
