@@ -77,6 +77,6 @@ path: baidusitemap.xml
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/knightsj/knightsj.github.io
+  repository: git@github.com:knightsj/knightsj.github.io.git
   branch: master
 
