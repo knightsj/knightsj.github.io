@@ -269,6 +269,200 @@ var _hmt = _hmt || [];
   
 
   <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/10/21/面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/10/21/面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）/" itemprop="url">
+                  面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-21T20:26:28+08:00">
+                2018-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Object-Oriented/" itemprop="url" rel="index">
+                    <span itemprop="name">Object-Oriented</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  11,969 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  47 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://oih3a9o4n.bkt.clouddn.com/odd_dp2_banner.png" alt=""></p>
+<p>继上一篇的<a href="https://juejin.im/post/5b9526c1e51d450e69731dc2" target="_blank" rel="noopener">面向对象设计的设计原则</a>，本篇是面向对象设计系列的第二个部分：面向对象设计的设计模式的第一篇文章。</p>
+<p>最开始说一下什么是设计模式。关于设计模式的概念，有很多不同的版本，在这里说一下我个人比较赞同的一个说法：</p>
+<blockquote>
+<p>设计模式用于在特定的条件下为一些重复出现的软件设计问题提供合理的、有效的解决方案。</p>
+</blockquote>
+<p>去掉一些定语的修饰，这句话精简为：</p>
+<blockquote>
+<p>设计模式为问题提供方案。</p>
+</blockquote>
+<p>简单来看，设计模式其实就是针对某些问题的一些方案。在软件开发中，即使很多人在用不同的语言去开发不同的业务，但是很多时候这些人遇到的问题抽象出来都是相似的。一些卓越的开发者将一些常出现的问题和对应的解决方案汇总起来，总结出了这些设计模式。</p>
+<p>因此掌握了这些设计模式，可以让我们更好地去解决开发过程中遇到的一些常见问题。而且对这些问题的解决方案的掌握程度越好，我们就越能够打破语言本身的限制去解决问题，也就是增强“软件开发的内功”。</p>
+<p>介绍设计模式最著名的一本书莫属《设计模式 可复用面向对象软件的基础》这本书，书中共介绍了23个设计模式。而这些设计模式分为三大类：</p>
+<ul>
+<li><strong>创建型</strong>设计模式：侧重于对象的创建。</li>
+<li><strong>结构型</strong>设计模式：侧重于接口的设计和系统的结构。</li>
+<li><strong>行为型</strong>设计模式：侧重于类或对象的行为。</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/21/面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/09/09/面向对象设计的六大设计原则（附 Demo 及 UML 类图）/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -397,7 +591,7 @@ var _hmt = _hmt || [];
 
       
         
-          <p><img src="http://oih3a9o4n.bkt.clouddn.com/oodbanner.png" alt=""></p>
+          <p><img src="http://oih3a9o4n.bkt.clouddn.com/odd_dp1_banner.png" alt=""></p>
 <h1 id="学习初衷与讲解方式"><a href="#学习初衷与讲解方式" class="headerlink" title="学习初衷与讲解方式"></a>学习初衷与讲解方式</h1><p>笔者想在 iOS 从业第三年结束之前系统学习一下关于设计模式方面的知识。而在学习设计模式之前，觉得更有必要先学习面向对象设计（OOD：Object Oriented Design）的几大设计原则，为后面设计模式的学习打下基础。</p>
 <p>本篇分享的就是笔者近阶段学习和总结的面向对象设计的六个设计原则：</p>
 <table>
@@ -2845,186 +3039,6 @@ var _hmt = _hmt || [];
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/02/03/JSONModel源码解析/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/02/03/JSONModel源码解析/" itemprop="url">
-                  JSONModel源码解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T00:17:27+08:00">
-                2018-02-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  5,659 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  26 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>这一系列的<a href="http://www.jianshu.com/nb/9137726" target="_blank" rel="noopener">源码解析</a>分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。</p>
-<p>想来想去，还是从<a href="https://github.com/jsonmodel/jsonmodel">JSONModel</a>开始吧～</p>
-<p>首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋还是很有帮助的。</p>
-<p>该框架的核心代码并不是很多，主要还是错误类型判断和容错处理占了不少内容。读过一遍之后，感觉到作者思维的严谨性是非常值得我们学习的：作者专门建立了一个展示错误(NSError)的类，里面封装了很多错误类型，而且这个框架还允许用户根据自己的需求来自定义错误类型并阻止最终模型的生成，在后文会有详细讲解。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/02/03/JSONModel源码解析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -3072,7 +3086,7 @@ var _hmt = _hmt || [];
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -3094,7 +3108,7 @@ var _hmt = _hmt || [];
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

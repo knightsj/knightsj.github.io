@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-10-21T12:25:33.536Z</updated>
+  <updated>2018-10-22T00:16:49.112Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -17,15 +17,58 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/10/21/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/10/21/面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）/</id>
+    <published>2018-10-21T12:26:28.660Z</published>
+    <updated>2018-10-22T00:16:49.112Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/odd_dp2_banner.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;继上一篇的&lt;a href=&quot;https://juejin.im/post/5b9526c1e51d450e69731dc2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;面向对象设计的设计原则&lt;/a&gt;，本篇是面向对象设计系列的第二个部分：面向对象设计的设计模式的第一篇文章。&lt;/p&gt;
+&lt;p&gt;最开始说一下什么是设计模式。关于设计模式的概念，有很多不同的版本，在这里说一下我个人比较赞同的一个说法：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;设计模式用于在特定的条件下为一些重复出现的软件设计问题提供合理的、有效的解决方案。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;去掉一些定语的修饰，这句话精简为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;设计模式为问题提供方案。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;简单来看，设计模式其实就是针对某些问题的一些方案。在软件开发中，即使很多人在用不同的语言去开发不同的业务，但是很多时候这些人遇到的问题抽象出来都是相似的。一些卓越的开发者将一些常出现的问题和对应的解决方案汇总起来，总结出了这些设计模式。&lt;/p&gt;
+&lt;p&gt;因此掌握了这些设计模式，可以让我们更好地去解决开发过程中遇到的一些常见问题。而且对这些问题的解决方案的掌握程度越好，我们就越能够打破语言本身的限制去解决问题，也就是增强“软件开发的内功”。&lt;/p&gt;
+&lt;p&gt;介绍设计模式最著名的一本书莫属《设计模式 可复用面向对象软件的基础》这本书，书中共介绍了23个设计模式。而这些设计模式分为三大类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;创建型&lt;/strong&gt;设计模式：侧重于对象的创建。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;结构型&lt;/strong&gt;设计模式：侧重于接口的设计和系统的结构。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;行为型&lt;/strong&gt;设计模式：侧重于类或对象的行为。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Object-Oriented" scheme="https://github.com/knightsj/knightsj.github.io/categories/Object-Oriented/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objectice-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objectice-C/"/>
+    
+      <category term="Object-Oriented" scheme="https://github.com/knightsj/knightsj.github.io/tags/Object-Oriented/"/>
+    
+      <category term="Design Pattern" scheme="https://github.com/knightsj/knightsj.github.io/tags/Design-Pattern/"/>
+    
+  </entry>
+  
+  <entry>
     <title>面向对象设计的六大设计原则（附 Demo 及 UML 类图）</title>
     <link href="https://github.com/knightsj/knightsj.github.io/2018/09/09/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/09/09/面向对象设计的六大设计原则（附 Demo 及 UML 类图）/</id>
     <published>2018-09-09T14:56:38.000Z</published>
-    <updated>2018-10-21T12:25:33.536Z</updated>
+    <updated>2018-10-22T00:15:01.347Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/oodbanner.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/odd_dp1_banner.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;学习初衷与讲解方式&quot;&gt;&lt;a href=&quot;#学习初衷与讲解方式&quot; class=&quot;headerlink&quot; title=&quot;学习初衷与讲解方式&quot;&gt;&lt;/a&gt;学习初衷与讲解方式&lt;/h1&gt;&lt;p&gt;笔者想在 iOS 从业第三年结束之前系统学习一下关于设计模式方面的知识。而在学习设计模式之前，觉得更有必要先学习面向对象设计（OOD：Object Oriented Design）的几大设计原则，为后面设计模式的学习打下基础。&lt;/p&gt;
 &lt;p&gt;本篇分享的就是笔者近阶段学习和总结的面向对象设计的六个设计原则：&lt;/p&gt;
 &lt;table&gt;
@@ -80,6 +123,8 @@
       <category term="Objectice-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objectice-C/"/>
     
       <category term="Object-Oriented" scheme="https://github.com/knightsj/knightsj.github.io/tags/Object-Oriented/"/>
+    
+      <category term="Design Principle" scheme="https://github.com/knightsj/knightsj.github.io/tags/Design-Principle/"/>
     
   </entry>
   
@@ -567,36 +612,6 @@
 &lt;h2 id=&quot;根据cell获得对应的indexPath&quot;&gt;&lt;a href=&quot;#根据cell获得对应的indexPath&quot; class=&quot;headerlink&quot; title=&quot;根据cell获得对应的indexPath&quot;&gt;&lt;/a&gt;根据cell获得对应的indexPath&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt; NSIndexPath *indexPath = [self.tableView  indexPathForCell :sender];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;h2 id=&quot;UITableView-Spinner&quot;&gt;&lt;a href=&quot;#UITableView-Spinner&quot; class=&quot;headerlink&quot; title=&quot;UITableView Spinner&quot;&gt;&lt;/a&gt;UITableView Spinner&lt;/h2&gt;&lt;p&gt;顶部加载时显示的小圆圈动画&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic, strong, nullable) UIRefreshControl *refreshControl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)beginRefreshing;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)endRefreshing;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h2 id=&quot;模型改变，刷新表格&quot;&gt;&lt;a href=&quot;#模型改变，刷新表格&quot; class=&quot;headerlink&quot; title=&quot;模型改变，刷新表格&quot;&gt;&lt;/a&gt;模型改变，刷新表格&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)reloadData; //刷新全部表格：一般在模型大部分变化的时候才调用，在某个数据变化时不推荐使用&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)reloadRowsAtIndexPaths:(NSArray&amp;lt;NSIndexPath *&amp;gt; *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;//只刷新某一个cell，在某行货少数行数据变化时推荐使用&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%9B%9B%20%E5%8D%81%E4%BA%94%EF%BC%89%EF%BC%9ACoreLocation%EF%BC%8CMapKit%EF%BC%8C%E5%9C%A8%E5%9C%B0%E5%9B%BE%E4%B8%8A%E6%A0%87%E8%AF%86Flickr%E6%91%84%E5%BD%B1%E5%B8%88%E7%9A%84%E4%BD%9C%E5%93%81/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品/</id>
-    <published>2018-02-02T16:16:13.000Z</published>
-    <updated>2018-07-16T16:45:50.412Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本总结将第十四和十五课放在了一起，原因有二：第一是略去了ipad开发Demo的部分（因为笔者木有ipad，无法进行调试）。第二是两节课都讲解了关于地图框架的相关知识，故将二者放在一起总结。&lt;/p&gt;
-&lt;p&gt;在本篇总结的最后，会给大家讲解在地图上显示Flickr上摄影师的照片作品。&lt;/p&gt;
-&lt;h1 id=&quot;Network-Activity-Indicator&quot;&gt;&lt;a href=&quot;#Network-Activity-Indicator&quot; class=&quot;headerlink&quot; title=&quot;Network Activity Indicator&quot;&gt;&lt;/a&gt;Network Activity Indicator&lt;/h1&gt;&lt;hr&gt;
-&lt;p&gt;顾名思义，该控件叫做网络活动指示器。当app有网络活动时，可以让状态栏左边的小圆圈滚动用来提示用户当前的网络状态。&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@property(nonatomic,getter=isNetworkActivityIndicatorVisible) BOOL networkActivityIndicatorVisible;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;如果设定为YES，状态栏上的小转轮就会转，反之亦然。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注意：应用中的所有线程都可使用这个转轮，我们需要通过各种方法来向用户准确显示转轮的状态。&lt;/p&gt;
-&lt;/blockquote&gt;
     
     </summary>
     
