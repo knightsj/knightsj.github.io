@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-10-22T00:46:35.839Z</updated>
+  <updated>2018-11-27T16:36:28.096Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -17,16 +17,58 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/11/28/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/11/28/面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）/</id>
+    <published>2018-11-27T16:27:03.008Z</published>
+    <updated>2018-11-27T16:36:28.096Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/design-pattern-creation/odd_dp2_banner.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本篇是面向对象设计系列文章的第三篇，讲解的是设计模式中的结构型模式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;外观模式&lt;/li&gt;
+&lt;li&gt;适配器模式&lt;/li&gt;
+&lt;li&gt;桥接模式&lt;/li&gt;
+&lt;li&gt;代理模式&lt;/li&gt;
+&lt;li&gt;装饰者模式&lt;/li&gt;
+&lt;li&gt;享元模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;该系列前面的两篇文章：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://knightsj.github.io/2018/09/09/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;面向对象设计的六大设计原则（附 Demo 及 UML 类图）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://knightsj.github.io/2018/10/21/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;面向对象设计的设计模式（一）：创建型设计模式（附 Demo 及 UML 类图）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Object-Oriented" scheme="https://github.com/knightsj/knightsj.github.io/categories/Object-Oriented/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objectice-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objectice-C/"/>
+    
+      <category term="Object-Oriented" scheme="https://github.com/knightsj/knightsj.github.io/tags/Object-Oriented/"/>
+    
+      <category term="Design Pattern" scheme="https://github.com/knightsj/knightsj.github.io/tags/Design-Pattern/"/>
+    
+  </entry>
+  
+  <entry>
     <title>面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）</title>
     <link href="https://github.com/knightsj/knightsj.github.io/2018/10/21/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/10/21/面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）/</id>
     <published>2018-10-21T12:26:28.660Z</published>
-    <updated>2018-10-22T00:46:35.839Z</updated>
+    <updated>2018-11-27T16:32:12.396Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/odd_dp2_banner.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;继上一篇的&lt;a href=&quot;https://juejin.im/post/5b9526c1e51d450e69731dc2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;面向对象设计的设计原则&lt;/a&gt;，本篇是面向对象设计系列的第二个部分：面向对象设计的设计模式的第一篇文章。&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/design-pattern-creation/odd_dp2_banner.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;继上一篇的&lt;a href=&quot;https://knightsj.github.io/2018/09/09/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;面向对象设计的六大设计原则（附 Demo 及 UML 类图）&lt;/a&gt;，本篇是面向对象设计系列的第二个部分：面向对象设计的设计模式的第一篇文章。&lt;/p&gt;
 &lt;p&gt;最开始说一下什么是设计模式。关于设计模式的概念，有很多不同的版本，在这里说一下我个人比较赞同的一个说法：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;设计模式用于在特定的条件下为一些重复出现的软件设计问题提供合理的、有效的解决方案。&lt;/p&gt;
@@ -584,34 +626,6 @@
     <summary type="html">
     
       &lt;p&gt;本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%80%EF%BC%89%EF%BC%9A%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%EF%BC%8CFlickr-%E7%85%A7%E7%89%87%E6%9F%A5%E7%9C%8B%E5%99%A8Demo/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo/</id>
-    <published>2018-02-02T16:16:18.000Z</published>
-    <updated>2018-07-16T16:45:55.680Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;UITableview&quot;&gt;&lt;a href=&quot;#UITableview&quot; class=&quot;headerlink&quot; title=&quot;UITableview&quot;&gt;&lt;/a&gt;UITableview&lt;/h1&gt;&lt;hr&gt;
-&lt;p&gt;UITableview是iOS软件中最常见的视图，用来以表格的形式显示数据。&lt;/p&gt;
-&lt;h2 id=&quot;数据源方法&quot;&gt;&lt;a href=&quot;#数据源方法&quot; class=&quot;headerlink&quot; title=&quot;数据源方法&quot;&gt;&lt;/a&gt;数据源方法&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (NSInteger)numberOfRowsInSection:(NSInteger)section;//表格的总section数，默认为返回1，可以不实现&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView; //返回当前section的行数，必须实现&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (nullable __kindof UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath; //返回某section某row的cell，必须实现&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;代理方法&quot;&gt;&lt;a href=&quot;#代理方法&quot; class=&quot;headerlink&quot; title=&quot;代理方法&quot;&gt;&lt;/a&gt;代理方法&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;//cell被点击是调用的方法&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;根据cell获得对应的indexPath&quot;&gt;&lt;a href=&quot;#根据cell获得对应的indexPath&quot; class=&quot;headerlink&quot; title=&quot;根据cell获得对应的indexPath&quot;&gt;&lt;/a&gt;根据cell获得对应的indexPath&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt; NSIndexPath *indexPath = [self.tableView  indexPathForCell :sender];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;UITableView-Spinner&quot;&gt;&lt;a href=&quot;#UITableView-Spinner&quot; class=&quot;headerlink&quot; title=&quot;UITableView Spinner&quot;&gt;&lt;/a&gt;UITableView Spinner&lt;/h2&gt;&lt;p&gt;顶部加载时显示的小圆圈动画&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@property (nonatomic, strong, nullable) UIRefreshControl *refreshControl;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)beginRefreshing;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)endRefreshing;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;模型改变，刷新表格&quot;&gt;&lt;a href=&quot;#模型改变，刷新表格&quot; class=&quot;headerlink&quot; title=&quot;模型改变，刷新表格&quot;&gt;&lt;/a&gt;模型改变，刷新表格&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)reloadData; //刷新全部表格：一般在模型大部分变化的时候才调用，在某个数据变化时不推荐使用&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;- (void)reloadRowsAtIndexPaths:(NSArray&amp;lt;NSIndexPath *&amp;gt; *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;//只刷新某一个cell，在某行货少数行数据变化时推荐使用&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
