@@ -196,11 +196,11 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/07/24/%E5%87%BA%E4%B8%80%E5%A5%97%20iOS%20%E9%AB%98%E7%BA%A7%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/07/24/出一套 iOS 高级面试题/</id>
     <published>2018-07-23T17:56:31.373Z</published>
-    <updated>2018-07-24T00:46:10.818Z</updated>
+    <updated>2018-12-03T11:51:56.120Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/ios-interview_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/interview_question_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;一千个读者眼中有一千个哈姆雷特，一千名 iOS 程序员心目中就有一千套 iOS 高级面试题。本文就是笔者认为可以用来面试高级 iOS 程序员的面试题。&lt;/p&gt;
     
     </summary>
@@ -219,11 +219,11 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/07/17/2018%E5%B9%B4%20iOS%20%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/07/17/2018年 iOS 面试心得/</id>
     <published>2018-07-16T17:32:54.879Z</published>
-    <updated>2018-07-17T00:12:06.341Z</updated>
+    <updated>2018-12-03T11:49:40.760Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/interview_title.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/2018_interview_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;面试了几家公司之后，最后来到了爱奇艺（坐标上海），工作的内容是笔者个人非常感兴趣的领域。能拿到这个结果对于入行两年半&amp;amp;非科班的笔者来说无疑是幸运的。&lt;/p&gt;
     
     </summary>
@@ -393,18 +393,19 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/VVeboTableView%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/VVeboTableView源码解析/</id>
     <published>2018-02-02T16:17:55.000Z</published>
-    <updated>2018-07-16T16:47:05.245Z</updated>
+    <updated>2018-12-03T12:00:26.494Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;这次分享一个关于性能优化的源码。&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这次分享一个关于性能优化的源码。&lt;/p&gt;
 &lt;p&gt;我们知道&lt;code&gt;UITabelView&lt;/code&gt;在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，&lt;code&gt;UITabelView&lt;/code&gt;的性能将直接影响这个app的性能。&lt;/p&gt;
 &lt;p&gt;如果&lt;code&gt;UITabelView&lt;/code&gt;里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。&lt;/p&gt;
 &lt;p&gt;但是，当cell里面涉及到图文混排，cell高度不都相等的设计时，如果不进行一些操作的话，会非常影响性能，甚至会出现卡顿，造成非常不好的用户体验。&lt;/p&gt;
 &lt;p&gt;最近在看一些iOS性能优化的文章，我找到了&lt;a href=&quot;https://github.com/johnil/VVeboTableViewDemo&quot;&gt;VVeboTableView&lt;/a&gt;这个框架。严格来说这个不属于框架，而是作者用自己的方式优化&lt;code&gt;UITableView&lt;/code&gt;的一个实现。&lt;/p&gt;
 &lt;p&gt;作者模仿了新浪微博的cell样式，在里面展示了各种微博的cell。虽然样式比较复杂，但是性能却很好：我在我的iphone 4s上进行了Core Animation测试，在滑动的时候帧率没有低于56，而且也没有觉得有半点卡顿，那么他是怎么做到的呢？&lt;/p&gt;
 &lt;p&gt;看了源码之后，我把作者的思路整理了出来：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/VVeboTableView_0.png&quot; alt=&quot;优化思路图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;下面我就从左到右，从上到下，结合代码来展示一下作者是如何实现每一点的。&lt;/p&gt;
     
     </summary>
@@ -459,13 +460,13 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/PNChart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/PNChart源码解析/</id>
     <published>2018-02-02T16:17:45.000Z</published>
-    <updated>2018-07-16T16:46:54.672Z</updated>
+    <updated>2018-12-03T12:05:03.328Z</updated>
     
     <summary type="html">
     
       &lt;h2 id=&quot;一-框架介绍&quot;&gt;&lt;a href=&quot;#一-框架介绍&quot; class=&quot;headerlink&quot; title=&quot;一. 框架介绍&quot;&gt;&lt;/a&gt;一. 框架介绍&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kevinzhow/PNChart&quot;&gt;PNChart&lt;/a&gt;是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。&lt;/p&gt;
 &lt;p&gt;该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类&lt;code&gt;PNGenericChart&lt;/code&gt;,第二层就是所有类型的图表。提供一张图来直观感受一下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/PNChart_00.png&quot; alt=&quot;层级图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png&quot; alt=&quot;层级图&quot;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;在这张图里，需要注意以下几点：&lt;/p&gt;
 &lt;ol&gt;
@@ -494,13 +495,13 @@
     <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/MJRefresh%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/MJRefresh 源码解析/</id>
     <published>2018-02-02T16:17:40.000Z</published>
-    <updated>2018-07-16T16:46:47.506Z</updated>
+    <updated>2018-12-03T12:03:19.798Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;&lt;a href=&quot;https://github.com/CoderMJLee/MJRefresh&quot;&gt;MJRefresh&lt;/a&gt;是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。&lt;/p&gt;
 &lt;p&gt;该框架的结构设计得很清晰，使用一个基类&lt;code&gt;MJRefreshComponent&lt;/code&gt;来做一些基本的设定，然后通过继承的方式，让&lt;code&gt;MJRefreshHeader&lt;/code&gt;和&lt;code&gt;MJRefreshFooter&lt;/code&gt;分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://oih3a9o4n.bkt.clouddn.com/MJRefresh_1.png&quot; alt=&quot;框架组织结构图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_header.png&quot; alt=&quot;框架组织结构图&quot;&gt;&lt;/p&gt;
     
     </summary>
     

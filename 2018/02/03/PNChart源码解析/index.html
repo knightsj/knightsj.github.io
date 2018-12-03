@@ -95,15 +95,15 @@
 <meta property="og:site_name" content="J_Knight_">
 <meta property="og:description" content="一. 框架介绍PNChart是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。 该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类PNGenericChart,第二层就是所有类型的图表。提供一张图来直观感受一下：   在这张图里，需要注意以下几点：  带箭头的线和不">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/PNChart_00.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/PNChart_2.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/PNChart_4.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_chart.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_linechart.png">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-16T16:46:54.672Z">
+<meta property="og:updated_time" content="2018-12-03T12:05:03.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PNChart源码解析">
 <meta name="twitter:description" content="一. 框架介绍PNChart是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。 该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类PNGenericChart,第二层就是所有类型的图表。提供一张图来直观感受一下：   在这张图里，需要注意以下几点：  带箭头的线和不">
-<meta name="twitter:image" content="http://oih3a9o4n.bkt.clouddn.com/PNChart_00.png">
+<meta name="twitter:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png">
 
 
 
@@ -400,7 +400,7 @@ var _hmt = _hmt || [];
       
         <h2 id="一-框架介绍"><a href="#一-框架介绍" class="headerlink" title="一. 框架介绍"></a>一. 框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
 <p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/PNChart_00.png" alt="层级图"></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png" alt="层级图"></p>
 <blockquote>
 <p>在这张图里，需要注意以下几点：</p>
 <ol>
@@ -412,7 +412,7 @@ var _hmt = _hmt || [];
 </blockquote>
 <a id="more"></a>
 <p>今天就来介绍一下该框架里的折线图的源码。上文提到过，该框架的折线图是支持多组数据的，也就是在同一张图表上显示多条折线。先带大家看一下效果图：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/PNChart_2.png" alt="折线图"></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_chart.png" alt="折线图"></p>
 <p>折线图在效果上还是很简洁美观的，如果现在的你还不知道如何使用<code>CAShapeLayer</code>和<code>UIBezierPath</code>画图并附加动画效果，那么本篇源码解析非常适合你。</p>
 <p>阅读本文之后，你可以掌握有关图形绘制的相关知识，也可以掌握自定义各种图形（<code>UIView</code>）的方法，而且你也应该有能力作出这样的图表，甚至更好！</p>
 <p>在开始讲解之前，我先粗略介绍一下利用<code>CAShapeLayer</code>画图的过程。这个过程有三个大前提：</p>
@@ -463,7 +463,7 @@ var _hmt = _hmt || [];
 <p>在这里，我们需要获取真正绘制图表的画布的宽高(<code>_chartCavanWidth</code>和<code>_chartCavanHeight</code>)。而且，要留意的是<code>_chartMarginLeft</code>在将来是要用作y轴Label的宽度，而<code>_chartMarginBottom</code>在将来是要用作x轴Label的高度的。</p>
 </blockquote>
 <p>用一张图直观看一下：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/PNChart_4.png" alt="整个控件的大小和画布的大小"></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_linechart.png" alt="整个控件的大小和画布的大小"></p>
 <h3 id="2-获取横轴和纵轴的数据"><a href="#2-获取横轴和纵轴的数据" class="headerlink" title="2. 获取横轴和纵轴的数据"></a>2. 获取横轴和纵轴的数据</h3><p>现在画布的位置和大小确定了，我们可以来看一下折线图是怎么画的了。<br>整个图表的绘制都基于三组数据（也可以是两组，为什么是两组，我稍后会给出解释），在讲解该框架是如何利用这些数据之前，我们来看一下这些数据是如何传进图表的：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">//设置x轴的数据</span></span><br><span class="line">[<span class="keyword">self</span>.lineChart setXLabels:@[<span class="string">@"SEP 1"</span>, <span class="string">@"SEP 2"</span>, <span class="string">@"SEP 3"</span>, <span class="string">@"SEP 4"</span>, <span class="string">@"SEP 5"</span>, <span class="string">@"SEP 6"</span>, <span class="string">@"SEP 7"</span>]];</span><br><span class="line"><span class="comment">//设置y轴的数据</span></span><br><span class="line">[<span class="keyword">self</span>.lineChart setYLabels:@[</span><br><span class="line">                             <span class="string">@"0"</span>,<span class="string">@"50"</span>,<span class="string">@"100"</span>,<span class="string">@"150"</span>,<span class="string">@"200"</span>,<span class="string">@"250"</span>,<span class="string">@"300"</span>,</span><br><span class="line">                             ]</span><br><span class="line"> ];</span><br><span class="line"><span class="comment">// Line Chart</span></span><br><span class="line"><span class="comment">//设置每个点的y值</span></span><br><span class="line"><span class="built_in">NSArray</span> *dataArray = @[@<span class="number">0.0</span>, @<span class="number">180.1</span>, @<span class="number">26.4</span>, @<span class="number">202.2</span>, @<span class="number">126.2</span>, @<span class="number">167.2</span>, @<span class="number">276.2</span>];</span><br><span class="line">PNLineChartData *data = [PNLineChartData new];</span><br><span class="line">data.pointLabelColor = [<span class="built_in">UIColor</span> blackColor];</span><br><span class="line">data.color = PNTwitterColor;</span><br><span class="line">data.alpha = <span class="number">0.5</span>f;</span><br><span class="line">data.itemCount = dataArray.count;</span><br><span class="line">data.inflexionPointStyle = PNLineChartPointStyleCircle;</span><br><span class="line"><span class="comment">//这个block的作用是将上面的dataArray里的每一个值传给line chart。</span></span><br><span class="line">data.getData = ^(<span class="built_in">NSUInteger</span> index) &#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> yValue = [dataArray[index] floatValue];</span><br><span class="line">    <span class="keyword">return</span> [PNLineChartDataItem dataItemWithY:yValue];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//因为只有一条折线，所以只有一组数据</span></span><br><span class="line"><span class="keyword">self</span>.lineChart.chartData = @[data];</span><br><span class="line"><span class="comment">//绘制图表</span></span><br><span class="line">[<span class="keyword">self</span>.lineChart strokeChart];</span><br><span class="line"><span class="comment">//设置代理，响应点击</span></span><br><span class="line"><span class="keyword">self</span>.lineChart.delegate = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.lineChart];</span><br></pre></td></tr></table></figure>
 <p>上面的代码我可以略去了很多多余的设置，目的是突出图表数据的设置。</p>

@@ -1182,7 +1182,7 @@ var _hmt = _hmt || [];
 
       
         
-          <p><img src="http://oih3a9o4n.bkt.clouddn.com/ios-interview_1.jpg" alt=""></p>
+          <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/interview_question_header.png" alt=""></p>
 <p>一千个读者眼中有一千个哈姆雷特，一千名 iOS 程序员心目中就有一千套 iOS 高级面试题。本文就是笔者认为可以用来面试高级 iOS 程序员的面试题。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1360,7 +1360,7 @@ var _hmt = _hmt || [];
 
       
         
-          <p><img src="http://oih3a9o4n.bkt.clouddn.com/interview_title.png" alt=""></p>
+          <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/2018_interview_header.png" alt=""></p>
 <p>面试了几家公司之后，最后来到了爱奇艺（坐标上海），工作的内容是笔者个人非常感兴趣的领域。能拿到这个结果对于入行两年半&amp;非科班的笔者来说无疑是幸运的。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -2452,14 +2452,15 @@ var _hmt = _hmt || [];
 
       
         
-          <p>这次分享一个关于性能优化的源码。</p>
+          <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png" alt=""></p>
+<p>这次分享一个关于性能优化的源码。</p>
 <p>我们知道<code>UITabelView</code>在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，<code>UITabelView</code>的性能将直接影响这个app的性能。</p>
 <p>如果<code>UITabelView</code>里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。</p>
 <p>但是，当cell里面涉及到图文混排，cell高度不都相等的设计时，如果不进行一些操作的话，会非常影响性能，甚至会出现卡顿，造成非常不好的用户体验。</p>
 <p>最近在看一些iOS性能优化的文章，我找到了<a href="https://github.com/johnil/VVeboTableViewDemo">VVeboTableView</a>这个框架。严格来说这个不属于框架，而是作者用自己的方式优化<code>UITableView</code>的一个实现。</p>
 <p>作者模仿了新浪微博的cell样式，在里面展示了各种微博的cell。虽然样式比较复杂，但是性能却很好：我在我的iphone 4s上进行了Core Animation测试，在滑动的时候帧率没有低于56，而且也没有觉得有半点卡顿，那么他是怎么做到的呢？</p>
 <p>看了源码之后，我把作者的思路整理了出来：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/VVeboTableView_0.png" alt="优化思路图"></p>
+<p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png" alt=""></p>
 <p>下面我就从左到右，从上到下，结合代码来展示一下作者是如何实现每一点的。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -2826,7 +2827,7 @@ var _hmt = _hmt || [];
         
           <h2 id="一-框架介绍"><a href="#一-框架介绍" class="headerlink" title="一. 框架介绍"></a>一. 框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
 <p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/PNChart_00.png" alt="层级图"></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png" alt="层级图"></p>
 <blockquote>
 <p>在这张图里，需要注意以下几点：</p>
 <ol>
@@ -3014,7 +3015,7 @@ var _hmt = _hmt || [];
         
           <p><a href="https://github.com/CoderMJLee/MJRefresh">MJRefresh</a>是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。</p>
 <p>该框架的结构设计得很清晰，使用一个基类<code>MJRefreshComponent</code>来做一些基本的设定，然后通过继承的方式，让<code>MJRefreshHeader</code>和<code>MJRefreshFooter</code>分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/MJRefresh_1.png" alt="框架组织结构图"></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_header.png" alt="框架组织结构图"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/02/03/MJRefresh 源码解析/#more" rel="contents">

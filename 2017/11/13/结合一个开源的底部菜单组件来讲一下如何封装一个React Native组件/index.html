@@ -95,24 +95,24 @@
 <meta property="og:site_name" content="J_Knight_">
 <meta property="og:description" content="简介前几天写了一个React Native组件：一个可定制性比较高的底部弹出菜单（ActionSheet）。该组件符合React Native的特性：同时支持iOS和Android双平台，一份相同的代码会在两个平台上展示几乎完全相同的样式。 先看一下效果(上排为iOS模拟器，下排为Android模拟器)：  上图展示的是该组件的默认样式。由于该组件具有较高的定制性，所以只需要通过设置一些属性就可以">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_3.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_1.gif">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_2.gif">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_3.gif">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_11.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_12.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_11.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_4.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_5.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_6.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_7.png">
-<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/as_13.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_show.png">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_1.gif?raw=true">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_2.gif?raw=true">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_3.gif?raw=true">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_default.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_ios.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_one.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting1.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting2.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting3.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting4.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting5.png">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-16T16:43:53.249Z">
+<meta property="og:updated_time" content="2018-12-03T12:59:54.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件">
 <meta name="twitter:description" content="简介前几天写了一个React Native组件：一个可定制性比较高的底部弹出菜单（ActionSheet）。该组件符合React Native的特性：同时支持iOS和Android双平台，一份相同的代码会在两个平台上展示几乎完全相同的样式。 先看一下效果(上排为iOS模拟器，下排为Android模拟器)：  上图展示的是该组件的默认样式。由于该组件具有较高的定制性，所以只需要通过设置一些属性就可以">
-<meta name="twitter:image" content="http://oih3a9o4n.bkt.clouddn.com/as_3.png">
+<meta name="twitter:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_show.png">
 
 
 
@@ -409,18 +409,18 @@ var _hmt = _hmt || [];
       
         <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>前几天写了一个React Native组件：一个可定制性比较高的底部弹出菜单（ActionSheet）。该组件符合React Native的特性：同时支持iOS和Android双平台，一份相同的代码会在两个平台上展示几乎完全相同的样式。</p>
 <p>先看一下效果(上排为iOS模拟器，下排为Android模拟器)：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/as_3.png" alt=""></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_show.png" alt=""></p>
 <p>上图展示的是该组件的默认样式。由于该组件具有较高的定制性，所以只需要通过设置一些属性就可以得到更多不同的样式。</p>
 <p>开源项目地址：<a href="https://github.com/knightsj/react-naive-highly-customizable-action-sheet">GitHub:react-naive-highly-customizable-action-sheet</a></p>
 <a id="more"></a>
 <h2 id="定制性介绍"><a href="#定制性介绍" class="headerlink" title="定制性介绍"></a>定制性介绍</h2><p>在该组件里：最顶部的标题，中间的选择项，最底部的取消项都是可有可无的，而且每一部分的字体，颜色，高度，距离，分割线颜色，圆角等也都是可以定制的。</p>
 <p>先来看几个默认的样式：</p>
 <h3 id="默认的样式："><a href="#默认的样式：" class="headerlink" title="默认的样式："></a>默认的样式：</h3><p>默认的样式是指使用者在不设置样式相关属性，只设置数据（文字）相关属性时展现的样式。该样式是微信，微博里使用的样式，也是我个人非常喜欢的样式。</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/as_1.gif" alt=""></p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_1.gif?raw=true" alt=""></p>
 <h3 id="类似iOS原生-ActionSheet的样式"><a href="#类似iOS原生-ActionSheet的样式" class="headerlink" title="类似iOS原生 ActionSheet的样式"></a>类似iOS原生 ActionSheet的样式</h3><p>用户可以通过设置某些属性可以实现iOS默认的ActionSheet的样式：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/as_2.gif" alt=""></p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_2.gif?raw=true" alt=""></p>
 <p>除此之外，用户还可以通过设置某些属性来实现各种其他的样式：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/as_3.gif" alt=""></p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_3.gif?raw=true" alt=""></p>
 <p>下面结合使用方法来看一下如何通过代码来定制这些样式：</p>
 <h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h3><p><code>npm install react-naive-highly-customizable-action-sheet</code></p>
 <p>引用组件：</p>
@@ -428,7 +428,7 @@ var _hmt = _hmt || [];
 <p>然后给该组件传入标题，选项文字数组，回调方法数组等实现一个ActionSheet的组件。</p>
 <p>下面结合一下代码和demo截图讲解一下：</p>
 <p>一个默认样式的例子:</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/as_11.png" alt=""></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_default.png" alt=""></p>
 <p>该样式的实现代码：</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;ActionSheet</span><br><span class="line">   mainTitle=<span class="string">"There are three ways to contact. Please choose one to contact."</span></span><br><span class="line">   itemTitles = &#123;[<span class="string">"By phone"</span>,<span class="string">"By message"</span>,<span class="string">"By email"</span>]&#125;</span><br><span class="line">   selectionCallbacks = &#123;[<span class="keyword">this</span>.clickedByPhone,<span class="keyword">this</span>.clickedByMessage,<span class="keyword">this</span>.clickedByEmail]&#125;</span><br><span class="line">   mainTitleTextAlign = <span class="string">'center'</span></span><br><span class="line">   ref=&#123;(actionsheet)=&gt;&#123;<span class="keyword">this</span>.actionsheet = actionsheet&#125;&#125;</span><br><span class="line">/&gt;</span><br><span class="line">  </span><br><span class="line"><span class="comment">//弹出底部菜单</span></span><br><span class="line">showActionSheet()&#123;</span><br><span class="line">	<span class="keyword">this</span>.actionsheet.show();  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByPhone()&#123;</span><br><span class="line">   alert(<span class="string">'By Phone'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByMessage()&#123;</span><br><span class="line">    alert(<span class="string">'By Message'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByEmail()&#123;</span><br><span class="line">    alert(<span class="string">'By Email'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在这里，</p>
@@ -439,7 +439,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>需要注意的是，选项文字的数组和回调函数数组里的元素应该是一一对应的。不过即使回调函数数组里的元素个数少于选项文字数组里的元素个数也不会引起崩溃。</p>
 <p>一个iOS ActionSheet样式的例子：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/as_12.png" alt=""></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_ios.png" alt=""></p>
 <p>该样式的实现代码：</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> &lt;ActionSheet</span><br><span class="line">    mainTitle=<span class="string">"There are three ways to contact. Please choose one to contact."</span></span><br><span class="line">    itemTitles = &#123;[<span class="string">"By phone"</span>,<span class="string">"By message"</span>,<span class="string">"By email"</span>]&#125;</span><br><span class="line">    selectionCallbacks = &#123;[<span class="keyword">this</span>.clickedByPhone,<span class="keyword">this</span>.clickedByMessage,<span class="keyword">this</span>.clickedByEmail]&#125;</span><br><span class="line">    mainTitleTextAlign = <span class="string">'center'</span></span><br><span class="line">    contentBackgroundColor = <span class="string">'#EFF0F1'</span></span><br><span class="line">    bottomSpace = &#123;<span class="number">10</span>&#125;</span><br><span class="line">    cancelVerticalSpace = &#123;<span class="number">10</span>&#125;</span><br><span class="line">    borderRadius = &#123;<span class="number">5</span>&#125;</span><br><span class="line">    sideSpace = &#123;<span class="number">6</span>&#125;</span><br><span class="line">    itemTitleColor = <span class="string">'#006FFF'</span></span><br><span class="line">    cancelTitleColor = <span class="string">'#006FFF'</span></span><br><span class="line">    ref=&#123;(actionsheet)=&gt;&#123;<span class="keyword">this</span>.actionsheet = actionsheet&#125;&#125;</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//弹出底部菜单</span></span><br><span class="line">showActionSheet()&#123;</span><br><span class="line">	<span class="keyword">this</span>.actionsheet.show();  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByPhone()&#123;</span><br><span class="line">   alert(<span class="string">'By Phone'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByMessage()&#123;</span><br><span class="line">    alert(<span class="string">'By Message'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByEmail()&#123;</span><br><span class="line">    alert(<span class="string">'By Email'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>更多其他的样式设定可以参考<a href="https://github.com/knightsj/react-naive-highly-customizable-action-sheet">demo</a>里的<code>Example</code>。</p>
@@ -523,7 +523,7 @@ var _hmt = _hmt || [];
 <p>有关动画的知识可以查看官方文档[React Native :动画](<a href="http://reactnative.cn/docs/0.48/animations.html#conte" target="_blank" rel="noopener">http://reactnative.cn/docs/0.48/animations.html#conte</a></p>
 <p>其实到这里，对于组件的封装就基本讲完了，讲解的内容还是集中在数据这一块，组件是怎么画出来的就不讲解了。因为毕竟每个组件将数据转化为样式的代码是不一样的，学会一个弹出菜单的画法对于画其他的组件没有太大的借鉴意义。但是对于一个通用组件来说，其定制性必须达到一定标准才可以。所以相对于讲解“组件是如何画出来的”，我认为讲一下“提高组件定制性”应该更实际一些。</p>
 <h3 id="为提高定制性所做的工作："><a href="#为提高定制性所做的工作：" class="headerlink" title="为提高定制性所做的工作："></a>为提高定制性所做的工作：</h3><p>最开始做这个控件也仅仅只能设置标题，选项以及回调函数，样式也只有这一种：</p>
-<p><img src="http://oih3a9o4n.bkt.clouddn.com/as_11.png" alt=""></p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_one.png" alt=""></p>
 <p>但是为了提高定制性，支持更多的样式，也为了自己能更好地了解React Native，就决定挑战一下，看定制性能提高到什么程度。</p>
 <p>如上文所说，在React Native里，组件的数据传递是通过设置其属性来实现的。所以如果想要提高组件的定制性就需要增加该组件的属性。</p>
 <p>看一下该组件的所有属性：</p>
@@ -579,13 +579,13 @@ var _hmt = _hmt || [];
 </ul>
 <p>不难看出，该组件的三个部分（标题，选项，取消）里，每个部分都有各自对应的属性可以设置。因为在设计这个组件的时候就将这三个部分高度解耦了：每个部分都互不影响，有各自的数据（除了少数可以共同使用的数据），并分别进行绘制。</p>
 <p>比如，我们可以设置：</p>
-<h4 id="每个部分文字内容，字体大小，高度"><a href="#每个部分文字内容，字体大小，高度" class="headerlink" title="每个部分文字内容，字体大小，高度"></a>每个部分文字内容，字体大小，高度</h4><p><img src="http://oih3a9o4n.bkt.clouddn.com/as_4.png" alt=""></p>
-<h4 id="背景颜色（可以统一设置，也可以单独设置）"><a href="#背景颜色（可以统一设置，也可以单独设置）" class="headerlink" title="背景颜色（可以统一设置，也可以单独设置）"></a>背景颜色（可以统一设置，也可以单独设置）</h4><p><img src="http://oih3a9o4n.bkt.clouddn.com/as_5.png" alt=""></p>
-<h4 id="分割线高度，距离底部的高度，距离屏幕侧边的距离"><a href="#分割线高度，距离底部的高度，距离屏幕侧边的距离" class="headerlink" title="分割线高度，距离底部的高度，距离屏幕侧边的距离"></a>分割线高度，距离底部的高度，距离屏幕侧边的距离</h4><p><img src="http://oih3a9o4n.bkt.clouddn.com/as_6.png" alt=""></p>
-<h4 id="分割线的颜色"><a href="#分割线的颜色" class="headerlink" title="分割线的颜色"></a>分割线的颜色</h4><p><img src="http://oih3a9o4n.bkt.clouddn.com/as_7.png" alt=""></p>
+<h4 id="每个部分文字内容，字体大小，高度"><a href="#每个部分文字内容，字体大小，高度" class="headerlink" title="每个部分文字内容，字体大小，高度"></a>每个部分文字内容，字体大小，高度</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting1.png" alt=""></p>
+<h4 id="背景颜色（可以统一设置，也可以单独设置）"><a href="#背景颜色（可以统一设置，也可以单独设置）" class="headerlink" title="背景颜色（可以统一设置，也可以单独设置）"></a>背景颜色（可以统一设置，也可以单独设置）</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting2.png" alt=""></p>
+<h4 id="分割线高度，距离底部的高度，距离屏幕侧边的距离"><a href="#分割线高度，距离底部的高度，距离屏幕侧边的距离" class="headerlink" title="分割线高度，距离底部的高度，距离屏幕侧边的距离"></a>分割线高度，距离底部的高度，距离屏幕侧边的距离</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting3.png" alt=""></p>
+<h4 id="分割线的颜色"><a href="#分割线的颜色" class="headerlink" title="分割线的颜色"></a>分割线的颜色</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting4.png" alt=""></p>
 <p>上面这些图片的效果对应的代码在<a href="https://github.com/knightsj/react-naive-highly-customizable-action-sheet">demo</a>中都有提供(具体查看Example文件夹)。</p>
 <p>另外该组件也支持一些比较极端的情况，虽然可能需求上极少遇到，但还是提供了支持。</p>
-<h4 id="极端情况："><a href="#极端情况：" class="headerlink" title="极端情况："></a>极端情况：</h4><p><img src="http://oih3a9o4n.bkt.clouddn.com/as_13.png" alt=""></p>
+<h4 id="极端情况："><a href="#极端情况：" class="headerlink" title="极端情况："></a>极端情况：</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting5.png" alt=""></p>
 <p>高度解耦的程度可以通过这最后一张图看出来：主标题，选择项，取消项都可以根据传入属性的情况来展示，互不影响。而且在都不设置的情况下，只展示了灰色的底部mask。</p>
 <h2 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h2><p>写这个组件一共花了3天的时间，其实第一天就已经完成了默认样式的开发。而后2天主要做的是提高定制性的工作。因为定制性的工作是与数据处理和应用分不开的，而自己对JavaScript语法了解得不是很好，所以期间写了不少的bug。值得庆幸的是，由于React Native本身搭建UI的能力很强，效率很高，所以数据处理好了之后工作量就不大了。</p>
 <p>毕竟是自己封装的第一个React Native组件，我相信它还是有很多提升空间的，比如数据处理这一块可能有不妥的地方，还需要各位能给出宝贵的意见和建议。</p>
