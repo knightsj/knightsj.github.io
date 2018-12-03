@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-12-03T13:41:11.902Z</updated>
+  <updated>2018-12-03T13:39:01.368Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我从技术博客中收获到了什么 - J_Knight_</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/03/%E6%88%91%E4%BB%8E%E5%86%99%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%94%B6%E8%8E%B7%E5%88%B0%E4%BA%86%E4%BB%80%E4%B9%88%20-%20J_Knight_/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/03/我从写技术博客中收获到了什么 - J_Knight_/</id>
+    <published>2018-12-03T13:17:03.366Z</published>
+    <updated>2018-12-03T13:39:01.368Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2018/12/2/1676f0af490ee858?w=1080&amp;amp;h=658&amp;amp;f=jpeg&amp;amp;s=70619&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我是 J&lt;em&gt;Knight&lt;/em&gt;，熟悉我的人都应该知道我是一名刚工作满3年的非科班 iOS 开发者，而且一直坚持写技术博客快有2年半的时间了。&lt;/p&gt;
+&lt;p&gt;其实从去年开始就一直想分享我写博客的心得，但是一直也没有找到合适的契机，刚好在今年年底前达成了&lt;code&gt;掘金粉丝量过万&lt;/code&gt;的小目标，索性就借着这个机会分享一下我自己关于写博客的一些收获，同时也算顺便做一个阶段性的总结。&lt;/p&gt;
+&lt;p&gt;这篇文章分为三个部分：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;写技术博客的历程&lt;/li&gt;
+&lt;li&gt;写技术博客的收获&lt;/li&gt;
+&lt;li&gt;回答一些朋友（粉丝）的一些关于写博客的几个问题&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;第一部分先简单介绍关于我的博客的一些数据：写博客的起始时间，使用的博客平台，博客内容等等。&lt;/p&gt;
+&lt;p&gt;第二部分是本篇的重点，讲解的从博客中我的收获有哪些。&lt;/p&gt;
+&lt;p&gt;第三部分罗列了几个经常从一些朋友（粉丝）中听到的关于写博客的问题以及我的回答。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Career" scheme="https://github.com/knightsj/knightsj.github.io/categories/Career/"/>
+    
+    
+      <category term="Life" scheme="https://github.com/knightsj/knightsj.github.io/tags/Life/"/>
+    
+      <category term="Job" scheme="https://github.com/knightsj/knightsj.github.io/tags/Job/"/>
+    
+  </entry>
   
   <entry>
     <title>面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）</title>
@@ -605,28 +638,6 @@
 &lt;p&gt;入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。&lt;/p&gt;
 &lt;p&gt;课程地址：&lt;a href=&quot;http://open.163.com/special/opencourse/ios7.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;斯坦福大学公开课：iOS 7应用开发&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;废话少说，开始！&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%9B%9B%20%E4%BA%94%EF%BC%89%EF%BC%9A%E5%B1%9E%E6%80%A7%E5%AD%97%E7%AC%A6%E4%B8%B2Demo/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/</id>
-    <published>2018-02-02T16:16:23.000Z</published>
-    <updated>2018-07-16T16:46:02.555Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。&lt;/p&gt;
     
     </summary>
     
