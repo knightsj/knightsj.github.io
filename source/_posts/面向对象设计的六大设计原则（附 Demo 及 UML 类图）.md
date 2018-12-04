@@ -1,15 +1,17 @@
 ---
 title: 面向对象设计的六大设计原则（附 Demo 及 UML 类图）
-tags: [iOS,Objectice-C,Object-Oriented]
+tags: [iOS,Objectice-C,Object-Oriented,Design Principle]
 categories: Object-Oriented
 ---
 
 
-![](http://oih3a9o4n.bkt.clouddn.com/oodbanner.png)
+![](http://jknight-blog.oss-cn-shanghai.aliyuncs.com/design-principle/odd_dp_banner.png)
+
+
 
 # 学习初衷与讲解方式
 
-笔者想在 iOS 从业第三年结束之前系统学习一下关于设计模式方面的知识。而在学习设计模式之前，觉得更有必要先学习面向对象设计（OOD：Object Oriented Design）的几大设计原则，为后面设计模式的学习打下基础。
+笔者想在iOS从业第三年结束之前系统学习一下关于设计模式方面的知识。而在学习设计模式之前，觉得更有必要先学习面向对象设计（OOD：Object Oriented Design）的几大设计原则，为后面设计模式的学习打下基础。
 
 
 本篇分享的就是笔者近阶段学习和总结的面向对象设计的六个设计原则：

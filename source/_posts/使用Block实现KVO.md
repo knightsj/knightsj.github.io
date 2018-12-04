@@ -11,12 +11,14 @@ categories: Production
 
 用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了[ImplementKVO](https://github.com/okcomp/ImplementKVO)的实现以后，自己也写了一个：[SJKVOController](https://github.com/knightsj/SJKVOController)
 
-![使用Block来实现KVO](http://oih3a9o4n.bkt.clouddn.com/sjkvocontrollerblogimage.png)
+![使用Block来实现KVO](http://jknight-blog.oss-cn-shanghai.aliyuncs.com/my_production/kvo_header.png)
 
 # SJKVOController的用法
 
 只需要引入``NSObject+SJKVOController.h``头文件就可以使用SJKVOController。
 先看一下它的头文件：
+
+
 ```objc
 #import <Foundation/Foundation.h>
 #import "SJKVOHeader.h"
@@ -59,6 +61,8 @@ categories: Production
 在点击上面两个按钮中的任意一个，增加观察：
 
 一次性添加：
+
+
 ```objc
 - (IBAction)addObserversTogether:(UIButton *)sender {
     
@@ -84,6 +88,8 @@ categories: Production
 ```
 
 分两次添加：
+
+
 ```objc
 - (IBAction)addObserverSeparatedly:(UIButton *)sender {
     
@@ -114,7 +120,9 @@ categories: Production
     [self.model sj_listAllObservers];
 }
 ```
+
 输出：
+
 ```objc
 SJKVOController[80499:4242749] SJKVOLog:==================== Start Listing All Observers: ==================== 
 SJKVOController[80499:4242749] SJKVOLog:observer item:{observer: <ViewController: 0x7fa1577054f0> | key: color | setter: setColor:}
@@ -125,6 +133,8 @@ SJKVOController[80499:4242749] SJKVOLog:observer item:{observer: <ViewController
 
 
 现在点击更新按钮，则会更新model的number和color属性，从而触发KVO：
+
+
 ```objc
 - (IBAction)updateNumber:(UIButton *)sender {
     
@@ -141,7 +151,7 @@ SJKVOController[80499:4242749] SJKVOLog:observer item:{observer: <ViewController
 
 我们可以看到中间的Label上面显示的数字和背景色都在变化，成功实现了KVO：
 
-![同时观察颜色和数字的变化](http://oih3a9o4n.bkt.clouddn.com/sjkvocontrolllergif1.gif)
+![同时观察颜色和数字的变化](https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-1.gif?raw=true)
 
 
 
@@ -154,10 +164,14 @@ SJKVOController[80499:4242749] SJKVOLog:observer item:{observer: <ViewController
 ```
 
 在移除了所有的观察者以后，则会打印出：
+
+
 ```objc
 SJKVOController[80499:4242749] SJKVOLog:Removed all obserbing objects of object:<Model: 0x60000003b700>
 ```
 而且如果在这个时候打印观察者list，则会输出：
+
+
 ```objc
 SJKVOController[80499:4242749] SJKVOLog:There is no observers obserbing object:<Model: 0x60000003b700>
 ```
@@ -165,6 +179,8 @@ SJKVOController[80499:4242749] SJKVOLog:There is no observers obserbing object:<
 需要注意的是，这里的移除可以有多种选择：可以移某个对象的某个key，也可以移除某个对象的几个keys，为了验证，我们可以结合list方法来验证一下移除是否成功：
 
 #### 验证1:在添加number和color的观察后，移除nunber的观察：
+
+
 ```objc
 - (IBAction)removeAllObservingItems:(UIButton *)sender {
     [self.model sj_removeObserver:self forKey:@"number"];
@@ -172,13 +188,15 @@ SJKVOController[80499:4242749] SJKVOLog:There is no observers obserbing object:<
 ```
 
 在移除以后，我们调用list方法，输出：
+
+
 ```objc
 SJKVOController[80850:4278383] SJKVOLog:==================== Start Listing All Observers: ====================
 SJKVOController[80850:4278383] SJKVOLog:observer item:{observer: <ViewController: 0x7ffeec408560> | key: color | setter: setColor:}
 ```
 现在只有color属性被观察了。看一下实际的效果：
 
-![只观察颜色的变化](http://oih3a9o4n.bkt.clouddn.com/sjkvocontrolllergif2.gif)
+![只观察颜色的变化](https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-2.gif?raw=true)
 
 我们可以看到，现在只有color在变，而数字没有变化了，验证此移除方法正确。
 
@@ -194,12 +212,14 @@ SJKVOController[80850:4278383] SJKVOLog:observer item:{observer: <ViewController
 ```
 
 在移除以后，我们调用list方法，输出：
+
+
 ```objc
 SJKVOController[80901:4283311] SJKVOLog:There is no observers obserbing object:<Model: 0x600000220fa0>
 ```
 现在color和number属性都不被观察了。看一下实际的效果：
 
-![颜色和数字的变化都不再被观察](http://oih3a9o4n.bkt.clouddn.com/sjkvocontrolllergif3.gif)
+![颜色和数字的变化都不再被观察](https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-3.gif?raw=true)
 
 我们可以看到，现在color和number都不变了，验证此移除方法正确。
 
@@ -230,6 +250,7 @@ OK，现在知道了怎么用SJKVOController，我下面给大家看一下代码
 ## SJKVOController
 
 再看一下头文件：
+
 ```objc
 #import <Foundation/Foundation.h>
 #import "SJKVOHeader.h"
@@ -447,6 +468,7 @@ void kvo_setter_implementation(id self, SEL _cmd, id newValue)
 ```
 
 而一次性添加多个key的方法，也只是调用多次一次性添加单个key的方法罢了：
+
 ```objc
 - (void)sj_addObserver:(NSObject *)observer
                forKeys:(NSArray <NSString *>*)keys
@@ -466,6 +488,8 @@ void kvo_setter_implementation(id self, SEL _cmd, id newValue)
 ```
 
 关于移除观察的实现，只是在观察项set里面找出封装了对应的观察对象和key的观察项就可以了：
+
+
 ```objc
 - (void)sj_removeObserver:(NSObject *)observer
                    forKey:(NSString *)key
@@ -490,6 +514,7 @@ void kvo_setter_implementation(id self, SEL _cmd, id newValue)
 ```
 
 再看一下移除所有观察者：
+
 ```objc
 - (void)sj_removeAllObservers
 {
@@ -540,6 +565,7 @@ typedef void(^SJKVOBlock)(id observedObject, NSString *key, id oldValue, id newV
 ## SJKVOTool
 
 这个类负责setter方法与getter方法相互转换，以及和运行时相关的操作，服务于``SJKVOController``。看一下它的头文件：
+
 ```objc
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>

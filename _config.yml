@@ -6,7 +6,7 @@
 # Site
 title: J_Knight_
 subtitle: 每天进步一点点
-description: 正在学React Native开发的iOS开发者
+description: iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅
 author: J_Knight_
 language: zh-Hans
 timezone: Asia/Shanghai
@@ -65,13 +65,27 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
-avatar: http://oih3a9o4n.bkt.clouddn.com/kightsjavatar.jpeg
+avatar: http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png
+
 plugin:
 - hexo-generator-feed
 - hexo-generator-baidu-sitemap
 
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+
+
+
 baidusitemap:
-path: baidusitemap.xml
+  path: baidusitemap.xml
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

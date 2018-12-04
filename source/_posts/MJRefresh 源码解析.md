@@ -8,7 +8,7 @@ categories: iOS
 
 该框架的结构设计得很清晰，使用一个基类``MJRefreshComponent``来做一些基本的设定，然后通过继承的方式，让``MJRefreshHeader``和``MJRefreshFooter``分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：
 
-![框架组织结构图](http://oih3a9o4n.bkt.clouddn.com/MJRefresh_1.png)
+![框架组织结构图](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_header.png)
 
 
 <!-- more -->
@@ -313,7 +313,8 @@ typedef void (^MJRefreshComponentEndRefreshingCompletionBlock)();
 >3. 注意:**可以刷新的状态**和**正在刷新的状态**是不同的。因为在手指还贴在屏幕的时候是不能进行刷新的。所以即使在下拉的距离超过了临界距离（状态栏 + 导航栏 + header高度），如果手指没有离开屏幕，那么也不能马上进行刷新，而是将状态切换为：可以刷新。一旦手指离开了屏幕，马上将状态切换为正在刷新。 
 
 这里提供一张图来体现三个状态的不同：
-![三个状态](http://oih3a9o4n.bkt.clouddn.com/MJRefresh_2.png)
+![三个状态](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_3states.png
+)
 
 
 #### 5. 状态切换时的相应操作：
@@ -393,7 +394,7 @@ typedef void (^MJRefreshComponentEndRefreshingCompletionBlock)();
 
 给一张图，让大家直观感受一下这两个控件：
 
-![两个Label](http://oih3a9o4n.bkt.clouddn.com/MJRefresh_3.png)
+![两个Label](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_stateLabel.png)
 
 
 
@@ -568,7 +569,7 @@ MJRefreshNormalHeader 继承于 MJRefreshStateHeader，它主要做了两件事�
 
 还是给一张图来直观感受一下这两个view：
 
-![两个view](http://oih3a9o4n.bkt.clouddn.com/MJRefresh_4.png)
+![两个view](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_loadingview.png)
 
 ### 职能如何实现？
 
@@ -731,7 +732,8 @@ MJRefreshNormalHeader 继承于 MJRefreshStateHeader，它主要做了两件事�
 - ``MJRefreshGifHeader``的左侧则是一个gif动画。
 
 还是提供一张图来直观感受一下：
-![normalHeader 与 gifHeader](http://oih3a9o4n.bkt.clouddn.com/MJRefresh_5.png)
+![normalHeader 与 gifHeader](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_gifloading.png)
+
 
 下面我们来看一下的实现：
 

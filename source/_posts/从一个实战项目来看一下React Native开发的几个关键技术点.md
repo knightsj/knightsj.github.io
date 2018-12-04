@@ -12,15 +12,15 @@ categories: React Native
 这是我在学习[贾鹏辉](http://www.devio.org/)老师在慕课网上的一个很火的[React Native实战的教程](http://coding.imooc.com/class/89.html)后，写出的课程Demo。该课程是慕课网里很火的一个React Native课程，当初在看了课程介绍和课程安排觉得讲解的点还是很全的，所以毫不犹豫地买了下来。
 
 从看视频，敲代码到重构，改bug，大概花了2个多星期的时间，除了调用友盟的SDK以及CodePush集成之外，其他的部分都基本完成了，而且同时可以在iOS和Android设备上运行：
-![上排是iOS模拟器 | 下排是Android模拟器](http://oih3a9o4n.bkt.clouddn.com/rn_13.png)
+![上排是iOS模拟器 | 下排是Android模拟器](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_header.png)
 
 而且比较吸引人的是该项目可以实现多个主题的切换：
-![多主题切换](http://oih3a9o4n.bkt.clouddn.com/rn_15.png)
+![多主题切换](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_theme.png)
 
 >切换的技术实现会在下文给出。
 
 用一个动图来过一遍大致的需求：
-![](http://oih3a9o4n.bkt.clouddn.com/github%E5%AE%A2%E6%88%B7%E7%AB%AF_4.gif)
+![](https://github.com/knightsj/blog-image-storage/blob/master/react-native/imooc-demo/show_1.gif?raw=true)
 
 
 
@@ -37,7 +37,9 @@ Demo GitHub地址：[GitHubPopular-SJ](https://github.com/knightsj/GitHubPopular
 # 二. React Native开发的几个关键技术点
 
 首先用一张思维导图来看一下第二节讲的内容：
-![](http://oih3a9o4n.bkt.clouddn.com/rn_16_1.png)
+
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cate.png)
+
 
 ## 2.1 组件化的思想
 
@@ -63,7 +65,7 @@ React认为一个组件应该具有如下特征：
 
 举个🌰，我们看一下这个Demo使用的导航栏：
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_1_1_1.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_nav.png)
 
 封装好的导航栏就可以被称之为一个组件，它符合上述三个特点：
 
@@ -82,7 +84,7 @@ React认为一个组件应该具有如下特征：
 
 举一个这个项目的收藏页面来说：
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_2_1_1.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_fav.png)
 
 我们可以看到这个页面有两个子页面，一个是‘最热’页面（组件），另一个是‘趋势‘页面（组件）。那么这两个组件都有什么props和state呢？
 
@@ -203,7 +205,7 @@ class FavoriteTabPage extends Component{
 
 首先举一个在最热标签页面列表里的一个cell为例，讲解一下一个简单的UI组件是如何实现的：
 
-![最热标签页面的cell](http://oih3a9o4n.bkt.clouddn.com/rn_4_1_1.png)
+![最热标签页面的cell](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cell.png)
 
 我们把该组件定名为：``RespositoryCell``，结合代码来看一下具体的实现：
 
@@ -285,7 +287,8 @@ export default class RespositoryCell extends Component{
 
 试着结合代码来看一下下面的图片，可以看出组件的实际布局与代码的布局是高度一致的：
 
-![Cell 布局 ](http://oih3a9o4n.bkt.clouddn.com/rn_5_2.png)
+![Cell 布局 ](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cel_layout.png)
+
 
 然而仅仅定义组件的层级关系是不够的，我们还需要定义组件的样式（例如图片组件的大小样式等等），这时候就通过定义一个样式的对象（通常使用常量对象）来定义一些需要使用的样式：
 
@@ -391,7 +394,7 @@ const styles =StyleSheet.create({
 
 那么所有项目cell的标题则都会显示为''item.full_name''，有图有真相：
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_5_1_1.png)
+![](hhttps://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_hot.png)
 
 这是初学者比较常犯的错误，所以要注意：在搭建页面的时候，一定要区分是对象还是常量。如果是对象就必须要用大括号括起来！如果是对象就必须要用大括号括起来！如果是对象就必须要用大括号括起来！
 
@@ -401,7 +404,7 @@ const styles =StyleSheet.create({
 
 在React Native中搭建个人页，设置页这种静态表格页面的时候，可以用``ScrollView``组件包裹各种封装好的cell组件的形式实现。看一下这个Demo的个人页的效果图和代码实现：
 
-![个人页](http://oih3a9o4n.bkt.clouddn.com/rn_6_1_1.png)
+![个人页](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_static.png)
 
 我们在项目中新建一个JavaScript文件，取名为取名为``MinePage.js`` 。该文件就是个人页面的实现。结合代码来看一下它的实现（删除了处理点击cell的逻辑处理代码）：
 
@@ -1294,7 +1297,8 @@ export default class HttpUtls{
 
 这个Demo有一个主题更换的需求，在主题设置页点击某个颜色之后，全app的颜色方案就会改变：
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_14.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_theme_config.png
+)
 
 我们只需要将四个模块的第一个页面的主题修改即可，因为第二个页面的主题都是从第一个页面传进去的，所以只要第一个页面的主题改变了即可。
 
@@ -1369,15 +1373,15 @@ onSelectTheme(themeKey) {
 
 1. 首先在iOS模拟器中点击``command + D``，然后再弹出菜单里点击``Debug JS Remotely``。随后就打开了浏览器进入了调试。
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_8_1_1.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_debug.png)
 
 2. 浏览器一般会展示下面的页面，然后点击``command + option + J``进入真生的调试界面。
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_9.png)
+![](http://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_debug_control.png)
 
 3. 点击最上方的``Sources``，然后点击左侧``debuggerWorker.js``下的``localhost:8081``，就可以看到目录文件。点击需要调试的文件，在行数栏就可以打断点了。
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_10_1.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_proj_folder.png)
 
 ### 2.11 适配iOS和Android平台
 
@@ -1413,7 +1417,7 @@ navBarStyle: {
 
 在新建一个React Native项目之后的根目录结构是这样的：
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_11.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_folder_detail.png)
 
 
 
@@ -1421,7 +1425,8 @@ navBarStyle: {
 
 但是一个比较完整的项目仅仅有这些类别的文件是不够的，还需要一些工具类，模型类，资源等文件。为了很好地区分它们，使项目结构一目了然，需要组织好项目文件夹以及类的命名，下面是我将教程里的文件夹命名和结构稍加修改后的一个方案，可供大家参考：
 
-![](http://oih3a9o4n.bkt.clouddn.com/rn_12.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_folder_detail2.png)
+
 
 
   ​

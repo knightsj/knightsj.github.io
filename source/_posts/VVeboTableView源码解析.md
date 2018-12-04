@@ -4,6 +4,8 @@ tags: [iOS,Objective-C,源码解析]
 categories: iOS
 ---
 
+![](http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png)
+
 这次分享一个关于性能优化的源码。
 
 我们知道``UITabelView``在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，``UITabelView``的性能将直接影响这个app的性能。
@@ -19,8 +21,7 @@ categories: iOS
 
 看了源码之后，我把作者的思路整理了出来：
 
-![优化思路图](http://oih3a9o4n.bkt.clouddn.com/VVeboTableView_0.png)
-
+![](http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png)
 
 
 下面我就从左到右，从上到下，结合代码来展示一下作者是如何实现每一点的。
@@ -125,7 +126,7 @@ categories: iOS
 
 我们先来看一下一个带有原贴的转发贴的布局：
 
-![布局](http://oih3a9o4n.bkt.clouddn.com/VVeboTableView_3.png)
+![布局](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_optimization_map.png)
 
 可能有小伙伴会将上中下这三个部分各自封装成一个view，再通过每个view来管理各自的子view。但是这个框架的作者却将它们都排列到一层上。
 
@@ -313,11 +314,12 @@ categories: iOS
 
 在讲解cell是如何显示出来之前，我们大致看一下这个cell都有哪些控件：
 
-![控件名称](http://oih3a9o4n.bkt.clouddn.com/VVeboTableView_4.png)
+![控件名称](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_cell_components.png)
 
 了解到控件的名称，位置之后，我们看一下作者是如何布局这些控件的：
 
-![控件布局](http://oih3a9o4n.bkt.clouddn.com/VVeboTableView_2.png)
+![控件布局](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_layout.png)
+
 在上面可以大致看出来，除了需要异步网络加载的头像(avatarView)和帖子图片(multiPhotoScrollView)，作者都将这些控件画在了一张图上面（postBgView）。
 
 

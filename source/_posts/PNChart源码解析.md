@@ -10,7 +10,7 @@ categories: iOS
 
 该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类``PNGenericChart``,第二层就是所有类型的图表。提供一张图来直观感受一下：
 
-![层级图](http://oih3a9o4n.bkt.clouddn.com/PNChart_00.png)
+![层级图](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png)
 
 >在这张图里，需要注意以下几点：
 1. 带箭头的线和不带箭头的线的区别。
@@ -22,7 +22,8 @@ categories: iOS
 
 今天就来介绍一下该框架里的折线图的源码。上文提到过，该框架的折线图是支持多组数据的，也就是在同一张图表上显示多条折线。先带大家看一下效果图：
 
-![折线图](http://oih3a9o4n.bkt.clouddn.com/PNChart_2.png)
+![折线图](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_chart.png)
+
 
 折线图在效果上还是很简洁美观的，如果现在的你还不知道如何使用``CAShapeLayer``和``UIBezierPath``画图并附加动画效果，那么本篇源码解析非常适合你。
 
@@ -116,7 +117,8 @@ shapLayer.path = path;
 
 用一张图直观看一下：
 
-![整个控件的大小和画布的大小](http://oih3a9o4n.bkt.clouddn.com/PNChart_4.png)
+![整个控件的大小和画布的大小](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_linechart.png)
+
 
 ### 2. 获取横轴和纵轴的数据
 

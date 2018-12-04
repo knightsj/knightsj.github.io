@@ -4,7 +4,7 @@ tags: [Life,Job]
 categories: Career
 ---
 
-![](http://oih3a9o4n.bkt.clouddn.com/ios-interview_1.jpg)
+![](http://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/interview_question_header.png)
 
 一千个读者眼中有一千个哈姆雷特，一千名 iOS 程序员心目中就有一千套 iOS 高级面试题。本文就是笔者认为可以用来面试高级 iOS 程序员的面试题。
 

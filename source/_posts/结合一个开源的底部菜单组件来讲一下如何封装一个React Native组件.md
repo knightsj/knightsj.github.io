@@ -13,7 +13,7 @@ categories: Production
 
 先看一下效果(上排为iOS模拟器，下排为Android模拟器)：
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_3.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_show.png)
 
 
 
@@ -38,19 +38,19 @@ categories: Production
 
 默认的样式是指使用者在不设置样式相关属性，只设置数据（文字）相关属性时展现的样式。该样式是微信，微博里使用的样式，也是我个人非常喜欢的样式。
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_1.gif)
+![](https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_1.gif?raw=true)
 
 ### 类似iOS原生 ActionSheet的样式
 
 用户可以通过设置某些属性可以实现iOS默认的ActionSheet的样式：
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_2.gif)
+![](https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_2.gif?raw=true)
 
 
 
 除此之外，用户还可以通过设置某些属性来实现各种其他的样式：
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_3.gif)
+![](https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_3.gif?raw=true)
 
 
 
@@ -84,7 +84,7 @@ categories: Production
 
 一个默认样式的例子:
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_11.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_default.png)
 
 该样式的实现代码：
 
@@ -132,7 +132,7 @@ clickedByEmail(){
 
 一个iOS ActionSheet样式的例子：
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_12.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_ios.png)
 
 该样式的实现代码：
 
@@ -573,7 +573,7 @@ _fade() {
 
 最开始做这个控件也仅仅只能设置标题，选项以及回调函数，样式也只有这一种：
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_11.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_one.png)
 
 
 
@@ -644,25 +644,25 @@ _fade() {
 
 #### 每个部分文字内容，字体大小，高度
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_4.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting1.png)
 
 
 
 #### 背景颜色（可以统一设置，也可以单独设置）
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_5.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting2.png)
 
 
 
 #### 分割线高度，距离底部的高度，距离屏幕侧边的距离
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_6.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting3.png)
 
 
 
 #### 分割线的颜色
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_7.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting4.png)
 
 
 
@@ -674,7 +674,7 @@ _fade() {
 
 #### 极端情况：
 
-![](http://oih3a9o4n.bkt.clouddn.com/as_13.png)
+![](https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting5.png)
 
 
 高度解耦的程度可以通过这最后一张图看出来：主标题，选择项，取消项都可以根据传入属性的情况来展示，互不影响。而且在都不设置的情况下，只展示了灰色的底部mask。
