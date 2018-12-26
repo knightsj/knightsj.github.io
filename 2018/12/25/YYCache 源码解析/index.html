@@ -1,0 +1,1165 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,源码解析,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="YYCache是国内开发者ibireme开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。 阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。">
+<meta name="keywords" content="iOS,Objective-C,源码解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YYCache 源码解析">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/YYCache 源码解析/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="YYCache是国内开发者ibireme开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。 阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5bd7907?w=604&h=344&f=png&s=21874">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5e027e5?w=1001&h=333&f=png&s=34319">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5e027e5?w=1001&h=333&f=png&s=34319">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.574Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="YYCache 源码解析">
+<meta name="twitter:description" content="YYCache是国内开发者ibireme开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。 阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5bd7907?w=604&h=344&f=png&s=21874">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/YYCache 源码解析/">
+
+
+
+
+
+  <title> YYCache 源码解析 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/YYCache 源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                YYCache 源码解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  13,480 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  57 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/ibireme/YYCache">YYCache</a>是国内开发者<a href="https://blog.ibireme.com/" target="_blank" rel="noopener">ibireme</a>开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。</p>
+<p>阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。</p>
+<a id="more"></a>
+<p>在正式开始讲解源码之前，先简单看一下该框架的使用方法。</p>
+<h1 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h1><p>举一个缓存用户姓名的例子来看一下YYCache的几个API：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//需要缓存的对象</span></span><br><span class="line"> <span class="built_in">NSString</span> *userName = <span class="string">@"Jack"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//需要缓存的对象在缓存里对应的键</span></span><br><span class="line"> <span class="built_in">NSString</span> *key = <span class="string">@"user_name"</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//创建一个YYCache实例:userInfoCache</span></span><br><span class="line"> YYCache *userInfoCache = [YYCache cacheWithName:<span class="string">@"userInfo"</span>];</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//存入键值对</span></span><br><span class="line"> [userInfoCache setObject:userName forKey:key withBlock:^&#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@"caching object succeed"</span>);</span><br><span class="line"> &#125;];</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//判断缓存是否存在</span></span><br><span class="line"> [userInfoCache containsObjectForKey:key withBlock:^(<span class="built_in">NSString</span> * _Nonnull key, <span class="built_in">BOOL</span> contains) &#123;</span><br><span class="line">     <span class="keyword">if</span> (contains)&#123;</span><br><span class="line">         <span class="built_in">NSLog</span>(<span class="string">@"object exists"</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;];</span><br><span class="line"></span><br><span class="line"> <span class="comment">//根据key读取数据</span></span><br><span class="line"> [userInfoCache objectForKey:key withBlock:^(<span class="built_in">NSString</span> * _Nonnull key, <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;  _Nonnull object) &#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@"user name : %@"</span>,object);</span><br><span class="line"> &#125;];</span><br><span class="line"></span><br><span class="line"> <span class="comment">//根据key移除缓存</span></span><br><span class="line"> [userInfoCache removeObjectForKey:key withBlock:^(<span class="built_in">NSString</span> * _Nonnull key) &#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@"remove user name %@"</span>,key);</span><br><span class="line"> &#125;];</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//移除所有缓存</span></span><br><span class="line"> [userInfoCache removeAllObjectsWithBlock:^&#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@"removing all cache succeed"</span>);</span><br><span class="line"> &#125;];</span><br><span class="line"></span><br><span class="line"> <span class="comment">//移除所有缓存带进度</span></span><br><span class="line"> [userInfoCache removeAllObjectsWithProgressBlock:^(<span class="keyword">int</span> removedCount, <span class="keyword">int</span> totalCount) &#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@"remove all cache objects: removedCount :%d  totalCount : %d"</span>,removedCount,totalCount);</span><br><span class="line"> &#125; endBlock:^(<span class="built_in">BOOL</span> error) &#123;</span><br><span class="line">     <span class="keyword">if</span>(!error)&#123;</span><br><span class="line">         <span class="built_in">NSLog</span>(<span class="string">@"remove all cache objects: succeed"</span>);</span><br><span class="line">     &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         <span class="built_in">NSLog</span>(<span class="string">@"remove all cache objects: failed"</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;];</span><br></pre></td></tr></table></figure>
+<p>总体来看这些API与<code>NSCache</code>是差不多的。<br>下面接着看一下该框架的架构：</p>
+<h1 id="架构与职责划分"><a href="#架构与职责划分" class="headerlink" title="架构与职责划分"></a>架构与职责划分</h1><p>首先看一下架构图：</p>
+<h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><p><img src="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5bd7907?w=604&amp;h=344&amp;f=png&amp;s=21874" alt=""></p>
+<h2 id="职责划分"><a href="#职责划分" class="headerlink" title="职责划分"></a>职责划分</h2><p>从架构图上来看，该组件里面的成员并不多：</p>
+<ul>
+<li>YYCache：提供了最外层的接口，调用了YYMemoryCache与YYDiskCache的相关方法。</li>
+<li>YYMemoryCache：负责处理容量小，相对高速的内存缓存。线程安全，支持自动和手动清理缓存等功能。</li>
+<li>_YYLinkedMap：YYMemoryCache使用的双向链表类。</li>
+<li>_YYLinkedMapNode：是_YYLinkedMap使用的节点类。</li>
+<li>YYDiskCache：负责处理容量大，相对低速的磁盘缓存。线程安全，支持异步操作，自动和手动清理缓存等功能。</li>
+<li>YYKVStorage：YYDiskCache的底层实现类，用于管理磁盘缓存。</li>
+<li>YYKVStorageItem：内置在YYKVStorage中，是YYKVStorage内部用于封装某个缓存的类。</li>
+</ul>
+<p>每个成员的详细的功能会在下文结合代码介绍。</p>
+<h1 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h1><p>知道了YYCache的架构和职责划分以后，现在结合代码开始正式讲解。<br>讲解分为下面6个部分：</p>
+<ul>
+<li>YYCache</li>
+<li>YYMemoryCache</li>
+<li>YYDiskCache</li>
+<li>保证线程安全的不同方案</li>
+<li>提高缓存性能的几个尝试</li>
+<li>其他知识点</li>
+</ul>
+<h2 id="YYCache"><a href="#YYCache" class="headerlink" title="YYCache"></a>YYCache</h2><p>YYCache给用户提供所有最外层的缓存操作接口，而这些接口的内部内部实际上是调用了YYMemoryCache和YYDiskCache对象的相关方法。</p>
+<blockquote>
+<p>因为YYMemoryCache和YYDiskCache的实例作为YYCache的两个公开的属性，所以用户<strong>无法直接使用YYMemoryCache和YYDiskCache对象</strong>，只能通过属性的方式来间接使用它们。</p>
+</blockquote>
+<p>我们来看一下YYCache的属性和接口：</p>
+<h3 id="YYCache的属性和接口"><a href="#YYCache的属性和接口" class="headerlink" title="YYCache的属性和接口"></a>YYCache的属性和接口</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">YYCache</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *name;<span class="comment">//缓存名称</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">readonly</span>) YYMemoryCache *memoryCache;<span class="comment">//内存缓存</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">readonly</span>) YYDiskCache *diskCache;<span class="comment">//磁盘缓存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//是否包含某缓存，无回调</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)containsObjectForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line"><span class="comment">//是否包含某缓存，有回调</span></span><br><span class="line">- (<span class="keyword">void</span>)containsObjectForKey:(<span class="built_in">NSString</span> *)key withBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="built_in">NSString</span> *key, <span class="built_in">BOOL</span> contains))block;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取缓存对象，无回调</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)objectForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line"><span class="comment">//获取缓存对象，有回调</span></span><br><span class="line">- (<span class="keyword">void</span>)objectForKey:(<span class="built_in">NSString</span> *)key withBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="built_in">NSString</span> *key, <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt; object))block;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入缓存对象，无回调</span></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)object forKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line"><span class="comment">//写入缓存对象，有回调</span></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)object forKey:(<span class="built_in">NSString</span> *)key withBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="keyword">void</span>))block;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除某缓存，无回调</span></span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line"><span class="comment">//移除某缓存，有回调</span></span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="built_in">NSString</span> *)key withBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="built_in">NSString</span> *key))block;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除所有缓存，无回调</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjects;</span><br><span class="line"><span class="comment">//移除所有缓存，有回调</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjectsWithBlock:(<span class="keyword">void</span>(^)(<span class="keyword">void</span>))block;</span><br><span class="line"><span class="comment">//移除所有缓存，有进度和完成的回调</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjectsWithProgressBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="keyword">int</span> removedCount, <span class="keyword">int</span> totalCount))progress</span><br><span class="line">                                 endBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="built_in">BOOL</span> error))end;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>从上面的接口可以看出YYCache的接口和NSCache很相近，而且在接口上都区分了有无回调的功能。<br>下面结合代码看一下这些接口是如何实现的：</p>
+<h3 id="YYCache的接口实现"><a href="#YYCache的接口实现" class="headerlink" title="YYCache的接口实现"></a>YYCache的接口实现</h3><p>下面省略了带有回调的接口，因为与无回调的接口非常接近。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)containsObjectForKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//先检查内存缓存是否存在，再检查磁盘缓存是否存在</span></span><br><span class="line">    <span class="keyword">return</span> [_memoryCache containsObjectForKey:key] || [_diskCache containsObjectForKey:key];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)objectForKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//首先尝试获取内存缓存，然后获取磁盘缓存</span></span><br><span class="line">    <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt; object = [_memoryCache objectForKey:key];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果内存缓存不存在，就会去磁盘缓存里面找：如果找到了，则再次写入内存缓存中；如果没找到，就返回nil</span></span><br><span class="line">    <span class="keyword">if</span> (!object) &#123;</span><br><span class="line">        object = [_diskCache objectForKey:key];</span><br><span class="line">        <span class="keyword">if</span> (object) &#123;</span><br><span class="line">            [_memoryCache setObject:object forKey:key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> object;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)object forKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">    <span class="comment">//先写入内存缓存，后写入磁盘缓存</span></span><br><span class="line">    [_memoryCache setObject:object forKey:key];</span><br><span class="line">    [_diskCache setObject:object forKey:key];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">    <span class="comment">//先移除内存缓存，后移除磁盘缓存</span></span><br><span class="line">    [_memoryCache removeObjectForKey:key];</span><br><span class="line">    [_diskCache removeObjectForKey:key];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjects &#123;</span><br><span class="line">    <span class="comment">//先全部移除内存缓存，后全部移除磁盘缓存</span></span><br><span class="line">    [_memoryCache removeAllObjects];</span><br><span class="line">    [_diskCache removeAllObjects];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的接口实现可以看出：在YYCache中，永远都是先访问内存缓存，然后再访问磁盘缓存（包括了写入，读取，查询，删除缓存的操作）。而且关于内存缓存（_memoryCache）的操作，是不存在block回调的。</p>
+<p>现在了解了YYCache的接口以及实现，下面我分别讲解一下YYMemoryCache（内存缓存）和YYDiskCache（磁盘缓存）这两个类。</p>
+<h2 id="YYMemoryCache"><a href="#YYMemoryCache" class="headerlink" title="YYMemoryCache"></a>YYMemoryCache</h2><p>YYMemoryCache负责处理容量小，相对高速的内存缓存：它将需要缓存的对象与传入的key关联起来，操作类似于NSCache。</p>
+<p>但是与NSCache不同的是，YYMemoryCache的内部有：</p>
+<ul>
+<li>缓存淘汰算法：使用LRU(least-recently-used) 算法来淘汰（清理）使用频率较低的缓存。</li>
+<li>缓存清理策略：使用三个维度来标记，分别是count（缓存数量），cost（开销），age（距上一次的访问时间）。YYMemoryCache提供了分别针对这三个维度的清理缓存的接口。用户可以根据不同的需求（策略）来清理在某一维度超标的缓存。</li>
+</ul>
+<p>一个是淘汰算法，另一个是清理维度，乍一看可能没什么太大区别。我在这里先简单区分一下：</p>
+<p>缓存淘汰算法的目的在于区分出使用频率高和使用频率低的缓存，当缓存数量达到一定限制的时候会优先清理那些使用频率低的缓存。<strong>因为使用频率已经比较低的缓存在将来的使用频率也很有可能会低</strong>。</p>
+<p>缓存清理维度是给每个缓存添加的标记：</p>
+<ul>
+<li><p>如果用户需要删除age（距上一次的访问时间）超过1天的缓存，在YYMemoryCache内部，就会从使用频率最低的那个缓存开始查找，直到所有距上一次的访问时间超过1天的缓存都清理掉为止。</p>
+</li>
+<li><p>如果用户需要将缓存总开销清理到总开销小于或等于某个值，在YYMemoryCache内部，就会从使用频率最低的那个缓存开始清理，直到总开销小于或等于这个值。</p>
+</li>
+<li><p>如果用户需要将缓存总数清理到总开销小于或等于某个值，在YYMemoryCache内部，就会从使用频率最低的那个缓存开始清理，直到总开销小于或等于这个值。</p>
+</li>
+</ul>
+<p>可以看出，无论是以哪个维度来清理缓存，都是从缓存使用频率最低的那个缓存开始清理。而YYMemoryCache保留的所有缓存的使用频率的高低，是由LRU这个算法决定的。</p>
+<p>现在知道了这二者的区别，下面来具体讲解一下缓存淘汰算法和缓存清理策略：</p>
+<h3 id="YYMemoryCache的缓存淘汰算法"><a href="#YYMemoryCache的缓存淘汰算法" class="headerlink" title="YYMemoryCache的缓存淘汰算法"></a>YYMemoryCache的缓存淘汰算法</h3><p>在详细讲解这个算法之前我觉得有必要先说一下该算法的核心：</p>
+<p>我个人认为LRU缓存替换策略的核心在于<strong>如果某个缓存访问的频率越高，就认定用户在将来越有可能访问这个缓存</strong>。<br>所以在这个算法中，将那些最新访问（写入），最多次被访问的缓存移到最前面，然后那些很早之前写入，不经常访问的缓存就被自动放在了后面。这样一来，在保留的缓存个数一定的情况下，留下的缓存都是访问频率比较高的，这样一来也就提升了缓存的命中率。谁都不想留着一些很难被用户再次访问的缓存，毕竟缓存本身也占有一定的资源不是么？</p>
+<p>其实这个道理和一些商城类app的商品推荐逻辑是一样的：<br>如果首页只能展示10个商品，对于一个程序员用户来说，可能推荐的是于那些他最近购买商品类似的机械键盘鼠标，技术书籍或者显示屏之类的商品，而不是一些洋娃娃或是钢笔之类的商品。</p>
+<p>那么LRU算法具体是怎么做的呢？</p>
+<p>在YYMemoryCache中，使用了双向链表这个数据结构来保存这些缓存：</p>
+<ul>
+<li>当写入一个新的缓存时，要把这个缓存节点放在链表头部，并且并且原链表头部的缓存节点要变成现在链表的第二个缓存节点。</li>
+<li>当访问一个已有的缓存时，要把这个缓存节点移动到链表头部，原位置两侧的缓存要接上，并且原链表头部的缓存节点要变成现在链表的第二个缓存节点。</li>
+<li>（根据清理维度）自动清理缓存时，要从链表的最后端逐个清理。</li>
+</ul>
+<p>这样一来，就可以保证链表前端的缓存是最近写入过和经常访问过的。而且该算法总是从链表的最后端删除缓存，这也就保证了留下的都是一些“比较新鲜的”缓存。</p>
+<p>下面结合代码来讲解一下这个算法的实现：</p>
+<p>YYMemoryCache<strong>用一个链表节点类来保存某个单独的内存缓存的信息（键，值，缓存时间等），然后用一个双向链表类来保存和管理这些节点</strong>。这两个类的名称分别是：</p>
+<ul>
+<li>_YYLinkedMapNode：链表内的节点类，可以看做是对某个单独内存缓存的封装。</li>
+<li>_YYLinkedMap：双向链表类，用于保存和管理所有内存缓存(节点)</li>
+</ul>
+<h4 id="YYLinkedMapNode"><a href="#YYLinkedMapNode" class="headerlink" title="_YYLinkedMapNode"></a>_YYLinkedMapNode</h4><p>_YYLinkedMapNode可以被看做是对某个缓存的封装：它包含了该节点上一个和下一个节点的指针，以及缓存的key和对应的值（对象），还有该缓存的开销和访问时间。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">_YYLinkedMapNode</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">@package</span></span><br><span class="line">    __<span class="keyword">unsafe_unretained</span> _YYLinkedMapNode *_prev; <span class="comment">// retained by dic</span></span><br><span class="line">    __<span class="keyword">unsafe_unretained</span> _YYLinkedMapNode *_next; <span class="comment">// retained by dic</span></span><br><span class="line">    <span class="keyword">id</span> _key;              		  <span class="comment">//缓存key</span></span><br><span class="line">    <span class="keyword">id</span> _value;              	          <span class="comment">//key对应值</span></span><br><span class="line">    <span class="built_in">NSUInteger</span> _cost;                     <span class="comment">//缓存开销</span></span><br><span class="line">    <span class="built_in">NSTimeInterval</span> _time;                 <span class="comment">//访问时间</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">_YYLinkedMapNode</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>下面看一下双向链表类：</p>
+<h4 id="YYLinkedMap"><a href="#YYLinkedMap" class="headerlink" title="_YYLinkedMap"></a>_YYLinkedMap</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">_YYLinkedMap</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">@package</span></span><br><span class="line">    <span class="built_in">CFMutableDictionaryRef</span> _dic; 	<span class="comment">// 用于存放节点</span></span><br><span class="line">    <span class="built_in">NSUInteger</span> _totalCost;   		<span class="comment">//总开销</span></span><br><span class="line">    <span class="built_in">NSUInteger</span> _totalCount;  		<span class="comment">//节点总数</span></span><br><span class="line">    _YYLinkedMapNode *_head;            <span class="comment">// 链表的头部结点</span></span><br><span class="line">    _YYLinkedMapNode *_tail; 		<span class="comment">// 链表的尾部节点</span></span><br><span class="line">    <span class="built_in">BOOL</span> _releaseOnMainThread; 	        <span class="comment">//是否在主线程释放，默认为NO</span></span><br><span class="line">    <span class="built_in">BOOL</span> _releaseAsynchronously; 	<span class="comment">//是否在子线程释放，默认为YES</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在链表头部插入某节点</span></span><br><span class="line">- (<span class="keyword">void</span>)insertNodeAtHead:(_YYLinkedMapNode *)node;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将链表内部的某个节点移到链表头部</span></span><br><span class="line">- (<span class="keyword">void</span>)bringNodeToHead:(_YYLinkedMapNode *)node;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除某个节点</span></span><br><span class="line">- (<span class="keyword">void</span>)removeNode:(_YYLinkedMapNode *)node;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除链表的尾部节点并返回它</span></span><br><span class="line">- (_YYLinkedMapNode *)removeTailNode;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除所有节点（默认在子线程操作）</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>从链表类的属性上看：链表类内置了CFMutableDictionaryRef，用于保存节点的键值对，它还持有了链表内节点的总开销，总数量，头尾节点等数据。</p>
+<p>可以参考下面这张图来看一下二者的关系：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5e027e5?w=1001&amp;h=333&amp;f=png&amp;s=34319" alt=""></p>
+<p>看一下_YYLinkedMap的接口的实现：</p>
+<p>将节点插入到链表头部：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)insertNodeAtHead:(_YYLinkedMapNode *)node &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置该node的值</span></span><br><span class="line">    <span class="built_in">CFDictionarySetValue</span>(_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(node-&gt;_key), (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(node));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//增加开销和总缓存数量</span></span><br><span class="line">    _totalCost += node-&gt;_cost;</span><br><span class="line">    _totalCount++;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_head) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果链表内已经存在头节点，则将这个头节点赋给当前节点的尾指针（原第一个节点变成了现第二个节点）</span></span><br><span class="line">        node-&gt;_next = _head;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//将该节点赋给现第二个节点的头指针（此时_head指向的节点是先第二个节点）</span></span><br><span class="line">        _head-&gt;_prev = node;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//将该节点赋给链表的头结点指针（该节点变成了现第一个节点）</span></span><br><span class="line">        _head = node;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果链表内没有头结点，说明是空链表。说明是第一次插入，则将链表的头尾节点都设置为当前节点</span></span><br><span class="line">        _head = _tail = node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要看懂节点操作的代码只要了解双向链表的特性即可。在双向链表中：</p>
+<ul>
+<li>每个节点都有两个分别指向前后节点的指针。所以说每个节点都知道它前一个节点和后一个节点是谁。</li>
+<li>链表的头部节点指向它前面节点的指针为空；链表尾部节点指向它后侧节点的指针也为空。</li>
+</ul>
+<p>为了便于理解，我们可以把这个抽象概念类比于幼儿园手拉手的小朋友们：<br>每个小朋友的左手都拉着前面小朋友的右手；每个小朋友的右手都拉着后面小朋友的左手；<br>而且最前面的小朋友的左手和最后面的小朋友的右手都没有拉任何一个小朋友。</p>
+<p>将某个节点移动到链表头部：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)bringNodeToHead:(_YYLinkedMapNode *)node &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果该节点已经是链表头部节点，则立即返回，不做任何操作</span></span><br><span class="line">    <span class="keyword">if</span> (_head == node) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_tail == node) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果该节点是链表的尾部节点</span></span><br><span class="line">        <span class="comment">//1. 将该节点的头指针指向的节点变成链表的尾节点（将倒数第二个节点变成倒数第一个节点，即尾部节点）</span></span><br><span class="line">        _tail = node-&gt;_prev;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//2. 将新的尾部节点的尾部指针置空</span></span><br><span class="line">        _tail-&gt;_next = <span class="literal">nil</span>;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果该节点是链表头部和尾部以外的节点（中间节点）</span></span><br><span class="line">        <span class="comment">//1. 将该node的头指针指向的节点赋给其尾指针指向的节点的头指针</span></span><br><span class="line">        node-&gt;_next-&gt;_prev = node-&gt;_prev;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//2. 将该node的尾指针指向的节点赋给其头指针指向的节点的尾指针</span></span><br><span class="line">        node-&gt;_prev-&gt;_next = node-&gt;_next;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将原头节点赋给该节点的尾指针（原第一个节点变成了现第二个节点）</span></span><br><span class="line">    node-&gt;_next = _head;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将当前节点的头节点置空</span></span><br><span class="line">    node-&gt;_prev = <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将现第二个节点的头结点指向当前节点（此时_head指向的节点是现第二个节点）</span></span><br><span class="line">    _head-&gt;_prev = node;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将该节点设置为链表的头节点</span></span><br><span class="line">    _head = node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一次看上面的代码我自己是懵逼的，不过如果结合上面小朋友拉手的例子就可以快一点理解。<br>如果要其中一个小朋友放在队伍的最前面，需要</p>
+<ul>
+<li>将原来这个小朋友前后的小朋友的手拉上。</li>
+<li>然后将这个小朋友的右手和原来排在第一位的小朋友的左手拉上。</li>
+</ul>
+<p>上面说的比较简略，但是相信对大家理解整个过程会有帮助。</p>
+<p>也可以再结合链表的图解来看一下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/22/1611c66be5e027e5?w=1001&amp;h=333&amp;f=png&amp;s=34319" alt=""></p>
+<p>读者同样可以利用这种思考方式理解下面这段代码：</p>
+<p>移除链表中的某个节点：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)removeNode:(_YYLinkedMapNode *)node &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//除去该node的键对应的值</span></span><br><span class="line">    <span class="built_in">CFDictionaryRemoveValue</span>(_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(node-&gt;_key));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//减去开销和总缓存数量</span></span><br><span class="line">    _totalCost -= node-&gt;_cost;</span><br><span class="line">    _totalCount--;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//节点操作</span></span><br><span class="line">    <span class="comment">//1. 将该node的头指针指向的节点赋给其尾指针指向的节点的头指针</span></span><br><span class="line">    <span class="keyword">if</span> (node-&gt;_next) node-&gt;_next-&gt;_prev = node-&gt;_prev;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//2. 将该node的尾指针指向的节点赋给其头指针指向的节点的尾指针</span></span><br><span class="line">    <span class="keyword">if</span> (node-&gt;_prev) node-&gt;_prev-&gt;_next = node-&gt;_next;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//3. 如果该node就是链表的头结点，则将该node的尾部指针指向的节点赋给链表的头节点（第二变成了第一）</span></span><br><span class="line">    <span class="keyword">if</span> (_head == node) _head = node-&gt;_next;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//4. 如果该node就是链表的尾节点，则将该node的头部指针指向的节点赋给链表的尾节点（倒数第二变成了倒数第一）</span></span><br><span class="line">    <span class="keyword">if</span> (_tail == node) _tail = node-&gt;_prev;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>移除并返回尾部的node:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">- (_YYLinkedMapNode *)removeTailNode &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果不存在尾节点，则返回nil</span></span><br><span class="line">    <span class="keyword">if</span> (!_tail) <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    _YYLinkedMapNode *tail = _tail;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//移除尾部节点对应的值</span></span><br><span class="line">    <span class="built_in">CFDictionaryRemoveValue</span>(_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(_tail-&gt;_key));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//减少开销和总缓存数量</span></span><br><span class="line">    _totalCost -= _tail-&gt;_cost;</span><br><span class="line">    _totalCount--;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_head == _tail) &#123;</span><br><span class="line">        <span class="comment">//如果链表的头尾节点相同，说明链表只有一个节点。将其置空</span></span><br><span class="line">        _head = _tail = <span class="literal">nil</span>;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//将链表的尾节指针指向的指针赋给链表的尾指针（倒数第二变成了倒数第一）</span></span><br><span class="line">        _tail = _tail-&gt;_prev;</span><br><span class="line">        <span class="comment">//将新的尾节点的尾指针置空</span></span><br><span class="line">        _tail-&gt;_next = <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tail;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OK，现在了解了YYMemoryCache底层的节点操作的代码。现在来看一下YYMemoryCache是如何使用它们的。</p>
+<h4 id="YYMemoryCache的属性和接口"><a href="#YYMemoryCache的属性和接口" class="headerlink" title="YYMemoryCache的属性和接口"></a>YYMemoryCache的属性和接口</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYMemoryCache.h</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">YYMemoryCache</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Attribute</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//缓存名称，默认为nil</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"></span><br><span class="line"><span class="comment">//缓存总数量</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>) <span class="built_in">NSUInteger</span> totalCount;</span><br><span class="line"></span><br><span class="line"><span class="comment">//缓存总开销</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>) <span class="built_in">NSUInteger</span> totalCost;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Limit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//数量上限，默认为NSUIntegerMax，也就是无上限</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSUInteger</span> countLimit;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开销上限，默认为NSUIntegerMax，也就是无上限</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSUInteger</span> costLimit;</span><br><span class="line"></span><br><span class="line"><span class="comment">//缓存时间上限，默认为DBL_MAX，也就是无上限</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSTimeInterval</span> ageLimit;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清理超出上限之外的缓存的操作间隔时间，默认为5s</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSTimeInterval</span> autoTrimInterval;</span><br><span class="line"></span><br><span class="line"><span class="comment">//收到内存警告时是否清理所有缓存，默认为YES</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">BOOL</span> shouldRemoveAllObjectsOnMemoryWarning;</span><br><span class="line"></span><br><span class="line"><span class="comment">//app进入后台是是否清理所有缓存，默认为YES</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">BOOL</span> shouldRemoveAllObjectsWhenEnteringBackground;</span><br><span class="line"></span><br><span class="line"><span class="comment">//收到内存警告的回调block</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">copy</span>) <span class="keyword">void</span>(^didReceiveMemoryWarningBlock)(YYMemoryCache *cache);</span><br><span class="line"></span><br><span class="line"><span class="comment">//进入后台的回调block</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">copy</span>) <span class="keyword">void</span>(^didEnterBackgroundBlock)(YYMemoryCache *cache);</span><br><span class="line"></span><br><span class="line"><span class="comment">//缓存清理是否在后台进行，默认为NO</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">BOOL</span> releaseOnMainThread;</span><br><span class="line"></span><br><span class="line"><span class="comment">//缓存清理是否异步执行，默认为YES</span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">BOOL</span> releaseAsynchronously;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Access Methods</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//是否包含某个缓存</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)containsObjectForKey:(<span class="keyword">id</span>)key;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取缓存对象</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">id</span>)objectForKey:(<span class="keyword">id</span>)key;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入缓存对象</span></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>)object forKey:(<span class="keyword">id</span>)key;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入缓存对象，并添加对应的开销</span></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>)object forKey:(<span class="keyword">id</span>)key withCost:(<span class="built_in">NSUInteger</span>)cost;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除某缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="keyword">id</span>)key;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除所有缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjects;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Trim</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// =========== 缓存清理接口 =========== </span></span><br><span class="line"><span class="comment">//清理缓存到指定个数</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToCount:(<span class="built_in">NSUInteger</span>)count;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清理缓存到指定开销</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToCost:(<span class="built_in">NSUInteger</span>)cost;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清理缓存时间小于指定时间的缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToAge:(<span class="built_in">NSTimeInterval</span>)age;</span><br></pre></td></tr></table></figure>
+<h4 id="YYMemoryCache的接口实现"><a href="#YYMemoryCache的接口实现" class="headerlink" title="YYMemoryCache的接口实现"></a>YYMemoryCache的接口实现</h4><p>在YYMemoryCache的初始化方法里，会实例化一个_YYLinkedMap的实例来赋给_lru这个成员变量。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init&#123;</span><br><span class="line">      ....</span><br><span class="line">      _lru = [_YYLinkedMap new];</span><br><span class="line">      ...</span><br><span class="line">  </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>  然后所有的关于缓存的操作，都要用到_lru这个成员变量，因为它才是在底层持有这些缓存（节点）的双向链表类。下面我们来看一下这些缓存操作接口的实现：</p>
+  <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//是否包含某个缓存对象</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)containsObjectForKey:(<span class="keyword">id</span>)key &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//尝试从内置的字典中获得缓存对象</span></span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    <span class="built_in">BOOL</span> contains = <span class="built_in">CFDictionaryContainsKey</span>(_lru-&gt;_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key));</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">    <span class="keyword">return</span> contains;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取某个缓存对象</span></span><br><span class="line">- (<span class="keyword">id</span>)objectForKey:(<span class="keyword">id</span>)key &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    _YYLinkedMapNode *node = <span class="built_in">CFDictionaryGetValue</span>(_lru-&gt;_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key));</span><br><span class="line">    <span class="keyword">if</span> (node) &#123;</span><br><span class="line">        <span class="comment">//如果节点存在，则更新它的时间信息（最后一次访问的时间）</span></span><br><span class="line">        node-&gt;_time = <span class="built_in">CACurrentMediaTime</span>();</span><br><span class="line">        [_lru bringNodeToHead:node];</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> node ? node-&gt;_value : <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入某个缓存对象，开销默认为0</span></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)object forKey:(<span class="keyword">id</span>)key &#123;</span><br><span class="line">    [<span class="keyword">self</span> setObject:object forKey:key withCost:<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//写入某个缓存对象，并存入缓存开销</span></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)object forKey:(<span class="keyword">id</span>)key withCost:(<span class="built_in">NSUInteger</span>)cost &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!object) &#123;</span><br><span class="line">        [<span class="keyword">self</span> removeObjectForKey:key];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    </span><br><span class="line">    _YYLinkedMapNode *node = <span class="built_in">CFDictionaryGetValue</span>(_lru-&gt;_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key));</span><br><span class="line">    <span class="built_in">NSTimeInterval</span> now = <span class="built_in">CACurrentMediaTime</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (node) &#123;</span><br><span class="line">        <span class="comment">//如果存在与传入的key值匹配的node，则更新该node的value,cost,time，并将这个node移到链表头部</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//更新总cost</span></span><br><span class="line">        _lru-&gt;_totalCost -= node-&gt;_cost;</span><br><span class="line">        _lru-&gt;_totalCost += cost;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//更新node</span></span><br><span class="line">        node-&gt;_cost = cost;</span><br><span class="line">        node-&gt;_time = now;</span><br><span class="line">        node-&gt;_value = object;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//将node移动至链表头部</span></span><br><span class="line">        [_lru bringNodeToHead:node];</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果不存在与传入的key值匹配的node，则新建一个node，将key,value,cost,time赋给它，并将这个node插入到链表头部</span></span><br><span class="line">        <span class="comment">//新建node,并赋值</span></span><br><span class="line">        node = [_YYLinkedMapNode new];</span><br><span class="line">        node-&gt;_cost = cost;</span><br><span class="line">        node-&gt;_time = now;</span><br><span class="line">        node-&gt;_key = key;</span><br><span class="line">        node-&gt;_value = object;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//将node插入至链表头部</span></span><br><span class="line">        [_lru insertNodeAtHead:node];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果cost超过了限制，则进行删除缓存操作（从链表尾部开始删除，直到符合限制要求）</span></span><br><span class="line">    <span class="keyword">if</span> (_lru-&gt;_totalCost &gt; _costLimit) &#123;</span><br><span class="line">        <span class="built_in">dispatch_async</span>(_queue, ^&#123;</span><br><span class="line">            [<span class="keyword">self</span> trimToCost:_costLimit];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果total count超过了限制，则进行删除缓存操作（从链表尾部开始删除，删除一次即可）</span></span><br><span class="line">    <span class="keyword">if</span> (_lru-&gt;_totalCount &gt; _countLimit) &#123;</span><br><span class="line">        _YYLinkedMapNode *node = [_lru removeTailNode];</span><br><span class="line">        <span class="keyword">if</span> (_lru-&gt;_releaseAsynchronously) &#123;</span><br><span class="line">            <span class="built_in">dispatch_queue_t</span> queue = _lru-&gt;_releaseOnMainThread ? dispatch_get_main_queue() : YYMemoryCacheGetReleaseQueue();</span><br><span class="line">            <span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line">                [node <span class="keyword">class</span>]; <span class="comment">//hold and release in queue</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_lru-&gt;_releaseOnMainThread &amp;&amp; !pthread_main_np()) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                [node <span class="keyword">class</span>]; <span class="comment">//hold and release in queue</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除某个缓存对象</span></span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="keyword">id</span>)key &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    _YYLinkedMapNode *node = <span class="built_in">CFDictionaryGetValue</span>(_lru-&gt;_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key));</span><br><span class="line">    <span class="keyword">if</span> (node) &#123;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">//内部调用了链表的removeNode：方法</span></span><br><span class="line">        [_lru removeNode:node];</span><br><span class="line">        <span class="keyword">if</span> (_lru-&gt;_releaseAsynchronously) &#123;</span><br><span class="line">            <span class="built_in">dispatch_queue_t</span> queue = _lru-&gt;_releaseOnMainThread ? dispatch_get_main_queue() : YYMemoryCacheGetReleaseQueue();</span><br><span class="line">            <span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line">                [node <span class="keyword">class</span>]; <span class="comment">//hold and release in queue</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_lru-&gt;_releaseOnMainThread &amp;&amp; !pthread_main_np()) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                [node <span class="keyword">class</span>]; <span class="comment">//hold and release in queue</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//内部调用了链表的removeAll方法</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjects &#123;</span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    [_lru removeAll];</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的实现是针对缓存的查询，写入，获取操作的，接下来看一下缓存的清理策略。</p>
+<h3 id="YYMemoryCache的缓存清理策略"><a href="#YYMemoryCache的缓存清理策略" class="headerlink" title="YYMemoryCache的缓存清理策略"></a>YYMemoryCache的缓存清理策略</h3><p>如上文所说，在YYCache中，缓存的清理可以从缓存总数量，缓存总开销，缓存距上一次的访问时间来清理缓存。而且每种维度的清理操作都可以分为自动和手动的方式来进行。</p>
+<h4 id="缓存自动清理"><a href="#缓存自动清理" class="headerlink" title="缓存自动清理"></a>缓存自动清理</h4><p>缓存的自动清理功能在YYMemoryCache初始化之后就开始了，是一个递归调用的实现：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYMemoryCache.m</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)init&#123;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//开始定期清理</span></span><br><span class="line">    [<span class="keyword">self</span> _trimRecursively];</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//递归清理，相隔时间为_autoTrimInterval，在初始化之后立即执行</span></span><br><span class="line">- (<span class="keyword">void</span>)_trimRecursively &#123;</span><br><span class="line">    </span><br><span class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) _<span class="keyword">self</span> = <span class="keyword">self</span>;</span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_autoTrimInterval * <span class="built_in">NSEC_PER_SEC</span>)),</span><br><span class="line">                   </span><br><span class="line">        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, <span class="number">0</span>), ^&#123;</span><br><span class="line">            </span><br><span class="line">        __<span class="keyword">strong</span> <span class="keyword">typeof</span>(_<span class="keyword">self</span>) <span class="keyword">self</span> = _<span class="keyword">self</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">self</span>) <span class="keyword">return</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//在后台进行清理操作</span></span><br><span class="line">        [<span class="keyword">self</span> _trimInBackground];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//调用自己，递归操作</span></span><br><span class="line">        [<span class="keyword">self</span> _trimRecursively];</span><br><span class="line">            </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清理所有不符合限制的缓存，顺序为：cost，count，age</span></span><br><span class="line">- (<span class="keyword">void</span>)_trimInBackground &#123;</span><br><span class="line">    <span class="built_in">dispatch_async</span>(_queue, ^&#123;</span><br><span class="line">        </span><br><span class="line">        [<span class="keyword">self</span> _trimToCost:<span class="keyword">self</span>-&gt;_costLimit];</span><br><span class="line">        [<span class="keyword">self</span> _trimToCount:<span class="keyword">self</span>-&gt;_countLimit];</span><br><span class="line">        [<span class="keyword">self</span> _trimToAge:<span class="keyword">self</span>-&gt;_ageLimit];</span><br><span class="line">        </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYMemoryCache.m</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToCount:(<span class="built_in">NSUInteger</span>)count &#123;</span><br><span class="line">    <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> removeAllObjects];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="keyword">self</span> _trimToCount:count];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)trimToCost:(<span class="built_in">NSUInteger</span>)cost &#123;</span><br><span class="line">    [<span class="keyword">self</span> _trimToCost:cost];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)trimToAge:(<span class="built_in">NSTimeInterval</span>)age &#123;</span><br><span class="line">    [<span class="keyword">self</span> _trimToAge:age];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，YYMemoryCache是按照缓存数量，缓存开销，缓存时间的顺序来自动清空缓存的。我们结合代码看一下它是如何按照缓存数量来清理缓存的（其他两种清理方式类似，暂不给出）：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYMemoryCache.m</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将内存缓存数量降至等于或小于传入的数量；如果传入的值为0，则删除全部内存缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)_trimToCount:(<span class="built_in">NSUInteger</span>)countLimit &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">BOOL</span> finish = <span class="literal">NO</span>;</span><br><span class="line">    </span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果传入的参数=0，则删除所有内存缓存</span></span><br><span class="line">    <span class="keyword">if</span> (countLimit == <span class="number">0</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        [_lru removeAll];</span><br><span class="line">        finish = <span class="literal">YES</span>;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_lru-&gt;_totalCount &lt;= countLimit) &#123;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">//如果当前缓存的总数量已经小于或等于传入的数量，则直接返回YES，不进行清理</span></span><br><span class="line">        finish = <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">    <span class="keyword">if</span> (finish) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableArray</span> *holder = [<span class="built_in">NSMutableArray</span> new];</span><br><span class="line">    <span class="keyword">while</span> (!finish) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//==0的时候说明在尝试加锁的时候，获取锁成功，从而可以进行操作；否则等待10秒（但是不知道为什么是10s而不是2s，5s，等等）</span></span><br><span class="line">        <span class="keyword">if</span> (pthread_mutex_trylock(&amp;_lock) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (_lru-&gt;_totalCount &gt; countLimit) &#123;</span><br><span class="line">                _YYLinkedMapNode *node = [_lru removeTailNode];</span><br><span class="line">                <span class="keyword">if</span> (node) [holder addObject:node];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                finish = <span class="literal">YES</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            usleep(<span class="number">10</span> * <span class="number">1000</span>); <span class="comment">//10 ms</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (holder.count) &#123;</span><br><span class="line">        <span class="built_in">dispatch_queue_t</span> queue = _lru-&gt;_releaseOnMainThread ? dispatch_get_main_queue() : YYMemoryCacheGetReleaseQueue();</span><br><span class="line">        <span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line">            [holder count]; <span class="comment">// release in queue</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="缓存手动清理"><a href="#缓存手动清理" class="headerlink" title="缓存手动清理"></a>缓存手动清理</h4><p>其实上面这三种清理的方法在YYMemoryCache封装成了接口，所以用户也可以通过YYCache的memoryCache这个属性来手动清理相应维度上不符合传入标准的缓存：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYMemoryCache.h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// =========== 缓存清理接口 =========== </span></span><br><span class="line"><span class="comment">//清理缓存到指定个数</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToCount:(<span class="built_in">NSUInteger</span>)count;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清理缓存到指定开销</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToCost:(<span class="built_in">NSUInteger</span>)cost;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清理缓存时间小于指定时间的缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToAge:(<span class="built_in">NSTimeInterval</span>)age;</span><br></pre></td></tr></table></figure>
+<p>看一下它们的实现：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//清理缓存到指定个数</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToCount:(<span class="built_in">NSUInteger</span>)count &#123;</span><br><span class="line">    <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> removeAllObjects];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="keyword">self</span> _trimToCount:count];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清理缓存到指定开销</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToCost:(<span class="built_in">NSUInteger</span>)cost &#123;</span><br><span class="line">    [<span class="keyword">self</span> _trimToCost:cost];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//清理缓存时间小于指定时间的缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToAge:(<span class="built_in">NSTimeInterval</span>)age &#123;</span><br><span class="line">    [<span class="keyword">self</span> _trimToAge:age];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="YYDiskCache"><a href="#YYDiskCache" class="headerlink" title="YYDiskCache"></a>YYDiskCache</h2><p>YYDiskCache负责处理容量大，相对低速的磁盘缓存。线程安全，支持异步操作。作为YYCache的第二级缓存，它与第一级缓存YYMemoryCache的相同点是：</p>
+<ul>
+<li>都具有查询，写入，读取，删除缓存的接口。</li>
+<li>不直接操作缓存，也是间接地通过另一个类（YYKVStorage）来操作缓存。</li>
+<li>它使用LRU算法来清理缓存。</li>
+<li>支持按 cost，count 和 age 这三个维度来清理不符合标准的缓存。</li>
+</ul>
+<p>它与YYMemoryCache不同点是：</p>
+<ul>
+<li><ol>
+<li>根据缓存数据的大小来采取不同的形式的缓存：</li>
+</ol>
+<ul>
+<li>数据库sqlite: 针对小容量缓存，缓存的data和元数据都保存在数据库里。</li>
+<li>文件+数据库的形式: 针对大容量缓存，缓存的data写在文件系统里，其元数据保存在数据库里。</li>
+</ul>
+</li>
+<li><ol>
+<li>除了 cost，count 和 age 三个维度之外，还添加了一个磁盘容量的维度。</li>
+</ol>
+</li>
+</ul>
+<p>这里需要说明的是：<br>对于上面的第一条：我看源码的时候只看出来有这两种缓存形式，但是从内部的缓存type枚举来看，其实是分为三种的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, YYKVStorageType) &#123;</span><br><span class="line">    </span><br><span class="line">    YYKVStorageTypeFile = <span class="number">0</span>,</span><br><span class="line">    YYKVStorageTypeSQLite = <span class="number">1</span>,</span><br><span class="line">    YYKVStorageTypeMixed = <span class="number">2</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>也就是说我只找到了第二，第三种缓存形式，而第一种纯粹的文件存储（YYKVStorageTypeFile）形式的实现我没有找到：当type为<br>YYKVStorageTypeFile和YYKVStorageTypeMixed的时候的缓存实现都是一致的：都是讲data存在文件里，将元数据放在数据库里面。</p>
+<p>在YYDiskCache的初始化方法里，没有发现正确的将缓存类型设置为YYKVStorageTypeFile的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYDiskCache.m</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line">    <span class="keyword">@throw</span> [<span class="built_in">NSException</span> exceptionWithName:<span class="string">@"YYDiskCache init error"</span> reason:<span class="string">@"YYDiskCache must be initialized with a path. Use 'initWithPath:' or 'initWithPath:inlineThreshold:' instead."</span> userInfo:<span class="literal">nil</span>];</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithPath:<span class="string">@""</span> inlineThreshold:<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithPath:(<span class="built_in">NSString</span> *)path &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithPath:path inlineThreshold:<span class="number">1024</span> * <span class="number">20</span>]; <span class="comment">// 20KB</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithPath:(<span class="built_in">NSString</span> *)path</span><br><span class="line">             inlineThreshold:(<span class="built_in">NSUInteger</span>)threshold &#123;</span><br><span class="line"></span><br><span class="line">   ...    </span><br><span class="line">    YYKVStorageType type;</span><br><span class="line">    <span class="keyword">if</span> (threshold == <span class="number">0</span>) &#123;</span><br><span class="line">        type = YYKVStorageTypeFile;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (threshold == <span class="built_in">NSUIntegerMax</span>) &#123;</span><br><span class="line">        type = YYKVStorageTypeSQLite;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        type = YYKVStorageTypeMixed;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看出来，当给指定初始化方法<code>initWithPath:inlineThreshold:</code>的第二个参数传入0的时候，缓存类型才是YYKVStorageTypeFile。而且比较常用的初始化方法<code>initWithPath:</code>的实现里，是将20kb传入了指定初始化方法里，结果就是将type设置成了YYKVStorageTypeMixed。</p>
+<p>而且我也想不出如果只有文件形式的缓存的话，其元数据如何保存。如果有读者知道的话，麻烦告知一下，非常感谢了~~</p>
+<p>在本文暂时对于上面提到的”文件+数据库的形式”在下文统一说成文件缓存了。</p>
+<p>在接口的设计上，YYDiskCache与YYMemoryCache是高度一致的，只不过因为有些时候大文件的访问可能会比较耗时，所以框架作者在保留了与YYMemoryCache一样的接口的基础上，还在原来的基础上添加了block回调，避免阻塞线程。来看一下YYDiskCache的接口(省略了注释)：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYDiskCache.h</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)containsObjectForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">- (<span class="keyword">void</span>)containsObjectForKey:(<span class="built_in">NSString</span> *)key withBlock:(<span class="keyword">void</span>(^)(<span class="built_in">NSString</span> *key, <span class="built_in">BOOL</span> contains))block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)objectForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">- (<span class="keyword">void</span>)objectForKey:(<span class="built_in">NSString</span> *)key withBlock:(<span class="keyword">void</span>(^)(<span class="built_in">NSString</span> *key, <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt; _Nullable object))block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)object forKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)object forKey:(<span class="built_in">NSString</span> *)key withBlock:(<span class="keyword">void</span>(^)(<span class="keyword">void</span>))block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="built_in">NSString</span> *)key withBlock:(<span class="keyword">void</span>(^)(<span class="built_in">NSString</span> *key))block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjects;</span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjectsWithBlock:(<span class="keyword">void</span>(^)(<span class="keyword">void</span>))block;</span><br><span class="line">- (<span class="keyword">void</span>)removeAllObjectsWithProgressBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="keyword">int</span> removedCount, <span class="keyword">int</span> totalCount))progress</span><br><span class="line">                                 endBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="built_in">BOOL</span> error))end;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)totalCount;</span><br><span class="line">- (<span class="keyword">void</span>)totalCountWithBlock:(<span class="keyword">void</span>(^)(<span class="built_in">NSInteger</span> totalCount))block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)totalCost;</span><br><span class="line">- (<span class="keyword">void</span>)totalCostWithBlock:(<span class="keyword">void</span>(^)(<span class="built_in">NSInteger</span> totalCost))block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Trim</span></span><br><span class="line">- (<span class="keyword">void</span>)trimToCount:(<span class="built_in">NSUInteger</span>)count;</span><br><span class="line">- (<span class="keyword">void</span>)trimToCount:(<span class="built_in">NSUInteger</span>)count withBlock:(<span class="keyword">void</span>(^)(<span class="keyword">void</span>))block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)trimToCost:(<span class="built_in">NSUInteger</span>)cost;</span><br><span class="line">- (<span class="keyword">void</span>)trimToCost:(<span class="built_in">NSUInteger</span>)cost withBlock:(<span class="keyword">void</span>(^)(<span class="keyword">void</span>))block;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)trimToAge:(<span class="built_in">NSTimeInterval</span>)age;</span><br><span class="line">- (<span class="keyword">void</span>)trimToAge:(<span class="built_in">NSTimeInterval</span>)age withBlock:(<span class="keyword">void</span>(^)(<span class="keyword">void</span>))block;</span><br></pre></td></tr></table></figure>
+<p>从上面的接口代码可以看出，YYDiskCache与YYMemoryCache在接口设计上是非常相似的。但是，YYDiskCache有一个非常重要的属性，它<strong>作为用sqlite做缓存还是用文件做缓存的分水岭</strong>：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYDiskCache.h</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>) <span class="built_in">NSUInteger</span> inlineThreshold;</span><br></pre></td></tr></table></figure>
+<p>这个属性的默认值是20480byte，也就是20kb。即是说，如果缓存数据的长度大于这个值，就使用文件存储；如果小于这个值，就是用sqlite存储。来看一下这个属性是如何使用的：</p>
+<p>首先我们会在YYDiskCache的指定初始化方法里看到这个属性：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYDiskCache.m</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithPath:(<span class="built_in">NSString</span> *)path</span><br><span class="line">             inlineThreshold:(<span class="built_in">NSUInteger</span>)threshold &#123;</span><br><span class="line">   ...</span><br><span class="line">    _inlineThreshold = threshold;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里将_inlineThreshold赋值，也是唯一一次的赋值。然后在写入缓存的操作里判断写入缓存的大小是否大于这个临界值，如果是，则使用文件缓存：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYDiskCache.m</span></span><br><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>&lt;<span class="built_in">NSCoding</span>&gt;)object forKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">   </span><br><span class="line">   ...</span><br><span class="line">    <span class="built_in">NSString</span> *filename = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">if</span> (_kv.type != YYKVStorageTypeSQLite) &#123;</span><br><span class="line">        <span class="comment">//如果长度大临界值，则生成文件名称，使得filename不为nil</span></span><br><span class="line">        <span class="keyword">if</span> (value.length &gt; _inlineThreshold) &#123;</span><br><span class="line">            filename = [<span class="keyword">self</span> _filenameForKey:key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    Lock();</span><br><span class="line">    <span class="comment">//在该方法内部判断filename是否为nil，如果是，则使用sqlite进行缓存；如果不是，则使用文件缓存</span></span><br><span class="line">    [_kv saveItemWithKey:key value:value filename:filename extendedData:extendedData];</span><br><span class="line">    Unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们知道了YYDiskCache相对于YYMemoryCache最大的不同之处是缓存类型的不同。<br>细心的朋友会发现上面这个写入缓存的方法（saveItemWithKey:value:filename:extendedData:）实际上是属于_kv的。这个_kv就是上面提到的YYKVStorage的实例，它在YYDiskCache的初始化方法里被赋值：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYDiskCache.m</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithPath:(<span class="built_in">NSString</span> *)path</span><br><span class="line">             inlineThreshold:(<span class="built_in">NSUInteger</span>)threshold &#123;</span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    YYKVStorage *kv = [[YYKVStorage alloc] initWithPath:path type:type];</span><br><span class="line">    <span class="keyword">if</span> (!kv) <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    _kv = kv;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样地，再举其他两个接口为例，内部也是调用了_kv的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)containsObjectForKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    Lock();</span><br><span class="line">    <span class="built_in">BOOL</span> contains = [_kv itemExistsForKey:key];</span><br><span class="line">    Unlock();</span><br><span class="line">    <span class="keyword">return</span> contains;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span>;</span><br><span class="line">    Lock();</span><br><span class="line">    [_kv removeItemForKey:key];</span><br><span class="line">    Unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以是时候来看一下YYKVStorage的接口和实现了：</p>
+<h3 id="YYKVStorage"><a href="#YYKVStorage" class="headerlink" title="YYKVStorage"></a>YYKVStorage</h3><p>YYKVStorage实例负责保存和管理所有磁盘缓存。和YYMemoryCache里面的_YYLinkedMap将缓存封装成节点类_YYLinkedMapNode类似，YYKVStorage也将某个单独的磁盘缓存封装成了一个类，这个类就是YYKVStorageItem，它保存了某个缓存所对应的一些信息(key, value, 文件名，大小等等)：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYKVStorageItem.h</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">YYKVStorageItem</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *key;                <span class="comment">//键</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSData</span> *value;                <span class="comment">//值</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *filename; <span class="comment">//文件名</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="keyword">int</span> size;                             <span class="comment">//值的大小，单位是byte</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="keyword">int</span> modTime;                          <span class="comment">//修改时间戳</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="keyword">int</span> accessTime;                       <span class="comment">//最后访问的时间戳</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSData</span> *extendedData; <span class="comment">//extended data</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>既然在这里将缓存封装成了YYKVStorageItem实例，<strong>那么作为缓存的管理者，YYKVStorage就必然有操作YYKVStorageItem的接口</strong>了：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYKVStorage.h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//写入某个item</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)saveItem:(YYKVStorageItem *)item;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入某个键值对，值为NSData对象</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)saveItemWithKey:(<span class="built_in">NSString</span> *)key value:(<span class="built_in">NSData</span> *)value;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入某个键值对，包括文件名以及data信息</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)saveItemWithKey:(<span class="built_in">NSString</span> *)key</span><br><span class="line">                  value:(<span class="built_in">NSData</span> *)value</span><br><span class="line">               filename:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)filename</span><br><span class="line">           extendedData:(<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)extendedData;</span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Remove Items</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//移除某个键的item</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)removeItemForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除多个键的item</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)removeItemForKeys:(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *)keys;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除大于参数size的item</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)removeItemsLargerThanSize:(<span class="keyword">int</span>)size;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除时间早于参数时间的item</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)removeItemsEarlierThanTime:(<span class="keyword">int</span>)time;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除item，使得缓存总容量小于参数size</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)removeItemsToFitSize:(<span class="keyword">int</span>)maxSize;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除item，使得缓存数量小于参数size</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)removeItemsToFitCount:(<span class="keyword">int</span>)maxCount;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除所有的item</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)removeAllItems;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移除所有的item，附带进度与结束block</span></span><br><span class="line">- (<span class="keyword">void</span>)removeAllItemsWithProgressBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="keyword">int</span> removedCount, <span class="keyword">int</span> totalCount))progress</span><br><span class="line">                               endBlock:(<span class="keyword">nullable</span> <span class="keyword">void</span>(^)(<span class="built_in">BOOL</span> error))end;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#pragma mark - Get Items</span></span><br><span class="line"><span class="comment">//读取参数key对应的item</span></span><br><span class="line">- (<span class="keyword">nullable</span> YYKVStorageItem *)getItemForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取参数key对应的data</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)getItemValueForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取参数数组对应的item数组</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSArray</span>&lt;YYKVStorageItem *&gt; *)getItemForKeys:(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *)keys;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取参数数组对应的item字典</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *, <span class="built_in">NSData</span> *&gt; *)getItemValueForKeys:(<span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *)keys;</span><br></pre></td></tr></table></figure>
+<p>大家最关心的应该是写入缓存的接口是如何实现的，下面重点讲一下写入缓存的接口：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写入某个item</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)saveItem:(YYKVStorageItem *)item;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入某个键值对，值为NSData对象</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)saveItemWithKey:(<span class="built_in">NSString</span> *)key value:(<span class="built_in">NSData</span> *)value;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写入某个键值对，包括文件名以及data信息</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)saveItemWithKey:(<span class="built_in">NSString</span> *)key</span><br><span class="line">                  value:(<span class="built_in">NSData</span> *)value</span><br><span class="line">               filename:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)filename</span><br><span class="line">           extendedData:(<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)extendedData;</span><br></pre></td></tr></table></figure>
+<p>这三个接口都比较类似，上面的两个方法都会调用最下面参数最多的方法。在详细讲解写入缓存的代码之前，我先讲一下写入缓存的大致逻辑，有助于让大家理解整个YYDiskCache写入缓存的流程：</p>
+<ol>
+<li>首先判断传入的key和value是否符合要求，如果不符合要求，则立即返回NO，缓存失败。</li>
+<li>再判断是否type==YYKVStorageTypeFile并且文件名为空字符串（或nil）：如果是，则立即返回NO，缓存失败。</li>
+<li>判断filename是否为空字符串：<ol>
+<li>如果不为空：写入文件，并将缓存的key，等信息写入数据库，但是不将key对应的data写入数据库。</li>
+<li>如果为空：<ol>
+<li>如果缓存类型为YYKVStorageTypeSQLite：将缓存文件删除<ol>
+<li>如果缓存类型不为YYKVStorageTypeSQLite：则将缓存的key和对应的data等其他信息存入数据库。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)saveItem:(YYKVStorageItem *)item &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> saveItemWithKey:item.key value:item.value filename:item.filename extendedData:item.extendedData];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)saveItemWithKey:(<span class="built_in">NSString</span> *)key value:(<span class="built_in">NSData</span> *)value &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> saveItemWithKey:key value:value filename:<span class="literal">nil</span> extendedData:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)saveItemWithKey:(<span class="built_in">NSString</span> *)key value:(<span class="built_in">NSData</span> *)value filename:(<span class="built_in">NSString</span> *)filename extendedData:(<span class="built_in">NSData</span> *)extendedData &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (key.length == <span class="number">0</span> || value.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_type == YYKVStorageTypeFile &amp;&amp; filename.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (filename.length) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果文件名不为空字符串，说明要进行文件缓存</span></span><br><span class="line">        <span class="keyword">if</span> (![<span class="keyword">self</span> _fileWriteWithName:filename data:value]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//写入元数据</span></span><br><span class="line">        <span class="keyword">if</span> (![<span class="keyword">self</span> _dbSaveWithKey:key value:value fileName:filename extendedData:extendedData]) &#123;</span><br><span class="line">            <span class="comment">//如果缓存信息保存失败，则删除对应的文件</span></span><br><span class="line">            [<span class="keyword">self</span> _fileDeleteWithName:filename];</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果文件名为空字符串，说明不要进行文件缓存</span></span><br><span class="line">        <span class="keyword">if</span> (_type != YYKVStorageTypeSQLite) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//如果缓存类型不是数据库缓存，则查找出相应的文件名并删除</span></span><br><span class="line">            <span class="built_in">NSString</span> *filename = [<span class="keyword">self</span> _dbGetFilenameWithKey:key];</span><br><span class="line">            <span class="keyword">if</span> (filename) &#123;</span><br><span class="line">                [<span class="keyword">self</span> _fileDeleteWithName:filename];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 缓存类型是数据库缓存，把元数据和value写入数据库</span></span><br><span class="line">        <span class="keyword">return</span> [<span class="keyword">self</span> _dbSaveWithKey:key value:value fileName:<span class="literal">nil</span> extendedData:extendedData];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看出，在底层写入缓存的方法是<code>_dbSaveWithKey:value:fileName:extendedData:</code>，这个方法使用了两次:</p>
+<ul>
+<li>在以文件（和数据库）存储缓存时</li>
+<li>在以数据库存储缓存时</li>
+</ul>
+<p>不过虽然调用了两次，我们可以从传入的参数是有差别的：第二次filename传了nil。那么我们来看一下<code>_dbSaveWithKey:value:fileName:extendedData:</code>内部是如何区分有无filename的情况的：</p>
+<ul>
+<li>当filename为空时，说明在外部没有写入该缓存的文件：则把data写入数据库里</li>
+<li>当filename不为空时，说明在外部有写入该缓存的文件：则不把data也写入了数据库里</li>
+</ul>
+<p>下面结合代码看一下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数据库存储</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)_dbSaveWithKey:(<span class="built_in">NSString</span> *)key value:(<span class="built_in">NSData</span> *)value fileName:(<span class="built_in">NSString</span> *)fileName extendedData:(<span class="built_in">NSData</span> *)extendedData &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//sql语句</span></span><br><span class="line">    <span class="built_in">NSString</span> *sql = <span class="string">@"insert or replace into manifest (key, filename, size, inline_data, modification_time, last_access_time, extended_data) values (?1, ?2, ?3, ?4, ?5, ?6, ?7);"</span>;</span><br><span class="line">    </span><br><span class="line">    sqlite3_stmt *stmt = [<span class="keyword">self</span> _dbPrepareStmt:sql];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!stmt) <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> timestamp = (<span class="keyword">int</span>)time(<span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//key</span></span><br><span class="line">    sqlite3_bind_text(stmt, <span class="number">1</span>, key.UTF8String, <span class="number">-1</span>, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//filename</span></span><br><span class="line">    sqlite3_bind_text(stmt, <span class="number">2</span>, fileName.UTF8String, <span class="number">-1</span>, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//size</span></span><br><span class="line">    sqlite3_bind_int(stmt, <span class="number">3</span>, (<span class="keyword">int</span>)value.length);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//inline_data</span></span><br><span class="line">    <span class="keyword">if</span> (fileName.length == <span class="number">0</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果文件名长度==0，则将value存入数据库</span></span><br><span class="line">        sqlite3_bind_blob(stmt, <span class="number">4</span>, value.bytes, (<span class="keyword">int</span>)value.length, <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果文件名长度不为0，则不将value存入数据库</span></span><br><span class="line">        sqlite3_bind_blob(stmt, <span class="number">4</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//modification_time</span></span><br><span class="line">    sqlite3_bind_int(stmt, <span class="number">5</span>, timestamp);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//last_access_time</span></span><br><span class="line">    sqlite3_bind_int(stmt, <span class="number">6</span>, timestamp);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//extended_data</span></span><br><span class="line">    sqlite3_bind_blob(stmt, <span class="number">7</span>, extendedData.bytes, (<span class="keyword">int</span>)extendedData.length, <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> result = sqlite3_step(stmt);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (result != SQLITE_DONE) &#123;</span><br><span class="line">        <span class="keyword">if</span> (_errorLogsEnabled) <span class="built_in">NSLog</span>(<span class="string">@"%s line:%d sqlite insert error (%d): %s"</span>, __FUNCTION__, __LINE__, result, sqlite3_errmsg(_db));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>框架作者用数据库的一条记录来保存关于某个缓存的所有信息。<br>而且数据库的第四个字段是保存缓存对应的data的，从上面的代码可以看出当filename为空和不为空的时候的处理的差别。</p>
+<p>上面的<code>sqlite3_stmt</code>可以看作是一个已经把sql语句解析了的、用sqlite自己标记记录的内部数据结构。<br>而sqlite3_bind_text和sqlite3_bind_int是绑定函数，可以看作是将变量插入到字段的操作。</p>
+<p>OK，现在看完了写入缓存，我们再来看一下获取缓存的操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYKVSorage.m</span></span><br><span class="line">- (YYKVStorageItem *)getItemForKey:(<span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (key.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    YYKVStorageItem *item = [<span class="keyword">self</span> _dbGetItemWithKey:key excludeInlineData:<span class="literal">NO</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (item) &#123;</span><br><span class="line">        <span class="comment">//更新内存访问的时间</span></span><br><span class="line">        [<span class="keyword">self</span> _dbUpdateAccessTimeWithKey:key];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (item.filename) &#123;</span><br><span class="line">            <span class="comment">//如果有文件名，则尝试获取文件数据</span></span><br><span class="line">            item.value = [<span class="keyword">self</span> _fileReadWithName:item.filename];</span><br><span class="line">            <span class="comment">//如果此时获取文件数据失败，则删除对应的item</span></span><br><span class="line">            <span class="keyword">if</span> (!item.value) &#123;</span><br><span class="line">                [<span class="keyword">self</span> _dbDeleteItemWithKey:key];</span><br><span class="line">                item = <span class="literal">nil</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面这段代码我们可以看到获取YYKVStorageItem的实例的方法是<code>_dbGetItemWithKey:excludeInlineData:</code><br>我们来看一下它的实现：</p>
+<ol>
+<li>首先根据查找key的sql语句生成stmt</li>
+<li>然后将传入的key与该stmt进行绑定</li>
+<li>最后通过这个stmt来查找出与该key对应的有关该缓存的其他数据并生成item。</li>
+</ol>
+<p>来看一下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (YYKVStorageItem *)_dbGetItemWithKey:(<span class="built_in">NSString</span> *)key excludeInlineData:(<span class="built_in">BOOL</span>)excludeInlineData &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *sql = excludeInlineData ? <span class="string">@"select key, filename, size, modification_time, last_access_time, extended_data from manifest where key = ?1;"</span> : <span class="string">@"select key, filename, size, inline_data, modification_time, last_access_time, extended_data from manifest where key = ?1;"</span>;</span><br><span class="line">    sqlite3_stmt *stmt = [<span class="keyword">self</span> _dbPrepareStmt:sql];</span><br><span class="line">    <span class="keyword">if</span> (!stmt) <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    sqlite3_bind_text(stmt, <span class="number">1</span>, key.UTF8String, <span class="number">-1</span>, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    YYKVStorageItem *item = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">int</span> result = sqlite3_step(stmt);</span><br><span class="line">    <span class="keyword">if</span> (result == SQLITE_ROW) &#123;</span><br><span class="line">        <span class="comment">//传入stmt来生成YYKVStorageItem实例</span></span><br><span class="line">        item = [<span class="keyword">self</span> _dbGetItemFromStmt:stmt excludeInlineData:excludeInlineData];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (result != SQLITE_DONE) &#123;</span><br><span class="line">            <span class="keyword">if</span> (_errorLogsEnabled) <span class="built_in">NSLog</span>(<span class="string">@"%s line:%d sqlite query error (%d): %s"</span>, __FUNCTION__, __LINE__, result, sqlite3_errmsg(_db));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到最终生成YYKVStorageItem实例的是通过<code>_dbGetItemFromStmt:excludeInlineData:</code>来实现的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">- (YYKVStorageItem *)_dbGetItemFromStmt:(sqlite3_stmt *)stmt excludeInlineData:(<span class="built_in">BOOL</span>)excludeInlineData &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//提取数据</span></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> *key = (<span class="keyword">char</span> *)sqlite3_column_text(stmt, i++);</span><br><span class="line">    <span class="keyword">char</span> *filename = (<span class="keyword">char</span> *)sqlite3_column_text(stmt, i++);</span><br><span class="line">    <span class="keyword">int</span> size = sqlite3_column_int(stmt, i++);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//判断excludeInlineData</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span> *inline_data = excludeInlineData ? <span class="literal">NULL</span> : sqlite3_column_blob(stmt, i);</span><br><span class="line">    <span class="keyword">int</span> inline_data_bytes = excludeInlineData ? <span class="number">0</span> : sqlite3_column_bytes(stmt, i++);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> modification_time = sqlite3_column_int(stmt, i++);</span><br><span class="line">    <span class="keyword">int</span> last_access_time = sqlite3_column_int(stmt, i++);</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span> *extended_data = sqlite3_column_blob(stmt, i);</span><br><span class="line">    <span class="keyword">int</span> extended_data_bytes = sqlite3_column_bytes(stmt, i++);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将数据赋给item的属性</span></span><br><span class="line">    YYKVStorageItem *item = [YYKVStorageItem new];</span><br><span class="line">    <span class="keyword">if</span> (key) item.key = [<span class="built_in">NSString</span> stringWithUTF8String:key];</span><br><span class="line">    <span class="keyword">if</span> (filename &amp;&amp; *filename != <span class="number">0</span>) item.filename = [<span class="built_in">NSString</span> stringWithUTF8String:filename];</span><br><span class="line">    item.size = size;</span><br><span class="line">    <span class="keyword">if</span> (inline_data_bytes &gt; <span class="number">0</span> &amp;&amp; inline_data) item.value = [<span class="built_in">NSData</span> dataWithBytes:inline_data length:inline_data_bytes];</span><br><span class="line">    item.modTime = modification_time;</span><br><span class="line">    item.accessTime = last_access_time;</span><br><span class="line">    <span class="keyword">if</span> (extended_data_bytes &gt; <span class="number">0</span> &amp;&amp; extended_data) item.extendedData = [<span class="built_in">NSData</span> dataWithBytes:extended_data length:extended_data_bytes];</span><br><span class="line">    <span class="keyword">return</span> item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这段代码分为两个部分：</p>
+<ul>
+<li>获取数据库里每一个字段对应的数据</li>
+<li>将数据赋给YYKVStorageItem的实例</li>
+</ul>
+<p>需要注意的是：</p>
+<ol>
+<li>字符串类型需要使用<code>stringWithUTF8String:</code>来转成NSString类型。</li>
+<li>这里面会判断<code>excludeInlineData</code>：<ul>
+<li>如果为TRUE，就提取存入的data数据</li>
+<li>如果为FALSE，就不提取</li>
+</ul>
+</li>
+</ol>
+<h2 id="保证线程安全的方案"><a href="#保证线程安全的方案" class="headerlink" title="保证线程安全的方案"></a>保证线程安全的方案</h2><p>我相信对于某个设计来说，它的产生一定是基于某种个特定问题下的某个场景的</p>
+<p>由上文可以看出：</p>
+<ul>
+<li>YYMemoryCache 使用了 pthread_mutex 线程锁（互斥锁）来确保线程安全</li>
+<li>YYDiskCache 则选择了更适合它的 dispatch_semaphore。</li>
+</ul>
+<h3 id="内存缓存操作的互斥锁"><a href="#内存缓存操作的互斥锁" class="headerlink" title="内存缓存操作的互斥锁"></a>内存缓存操作的互斥锁</h3><p>在YYMemoryCache中，是使用互斥锁来保证线程安全的。<br>首先在YYMemoryCache的初始化方法中得到了互斥锁，并在它的所有接口里都加入了互斥锁来保证线程安全，包括setter，getter方法和缓存操作的实现。举几个例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSUInteger</span>)totalCost &#123;</span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    <span class="built_in">NSUInteger</span> totalCost = _lru-&gt;_totalCost;</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">    <span class="keyword">return</span> totalCost;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setReleaseOnMainThread:(<span class="built_in">BOOL</span>)releaseOnMainThread &#123;</span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    _lru-&gt;_releaseOnMainThread = releaseOnMainThread;</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)containsObjectForKey:(<span class="keyword">id</span>)key &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    <span class="built_in">BOOL</span> contains = <span class="built_in">CFDictionaryContainsKey</span>(_lru-&gt;_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key));</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">    <span class="keyword">return</span> contains;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)objectForKey:(<span class="keyword">id</span>)key &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    _YYLinkedMapNode *node = <span class="built_in">CFDictionaryGetValue</span>(_lru-&gt;_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key));</span><br><span class="line">    <span class="keyword">if</span> (node) &#123;</span><br><span class="line">        <span class="comment">//如果节点存在，则更新它的时间信息（最后一次访问的时间）</span></span><br><span class="line">        node-&gt;_time = <span class="built_in">CACurrentMediaTime</span>();</span><br><span class="line">        [_lru bringNodeToHead:node];</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> node ? node-&gt;_value : <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而且需要在dealloc方法中销毁这个锁头：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)dealloc &#123;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//销毁互斥锁</span></span><br><span class="line">    pthread_mutex_destroy(&amp;_lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="磁盘缓存使用信号量来代替锁"><a href="#磁盘缓存使用信号量来代替锁" class="headerlink" title="磁盘缓存使用信号量来代替锁"></a>磁盘缓存使用信号量来代替锁</h3><p>框架作者采用了信号量的方式来给<br>首先在初始化的时候实例化了一个信号量：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)initWithPath:(<span class="built_in">NSString</span> *)path</span><br><span class="line">             inlineThreshold:(<span class="built_in">NSUInteger</span>)threshold &#123;</span><br><span class="line">    ...</span><br><span class="line">    _lock = dispatch_semaphore_create(<span class="number">1</span>);</span><br><span class="line">    _queue = dispatch_queue_create(<span class="string">"com.ibireme.cache.disk"</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>然后使用了宏来代替加锁解锁的代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#define Lock() dispatch_semaphore_wait(self-&gt;_lock, DISPATCH_TIME_FOREVER)</span></span><br><span class="line"><span class="meta">#define Unlock() dispatch_semaphore_signal(self-&gt;_lock)</span></span><br></pre></td></tr></table></figure>
+<p>简单说一下信号量：</p>
+<p>dispatch_semaphore是GCD用来同步的一种方式，与他相关的共有三个函数，分别是</p>
+<ul>
+<li>dispatch_semaphore_create：定义信号量</li>
+<li>dispatch_semaphore_signal：使信号量+1</li>
+<li>dispatch_semaphore_wait：使信号量-1</li>
+</ul>
+<p>当信号量为0时，就会做等待处理，这是其他线程如果访问的话就会让其等待。所以如果信号量在最开始的的时候被设置为1，那么就可以实现“锁”的功能：</p>
+<ul>
+<li>执行某段代码之前，执行dispatch_semaphore_wait函数，让信号量-1变为0，执行这段代码。</li>
+<li>此时如果其他线程过来访问这段代码，就要让其等待。</li>
+<li>当这段代码在当前线程结束以后，执行dispatch_semaphore_signal函数，令信号量再次+1，那么如果有正在等待的线程就可以访问了。</li>
+</ul>
+<p>需要注意的是：如果有多个线程等待，那么后来信号量恢复以后访问的顺序就是线程遇到dispatch_semaphore_wait的顺序。</p>
+<p>这也就是信号量和互斥锁的一个区别：互斥量用于线程的互斥，信号线用于线程的同步。</p>
+<ul>
+<li><p>互斥：是指某一资源同时只允许一个访问者对其进行访问，具有唯一性和排它性。但<strong>互斥无法限制访问者对资源的访问顺序，即访问是无序的</strong>。</p>
+</li>
+<li><p>同步：是指在互斥的基础上（大多数情况），通过其它机制实现访问者对资源的有序访问。在大多数情况下，同步已经实现了互斥，特别是所有写入资源的情况必定是互斥的。也就是说使用信号量可以使多个线程有序访问某个资源。</p>
+</li>
+</ul>
+<p>那么问题来了：为什么内存缓存使用的是互斥锁（pthread_mutex），而磁盘缓存使用的就是信号量（dispatch_semaphore）呢？</p>
+<p>答案在框架作者的文章<a href="https://blog.ibireme.com/2015/10/26/yycache/" target="_blank" rel="noopener">YYCache 设计思路</a>里可以找到:</p>
+<p>为什么内存缓存使用互斥锁（pthread_mutex）？</p>
+<p>框架作者在最初使用的是自旋锁(OSSpinLock)作为内存缓存的线程锁，但是后来得知其不够安全，所以退而求其次，使用了pthread_mutex。</p>
+<p>为什么磁盘缓存使用的是信号量（dispatch_semaphore）？</p>
+<blockquote>
+<p>dispatch_semaphore 是信号量，但当信号总量设为 1 时也可以当作锁来。在没有等待情况出现时，它的性能比 pthread_mutex 还要高，但一旦有等待情况出现时，性能就会下降许多。相对于 OSSpinLock 来说，它的优势在于等待时不会消耗 CPU 资源。对磁盘缓存来说，它比较合适。</p>
+</blockquote>
+<p>因为YYDiskCache在写入比较大的缓存时，可能会有比较长的等待时间，而dispatch_semaphore在这个时候是不消耗CPU资源的，所以比较适合。</p>
+<h2 id="提高缓存性能的几个尝试"><a href="#提高缓存性能的几个尝试" class="headerlink" title="提高缓存性能的几个尝试"></a>提高缓存性能的几个尝试</h2><h3 id="选择合适的线程锁"><a href="#选择合适的线程锁" class="headerlink" title="选择合适的线程锁"></a>选择合适的线程锁</h3><p>可以参考上一部分YYMemoryCache 和YYDiskCache使用的不同的锁以及原因。</p>
+<h3 id="选择合适的数据结构"><a href="#选择合适的数据结构" class="headerlink" title="选择合适的数据结构"></a>选择合适的数据结构</h3><p>在YYMemoryCache中，作者选择了双向链表来保存这些缓存节点。那么可以思考一下，为什么要用双向链表而不是单向链表或是数组呢？</p>
+<ul>
+<li><p>为什么不选择单向链表：单链表的节点只知道它后面的节点（只有指向后一节点的指针），而不知道前面的。所以如果想移动其中一个节点的话，其前后的节点不好做衔接。</p>
+</li>
+<li><p>为什么不选择数组：数组中元素在内存的排列是连续的，对于寻址操作非常便利；但是对于插入，删除操作很不方便，需要整体移动，移动的元素个数越多，代价越大。而链表恰恰相反，因为其节点的关联仅仅是靠指针，所以对于插入和删除操作会很便利，而寻址操作缺比较费时。由于在LRU策略中会有非常多的移动，插入和删除节点的操作，所以使用双向链表是比较有优势的。</p>
+</li>
+</ul>
+<h3 id="选择合适的线程来操作不同的任务"><a href="#选择合适的线程来操作不同的任务" class="headerlink" title="选择合适的线程来操作不同的任务"></a>选择合适的线程来操作不同的任务</h3><p>无论缓存的自动清理和释放，作者默认把这些任务放到子线程去做：</p>
+<p>看一下释放所有内存缓存的操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)removeAll &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将开销，缓存数量置为0</span></span><br><span class="line">    _totalCost = <span class="number">0</span>;</span><br><span class="line">    _totalCount = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将链表的头尾节点置空</span></span><br><span class="line">    _head = <span class="literal">nil</span>;</span><br><span class="line">    _tail = <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CFDictionaryGetCount</span>(_dic) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CFMutableDictionaryRef</span> holder = _dic;</span><br><span class="line">        _dic = <span class="built_in">CFDictionaryCreateMutable</span>(<span class="built_in">CFAllocatorGetDefault</span>(), <span class="number">0</span>, &amp;kCFTypeDictionaryKeyCallBacks, &amp;kCFTypeDictionaryValueCallBacks);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//是否在子线程操作</span></span><br><span class="line">        <span class="keyword">if</span> (_releaseAsynchronously) &#123;</span><br><span class="line">            <span class="built_in">dispatch_queue_t</span> queue = _releaseOnMainThread ? dispatch_get_main_queue() : YYMemoryCacheGetReleaseQueue();</span><br><span class="line">            <span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line">                <span class="built_in">CFRelease</span>(holder); <span class="comment">// hold and release in specified queue</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_releaseOnMainThread &amp;&amp; !pthread_main_np()) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                <span class="built_in">CFRelease</span>(holder); <span class="comment">// hold and release in specified queue</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">CFRelease</span>(holder);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的<code>YYMemoryCacheGetReleaseQueue()</code>使用了内联函数，返回了低优先级的并发队列。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//内联函数，返回优先级最低的全局并发队列</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="built_in">dispatch_queue_t</span> YYMemoryCacheGetReleaseQueue() &#123;</span><br><span class="line">    <span class="keyword">return</span> dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="选择底层的类"><a href="#选择底层的类" class="headerlink" title="选择底层的类"></a>选择底层的类</h3><p>同样是字典实现，但是作者使用了更底层且快速的CFDictionary而没有用NSDictionary来实现。</p>
+<h2 id="其他知识点"><a href="#其他知识点" class="headerlink" title="其他知识点"></a>其他知识点</h2><h3 id="禁用原生初始化方法并标明新定义的指定初始化方法"><a href="#禁用原生初始化方法并标明新定义的指定初始化方法" class="headerlink" title="禁用原生初始化方法并标明新定义的指定初始化方法"></a>禁用原生初始化方法并标明新定义的指定初始化方法</h3><p>YYCache有4个供外部调用的初始化接口，无论是对象方法还是类方法都需要传入一个字符串（名称或路径）。</p>
+<p>而两个原生的初始化方法被框架作者禁掉了：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)init UNAVAILABLE_ATTRIBUTE;</span><br><span class="line">+ (<span class="keyword">instancetype</span>)new UNAVAILABLE_ATTRIBUTE;</span><br></pre></td></tr></table></figure>
+<p>如果用户使用了上面两个初始化方法就会在编译期报错。</p>
+<p>而剩下的四个可以使用的初始化方法中，有一个是指定初始化方法，被作者用<code>NS_DESIGNATED_INITIALIZER</code>标记了。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithName:(<span class="built_in">NSString</span> *)name;</span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithPath:(<span class="built_in">NSString</span> *)path <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)cacheWithName:(<span class="built_in">NSString</span> *)name;</span><br><span class="line">+ (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)cacheWithPath:(<span class="built_in">NSString</span> *)path;</span><br></pre></td></tr></table></figure>
+<p>指定初始化方法就是所有可使用的初始化方法都必须调用的方法。更详细的介绍可以参考我的下面两篇文章：</p>
+<ul>
+<li><a href="https://juejin.im/post/5940c8befe88c2006a468ea6" target="_blank" rel="noopener">iOS 代码规范</a>中讲解“类”的这一部分。</li>
+<li><a href="https://juejin.im/post/5a4f3710f265da3e4d728239" target="_blank" rel="noopener">《Effective objc》干货三部曲（三）：技巧篇</a>中的第16条。</li>
+</ul>
+<h3 id="异步释放对象的技巧"><a href="#异步释放对象的技巧" class="headerlink" title="异步释放对象的技巧"></a>异步释放对象的技巧</h3><p>为了异步将某个对象释放掉，可以通过在GCD的block里面给它发个消息来实现。这个技巧在该框架中很常见，举一个删除一个内存缓存的例子：</p>
+<p>首先将这个缓存的node类取出，然后异步将其释放掉。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)removeObjectForKey:(<span class="keyword">id</span>)key &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!key) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    pthread_mutex_lock(&amp;_lock);</span><br><span class="line">    _YYLinkedMapNode *node = <span class="built_in">CFDictionaryGetValue</span>(_lru-&gt;_dic, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key));</span><br><span class="line">    <span class="keyword">if</span> (node) &#123;</span><br><span class="line">        [_lru removeNode:node];</span><br><span class="line">        <span class="keyword">if</span> (_lru-&gt;_releaseAsynchronously) &#123;</span><br><span class="line">            <span class="built_in">dispatch_queue_t</span> queue = _lru-&gt;_releaseOnMainThread ? dispatch_get_main_queue() : YYMemoryCacheGetReleaseQueue();</span><br><span class="line">            <span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line">                [node <span class="keyword">class</span>]; <span class="comment">//hold and release in queue</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_lru-&gt;_releaseOnMainThread &amp;&amp; !pthread_main_np()) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                [node <span class="keyword">class</span>]; <span class="comment">//hold and release in queue</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_mutex_unlock(&amp;_lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了释放掉这个node对象，在一个异步执行的（主队列或自定义队列里）block里给其发送了<code>class</code>这个消息。不需要纠结这个消息具体是什么，他的目的是为了避免编译错误，因为我们无法在block里面硬生生地将某个对象写进去。</p>
+<p>其实关于上面这一点我自己也有点拿不准，希望理解得比较透彻的同学能在下面留个言~ ^^</p>
+<h3 id="内存警告和进入后台的监听"><a href="#内存警告和进入后台的监听" class="headerlink" title="内存警告和进入后台的监听"></a>内存警告和进入后台的监听</h3><p>YYCache默认在收到内存警告和进入后台时，自动清除所有内存缓存。所以在YYMemoryCache的初始化方法里，我们可以看到这两个监听的动作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//YYMemoryCache.m</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init&#123;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">      </span><br><span class="line">    <span class="comment">//监听app生命周期</span></span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(_appDidReceiveMemoryWarningNotification) name:<span class="built_in">UIApplicationDidReceiveMemoryWarningNotification</span> object:<span class="literal">nil</span>];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(_appDidEnterBackgroundNotification) name:<span class="built_in">UIApplicationDidEnterBackgroundNotification</span> object:<span class="literal">nil</span>];</span><br><span class="line">   </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后实现监听到消息后的处理方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//内存警告时，删除所有内存缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)_appDidReceiveMemoryWarningNotification &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.didReceiveMemoryWarningBlock) &#123;</span><br><span class="line">        <span class="keyword">self</span>.didReceiveMemoryWarningBlock(<span class="keyword">self</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.shouldRemoveAllObjectsOnMemoryWarning) &#123;</span><br><span class="line">        [<span class="keyword">self</span> removeAllObjects];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//进入后台时，删除所有内存缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)_appDidEnterBackgroundNotification &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.didEnterBackgroundBlock) &#123;</span><br><span class="line">        <span class="keyword">self</span>.didEnterBackgroundBlock(<span class="keyword">self</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.shouldRemoveAllObjectsWhenEnteringBackground) &#123;</span><br><span class="line">        [<span class="keyword">self</span> removeAllObjects];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="判断头文件的导入"><a href="#判断头文件的导入" class="headerlink" title="判断头文件的导入"></a>判断头文件的导入</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#if __has_include(<span class="meta-string">&lt;YYCache/YYCache.h&gt;</span>)</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;YYCache/YYMemoryCache.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;YYCache/YYDiskCache.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;YYCache/YYKVStorage.h&gt;</span></span></span><br><span class="line"><span class="meta">#elif __has_include(<span class="meta-string">&lt;YYWebImage/YYCache.h&gt;</span>)</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;YYWebImage/YYMemoryCache.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;YYWebImage/YYDiskCache.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;YYWebImage/YYKVStorage.h&gt;</span></span></span><br><span class="line"><span class="meta">#else</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"YYMemoryCache.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"YYDiskCache.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"YYKVStorage.h"</span></span></span><br><span class="line"><span class="meta">#endif</span></span><br></pre></td></tr></table></figure>
+<p>在这里作者使用__has_include来检查Frameworks是否引入某个类。<br>因为YYWebImage已经集成YYCache,所以如果导入过YYWebImage的话就无需重再导入YYCache了。</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><p>通过看该组件的源码，我收获的不仅有缓存设计的思路，还有：</p>
+<ul>
+<li>双向链表的概念以及相关操作</li>
+<li>数据库的使用</li>
+<li>互斥锁，信号量的使用</li>
+<li>实现线程安全的方案</li>
+<li>变量，方法的命名以及接口的设计</li>
+</ul>
+<p>相信读过这篇文章的你也会有一些收获~<br>如果能趁热打铁，下载一个<a href="https://github.com/ibireme/YYCache">YYCache</a>源码看就更好啦~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+            <a href="/tags/源码解析/" rel="tag"># 源码解析</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/YTKNetwork源码解析/" rel="next" title="YTKNetwork源码解析">
+                <i class="fa fa-chevron-left"></i> YTKNetwork源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/iOS 代码规范/" rel="prev" title="iOS 代码规范">
+                iOS 代码规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本使用方法"><span class="nav-number">1.</span> <span class="nav-text">基本使用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构与职责划分"><span class="nav-number">2.</span> <span class="nav-text">架构与职责划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">2.1.</span> <span class="nav-text">架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#职责划分"><span class="nav-number">2.2.</span> <span class="nav-text">职责划分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码讲解"><span class="nav-number">3.</span> <span class="nav-text">代码讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#YYCache"><span class="nav-number">3.1.</span> <span class="nav-text">YYCache</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#YYCache的属性和接口"><span class="nav-number">3.1.1.</span> <span class="nav-text">YYCache的属性和接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YYCache的接口实现"><span class="nav-number">3.1.2.</span> <span class="nav-text">YYCache的接口实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YYMemoryCache"><span class="nav-number">3.2.</span> <span class="nav-text">YYMemoryCache</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#YYMemoryCache的缓存淘汰算法"><span class="nav-number">3.2.1.</span> <span class="nav-text">YYMemoryCache的缓存淘汰算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#YYLinkedMapNode"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">_YYLinkedMapNode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YYLinkedMap"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">_YYLinkedMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YYMemoryCache的属性和接口"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">YYMemoryCache的属性和接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#YYMemoryCache的接口实现"><span class="nav-number">3.2.1.4.</span> <span class="nav-text">YYMemoryCache的接口实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YYMemoryCache的缓存清理策略"><span class="nav-number">3.2.2.</span> <span class="nav-text">YYMemoryCache的缓存清理策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存自动清理"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">缓存自动清理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存手动清理"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">缓存手动清理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#YYDiskCache"><span class="nav-number">3.3.</span> <span class="nav-text">YYDiskCache</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#YYKVStorage"><span class="nav-number">3.3.1.</span> <span class="nav-text">YYKVStorage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保证线程安全的方案"><span class="nav-number">3.4.</span> <span class="nav-text">保证线程安全的方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存缓存操作的互斥锁"><span class="nav-number">3.4.1.</span> <span class="nav-text">内存缓存操作的互斥锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘缓存使用信号量来代替锁"><span class="nav-number">3.4.2.</span> <span class="nav-text">磁盘缓存使用信号量来代替锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提高缓存性能的几个尝试"><span class="nav-number">3.5.</span> <span class="nav-text">提高缓存性能的几个尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择合适的线程锁"><span class="nav-number">3.5.1.</span> <span class="nav-text">选择合适的线程锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择合适的数据结构"><span class="nav-number">3.5.2.</span> <span class="nav-text">选择合适的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择合适的线程来操作不同的任务"><span class="nav-number">3.5.3.</span> <span class="nav-text">选择合适的线程来操作不同的任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择底层的类"><span class="nav-number">3.5.4.</span> <span class="nav-text">选择底层的类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他知识点"><span class="nav-number">3.6.</span> <span class="nav-text">其他知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#禁用原生初始化方法并标明新定义的指定初始化方法"><span class="nav-number">3.6.1.</span> <span class="nav-text">禁用原生初始化方法并标明新定义的指定初始化方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步释放对象的技巧"><span class="nav-number">3.6.2.</span> <span class="nav-text">异步释放对象的技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存警告和进入后台的监听"><span class="nav-number">3.6.3.</span> <span class="nav-text">内存警告和进入后台的监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断头文件的导入"><span class="nav-number">3.6.4.</span> <span class="nav-text">判断头文件的导入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">4.</span> <span class="nav-text">最后的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

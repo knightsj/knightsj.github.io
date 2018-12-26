@@ -1,0 +1,949 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,源码解析,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="这一系列的源码解析分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。 想来想去，还是从JSONModel开始吧～ 首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋">
+<meta name="keywords" content="iOS,Objective-C,源码解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSONModel源码解析">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/JSONModel源码解析/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="这一系列的源码解析分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。 想来想去，还是从JSONModel开始吧～ 首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-94b356eeb7b560e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.544Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSONModel源码解析">
+<meta name="twitter:description" content="这一系列的源码解析分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。 想来想去，还是从JSONModel开始吧～ 首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-94b356eeb7b560e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/JSONModel源码解析/">
+
+
+
+
+
+  <title> JSONModel源码解析 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/JSONModel源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JSONModel源码解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,659 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  26 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这一系列的<a href="http://www.jianshu.com/nb/9137726" target="_blank" rel="noopener">源码解析</a>分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。</p>
+<p>想来想去，还是从<a href="https://github.com/jsonmodel/jsonmodel">JSONModel</a>开始吧～</p>
+<p>首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋还是很有帮助的。</p>
+<p>该框架的核心代码并不是很多，主要还是错误类型判断和容错处理占了不少内容。读过一遍之后，感觉到作者思维的严谨性是非常值得我们学习的：作者专门建立了一个展示错误(NSError)的类，里面封装了很多错误类型，而且这个框架还允许用户根据自己的需求来自定义错误类型并阻止最终模型的生成，在后文会有详细讲解。</p>
+<a id="more"></a>
+<p>在讲解源码之前，有必要先给不会使用JSONModel的同学们通过实际的例子来介绍一下它的使用方法（而且后面的源码解析部分也是结合这些例子给出的，因为结合例子有助于加快理解）：</p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="1-最基本的使用"><a href="#1-最基本的使用" class="headerlink" title="1. 最基本的使用"></a>1. 最基本的使用</h2><p>第一种就是单纯地传入一个字典，并转换成模型：<br>首先我们需要定义我们自己的模型类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">JSONModel</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *sex;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> age;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>然后再使用字典来转换为模型：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *dict = @&#123;</span><br><span class="line">                        <span class="string">@"name"</span>:<span class="string">@"Jack"</span>,</span><br><span class="line">                        <span class="string">@"age"</span>:@<span class="number">23</span>,</span><br><span class="line">                        <span class="string">@"gender"</span>:<span class="string">@"male"</span>,</span><br><span class="line">                      &#125;;</span><br><span class="line"> <span class="built_in">NSError</span> *error;</span><br><span class="line"> Person *person = [[Person alloc] initWithDictionary:dict error:&amp;error];</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> &lt;Person&gt; </span><br><span class="line">   [name]: Jack</span><br><span class="line">   [sex]: male</span><br><span class="line">   [gender]: <span class="number">23</span></span><br><span class="line">&lt;/Person&gt;</span><br></pre></td></tr></table></figure></p>
+<p>可以看出来，该框架的使用非常方便，一行代码就将模型转换好了。<br>但是该框架的功能远不止这些：</p>
+<h2 id="2-转换属性名称"><a href="#2-转换属性名称" class="headerlink" title="2. 转换属性名称"></a>2. 转换属性名称</h2><p>有的时候，传入的字典里的key发生了变化（比如接口重构之类的原因），但是我们前端这边已经写好的模型属性可能不容易被修改（因为业务逻辑很复杂什么的），所以这个时候，最好有一个转化的功能。</p>
+<p>在这里举个例子：原来字典里的<code>gender</code>这个key变成了<code>sex</code>，这就需要我们定义一个转换的mapper（<code>JSONKeyMapper</code>）：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line">+ (JSONKeyMapper *)keyMapper</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@&#123;</span><br><span class="line">                                                                  <span class="string">@"gender"</span>: <span class="string">@"sex"</span>,                                                             &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样一来，<code>JSONKeyMapper</code>就会自动帮我们做转换。<br>为了验证效果，我们修改一下传入的字典里的<code>gender</code>字段为<code>sex</code>：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *dict = @&#123;</span><br><span class="line">                        <span class="string">@"name"</span>:<span class="string">@"Jack"</span>,</span><br><span class="line">                        <span class="string">@"age"</span>:@<span class="number">23</span>,</span><br><span class="line">                        <span class="string">@"sex"</span>:<span class="string">@"male"</span>,</span><br><span class="line">                      &#125;;</span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line">Person *person = [[Person alloc] initWithDictionary:dict error:&amp;error];</span><br></pre></td></tr></table></figure></p>
+<p>再看一下输出：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Person&gt; </span><br><span class="line">   [name]: Jack</span><br><span class="line">   [age]: <span class="number">23</span></span><br><span class="line">   [gender]: male</span><br><span class="line">&lt;/Person&gt;</span><br></pre></td></tr></table></figure>
+<p>没有受到传入字典里key值的变化的影响，是吧？</p>
+<h2 id="3-自定义错误"><a href="#3-自定义错误" class="headerlink" title="3. 自定义错误"></a>3. 自定义错误</h2><p>除了一些框架里自己处理的错误（比如传入的对象不是字典等），框架的作者也允许我们自己定义属于我们自己的错误。</p>
+<p>比如，当<code>age</code>对应的数值小于25的时候，打印出<code>Too young!</code>,并阻止模型的转换：</p>
+<p>首先，我们在模型的实现文件里添加：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)validate:(<span class="built_in">NSError</span> **)error</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">super</span> validate:error])</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.age &lt; <span class="number">25</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *error = [<span class="built_in">NSError</span> errorWithDomain:<span class="string">@"Too young!"</span> code:<span class="number">10</span> userInfo:<span class="literal">nil</span>];</span><br><span class="line">        <span class="built_in">NSError</span> *errorLog = *error;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,errorLog.domain);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下结果：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2017</span><span class="number">-02</span><span class="number">-20</span> <span class="number">16</span>:<span class="number">14</span>:<span class="number">54.217</span> jsonmodel_demo[<span class="number">32942</span>:<span class="number">1967433</span>] Too young!</span><br><span class="line"><span class="number">2017</span><span class="number">-02</span><span class="number">-20</span> <span class="number">16</span>:<span class="number">14</span>:<span class="number">54.217</span> jsonmodel_demo[<span class="number">32942</span>:<span class="number">1967433</span>] (null)</span><br></pre></td></tr></table></figure></p>
+<p>打印了错误，而且模型也没有被转换。</p>
+<h2 id="4-模型嵌套"><a href="#4-模型嵌套" class="headerlink" title="4. 模型嵌套"></a>4. 模型嵌套</h2><p>有的时候，我们需要在模型里加一个数组，而这个数组里面的元素是另一个对象：这就涉及到了模型的嵌套。</p>
+<p>举个例子，我们让上面的<code>Person</code>对象含有一个数组<code>Friends</code>，它里面的元素是对象<code>Friend</code>，也就是好友信息。若要实现模型的嵌套，我们只需在原来的模型类里增加一个协议<code>Friend</code>：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"JSONModel.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">Friend</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Friend</span> : <span class="title">JSONModel</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> age;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">JSONModel</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> age;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *gender;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span>&lt;Friend&gt; *friends;<span class="comment">//数组，嵌套模型</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>而且要在<code>Person</code>的实现文件里加上这一段代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Friend</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>注意！如果不添加，则会令程序崩溃。</p>
+<p>最后，在使用的时候，我们只需将持有一个数组的字典里传入即可：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *array = @[</span><br><span class="line">                      @&#123;</span><br><span class="line">                        <span class="string">@"name"</span>:<span class="string">@"Peter"</span>,</span><br><span class="line">                        <span class="string">@"age"</span>:@<span class="number">35</span>,</span><br><span class="line">                        &#125;,</span><br><span class="line">                   ];</span><br><span class="line">    </span><br><span class="line"> <span class="built_in">NSDictionary</span> *dict = @&#123;</span><br><span class="line">                           <span class="string">@"name"</span>:<span class="string">@"Jack"</span>,</span><br><span class="line">                           <span class="string">@"age"</span>:@<span class="number">23</span>,</span><br><span class="line">                           <span class="string">@"sex"</span>:<span class="string">@"male"</span>,</span><br><span class="line">                           <span class="string">@"friends"</span>:array,<span class="comment">//朋友列表（模型嵌套）</span></span><br><span class="line">                         &#125;;</span><br><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line">Person *person = [[Person alloc] initWithDictionary:dict error:&amp;error];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,person);</span><br></pre></td></tr></table></figure>
+<p>输出结果：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Person&gt; </span><br><span class="line">   [age]: <span class="number">23</span></span><br><span class="line">   [gender]: male</span><br><span class="line">   [friends]: (</span><br><span class="line">       <span class="string">"&lt;Friend&gt; \n   [name]: Peter\n   [age]: 35\n&lt;/Friend&gt;"</span></span><br><span class="line">   )</span><br><span class="line">   [name]: Jack</span><br><span class="line">&lt;/Person&gt;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到，person对象里含有一个数组，这个数组只有一个元素，对应着上面字典里的array里的信息。</p>
+<p>OK，这样一来，大家已经可以掌握该框架的主要用法了，现在开始详细讲解代码：</p>
+<h1 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h1><p>本篇源码解析主要围绕着<code>initWithDictionary:error:</code>来展开，在这一个方法里作者做到了所有的容错和模型的转化。</p>
+<p>按照老规矩，先上流程图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-94b356eeb7b560e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="字典-&gt;模型"></p>
+<p>该流程图对应的方法实现是：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">id</span>)initWithDictionary:(<span class="built_in">NSDictionary</span>*)dict error:(<span class="built_in">NSError</span>**)err</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//方法1. 参数为nil</span></span><br><span class="line">    <span class="keyword">if</span> (!dict) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) *err = [JSONModelError errorInputIsNil];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法2. 参数不是nil，但也不是字典</span></span><br><span class="line">    <span class="keyword">if</span> (![dict isKindOfClass:[<span class="built_in">NSDictionary</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) *err = [JSONModelError errorInvalidDataWithMessage:<span class="string">@"Attempt to initialize JSONModel object using initWithDictionary:error: but the dictionary parameter was not an 'NSDictionary'."</span>];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法3. 初始化</span></span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">self</span> init];</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="comment">//初始化失败</span></span><br><span class="line">        <span class="keyword">if</span> (err) *err = [JSONModelError errorModelIsInvalid];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法4. 检查用户定义的模型里的属性集合是否大于传入的字典里的key集合（如果大于，则返回NO）</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> __doesDictionary:dict matchModelWithKeyMapper:<span class="keyword">self</span>.__keyMapper error:err]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法5. 核心方法：字典的key与模型的属性的映射</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> __importDictionary:dict withKeyMapper:<span class="keyword">self</span>.__keyMapper validation:<span class="literal">YES</span> error:err]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法6. 可以重写[self validate:err]方法并返回NO，让用户自定义错误并阻拦model的返回</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> validate:err]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法7. 终于通过了！成功返回model</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，</p>
+<ul>
+<li>方法1-4:都是对错误的发现与处理。</li>
+<li>方法5:是真正的mapping。</li>
+<li>方法6:是作者给用户自己定义错误的方法，如果复合了用户自己定义的错误，那么即使mapping成功了，也要返回nil。<br>-方法7:成功返回模型对象。</li>
+</ul>
+<p>在讲解代码之前，有必要先了解一下JSONModel所持有的一些数据：</p>
+<ul>
+<li><p><strong>关联对象kClassPropertiesKey</strong>:(用来保存所有属性信息的NSDictionary)</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">       age = <span class="string">"@property primitive age (Setters = [])"</span>;</span><br><span class="line">      name = <span class="string">"@property NSString* name (Standard JSON type, Setters = [])"</span>;</span><br><span class="line">    gender = <span class="string">"@property NSString* gender (Standard JSON type, Setters = [])"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>关联对象kClassRequiredPropertyNamesKey</strong>：(用来保存所有属性的名称NSSet)</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;(</span><br><span class="line">    name,</span><br><span class="line">    age,</span><br><span class="line">    gender</span><br><span class="line">)&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>关联对象kMapperObjectKey</strong>：(用来保存JSONKeyMapper)：自定义的mapper，具体的使用方法在上面的例子中可以看到。</p>
+</li>
+</ul>
+<ul>
+<li><strong>JSONModelClassProperty</strong>：封装的jsonmodel的一个属性，它包含了对应属性的名字（name：gender），类型（type：NSString），是否是JSONModel支持的类型（isStandardJSONType：YES/NO），是否是可变对象（isMutable:YES/NO）等属性。</li>
+</ul>
+<p>再大致讲解一下整个的流程：<br>首先，在这个模型类的对象被初始化的时候，遍历自身到所有的父类（直到JSONModel为止），获取所有的属性，并将其保存在一个字典里。获取传入字典的所有key，将这些key与保存的所有属性进行匹配。如果匹配成功，则进行kvc赋值。</p>
+<p>OK，现在从上到下逐步讲解上段代码：</p>
+<p>首先，在<code>load</code>方法里，定义了该框架支持的类型：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="keyword">void</span>)load</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> once;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;once, ^&#123;</span><br><span class="line">        <span class="keyword">@autoreleasepool</span> &#123;           </span><br><span class="line">            <span class="comment">//兼容的对象属性</span></span><br><span class="line">            allowedJSONTypes = @[</span><br><span class="line">                [<span class="built_in">NSString</span> <span class="keyword">class</span>], [<span class="built_in">NSNumber</span> <span class="keyword">class</span>], [<span class="built_in">NSDecimalNumber</span> <span class="keyword">class</span>], [<span class="built_in">NSArray</span> <span class="keyword">class</span>], [<span class="built_in">NSDictionary</span> <span class="keyword">class</span>], [<span class="built_in">NSNull</span> <span class="keyword">class</span>], <span class="comment">//immutable JSON classes</span></span><br><span class="line">                [<span class="built_in">NSMutableString</span> <span class="keyword">class</span>], [<span class="built_in">NSMutableArray</span> <span class="keyword">class</span>], [<span class="built_in">NSMutableDictionary</span> <span class="keyword">class</span>] <span class="comment">//mutable JSON classes</span></span><br><span class="line">            ];</span><br><span class="line">            <span class="comment">//兼容的基本类型属性</span></span><br><span class="line">            allowedPrimitiveTypes = @[</span><br><span class="line">                <span class="string">@"BOOL"</span>, <span class="string">@"float"</span>, <span class="string">@"int"</span>, <span class="string">@"long"</span>, <span class="string">@"double"</span>, <span class="string">@"short"</span>,</span><br><span class="line">                <span class="comment">//and some famous aliases</span></span><br><span class="line">                <span class="string">@"NSInteger"</span>, <span class="string">@"NSUInteger"</span>,</span><br><span class="line">                <span class="string">@"Block"</span></span><br><span class="line">            ];</span><br><span class="line">            <span class="comment">//转换器</span></span><br><span class="line">            valueTransformer = [[JSONValueTransformer alloc] init];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//自己的类型</span></span><br><span class="line">            JSONModelClass = <span class="built_in">NSClassFromString</span>(<span class="built_in">NSStringFromClass</span>(<span class="keyword">self</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后我们看一下从方法3的init方法开始，作者都做了什么：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">id</span>)init</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> __setup__];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line">-(<span class="keyword">void</span>)__setup__</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//只有第一次实例化时，才执行</span></span><br><span class="line">    <span class="keyword">if</span> (!objc_getAssociatedObject(<span class="keyword">self</span>.class, &amp;kClassPropertiesKey)) &#123;</span><br><span class="line">        [<span class="keyword">self</span> __inspectProperties];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果存在自定义的mapper，则将它保存在关联对象里面，key是kMapperObjectKey</span></span><br><span class="line">    <span class="keyword">id</span> mapper = [[<span class="keyword">self</span> <span class="keyword">class</span>] keyMapper];</span><br><span class="line">    <span class="keyword">if</span> ( mapper &amp;&amp; !objc_getAssociatedObject(<span class="keyword">self</span>.class, &amp;kMapperObjectKey) ) &#123;</span><br><span class="line">        objc_setAssociatedObject(</span><br><span class="line">                                 <span class="keyword">self</span>.class,</span><br><span class="line">                                 &amp;kMapperObjectKey,</span><br><span class="line">                                 mapper,</span><br><span class="line">                                 OBJC_ASSOCIATION_RETAIN <span class="comment">// This is atomic</span></span><br><span class="line">                                 );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>值得注意的是，这里的<code>__inspectProperties:</code>方法是该框架的核心方法之一：它的任务是保存了所有需要赋值的属性。用作在将来与传进来字典进行映射：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)__inspectProperties</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//    最终保存所有属性的字典，形式为：</span></span><br><span class="line"><span class="comment">//    &#123;</span></span><br><span class="line"><span class="comment">//        age = "@property primitive age (Setters = [])";</span></span><br><span class="line"><span class="comment">//        friends = "@property NSArray*&lt;Friend&gt; friends (Standard JSON type, Setters = [])";</span></span><br><span class="line"><span class="comment">//        gender = "@property NSString* gender (Standard JSON type, Setters = [])";</span></span><br><span class="line"><span class="comment">//        name = "@property NSString* name (Standard JSON type, Setters = [])";</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    <span class="built_in">NSMutableDictionary</span>* propertyIndex = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">    <span class="comment">//获取当前的类名</span></span><br><span class="line">    Class <span class="keyword">class</span> = [<span class="keyword">self</span> <span class="keyword">class</span>];    </span><br><span class="line">    <span class="built_in">NSScanner</span>* scanner = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSString</span>* propertyType = <span class="literal">nil</span>;</span><br><span class="line">    <span class="comment">// 循环条件：当class 是 JSONModel自己的时候终止</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">class</span> != [JSONModel <span class="keyword">class</span>]) &#123;        </span><br><span class="line">        <span class="comment">//属性的个数</span></span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> propertyCount;</span><br><span class="line">        <span class="comment">//获得属性列表（所有@property声明的属性）</span></span><br><span class="line">        objc_property_t *properties = class_copyPropertyList(<span class="keyword">class</span>, &amp;propertyCount);</span><br><span class="line">        <span class="comment">//遍历所有的属性</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; propertyCount; i++) &#123;</span><br><span class="line">            <span class="comment">//获得属性名称</span></span><br><span class="line">            objc_property_t property = properties[i];<span class="comment">//获得当前的属性</span></span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">char</span> *propertyName = property_getName(property);<span class="comment">//name（C字符串）            </span></span><br><span class="line">            <span class="comment">//JSONModel里的每一个属性，都被封装成一个JSONModelClassProperty对象</span></span><br><span class="line">            JSONModelClassProperty* p = [[JSONModelClassProperty alloc] init];</span><br><span class="line">            p.name = @(propertyName);<span class="comment">//propertyName:属性名称，例如：name，age，gender</span></span><br><span class="line">            <span class="comment">//获得属性类型</span></span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">char</span> *attrs = property_getAttributes(property);</span><br><span class="line">            <span class="built_in">NSString</span>* propertyAttributes = @(attrs);</span><br><span class="line">            <span class="comment">// T@\"NSString\",C,N,V_name</span></span><br><span class="line">            <span class="comment">// Tq,N,V_age</span></span><br><span class="line">            <span class="comment">// T@\"NSString\",C,N,V_gender</span></span><br><span class="line">            <span class="comment">// T@"NSArray&lt;Friend&gt;",&amp;,N,V_friends            </span></span><br><span class="line">            <span class="built_in">NSArray</span>* attributeItems = [propertyAttributes componentsSeparatedByString:<span class="string">@","</span>];</span><br><span class="line">            <span class="comment">//说明是只读属性，不做任何操作</span></span><br><span class="line">            <span class="keyword">if</span> ([attributeItems containsObject:<span class="string">@"R"</span>]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>; <span class="comment">//to next property</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//检查出是布尔值</span></span><br><span class="line">            <span class="keyword">if</span> ([propertyAttributes hasPrefix:<span class="string">@"Tc,"</span>]) &#123;</span><br><span class="line">                p.structName = <span class="string">@"BOOL"</span>;<span class="comment">//使其变为结构体</span></span><br><span class="line">            &#125;            </span><br><span class="line">            <span class="comment">//实例化一个scanner</span></span><br><span class="line">            scanner = [<span class="built_in">NSScanner</span> scannerWithString: propertyAttributes];</span><br><span class="line">            [scanner scanUpToString:<span class="string">@"T"</span> intoString: <span class="literal">nil</span>];</span><br><span class="line">            [scanner scanString:<span class="string">@"T"</span> intoString:<span class="literal">nil</span>];</span><br><span class="line">            <span class="comment">//http://blog.csdn.net/kmyhy/article/details/8258858           </span></span><br><span class="line">            <span class="keyword">if</span> ([scanner scanString:<span class="string">@"@\""</span> intoString: &amp;propertyType]) &#123;                </span><br><span class="line">                 <span class="comment">//属性是一个对象</span></span><br><span class="line">                [scanner scanUpToCharactersFromSet:[<span class="built_in">NSCharacterSet</span> characterSetWithCharactersInString:<span class="string">@"\"&lt;"</span>]</span><br><span class="line">                                        intoString:&amp;propertyType];<span class="comment">//propertyType -&gt; NSString                </span></span><br><span class="line">                p.type = <span class="built_in">NSClassFromString</span>(propertyType);<span class="comment">// p.type = @"NSString"</span></span><br><span class="line">                p.isMutable = ([propertyType rangeOfString:<span class="string">@"Mutable"</span>].location != <span class="built_in">NSNotFound</span>); <span class="comment">//判断是否是可变的对象</span></span><br><span class="line">                p.isStandardJSONType = [allowedJSONTypes containsObject:p.type];<span class="comment">//是否是该框架兼容的类型</span></span><br><span class="line">                <span class="comment">//存在协议(数组，也就是嵌套模型)</span></span><br><span class="line">                <span class="keyword">while</span> ([scanner scanString:<span class="string">@"&lt;"</span> intoString:<span class="literal">NULL</span>]) &#123;</span><br><span class="line">                    <span class="built_in">NSString</span>* protocolName = <span class="literal">nil</span>;</span><br><span class="line">                    [scanner scanUpToString:<span class="string">@"&gt;"</span> intoString: &amp;protocolName];</span><br><span class="line">                    <span class="keyword">if</span> ([protocolName isEqualToString:<span class="string">@"Optional"</span>]) &#123;</span><br><span class="line">                        p.isOptional = <span class="literal">YES</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>([protocolName isEqualToString:<span class="string">@"Index"</span>]) &#123;</span><br><span class="line"><span class="meta">#pragma GCC diagnostic push</span></span><br><span class="line"><span class="meta">#pragma GCC diagnostic ignored <span class="meta-string">"-Wdeprecated-declarations"</span></span></span><br><span class="line">                        p.isIndex = <span class="literal">YES</span>;</span><br><span class="line"><span class="meta">#pragma GCC diagnostic pop</span></span><br><span class="line">                        objc_setAssociatedObject(</span><br><span class="line">                                                 <span class="keyword">self</span>.class,</span><br><span class="line">                                                 &amp;kIndexPropertyNameKey,</span><br><span class="line">                                                 p.name,</span><br><span class="line">                                                 OBJC_ASSOCIATION_RETAIN <span class="comment">// This is atomic</span></span><br><span class="line">                                                 );</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>([protocolName isEqualToString:<span class="string">@"Ignore"</span>]) &#123;</span><br><span class="line">                        p = <span class="literal">nil</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        p.protocol = protocolName;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//到最接近的&gt;为止</span></span><br><span class="line">                    [scanner scanString:<span class="string">@"&gt;"</span> intoString:<span class="literal">NULL</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;            </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ([scanner scanString:<span class="string">@"&#123;"</span> intoString: &amp;propertyType])                </span><br><span class="line">                <span class="comment">//属性是结构体</span></span><br><span class="line">                [scanner scanCharactersFromSet:[<span class="built_in">NSCharacterSet</span> alphanumericCharacterSet]</span><br><span class="line">                                    intoString:&amp;propertyType];</span><br><span class="line">                p.isStandardJSONType = <span class="literal">NO</span>;</span><br><span class="line">                p.structName = propertyType;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//属性是基本类型：Tq,N,V_age</span></span><br><span class="line">                [scanner scanUpToCharactersFromSet:[<span class="built_in">NSCharacterSet</span> characterSetWithCharactersInString:<span class="string">@","</span>]</span><br><span class="line">                                        intoString:&amp;propertyType];</span><br><span class="line">                <span class="comment">//propertyType:q</span></span><br><span class="line">                propertyType = valueTransformer.primitivesNames[propertyType];              </span><br><span class="line">                <span class="comment">//propertyType:long</span></span><br><span class="line">                <span class="comment">//基本类型数组</span></span><br><span class="line">                <span class="keyword">if</span> (![allowedPrimitiveTypes containsObject:propertyType]) &#123;</span><br><span class="line">                    <span class="comment">//类型不支持</span></span><br><span class="line">                    <span class="keyword">@throw</span> [<span class="built_in">NSException</span> exceptionWithName:<span class="string">@"JSONModelProperty type not allowed"</span></span><br><span class="line">                                                   reason:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Property type of %@.%@ is not supported by JSONModel."</span>, <span class="keyword">self</span>.class, p.name]</span><br><span class="line">                                                 userInfo:<span class="literal">nil</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">NSString</span> *nsPropertyName = @(propertyName);            </span><br><span class="line">            <span class="comment">//可选的</span></span><br><span class="line">            <span class="keyword">if</span>([[<span class="keyword">self</span> <span class="keyword">class</span>] propertyIsOptional:nsPropertyName])&#123;</span><br><span class="line">                p.isOptional = <span class="literal">YES</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//可忽略的</span></span><br><span class="line">            <span class="keyword">if</span>([[<span class="keyword">self</span> <span class="keyword">class</span>] propertyIsIgnored:nsPropertyName])&#123;</span><br><span class="line">                p = <span class="literal">nil</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//集合类</span></span><br><span class="line">            Class customClass = [[<span class="keyword">self</span> <span class="keyword">class</span>] classForCollectionProperty:nsPropertyName];            </span><br><span class="line">            <span class="keyword">if</span> (customClass) &#123;</span><br><span class="line">                p.protocol = <span class="built_in">NSStringFromClass</span>(customClass);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//忽略block</span></span><br><span class="line">            <span class="keyword">if</span> ([propertyType isEqualToString:<span class="string">@"Block"</span>]) &#123;</span><br><span class="line">                p = <span class="literal">nil</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//如果字典里不存在，则添加到属性字典里（终于添加上去了。。。）</span></span><br><span class="line">            <span class="keyword">if</span> (p &amp;&amp; ![propertyIndex objectForKey:p.name]) &#123;</span><br><span class="line">                [propertyIndex setValue:p forKey:p.name];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//setter 和 getter</span></span><br><span class="line">            <span class="keyword">if</span> (p)</span><br><span class="line">            &#123;   <span class="comment">//name -&gt;Name</span></span><br><span class="line">                <span class="built_in">NSString</span> *name = [p.name stringByReplacingCharactersInRange:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, <span class="number">1</span>) withString:[p.name substringToIndex:<span class="number">1</span>].uppercaseString];</span><br><span class="line">                <span class="comment">// getter</span></span><br><span class="line">                SEL <span class="keyword">getter</span> = <span class="built_in">NSSelectorFromString</span>([<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"JSONObjectFor%@"</span>, name]);</span><br><span class="line">                <span class="keyword">if</span> ([<span class="keyword">self</span> respondsToSelector:<span class="keyword">getter</span>])</span><br><span class="line">                    p.customGetter = <span class="keyword">getter</span>;</span><br><span class="line">                <span class="comment">// setters</span></span><br><span class="line">                p.customSetters = [<span class="built_in">NSMutableDictionary</span> new];</span><br><span class="line">                SEL genericSetter = <span class="built_in">NSSelectorFromString</span>([<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"set%@WithJSONObject:"</span>, name]);</span><br><span class="line">                <span class="keyword">if</span> ([<span class="keyword">self</span> respondsToSelector:genericSetter])</span><br><span class="line">                    p.customSetters[<span class="string">@"generic"</span>] = [<span class="built_in">NSValue</span> valueWithBytes:&amp;genericSetter objCType:<span class="keyword">@encode</span>(SEL)];</span><br><span class="line">                <span class="keyword">for</span> (Class type <span class="keyword">in</span> allowedJSONTypes)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="built_in">NSString</span> *<span class="keyword">class</span> = <span class="built_in">NSStringFromClass</span>([JSONValueTransformer classByResolvingClusterClasses:type]);</span><br><span class="line">                    <span class="keyword">if</span> (p.customSetters[<span class="keyword">class</span>])</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    SEL <span class="keyword">setter</span> = <span class="built_in">NSSelectorFromString</span>([<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"set%@With%@:"</span>, name, <span class="keyword">class</span>]);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> ([<span class="keyword">self</span> respondsToSelector:<span class="keyword">setter</span>])</span><br><span class="line">                        p.customSetters[<span class="keyword">class</span>] = [<span class="built_in">NSValue</span> valueWithBytes:&amp;<span class="keyword">setter</span> objCType:<span class="keyword">@encode</span>(SEL)];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        free(properties);</span><br><span class="line">        <span class="comment">//再指向自己的父类，知道等于JSONModel才停止</span></span><br><span class="line">        <span class="keyword">class</span> = [<span class="keyword">class</span> superclass];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//最后保存所有当前类，JSONModel的所有的父类的属性</span></span><br><span class="line">    objc_setAssociatedObject(</span><br><span class="line">                             <span class="keyword">self</span>.class,</span><br><span class="line">                             &amp;kClassPropertiesKey,</span><br><span class="line">                             [propertyIndex <span class="keyword">copy</span>],</span><br><span class="line">                             OBJC_ASSOCIATION_RETAIN</span><br><span class="line">                             );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需要注意几点：</p>
+<ol>
+<li>作者利用一个<code>while</code>函数，获取当前类和当前类的除JSONModel的所有父类的属性保存在一个字典中。在将来用于和传入的字典进行映射。</li>
+<li>作者用<code>JSONModelClassProperty</code>类封装了JSONModel的每一个属性。这个类有两个重要的属性：一个是<code>name</code>，它是属性的名称(例如gender)。另一个是<code>type</code>，它是属性的类型（例如NSString）。</li>
+<li>作者将属性分为了如下几个类型：<ol>
+<li>对象（不含有协议）。</li>
+<li>对象（含有协议，属于模型嵌套）。</li>
+<li>基本数据类型。</li>
+<li>结构体。</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<p>我们来看一下方法4的实现：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">BOOL</span>)__doesDictionary:(<span class="built_in">NSDictionary</span>*)dict matchModelWithKeyMapper:(JSONKeyMapper*)keyMapper error:(<span class="built_in">NSError</span>**)err</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//拿到字典里所有的key</span></span><br><span class="line">    <span class="built_in">NSArray</span>* incomingKeysArray = [dict allKeys];    </span><br><span class="line">    <span class="comment">//返回保存所有属性名称的数组(name,age,gender...)</span></span><br><span class="line">    <span class="built_in">NSMutableSet</span>* requiredProperties = [<span class="keyword">self</span> __requiredPropertyNames].mutableCopy;    </span><br><span class="line">    <span class="comment">//从array拿到set</span></span><br><span class="line">    <span class="built_in">NSSet</span>* incomingKeys = [<span class="built_in">NSSet</span> setWithArray: incomingKeysArray];</span><br><span class="line">    <span class="comment">//如果用户自定义了mapper，则进行转换</span></span><br><span class="line">    <span class="keyword">if</span> (keyMapper || globalKeyMapper) &#123;</span><br><span class="line">        <span class="built_in">NSMutableSet</span>* transformedIncomingKeys = [<span class="built_in">NSMutableSet</span> setWithCapacity: requiredProperties.count];</span><br><span class="line">        <span class="built_in">NSString</span>* transformedName = <span class="literal">nil</span>;</span><br><span class="line">        <span class="comment">//便利需要转换的属性列表</span></span><br><span class="line">        <span class="keyword">for</span> (JSONModelClassProperty* property <span class="keyword">in</span> [<span class="keyword">self</span> __properties__]) &#123;</span><br><span class="line">            <span class="comment">//被转换成的属性名称 gender（模型内） -&gt; sex（字典内）</span></span><br><span class="line">            transformedName = (keyMapper||globalKeyMapper) ? [<span class="keyword">self</span> __mapString:property.name withKeyMapper:keyMapper] : property.name;</span><br><span class="line">            <span class="comment">//拿到sex以后，查看传入的字典里是否有sex对应的值</span></span><br><span class="line">            <span class="keyword">id</span> value;</span><br><span class="line">            <span class="keyword">@try</span> &#123;</span><br><span class="line">                value = [dict valueForKeyPath:transformedName];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</span><br><span class="line">                value = dict[transformedName];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//如果值存在，则将sex添加到传入的keys数组中</span></span><br><span class="line">            <span class="keyword">if</span> (value) &#123;</span><br><span class="line">                [transformedIncomingKeys addObject: property.name];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        incomingKeys = transformedIncomingKeys;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//查看当前的model的属性的集合是否大于传入的属性集合，如果是，则返回错误。</span></span><br><span class="line">    <span class="comment">//也就是说模型类里的属性是不能多于传入字典里的key的，例如：</span></span><br><span class="line">    <span class="keyword">if</span> (![requiredProperties isSubsetOfSet:incomingKeys]) &#123;</span><br><span class="line">        <span class="comment">//获取多出来的属性</span></span><br><span class="line">        [requiredProperties minusSet:incomingKeys];</span><br><span class="line">        <span class="comment">//not all required properties are in - invalid input</span></span><br><span class="line">        JMLog(<span class="string">@"Incoming data was invalid [%@ initWithDictionary:]. Keys missing: %@"</span>, <span class="keyword">self</span>.class, requiredProperties);</span><br><span class="line">        <span class="keyword">if</span> (err) *err = [JSONModelError errorInvalidDataWithMissingKeys:requiredProperties];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//不需要了，释放掉</span></span><br><span class="line">    incomingKeys= <span class="literal">nil</span>;</span><br><span class="line">    requiredProperties= <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里需要需要注意的：</p>
+<ol>
+<li>model类里面定义的属性集合是不能大于传入的字典里的key集合的。</li>
+<li>如果存在了用户自定义的mapper，则需要按照用户的定义来进行转换。<br>（在这里是奖gender转换为了sex）。</li>
+</ol>
+</blockquote>
+<p>最后来看一下本框架第二个核心代码(上面的方法5)，也就是真正从字典里获取值并赋给当前模型对象的实现：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">BOOL</span>)__importDictionary:(<span class="built_in">NSDictionary</span>*)dict withKeyMapper:(JSONKeyMapper*)keyMapper validation:(<span class="built_in">BOOL</span>)validation error:(<span class="built_in">NSError</span>**)err</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//遍历保存的所有属性的字典</span></span><br><span class="line">    <span class="keyword">for</span> (JSONModelClassProperty* property <span class="keyword">in</span> [<span class="keyword">self</span> __properties__]) &#123;</span><br><span class="line">        <span class="comment">//将属性的名称拿过来，作为key，用这个key来查找传进来的字典里对应的值</span></span><br><span class="line">        <span class="built_in">NSString</span>* jsonKeyPath = (keyMapper||globalKeyMapper) ? [<span class="keyword">self</span> __mapString:property.name withKeyMapper:keyMapper] : property.name;</span><br><span class="line">        <span class="comment">//用来保存从字典里获取的值</span></span><br><span class="line">        <span class="keyword">id</span> jsonValue;        </span><br><span class="line">        <span class="keyword">@try</span> &#123;</span><br><span class="line">            jsonValue = [dict valueForKeyPath: jsonKeyPath];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</span><br><span class="line">            jsonValue = dict[jsonKeyPath];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//字典不存在对应的key</span></span><br><span class="line">        <span class="keyword">if</span> (isNull(jsonValue)) &#123;</span><br><span class="line">            <span class="comment">//如果这个key是可以不存在的</span></span><br><span class="line">            <span class="keyword">if</span> (property.isOptional || !validation) <span class="keyword">continue</span>;            </span><br><span class="line">            <span class="comment">//如果这个key是必须有的，则返回错误</span></span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="built_in">NSString</span>* msg = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Value of required model key %@ is null"</span>, property.name];</span><br><span class="line">                JSONModelError* dataErr = [JSONModelError errorInvalidDataWithMessage:msg];</span><br><span class="line">                *err = [dataErr errorByPrependingKeyPathComponent:property.name];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="comment">//获取 取到的值的类型</span></span><br><span class="line">        Class jsonValueClass = [jsonValue <span class="keyword">class</span>];</span><br><span class="line">        <span class="built_in">BOOL</span> isValueOfAllowedType = <span class="literal">NO</span>;</span><br><span class="line">        <span class="comment">//查看是否是本框架兼容的属性类型</span></span><br><span class="line">        <span class="keyword">for</span> (Class allowedType <span class="keyword">in</span> allowedJSONTypes) &#123;</span><br><span class="line">            <span class="keyword">if</span> ( [jsonValueClass isSubclassOfClass: allowedType] ) &#123;</span><br><span class="line">                isValueOfAllowedType = <span class="literal">YES</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="comment">//如果不兼容，则返回NO，mapping失败</span></span><br><span class="line">        <span class="keyword">if</span> (isValueOfAllowedType==<span class="literal">NO</span>) &#123;</span><br><span class="line">            <span class="comment">//type not allowed</span></span><br><span class="line">            JMLog(<span class="string">@"Type %@ is not allowed in JSON."</span>, <span class="built_in">NSStringFromClass</span>(jsonValueClass));</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="built_in">NSString</span>* msg = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Type %@ is not allowed in JSON."</span>, <span class="built_in">NSStringFromClass</span>(jsonValueClass)];</span><br><span class="line">                JSONModelError* dataErr = [JSONModelError errorInvalidDataWithMessage:msg];</span><br><span class="line">                *err = [dataErr errorByPrependingKeyPathComponent:property.name];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果是兼容的类型：</span></span><br><span class="line">        <span class="keyword">if</span> (property) &#123;</span><br><span class="line">            <span class="comment">// 查看是否有自定义setter，并设置</span></span><br><span class="line">            <span class="keyword">if</span> ([<span class="keyword">self</span> __customSetValue:jsonValue forProperty:property]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="comment">// 基本类型</span></span><br><span class="line">            <span class="keyword">if</span> (property.type == <span class="literal">nil</span> &amp;&amp; property.structName==<span class="literal">nil</span>) &#123;</span><br><span class="line">                <span class="comment">//kvc赋值</span></span><br><span class="line">                <span class="keyword">if</span> (jsonValue != [<span class="keyword">self</span> valueForKey:property.name]) &#123;</span><br><span class="line">                    [<span class="keyword">self</span> setValue:jsonValue forKey: property.name];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 如果传来的值是空，即使当前的属性对应的值不是空，也要将空值赋给它</span></span><br><span class="line">            <span class="keyword">if</span> (isNull(jsonValue)) &#123;</span><br><span class="line">                <span class="keyword">if</span> ([<span class="keyword">self</span> valueForKey:property.name] != <span class="literal">nil</span>) &#123;</span><br><span class="line">                    [<span class="keyword">self</span> setValue:<span class="literal">nil</span> forKey: property.name];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 1. 属性本身是否是jsonmodel类型</span></span><br><span class="line">            <span class="keyword">if</span> ([<span class="keyword">self</span> __isJSONModelSubClass:property.type]) &#123;</span><br><span class="line">                <span class="comment">//通过自身的转模型方法，获取对应的值</span></span><br><span class="line">                JSONModelError* initErr = <span class="literal">nil</span>;</span><br><span class="line">                <span class="keyword">id</span> value = [[property.type alloc] initWithDictionary: jsonValue error:&amp;initErr];</span><br><span class="line">                <span class="keyword">if</span> (!value) &#123;               </span><br><span class="line">                    <span class="comment">//如果该属性不是必须的，则略过</span></span><br><span class="line">                    <span class="keyword">if</span> (property.isOptional || !validation) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="comment">//如果该属性是必须的，则返回错误</span></span><br><span class="line">                    <span class="keyword">if</span>((err != <span class="literal">nil</span>) &amp;&amp; (initErr != <span class="literal">nil</span>))</span><br><span class="line">                    &#123;</span><br><span class="line">                        *err = [initErr errorByPrependingKeyPathComponent:property.name];</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">                &#125;            </span><br><span class="line">                <span class="comment">//当前的属性值为空，则赋值</span></span><br><span class="line">                <span class="keyword">if</span> (![value isEqual:[<span class="keyword">self</span> valueForKey:property.name]]) &#123;</span><br><span class="line">                    [<span class="keyword">self</span> setValue:value forKey: property.name];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 如果不是jsonmodel的类型，则可能是一些普通的类型：NSArray，NSString。。。</span></span><br><span class="line">                <span class="comment">// 是否是模型嵌套（带有协议）</span></span><br><span class="line">                <span class="keyword">if</span> (property.protocol) &#123;</span><br><span class="line">                    <span class="comment">//转化为数组，这个数组就是例子中的friends属性。</span></span><br><span class="line">                    jsonValue = [<span class="keyword">self</span> __transform:jsonValue forProperty:property error:err];</span><br><span class="line">                   </span><br><span class="line">                    <span class="keyword">if</span> (!jsonValue) &#123;</span><br><span class="line">                        <span class="keyword">if</span> ((err != <span class="literal">nil</span>) &amp;&amp; (*err == <span class="literal">nil</span>)) &#123;</span><br><span class="line">                            <span class="built_in">NSString</span>* msg = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Failed to transform value, but no error was set during transformation. (%@)"</span>, property];</span><br><span class="line">                            JSONModelError* dataErr = [JSONModelError errorInvalidDataWithMessage:msg];</span><br><span class="line">                            *err = [dataErr errorByPrependingKeyPathComponent:property.name];</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 对象类型</span></span><br><span class="line">                <span class="keyword">if</span> (property.isStandardJSONType &amp;&amp; [jsonValue isKindOfClass: property.type]) &#123;</span><br><span class="line">                    <span class="comment">//可变类型</span></span><br><span class="line">                    <span class="keyword">if</span> (property.isMutable) &#123;</span><br><span class="line">                        jsonValue = [jsonValue mutableCopy];</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//赋值</span></span><br><span class="line">                    <span class="keyword">if</span> (![jsonValue isEqual:[<span class="keyword">self</span> valueForKey:property.name]]) &#123;</span><br><span class="line">                        [<span class="keyword">self</span> setValue:jsonValue forKey: property.name];</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 当前的值的类型与对应的属性的类型不一样的时候，需要查看用户是否自定义了转换器（例如从NSSet到NSArray转换：- (NSSet *)NSSetFromNSArray:(NSArray *)array）</span></span><br><span class="line">                <span class="keyword">if</span> (</span><br><span class="line">                    (![jsonValue isKindOfClass:property.type] &amp;&amp; !isNull(jsonValue))</span><br><span class="line">                    ||</span><br><span class="line">                    <span class="comment">//the property is mutable</span></span><br><span class="line">                    property.isMutable</span><br><span class="line">                    ||</span><br><span class="line">                    <span class="comment">//custom struct property</span></span><br><span class="line">                    property.structName</span><br><span class="line">                    ) &#123;</span><br><span class="line">                    <span class="comment">// searched around the web how to do this better</span></span><br><span class="line">                    <span class="comment">// but did not find any solution, maybe that's the best idea? (hardly)</span></span><br><span class="line">                    Class sourceClass = [JSONValueTransformer classByResolvingClusterClasses:[jsonValue <span class="keyword">class</span>]];</span><br><span class="line">                    <span class="comment">//JMLog(@"to type: [%@] from type: [%@] transformer: [%@]", p.type, sourceClass, selectorName);</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">//build a method selector for the property and json object classes</span></span><br><span class="line">                    <span class="built_in">NSString</span>* selectorName = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@From%@:"</span>,</span><br><span class="line">                                              (property.structName? property.structName : property.type), <span class="comment">//target name</span></span><br><span class="line">                                              sourceClass]; <span class="comment">//source name</span></span><br><span class="line">                    SEL selector = <span class="built_in">NSSelectorFromString</span>(selectorName);</span><br><span class="line">                    <span class="comment">//查看自定义的转换器是否存在</span></span><br><span class="line">                    <span class="built_in">BOOL</span> foundCustomTransformer = <span class="literal">NO</span>;</span><br><span class="line">                    <span class="keyword">if</span> ([valueTransformer respondsToSelector:selector]) &#123;</span><br><span class="line">                        foundCustomTransformer = <span class="literal">YES</span>;                        </span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">//try for hidden custom transformer</span></span><br><span class="line">                        selectorName = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"__%@"</span>,selectorName];</span><br><span class="line">                        selector = <span class="built_in">NSSelectorFromString</span>(selectorName);</span><br><span class="line">                        <span class="keyword">if</span> ([valueTransformer respondsToSelector:selector]) &#123;</span><br><span class="line">                            foundCustomTransformer = <span class="literal">YES</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//如果存在自定义转换器，则进行转换</span></span><br><span class="line">                    <span class="keyword">if</span> (foundCustomTransformer) &#123;                        </span><br><span class="line">                        IMP imp = [valueTransformer methodForSelector:selector];</span><br><span class="line">                        <span class="keyword">id</span> (*func)(<span class="keyword">id</span>, SEL, <span class="keyword">id</span>) = (<span class="keyword">void</span> *)imp;</span><br><span class="line">                        jsonValue = func(valueTransformer, selector, jsonValue);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> (![jsonValue isEqual:[<span class="keyword">self</span> valueForKey:property.name]])</span><br><span class="line">                            [<span class="keyword">self</span> setValue:jsonValue forKey:property.name];                        </span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;                       </span><br><span class="line">                        <span class="comment">//没有自定义转换器，返回错误</span></span><br><span class="line">                        <span class="built_in">NSString</span>* msg = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@ type not supported for %@.%@"</span>, property.type, [<span class="keyword">self</span> <span class="keyword">class</span>], property.name];</span><br><span class="line">                        JSONModelError* dataErr = [JSONModelError errorInvalidDataWithTypeMismatch:msg];</span><br><span class="line">                        *err = [dataErr errorByPrependingKeyPathComponent:property.name];</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">NO</span>;                        </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 3.4) handle "all other" cases (if any)</span></span><br><span class="line">                    <span class="keyword">if</span> (![jsonValue isEqual:[<span class="keyword">self</span> valueForKey:property.name]])</span><br><span class="line">                        [<span class="keyword">self</span> setValue:jsonValue forKey:property.name];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>值得注意的是：</p>
+<ul>
+<li>作者在最后给属性赋值的时候使用的是kvc的<code>setValue:ForKey:</code>的方法。</li>
+<li>作者判断了模型里的属性的类型是否是JSONModel的子类，可见作者的考虑是非常周全的。</li>
+<li>整个框架看下来，有很多的地方涉及到了错误判断，作者将将错误类型单独抽出一个类（<code>JSONModelError</code>），里面支持的错误类型很多，可以侧面反应作者思维之缜密。而且这个做法也可以在我们写自己的框架或者项目中使用。</li>
+</ul>
+</blockquote>
+<p>错误判断的一个例子：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//JSONModelError.m</span></span><br><span class="line">+(<span class="keyword">id</span>)errorInvalidDataWithMessage:(<span class="built_in">NSString</span>*)message</span><br><span class="line">&#123;</span><br><span class="line">    message = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Invalid JSON data: %@"</span>, message];</span><br><span class="line">    <span class="keyword">return</span> [JSONModelError errorWithDomain:JSONModelErrorDomain</span><br><span class="line">                                      code:kJSONModelErrorInvalidData</span><br><span class="line">                                  userInfo:@&#123;<span class="built_in">NSLocalizedDescriptionKey</span>:message&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>夸了作者这么多，唯一我个人不太喜欢的地方就是if语句下只有一行的时候，作者不喜欢加上大括号：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (![jsonValue isEqual:[<span class="keyword">self</span> valueForKey:property.name]])</span><br><span class="line">    [<span class="keyword">self</span> setValue:jsonValue forKey:property.name];</span><br></pre></td></tr></table></figure></p>
+<p>但是我觉得应该加的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (![jsonValue isEqual:[<span class="keyword">self</span> valueForKey:property.name]])&#123;</span><br><span class="line">  [<span class="keyword">self</span> setValue:jsonValue forKey:property.name];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="知识扩展"><a href="#知识扩展" class="headerlink" title="知识扩展"></a>知识扩展</h2><ul>
+<li>作者用NSScanner来扫描字符串，将从类结构体里拿过来的属性的描述字符串<code>T@\&quot;NSString\&quot;,C,N,V_name</code>中扫描出了类型：<code>NSString</code>。</li>
+<li>作者两次用到了NSSet：当集合里的元素顺序不重要的时候，优先考虑用NSSet。</li>
+</ul>
+<p>总的来说这个框架的难度还是不大的，但可能因为是第一次阅读不涉及UIVIiew的框架，感觉有些枯燥，不过慢慢习惯就好啦～</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+            <a href="/tags/源码解析/" rel="tag"># 源码解析</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/2018年 iOS 面试心得/" rel="next" title="2018年 iOS 面试心得">
+                <i class="fa fa-chevron-left"></i> 2018年 iOS 面试心得
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/MBProgressHUD源码解析/" rel="prev" title="MBProgressHUD源码解析">
+                MBProgressHUD源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">1.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-最基本的使用"><span class="nav-number">1.1.</span> <span class="nav-text">1. 最基本的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-转换属性名称"><span class="nav-number">1.2.</span> <span class="nav-text">2. 转换属性名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-自定义错误"><span class="nav-number">1.3.</span> <span class="nav-text">3. 自定义错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-模型嵌套"><span class="nav-number">1.4.</span> <span class="nav-text">4. 模型嵌套</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码解析"><span class="nav-number">2.</span> <span class="nav-text">源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展"><span class="nav-number">2.1.</span> <span class="nav-text">知识扩展</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

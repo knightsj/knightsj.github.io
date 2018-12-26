@@ -1,0 +1,898 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,源码解析,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的读好源码Project。 从哪个框架开始呢？我想到了SDWebImage，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～">
+<meta name="keywords" content="iOS,Objective-C,源码解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MBProgressHUD源码解析">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/MBProgressHUD源码解析/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的读好源码Project。 从哪个框架开始呢？我想到了SDWebImage，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-fe3f0f393bcc3b9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-c9f49bfcec64dd0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MBProgressHUD源码解析">
+<meta name="twitter:description" content="听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的读好源码Project。 从哪个框架开始呢？我想到了SDWebImage，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-fe3f0f393bcc3b9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/MBProgressHUD源码解析/">
+
+
+
+
+
+  <title> MBProgressHUD源码解析 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/MBProgressHUD源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MBProgressHUD源码解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,043 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的<strong>读好源码Project</strong>。</p>
+<p>从哪个框架开始呢？我想到了<code>SDWebImage</code>，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～</p>
+<a id="more"></a>
+<p>找着找着就找到了<code>MBProgressHUD</code>，这个框架只有两个文件，一个头文件和一个实现文件，很适合我现在的水平（对于一个没怎么读过源码的选手），于是就撸起了袖子开始了。</p>
+<p>连查知识点带记笔记一共花了大概3个小时（虽然文件很少，但是里面好多东西都不知道[捂脸]）。整体说来，收获还是比较大的，除了一些零碎的语法之外，框架作者对于代码结构的设计和各种情况的考虑还是很出色的，很值得学习，而且我在下文也有介绍。</p>
+<p>这篇总结主要分三个部分来介绍这个框架：</p>
+<ol>
+<li>核心Public API</li>
+<li>方法调用流程图</li>
+<li>方法内部实现</li>
+</ol>
+<p>不多说了，开始吧～</p>
+<h2 id="1-核心Public-API"><a href="#1-核心Public-API" class="headerlink" title="1. 核心Public API"></a>1. 核心Public API</h2><h3 id="属性："><a href="#属性：" class="headerlink" title="属性："></a>属性：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) MBProgressHUDMode mode;<span class="comment">//HUD的类型</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) MBProgressHUDAnimation animationType <span class="built_in">UI_APPEARANCE_SELECTOR</span>;<span class="comment">//动画类型</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSTimeInterval</span> graceTime;<span class="comment">//show函数触发到显示HUD的时间段</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSTimeInterval</span> minShowTime;<span class="comment">//HUD显示的最短时间</span></span><br></pre></td></tr></table></figure>
+<h3 id="类方法："><a href="#类方法：" class="headerlink" title="类方法："></a>类方法：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在某个view上添加HUD并显示</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 注意：显示之前，先去掉在当前view上显示的HUD。这个做法很严谨，我们将这个方案抽象出来：如果一个模型是这样的：我们需要将A加入到B中，但是需求上B里面只允许只有一个A。那么每次将A添加到B之前，都要先判断当前的b里面是否有A，如果有，则移除。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="keyword">instancetype</span>)showHUDAddedTo:(<span class="built_in">UIView</span> *)view animated:(<span class="built_in">BOOL</span>)animated;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 找到某个view上最上层的HUD并隐藏它。</span></span><br><span class="line"><span class="comment"> * 如果返回值是YES的话，就表明HUD被找到而且被移除了。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">BOOL</span>)hideHUDForView:(<span class="built_in">UIView</span> *)view animated:(<span class="built_in">BOOL</span>)animated;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在某个view上找到最上层的HUD并返回它。</span></span><br><span class="line"><span class="comment"> * 返回值可以是空，所以返回值的关键字为：nullable</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="keyword">nullable</span> MBProgressHUD *)HUDForView:(<span class="built_in">UIView</span> *)view;</span><br></pre></td></tr></table></figure>
+<h3 id="对象方法："><a href="#对象方法：" class="headerlink" title="对象方法："></a>对象方法：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 一个HUD的便利构造函数，用某个view来初始化HUD：这个view的bounds就是HUD的bounds</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithView:(<span class="built_in">UIView</span> *)view;</span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * 显示HUD，有无动画。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)showAnimated:(<span class="built_in">BOOL</span>)animated;</span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * 隐藏HUD，有无动画。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)hideAnimated:(<span class="built_in">BOOL</span>)animated;</span><br><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * 在delay的时间过后隐藏HUD，有无动画。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)hideAnimated:(<span class="built_in">BOOL</span>)animated afterDelay:(<span class="built_in">NSTimeInterval</span>)delay;</span><br></pre></td></tr></table></figure>
+<p>看完了这些比较主要的API，我们看一下方法调用的流程图：</p>
+<h2 id="2-方法调用流程图："><a href="#2-方法调用流程图：" class="headerlink" title="2. 方法调用流程图："></a>2. 方法调用流程图：</h2><p>总体来说，这个第三方框架的接口还是比较整齐的，可以大致上分为两类：显示（show）和隐藏（hide）。而且无论是调用显示方法还是隐藏方法，最终都会走到私有方法<code>animateIn:withType: completion:</code>里（前提是附加动画效果）。可以看一下方法调用的流程图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-fe3f0f393bcc3b9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="方法调用流程图"></p>
+<p>看完方法调用的结构之后，我们来具体看一下方法内部是如何实现的：</p>
+<h2 id="3-方法内部实现："><a href="#3-方法内部实现：" class="headerlink" title="3. 方法内部实现："></a>3. 方法内部实现：</h2><p>在讲解API之前，有必要先介绍一下HUD使用的三个Timer。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">NSTimer</span> *graceTimer; <span class="comment">//执行一次：在show方法触发后到HUD真正显示之前,前提是设定了graceTime，默认为0</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">NSTimer</span> *minShowTimer;<span class="comment">//执行一次：在HUD显示后到HUD被隐藏之前</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">NSTimer</span> *hideDelayTimer;<span class="comment">//执行一次：在HUD被隐藏的方法触发后到真正隐藏之前</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>graceTimer：用来推迟HUD的显示。如果设定了graceTime，那么HUD会在<code>show</code>方法触发后的graceTime时间后显示。它的意义是：如果任务完成所消耗的时间非常短并且短于graceTime，则HUD就不会出现了，避免HUD一闪而过的差体验。</li>
+<li>minShowTimer：如果设定了minShowTime，就会在<code>hide</code>方法触发后判断任务执行的时间是否短于minShowTime。因此即使任务在minShowTime之前完成了，HUD也不会立即消失，它会在走完minShowTime之后才消失，这应该也是避免HUD一闪而过的情况。</li>
+<li>hideDelayTimer：用来推迟HUD的隐藏。如果设定了delayTime，那么在触发<code>hide</code>方法后HUD也不会立即隐藏，它会在走完delayTime之后才隐藏。</li>
+</ul>
+<p>这三者的关系可以由下面这张图来体现（并没有包含所有的情况）：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-c9f49bfcec64dd0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三种timer"></p>
+<p>下面开始分别讲解<code>show</code>系列的方法和<code>hide</code>系列的方法。</p>
+<h3 id="show系列方法"><a href="#show系列方法" class="headerlink" title="show系列方法"></a>show系列方法</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">instancetype</span>)showHUDAddedTo:(<span class="built_in">UIView</span> *)view animated:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    MBProgressHUD *hud = [[<span class="keyword">self</span> alloc] initWithView:view];<span class="comment">// 接着调用 [self initWithFrame:view.bounds]：根据传进来的view的frame来设定自己的frame</span></span><br><span class="line">    hud.removeFromSuperViewOnHide = <span class="literal">YES</span>;<span class="comment">//removeFromSuperViewOnHide 应该是一个标记，表明HUD自己处于“应该被移除的状态”</span></span><br><span class="line">    [view addSubview:hud];<span class="comment">//在view上将自己的实例添加上去</span></span><br><span class="line">    [hud showAnimated:animated];</span><br><span class="line">    <span class="keyword">return</span> hud;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//调用showAnimated：</span></span><br><span class="line">- (<span class="keyword">void</span>)showAnimated:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    MBMainThreadAssert();</span><br><span class="line">    [<span class="keyword">self</span>.minShowTimer invalidate];<span class="comment">//取消当前的minShowTimer</span></span><br><span class="line">     <span class="keyword">self</span>.useAnimation = animated;<span class="comment">//设置animated状态</span></span><br><span class="line">     <span class="keyword">self</span>.finished = <span class="literal">NO</span>;<span class="comment">//添加标记：表明当前任务仍在进行</span></span><br><span class="line">    <span class="comment">// 如果设定了graceTime，就要推迟HUD的显示</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.graceTime &gt; <span class="number">0.0</span>) &#123;</span><br><span class="line">        <span class="built_in">NSTimer</span> *timer = [<span class="built_in">NSTimer</span> timerWithTimeInterval:<span class="keyword">self</span>.graceTime target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(handleGraceTimer:) userInfo:<span class="literal">nil</span> repeats:<span class="literal">NO</span>];</span><br><span class="line">        [[<span class="built_in">NSRunLoop</span> currentRunLoop] addTimer:timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br><span class="line">        <span class="keyword">self</span>.graceTimer = timer;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">// ... otherwise show the HUD immediately</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        [<span class="keyword">self</span> showUsingAnimation:<span class="keyword">self</span>.useAnimation];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//self.graceTimer触发的方法</span></span><br><span class="line">- (<span class="keyword">void</span>)handleGraceTimer:(<span class="built_in">NSTimer</span> *)theTimer &#123;</span><br><span class="line">    <span class="comment">// Show the HUD only if the task is still running</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>.hasFinished) &#123;</span><br><span class="line">        [<span class="keyword">self</span> showUsingAnimation:<span class="keyword">self</span>.useAnimation];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//所有的show方法最终都会走到这个方法</span></span><br><span class="line">- (<span class="keyword">void</span>)showUsingAnimation:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    <span class="comment">// Cancel any previous animations : 移走所有的动画</span></span><br><span class="line">    [<span class="keyword">self</span>.bezelView.layer removeAllAnimations];</span><br><span class="line">    [<span class="keyword">self</span>.backgroundView.layer removeAllAnimations];</span><br><span class="line">    <span class="comment">// Cancel any scheduled hideDelayed: calls :取消delay的timer</span></span><br><span class="line">    [<span class="keyword">self</span>.hideDelayTimer invalidate];</span><br><span class="line">    <span class="comment">//记忆开始的时间</span></span><br><span class="line">    <span class="keyword">self</span>.showStarted = [<span class="built_in">NSDate</span> date];</span><br><span class="line">    <span class="keyword">self</span>.alpha = <span class="number">1.</span>f;</span><br><span class="line">    <span class="comment">// Needed in case we hide and re-show with the same NSProgress object attached.</span></span><br><span class="line">    [<span class="keyword">self</span> setNSProgressDisplayLinkEnabled:<span class="literal">YES</span>];</span><br><span class="line">    <span class="keyword">if</span> (animated) &#123;        </span><br><span class="line">        [<span class="keyword">self</span> animateIn:<span class="literal">YES</span> withType:<span class="keyword">self</span>.animationType completion:<span class="literal">NULL</span>];   </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//方法弃用警告</span></span><br><span class="line"><span class="meta">#pragma clang diagnostic push</span></span><br><span class="line"><span class="meta">#pragma clang diagnostic ignored <span class="meta-string">"-Wdeprecated-declarations"</span></span></span><br><span class="line">        <span class="keyword">self</span>.bezelView.alpha = <span class="keyword">self</span>.opacity;</span><br><span class="line"><span class="meta">#pragma clang diagnostic pop</span></span><br><span class="line">        <span class="keyword">self</span>.backgroundView.alpha = <span class="number">1.</span>f;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们可以看到，无论是类方法的show方法，还是对象方法的show方法，而且无论是触发了<code>graceTimer</code>还是没有触发，最后都会走到<code>showUsingAnimation:</code>方法来让HUD显示出来。</p>
+</blockquote>
+<p>这里补充讲解一下NSProgress的监听方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setNSProgressDisplayLinkEnabled:(<span class="built_in">BOOL</span>)enabled &#123;</span><br><span class="line">    <span class="comment">// 这里使用 CADisplayLink 来刷新progress的变化。因为如果使用kvo机制来监听的话可能会非常消耗主线程（因为频率可能非常快）。</span></span><br><span class="line">    <span class="keyword">if</span> (enabled &amp;&amp; <span class="keyword">self</span>.progressObject) &#123;</span><br><span class="line">        <span class="comment">// Only create if not already active.</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">self</span>.progressObjectDisplayLink) &#123;</span><br><span class="line">            <span class="keyword">self</span>.progressObjectDisplayLink = [<span class="built_in">CADisplayLink</span> displayLinkWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(updateProgressFromProgressObject)];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//不刷新</span></span><br><span class="line">        <span class="keyword">self</span>.progressObjectDisplayLink = <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>CADisplayLink是一个能让我们以和屏幕刷新率同步的频率将特定的内容画到屏幕上的定时器类。 CADisplayLink以特定模式注册到runloop后， 每当屏幕显示内容刷新结束的时候，runloop就会向 CADisplayLink指定的target发送一次指定的selector消息，  CADisplayLink类对应的selector就会被调用一次。<br>参考文章：<a href="http://www.tuicool.com/articles/meMVR3" target="_blank" rel="noopener">Core Animation系列之CADisplayLink</a></p>
+</blockquote>
+<h3 id="hide系列方法"><a href="#hide系列方法" class="headerlink" title="hide系列方法"></a>hide系列方法</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">BOOL</span>)hideHUDForView:(<span class="built_in">UIView</span> *)view animated:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    MBProgressHUD *hud = [<span class="keyword">self</span> HUDForView:view];<span class="comment">//获取当前view的最前为止的HUD</span></span><br><span class="line">    <span class="keyword">if</span> (hud != <span class="literal">nil</span>) &#123;</span><br><span class="line">        hud.removeFromSuperViewOnHide = <span class="literal">YES</span>;</span><br><span class="line">        [hud hideAnimated:animated];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line">+ (MBProgressHUD *)HUDForView:(<span class="built_in">UIView</span> *)view &#123;   </span><br><span class="line">    <span class="built_in">NSEnumerator</span> *subviewsEnum = [view.subviews reverseObjectEnumerator]; <span class="comment">//倒叙排序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">UIView</span> *subview <span class="keyword">in</span> subviewsEnum) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([subview isKindOfClass:<span class="keyword">self</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> (MBProgressHUD *)subview;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)hideAnimated:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    MBMainThreadAssert();</span><br><span class="line">    [<span class="keyword">self</span>.graceTimer invalidate];</span><br><span class="line">     <span class="keyword">self</span>.useAnimation = animated;</span><br><span class="line">     <span class="keyword">self</span>.finished = <span class="literal">YES</span>;</span><br><span class="line">     <span class="comment">//如果设定了HUD最小显示时间，那就需要判断最小显示时间和已经经过的时间的大小</span></span><br><span class="line">     <span class="keyword">if</span> (<span class="keyword">self</span>.minShowTime &gt; <span class="number">0.0</span> &amp;&amp; <span class="keyword">self</span>.showStarted) &#123;</span><br><span class="line">        <span class="built_in">NSTimeInterval</span> interv = [[<span class="built_in">NSDate</span> date] timeIntervalSinceDate:<span class="keyword">self</span>.showStarted];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果最小显示时间比较大，则暂时不触发HUD的隐藏，而是启动一个timer，再经过二者的时间差的时间之后再触发隐藏</span></span><br><span class="line">        <span class="keyword">if</span> (interv &lt; <span class="keyword">self</span>.minShowTime) &#123;</span><br><span class="line">            <span class="built_in">NSTimer</span> *timer = [<span class="built_in">NSTimer</span> timerWithTimeInterval:(<span class="keyword">self</span>.minShowTime - interv) target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(handleMinShowTimer:) userInfo:<span class="literal">nil</span> repeats:<span class="literal">NO</span>];</span><br><span class="line">            [[<span class="built_in">NSRunLoop</span> currentRunLoop] addTimer:timer forMode:<span class="built_in">NSRunLoopCommonModes</span>];</span><br><span class="line">            <span class="keyword">self</span>.minShowTimer = timer;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125; </span><br><span class="line">     &#125;</span><br><span class="line">    <span class="comment">//如果最小显示时间比较小，则立即将HUD隐藏</span></span><br><span class="line">    [<span class="keyword">self</span> hideUsingAnimation:<span class="keyword">self</span>.useAnimation];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//self.minShowTimer触发的方法</span></span><br><span class="line">- (<span class="keyword">void</span>)handleMinShowTimer:(<span class="built_in">NSTimer</span> *)theTimer &#123;</span><br><span class="line">    [<span class="keyword">self</span> hideUsingAnimation:<span class="keyword">self</span>.useAnimation];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)hideUsingAnimation:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    <span class="keyword">if</span> (animated &amp;&amp; <span class="keyword">self</span>.showStarted) &#123;</span><br><span class="line">        <span class="comment">//隐藏时，将showStarted设为nil</span></span><br><span class="line">        <span class="keyword">self</span>.showStarted = <span class="literal">nil</span>;</span><br><span class="line">        [<span class="keyword">self</span> animateIn:<span class="literal">NO</span> withType:<span class="keyword">self</span>.animationType completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">            [<span class="keyword">self</span> done];</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.showStarted = <span class="literal">nil</span>;</span><br><span class="line">        <span class="keyword">self</span>.bezelView.alpha = <span class="number">0.</span>f;</span><br><span class="line">        <span class="keyword">self</span>.backgroundView.alpha = <span class="number">1.</span>f;</span><br><span class="line">        [<span class="keyword">self</span> done];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们可以看到，无论是类方法的<code>hide</code>方法，还是对象方法的<code>hide</code>方法，而且无论是触发还是没有触发<code>minShowTimer</code>,最终都会走到<code>hideUsingAnimation</code>这个方法里。</p>
+</blockquote>
+<p>而无论是<code>show</code>方法，还是<code>hide</code>方法，在设定animated属性为YES的前提下，最终都会走到<code>animateIn: withType: completion:</code>方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)animateIn:(<span class="built_in">BOOL</span>)animatingIn withType:(MBProgressHUDAnimation)type completion:(<span class="keyword">void</span>(^)(<span class="built_in">BOOL</span> finished))completion &#123;</span><br><span class="line">    <span class="comment">// Automatically determine the correct zoom animation type</span></span><br><span class="line">    <span class="keyword">if</span> (type == MBProgressHUDAnimationZoom) &#123;</span><br><span class="line">        type = animatingIn ? MBProgressHUDAnimationZoomIn : MBProgressHUDAnimationZoomOut;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//()内代表x和y方向缩放倍数</span></span><br><span class="line">    <span class="built_in">CGAffineTransform</span> small = <span class="built_in">CGAffineTransformMakeScale</span>(<span class="number">0.5</span>f, <span class="number">0.5</span>f);</span><br><span class="line">    <span class="built_in">CGAffineTransform</span> large = <span class="built_in">CGAffineTransformMakeScale</span>(<span class="number">1.5</span>f, <span class="number">1.5</span>f);</span><br><span class="line">    <span class="comment">// 设定初始状态</span></span><br><span class="line">    <span class="built_in">UIView</span> *bezelView = <span class="keyword">self</span>.bezelView;</span><br><span class="line">    <span class="keyword">if</span> (animatingIn &amp;&amp; bezelView.alpha == <span class="number">0.</span>f &amp;&amp; type == MBProgressHUDAnimationZoomIn) &#123;</span><br><span class="line">        bezelView.transform = small;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (animatingIn &amp;&amp; bezelView.alpha == <span class="number">0.</span>f &amp;&amp; type == MBProgressHUDAnimationZoomOut) &#123;</span><br><span class="line">        bezelView.transform = large;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 创建动画任务</span></span><br><span class="line">    dispatch_block_t animations = ^&#123;</span><br><span class="line">        <span class="keyword">if</span> (animatingIn) &#123;</span><br><span class="line">            bezelView.transform = <span class="built_in">CGAffineTransformIdentity</span>;<span class="comment">//重置</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!animatingIn &amp;&amp; type == MBProgressHUDAnimationZoomIn) &#123;</span><br><span class="line">            bezelView.transform = large;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!animatingIn &amp;&amp; type == MBProgressHUDAnimationZoomOut) &#123;</span><br><span class="line">            bezelView.transform = small;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="meta">#pragma clang diagnostic push</span></span><br><span class="line"><span class="meta">#pragma clang diagnostic ignored <span class="meta-string">"-Wdeprecated-declarations"</span></span></span><br><span class="line">        bezelView.alpha = animatingIn ? <span class="keyword">self</span>.opacity : <span class="number">0.</span>f;</span><br><span class="line"><span class="meta">#pragma clang diagnostic pop</span></span><br><span class="line">       <span class="comment">//如果animatingIn是true，就是show方法，否则是hide方法</span></span><br><span class="line">        <span class="keyword">self</span>.backgroundView.alpha = animatingIn ? <span class="number">1.</span>f : <span class="number">0.</span>f;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// Spring animations are nicer, but only available on iOS 7+</span></span><br><span class="line"><span class="meta">#if __IPHONE_OS_VERSION_MAX_ALLOWED &gt;= 70000 || TARGET_OS_TV</span></span><br><span class="line">    <span class="keyword">if</span> (kCFCoreFoundationVersionNumber &gt;= kCFCoreFoundationVersionNumber_iOS_7_0) &#123;</span><br><span class="line">        <span class="comment">//执行动画 &gt;= iOS7</span></span><br><span class="line">        [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.3</span> delay:<span class="number">0.</span> usingSpringWithDamping:<span class="number">1.</span>f initialSpringVelocity:<span class="number">0.</span>f options:<span class="built_in">UIViewAnimationOptionBeginFromCurrentState</span> animations:animations completion:completion];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:<span class="number">0.3</span> delay:<span class="number">0.</span> options:<span class="built_in">UIViewAnimationOptionBeginFromCurrentState</span> animations:animations completion:completion];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>除了一些细节上的语法之外，我觉得该框架有几个地方值得我们借鉴：</p>
+<ol>
+<li>暴露出来的API最终都会走到同一个私有方法里。</li>
+<li>将真正显示的时间的前后加上缓冲的时间（graceTimer 和 hideDelayTimer），可以提高可定制性和稳定性。</li>
+<li>如果有两个方法是矛盾的，并且可以同时调用，就需要在全局设置一个属性来判断当前的状态（removeFromSuperViewOnHide属性，finished属性）</li>
+<li>使用CADisplayLink来刷新更新频率可能很高的view。</li>
+<li>使用NSAssert来捕获各种异常。</li>
+</ol>
+<p>就这样大致写完了，没有怎么读过第三方框架的源码，所以第一次可能显得稍许不足。有不好的地方还希望多多指点哈～</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+            <a href="/tags/源码解析/" rel="tag"># 源码解析</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/JSONModel源码解析/" rel="next" title="JSONModel源码解析">
+                <i class="fa fa-chevron-left"></i> JSONModel源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/MJRefresh 源码解析/" rel="prev" title="MJRefresh源码解析">
+                MJRefresh源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-核心Public-API"><span class="nav-number">1.</span> <span class="nav-text">1. 核心Public API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性："><span class="nav-number">1.1.</span> <span class="nav-text">属性：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类方法："><span class="nav-number">1.2.</span> <span class="nav-text">类方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象方法："><span class="nav-number">1.3.</span> <span class="nav-text">对象方法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-方法调用流程图："><span class="nav-number">2.</span> <span class="nav-text">2. 方法调用流程图：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-方法内部实现："><span class="nav-number">3.</span> <span class="nav-text">3. 方法内部实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#show系列方法"><span class="nav-number">3.1.</span> <span class="nav-text">show系列方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hide系列方法"><span class="nav-number">3.2.</span> <span class="nav-text">hide系列方法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

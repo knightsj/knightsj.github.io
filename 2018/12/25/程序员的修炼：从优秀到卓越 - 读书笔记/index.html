@@ -1,0 +1,939 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="BookNote,IT,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本书是笔者上一篇读书笔记高效能程序员的修炼的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。 和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。">
+<meta name="keywords" content="BookNote,IT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程序员的修炼：从优秀到卓越 - 读书笔记">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/程序员的修炼：从优秀到卓越 - 读书笔记/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="本书是笔者上一篇读书笔记高效能程序员的修炼的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。 和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.644Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="程序员的修炼：从优秀到卓越 - 读书笔记">
+<meta name="twitter:description" content="本书是笔者上一篇读书笔记高效能程序员的修炼的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。 和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/程序员的修炼：从优秀到卓越 - 读书笔记/">
+
+
+
+
+
+  <title> 程序员的修炼：从优秀到卓越 - 读书笔记 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/程序员的修炼：从优秀到卓越 - 读书笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                程序员的修炼：从优秀到卓越 - 读书笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/BookNote/" itemprop="url" rel="index">
+                    <span itemprop="name">BookNote</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,328 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  11 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="程序员的修炼 - 从优秀到卓越"></p>
+<p>本书是笔者上一篇读书笔记<a href="http://www.jianshu.com/p/33933a3ba977" target="_blank" rel="noopener">高效能程序员的修炼</a>的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。</p>
+<p>和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。</p>
+<hr>
+<a id="more"></a>
+<h3 id="关于-To-Do-list"><a href="#关于-To-Do-list" class="headerlink" title="关于 To-Do list"></a>关于 To-Do list</h3><blockquote>
+<p>这个冗长的To-Do列表始终存在着，像一把悬挂在我头顶上的利刃，而且每天都在变得更加沉重和锋利。</p>
+<p>每天早上使劲想出这天你需要做的最重要的3件事。</p>
+</blockquote>
+<p>其实对于待办事项列表，笔者也读过相关的书籍，一般都是不推荐使用待办事项列表的。笔者总结出原因有二：</p>
+<ul>
+<li><p>待办事项列表上面的待办事项只是列出了还未完成的事情而已，并不带有“何时开始进行”和“何时完成“的信息。简单说，就是只有“what to do”而没有“when to do”和“when to finish”。也就是它本身能带给列表主人的驱动力不够高。</p>
+</li>
+<li><p>正是因为待办事项列表带给主人的驱动力不高，那么结果就是它们一直会躺在列表里持续很长时间。那么它们的主人在潜意识中一直挂念着它们，分散了主人的精力。因为主人“知道”总有一些事情还是没有完成的。 </p>
+</li>
+</ul>
+<hr>
+<h3 id="关于探索的态度"><a href="#关于探索的态度" class="headerlink" title="关于探索的态度"></a>关于探索的态度</h3><blockquote>
+<p>比起专业技能或者智商，成功更需要一种探索的态度，它是一种对于可能性和失败后果的执着。那些具备良好潜质的人总是会做出类似的回答“我总是在犯一些作物。昨天刚发生了一件挺严重的事情，前因后果是这样的。。。”。</p>
+<p>相反，那些回答“我并没有犯过大错误”或者“我犯过一些严重的错误，但是错误的原因并不在于我”的人是不会成为杰出的外科医生的。</p>
+</blockquote>
+<p>探索的态度对于程序员也是尤为重要的。笔者在开始写代码的时候总是以“解决问题就万事大吉”的标准，遇到了可能的坑却睁一只眼闭一只眼。但是每每这样的时候，后来总是会出bug。</p>
+<p>其实这就是逃避，就是一种缺乏探索精神的表现。其实我把那些坑弄懂了也不需要多少时间嘛。弄懂了，以后再遇到就稳稳当当搞定了。没弄懂，就还是踩坑。突然想到了一句话：遇到问题，你硬着头皮解决了一半，就只剩下一半的问题。但是你逃避，就是两个问题了。</p>
+<blockquote>
+<p>不管你在做什么项目，怀揣着学习和锻炼的态度去完成它吧，这是绝对值得的！与项目结果相比，过程才是最大的财富。如果你没能从一个项目的过程中学到一点东西，这才是真正失败的项目。</p>
+</blockquote>
+<hr>
+<h3 id="关于专家"><a href="#关于专家" class="headerlink" title="关于专家"></a>关于专家</h3><blockquote>
+<p>这个世界上只有少数的专家，却有大量的普通人。当你想要建立一个包含各种信息的网站时，这些普通人的贡献是最重要的。这是一个不规则的世界，里面装满了无穷无尽的细节。</p>
+<p>作为专家，重要的是不是告诉别人你知道什么。而是要清楚你应该问什么样的问题，并且灵活运用你所掌握的知识去解决眼下的具体问题。作为专家，你的作用是提供明确的，可执行的方向。</p>
+</blockquote>
+<p>读到这些，笔者觉得专家理应受到种种质疑，而为了能经得起这些质疑，那么就不应该跟人家说“我读了神马神马著作，精通神马神马技术，你看我的论文，你看我的研究成果等等”，真正证明自己是专家的途径，一般只有帮助非专家人士或者别的专家高效地解决问题。</p>
+<p>其实，庞大的知识体系也是对解决问题帮助很大的：因为这些有着庞大知识体系的专家的晶体智力水平很高，很多时候，他们并不需要动脑子(也就是流体智力)，直接调出相应知识就能解决。所以说，那些自称专家的人如果连连无法解决问题的话，那么真的是low爆了。</p>
+<hr>
+<h3 id="关于软件项目管理"><a href="#关于软件项目管理" class="headerlink" title="关于软件项目管理"></a>关于软件项目管理</h3><blockquote>
+<p>鼓励并强制要求程序员创建一张他们所要做的全部事情的列表，然后尽可能添加所有的子项，这样就能估算这个任务话费多少时间了。</p>
+<p>如果有人问你的时间表，你应该拿出一张你要做的所有事情的列表。如果拿不出来，你所要做的第一件事情，就是要做出这么一张列表。</p>
+</blockquote>
+<p>这种列表和待办事项列表稍有不同。这种列表属于“时间表”，它的目的是监控进度:所以说，它的时间总长度是不变的。但是待办事项列表的时间总长度是趋于“无限的”(当然，只对于执行力很差的人来说)。</p>
+<hr>
+<h3 id="关于“一夜成名”"><a href="#关于“一夜成名”" class="headerlink" title="关于“一夜成名”"></a>关于“一夜成名”</h3><blockquote>
+<p>一夜成名的传说容易让人误入歧途，并且遗毒不浅。如果你打算做一个全新的东西，要有打持久战的准备。</p>
+<p>勤于练习：不是一遍又一遍的简单重复，而是要不断挑战略微超出自身能力之外的任务-努力尝试，并在做的同时以及之后对自己的表现进行评估，然后纠正错误，如此反复。</p>
+</blockquote>
+<p>这里谈到了程序员对自己本身的迭代：快速迭代。其实同软件开发是一个道理：软件迭代的速度远重要于迭代的质量。也就是说，我们在学习的过程中，对自己的提升也应该是快速而轻盈的。</p>
+<p>切忌一口气吃个胖子，肯定是吃不消的。应该结合自己已有的知识水平，再寻找对自己来说稍微有点挑战性的技术来攻克，一来学习效率高，二来可以提升自信，进入到新一轮的学习中去。</p>
+<hr>
+<h3 id="关于优秀和平庸程序员之间的鸿沟"><a href="#关于优秀和平庸程序员之间的鸿沟" class="headerlink" title="关于优秀和平庸程序员之间的鸿沟"></a>关于优秀和平庸程序员之间的鸿沟</h3><blockquote>
+<ul>
+<li>成为更加优秀的程序员的方法是抛开编程。</li>
+<li>你的兴趣越广泛，就能越胜任你的工作。</li>
+<li>为了真正地成为一名更好的程序员，你必须培养自己对于编程周边所有事情的热情。</li>
+<li>单单靠编程，你只能补足或者增强自己已有的变成技能，永远也无法成为一名优秀的程序员。你需要尝试去了解你的客户，你所处的行业以及相关的业务。</li>
+<li>聪明的开发者知道，他们的工作远远不止编写代码和发布产品：他们的工作是开发出人们真正想要使用的软件。这当然包括编码，但还有大量全局性的其他事情，比如撰写技术文档，交互设计，培养用户社区，乃至产品愿景，这些对于软件的全貌成功都是至关重要的。</li>
+</ul>
+<hr>
+</blockquote>
+<h3 id="关于修复bug"><a href="#关于修复bug" class="headerlink" title="关于修复bug"></a>关于修复bug</h3><blockquote>
+<p>在对报告数据的广泛分析之后，我们看到：80%的客服问题在修复了用户报得最多的20%的bug之后就得到解决。即使修复用户报的最多的1%的bug，也能解决50%的客服问题。这个分析结果通常对于各家公司都是成立的。</p>
+<p>如果你修复了一个真实用户永远也碰不到的bug，那你修复有什么价值呢？</p>
+<p>你越快将你的软件推到真实用户面前，就会得到越多的数据来改进你的软件。问题不在于你在发布软件的时候带去了多少bug，而是在于你能多快地修复那些bug。</p>
+</blockquote>
+<p>因此，笔者认为在bug管理的问题上，要注意两点：</p>
+<ul>
+<li>不要怕将bug暴露在用户面前，尽早地收集用户的反馈数据是关键。</li>
+<li>而且，在收到大量的反馈数据之后，也应遵循二八定律，要以bug的影响程度来划分bug的优先级,不应盲目排列修改bug的顺序。</li>
+</ul>
+<hr>
+<h3 id="关于衡量软件的成功"><a href="#关于衡量软件的成功" class="headerlink" title="关于衡量软件的成功"></a>关于衡量软件的成功</h3><blockquote>
+<p>多少用户在真正使用你的软件？这才是衡量成功的终极标准。</p>
+</blockquote>
+<p>其实无论交互多绚丽，功能多么吊炸天，一旦用户不需要，用户不喜欢，不掏钱，其实是没有任何卵用的。而且在一定的技术水准上，如果无法“说服”大量客户使用产品，也同样是让人心痛的。</p>
+<ul>
+<li>技术再牛也要从用户体验出发，少做一些中看不中用的东西。想出数百个功能很容易，但是从中挑出几个可以提升用户体验，真正能吸引用户，让用户掏腰包的功能实在不易。</li>
+</ul>
+<ul>
+<li>产品做出来了，产品有没有人用，营销和推广同时占有举足轻重的作用。突然想到以前在一本营销书籍看到的：能做出比麦当劳好吃的汉堡包很容易，但是能比麦当劳卖得好却是很难得，众人难以模仿麦当劳整体的营销模式。相同的，像ZARA品牌的生产模式和营销模式之高效，是其他品牌无法超越的，这也是其风靡全球的原因。</li>
+</ul>
+<hr>
+<h3 id="关于用户的谎言"><a href="#关于用户的谎言" class="headerlink" title="关于用户的谎言"></a>关于用户的谎言</h3><blockquote>
+<ul>
+<li>我们必须根据用户的实际行为模式来设计产品。</li>
+<li>他们会说喜欢你的软件。但是我们应该去观察他们是否使用了软件，以及他们是怎么使用的。基于行为数据去设计软件，而不是靠用户说的“谎言”。</li>
+</ul>
+</blockquote>
+<p>笔者认为，我们很少能从用户言语上得到用户特别真实的感受。那些善良的客户们有时碍于面子，有时想当和事老，凭着“你好我好大家好”的原则，说一些心里没有的，善意的谎言。</p>
+<p>所以那些问卷调查什么的，走街串巷访问什么的其实意义不大。真正能“窥视”用户内心的是那些技术埋点。我记得有一次参加一个分享会，触宝科技的CEO跟大家分享了他们的埋点:他们通过埋点的方式，甚至会知道导致用户删掉app的是哪几个界面和动作。这让我感触很大，既然能做到这些，那么如果想知道用户喜欢点击那里，喜欢看哪里，喜欢做那几个动作，岂不是轻而易举？知己知彼，百战岂殆？</p>
+<hr>
+<h3 id="最后作者推荐的书籍"><a href="#最后作者推荐的书籍" class="headerlink" title="最后作者推荐的书籍"></a>最后作者推荐的书籍</h3><ol>
+<li>《代码大全(第二版)》</li>
+<li>《点石成金：访客至上的网页设计秘籍》</li>
+<li>《人件》</li>
+<li>《程序员修炼之道：从小工到专家》</li>
+<li>《软件工程的事实与谬误》</li>
+</ol>
+<p>其中第1本和第4本笔者在看。第1本对于非科班出身的笔者来说实在是晦涩难懂。不过既然作者说读完此书就能超过90%的程序员，那么不失为一个节省时间的好方法。以后有机会的话，希望能和各路英雄讨论讨论个中奥妙。</p>
+<hr>
+<h3 id="笔者最后的话"><a href="#笔者最后的话" class="headerlink" title="笔者最后的话"></a>笔者最后的话</h3><p>其实还是希望能和各位相互讨论，其实相比于文章被“喜欢”，笔者更希望诸位能留下评论，毫不留情地指出小弟想法中的不妥之处，这些是远比“打赏”和“喜欢”更让小弟高兴的呢！</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BookNote/" rel="tag"># BookNote</a>
+          
+            <a href="/tags/IT/" rel="tag"># IT</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/浅谈互联网商业思维的几个误区 - 读《重来》有感/" rel="next" title="浅谈互联网商业思维的几个误区 - 读《重来》有感">
+                <i class="fa fa-chevron-left"></i> 浅谈互联网商业思维的几个误区 - 读《重来》有感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/程序员的职业素养 - 读书笔记/" rel="prev" title="程序员的职业素养 - 读书笔记">
+                程序员的职业素养 - 读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于-To-Do-list"><span class="nav-number">1.</span> <span class="nav-text">关于 To-Do list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于探索的态度"><span class="nav-number">2.</span> <span class="nav-text">关于探索的态度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于专家"><span class="nav-number">3.</span> <span class="nav-text">关于专家</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于软件项目管理"><span class="nav-number">4.</span> <span class="nav-text">关于软件项目管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于“一夜成名”"><span class="nav-number">5.</span> <span class="nav-text">关于“一夜成名”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于优秀和平庸程序员之间的鸿沟"><span class="nav-number">6.</span> <span class="nav-text">关于优秀和平庸程序员之间的鸿沟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于修复bug"><span class="nav-number">7.</span> <span class="nav-text">关于修复bug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于衡量软件的成功"><span class="nav-number">8.</span> <span class="nav-text">关于衡量软件的成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于用户的谎言"><span class="nav-number">9.</span> <span class="nav-text">关于用户的谎言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后作者推荐的书籍"><span class="nav-number">10.</span> <span class="nav-text">最后作者推荐的书籍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#笔者最后的话"><span class="nav-number">11.</span> <span class="nav-text">笔者最后的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

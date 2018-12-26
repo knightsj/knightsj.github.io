@@ -1,0 +1,892 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="写在开头 入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。 课程地址：斯坦福大学公开课：iOS 7应用开发 废话少说，开始！">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="写在开头 入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。 课程地址：斯坦福大学公开课：iOS 7应用开发 废话少说，开始！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-492c53ebbb43ad76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.620Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架">
+<meta name="twitter:description" content="写在开头 入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。 课程地址：斯坦福大学公开课：iOS 7应用开发 废话少说，开始！">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-492c53ebbb43ad76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/">
+
+
+
+
+
+  <title> 斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,369 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  5 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h2><hr>
+<p>入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。</p>
+<p>课程地址：<a href="http://open.163.com/special/opencourse/ios7.html" target="_blank" rel="noopener">斯坦福大学公开课：iOS 7应用开发</a></p>
+<p>废话少说，开始！</p>
+<a id="more"></a>
+<h2 id="MVC架构介绍"><a href="#MVC架构介绍" class="headerlink" title="MVC架构介绍"></a>MVC架构介绍</h2><hr>
+<h3 id="基本概念："><a href="#基本概念：" class="headerlink" title="基本概念："></a>基本概念：</h3><ul>
+<li><strong>视图</strong>(View)：构建UI的类；例如：按钮，标签，进度条等。</li>
+<li><strong>模型</strong>(Model)：视图类所需要的数据；例如：表格需要显示的文字。</li>
+<li><strong>控制器</strong>(Controller)：连接视图类和模型类，任务是使数据显示在屏幕上。例如：控制器将表格需要使用的数据“填入”表格视图中，将表格视图显示出来。</li>
+</ul>
+<h3 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h3><ul>
+<li><strong>控制器可以直接访问模型</strong>：将模型直接作为控制器的属性。</li>
+<li><strong>控制器可以直接访问视图</strong>：将视图直接作为控制器的属性。</li>
+<li><p><strong>模型与视图无法直接访问对方</strong>：二者完全解耦，不能引用对方，把对方设置为属性。</p>
+</li>
+<li><p><strong>视图到控制器的通信</strong>：</p>
+<ol>
+<li><p><strong>目标动作机制</strong>(target - action)：用户与视图交互触发控制器的方法。例如：点击按钮后实现视界面跳转，网络请求，刷新UI等。</p>
+</li>
+<li><p><strong>委托机制</strong>(delegate)：视图向控制器询问某些自己无法决定的事情，或是让控制器帮助自己做一些自己独立无法完成的事情。 因为控制器才是掌握全局的角色，很多时候视图是无法自己做决定的。例如：表格问控制器：我可以滚动么？然后控制器给予回答告知是否可以继续滚动。 如果表格的高度很小，那么就可以不让它滚动。但是如果表格的高度已经超过了屏幕的高度，这时候如果让它自作主张无法滚动久不好了。                                             </p>
+</li>
+<li><strong>数据源机制</strong>(dataSource):视图让控制器给它将要显示的数据。例如：音乐的数据存在于模型里，控制器访问模型，从模型里拿到数据后告诉视图如何显示出歌曲。</li>
+</ol>
+</li>
+<li><p><strong>模型到控制器的通信</strong></p>
+<ol>
+<li><strong>广播机制</strong>(Notification)：控制器注册监听某模型数据变化的广播频道，当此模型数据变化后向该控制器发送广播，告知模型变化情况。</li>
+<li><strong>KVO机制</strong>(Key-Value Observing)：模型作为控制器的属性，当模型属性被修改后，持有此模型属性的控制器就会收到通知。</li>
+</ol>
+</li>
+</ul>
+<p>下面一张图可以直观看出上述的通信方式。图片来自本课程配套的<a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewPodcast?id=480479762" target="_blank" rel="noopener">课件</a><br><img src="http://upload-images.jianshu.io/upload_images/859001-492c53ebbb43ad76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="iOS MVC架构"></p>
+<h2 id="其他知识"><a href="#其他知识" class="headerlink" title="其他知识"></a>其他知识</h2><hr>
+<h3 id="类文件类型："><a href="#类文件类型：" class="headerlink" title="类文件类型："></a>类文件类型：</h3><ul>
+<li><strong>.h文件</strong>(头文件):公开API，其他类可以调用的方法，告诉其他类“我能做些什么：<strong>what I can do</strong>。</li>
+<li><strong>.m文件</strong>(实现文件):非公开API，如何实现.h文件的方法，查看实现文件可以知道该类具体是如何实现公开API的方法的:<strong>how to do</strong>。</li>
+</ul>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><strong>strong</strong>：在堆中保持这个所指的东西，至少有一个强指针指向它，否则就会释放。</li>
+<li><strong>weak</strong>：如果没有强指针指向它，清理指向的内存后，会被设置成nil指针。</li>
+<li><strong>nonatomic</strong>：不能有两个线程同时设置该属性。</li>
+</ul>
+<h3 id="零散知识"><a href="#零散知识" class="headerlink" title="零散知识"></a>零散知识</h3><ul>
+<li>所有对象都在堆里，OC会为我们管理这些内存。</li>
+<li>访问实例变量，就是访问对象的实例数据。</li>
+<li>OC里，可以先实现方法再声明。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><hr>
+<p>第一讲里的内容比较基础，重点是介绍了MVC模型的通信机制，需要反复推敲并且在实际操作中<strong>严格遵守</strong>。因为只有这样做才能降低类之间的耦合性，写出易于维护和扩展的代码。</p>
+<p>比如在模型类里是不能调用控制器的方法的，模型类只能被控制器调用并且当所拥有的数据改变后通知使用自己的控制器数据的改变。更不能直接给视图通知让视图自己更新UI。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/数据结构 & 算法 in Swift （二）：算法概述和排序算法/" rel="next" title="数据结构 & 算法 in Swift （二）：算法概述和排序算法">
+                <i class="fa fa-chevron-left"></i> 数据结构 & 算法 in Swift （二）：算法概述和排序算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo/" rel="prev" title="斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo">
+                斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在开头"><span class="nav-number">1.</span> <span class="nav-text">写在开头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC架构介绍"><span class="nav-number">2.</span> <span class="nav-text">MVC架构介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念："><span class="nav-number">2.1.</span> <span class="nav-text">基本概念：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通信方式"><span class="nav-number">2.2.</span> <span class="nav-text">通信方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他知识"><span class="nav-number">3.</span> <span class="nav-text">其他知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类文件类型："><span class="nav-number">3.1.</span> <span class="nav-text">类文件类型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">3.2.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#零散知识"><span class="nav-number">3.3.</span> <span class="nav-text">零散知识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

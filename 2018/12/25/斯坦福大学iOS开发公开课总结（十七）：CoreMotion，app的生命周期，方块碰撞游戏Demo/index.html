@@ -1,0 +1,894 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。 Core Motion CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。 Core Motion CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-baa2c6607140ad2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.631Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo">
+<meta name="twitter:description" content="本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。 Core Motion CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-baa2c6607140ad2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/">
+
+
+
+
+
+  <title> 斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,058 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。</p>
+<h1 id="Core-Motion"><a href="#Core-Motion" class="headerlink" title="Core Motion"></a>Core Motion</h1><hr>
+<p>CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作，可以根据用户的动作做出相应的动作；磁力针可以判断设备的方向。</p>
+<p>CoreMotion的工作是基于<code>CMMotionManager</code>类来执行的。我们看一下该类的API：</p>
+<h2 id="CMMotionManager"><a href="#CMMotionManager" class="headerlink" title="CMMotionManager"></a>CMMotionManager</h2><h3 id="检测硬件设备："><a href="#检测硬件设备：" class="headerlink" title="检测硬件设备："></a>检测硬件设备：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable __TVOS_PROHIBITED;</span><br><span class="line">@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable __TVOS_PROHIBITED;</span><br><span class="line">@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</span><br><span class="line">@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable __TVOS_PROHIBITED;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="开启相应的模块："><a href="#开启相应的模块：" class="headerlink" title="开启相应的模块："></a>开启相应的模块：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)startAccelerometerUpdates __TVOS_PROHIBITED;</span><br><span class="line">- (void)startGyroUpdates __TVOS_PROHIBITED;</span><br><span class="line">- (void)startMagnetometerUpdates NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</span><br><span class="line">- (void)startDeviceMotionUpdates __TVOS_PROHIBITED;</span><br></pre></td></tr></table></figure>
+<h3 id="检测相应的模块是否正在收集数据："><a href="#检测相应的模块是否正在收集数据：" class="headerlink" title="检测相应的模块是否正在收集数据："></a>检测相应的模块是否正在收集数据：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@property(readonly, nonatomic, getter=isAccelerometerActive) BOOL accelerometerActive __TVOS_PROHIBITED;</span><br><span class="line">@property(readonly, nonatomic, getter=isGyroActive) BOOL gyroActive __TVOS_PROHIBITED;</span><br><span class="line">@property(readonly, nonatomic, getter=isMagnetometerActive) BOOL magnetometerActive NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</span><br><span class="line">@property(readonly, nonatomic, getter=isDeviceMotionActive) BOOL deviceMotionActive __TVOS_PROHIBITED;</span><br></pre></td></tr></table></figure>
+<h3 id="关闭相应的模块："><a href="#关闭相应的模块：" class="headerlink" title="关闭相应的模块："></a>关闭相应的模块：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)stopAccelerometerUpdates __TVOS_PROHIBITED;</span><br><span class="line">- (void)stopGyroUpdates __TVOS_PROHIBITED;</span><br><span class="line">- (void)stopMagnetometerUpdates NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</span><br><span class="line">- (void)stopDeviceMotionUpdates __TVOS_PROHIBITED;</span><br></pre></td></tr></table></figure>
+<h3 id="使用block监听"><a href="#使用block监听" class="headerlink" title="使用block监听"></a>使用block监听</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)startAccelerometerUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMAccelerometerHandler)handler __TVOS_PROHIBITED;</span><br><span class="line">- (void)startGyroUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMGyroHandler)handler __TVOS_PROHIBITED;</span><br><span class="line">- (void)startMagnetometerUpdatesToQueue:(NSOperationQueue *)queue withHandler:(CMMagnetometerHandler)handler NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</span><br><span class="line">- (void)startDeviceMotionUpdatesUsingReferenceFrame:(CMAttitudeReferenceFrame)referenceFrame toQueue:(NSOperationQueue *)queue withHandler:(CMDeviceMotionHandler)handler NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;</span><br></pre></td></tr></table></figure>
+<h3 id="CMMotionManager的工作步骤"><a href="#CMMotionManager的工作步骤" class="headerlink" title="CMMotionManager的工作步骤"></a>CMMotionManager的工作步骤</h3><ol>
+<li>首先初始化<code>CMMotionManager</code>类。</li>
+<li>判断硬件设备的可使用性。</li>
+<li>调用API<br>详细的使用方法请看Demo部分的讲解部分。</li>
+</ol>
+<h1 id="app的生命周期"><a href="#app的生命周期" class="headerlink" title="app的生命周期"></a>app的生命周期</h1><hr>
+<p>程序在运行过程中，是由各种不同的状态的，在这些状态之间切换时可以执行一些代码用于满足一定的业务需求。</p>
+<h2 id="应用程序的几种状态："><a href="#应用程序的几种状态：" class="headerlink" title="应用程序的几种状态："></a>应用程序的几种状态：</h2><ul>
+<li>Not running:未运行  程序没启动</li>
+<li>Inactive:未激活, 程序在前台运行，不过没有接收到事件。在没有事件处理情况下程序通常停留在这个状态。</li>
+<li>Active:激活,  程序在前台运行而且接收到了事件。这是程序在前台运行的正常状态。</li>
+<li>Backgroud:后台, 程序在后台而且能执行代码。大多数程序进入这个状态后会在在这个状态上停留一会， 时间到之后会进入挂起状态(Suspended)。</li>
+<li>Suspended:挂起 ,程序在后台不能执行代码。系统会自动把程序变成这个状态而且不会发出通知。当挂起时，程序还是停留在内存中的，当系统内存低时，系统就把挂起的程序清除掉，为当前处于前台程序提供更多的内存。</li>
+</ul>
+<h2 id="应用程序的状态之间切换时调用的代理方法（AppDelegate）："><a href="#应用程序的状态之间切换时调用的代理方法（AppDelegate）：" class="headerlink" title="应用程序的状态之间切换时调用的代理方法（AppDelegate）："></a>应用程序的状态之间切换时调用的代理方法（AppDelegate）：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions   //启动基本完成，程序准备开始运行时调用。</span><br><span class="line">- (void)applicationWillResignActive:(UIApplication *)application          //当应用程序将要入非活动状态执行。在此期间，应用程序不接收消息或事件，比如来电话时。</span><br><span class="line">- (void)applicationDidBecomeActive:(UIApplication *)application           //当应用程序入活动状态执行。</span><br><span class="line">- (void)applicationDidEnterBackground:(UIApplication *)application        //当程序被推到后台的时候调用。</span><br><span class="line">- (void)applicationWillEnterForeground:(UIApplication *)application       //当程序从后台将要重新回到前台时候调用。</span><br><span class="line">- (void)applicationWillTerminate:(UIApplication *)application             // 当程序将要退出时调用，通常是用来保存数据和一些退出前的清理工作。</span><br></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求:"></a>Demo需求:</h2><ul>
+<li>显示两个小方块，一黑一红，二者可以随着屏幕的转动而移动。</li>
+<li>由红色方块碰撞黑色方块来得分。</li>
+</ul>
+<h2 id="Demo效果图："><a href="#Demo效果图：" class="headerlink" title="Demo效果图："></a>Demo效果图：</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-baa2c6607140ad2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：游戏进行中 | 右：游戏暂停"></p>
+<h2 id="重要知识点和代码段："><a href="#重要知识点和代码段：" class="headerlink" title="重要知识点和代码段："></a>重要知识点和代码段：</h2><h4 id="1-添加animator和重力行为和碰撞行为"><a href="#1-添加animator和重力行为和碰撞行为" class="headerlink" title="1. 添加animator和重力行为和碰撞行为"></a>1. 添加animator和重力行为和碰撞行为</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">- (UIDynamicAnimator *)animator</span><br><span class="line">&#123;</span><br><span class="line">    if (!_animator) _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];</span><br><span class="line">    return _animator;</span><br><span class="line">&#125;</span><br><span class="line">- (UICollisionBehavior *)collider</span><br><span class="line">&#123;</span><br><span class="line">    if (!_collider) &#123;</span><br><span class="line">        UICollisionBehavior *collider = [[UICollisionBehavior alloc] init];</span><br><span class="line">        collider.translatesReferenceBoundsIntoBoundary = YES;</span><br><span class="line">        [self.animator addBehavior:collider];</span><br><span class="line">        self.collider = collider;</span><br><span class="line">    &#125;</span><br><span class="line">    return _collider;</span><br><span class="line">&#125;</span><br><span class="line">- (UIGravityBehavior *)gravity</span><br><span class="line">&#123;</span><br><span class="line">    if (!_gravity) &#123;</span><br><span class="line">        UIGravityBehavior *gravity = [[UIGravityBehavior alloc] init];</span><br><span class="line">        [self.animator addBehavior:gravity];</span><br><span class="line">        self.gravity = gravity;</span><br><span class="line">    &#125;</span><br><span class="line">    return _gravity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>老规矩，还是要将animtor添加到view里面再向其添加各种动作行为。有关动画的讲解请参考笔者之前一篇总结：<a href="http://www.jianshu.com/p/5f1f40f963ac" target="_blank" rel="noopener">斯坦福大学iOS开发公开课总结（八） ：协议，block，动画，俄罗斯方块Demo</a>。</p>
+</blockquote>
+<h4 id="2-根据偏移量来设置方块的位置"><a href="#2-根据偏移量来设置方块的位置" class="headerlink" title="2. 根据偏移量来设置方块的位置"></a>2. 根据偏移量来设置方块的位置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (UIView *)addBlockOffsetFromCenterBy:(UIOffset)offset</span><br><span class="line">&#123;</span><br><span class="line">    CGPoint blockCenter = CGPointMake(CGRectGetMidX(self.view.bounds)+offset.horizontal,</span><br><span class="line">                                      CGRectGetMidY(self.view.bounds)+offset.vertical);</span><br><span class="line"></span><br><span class="line">    CGRect blockFrame = CGRectMake(blockCenter.x-blockSize.width/2,</span><br><span class="line">                                   blockCenter.y-blockSize.height/2,</span><br><span class="line">                                   blockSize.width,</span><br><span class="line">                                   blockSize.height);</span><br><span class="line"></span><br><span class="line">    UIView *block = [[UIView alloc] initWithFrame:blockFrame];</span><br><span class="line">    [self.view addSubview:block];</span><br><span class="line">    return block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，使用了<code>CGRectGetMidX</code>函数来获得view的横向中心点。</p>
+</blockquote>
+<h4 id="3-初始化红色和黑色方块"><a href="#3-初始化红色和黑色方块" class="headerlink" title="3. 初始化红色和黑色方块"></a>3. 初始化红色和黑色方块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">        self.redBlock = [self addBlockOffsetFromCenterBy:UIOffsetMake(-100, 0)];</span><br><span class="line">        self.redBlock.backgroundColor = [UIColor redColor];</span><br><span class="line">        [self.collider addItem:self.redBlock];</span><br><span class="line">        [self.gravity addItem:self.redBlock];</span><br><span class="line">        </span><br><span class="line">        self.blackBlock = [self addBlockOffsetFromCenterBy:UIOffsetMake(+100, 0)];</span><br><span class="line">        self.blackBlock.backgroundColor = [UIColor blackColor];</span><br><span class="line">        [self.collider addItem:self.blackBlock];</span><br><span class="line"></span><br><span class="line">        //将开始的重力设为0：方块将不感受重力，只能通过人为手段施加</span><br><span class="line">        self.gravity.gravityDirection = CGVectorMake(0, 0);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，红色方块具有碰撞和重力行为，但是黑色方块却只有碰撞行为。因为黑色是不受重力控制的，它的运动的触发只来自红色方块的碰撞。</p>
+</blockquote>
+<h4 id="4-在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作："><a href="#4-在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作：" class="headerlink" title="4. 在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作："></a>4. 在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification</span><br><span class="line">                                                      object:nil</span><br><span class="line">                                                       queue:nil</span><br><span class="line">                                                  usingBlock:^(NSNotification *note) &#123;</span><br><span class="line">                                                      [self pauseGame];</span><br><span class="line">                                                  &#125;];</span><br><span class="line"></span><br><span class="line">    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification</span><br><span class="line">                                                     object:nil</span><br><span class="line">                                                       queue:nil</span><br><span class="line">                                                  usingBlock:^(NSNotification *note) &#123;</span><br><span class="line">                                                      if (self.view.window) [self resumeGame];</span><br><span class="line">                                                  &#125;];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们也可以在appdelegate里面来实现这些方法，不过个人认为将方法写在一起看起来比较直观</p>
+</blockquote>
+<h4 id="5-CMMotionManager的初始化和使用"><a href="#5-CMMotionManager的初始化和使用" class="headerlink" title="5. CMMotionManager的初始化和使用"></a>5. CMMotionManager的初始化和使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">//初始化</span><br><span class="line">- (CMMotionManager *)motionManager</span><br><span class="line">&#123;</span><br><span class="line">    if (!_motionManager) &#123;</span><br><span class="line">        _motionManager = [[CMMotionManager alloc] init];</span><br><span class="line">        _motionManager.accelerometerUpdateInterval = 0.1;</span><br><span class="line">    &#125;</span><br><span class="line">    return _motionManager;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//将方法放在主线程的代码块中</span><br><span class="line"> if (!self.motionManager.isAccelerometerActive) &#123;</span><br><span class="line"></span><br><span class="line">        [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue]</span><br><span class="line"></span><br><span class="line">                                                 withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) &#123;</span><br><span class="line">    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿//获取加速器的方向</span><br><span class="line">                                                     CGFloat x = accelerometerData.acceleration.x;</span><br><span class="line">                                                     CGFloat y = accelerometerData.acceleration.y;</span><br><span class="line">    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿</span><br><span class="line">    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿    ﻿//根据设备的方向来给方块施加不同方向的重力</span><br><span class="line">                                                     switch (self.interfaceOrientation) &#123;</span><br><span class="line">                                                         case UIInterfaceOrientationLandscapeRight:</span><br><span class="line">                                                            self.gravity.gravityDirection = CGVectorMake(- y, - x); break;</span><br><span class="line">  </span><br><span class="line">                                                       case UIInterfaceOrientationLandscapeLeft:</span><br><span class="line">                                                             self.gravity.gravityDirection = CGVectorMake(y, x); break;</span><br><span class="line"></span><br><span class="line">                                                         case UIInterfaceOrientationPortrait:</span><br><span class="line">                                                             self.gravity.gravityDirection = CGVectorMake(x, - y); break;</span><br><span class="line"></span><br><span class="line">                                                         case UIInterfaceOrientationPortraitUpsideDown:</span><br><span class="line">                                                            self.gravity.gravityDirection = CGVectorMake(- x, y); break;</span><br><span class="line">                                                     &#125;</span><br><span class="line"></span><br><span class="line">                                                     [self updateScore];</span><br><span class="line">                                                 &#125;];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
+<p>如果嫌麻烦的童鞋可以在留言留下邮箱，笔者会将Demo包发给你~</p>
+<p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo/" rel="next" title="斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo">
+                <i class="fa fa-chevron-left"></i> 斯坦福大学iOS开发公开课总结（十一）：表格视图，Flickr-照片查看器Demo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/" rel="prev" title="斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo">
+                斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Core-Motion"><span class="nav-number">1.</span> <span class="nav-text">Core Motion</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CMMotionManager"><span class="nav-number">1.1.</span> <span class="nav-text">CMMotionManager</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测硬件设备："><span class="nav-number">1.1.1.</span> <span class="nav-text">检测硬件设备：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启相应的模块："><span class="nav-number">1.1.2.</span> <span class="nav-text">开启相应的模块：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测相应的模块是否正在收集数据："><span class="nav-number">1.1.3.</span> <span class="nav-text">检测相应的模块是否正在收集数据：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭相应的模块："><span class="nav-number">1.1.4.</span> <span class="nav-text">关闭相应的模块：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用block监听"><span class="nav-number">1.1.5.</span> <span class="nav-text">使用block监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMMotionManager的工作步骤"><span class="nav-number">1.1.6.</span> <span class="nav-text">CMMotionManager的工作步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#app的生命周期"><span class="nav-number">2.</span> <span class="nav-text">app的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用程序的几种状态："><span class="nav-number">2.1.</span> <span class="nav-text">应用程序的几种状态：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用程序的状态之间切换时调用的代理方法（AppDelegate）："><span class="nav-number">2.2.</span> <span class="nav-text">应用程序的状态之间切换时调用的代理方法（AppDelegate）：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo"><span class="nav-number">3.</span> <span class="nav-text">Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo需求"><span class="nav-number">3.1.</span> <span class="nav-text">Demo需求:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo效果图："><span class="nav-number">3.2.</span> <span class="nav-text">Demo效果图：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要知识点和代码段："><span class="nav-number">3.3.</span> <span class="nav-text">重要知识点和代码段：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加animator和重力行为和碰撞行为"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">1. 添加animator和重力行为和碰撞行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-根据偏移量来设置方块的位置"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">2. 根据偏移量来设置方块的位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-初始化红色和黑色方块"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">3. 初始化红色和黑色方块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作："><span class="nav-number">3.3.0.4.</span> <span class="nav-text">4. 在程序即将要挂起或者恢复前台活动状态时进行暂停游戏的操作：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-CMMotionManager的初始化和使用"><span class="nav-number">3.3.0.5.</span> <span class="nav-text">5. CMMotionManager的初始化和使用</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">4.</span> <span class="nav-text">最后的话</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

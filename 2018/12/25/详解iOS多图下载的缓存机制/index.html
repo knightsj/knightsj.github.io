@@ -1,0 +1,894 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。 第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。 有一个多图缓存机制的教程是来自李明杰">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解iOS多图下载的缓存机制">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/详解iOS多图下载的缓存机制/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。 第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。 有一个多图缓存机制的教程是来自李明杰">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-addf3137097c3912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.651Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="详解iOS多图下载的缓存机制">
+<meta name="twitter:description" content="做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。 第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。 有一个多图缓存机制的教程是来自李明杰">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-addf3137097c3912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/详解iOS多图下载的缓存机制/">
+
+
+
+
+
+  <title> 详解iOS多图下载的缓存机制 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/详解iOS多图下载的缓存机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                详解iOS多图下载的缓存机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,704 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  10 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>做iOS开发也有半年多了，想想自己对一些第三方库还只是停留在简单运用的阶段，感觉心慌慌的。于是决定用一个月的时间深入了解一些好的第三方库。</p>
+<p>第一个想到了SDWebImage，这个库很不错，几乎每个iOS项目都会有它的影子，因为它很完美地解决了下载图片并显示的处理逻辑。那么深究它之前，笔者准备先了解一下多图下载的缓存机制，因为它和SDWebImage的方案类似。</p>
+<p>有一个多图缓存机制的教程是来自李明杰小码哥的，笔者觉得讲得挺不错的，于是就花了2个小时好好学习了一下。</p>
+<a id="more"></a>
+<h1 id="1-需求点是什么？"><a href="#1-需求点是什么？" class="headerlink" title="1.需求点是什么？"></a>1.需求点是什么？</h1><hr>
+<p>这里所说的<strong>多图下载</strong>，就是要在tableview的每一个cell里显示一张图片,而且这些图片都需要从网上下载。</p>
+<h1 id="2-容易遇到的问题"><a href="#2-容易遇到的问题" class="headerlink" title="2.容易遇到的问题"></a>2.容易遇到的问题</h1><hr>
+<p>如果不知道或不使用<strong>异步操作</strong>和<strong>缓存机制</strong>，那么写出来的代码很可能会是这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cell.textLabel.text = app.name;</span><br><span class="line">cell.detailTextLabel.text = app.download;</span><br><span class="line"><span class="built_in">NSData</span> *imageData = [<span class="built_in">NSData</span> dataWithContentsOfURL:app.url];</span><br><span class="line">cell.imageView.image = [<span class="built_in">UIImage</span> imageWithData:imageData];</span><br></pre></td></tr></table></figure>
+<p>这样写有什么后果呢？</p>
+<h4 id="后果1：不可避免的卡顿（因为没有异步下载操作）"><a href="#后果1：不可避免的卡顿（因为没有异步下载操作）" class="headerlink" title="后果1：不可避免的卡顿（因为没有异步下载操作）"></a>后果1：不可避免的卡顿（因为没有异步下载操作）</h4><blockquote>
+<p>dataWithContentsOfURL：是耗时操作，将其放在主线程会造成卡顿。如果图片很多，图片很大，而且网络情况不好的话肯定会卡出翔！</p>
+</blockquote>
+<h4 id="后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）"><a href="#后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）" class="headerlink" title="后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）"></a>后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）</h4><blockquote>
+<p>由于没有缓存机制，即使下载完成并显示了当前cell的图片，但是当该cell再一次需要显示的时候还是会下载它所对应的图片：耗费了下载流量，而且还导致重复操作。</p>
+</blockquote>
+<p>很显然，要达到Tableview滚动的<strong>如丝滑般的享受</strong>必须二者兼得才可以，具体怎么做呢？</p>
+<h1 id="3-解决方案"><a href="#3-解决方案" class="headerlink" title="3.解决方案"></a>3.解决方案</h1><hr>
+<h4 id="1-先看一下解决方案的流程图"><a href="#1-先看一下解决方案的流程图" class="headerlink" title="1.先看一下解决方案的流程图"></a>1.先看一下解决方案的流程图</h4><p>小码哥将他的解决方案在PPT里用流程图画了出来，笔者觉得很不错，但是颜值略低（毕竟人家是一心搞技术，没时间在意这些外在的东西），笔者理了理思路，自己重新画了一张（好看么？）：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-addf3137097c3912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多图下载解决方案流程图"></p>
+<p>要想快速看懂此图，需要先了解该流程所需的所有数据源：</p>
+<p><strong>1. 图片的URL</strong>：因为每张图片对应的URL都是唯一的，所以我们可以通过它来建立<strong>图片缓存</strong>和<strong>下载操作的缓存</strong>的键，以及拼接<strong>沙盒缓存</strong>的路径字符串。<br><strong>2. 图片缓存（字典）</strong>：存放于内存中；键为图片的URL，值为UIImage对象。作用：读取速度快，直接使用UIImage对象。<br><strong>3. 下载操作缓存（字典）</strong>：存放与内存中，键为图片的URL，值为NSBlockOperation对象。作用：用来避免对于同一张图片还要开启多个下载线程。<br><strong>4. 沙盒缓存(文件路径对应NSData)</strong>：存放于磁盘中，位于Cache文件夹内，路径为“Cache/图片URL的最后的部分”，值为NSData对象（将UIImage转化为NSData才能写入磁盘里）。作用：程序断网，再次启动也可以直接在磁盘中拿到图片。</p>
+<h4 id="2-再看一下解决方案的代码"><a href="#2-再看一下解决方案的代码" class="headerlink" title="2.再看一下解决方案的代码"></a>2.再看一下解决方案的代码</h4><p><strong>2.1图片缓存，下载操作缓存，沙盒缓存路径</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  存放所有下载完的图片</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableDictionary</span> *images;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  存放所有的下载操作（key是url，value是operation对象）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableDictionary</span> *operations;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  拼接Cache文件夹的路径与url最后的部分，合并成唯一约定好的缓存路径</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#define CachedImageFile(url) [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[url lastPathComponent]]</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>2.2 图片下载之前的查询缓存部分</strong>：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先从images缓存中取出图片url对应的UIImage</span></span><br><span class="line">    <span class="built_in">UIImage</span> *image = <span class="keyword">self</span>.images[app.icon];</span><br><span class="line">    <span class="keyword">if</span> (image) &#123; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 存在：说明图片已经下载成功，并缓存成功）</span></span><br><span class="line">        cell.imageView.image = image;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; </span><br><span class="line"></span><br><span class="line">     <span class="comment">// 不存在：说明图片并未下载成功过，或者成功下载但是在images里缓存失败，需要在沙盒里寻找对于的图片</span></span><br><span class="line"></span><br><span class="line">         <span class="comment">// 获得url对于的沙盒缓存路径</span></span><br><span class="line">        <span class="built_in">NSString</span> *file = CachedImageFile(app.icon);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 先从沙盒中取出图片</span></span><br><span class="line">        <span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsOfFile:file];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (data) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//data不为空，说明沙盒中存在这个文件</span></span><br><span class="line">            cell.imageView.image = [<span class="built_in">UIImage</span> imageWithData:data];</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">         <span class="comment">// 反之沙盒中不存在这个文件</span></span><br><span class="line">             <span class="comment">// 在下载之前显示占位图片</span></span><br><span class="line">            cell.imageView.image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"placeholder"</span>];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 下载图片</span></span><br><span class="line">            [<span class="keyword">self</span> download:app.icon indexPath:indexPath];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2.3 图片的下载部分</strong>：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  下载图片</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param imageUrl 图片的url</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)download:(<span class="built_in">NSString</span> *)imageUrl indexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 取出当前图片url对应的下载操作（operation对象）</span></span><br><span class="line">    <span class="built_in">NSBlockOperation</span> *operation = <span class="keyword">self</span>.operations[imageUrl];</span><br><span class="line">    <span class="keyword">if</span> (operation) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建操作，下载图片</span></span><br><span class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) appsVc = <span class="keyword">self</span>;</span><br><span class="line">    operation = [<span class="built_in">NSBlockOperation</span> blockOperationWithBlock:^&#123;</span><br><span class="line">        <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:imageUrl];</span><br><span class="line">        <span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsOfURL:url]; <span class="comment">// 下载</span></span><br><span class="line">        <span class="built_in">UIImage</span> *image = [<span class="built_in">UIImage</span> imageWithData:data]; <span class="comment">// NSData -&gt; UIImage</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 回到主线程</span></span><br><span class="line">        [[<span class="built_in">NSOperationQueue</span> mainQueue] addOperationWithBlock:^&#123;</span><br><span class="line">                     </span><br><span class="line">            <span class="keyword">if</span> (image) &#123;</span><br><span class="line">                <span class="comment">// 如果存在图片（下载完成），存放图片到图片缓存字典中</span></span><br><span class="line">                appsVc.images[imageUrl] = image;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//将图片存入沙盒中</span></span><br><span class="line">                <span class="comment">//1. 先将图片转化为NSData</span></span><br><span class="line">                <span class="built_in">NSData</span> *data = <span class="built_in">UIImagePNGRepresentation</span>(image);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//2.  再生成缓存路径            </span></span><br><span class="line">                [data writeToFile:CachedImageFile(imageUrl) atomically:<span class="literal">YES</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 从字典中移除下载操作 (保证下载失败后，能重新下载)</span></span><br><span class="line">            [appsVc.operations removeObjectForKey:imageUrl];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 刷新当前表格，减少系统开销</span></span><br><span class="line">            [appsVc.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationNone</span>];</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 添加下载操作到队列中</span></span><br><span class="line">    [<span class="keyword">self</span>.queue addOperation:operation];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 将当前下载操作添加到下载操作缓存中 (为了解决重复下载)</span></span><br><span class="line">    <span class="keyword">self</span>.operations[imageUrl] = operation;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-有哪些点是值得注意的？"><a href="#3-有哪些点是值得注意的？" class="headerlink" title="3. 有哪些点是值得注意的？"></a>3. 有哪些点是值得注意的？</h4><p>要说值得注意的地方，还是离不开对于缓存内容的添加和删除操作。</p>
+<p><strong>3.1 关于图片缓存</strong>：<br>很简单，成功下载，拿到了图片，就将图片添加到图片缓存中；下载失败，什么都不做，反正没有图。在这种机制下，就没有删除缓存里某个图片项的情况，因为图片缓存永远不会出现重复添加多个相同图片的情况，缓存中只要有一张对应的图，就直接拿去用了，不会去再下载了。</p>
+<p><strong>3.2 关于沙盒缓存</strong>：<br>同样地，对于沙盒缓存也是一个道理：有图就将其转化为NSData，写入磁盘，并对应唯一的路径，没有图就不写。所以即使是要下载相同的图片，因为当前url对应的沙盒路径已经存在文件了，所以直接拿就可以了，不会再下载。</p>
+<p>但是！<br>下载操作缓存是不同的！</p>
+<p><strong>3.3 关于下载操作缓存</strong><br>我们需要在下载回调完成后，立即将当前的下载操作从下载操作缓存中删去！<br>因为要避免下载失败后，无法再次下载的情况的发生！</p>
+<p>为什么呢？<br>注意一下将下载操作加入到下载操作缓存的时机：<br>是在<strong>下载开始的那一刻</strong>而不是<strong>下载成功的那一刻</strong>！</p>
+<p>如果在下载开始的那一刻加入到缓存中的话，这个缓存信息就包括两个情况：下载成功和下载失败：</p>
+<ul>
+<li><p>如果未来下载成功了，那么我们就不会来到判断当前下载操作是否在下载操作缓存这一步，在这之前直接就可以拿图去用了，下载操作是否存在下载操作缓存里并没有什么影响。</p>
+</li>
+<li><p>但是！如果未来下载失败了，那就肯定不会有对应的图片缓存和沙盒缓存，也就肯定会来到判断当前的下载操作是否在下载操作缓存里这一步。不幸的是，因为没有被删去，它是存在的。存在的话就不做任何其他操作，放任自流，导致曾经下载失败的图片永远不会再次下载。</p>
+</li>
+</ul>
+<p>忘了那段代码了么？回看一下代码（看我多好）：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSBlockOperation</span> *operation = <span class="keyword">self</span>.operations[imageUrl];</span><br><span class="line"> <span class="keyword">if</span> (operation) <span class="keyword">return</span>;<span class="comment">//转身就走，毫不留情</span></span><br></pre></td></tr></table></figure></p>
+<p>因此，无论下载成功或是失败，在图片下载的回调里都要将当前的下载操作从下载操作队列中移走：用来保证如果下载失败了，就可以重新开启对应的下载操作进行下载，逻辑上更加严谨。</p>
+<h1 id="4-最后的话"><a href="#4-最后的话" class="headerlink" title="4.最后的话"></a>4.最后的话</h1><hr>
+<p>异步+缓存这两个机制双剑合璧的话会对程序新能带来很大的改观。这应该app开发进阶的必经之路。</p>
+<p>小码哥讲述的这套流程还算比较完整的了，更重要的还是学习其中的思想：</p>
+<blockquote>
+<ol>
+<li><p>将缓存分级：内存缓存，沙盒缓存，下载操作缓存。</p>
+</li>
+<li><p>而且还要经常使用二分法，将我们的逻辑考虑得滴水不漏。<br>如果我们没有认识到将下载操作添加到下载操作缓存的时机是包含下载成功和下载失败两个情况，那么就不会考虑到即时要将下载操作从下载操作缓存中删去的操作，很容易引起bug。所以在以后的开发中，成功和失败两个情况都要考虑进去，也就是说有if一定要有else！</p>
+</li>
+</ol>
+</blockquote>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件/" rel="next" title="结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件">
+                <i class="fa fa-chevron-left"></i> 结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感/" rel="prev" title="远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感">
+                远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-需求点是什么？"><span class="nav-number">1.</span> <span class="nav-text">1.需求点是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-容易遇到的问题"><span class="nav-number">2.</span> <span class="nav-text">2.容易遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#后果1：不可避免的卡顿（因为没有异步下载操作）"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">后果1：不可避免的卡顿（因为没有异步下载操作）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">后果2：同一图片重复下载，耗费流量和系统开销（因为没有建立缓存机制）</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#3-解决方案"><span class="nav-number">3.</span> <span class="nav-text">3.解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-先看一下解决方案的流程图"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">1.先看一下解决方案的流程图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-再看一下解决方案的代码"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">2.再看一下解决方案的代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-有哪些点是值得注意的？"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">3. 有哪些点是值得注意的？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-最后的话"><span class="nav-number">4.</span> <span class="nav-text">4.最后的话</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

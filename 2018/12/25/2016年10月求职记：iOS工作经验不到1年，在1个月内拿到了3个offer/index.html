@@ -1,0 +1,934 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Life,Job,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~ 新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。 笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简">
+<meta name="keywords" content="Life,Job">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2016年10月求职记 | iOS工作经验不到1年，在1个月内拿到了3个offer">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~ 新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。 笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-23f60ab52ef7bafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-b6810305d1803032.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-784af8ebfba85366.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.536Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2016年10月求职记 | iOS工作经验不到1年，在1个月内拿到了3个offer">
+<meta name="twitter:description" content="真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~ 新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。 笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-23f60ab52ef7bafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/">
+
+
+
+
+
+  <title> 2016年10月求职记 | iOS工作经验不到1年，在1个月内拿到了3个offer | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                2016年10月求职记 | iOS工作经验不到1年，在1个月内拿到了3个offer
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Career/" itemprop="url" rel="index">
+                    <span itemprop="name">Career</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,464 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  12 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~</p>
+<p>新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。</p>
+<p>笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简历到拿到最后一个offer历时3周多。因为在这段求职时间里感触很多，所以想专门写一篇博客来讲述一下自己的求职心得，希望能给各位年底求职的小伙伴，特别是做iOS的同行一些值得借鉴的东西。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-23f60ab52ef7bafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：pixabay.com"></p>
+<a id="more"></a>
+<h3 id="1-总求职数据："><a href="#1-总求职数据：" class="headerlink" title="1. 总求职数据："></a>1. 总求职数据：</h3><hr>
+<ol>
+<li>从写简历到拿到最后一个offer历时26天。</li>
+<li>总面试通知数：11个</li>
+<li>总面试次数：8次</li>
+<li>总offer数：3个</li>
+</ol>
+<h4 id="有趣的3个点："><a href="#有趣的3个点：" class="headerlink" title="有趣的3个点："></a>有趣的3个点：</h4><ol>
+<li>简历的最初稿的完成历时2天并开始投递，在第10天才最终定稿。</li>
+<li>在简历开始投递后的第一个星期里没有收到任何面试通知。</li>
+<li>在3个offer里，只有一家是小公司（不到50人），其他两个都是具有相当规模的大公司。</li>
+</ol>
+<p>下面写一下整个求职过程的心得：</p>
+<h3 id="1-简历需要持续更新"><a href="#1-简历需要持续更新" class="headerlink" title="1. 简历需要持续更新"></a>1. 简历需要持续更新</h3><hr>
+<p>虽然开始简历的初版完成的挺快的，但是后来却不断发现有很多不妥的地方：</p>
+<ol>
+<li>不应该添加我自己的证件照：其实除了美女，是不建议有自己的证明照的。</li>
+<li>不应该添加项目的icon：导致排版显得很乱，应该去掉。</li>
+<li>项目经验的技术点不够具体，而且主次没有顺序：最好将技术亮点放在最前面，而且要细致一点。</li>
+<li>技能清单太过俗套，不够具体：比如不能只写“熟悉RunLoop的使用”，建议这么写：“熟悉RunLoop的机制，创建常驻线程执行任务”，也就是将具体的技术点和具体的应用结合起来写一下会好一些。</li>
+<li>个人优势不突出：因为项目经验少而且比较简单，所以相对来说博客和开源项目就是我的优势，而这些 优势我甚至没有在初版简历中写明，后来在更新简历的时候才写出来放在偏后的位置。但是再后来，<a href="http://www.jianshu.com/users/55c8fdc3c6e7/latest_articles" target="_blank" rel="noopener">TianBai</a>大大建议我开源项目的地址和优秀博客文章最好放在显著位置，我才鼓起勇气将它们放在个人信息的下面，也就是简历的第二项。</li>
+<li>除了简历的撰写技巧之外，笔者也在不断自学来增添简历上的技术点：在学习前两天在简历上添加要学习的技术点，保证将来面试的时候可以用上。</li>
+</ol>
+<blockquote>
+<p>在简历的初版完成之后就开始投递了，之后也在不断更新自己的简历，直到10天后更新才趋于稳定。</p>
+</blockquote>
+<h3 id="2-简历要突出个人优势"><a href="#2-简历要突出个人优势" class="headerlink" title="2. 简历要突出个人优势"></a>2. 简历要突出个人优势</h3><hr>
+<p>之前提到过，在第一个星期里，我没有收到任何面试通知，直到第二个星期的星期三我才收到了第一个面试通知。而这个时间点，也正是简历最终定稿之后的2，3天。而且后来，面试通知就“源源不断”了：两周里有11个面试通知，而且越到后面越多。</p>
+<p>虽然可能不是很准确，但我个人觉得：将我的博客优秀文章链接和开源项目地址放（并加上简单介绍）在简历的前面之后，我的简历变得“招人喜欢了”。</p>
+<blockquote>
+<p>因此，在写简历的时候，就要想：到底自己的优势点在哪里？哪个最有亮点，就毫不犹豫地写在最前面吧！</p>
+<ul>
+<li>如果你的优势是公司项目里的某个功能模块（不能太简单），就把这个模块写出来好好描述一下。</li>
+<li>如果你在github上有星星，就把它放在简历前面，多啰嗦几句。</li>
+<li>如果你的文章很热，或者被知名网站转载过，也把它放在简历前面，多啰嗦几句。</li>
+<li>如果你上面三点都没有，就将你研究过或者参与过的开源框架拿出来，写一写你都从中学到了什么。</li>
+</ul>
+</blockquote>
+<h3 id="3-大公司和小公司的用人侧重点不一样"><a href="#3-大公司和小公司的用人侧重点不一样" class="headerlink" title="3. 大公司和小公司的用人侧重点不一样"></a>3. 大公司和小公司的用人侧重点不一样</h3><hr>
+<p>简历写得再好，它的性质也只是面试的敲门砖，真正考验你的还是面试。这段时间我的面试次数是8次，但是只拿到了2个offer，成绩很一般。</p>
+<p>我分析了一下自己的优势和劣势：</p>
+<h4 id="我的优势："><a href="#我的优势：" class="headerlink" title="我的优势："></a>我的优势：</h4><ol>
+<li>学历高：海外硕士（非科班）。</li>
+<li>自学能力强：iOS完全自学，而且持续更新博客，有开源项目（很渣）。入职四个月后独立负责一个新项目。</li>
+</ol>
+<h4 id="我的劣势："><a href="#我的劣势：" class="headerlink" title="我的劣势："></a>我的劣势：</h4><ol>
+<li>工作经验少：严格来讲只有10个月。</li>
+<li>项目经验少：而且项目技术点难度偏低。</li>
+</ol>
+<p>整体来说就是：经验少一些，潜力大一点。</p>
+<p>有意思的是，这8家面试我的公司里有3家是有相当规模的大公司，而其中2家都给了我offer。而且在我面试的过程中，明显觉得自己比较受大公司青睐，而小公司却反差比较大。</p>
+<h4 id="结合我的特点和面试结果有一个结论："><a href="#结合我的特点和面试结果有一个结论：" class="headerlink" title="结合我的特点和面试结果有一个结论："></a>结合我的特点和面试结果有一个结论：</h4><p>大公司招人大多还是以<strong>培养</strong>为目的。<br>小公司招人大多是以<strong>上手</strong>为目的。</p>
+<blockquote>
+<p>因此，<br>如果你觉得你技术很牛，能独当一面的话，大公司和小公司都可以尝试；<br>如果你经验少，但是潜力相对大一点，小公司还是相对不适合的。<br>如果你经验少，潜力也不是很大，不建议马上跳槽，把前两点的某一点或者其中一点强化再说。</p>
+</blockquote>
+<h3 id="4-面试题的准备有点虐心"><a href="#4-面试题的准备有点虐心" class="headerlink" title="4. 面试题的准备有点虐心"></a>4. 面试题的准备有点虐心</h3><hr>
+<p>笔者在第一第二星期的时间里一直在刷网上的iOS面试题，不断地查缺补漏。在2个星期的时间里，笔记数量增加了100+条，都是记录面试题和相关基础知识的，后来实在是看不下去了，已经看吐了。</p>
+<p>不过可笑的是：<br>在面试小公司的时候，问的问题及其刁钻以至于我的“iOS面试题库”几乎形同虚设，网上看的iOS面试题已经应付不了了。<br>而面试大公司的时候，几乎都没有问太多iOS相关的问题，而且问题都不难。</p>
+<blockquote>
+<p>虽然我最终要去的公司面试我的时候没有问我几个iOS的面试题，不过面试题还是需要准备的。这段时间总结的100多条笔记虽然一方面是为了在面试的时候发挥，另一方面也巩固了自己的基础知识，而且效果很好。</p>
+</blockquote>
+<h3 id="5-要么做，要么走"><a href="#5-要么做，要么走" class="headerlink" title="5. 要么做，要么走"></a>5. 要么做，要么走</h3><hr>
+<p>在求职的过程中看到过这么一句话：“不是互联网不行，而是你不行”。<br>随后我就自行脑补：“不是iOS形势不行，而是你不行”。<br>那么是否可以通用一下呢：“不是<em>__</em>形势不行，而是你不行”？</p>
+<p>难道互联网资本寒冬，互联网从业者就一定会失业么？<br>难道iOS形势不好，iOS开发者就一定很难找到工作或者跳槽么？</p>
+<p>不要听到一些“什么什么形势不好”就给自己找不到工作找借口，给自己受伤的心灵抹上一点自欺欺人的糖。</p>
+<p>为什么简历石沉大海？<br>为什么面试屡屡不中？</p>
+<p>挺起胸膛解决问题好么？！</p>
+<p>不要去抱怨，你抱怨的时候，可能有人在默默刷题，默默刷开源框架。对自己要求不高，必定会被淘汰。</p>
+<p>认清现实吧！以前iOS这边“会拉个线就能月薪过万”的时代已经一去不复返了，如今正是淘汰浑水摸鱼的人的阶段。但这是一个好现象，说明这个行业终于走上正轨了。</p>
+<p>如果觉得做不下去了，最好尽早离开；<br>如果决定坚持做下去，就要拿出你的本事让人家看看。</p>
+<p>怎么看？当然不是靠说的，而是靠你做过什么。</p>
+<p>现在这个时代知识的共享太容易了，绝大多数科目的入门资料在网上都能轻而易举地看到。很多人看得多了，会说了，就以为自己懂了。因此这个时代也过于浮躁，尤其是有一些会上网的年轻人。</p>
+<p>但是，技术领域，对一个人的认可并不是靠说的，而是你做过了什么，或是能拿出什么能证明你以后能做什么。</p>
+<p>举两个三国武将的例子：<br>从什么时候人们觉得关羽厉害？- 温酒斩华雄<br>从什么时候人们觉得吕布厉害？- 三英战吕布</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-b6810305d1803032.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关二爷"></p>
+<p>看出问题了么？<br>看谁牛不牛，是围绕着“事件”说的，而不是围绕花里胡哨的<strong>青龙偃月刀</strong>和<strong>方天画戟</strong>这些表面上的东西说的（虽然能舞得动这些的也能算是不弱）。</p>
+<p>觉得舞刀弄枪离自己太远？举两个程序员界的例子：<br>Python的作者求职谷歌的时候只在简历上写了三个词：“I wrote Python.”<br>在iOS界家喻户晓的网络请求第三方框架AFNetworking的作者听说已经被苹果收编了。<br>（我也是听别人说的，真的假的不知道，但我就是要说，不喜欢来打我呀）</p>
+<p>很现实的问题：<br>武将厉不厉害，拿战功说事儿；<br>技术工作者厉不厉害，拿作品说事儿。你的作品，反映了你的水平，也能反映你的潜力</p>
+<p>所以，对于iOS程序员来说，如果想在这盘淘汰赛中不被抛弃，现在就着手构思真正属于自己的项目。或者用博客记录一下自己的学习历程，勾勒出自己的成长轨迹：“让别人知道你知道”很重要。</p>
+<p>如果没有思路，没有关系，看一些已经开源的好的app和框架，相信我，不久你就会有自己的想法。因为创造无非就是拼凑，你懂得多了，自然就会“拼”了（此处双关[掩面]）。</p>
+<h3 id="6-心得写完了，以后要怎么做呢？"><a href="#6-心得写完了，以后要怎么做呢？" class="headerlink" title="6. 心得写完了，以后要怎么做呢？"></a>6. 心得写完了，以后要怎么做呢？</h3><hr>
+<p>上面说过，我个人感觉这次面试成功率不是很高，而原因也暴露的很明显：项目经验不足。</p>
+<p>因此，笔者打算今后在不影响工作质量的情况下好好研究一些比较好的开源app和第三方框架，仔细阅读源码，从中抽取出值得学习的地方，不断提高自己的技术水平，而不仅仅停留在公司项目中。</p>
+<p>目的并不是为了下次跳槽，而是为了不断搭建自己的技术壁垒，取各家之所长，借此来打造一个无法取代的自己：</p>
+<p>就好比段誉：只会六脉神剑或者凌波微步还不足以独步武林，但是将二者结合在一起就能与萧大侠抗衡了。</p>
+<h2 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h2><hr>
+<p>整个求职过程中心情还是有低落的时候的，特别是第一个星期，面试通知丝毫没有动静。不过还好有一些“道上”的朋友给我鼓励和支持。在这里特别感谢在简书上认识的同行<a href="http://www.jianshu.com/users/55c8fdc3c6e7/latest_articles" target="_blank" rel="noopener">TianBai</a>， <a href="http://www.jianshu.com/users/a54931de4c9b/latest_articles" target="_blank" rel="noopener">阿拉斯加的狗</a>，<a href="http://www.jianshu.com/users/e39da354ce50/latest_articles" target="_blank" rel="noopener">神经骚栋</a>，<a href="http://www.jianshu.com/users/c68741efc396/latest_articles" target="_blank" rel="noopener">熊皮皮</a>的支持和鼓励，他们都是很优秀的iOS开发者，而且很有潜力，有很多我需要学习的地方。</p>
+<p>如果有小伙伴有问题想问我，评论本文，发简信，加我微信（简书主页有我的微信二维码）都可以。<br>不过因为新东家的知名度比较高，具体新东家是谁就不方便说啦，请谅解~</p>
+<p>最后还是祝愿在最近找工作的小伙伴们马到功成~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-784af8ebfba85366.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：pixabay.com"></p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Life/" rel="tag"># Life</a>
+          
+            <a href="/tags/Job/" rel="tag"># Job</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/2016年终总结 | 善于总结，把握方向/" rel="prev" title="2016年终总结 | 善于总结，把握方向">
+                2016年终总结 | 善于总结，把握方向 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-总求职数据："><span class="nav-number">1.</span> <span class="nav-text">1. 总求职数据：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有趣的3个点："><span class="nav-number">1.1.</span> <span class="nav-text">有趣的3个点：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-简历需要持续更新"><span class="nav-number">2.</span> <span class="nav-text">1. 简历需要持续更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-简历要突出个人优势"><span class="nav-number">3.</span> <span class="nav-text">2. 简历要突出个人优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-大公司和小公司的用人侧重点不一样"><span class="nav-number">4.</span> <span class="nav-text">3. 大公司和小公司的用人侧重点不一样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我的优势："><span class="nav-number">4.1.</span> <span class="nav-text">我的优势：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#我的劣势："><span class="nav-number">4.2.</span> <span class="nav-text">我的劣势：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结合我的特点和面试结果有一个结论："><span class="nav-number">4.3.</span> <span class="nav-text">结合我的特点和面试结果有一个结论：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-面试题的准备有点虐心"><span class="nav-number">5.</span> <span class="nav-text">4. 面试题的准备有点虐心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-要么做，要么走"><span class="nav-number">6.</span> <span class="nav-text">5. 要么做，要么走</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-心得写完了，以后要怎么做呢？"><span class="nav-number">7.</span> <span class="nav-text">6. 心得写完了，以后要怎么做呢？</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的话"><span class="nav-number"></span> <span class="nav-text">最后的话</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,958 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。 用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了ImplementKVO的实现以后，自己也写了一个：SJKVOController  S">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Block实现KVO">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/使用Block实现KVO/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。 用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了ImplementKVO的实现以后，自己也写了一个：SJKVOController  S">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/my_production/kvo_header.png">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-1.gif?raw=true">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-2.gif?raw=true">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-3.gif?raw=true">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Block实现KVO">
+<meta name="twitter:description" content="在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。 用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了ImplementKVO的实现以后，自己也写了一个：SJKVOController  S">
+<meta name="twitter:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/my_production/kvo_header.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/使用Block实现KVO/">
+
+
+
+
+
+  <title> 使用Block实现KVO | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/使用Block实现KVO/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用Block实现KVO
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Production/" itemprop="url" rel="index">
+                    <span itemprop="name">Production</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,629 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  17 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。</p>
+<p>用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了<a href="https://github.com/okcomp/ImplementKVO">ImplementKVO</a>的实现以后，自己也写了一个：<a href="https://github.com/knightsj/SJKVOController">SJKVOController</a></p>
+<p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/my_production/kvo_header.png" alt="使用Block来实现KVO"></p>
+<h1 id="SJKVOController的用法"><a href="#SJKVOController的用法" class="headerlink" title="SJKVOController的用法"></a>SJKVOController的用法</h1><p>只需要引入<code>NSObject+SJKVOController.h</code>头文件就可以使用SJKVOController。<br>先看一下它的头文件：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"SJKVOHeader.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">SJKVOController</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//============== add observer ===============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys withBlock:(SJKVOBlock)block;</span><br><span class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key withBlock:(SJKVOBlock)block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//============= remove observer =============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeAllObservers;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//============= list observers ===============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_listAllObservers;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<blockquote>
+<p>从上面的API可以看出，这个小轮子：</p>
+<ol>
+<li>支持一次观察同一对象的多个属性。</li>
+<li>可以一次只观察一个对象的一个属性。</li>
+<li>可以移除对某个对象对多个属性的观察。</li>
+<li>可以移除对某个对象对某个属性的观察。</li>
+<li>可以移除某个观察自己的对象。</li>
+<li>可以移除所有观察自己的对象。</li>
+<li>打印出所有观察自己的对象的信息，包括对象本身，观察的属性，setter方法。</li>
+</ol>
+</blockquote>
+<p>下面来结合Demo讲解一下如何使用这个小轮子：</p>
+<p>在点击上面两个按钮中的任意一个，增加观察：</p>
+<p>一次性添加：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)addObserversTogether:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSArray</span> *keys = @[<span class="string">@"number"</span>,<span class="string">@"color"</span>];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.model sj_addObserver:<span class="keyword">self</span> forKeys:keys withBlock:^(<span class="keyword">id</span> observedObject, <span class="built_in">NSString</span> *key, <span class="keyword">id</span> oldValue, <span class="keyword">id</span> newValue) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ([key isEqualToString:<span class="string">@"number"</span>]) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                <span class="keyword">self</span>.numberLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,newValue];</span><br><span class="line">            &#125;);</span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> ([key isEqualToString:<span class="string">@"color"</span>])&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                <span class="keyword">self</span>.numberLabel.backgroundColor = newValue;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分两次添加：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)addObserverSeparatedly:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.model sj_addObserver:<span class="keyword">self</span> forKey:<span class="string">@"number"</span> withBlock:^(<span class="keyword">id</span> observedObject, <span class="built_in">NSString</span> *key, <span class="keyword">id</span> oldValue, <span class="keyword">id</span> newValue) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            <span class="keyword">self</span>.numberLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>,newValue];</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.model sj_addObserver:<span class="keyword">self</span> forKey:<span class="string">@"color"</span> withBlock:^(<span class="keyword">id</span> observedObject, <span class="built_in">NSString</span> *key, <span class="keyword">id</span> oldValue, <span class="keyword">id</span> newValue) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            <span class="keyword">self</span>.numberLabel.backgroundColor = newValue;</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加以后，点击最下面的按钮来显示所有的观察信息：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)showAllObservingItems:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.model sj_listAllObservers];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SJKVOController[<span class="number">80499</span>:<span class="number">4242749</span>] SJKVOLog:==================== Start Listing All Observers: ==================== </span><br><span class="line">SJKVOController[<span class="number">80499</span>:<span class="number">4242749</span>] SJKVOLog:observer item:&#123;observer: &lt;ViewController: <span class="number">0x7fa1577054f0</span>&gt; | key: color | <span class="keyword">setter</span>: setColor:&#125;</span><br><span class="line">SJKVOController[<span class="number">80499</span>:<span class="number">4242749</span>] SJKVOLog:observer item:&#123;observer: &lt;ViewController: <span class="number">0x7fa1577054f0</span>&gt; | key: number | <span class="keyword">setter</span>: setNumber:&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里我重写了description方法，打印出了每个观察的对象和key,以及setter方法。</p>
+</blockquote>
+<p>现在点击更新按钮，则会更新model的number和color属性，从而触发KVO：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)updateNumber:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//trigger KVO : number</span></span><br><span class="line">    <span class="built_in">NSInteger</span> newNumber = arc4random() % <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">self</span>.model.number = [<span class="built_in">NSNumber</span> numberWithInteger:newNumber];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//trigger KVO : color</span></span><br><span class="line">    <span class="built_in">NSArray</span> *colors = @[[<span class="built_in">UIColor</span> redColor],[<span class="built_in">UIColor</span> yellowColor],[<span class="built_in">UIColor</span> blueColor],[<span class="built_in">UIColor</span> greenColor]];</span><br><span class="line">    <span class="built_in">NSInteger</span> colorIndex = arc4random() % <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">self</span>.model.color = colors[colorIndex];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到中间的Label上面显示的数字和背景色都在变化，成功实现了KVO：</p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-1.gif?raw=true" alt="同时观察颜色和数字的变化"></p>
+<p>现在我们移除观察，点击remove按钮</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)removeAllObservingItems:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span>.model sj_removeAllObservers];   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在移除了所有的观察者以后，则会打印出：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SJKVOController[<span class="number">80499</span>:<span class="number">4242749</span>] SJKVOLog:Removed all obserbing objects of object:&lt;Model: <span class="number">0x60000003b700</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>而且如果在这个时候打印观察者list，则会输出：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SJKVOController[<span class="number">80499</span>:<span class="number">4242749</span>] SJKVOLog:There is no observers obserbing object:&lt;Model: <span class="number">0x60000003b700</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是，这里的移除可以有多种选择：可以移某个对象的某个key，也可以移除某个对象的几个keys，为了验证，我们可以结合list方法来验证一下移除是否成功：</p>
+<h4 id="验证1-在添加number和color的观察后，移除nunber的观察："><a href="#验证1-在添加number和color的观察后，移除nunber的观察：" class="headerlink" title="验证1:在添加number和color的观察后，移除nunber的观察："></a>验证1:在添加number和color的观察后，移除nunber的观察：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)removeAllObservingItems:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    [<span class="keyword">self</span>.model sj_removeObserver:<span class="keyword">self</span> forKey:<span class="string">@"number"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在移除以后，我们调用list方法，输出：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SJKVOController[<span class="number">80850</span>:<span class="number">4278383</span>] SJKVOLog:==================== Start Listing All Observers: ====================</span><br><span class="line">SJKVOController[<span class="number">80850</span>:<span class="number">4278383</span>] SJKVOLog:observer item:&#123;observer: &lt;ViewController: <span class="number">0x7ffeec408560</span>&gt; | key: color | <span class="keyword">setter</span>: setColor:&#125;</span><br></pre></td></tr></table></figure>
+<p>现在只有color属性被观察了。看一下实际的效果：</p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-2.gif?raw=true" alt="只观察颜色的变化"></p>
+<p>我们可以看到，现在只有color在变，而数字没有变化了，验证此移除方法正确。</p>
+<h4 id="验证2-在添加number和color的观察后，移除nunber和color的观察："><a href="#验证2-在添加number和color的观察后，移除nunber和color的观察：" class="headerlink" title="验证2:在添加number和color的观察后，移除nunber和color的观察："></a>验证2:在添加number和color的观察后，移除nunber和color的观察：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)removeAllObservingItems:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.model sj_removeObserver:<span class="keyword">self</span> forKeys:@[<span class="string">@"number"</span>,<span class="string">@"color"</span>]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在移除以后，我们调用list方法，输出：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SJKVOController[<span class="number">80901</span>:<span class="number">4283311</span>] SJKVOLog:There is no observers obserbing object:&lt;Model: <span class="number">0x600000220fa0</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>现在color和number属性都不被观察了。看一下实际的效果：</p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/production/kvo-implementation/kvo-3.gif?raw=true" alt="颜色和数字的变化都不再被观察"></p>
+<p>我们可以看到，现在color和number都不变了，验证此移除方法正确。</p>
+<p>OK，现在知道了怎么用SJKVOController，我下面给大家看一下代码：</p>
+<h1 id="SJKVOController代码解析"><a href="#SJKVOController代码解析" class="headerlink" title="SJKVOController代码解析"></a>SJKVOController代码解析</h1><p>先大致讲解一下SJKVOController的实现思路：</p>
+<ol>
+<li>为了减少侵入性，SJKVOController被设计为NSObject的一个分类。</li>
+<li>SJKVOController仿照了KVO的实现思路，在添加观察以后在运行时动态生成当前类的子类，给这个子类添加被观察的属性的set方法并使用isa swizzle的方式将当前对象转换为当前类的子类的实现。</li>
+<li>同时，这个子类还使用了关联对象来保存一个“观察项”的set，每一个观察项封装了一次观察的行为（有去重机制）：包括观察自己的对象，自己被观察的属性，以及传进来的block。</li>
+<li>在当前类，也就是子类的set方法被调用的时候做三件事情：<ul>
+<li>第一件事情是使用KVC来找出当前属性的旧值。</li>
+<li>第二件事情是调用父类（原来的类）的set方法（设新值）。</li>
+<li>第三件事是根据当前的观察对象和key，在观察项set里面找出对应的block并调用。</li>
+</ul>
+</li>
+</ol>
+<p>再来看一下这个小轮子的几个类：</p>
+<ul>
+<li>SJKVOController：实现KVO主要功能的类。</li>
+<li>SJKVOObserverItem：封装观察项的类。</li>
+<li>SJKVOTool：setter和getter的相互转换和相关运行时查询方法等。</li>
+<li>SJKVOError：封装错误类型。</li>
+<li>SJKVOHeader：引用了运行时的头文件。</li>
+</ul>
+<p> 下面开始一个一个来讲解每个类的源码：</p>
+<h2 id="SJKVOController"><a href="#SJKVOController" class="headerlink" title="SJKVOController"></a>SJKVOController</h2><p>再看一下头文件：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"SJKVOHeader.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">SJKVOController</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//============== add observer ===============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys withBlock:(SJKVOBlock)block;</span><br><span class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key withBlock:(SJKVOBlock)block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//============= remove observer =============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeAllObservers;</span><br><span class="line"></span><br><span class="line"><span class="comment">//============= list observers ===============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_listAllObservers;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>每个方法的意思相信读者已经能看懂了，现在讲一下具体的实现。从<code>sj_addObserver:forKey withBlock:</code>开始：</p>
+<h3 id="sj-addObserver-forKey-withBlock-方法："><a href="#sj-addObserver-forKey-withBlock-方法：" class="headerlink" title="sj_addObserver:forKey withBlock:方法："></a>sj_addObserver:forKey withBlock:方法：</h3><p>除去一些错误的判断，该方法作了下面几件事情：</p>
+<h4 id="1-判断当前被观察的类是否存在与传入key对应的setter方法："><a href="#1-判断当前被观察的类是否存在与传入key对应的setter方法：" class="headerlink" title="1.判断当前被观察的类是否存在与传入key对应的setter方法："></a>1.判断当前被观察的类是否存在与传入key对应的setter方法：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SEL setterSelector = <span class="built_in">NSSelectorFromString</span>([SJKVOTool setterFromGetter:key]);</span><br><span class="line">Method setterMethod = [SJKVOTool objc_methodFromClass:[<span class="keyword">self</span> <span class="keyword">class</span>] selector:setterSelector];</span><br><span class="line"><span class="comment">//error: no corresponding setter mothod</span></span><br><span class="line"><span class="keyword">if</span> (!setterMethod) &#123;</span><br><span class="line">     SJLog(<span class="string">@"%@"</span>,[SJKVOError errorNoMatchingSetterForKey:key]);</span><br><span class="line">     <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-如果有，判断当前被观察到类是否已经是KVO类-在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例-。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）："><a href="#2-如果有，判断当前被观察到类是否已经是KVO类-在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例-。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）：" class="headerlink" title="2. 如果有，判断当前被观察到类是否已经是KVO类(在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例)。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）："></a>2. 如果有，判断当前被观察到类是否已经是KVO类(在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例)。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get original class(current class,may be KVO class)</span></span><br><span class="line"><span class="built_in">NSString</span> *originalClassName = <span class="built_in">NSStringFromClass</span>(OriginalClass);</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果当前的类是带有KVO前缀的类(也就是已经被观察到类),则需要将KVO前缀的类删除，并讲</span></span><br><span class="line"><span class="keyword">if</span> ([originalClassName hasPrefix:SJKVOClassPrefix]) &#123;</span><br><span class="line">    <span class="comment">//now,the OriginalClass is KVO class, we should destroy it and make new one</span></span><br><span class="line">    Class CurrentKVOClass = OriginalClass;</span><br><span class="line">    object_setClass(<span class="keyword">self</span>, class_getSuperclass(OriginalClass));</span><br><span class="line">    objc_disposeClassPair(CurrentKVOClass);</span><br><span class="line">    originalClassName = [originalClassName substringFromIndex:(SJKVOClassPrefix.length)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类："><a href="#3-如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类：" class="headerlink" title="3. 如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类："></a>3. 如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//create a KVO class</span></span><br><span class="line">Class KVOClass = [<span class="keyword">self</span> createKVOClassFromOriginalClassName:originalClassName];</span><br><span class="line"></span><br><span class="line"><span class="comment">//swizzle isa from self to KVO class</span></span><br><span class="line">object_setClass(<span class="keyword">self</span>, KVOClass);</span><br></pre></td></tr></table></figure>
+<p>看一下如何新建一个新的类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (Class)createKVOClassFromOriginalClassName:(<span class="built_in">NSString</span> *)originalClassName</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *kvoClassName = [SJKVOClassPrefix stringByAppendingString:originalClassName];</span><br><span class="line">    Class KVOClass = <span class="built_in">NSClassFromString</span>(kvoClassName);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// KVO class already exists</span></span><br><span class="line">    <span class="keyword">if</span> (KVOClass) &#123;</span><br><span class="line">        <span class="keyword">return</span> KVOClass;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// if there is no KVO class, then create one</span></span><br><span class="line">    KVOClass = objc_allocateClassPair(OriginalClass, kvoClassName.UTF8String, <span class="number">0</span>);<span class="comment">//OriginalClass is super class</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// pretending to be the original class:return the super class in class method</span></span><br><span class="line">    Method clazzMethod = class_getInstanceMethod(OriginalClass, <span class="keyword">@selector</span>(<span class="keyword">class</span>));</span><br><span class="line">    class_addMethod(KVOClass, <span class="keyword">@selector</span>(<span class="keyword">class</span>), (IMP)return_original_class, method_getTypeEncoding(clazzMethod));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// finally, register this new KVO class</span></span><br><span class="line">    objc_registerClassPair(KVOClass);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> KVOClass;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面："><a href="#4-查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面：" class="headerlink" title="4. 查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面："></a>4. 查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//if we already have some history observer items, we should add them into new KVO class</span></span><br><span class="line"><span class="built_in">NSMutableSet</span>* observers = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;SJKVOObservers);</span><br><span class="line"><span class="keyword">if</span> (observers.count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableSet</span> *newObservers = [[<span class="built_in">NSMutableSet</span> alloc] initWithCapacity:<span class="number">5</span>];</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;SJKVOObservers, newObservers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (SJKVOObserverItem *item <span class="keyword">in</span> observers) &#123;</span><br><span class="line">        [<span class="keyword">self</span> KVOConfigurationWithObserver:item.observer key:item.key block:item.block kvoClass:KVOClass setterSelector:item.setterSelector setterMethod:setterMethod];</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下如何保存观察项的：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)KVOConfigurationWithObserver:(<span class="built_in">NSObject</span> *)observer key:(<span class="built_in">NSString</span> *)key block:(SJKVOBlock)block kvoClass:(Class)kvoClass setterSelector:(SEL)setterSelector setterMethod:(Method)setterMethod</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//add setter method in KVO Class</span></span><br><span class="line">    <span class="keyword">if</span>(![SJKVOTool detectClass:OriginalClass hasSelector:setterSelector])&#123;</span><br><span class="line">        class_addMethod(kvoClass, setterSelector, (IMP)kvo_setter_implementation, method_getTypeEncoding(setterMethod));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//add item of this observer&amp;&amp;key pair</span></span><br><span class="line">    [<span class="keyword">self</span> addObserverItem:observer key:key setterSelector:setterSelector setterMethod:setterMethod block:block];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里首先给KVO类增加了setter方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//implementation of KVO setter method</span></span><br><span class="line"><span class="keyword">void</span> kvo_setter_implementation(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="keyword">id</span> newValue)</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *setterName = <span class="built_in">NSStringFromSelector</span>(_cmd);</span><br><span class="line">    <span class="built_in">NSString</span> *getterName = [SJKVOTool getterFromSetter:setterName];</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!getterName) &#123;</span><br><span class="line">        SJLog(<span class="string">@"%@"</span>,[SJKVOError errorTransferSetterToGetterFaildedWithSetterName:setterName]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// create a super class of a specific instance</span></span><br><span class="line">    Class superclass = class_getSuperclass(OriginalClass);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">struct</span> objc_super superclass_to_call = &#123;</span><br><span class="line">        .super_class = superclass,  <span class="comment">//super class</span></span><br><span class="line">        .receiver = <span class="keyword">self</span>,           <span class="comment">//insatance of this class</span></span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// cast method pointer</span></span><br><span class="line">    <span class="keyword">void</span> (*objc_msgSendSuperCasted)(<span class="keyword">void</span> *, SEL, <span class="keyword">id</span>) = (<span class="keyword">void</span> *)objc_msgSendSuper;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// call super's setter, the supper is the original class</span></span><br><span class="line">    objc_msgSendSuperCasted(&amp;superclass_to_call, _cmd, newValue);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// look up observers and call the blocks</span></span><br><span class="line">    <span class="built_in">NSMutableSet</span> *observers = objc_getAssociatedObject(<span class="keyword">self</span>,&amp;SJKVOObservers);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (observers.count &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        SJLog(<span class="string">@"%@"</span>,[SJKVOError errorNoObserverOfObject:<span class="keyword">self</span>]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//get the old value</span></span><br><span class="line">    <span class="keyword">id</span> oldValue = [<span class="keyword">self</span> valueForKey:getterName];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (SJKVOObserverItem *item <span class="keyword">in</span> observers) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([item.key isEqualToString:getterName]) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">                <span class="comment">//call block</span></span><br><span class="line">                item.block(<span class="keyword">self</span>, getterName, oldValue, newValue);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后实例化对应的观察项：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)addObserverItem:(<span class="built_in">NSObject</span> *)observer</span><br><span class="line">                    key:(<span class="built_in">NSString</span> *)key</span><br><span class="line">         setterSelector:(SEL)setterSelector</span><br><span class="line">           setterMethod:(Method)setterMethod</span><br><span class="line">                  block:(SJKVOBlock)block</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableSet</span> *observers = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;SJKVOObservers);</span><br><span class="line">    <span class="keyword">if</span> (!observers) &#123;</span><br><span class="line">        observers = [[<span class="built_in">NSMutableSet</span> alloc] initWithCapacity:<span class="number">10</span>];</span><br><span class="line">        objc_setAssociatedObject(<span class="keyword">self</span>, &amp;SJKVOObservers, observers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    SJKVOObserverItem *item = [[SJKVOObserverItem alloc] initWithObserver:observer Key:key setterSelector:setterSelector setterMethod:setterMethod block:block];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (item) &#123;</span><br><span class="line">        [observers addObject:item];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察："><a href="#5-判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察：" class="headerlink" title="5. 判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察："></a>5. 判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/ /ignore same observer and key:<span class="keyword">if</span> the observer and key are same with saved observerItem,we should not add them one more time</span><br><span class="line"><span class="built_in">BOOL</span> findSameObserverAndKey = <span class="literal">NO</span>;</span><br><span class="line"><span class="keyword">if</span> (observers.count&gt;<span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (SJKVOObserverItem *item <span class="keyword">in</span> observers) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( (item.observer == observer) &amp;&amp; [item.key isEqualToString:key]) &#123;</span><br><span class="line">            findSameObserverAndKey = <span class="literal">YES</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!findSameObserverAndKey) &#123;</span><br><span class="line">    [<span class="keyword">self</span> KVOConfigurationWithObserver:observer key:key block:block kvoClass:KVOClass setterSelector:setterSelector setterMethod:setterMethod];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而一次性添加多个key的方法，也只是调用多次一次性添加单个key的方法罢了：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer</span><br><span class="line">               forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys</span><br><span class="line">             withBlock:(SJKVOBlock)block</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//error: keys array is nil or no elements</span></span><br><span class="line">    <span class="keyword">if</span> (keys.count == <span class="number">0</span>) &#123;</span><br><span class="line">        SJLog(<span class="string">@"%@"</span>,[SJKVOError errorInvalidInputObservingKeys]);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//one key corresponding to one specific item, not the observer</span></span><br><span class="line">    [keys enumerateObjectsUsingBlock:^(<span class="built_in">NSString</span> * key, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</span><br><span class="line">        [<span class="keyword">self</span> sj_addObserver:observer forKey:key withBlock:block];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于移除观察的实现，只是在观察项set里面找出封装了对应的观察对象和key的观察项就可以了：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer</span><br><span class="line">                   forKey:(<span class="built_in">NSString</span> *)key</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableSet</span>* observers = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;SJKVOObservers);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (observers.count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        SJKVOObserverItem *removingItem = <span class="literal">nil</span>;</span><br><span class="line">        <span class="keyword">for</span> (SJKVOObserverItem* item <span class="keyword">in</span> observers) &#123;</span><br><span class="line">            <span class="keyword">if</span> (item.observer == observer &amp;&amp; [item.key isEqualToString:key]) &#123;</span><br><span class="line">                removingItem = item;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (removingItem) &#123;</span><br><span class="line">            [observers removeObject:removingItem];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再看一下移除所有观察者：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sj_removeAllObservers</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableSet</span>* observers = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;SJKVOObservers);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (observers.count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        [observers removeAllObjects];</span><br><span class="line">        SJLog(<span class="string">@"SJKVOLog:Removed all obserbing objects of object:%@"</span>,<span class="keyword">self</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        SJLog(<span class="string">@"SJKVOLog:There is no observers obserbing object:%@"</span>,<span class="keyword">self</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="SJKVOObserverItem"><a href="#SJKVOObserverItem" class="headerlink" title="SJKVOObserverItem"></a>SJKVOObserverItem</h2><p>这个类负责封装每一个观察项的信息，包括：</p>
+<ul>
+<li>观察者对象。</li>
+<li>被观察的key。</li>
+<li>setter方法名（SEL）</li>
+<li>setter方法（Method）</li>
+<li>回调的block</li>
+</ul>
+<blockquote>
+<p>需要注意的是:<br>在这个小轮子里，对于同一个对象可以观察不同的key的情况，是将这两个key区分开来的，是属于不同的观察项。所以应该用不同的<code>SJKVOObserverItem</code>实例来封装。</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^SJKVOBlock)(<span class="keyword">id</span> observedObject, <span class="built_in">NSString</span> *key, <span class="keyword">id</span> oldValue, <span class="keyword">id</span> newValue);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJKVOObserverItem</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSObject</span> *observer;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *key;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) SEL setterSelector;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) Method setterMethod;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   SJKVOBlock block;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithObserver:(<span class="built_in">NSObject</span> *)observer Key:(<span class="built_in">NSString</span> *)key setterSelector:(SEL)setterSelector setterMethod:(Method)setterMethod block:(SJKVOBlock)block;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h2 id="SJKVOTool"><a href="#SJKVOTool" class="headerlink" title="SJKVOTool"></a>SJKVOTool</h2><p>这个类负责setter方法与getter方法相互转换，以及和运行时相关的操作，服务于<code>SJKVOController</code>。看一下它的头文件：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJKVOTool</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//setter &lt;-&gt; getter</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)getterFromSetter:(<span class="built_in">NSString</span> *)<span class="keyword">setter</span>;</span><br><span class="line">+ (<span class="built_in">NSString</span> *)setterFromGetter:(<span class="built_in">NSString</span> *)<span class="keyword">getter</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//get method from a class by a specific selector</span></span><br><span class="line">+ (Method)objc_methodFromClass:(Class)cls selector:(SEL)selector;</span><br><span class="line"></span><br><span class="line"><span class="comment">//check a class has a specific selector or not</span></span><br><span class="line">+ (<span class="built_in">BOOL</span>)detectClass:(Class)cls hasSelector:(SEL)selector;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>##SJKVOError</p>
+<p>这个小轮子仿照了<a href="https://github.com/jsonmodel/jsonmodel">JSONModel</a>的错误管理方式，用单独的一个类<code>SJKVOError</code>来返回各种错误：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> : <span class="built_in">NSUInteger</span> &#123;</span><br><span class="line">    </span><br><span class="line">    SJKVOErrorTypeNoObervingObject,</span><br><span class="line">    SJKVOErrorTypeNoObervingKey,</span><br><span class="line">    SJKVOErrorTypeNoObserverOfObject,</span><br><span class="line">    SJKVOErrorTypeNoMatchingSetterForKey,</span><br><span class="line">    SJKVOErrorTypeTransferSetterToGetterFailded,</span><br><span class="line">    SJKVOErrorTypeInvalidInputObservingKeys,</span><br><span class="line">    </span><br><span class="line">&#125; SJKVOErrorTypes;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJKVOError</span> : <span class="title">NSError</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">id</span>)errorNoObervingObject;</span><br><span class="line">+ (<span class="keyword">id</span>)errorNoObervingKey;</span><br><span class="line">+ (<span class="keyword">id</span>)errorNoMatchingSetterForKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">+ (<span class="keyword">id</span>)errorTransferSetterToGetterFaildedWithSetterName:(<span class="built_in">NSString</span> *)setterName;</span><br><span class="line">+ (<span class="keyword">id</span>)errorNoObserverOfObject:(<span class="keyword">id</span>)object;</span><br><span class="line">+ (<span class="keyword">id</span>)errorInvalidInputObservingKeys;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>OK，这样就介绍完了，希望各位同学可以积极指正～</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/从一个实战项目来看一下React Native开发的几个关键技术点/" rel="next" title="从一个实战项目来看一下React Native开发的几个关键技术点">
+                <i class="fa fa-chevron-left"></i> 从一个实战项目来看一下React Native开发的几个关键技术点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结/" rel="prev" title="先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结">
+                先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SJKVOController的用法"><span class="nav-number">1.</span> <span class="nav-text">SJKVOController的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#验证1-在添加number和color的观察后，移除nunber的观察："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">验证1:在添加number和color的观察后，移除nunber的观察：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证2-在添加number和color的观察后，移除nunber和color的观察："><span class="nav-number">1.0.0.2.</span> <span class="nav-text">验证2:在添加number和color的观察后，移除nunber和color的观察：</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#SJKVOController代码解析"><span class="nav-number">2.</span> <span class="nav-text">SJKVOController代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOController"><span class="nav-number">2.1.</span> <span class="nav-text">SJKVOController</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sj-addObserver-forKey-withBlock-方法："><span class="nav-number">2.1.1.</span> <span class="nav-text">sj_addObserver:forKey withBlock:方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-判断当前被观察的类是否存在与传入key对应的setter方法："><span class="nav-number">2.1.1.1.</span> <span class="nav-text">1.判断当前被观察的类是否存在与传入key对应的setter方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-如果有，判断当前被观察到类是否已经是KVO类-在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例-。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）："><span class="nav-number">2.1.1.2.</span> <span class="nav-text">2. 如果有，判断当前被观察到类是否已经是KVO类(在KVO机制中，如果某个对象一旦被观察，则这个对象就变成了带有包含KVO前缀的类的实例)。如果已经是KVO类，则将当前实例的isa指针指向其父类（最开始被观察的类）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类："><span class="nav-number">2.1.1.3.</span> <span class="nav-text">3. 如果不是KVO类（说明当前实例没有被观察），则创建一个带有KVO前缀的类，并将当前实例的isa指针指向这个新建的类：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面："><span class="nav-number">2.1.1.4.</span> <span class="nav-text">4. 查看观察项set，如果这个set里面有已经保存的观察项，则需要新建一个空的观察项set，将已经保存的观察项放入这个新建的set里面：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察："><span class="nav-number">2.1.1.5.</span> <span class="nav-text">5. 判断新的观察是否会与已经保存的观察项重复（当观察对象和key一致的时候），如果重复，则不添加新的观察：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOObserverItem"><span class="nav-number">2.2.</span> <span class="nav-text">SJKVOObserverItem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SJKVOTool"><span class="nav-number">2.3.</span> <span class="nav-text">SJKVOTool</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

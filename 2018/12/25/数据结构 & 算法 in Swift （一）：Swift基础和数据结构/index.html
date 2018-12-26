@@ -1,0 +1,1185 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Swift,Data Structure,Algorithm,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="写在前面从本文标题中的序号可以看出，本文是一个连载的开篇。 而且这个连载的标题是：数据结构 &amp;amp; 算法 in Swift。从这个连载的标题中可以看出，笔者分享的是使用Swift语言来实现所学的的数据结构和算法的知识。这里面需要解释两点： 第一：为什么学习数据结构和算法？学习通用性知识，突破技能瓶颈：笔者做iOS开发也有两年了，这期间通过从项目，第三方源码，相关应用类的编程书籍提高了些技术水">
+<meta name="keywords" content="iOS,Swift,Data Structure,Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/数据结构 & 算法 in Swift （一）：Swift基础和数据结构/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="写在前面从本文标题中的序号可以看出，本文是一个连载的开篇。 而且这个连载的标题是：数据结构 &amp;amp; 算法 in Swift。从这个连载的标题中可以看出，笔者分享的是使用Swift语言来实现所学的的数据结构和算法的知识。这里面需要解释两点： 第一：为什么学习数据结构和算法？学习通用性知识，突破技能瓶颈：笔者做iOS开发也有两年了，这期间通过从项目，第三方源码，相关应用类的编程书籍提高了些技术水">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/data_structure_algorithm_in_swift/ds_al_header.png">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/31/16147cdb8da77739?w=501&h=337&f=png&s=29900">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/31/16147cdb8db5eaf6?w=618&h=432&f=png&s=73000">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/1/31/16147cdb8db00b50?w=618&h=432&f=png&s=95179">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构">
+<meta name="twitter:description" content="写在前面从本文标题中的序号可以看出，本文是一个连载的开篇。 而且这个连载的标题是：数据结构 &amp;amp; 算法 in Swift。从这个连载的标题中可以看出，笔者分享的是使用Swift语言来实现所学的的数据结构和算法的知识。这里面需要解释两点： 第一：为什么学习数据结构和算法？学习通用性知识，突破技能瓶颈：笔者做iOS开发也有两年了，这期间通过从项目，第三方源码，相关应用类的编程书籍提高了些技术水">
+<meta name="twitter:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/data_structure_algorithm_in_swift/ds_al_header.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/数据结构 & 算法 in Swift （一）：Swift基础和数据结构/">
+
+
+
+
+
+  <title> 数据结构 & 算法 in Swift （一）：Swift基础和数据结构 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/数据结构 & 算法 in Swift （一）：Swift基础和数据结构/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据结构 & 算法 in Swift （一）：Swift基础和数据结构
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-Structure-Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure & Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  9,870 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  42 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/data_structure_algorithm_in_swift/ds_al_header.png" alt=""></p>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>从本文标题中的序号可以看出，本文是一个连载的开篇。</p>
+<p>而且这个连载的标题是：数据结构 &amp; 算法 in Swift。从这个连载的标题中可以看出，笔者分享的是使用Swift语言来实现所学的的数据结构和算法的知识。这里面需要解释两点：</p>
+<h2 id="第一：为什么学习数据结构和算法？"><a href="#第一：为什么学习数据结构和算法？" class="headerlink" title="第一：为什么学习数据结构和算法？"></a>第一：为什么学习数据结构和算法？</h2><p><strong>学习通用性知识，突破技能瓶颈</strong>：笔者做iOS开发也有两年了，这期间通过从项目，第三方源码，相关应用类的编程书籍提高了些技术水平。而作为没学过数据结构和算法的非科班大军中的一员，这些知识始终是绕不过去的。因为对此类知识的掌握程度会对今后编程技能的提高有着无可估量的影响，所以就决定学习了。</p>
+<h2 id="第二：为什么用Swift语言来实现？"><a href="#第二：为什么用Swift语言来实现？" class="headerlink" title="第二：为什么用Swift语言来实现？"></a>第二：为什么用Swift语言来实现？</h2><ol>
+<li><p><strong>选择哪个语言并不重要，重要的是数据结构和算法本身的理解</strong>：通过两个星期的学习，如今笔者已经可以使用Swift语言来实现几种数据结构和算法了，但我相信如果我使用C语言或者Objective-C语言的话会学得更快些，因为在实现的时候由于对该语言的不熟悉导致在实现过程中踩了不少坑。不过可以反过来思考：如果我可以使用Swift来实现这些，那么我今后用C，Objective-C，甚至是Java就容易多了，再加上我还顺便学习了Swift不是么？</p>
+</li>
+<li><p><strong>如今Swift的势头还在上涨</strong>：笔者已经观察到很多新的库，教学都使用了Swift语言。而且听说一些面试的朋友在面试过程中多少有问过Swift相关的知识，一些公司的新项目也有用Swift写了。</p>
+</li>
+</ol>
+<a id="more"></a>
+<p>基于上面这些原因，在今年年初把<strong>数据结构，算法和Swift</strong>的学习提上了日程，并且计划以连载的形式把学习过程中的笔记和知识分享出来。</p>
+<p>该系列的<strong>最佳受众</strong>是那些已经会Swift，但是对数据结构和算法还没有过多接触过的iOS开发者。其次是那些不会Swift也不会数据结构和算法的iOS开发者，毕竟Swift是大势所趋。</p>
+<p>不过对于那些非iOS开发者来说也同样适合，因为还是那句话：<strong>重点不在于使用哪种语言，而是数据结构和算法本身</strong>。除了第一篇会讲解一些在这个系列文章会使用到的Swift基础语法以外，后续的文章我会逐渐<strong>弱化对Swift语言的讲解，将重点放在数据结构和算法这里</strong>。而且后续我还会不断增加其他语言的实现（Java语言是肯定要加的，其他的语言还待定）。</p>
+<p>好了，背景介绍完了，现在正式开始：</p>
+<p>作为该系列的开篇，本文分为两个部分：</p>
+<ol>
+<li><strong>Swift语法基</strong>础：讲解一下后续连载中讲到的数据结构和算法所涉及到的Swift语法知识（并不是很全面，也不是很深入，但是在实现数据结构和算法这块应该是够了）。</li>
+<li><strong>数据结构</strong>：简单介绍数据结构和算法的相关概念，以及用Swift来实现几个简单的数据结构（链表，栈，队列）</li>
+</ol>
+<blockquote>
+<p>注：该系列涉及到的Swift语法最低基于Swift4.0。</p>
+</blockquote>
+<h1 id="Swift-语法基础"><a href="#Swift-语法基础" class="headerlink" title="Swift 语法基础"></a>Swift 语法基础</h1><p>Swift语法基础从以下几点来展开：</p>
+<ol>
+<li>循环语句</li>
+<li>泛型</li>
+<li>guard</li>
+<li>函数</li>
+<li>集合</li>
+</ol>
+<h2 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h2><h3 id="循环条件的开闭区间"><a href="#循环条件的开闭区间" class="headerlink" title="循环条件的开闭区间"></a>循环条件的开闭区间</h3><p>Swift将循环的开闭区间做了语法上的简化：</p>
+<h4 id="闭区间："><a href="#闭区间：" class="headerlink" title="闭区间："></a>闭区间：</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">1</span>...<span class="number">5</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"index: \(index)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// index : 1</span></span><br><span class="line"><span class="comment">// index : 2</span></span><br><span class="line"><span class="comment">// index : 3</span></span><br><span class="line"><span class="comment">// index : 4</span></span><br><span class="line"><span class="comment">// index : 5</span></span><br></pre></td></tr></table></figure>
+<h4 id="半开闭区间："><a href="#半开闭区间：" class="headerlink" title="半开闭区间："></a>半开闭区间：</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">1</span>..&lt;<span class="number">5</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"index: \(index)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// index : 1</span></span><br><span class="line"><span class="comment">// index : 2</span></span><br><span class="line"><span class="comment">// index : 3</span></span><br><span class="line"><span class="comment">// index : 4</span></span><br></pre></td></tr></table></figure>
+<h3 id="循环的升序与降序"><a href="#循环的升序与降序" class="headerlink" title="循环的升序与降序"></a>循环的升序与降序</h3><p>上面两个例子都是升序的（index从小到大），我们来看一下降序的写法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> (<span class="number">1</span>..&lt;<span class="number">5</span>).reversed() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"index: \(index)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// index : 4</span></span><br><span class="line"><span class="comment">// index : 3</span></span><br><span class="line"><span class="comment">// index : 2</span></span><br><span class="line"><span class="comment">// index : 1</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>降序的应用可以在下篇的冒泡排序算法中可以看到。</p>
+</blockquote>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>使用泛型可以定义一些可复用的函数或类型，Swift中的Array和Dictionary都是泛型的集合。</p>
+<p>为了体现出泛型的意义，下面举一个例子来说明一下：</p>
+<blockquote>
+<p>实现这样一个功能:将传入该函数的两个参数互换。</p>
+</blockquote>
+<p>整型的交换：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoInts</span><span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> Int, <span class="number">_</span> b: <span class="keyword">inout</span> Int)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = a</span><br><span class="line">    a = b</span><br><span class="line">    b = tmp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>字符串的交换：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoStrings</span><span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> String, <span class="number">_</span> b: <span class="keyword">inout</span> String)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = a</span><br><span class="line">    a = b</span><br><span class="line">    b = tmp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>浮点型的交换：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoDoubles</span><span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> Double, <span class="number">_</span> b: <span class="keyword">inout</span> Double)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = a</span><br><span class="line">    a = b</span><br><span class="line">    b = tmp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这三种情况的实现部分其实都是一样的，但仅仅是因为传入类型的不一致，导致对于不同的类型还要定义一个新的函数。所以如果类型有很多的话，定义的新函数也会很多，这样显然是不够优雅的。</p>
+<p>此类问题可以使用泛型来解决：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoValues</span>&lt;T&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> T, <span class="number">_</span> b: <span class="keyword">inout</span> T)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = a</span><br><span class="line">    a = b</span><br><span class="line">    b = tmp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面函数中的T是泛型的固定写法，可以理解为“所有类型”。这样一来，我们可以传入任何相同的类型来作交换了。</p>
+<p>泛型还有其他比较强大的功能，由于在后续的数据结构和算法的讲解里面可能不会涉及到，所以在这里先不赘述了。有兴趣的朋友可以参考官方文档：<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Generics.html#//apple_ref/doc/uid/TP40014097-CH26-ID179" target="_blank" rel="noopener">Swift：Generics</a></p>
+<h2 id="guard"><a href="#guard" class="headerlink" title="guard"></a>guard</h2><blockquote>
+<p>guard是 swift 2.0推出的新的判断语句的用法。</p>
+<p>与if语句相同的是，guard也是基于一个表达式的布尔值去判断一段代码是否该被执行。与if语句不同的是，guard只有在条件不满足的时候才会执行这段代码。你可以把guard近似的看做是Assert，但是你可以优雅的退出而非崩溃</p>
+</blockquote>
+<p>使用guard语法，可以先对每个条件逐一做检查，如果不符合条件判断就退出（或者进行其他某些操作）。这就会让人容易看出来什么条件会让这个函数退出（或者进行其他某些操作）。</p>
+<p>可以用一个例子来分别使用if和guard来实现，体会二者的区别：</p>
+<h3 id="使用if-else"><a href="#使用if-else" class="headerlink" title="使用if-else"></a>使用if-else</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//money:    holding moneny (用户持有的钱数)</span></span><br><span class="line"><span class="comment">//price:    product price  (商品的价格)</span></span><br><span class="line"><span class="comment">//capacity: bag capacity   (用户用来装商品的袋子容量)</span></span><br><span class="line"><span class="comment">//volume:   product size   (商品的大小)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">buying1</span><span class="params">( money: Int , price: Int , capacity: Int , volume: Int)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> money &gt;= price&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> capacity &gt;= volume&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"Start buying..."</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"\(money-price) money left after buying."</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"\(capacity-volume) capacity left after buying."</span>)</span><br><span class="line">        </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"No enough capacity"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"No enough money"</span>)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的逻辑可以看出，当同时满足：</p>
+<ol>
+<li>用户的钱数&gt;商品价格</li>
+<li>用户用来装商品的袋子容量&gt;商品的大小</li>
+</ol>
+<p>这两个情况的时候，购买才会进行，其他所有情况都无法引发购买。</p>
+<p>对于大多数习惯使用if-else的朋友来说，上面的代码立即起来并没有难度，但是相同的逻辑，我们看一下使用guard之后的效果：</p>
+<h3 id="使用guard"><a href="#使用guard" class="headerlink" title="使用guard"></a>使用guard</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">buying2</span><span class="params">( money: Int , price: Int , capacity: Int , volume: Int)</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> money &gt;= price <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"No enough money"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> capacity &gt;= volume <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"No enough capacity"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Start buying..."</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(money-price) money after buying."</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(capacity-volume) capacity left after buying."</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的实现可以看出：</p>
+<ul>
+<li>使用guard以后，将<code>money &lt; price</code>和<code>capacity &lt; volume</code> 这两个情况首先排除掉并填上了相应的处理代码。</li>
+<li>在两个guard下面才是真正正确逻辑后的处理代码。</li>
+</ul>
+<p>因此通过两个guard判断的语句，我们知道该函数所处理的正确逻辑是什么，非常清晰。</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>因为后续的数据结构和算法的讲解是离不开函数的使用的，所以在这里简单介绍一下Swift中函数的使用。</p>
+<ul>
+<li>无返回值的函数</li>
+<li>有返回值的函数</li>
+<li>省略函数的外部参数名</li>
+<li>值传递和引用传递</li>
+</ul>
+<h3 id="无返回值的函数"><a href="#无返回值的函数" class="headerlink" title="无返回值的函数"></a>无返回值的函数</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">log</span><span class="params">(message: String)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"log: \(message)!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">log(message: <span class="string">"memory warning"</span>)</span><br><span class="line"><span class="comment">// output: log: memory warning!</span></span><br></pre></td></tr></table></figure>
+<h3 id="有返回值的函数"><a href="#有返回值的函数" class="headerlink" title="有返回值的函数"></a>有返回值的函数</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">logString</span><span class="params">(string: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"log: "</span> + string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> logStr = logString(string: <span class="string">"memory warning!"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\(logStr)"</span>)</span><br><span class="line"><span class="comment">// output: log: memory warning!</span></span><br></pre></td></tr></table></figure>
+<h3 id="省略函数外部参数名"><a href="#省略函数外部参数名" class="headerlink" title="省略函数外部参数名"></a>省略函数外部参数名</h3><p>通过在函数形参前面加上<code>_</code>,可以起到在调用时省略外部参数的作用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">logMessage</span><span class="params">(<span class="number">_</span> message: String)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"log: \(message)!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">logMessage(<span class="string">"memory warning"</span>)</span><br><span class="line"><span class="comment">// output: log: memory warning!</span></span><br></pre></td></tr></table></figure>
+<p>再来看一下两个参数的情况：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addInt</span><span class="params">(<span class="number">_</span> a : Int ,<span class="number">_</span> b : Int)</span></span>&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"sum is \(a + b)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addInt(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="comment">//output : sum is 7</span></span><br></pre></td></tr></table></figure>
+<h3 id="值传递和引用传递"><a href="#值传递和引用传递" class="headerlink" title="值传递和引用传递"></a>值传递和引用传递</h3><p>Swift中，struct是按值传递，class是按引用传递。数组和字典在Swift里是属于struct，所以需要如果在一个函数里要修改传入的数组，需要做特殊处理：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> originalArr = [<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeLastInArray</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int])</span></span>&#123;</span><br><span class="line">    array.removeLast()</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\n============ before removing: \(originalArr)"</span>)</span><br><span class="line"><span class="comment">//[2, 1, 3]</span></span><br><span class="line"></span><br><span class="line">removeLastInArray(&amp;originalArr)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"============ after   removing: \(originalArr)"</span>)</span><br><span class="line"><span class="comment">//[2, 1]</span></span><br></pre></td></tr></table></figure>
+<p>在这里使用的<code>inout</code>关键字就是将传入的数组改为引用传递了。</p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>Swift里的集合类型有：数组，集合，字典，下面来分别讲一下。</p>
+<blockquote>
+<p>这三种类型都支持泛型，也就是说里面的元素可以是整数，字符串，浮点等等。</p>
+</blockquote>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><blockquote>
+<p>Swift’s <code>Array</code> type is bridged to Foundation’s <code>NSArray</code> class.</p>
+</blockquote>
+<h4 id="可变数组与不可变数组"><a href="#可变数组与不可变数组" class="headerlink" title="可变数组与不可变数组"></a>可变数组与不可变数组</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// immutable array</span></span><br><span class="line"><span class="keyword">let</span> immutableNumbers: [<span class="type">Int</span>] = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// mutable array</span></span><br><span class="line"><span class="keyword">var</span> mutableNumbers : [<span class="type">Int</span>] = [<span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Swift中可以用<code>let</code>和<code>var</code>来分别声明可变和不可变数组：数组的添加删除等操作只能作用于可变数组。</p>
+</blockquote>
+<h4 id="数组的遍历"><a href="#数组的遍历" class="headerlink" title="数组的遍历"></a>数组的遍历</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// iteration 1</span></span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> mutableNumbers &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> index = mutableNumbers.index(of: value) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Index of \(value) is \(index)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// iteration 2</span></span><br><span class="line">mutableNumbers.forEach &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> index = mutableNumbers.index(of: value) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Index of \(value) is \(index)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// iteration 3</span></span><br><span class="line"><span class="keyword">for</span> (index, value) <span class="keyword">in</span> mutableNumbers.enumerated() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Item \(index + 1): \(value)"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="数组的操作"><a href="#数组的操作" class="headerlink" title="数组的操作"></a>数组的操作</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mutableNumbers.append(<span class="number">11</span>)</span><br><span class="line"><span class="comment">// Output: [2, 1, 5, 4, 1, 3, 11]</span></span><br><span class="line"></span><br><span class="line">mutableNumbers.insert(<span class="number">42</span>, at: <span class="number">4</span>)</span><br><span class="line"><span class="comment">// Output: [2, 1, 5, 4, 42, 1, 3, 11]</span></span><br><span class="line"></span><br><span class="line">mutableNumbers.swapAt(<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment">// Output: [1, 2, 5, 4, 42, 1, 3, 11]</span></span><br><span class="line"></span><br><span class="line">mutableNumbers.remove(at: <span class="number">1</span>)</span><br><span class="line"><span class="comment">// Output: [2, 5, 4, 42, 1, 3, 11]</span></span><br><span class="line"></span><br><span class="line">mutableNumbers.removeFirst()</span><br><span class="line"><span class="comment">// Output: [5, 4, 42, 1, 3, 11]</span></span><br><span class="line"></span><br><span class="line">mutableNumbers.removeLast()</span><br><span class="line"><span class="comment">// Output: [5, 4, 42, 1, 3]</span></span><br><span class="line"></span><br><span class="line">mutableNumbers.removeAll()</span><br><span class="line"><span class="comment">//[]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>append函数的作用是在数组的末尾添加元素</p>
+<p>swapAt函数的作用是交换在传入的两个index上的元素，该方法在下篇的排序算法中使用得非常频繁。</p>
+</blockquote>
+<h3 id="集合-1"><a href="#集合-1" class="headerlink" title="集合"></a>集合</h3><blockquote>
+<p>Swift’s <code>Set</code> type is bridged to Foundation’s <code>NSSet</code> class.</p>
+</blockquote>
+<h4 id="集合的无序性，值的唯一性"><a href="#集合的无序性，值的唯一性" class="headerlink" title="集合的无序性，值的唯一性"></a>集合的无序性，值的唯一性</h4><p>关于集合与数组的区别，除了数组有序，集合无序以外，数组内部的元素的数值可以不是唯一的；但是集合里元素的数值必须是唯一的，如果有重复的数值会算作是一个：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//value in set is unique</span></span><br><span class="line"><span class="keyword">let</span> onesSet: <span class="type">Set</span> = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(onesSet)</span><br><span class="line"><span class="comment">// Output: [1]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> onesArray: <span class="type">Array</span> = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(onesArray)</span><br><span class="line"><span class="comment">// Output: [1, 1, 1, 1]</span></span><br></pre></td></tr></table></figure>
+<h4 id="集合的遍历"><a href="#集合的遍历" class="headerlink" title="集合的遍历"></a>集合的遍历</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbersSet: <span class="type">Set</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="built_in">print</span>(numbersSet)</span><br><span class="line"><span class="comment">// Output: undefined order, e.g. [5, 2, 3, 1, 4]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// iteration 1</span></span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> numbersSet &#123;</span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// output is in undefined order</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// iteration 2</span></span><br><span class="line">numbersSet.forEach &#123; value <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// output is in undefined order</span></span><br></pre></td></tr></table></figure>
+<h4 id="集合的操作"><a href="#集合的操作" class="headerlink" title="集合的操作"></a>集合的操作</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mutableStringSet: <span class="type">Set</span> = [<span class="string">"One"</span>, <span class="string">"Two"</span>, <span class="string">"Three"</span>]</span><br><span class="line"><span class="keyword">let</span> item = <span class="string">"Two"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//contains</span></span><br><span class="line"><span class="keyword">if</span> mutableStringSet.<span class="built_in">contains</span>(item) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(item) found in the set"</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(item) not found in the set"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//isEmpty</span></span><br><span class="line"><span class="keyword">let</span> strings = <span class="type">Set</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"><span class="keyword">if</span> strings.isEmpty &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Set is empty"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//count</span></span><br><span class="line"><span class="keyword">let</span> emptyStrings = <span class="type">Set</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"><span class="keyword">if</span> emptyStrings.<span class="built_in">count</span> == <span class="number">0</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Set has no elements"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//insert</span></span><br><span class="line">mutableStringSet.insert(<span class="string">"Four"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//remove 1</span></span><br><span class="line">mutableStringSet.remove(<span class="string">"Three"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//remove 2</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> removedElement = mutableStringSet.remove(<span class="string">"Six"</span>) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(removedElement) was removed from the Set"</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Six is not found in the Set"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//removeAll()</span></span><br><span class="line">mutableStringSet.removeAll()</span><br><span class="line"><span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><blockquote>
+<p>A dictionary <code>Key</code> type must conform to the <code>Hashable</code> protocol, like a set’s value type.</p>
+</blockquote>
+<h4 id="字典的声明"><a href="#字典的声明" class="headerlink" title="字典的声明"></a>字典的声明</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//empty dictionary</span></span><br><span class="line"><span class="keyword">var</span> dayOfWeek = <span class="type">Dictionary</span>&lt;<span class="type">Int</span>, <span class="type">String</span>&gt;()</span><br><span class="line"><span class="keyword">var</span> dayOfWeek2 = [<span class="type">Int</span>: <span class="type">String</span>]()</span><br><span class="line"></span><br><span class="line"><span class="comment">//not empty dictionary</span></span><br><span class="line"><span class="keyword">var</span> dayOfWeek3: [<span class="type">Int</span>: <span class="type">String</span>] = [<span class="number">0</span>: <span class="string">"Sun"</span>, <span class="number">1</span>: <span class="string">"Mon"</span>, <span class="number">2</span>: <span class="string">"Tue"</span>]</span><br><span class="line"><span class="built_in">print</span>(dayOfWeek3)</span><br><span class="line"><span class="comment">//output:[2: "Tue", 0: "Sun", 1: "Mon"]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看到字典的键值对也是无序的，它与声明时的顺序不一定一致。</p>
+</blockquote>
+<h4 id="字典的遍历"><a href="#字典的遍历" class="headerlink" title="字典的遍历"></a>字典的遍历</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// iteration 1</span></span><br><span class="line"><span class="keyword">for</span> (key, value) <span class="keyword">in</span> dayOfWeek &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(key): \(value)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// iteration 2</span></span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> dayOfWeek.keys &#123;</span><br><span class="line">    <span class="built_in">print</span>(key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// iteration 3</span></span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> dayOfWeek.values &#123;</span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="字典的操作"><a href="#字典的操作" class="headerlink" title="字典的操作"></a>字典的操作</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// find value</span></span><br><span class="line">dayOfWeek = [<span class="number">0</span>: <span class="string">"Sun"</span>, <span class="number">1</span>: <span class="string">"Mon"</span>, <span class="number">2</span>: <span class="string">"Tue"</span>]</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> day = dayOfWeek[<span class="number">2</span>] &#123;</span><br><span class="line">    <span class="built_in">print</span>(day)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// addValue 1</span></span><br><span class="line">dayOfWeek[<span class="number">3</span>] = <span class="string">"Wed"</span></span><br><span class="line"><span class="built_in">print</span>(dayOfWeek)</span><br><span class="line"><span class="comment">// Prints: [2: "Tue", 0: "Sun", 1: "Mon", 3: "Wed"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// updateValue 1</span></span><br><span class="line">dayOfWeek[<span class="number">2</span>] = <span class="string">"Mardi"</span></span><br><span class="line"><span class="built_in">print</span>(dayOfWeek)</span><br><span class="line"><span class="comment">// Prints: [2: "Mardi", 0: "Sun", 1: "Mon", 3: "Wed"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// updateValue 2</span></span><br><span class="line">dayOfWeek.updateValue(<span class="string">"Tue"</span>, forKey: <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(dayOfWeek)</span><br><span class="line"><span class="comment">// Prints: [2: "Tue", 0: "Sun", 1: "Mon", 3: "Wed"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// removeValue 1</span></span><br><span class="line">dayOfWeek[<span class="number">1</span>] = <span class="literal">nil</span></span><br><span class="line"><span class="built_in">print</span>(dayOfWeek)</span><br><span class="line"><span class="comment">// Prints: [2: "Tue", 0: "Sun", 3: "Wed"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// removeValue 2</span></span><br><span class="line">dayOfWeek.removeValue(forKey: <span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(dayOfWeek)</span><br><span class="line"><span class="comment">// Prints: [0: "Sun", 3: "Wed"]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// removeAll</span></span><br><span class="line">dayOfWeek.removeAll()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(dayOfWeek)</span><br><span class="line"><span class="comment">// Output: [:]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看到从字典里面删除某个键值对有两个方法：</p>
+<ol>
+<li>使用<code>removeValue</code>方法并传入要删除的键值对里的键。</li>
+<li>将字典取下标之后将nil赋给它。</li>
+</ol>
+</blockquote>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>这一部分内容主要是对连载的后续文章作铺垫，让大家对数据结构先有一个基本的认识，因此在概念上不会深入讲解。该部分由以下三点展开：</p>
+<ul>
+<li><p>数据结构的基本概念</p>
+</li>
+<li><p>抽象数据类型</p>
+</li>
+<li><p>链表，栈和队列的实现</p>
+<p>​</p>
+</li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>首先我们来看一下数据结构的概念：</p>
+<blockquote>
+<p>数据结构：是相互之间存在一种或多种特定关系的数据元素的集合。</p>
+</blockquote>
+<p>由数据结构这个词汇的本身（数据的结构）以及它的概念可以看出，它的重点在于“结构”和“关系”。所以说，数据是何种数据并不重要，重要的是这些数据<strong>是如何联系起来</strong>的。</p>
+<p>而这些联系，可以从两个维度来展开：</p>
+<ol>
+<li>逻辑结构：指数据对象中元素之间的相互关系。</li>
+<li>物理结构：指数据的逻辑结构在计算机中的存储形式。</li>
+</ol>
+<p>可以看出，逻辑结构是抽象的联系，而物理结构是实际在计算机内存里的具体联系。那么它们自己又细分为哪些结构呢？</p>
+<p>逻辑结构：</p>
+<ul>
+<li>集合结构：集合结构中的数据元素除了同属于一个集合外，它们之间没有其他关系。</li>
+<li>线性结构：线性结构中的数据元素之间是一对一的关系。</li>
+<li>树形结构：数据结构中的元素存在一对多的相互关系。</li>
+<li>图形结构：数据结构中的元素存在多对多的相互关系。</li>
+</ul>
+<p>物理结构：</p>
+<ul>
+<li>顺序存储结构：把数据元素粗放在地址连续的存储单元里，其数据间的逻辑关系和物理关系是一致的（数组）。</li>
+<li>链式存储结构：把数据元素存放在任意的存储单元里，这组存储单元可以是连续的，也可以是不连续的。</li>
+</ul>
+<p>为了便于记忆，用思维导图总结一下上面所说的：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/31/16147cdb8da77739?w=501&amp;h=337&amp;f=png&amp;s=29900" alt=""></p>
+<p>而通过结合这两个维度中的某个结构，可以定义出来一个实际的数据结构的实现：</p>
+<p>比如线性表就是线性结构的一种实现：</p>
+<ul>
+<li>顺序存储结构的线性表就是<strong>数组</strong>：它的内存分布是连续的，元素之间可以通过内存地址来做关联；</li>
+<li>链式存储结构的线性表就是<strong>链表</strong>：它的内存分布可以是不连续的，元素之间通过指针来做关联：<ul>
+<li>如果每个元素（在链表中称作节点）只持有指向后面节点的指针，那此链表就是单链表。</li>
+<li>如果每个元素（在链表中称作节点）持有指向前后节点的两个指针，那此链表就是双链表。</li>
+</ul>
+</li>
+</ul>
+<p>为什么会有链表这么麻烦的东西？像数组这样，所有内存地址都是连续的不是很方便么？既生瑜何生亮呢？</p>
+<p>对于获取元素（节点）这一操作，使用数组这个数据结构确实非常方便：因为所有元素在内存中是连续的，所以只需要知道数组中第一个元素的地址以及要获取元素的index就能算出该index内存的地址，一步到位非常方便。</p>
+<p>但是对于向数组中某个index中插入新的元素的操作恐怕就没有这么方便了：恰恰是因为数组中所有元素的内存是连续的，所以如果想在中间插入一个新的元素，那么这个位置后面的所有元素都要后移，显然是非常低效的。如果插在数组尾部还好，如果插在第一位的话成本就太高了。</p>
+<p>而如果使用链表，只要把要插入到的index前后节点的指针赋给这个新的节点就可以了，不需要移动原有节点在内存中的位置。</p>
+<blockquote>
+<p>关于链表的这种插入操作会在后面用代码的形式体现出来。</p>
+</blockquote>
+<p>既然有这么多的数据结构，那么有没有一个标准的格式来将这些特定的数据结构（也可以说是数学模型）抽象出来呢？答案是肯定的，它就是我们下一节要讲的<strong>抽象数据类型</strong>。</p>
+<h2 id="抽象数据类型"><a href="#抽象数据类型" class="headerlink" title="抽象数据类型"></a>抽象数据类型</h2><p>首先来看一下抽象数据类型的概念，摘自《大话数据结构》:</p>
+<blockquote>
+<p>抽象数据类型（Abstract Data Type，ADT）：是指一个数学模型及定义在该模型上的一组操作。</p>
+</blockquote>
+<p>需要注意的是：抽象数据类型的定义仅仅取决于它的一组<strong>逻辑特性</strong>，而与其在计算机内部如何表示和实现没有关系。而且，抽象数据类型不仅仅指那些已经定义并实现的数据类型，还尅是计算机编程者<strong>自己定义的数据类型</strong>。</p>
+<p>我们看一下数据类型的标准格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ADT 抽象数据类型名</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">   数据元素之间逻辑关系的定义</span><br><span class="line">   </span><br><span class="line">Operation</span><br><span class="line">   操作1</span><br><span class="line">      初始条件</span><br><span class="line">      操作结果描述</span><br><span class="line"> </span><br><span class="line">   操作2</span><br><span class="line">      初始条件</span><br><span class="line">      操作结果描述</span><br><span class="line">      </span><br><span class="line">   操作n</span><br><span class="line"></span><br><span class="line">endADT</span><br></pre></td></tr></table></figure>
+<p>其实看上去和面向对象编程里的类的定义相似：</p>
+<ul>
+<li>可以把抽象数据类型的Data 和 类的成员变量联系起来。</li>
+<li>可以把抽象数据类型的操作和类的函数联系起来。</li>
+</ul>
+<p>简单来说，抽象数据类型描述了一个数据模型所使用的数据和数据之间的逻辑关系，以及它可以执行的一些操作。因此，如果知道了一个数学模型的抽象数据类型，那么在真正接触数学模型的实现（代码）之前，就可以对该数学模型能做的事情有一个大致的了解。</p>
+<p>下一章笔者会介绍链表，栈和队列这三个数学模型，在讲解每个数学模型的实现之前都会给出它们各自的抽象数据类型，让读者可以先对当前数学模型有个大致的了解。</p>
+<blockquote>
+<p>注意：书本文归纳的所有抽象数据类型是笔者自己根据网上资料和相关书籍而定下来的，所以严格来说它们并不是“最官方”的抽象数据类型。读者也可以参考网上的资料或是相关书籍，结合自己的思考来定义自己对着三个数据模型的抽象数据类型。</p>
+</blockquote>
+<h2 id="链表，栈和队列的实现"><a href="#链表，栈和队列的实现" class="headerlink" title="链表，栈和队列的实现"></a>链表，栈和队列的实现</h2><p>通过上一节的介绍，我们知道了数据结构的概念以及分类，还知道了不同的数据结构在不同的场景下会发挥不同的优势，我们要根据实际的场景来选择合适的数据结构。</p>
+<p>下面就来介绍几种在实际应用中使用的比较多的数学模型：</p>
+<ul>
+<li>链表</li>
+<li>栈</li>
+<li>队列</li>
+</ul>
+<h3 id="链表（Linked-list）"><a href="#链表（Linked-list）" class="headerlink" title="链表（Linked list）"></a>链表（Linked list）</h3><p>说到链表就不得不提线性表这一数据结构，在介绍链表之前，首先看一下线性表的定义：</p>
+<blockquote>
+<p>线性表：零个或多个数据元素的有限序列。</p>
+</blockquote>
+<p>而根据物理结构的不同，线性表有两种具体的实现方式：</p>
+<ul>
+<li>线性表的顺序存储结构：线性表的数据元素是被一段<strong>地址连续</strong>的存储单存储起来的。</li>
+<li>线性表的链式存储结构: 线性表的数据元素是被用一组<strong>连续或不连续</strong>的存储单元存储起来的，这些元素通过指针来作为逻辑上的连接。</li>
+</ul>
+<blockquote>
+<p>注：上面两个概念是笔者用自己的话总结出来的。</p>
+</blockquote>
+<p>在这里，线性表的顺序存储结构的实现就是我们熟悉的数组；而线性表的链式存储结构的实现就是笔者即将要介绍的链表。</p>
+<h4 id="链表的定义"><a href="#链表的定义" class="headerlink" title="链表的定义"></a>链表的定义</h4><p>相信对于读完上一节的朋友来说，应该对链表有一个比较清晰的认识了。关于链表的定义有很多不同的版本，笔者个人比较喜欢百度百科里的定义：</p>
+<blockquote>
+<p>链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。</p>
+</blockquote>
+<p>而且由于数据元素所持有的指针个数和链接特性可以将链表分为：</p>
+<ul>
+<li>单向链表：单向链表的链接方向是单向的，其中每个结点都有指针成员变量指向列表中的下一个结点；</li>
+<li>双向链表：双向链表的每个数据结点中都有两个指针，分别指向直接后继和直接前驱。所以，从双向链表中的任意一个结点开始，都可以很方便地访问它的前驱结点和后继结点，它的链接方向是双向的。</li>
+<li>循环链表：循环链表是另一种形式的链式存贮结构。它的特点是表中最后一个结点的指针域指向头结点，整个链表形成一个环。</li>
+</ul>
+<p>笔者从中挑选出双向链表来进行讲解，它的难度适中，而且能够很好地让读者体会出链表的优势。</p>
+<h4 id="双向链表的抽象数据类型"><a href="#双向链表的抽象数据类型" class="headerlink" title="双向链表的抽象数据类型"></a>双向链表的抽象数据类型</h4><p>因为节点是链表的基本组成单元，所以想要实现链表，必须先要介绍链表的组成部分-节点。</p>
+<p>节点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ADT 节点(node)</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">  value:持有的数据</span><br><span class="line"></span><br><span class="line">Operation</span><br><span class="line">   init:初始化</span><br><span class="line">   previous:指向上一节点的指针</span><br><span class="line">   next:指向下一节点的指针</span><br><span class="line">   </span><br><span class="line">endADT</span><br></pre></td></tr></table></figure>
+<p>再来看一下链表的抽象数据类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">ADT 链表（linked list）</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">  linked list:持有的线性表</span><br><span class="line"></span><br><span class="line">Operation</span><br><span class="line">   init:初始化</span><br><span class="line">   count:持有节点总个数</span><br><span class="line">   isEmpty:是否为空</span><br><span class="line">   first:头节点</span><br><span class="line">   last:尾节点</span><br><span class="line">   node:传入index返回节点</span><br><span class="line">   insert:插入node到指定index</span><br><span class="line">   insertToHead:插入节点到表头</span><br><span class="line">   appendToTail:插入节点到表尾</span><br><span class="line">   removeAll:移除所有节点</span><br><span class="line">   remove:移除传入的节点</span><br><span class="line">   removeAt:移除传入index的节点</span><br><span class="line">   </span><br><span class="line">endADT</span><br></pre></td></tr></table></figure>
+<h4 id="双向链表的实现"><a href="#双向链表的实现" class="headerlink" title="双向链表的实现"></a>双向链表的实现</h4><h5 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedListNode</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//value of a node</span></span><br><span class="line">    <span class="keyword">var</span> value: <span class="type">T</span></span><br><span class="line">  </span><br><span class="line">   <span class="comment">//pointer to previous node</span></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> previous: <span class="type">LinkedListNode</span>?</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//pointer to next node</span></span><br><span class="line">    <span class="keyword">var</span> next: <span class="type">LinkedListNode</span>?</span><br><span class="line">  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//init</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>(value: <span class="type">T</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.value = value</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再来看一下链表的实现：</p>
+<p>因为整个链表的插入，删除等操作比较多，整个链表的定义超过了200行代码，所以为了看着方便一点，在这里来分段说明一下。</p>
+<p>首先看一下链表的成员变量:</p>
+<h5 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">typealias</span> <span class="type">Node</span> = <span class="type">LinkedListNode</span>&lt;<span class="type">T</span>&gt;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//if empty</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> isEmpty: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> head == <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//total count of nodes</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123;</span><br><span class="line">      </span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">var</span> node = head <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">let</span> next = node.next &#123;</span><br><span class="line">            node = next</span><br><span class="line">            <span class="built_in">count</span> += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//pointer to the first node, private</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> head: <span class="type">Node</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//pointer to the first node, public</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> first: <span class="type">Node</span>? &#123;</span><br><span class="line">        <span class="keyword">return</span> head</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//pointer to the last node</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> last: <span class="type">Node</span>? &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">var</span> node = head <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//until node.next is nil</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">let</span> next = node.next &#123;</span><br><span class="line">            node = next</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相信看上面的命名以及注释大家可以对链表的成员变量有个初步的理解，这里面需要说三点：</p>
+<ol>
+<li><code>typealias</code>是用来重新为已经存在的类型命名的：这里用<code>Node</code>代替了<code>LinkedListNode&lt;T&gt;</code>（节点类型），降低了不少阅读代码的成本。</li>
+<li>在获取<code>count</code>和<code>last</code>的实现，都先判断了<code>head</code>这个指针是否为nil，如果是则判定为空链表，自然也就不存在节点个数和最后的节点对象了。</li>
+<li>同样地，也是在获取<code>count</code>和<code>last</code>的实现里，使用了<code>while</code>控制语句来判断node.next节点是否存在：如果存在，则继续+1或者继续往下寻找，直到node.next为nil时才停止。在这里我们可以看到链表的寻址方式：是通过头结点开始，以节点的.next指针来寻找下一个节点的。而且作为链表的尾节点，它的.next指针不指向任何对象，因为它本来就是链表的最后一项。</li>
+</ol>
+<blockquote>
+<p>最下方的…代表即将在下面介绍的一些函数，这些函数都定义在的<code>LinkedList</code>这个class里面。</p>
+</blockquote>
+<h5 id="获取index上node"><a href="#获取index上node" class="headerlink" title="获取index上node"></a>获取index上node</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get node of index</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">node</span><span class="params">(atIndex index: Int)</span></span> -&gt; <span class="type">Node</span>? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> index == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="comment">//head node</span></span><br><span class="line">        <span class="keyword">return</span> head!</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> node = head!.next</span><br><span class="line"></span><br><span class="line">        <span class="keyword">guard</span> index &lt; <span class="built_in">count</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> <span class="number">_</span> <span class="keyword">in</span> <span class="number">1</span>..&lt;index &#123;</span><br><span class="line">            <span class="comment">// go on finding by .next</span></span><br><span class="line">            node = node?.next</span><br><span class="line">            <span class="keyword">if</span> node == <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> node!</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意在这里返回的node是可以为nil的，而且在这里可以看出来，链表在寻找特定node的时候，是根据节点的.next指针来一个一个寻找的。这个与顺序存储结构的数组是不同的，在后面我会重点讲解一下这二者的不同。</p>
+<h5 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//insert node to last index</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">appendToTail</span><span class="params">(value: T)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> newNode = <span class="type">Node</span>(value: value)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> lastNode = last &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//update last node: newNode becomes new last node;</span></span><br><span class="line">        <span class="comment">//the previous last node becomes the second-last node</span></span><br><span class="line">        newNode.previous = lastNode</span><br><span class="line">        lastNode.next = newNode</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//blank linked list</span></span><br><span class="line">        head = newNode</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//insert node to index 0</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">insertToHead</span><span class="params">(value: T)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> newHead = <span class="type">Node</span>(value: value)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> head == <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="comment">//blank linked list</span></span><br><span class="line">        head = newHead</span><br><span class="line"></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        newHead.next = head</span><br><span class="line">        head?.previous = newHead</span><br><span class="line">        head = newHead</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//insert node in specific index</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">insert</span><span class="params">(<span class="number">_</span> node: Node, atIndex index: Int)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> index &lt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"invalid input index"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> newNode = node</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">count</span> == <span class="number">0</span> &#123;</span><br><span class="line"></span><br><span class="line">        head = newNode</span><br><span class="line"></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> index == <span class="number">0</span> &#123;</span><br><span class="line"></span><br><span class="line">            newNode.next = head</span><br><span class="line">            head?.previous = newNode</span><br><span class="line">            head = newNode</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> index &gt; <span class="built_in">count</span> &#123;</span><br><span class="line"></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"out of range"</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> prev = <span class="keyword">self</span>.node(atIndex: index-<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">let</span> next = prev?.next</span><br><span class="line"></span><br><span class="line">            newNode.previous = prev</span><br><span class="line">            newNode.next = prev?.next</span><br><span class="line">            prev?.next = newNode</span><br><span class="line">            next?.previous = newNode</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>链表的插入节点的操作分为三种，按照从上到下的顺序依次是：</p>
+<ol>
+<li>在头部插入</li>
+<li>在尾部插入</li>
+<li>指定index插入</li>
+</ol>
+<p>需要注意的是</p>
+<ul>
+<li>在前两种插入函数中，需要先判断该链表是否是空的，如果是，则要将链表的该节点赋给链表的<code>head</code>指针。</li>
+<li>在第三种插入函数中，还是先判断该链表是否是空的，如果是，则无论index是多少(只要不小于0)，都插在链表的头部。如果不是空的，再判断index是否为0，如果是，则直接插在头部；如果index不为0，则判断index是否大于count，如果是，则无法插入；如果不是，则获取插入位置的前后节点进行重连。</li>
+</ul>
+<blockquote>
+<p>在这里判断链表为空链表后的处理是笔者自己加上去的，笔者在网上的资料里没有看到过。大家不必纠结于这种处理方式，毕竟链表操作的重点在于前后节点的重连。</p>
+</blockquote>
+<h5 id="移除节点"><a href="#移除节点" class="headerlink" title="移除节点"></a>移除节点</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//removing all nodes</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">removeAll</span><span class="params">()</span></span> &#123;</span><br><span class="line">    head = <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//remove the last node</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">removeLast</span><span class="params">()</span></span> -&gt; <span class="type">T</span>? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">guard</span> !isEmpty <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> remove(node: last!)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//remove a node by it's refrence</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">remove</span><span class="params">(node: Node)</span></span> -&gt; <span class="type">T</span>? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">guard</span> head != <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"linked list is empty"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> prev = node.previous</span><br><span class="line">    <span class="keyword">let</span> next = node.next</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> prev = prev &#123;</span><br><span class="line">        prev.next = next</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        head = next</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    next?.previous = prev</span><br><span class="line"></span><br><span class="line">    node.previous = <span class="literal">nil</span></span><br><span class="line">    node.next = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">return</span> node.value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//remove a node by it's index</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">removeAt</span><span class="params">(<span class="number">_</span> index: Int)</span></span> -&gt; <span class="type">T</span>? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">guard</span> head != <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"linked list is empty"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> node = <span class="keyword">self</span>.node(atIndex: index)</span><br><span class="line">    <span class="keyword">guard</span> node != <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> remove(node: node!)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果要移除链表上所有节点，只需要将head指针置空就可以了，因为它是所有节点的“源头”，是链表寻址的第一个节点。</li>
+<li>在持有某个节点的指针的时候可以指定链表来移除这个节点（使用<code>remove</code>函数）。在这个函数内部，首先需要将该节点的前后节点对接，然后将该几点的前后指针置空。</li>
+<li>当有要移除节点的指针但是知道该节点在链表中的index，可以使用<code>removeAt</code>函数。在这个函数内部，首先根据index来获取对应的node的指针，然后再调用<code>remove</code>函数删除这个node。</li>
+</ul>
+<h5 id="打印所有节点"><a href="#打印所有节点" class="headerlink" title="打印所有节点"></a>打印所有节点</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">printAllNodes</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">guard</span> head != <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"linked list is empty"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> node = head</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\nstart printing all nodes:"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="built_in">count</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> node == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"[\(index)]\(node!.value)"</span>)</span><br><span class="line">        node = node!.next</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该函数只是为了方便调试，为了跟踪链表的状态而定义的，它并不存在于链表的模型里。</p>
+<p>为了验证上面这些方法的有效性，我们来实例化一个链表后实际操作一下，读者可以结合注释来看一下每一步对应的结果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> list = <span class="type">LinkedList</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line">list.isEmpty   <span class="comment">// true</span></span><br><span class="line">list.first     <span class="comment">// nil</span></span><br><span class="line">list.<span class="built_in">count</span>     <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">list.appendToTail(value: <span class="string">"Swift"</span>)</span><br><span class="line">list.isEmpty         <span class="comment">// false</span></span><br><span class="line">list.first!.value    <span class="comment">// "Swift"</span></span><br><span class="line">list.last!.value     <span class="comment">// "Swift"</span></span><br><span class="line">list.<span class="built_in">count</span>           <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line">list.appendToTail(value:<span class="string">"is"</span>)</span><br><span class="line">list.first!.value    <span class="comment">// "Swift"</span></span><br><span class="line">list.last!.value     <span class="comment">// "is"</span></span><br><span class="line">list.<span class="built_in">count</span>           <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">list.appendToTail(value:<span class="string">"great"</span>)</span><br><span class="line">list.first!.value    <span class="comment">// "Swift"</span></span><br><span class="line">list.last!.value     <span class="comment">// "great"</span></span><br><span class="line">list.<span class="built_in">count</span>           <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]Swift</span></span><br><span class="line"><span class="comment">//[1]is</span></span><br><span class="line"><span class="comment">//[2]Great</span></span><br><span class="line"></span><br><span class="line">list.node(atIndex: <span class="number">0</span>)?.value <span class="comment">// Swift</span></span><br><span class="line">list.node(atIndex: <span class="number">1</span>)?.value <span class="comment">// is</span></span><br><span class="line">list.node(atIndex: <span class="number">2</span>)?.value <span class="comment">// great</span></span><br><span class="line">list.node(atIndex: <span class="number">3</span>)?.value <span class="comment">// nil</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">list.insert(<span class="type">LinkedListNode</span>.<span class="keyword">init</span>(value: <span class="string">"language"</span>), atIndex: <span class="number">1</span>)</span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]Swift</span></span><br><span class="line"><span class="comment">//[1]language</span></span><br><span class="line"><span class="comment">//[2]is</span></span><br><span class="line"><span class="comment">//[3]great</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">list.remove(node: list.first!)</span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]language</span></span><br><span class="line"><span class="comment">//[1]is</span></span><br><span class="line"><span class="comment">//[2]great</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">list.removeAt(<span class="number">1</span>)</span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]language</span></span><br><span class="line"><span class="comment">//[1]great</span></span><br><span class="line"></span><br><span class="line">list.removeLast()</span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]language</span></span><br><span class="line"></span><br><span class="line">list.insertToHead(value: <span class="string">"study"</span>)</span><br><span class="line">list.<span class="built_in">count</span>             <span class="comment">// 2</span></span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]study</span></span><br><span class="line"><span class="comment">//[1]language</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">list.removeAll()</span><br><span class="line">list.printAllNodes()<span class="comment">//linked list is empty</span></span><br><span class="line"></span><br><span class="line">list.insert(<span class="type">LinkedListNode</span>.<span class="keyword">init</span>(value: <span class="string">"new"</span>), atIndex: <span class="number">3</span>)</span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]new</span></span><br><span class="line"></span><br><span class="line">list.insert(<span class="type">LinkedListNode</span>.<span class="keyword">init</span>(value: <span class="string">"new"</span>), atIndex: <span class="number">3</span>) <span class="comment">//out of range</span></span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]new</span></span><br><span class="line"></span><br><span class="line">list.insert(<span class="type">LinkedListNode</span>.<span class="keyword">init</span>(value: <span class="string">"new"</span>), atIndex: <span class="number">1</span>)</span><br><span class="line">list.printAllNodes()</span><br><span class="line"><span class="comment">//[0]new</span></span><br><span class="line"><span class="comment">//[1]new</span></span><br></pre></td></tr></table></figure>
+<h3 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h3><p>栈的讲解从</p>
+<ul>
+<li>栈的定义</li>
+<li>栈的抽象数据类型</li>
+<li>栈的实现</li>
+</ul>
+<p>三个部分来展开。</p>
+<h4 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h4><p>首先来看一下栈的定义：</p>
+<blockquote>
+<p>栈是限定仅在表的尾部进行插入和删除操作的线性表。</p>
+</blockquote>
+<p>从定义中可以看出，我们知道我们只能在栈的一端来操作栈：</p>
+<ul>
+<li>允许插入和删除的一端成为栈顶</li>
+<li>另一端成为栈底</li>
+</ul>
+<p>用一张图来看一下栈的操作：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/1/31/16147cdb8db5eaf6?w=618&amp;h=432&amp;f=png&amp;s=73000" alt=""></p>
+<blockquote>
+<p>图源：《维基百科：Stack (abstract data type)》</p>
+</blockquote>
+<p>从上图可以看出，最先压入栈里面的只能最后访问，也就是说，栈遵循后进先出（Last In First Out, LIFO）的原则。</p>
+<h4 id="栈的抽象数据类型"><a href="#栈的抽象数据类型" class="headerlink" title="栈的抽象数据类型"></a>栈的抽象数据类型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ADT 栈（Stack）</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">  linked list:持有的线性表</span><br><span class="line"></span><br><span class="line">Operation</span><br><span class="line">   init:初始化</span><br><span class="line">   count:栈的元素个数</span><br><span class="line">   isEmpty:是否为空</span><br><span class="line">   push:入栈</span><br><span class="line">   pop:出栈</span><br><span class="line">   top:返回顶部元素</span><br><span class="line">   </span><br><span class="line">endADT</span><br></pre></td></tr></table></figure>
+<p>上面的operation可能不全，但是涵盖了栈的一些最基本的操作。那么基于这个抽象数据类型，我们来看一下如何使用Swift来实现它。</p>
+<h4 id="栈的实现"><a href="#栈的实现" class="headerlink" title="栈的实现"></a>栈的实现</h4><p>笔者将数组（顺序存储）作为栈的线性表的实现，同时支持泛型。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//array</span></span><br><span class="line">    fileprivate <span class="keyword">var</span> stackArray = [<span class="type">T</span>]()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//count</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stackArray.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//is empty ?</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> isEmpty: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> stackArray.isEmpty</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//top element</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> top: <span class="type">T</span>? &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> isEmpty&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> stackArray.last</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//push operation</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">push</span><span class="params">(<span class="number">_</span> element: T)</span></span> &#123;</span><br><span class="line">        stackArray.append(element)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//pop operation</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> -&gt; <span class="type">T</span>? &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> isEmpty&#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"stack is empty"</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> stackArray.removeLast()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//print all</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">printAllElements</span><span class="params">()</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">guard</span> <span class="built_in">count</span> &gt; <span class="number">0</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"stack is empty"</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\nprint all stack elemets:"</span>)</span><br><span class="line">        <span class="keyword">for</span> (index, value) <span class="keyword">in</span> stackArray.enumerated() &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"[\(index)]\(value)"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>fileprivate</code>：是Swift3.0新增的访问控制，表示在定义的声明文件里可访问。它代替了过去意义上的<code>private</code>。而有了<code>fileprivate</code>以后，新的<code>private</code>则代表了真正的私有：在这个类或结构体的外部无法访问。</li>
+<li>这里<code>printAllElements</code>方法也不属于抽象数据类型里的方法，也是为了方便调试，可以打印出所有的数据元素。</li>
+</ul>
+<p>我们来实例化上面定义的栈实际操作一下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> stack = <span class="type">Stack</span>.<span class="keyword">init</span>(stackArray: [])</span><br><span class="line">stack.printAllElements() <span class="comment">//stack is empty</span></span><br><span class="line">stack.isEmpty <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">stack.push(<span class="number">2</span>)</span><br><span class="line">stack.printAllElements()</span><br><span class="line"><span class="comment">//[0]2</span></span><br><span class="line"></span><br><span class="line">stack.isEmpty <span class="comment">//false</span></span><br><span class="line">stack.top     <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">stack.push(<span class="number">3</span>)</span><br><span class="line">stack.printAllElements()</span><br><span class="line"><span class="comment">//[0]2</span></span><br><span class="line"><span class="comment">//[1]3</span></span><br><span class="line"></span><br><span class="line">stack.isEmpty <span class="comment">//false</span></span><br><span class="line">stack.top     <span class="comment">//3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">stack.pop()</span><br><span class="line">stack.printAllElements()</span><br><span class="line"><span class="comment">//[0]2</span></span><br><span class="line"></span><br><span class="line">stack.isEmpty <span class="comment">//false</span></span><br><span class="line">stack.top     <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">stack.pop()</span><br><span class="line">stack.printAllElements() <span class="comment">//stack is empty</span></span><br><span class="line">stack.top <span class="comment">//nil</span></span><br><span class="line">stack.isEmpty <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">stack.pop() <span class="comment">//stack is empty</span></span><br></pre></td></tr></table></figure>
+<h3 id="队列（Queue）"><a href="#队列（Queue）" class="headerlink" title="队列（Queue）"></a>队列（Queue）</h3><p>队列的讲解从</p>
+<ul>
+<li>队列的定义</li>
+<li>队列的抽象数据类型</li>
+<li>队列的实现</li>
+</ul>
+<p>三个部分来展开。</p>
+<h4 id="队列的定义"><a href="#队列的定义" class="headerlink" title="队列的定义"></a>队列的定义</h4><p><img src="https://user-gold-cdn.xitu.io/2018/1/31/16147cdb8db00b50?w=618&amp;h=432&amp;f=png&amp;s=95179" alt=""></p>
+<blockquote>
+<p>图源：《维基百科：FIFO (computing and electronics)》</p>
+</blockquote>
+<h4 id="队列的抽象数据类型"><a href="#队列的抽象数据类型" class="headerlink" title="队列的抽象数据类型"></a>队列的抽象数据类型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ADT 队列（Queue）</span><br><span class="line"></span><br><span class="line">Data</span><br><span class="line">  linked list:持有的线性表</span><br><span class="line"></span><br><span class="line">Operation</span><br><span class="line">   init:初始化</span><br><span class="line">   count:栈的元素个数</span><br><span class="line">   isEmpty:是否为空</span><br><span class="line">   front:获取队列头元素</span><br><span class="line">   enqueue:插入到队尾</span><br><span class="line">   dequeue:删除队列头元素并返回</span><br><span class="line">   </span><br><span class="line">endADT</span><br></pre></td></tr></table></figure>
+<p>和上面的栈的实现一致，队列的实现也使用数组来实现队列内部的线性表。</p>
+<h4 id="队列的实现"><a href="#队列的实现" class="headerlink" title="队列的实现"></a>队列的实现</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">Queue</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//array</span></span><br><span class="line">    fileprivate <span class="keyword">var</span> queueArray = [<span class="type">T</span>]()</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//count</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> queueArray.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//is empty?</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> isEmpty: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> queueArray.isEmpty</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//front element</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> front: <span class="type">T</span>? &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> isEmpty &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"queue is empty"</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> queueArray.first</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//add element</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">enqueue</span><span class="params">(<span class="number">_</span> element: T)</span></span> &#123;</span><br><span class="line">        queueArray.append(element)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//remove element</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">dequeue</span><span class="params">()</span></span> -&gt; <span class="type">T</span>? &#123;</span><br><span class="line">        <span class="keyword">if</span> isEmpty &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"queue is empty"</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> queueArray.removeFirst()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//print all</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">printAllElements</span><span class="params">()</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">guard</span> <span class="built_in">count</span> &gt; <span class="number">0</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"queue is empty"</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\nprint all queue elemets:"</span>)</span><br><span class="line">        <span class="keyword">for</span> (index, value) <span class="keyword">in</span> queueArray.enumerated() &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"[\(index)]\(value)"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们初始化一个队列后实际操作一下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queue = <span class="type">Queue</span>.<span class="keyword">init</span>(queueArray: [])</span><br><span class="line">queue.printAllElements()<span class="comment">//queue is empty</span></span><br><span class="line">queue.isEmpty <span class="comment">//true</span></span><br><span class="line">queue.<span class="built_in">count</span>   <span class="comment">//0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">queue.enqueue(<span class="number">2</span>)</span><br><span class="line">queue.printAllElements()</span><br><span class="line">queue.isEmpty  <span class="comment">//false</span></span><br><span class="line"><span class="comment">//[0]2</span></span><br><span class="line"></span><br><span class="line">queue.enqueue(<span class="number">3</span>)</span><br><span class="line">queue.printAllElements()</span><br><span class="line"><span class="comment">//[0]2</span></span><br><span class="line"><span class="comment">//[1]3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">queue.enqueue(<span class="number">4</span>)</span><br><span class="line">queue.printAllElements()</span><br><span class="line"><span class="comment">//[0]2</span></span><br><span class="line"><span class="comment">//[1]3</span></span><br><span class="line"><span class="comment">//[2]4</span></span><br><span class="line">queue.front <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">queue.dequeue()</span><br><span class="line">queue.printAllElements()</span><br><span class="line"><span class="comment">//[0]3</span></span><br><span class="line"><span class="comment">//[1]4</span></span><br><span class="line">queue.front <span class="comment">//3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">queue.dequeue()</span><br><span class="line">queue.printAllElements()</span><br><span class="line"><span class="comment">//[0]4</span></span><br><span class="line">queue.front <span class="comment">//4</span></span><br><span class="line"></span><br><span class="line">queue.dequeue()</span><br><span class="line">queue.printAllElements() <span class="comment">//queue is empty</span></span><br><span class="line">queue.front <span class="comment">//return nil, and print : queue is empty</span></span><br><span class="line">queue.isEmpty <span class="comment">//true</span></span><br><span class="line">queue.<span class="built_in">count</span><span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><p>这两周学习数据结构和算法让我收获很多，除了强化了Swift语法以外，感觉自己看代码的感觉变了：看到一个设计就会想到里面所用到的数据结构，或是算法上面有没有可以优化的可能等等。</p>
+<p>我相信对我来说编程的一扇新的门被打开了，希望自己可以坚持下去～</p>
+<p>该系列的所有代码会放在我的GitHub的一个项目里面，项目地址：<a href="https://github.com/knightsj/data-structure-and-algorithm-in-Swift">Github:data-structure-and-algorithm-in-Swift</a></p>
+<p>本篇文章的代码：</p>
+<ul>
+<li>Swift语法部分：<a href="https://github.com/knightsj/data-structure-and-algorithm-in-Swift/tree/master/%5B1%5D.Swift%20syntax">[1].Swift syntax</a></li>
+<li>数据结构部分：<a href="https://github.com/knightsj/data-structure-and-algorithm-in-Swift/tree/master/%5B2%5D.Data%20structure">[2].Data structure</a></li>
+</ul>
+<p>下篇预告：</p>
+<p>从下一篇会开始正式讲解算法。本系列第二篇的主题是<strong>排序算法</strong>，内容是用Swift语言实现并讲解几种比较常见的排序算法：冒泡排序，选择排序，插入排序，希尔排序，堆排序，快速排序。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+          
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/我从写技术博客中收获到了什么 - J_Knight_/" rel="next" title="我从写技术博客中收获到了什么 - J_Knight_">
+                <i class="fa fa-chevron-left"></i> 我从写技术博客中收获到了什么 - J_Knight_
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/数据结构 & 算法 in Swift （二）：算法概述和排序算法/" rel="prev" title="数据结构 & 算法 in Swift （二）：算法概述和排序算法">
+                数据结构 & 算法 in Swift （二）：算法概述和排序算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一：为什么学习数据结构和算法？"><span class="nav-number">1.1.</span> <span class="nav-text">第一：为什么学习数据结构和算法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二：为什么用Swift语言来实现？"><span class="nav-number">1.2.</span> <span class="nav-text">第二：为什么用Swift语言来实现？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-语法基础"><span class="nav-number">2.</span> <span class="nav-text">Swift 语法基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#循环语句"><span class="nav-number">2.1.</span> <span class="nav-text">循环语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#循环条件的开闭区间"><span class="nav-number">2.1.1.</span> <span class="nav-text">循环条件的开闭区间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#闭区间："><span class="nav-number">2.1.1.1.</span> <span class="nav-text">闭区间：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#半开闭区间："><span class="nav-number">2.1.1.2.</span> <span class="nav-text">半开闭区间：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环的升序与降序"><span class="nav-number">2.1.2.</span> <span class="nav-text">循环的升序与降序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型"><span class="nav-number">2.2.</span> <span class="nav-text">泛型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#guard"><span class="nav-number">2.3.</span> <span class="nav-text">guard</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-else"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用if-else</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用guard"><span class="nav-number">2.3.2.</span> <span class="nav-text">使用guard</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">2.4.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无返回值的函数"><span class="nav-number">2.4.1.</span> <span class="nav-text">无返回值的函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有返回值的函数"><span class="nav-number">2.4.2.</span> <span class="nav-text">有返回值的函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#省略函数外部参数名"><span class="nav-number">2.4.3.</span> <span class="nav-text">省略函数外部参数名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值传递和引用传递"><span class="nav-number">2.4.4.</span> <span class="nav-text">值传递和引用传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">2.5.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">2.5.1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可变数组与不可变数组"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">可变数组与不可变数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组的遍历"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">数组的遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组的操作"><span class="nav-number">2.5.1.3.</span> <span class="nav-text">数组的操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合-1"><span class="nav-number">2.5.2.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#集合的无序性，值的唯一性"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">集合的无序性，值的唯一性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合的遍历"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">集合的遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集合的操作"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">集合的操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字典"><span class="nav-number">2.5.3.</span> <span class="nav-text">字典</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字典的声明"><span class="nav-number">2.5.3.1.</span> <span class="nav-text">字典的声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字典的遍历"><span class="nav-number">2.5.3.2.</span> <span class="nav-text">字典的遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字典的操作"><span class="nav-number">2.5.3.3.</span> <span class="nav-text">字典的操作</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">3.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象数据类型"><span class="nav-number">3.2.</span> <span class="nav-text">抽象数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表，栈和队列的实现"><span class="nav-number">3.3.</span> <span class="nav-text">链表，栈和队列的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表（Linked-list）"><span class="nav-number">3.3.1.</span> <span class="nav-text">链表（Linked list）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#链表的定义"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">链表的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向链表的抽象数据类型"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">双向链表的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向链表的实现"><span class="nav-number">3.3.1.3.</span> <span class="nav-text">双向链表的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#节点"><span class="nav-number">3.3.1.3.1.</span> <span class="nav-text">节点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#成员变量"><span class="nav-number">3.3.1.3.2.</span> <span class="nav-text">成员变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取index上node"><span class="nav-number">3.3.1.3.3.</span> <span class="nav-text">获取index上node</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#插入节点"><span class="nav-number">3.3.1.3.4.</span> <span class="nav-text">插入节点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#移除节点"><span class="nav-number">3.3.1.3.5.</span> <span class="nav-text">移除节点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#打印所有节点"><span class="nav-number">3.3.1.3.6.</span> <span class="nav-text">打印所有节点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈（Stack）"><span class="nav-number">3.3.2.</span> <span class="nav-text">栈（Stack）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的定义"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">栈的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的抽象数据类型"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">栈的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的实现"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">栈的实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列（Queue）"><span class="nav-number">3.3.3.</span> <span class="nav-text">队列（Queue）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的定义"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">队列的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的抽象数据类型"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">队列的抽象数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队列的实现"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">队列的实现</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">4.</span> <span class="nav-text">最后的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

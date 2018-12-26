@@ -1,0 +1,921 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。 笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。 开始吧！">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。 笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。 开始吧！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-ca646fa9e1e18f5a.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-2eab784599ea6776.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-72dc6873f1c13917.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.632Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo">
+<meta name="twitter:description" content="第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。 笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。 开始吧！">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-ca646fa9e1e18f5a.gif?imageMogr2/auto-orient/strip">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/">
+
+
+
+
+
+  <title> 斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,065 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。</p>
+<p>笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。</p>
+<p>开始吧！</p>
+<a id="more"></a>
+<h1 id="Core-Data"><a href="#Core-Data" class="headerlink" title="Core Data"></a>Core Data</h1><hr>
+<p>Core Data是一种持久化技术，它能将模型对象的状态持久化到磁盘，但它最重要的特点是：Core Data不仅是一个加载、保存数据的框架，它还能和内存中的数据很好的共事。</p>
+<p>排除错误认识：Core Data<strong>并不是数据库!</strong> 它只是连接类（Class）和数据库（SQL）的桥梁。通过Core Data的相关功能，我们可以对数据库进行增删改查的操作。</p>
+<h2 id="CoreData是如何工作的呢？"><a href="#CoreData是如何工作的呢？" class="headerlink" title="CoreData是如何工作的呢？"></a>CoreData是如何工作的呢？</h2><h3 id="1-创建对象的可视化映射"><a href="#1-创建对象的可视化映射" class="headerlink" title="1. 创建对象的可视化映射"></a>1. 创建对象的可视化映射</h3><p>在看到可视化映射之前，需要了解<strong>实体</strong>的概念：</p>
+<blockquote>
+<p><strong>实体的概念</strong>：每个实体是一个表，每个表对应一个对象。<br>简单粗暴的理解：实体在数据库领域叫做表，在面向对象领域叫做对象。</p>
+<p><strong>实体之间的关系</strong>=表之间创建关系，对象之间的关系。</p>
+</blockquote>
+<p><strong>注意</strong>：两个对象之间的关系在两个对象端具有不同的名称。而且关系的对应数量也是不同的：<code>to one</code>,<code>to many</code>。</p>
+<blockquote>
+<p>举个🌰 ：摄影者和照片的关系：<br>摄影者对应多个照片，但是照片只对应一个摄影者。</p>
+</blockquote>
+<p>那么言归正传，如何创建对象的可视化映射呢？</p>
+<ol>
+<li>创建模型文件，用来装入各种需要映射的实体。</li>
+<li>在模型内部添加实体（Entity），创建实体之间的关系（必要时）。</li>
+</ol>
+<p>下面笔者录制了创建实体，增加实体属性，连接实体的操作：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-ca646fa9e1e18f5a.gif?imageMogr2/auto-orient/strip" alt="创建实体，增加属性"></p>
+<h3 id="2-为实体创建NSManagedObjectd子类"><a href="#2-为实体创建NSManagedObjectd子类" class="headerlink" title="2. 为实体创建NSManagedObjectd子类"></a>2. 为实体创建NSManagedObjectd子类</h3><p>我们需要将刚得到的可视化的实体“转变为”具体的类。在Core Data中，这些类都是NSManagedObjectd子类。</p>
+<p>下面演示一下其创建过程：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-2eab784599ea6776.gif?imageMogr2/auto-orient/strip" alt="创建NSManagedObjectd子类"></p>
+<p>以实体<code>Photo</code>为例，系统为我们生成了<code>Photo.h</code>和<code>Photo.m</code>。</p>
+<p>我们先看一下<code>Photo.h</code>:</p>
+<p>``</p>
+<p>#import <foundation foundation.h=""></foundation></p>
+<p>#import <coredata coredata.h=""></coredata></p>
+<p>NS_ASSUME_NONNULL_BEGIN<br>@interface Photo : NSManagedObject<br>// Insert code here to declare functionality of your managed object subclass<br>@end<br>NS_ASSUME_NONNULL_END</p>
+<p>#import “Photo+CoreDataProperties.h”<br>``</p>
+<blockquote>
+<p>我们可以看到，<code>Photo</code>类继承了<code>NSManagedObject</code>。</p>
+</blockquote>
+<p>但是，有意思的是，系统还为我们自动生成了<code>Photo+CoreDataProperties.h</code>和<code>Photo+CoreDataProperties.m</code>，详情见动图左侧，创建实体类之后。</p>
+<p><strong>思考</strong>：<br>生成这两个文件的目的是什么呢？<br>首先，我们首先要知道这两个文件是什么：<br>他们构成了<code>Photo</code>类的分类(Category)。</p>
+<p>那么什么是分类呢？<br>通过分类，我们可以向原有的类添加方法，而不需要通过继承的方式。分类的局限是：在分类里不能再添加属性。</p>
+<p>那么显然，通过<code>Photo+CoreDataProperties</code>，我们就可以不用继承<code>Photo</code>类来给其添加方法。因为原有的<code>Photo</code>类只具有属性，除了获取属性之外，并不能为我们做其他的事情。这时，如果可以在其他的地方给其无限地添加方法还是很具有诱惑力的。令人欣慰的是，系统可以自动为我们生成。</p>
+<h3 id="3-通过创建NSManagedObjectContext访问，操作数据库"><a href="#3-通过创建NSManagedObjectContext访问，操作数据库" class="headerlink" title="3. 通过创建NSManagedObjectContext访问，操作数据库"></a>3. 通过创建NSManagedObjectContext访问，操作数据库</h3><p>数据库创建对象，设置对象属性，查询对象都需要<code>NSManagedObjectContext</code>。</p>
+<p>创建<code>NSManagedObjectContext</code>的两个不同的方法：</p>
+<p>1.通过其自身的初始化：</p>
+<p><code>[NSManagedObjectContext alloc] init];</code></p>
+<p>2.通过UIManagedDocument创建：</p>
+<p>UIManagedDocument 用于管理存储的机制，将Core Data数据库放入某存储空间。<br><code>UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
+//url:这个core data 数据库存储的地方</code></p>
+<h2 id="数据库的操作："><a href="#数据库的操作：" class="headerlink" title="数据库的操作："></a>数据库的操作：</h2><h4 id="1-向数据库添加对象（实体）："><a href="#1-向数据库添加对象（实体）：" class="headerlink" title="1. 向数据库添加对象（实体）："></a>1. 向数据库添加对象（实体）：</h4><p><code>[NSEntityDescription insertNewObjectForEntityForName:@&quot;Photo&quot; inManagedObjectContext:context];</code></p>
+<h4 id="2-从数据库删除对象（实体）："><a href="#2-从数据库删除对象（实体）：" class="headerlink" title="2. 从数据库删除对象（实体）："></a>2. 从数据库删除对象（实体）：</h4><p><code>[aDocument.managedObjectContext deleteObject:photo];</code></p>
+<p>删除对象后，系统会向所有对象发送这个消息</p>
+<p>``</p>
+<ul>
+<li>(void)prepareForDeletion{<br> //在这里保持数据同步，比如删掉这个对象的时候会影响到其他对象的数据<br>  //应该在这个对象被删除前及时更新那个数据<br> }</li>
+</ul>
+<p>``</p>
+<h4 id="3-在数据库查询对象（实体）："><a href="#3-在数据库查询对象（实体）：" class="headerlink" title="3. 在数据库查询对象（实体）："></a>3. 在数据库查询对象（实体）：</h4><p>我们使用<code>NSFetchRequest</code>类查询数据库的对象，通过设置其不同属性来查找符合不同标准的数据：</p>
+<p>举个🌰 ：查找出100个photo的实体：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@&quot;Photo&quot;];</span><br><span class="line">request.fetchLimit = 100;</span><br></pre></td></tr></table></figure>
+<h2 id="关于Core-data的线程安全"><a href="#关于Core-data的线程安全" class="headerlink" title="关于Core data的线程安全"></a>关于Core data的线程安全</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//让context在安全队列中执行的方法</span><br><span class="line">[context performBlock:^&#123;</span><br><span class="line">    [A doSomething];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h1 id="NSFetchedResultsController"><a href="#NSFetchedResultsController" class="headerlink" title="NSFetchedResultsController"></a>NSFetchedResultsController</h1><hr>
+<p>NSFetchedResultsController的作用是将NSFetchRequest 和 UITalbleView联系到一起。<br>和TableView的数据源方法类似：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (NSInteger)numberOfRowsInSection:(NSInteger)section&#123;</span><br><span class="line">  return [[self.fetchedResultsController sections] count];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView&#123;</span><br><span class="line">   return [[self.fetchedResultsController sections] count] objectAtIndex:section] numberOfObjects];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>详细的使用方法会在Demo讲解部分中告诉大家。</p>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
+<li>每隔20分钟，从flickr拿回最新的摄影者数据。</li>
+<li>用一个TableView显示当前拿回的摄影者的名字和所照的照片数。</li>
+</ul>
+<h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-72dc6873f1c13917.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="摄影师的信息列表"></p>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><h4 id="1-在启动接口获取flickr的数组"><a href="#1-在启动接口获取flickr的数组" class="headerlink" title="1. 在启动接口获取flickr的数组"></a>1. 在启动接口获取flickr的数组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</span><br><span class="line">     self.photoDatabaseContext = [self createMainQueueManagedObjectContext];    </span><br><span class="line">     [self startFlickrFetch];   </span><br><span class="line">     return YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)startFlickrFetch</span><br><span class="line">&#123;</span><br><span class="line">    [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) &#123;</span><br><span class="line">        if (![downloadTasks count]) &#123;</span><br><span class="line">            NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];</span><br><span class="line">            task.taskDescription = FLICKR_FETCH;</span><br><span class="line">            [task resume];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            for (NSURLSessionDownloadTask *task in downloadTasks) [task resume];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-每隔20分钟获取新的内容"><a href="#2-每隔20分钟获取新的内容" class="headerlink" title="2. 每隔20分钟获取新的内容"></a>2. 每隔20分钟获取新的内容</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (void)setPhotoDatabaseContext:(NSManagedObjectContext *)photoDatabaseContext</span><br><span class="line">&#123;</span><br><span class="line">    _photoDatabaseContext = photoDatabaseContext;</span><br><span class="line">    </span><br><span class="line">    //photoDatabaseContext设定成功后，每隔20分钟重新获取信息</span><br><span class="line">    if (self.photoDatabaseContext)</span><br><span class="line">    &#123;</span><br><span class="line">        self.flickrForegroundFetchTimer = [NSTimer scheduledTimerWithTimeInterval:FOREGROUND_FLICKR_FETCH_INTERVAL</span><br><span class="line">                                                                           target:self</span><br><span class="line">                                                                         selector:@selector(startFlickrFetch:)</span><br><span class="line">                                                                         userInfo:nil</span><br><span class="line">                                                                          repeats:YES];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //photoDatabaseContext设定成功后 向控制器发送消息</span><br><span class="line">    NSDictionary *userInfo = self.photoDatabaseContext ? @&#123; PhotoDatabaseAvailabilityContext : self.photoDatabaseContext &#125; : nil;</span><br><span class="line">    [[NSNotificationCenter defaultCenter] postNotificationName:PhotoDatabaseAvailabilityNotification</span><br><span class="line">                                                        object:self</span><br><span class="line">                                                      userInfo:userInfo];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-在表格视图查询所有摄影师的名字"><a href="#3-在表格视图查询所有摄影师的名字" class="headerlink" title="3. 在表格视图查询所有摄影师的名字"></a>3. 在表格视图查询所有摄影师的名字</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext</span><br><span class="line">&#123;</span><br><span class="line">    //哪个数据库</span><br><span class="line">    _managedObjectContext = managedObjectContext;</span><br><span class="line">    </span><br><span class="line">    NSFetchRequest *requet = [NSFetchRequest fetchRequestWithEntityName:@&quot;Photographer&quot;];</span><br><span class="line">    requet.predicate = nil;//所有的,无过滤</span><br><span class="line">    requet.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@&quot;name&quot; ascending:YES selector:@selector(localizedStandardCompare:)]];</span><br><span class="line"></span><br><span class="line">    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:requet managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-重写tablelViwe-cellForRowAtIndex-方法，显示摄影师数据"><a href="#4-重写tablelViwe-cellForRowAtIndex-方法，显示摄影师数据" class="headerlink" title="4. 重写tablelViwe:cellForRowAtIndex:方法，显示摄影师数据"></a>4. 重写<code>tablelViwe:cellForRowAtIndex:</code>方法，显示摄影师数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;Photographer cell&quot;];</span><br><span class="line">    </span><br><span class="line">    //拿到摄影师的名字和摄影数量</span><br><span class="line">    Photographer *photographer = [self.fetchedResultsController objectAtIndexPath:indexPath];</span><br><span class="line">    cell.textLabel.text = photographer.name;</span><br><span class="line">    cell.detailTextLabel.text = [NSString stringWithFormat:@&quot;%lu photos&quot;, [photographer.photos count]];    </span><br><span class="line">    return cell;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本Demo显然是一个未完成品，它只显示了摄影师的相关信息，并且只有一个页面。在接下来的课程中应该会对该Demo进行更多过的扩展。</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
+<p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/" rel="next" title="斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo">
+                <i class="fa fa-chevron-left"></i> 斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI/" rel="prev" title="斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI">
+                斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Core-Data"><span class="nav-number">1.</span> <span class="nav-text">Core Data</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CoreData是如何工作的呢？"><span class="nav-number">1.1.</span> <span class="nav-text">CoreData是如何工作的呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-创建对象的可视化映射"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 创建对象的可视化映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-为实体创建NSManagedObjectd子类"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 为实体创建NSManagedObjectd子类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-通过创建NSManagedObjectContext访问，操作数据库"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 通过创建NSManagedObjectContext访问，操作数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库的操作："><span class="nav-number">1.2.</span> <span class="nav-text">数据库的操作：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-向数据库添加对象（实体）："><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1. 向数据库添加对象（实体）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-从数据库删除对象（实体）："><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2. 从数据库删除对象（实体）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在数据库查询对象（实体）："><span class="nav-number">1.2.0.3.</span> <span class="nav-text">3. 在数据库查询对象（实体）：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Core-data的线程安全"><span class="nav-number">1.3.</span> <span class="nav-text">关于Core data的线程安全</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#NSFetchedResultsController"><span class="nav-number">2.</span> <span class="nav-text">NSFetchedResultsController</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo"><span class="nav-number">3.</span> <span class="nav-text">Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo需求"><span class="nav-number">3.1.</span> <span class="nav-text">Demo需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo效果图"><span class="nav-number">3.2.</span> <span class="nav-text">Demo效果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要代码段"><span class="nav-number">3.3.</span> <span class="nav-text">重要代码段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在启动接口获取flickr的数组"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">1. 在启动接口获取flickr的数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-每隔20分钟获取新的内容"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">2. 每隔20分钟获取新的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在表格视图查询所有摄影师的名字"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">3. 在表格视图查询所有摄影师的名字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-重写tablelViwe-cellForRowAtIndex-方法，显示摄影师数据"><span class="nav-number">3.3.0.4.</span> <span class="nav-text">4. 重写tablelViwe:cellForRowAtIndex:方法，显示摄影师数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">4.</span> <span class="nav-text">最后的话</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

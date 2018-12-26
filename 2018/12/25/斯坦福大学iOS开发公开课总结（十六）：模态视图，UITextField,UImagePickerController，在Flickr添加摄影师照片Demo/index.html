@@ -1,0 +1,911 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。 模态视图 模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。 显示模态视图： 1  [self presentViewController:(nonnull UIViewControll">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField，UImagePickerController，在Flickr添加摄影师照片Demo">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField,UImagePickerController，在Flickr添加摄影师照片Demo/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。 模态视图 模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。 显示模态视图： 1  [self presentViewController:(nonnull UIViewControll">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-b1f9ecf0f562f5c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField，UImagePickerController，在Flickr添加摄影师照片Demo">
+<meta name="twitter:description" content="本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。 模态视图 模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。 显示模态视图： 1  [self presentViewController:(nonnull UIViewControll">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-b1f9ecf0f562f5c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField,UImagePickerController，在Flickr添加摄影师照片Demo/">
+
+
+
+
+
+  <title> 斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField，UImagePickerController，在Flickr添加摄影师照片Demo | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField,UImagePickerController，在Flickr添加摄影师照片Demo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField，UImagePickerController，在Flickr添加摄影师照片Demo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,680 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  12 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。</p>
+<h1 id="模态视图"><a href="#模态视图" class="headerlink" title="模态视图"></a>模态视图</h1><hr>
+<p>模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。</p>
+<p>显示模态视图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">  [self presentViewController:(nonnull UIViewController *) animated:(BOOL) completion:^&#123;&#125;];</span><br></pre></td></tr></table></figure>
+<p>让模态视图消失：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)dissmissViewControllerAnimated:(BOOL)animated completion:(void(^))block;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意:该消息是发送给present该模态视图的控制器，而不是该模态视图本身。因此，调用方法应该是：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self.presentingViewController dissmissViewControllerAnimated:YES ...];</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="UITextField"><a href="#UITextField" class="headerlink" title="UITextField"></a>UITextField</h1><hr>
+<p>UITextField是文本框，可以用来输入文字，类似于UILabel。</p>
+<h3 id="让键盘出现和消失："><a href="#让键盘出现和消失：" class="headerlink" title="让键盘出现和消失："></a>让键盘出现和消失：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[textField becomeFirstResponder];</span><br><span class="line">[textField resignFirstResponder];</span><br></pre></td></tr></table></figure>
+<h2 id="代理方法："><a href="#代理方法：" class="headerlink" title="代理方法："></a>代理方法：</h2><h4 id="1-当点击了确定按键-让键盘消失"><a href="#1-当点击了确定按键-让键盘消失" class="headerlink" title="1. 当点击了确定按键,让键盘消失"></a>1. 当点击了确定按键,让键盘消失</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)textFieldShouldReturn:(UITextField *)textField</span><br><span class="line">&#123;</span><br><span class="line">    [textField resignFirstResponder];</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-当resignFirstResponder完成后执行："><a href="#2-当resignFirstResponder完成后执行：" class="headerlink" title="2. 当resignFirstResponder完成后执行："></a>2. 当resignFirstResponder完成后执行：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)textFieldDidEndEditing:(UITextField *)textField;</span><br></pre></td></tr></table></figure>
+<h4 id="3-内容发生变化时收到通知："><a href="#3-内容发生变化时收到通知：" class="headerlink" title="3. 内容发生变化时收到通知："></a>3. 内容发生变化时收到通知：</h4><p>注册这个广播，就可以收到该通知：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIKIT_EXTERN NSString *const UITextFieldTextDidChangeNotification;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-键盘"><a href="#4-键盘" class="headerlink" title="4. 键盘"></a>4. 键盘</h4><p>设置键盘的类型需要通过给实现<code>UITextInputTraits</code>的协议方法，通常是<code>UITextField</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@protocol UITextInputTraits &lt;NSObject&gt;</span><br><span class="line"></span><br><span class="line">@optional</span><br><span class="line">@property(nonatomic) UITextAutocapitalizationType autocapitalizationType; // 自动大写</span><br><span class="line">@property(nonatomic) UIKeyboardType keyboardType;                         // default is UIKeyboardTypeDefault</span><br><span class="line">@property(nonatomic) UIReturnKeyType returnKeyType;                       // 回车键，返回键，搜索键盘</span><br><span class="line">@property(nonatomic,getter=isSecureTextEntry) BOOL secureTextEntry;       // 密码</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h4 id="5-监听键盘的高度："><a href="#5-监听键盘的高度：" class="headerlink" title="5. 监听键盘的高度："></a>5. 监听键盘的高度：</h4><p>通过注册<code>UIKeyboard{will,did} {show hide}</code>广播来计算键盘弹出后的高度。</p>
+<h1 id="Alert"><a href="#Alert" class="headerlink" title="Alert"></a>Alert</h1><p>Alert是用来提醒用户某些消息的控件，它会出现在屏幕的正中央。我们可以自定义它的显示消息和按钮。也可以设定点击某个按钮执行的操作。</p>
+<h2 id="初始化："><a href="#初始化：" class="headerlink" title="初始化："></a>初始化：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithTitle:(nullable NSString *)title delegate:(nullable id&lt;UIActionSheetDelegate&gt;)delegate cancelButtonTitle:(nullable NSString *)cancelButtonTitle destructiveButtonTitle:(nullable NSString *)destructiveButtonTitle otherButtonTitles:(nullable NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION NS_EXTENSION_UNAVAILABLE_IOS(&quot;Use UIAlertController instead.&quot;);</span><br></pre></td></tr></table></figure>
+<h2 id="增加按钮"><a href="#增加按钮" class="headerlink" title="增加按钮"></a>增加按钮</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (NSInteger)addButtonWithTitle:(nullable NSString *)title;</span><br></pre></td></tr></table></figure>
+<h2 id="显示在屏幕上"><a href="#显示在屏幕上" class="headerlink" title="显示在屏幕上:"></a>显示在屏幕上:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (void)showFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated NS_AVAILABLE_IOS(3_2);</span><br><span class="line">- (void)showInView:(UIView *)view;</span><br></pre></td></tr></table></figure>
+<h2 id="处理点击事件："><a href="#处理点击事件：" class="headerlink" title="处理点击事件："></a>处理点击事件：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex NS_DEPRECATED_IOS(2_0, 8_3) __TVOS_PROHIBITED;  // after animation</span><br></pre></td></tr></table></figure>
+<h2 id="手动让其消失"><a href="#手动让其消失" class="headerlink" title="手动让其消失"></a>手动让其消失</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated;</span><br></pre></td></tr></table></figure>
+<h1 id="UImagePickerController"><a href="#UImagePickerController" class="headerlink" title="UImagePickerController"></a>UImagePickerController</h1><hr>
+<p>UImagePickerController是用来选取图片，视频资源的控制器，也可以进行拍照。</p>
+<h2 id="使用步骤："><a href="#使用步骤：" class="headerlink" title="使用步骤："></a>使用步骤：</h2><ol>
+<li>alloc/init, set delegate</li>
+<li>配置摄像头，照片库，用户是否可以编辑相片</li>
+<li>显示</li>
+<li>实现代理方法，获取媒体</li>
+</ol>
+<h2 id="检查硬件设备："><a href="#检查硬件设备：" class="headerlink" title="检查硬件设备："></a>检查硬件设备：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (BOOL)isSourceTypeAvailable:(UIImagePickerControllerSourceType)sourceType;  </span><br><span class="line"></span><br><span class="line">typedef NS_ENUM(NSInteger, UIImagePickerControllerSourceType) &#123;</span><br><span class="line">    UIImagePickerControllerSourceTypePhotoLibrary,</span><br><span class="line">    UIImagePickerControllerSourceTypeCamera,</span><br><span class="line">    UIImagePickerControllerSourceTypeSavedPhotosAlbum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="检查是否可以摄像："><a href="#检查是否可以摄像：" class="headerlink" title="检查是否可以摄像："></a>检查是否可以摄像：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (nullable NSArray&lt;NSString *&gt; *)availableMediaTypesForSourceType:(UIImagePickerControllerSourceType)sourceType;</span><br></pre></td></tr></table></figure>
+<p>返回的数组是否有相应的字段：<br>kUTTypeImage<br>kUTTypeMovie</p>
+<h2 id="允许用户编辑（裁剪）："><a href="#允许用户编辑（裁剪）：" class="headerlink" title="允许用户编辑（裁剪）："></a>允许用户编辑（裁剪）：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property BOOL allowEditing;</span><br></pre></td></tr></table></figure>
+<h2 id="获取了媒体（照片）后的代理方法"><a href="#获取了媒体（照片）后的代理方法" class="headerlink" title="获取了媒体（照片）后的代理方法"></a>获取了媒体（照片）后的代理方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary&lt;NSString *,id&gt; *)info;</span><br></pre></td></tr></table></figure>
+<h2 id="点击了取消后的代理方法："><a href="#点击了取消后的代理方法：" class="headerlink" title="点击了取消后的代理方法："></a>点击了取消后的代理方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker</span><br><span class="line">&#123;</span><br><span class="line">    [self dismissViewControllerAnimated:YES completion:NULL];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="Demo需求："><a href="#Demo需求：" class="headerlink" title="Demo需求："></a>Demo需求：</h2><ul>
+<li>在原摄影师列表的第一行添加“我的照片”。</li>
+<li>点击“我的照片”后，显示地图上“我”所照照片的地点。</li>
+<li>点击大头针，显示相应照片详情。</li>
+<li>在导航栏右上角显示照相机按钮。</li>
+<li>点击照相机按钮，从底部弹出添加照片的页面。</li>
+<li>点击“Take Photo”,启动相机，照相并可以裁剪。</li>
+<li>裁剪后，回到添加剂照片的页面。设置标题和副标题后，保存照片。</li>
+<li>回到地图页面，自动添加刚才所增加照片的大头针。</li>
+</ul>
+<h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-b1f9ecf0f562f5c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：添加照片 | 中：在地图上标注位置 | 右：点击查看大图"></p>
+<h2 id="重要知识点和代码段"><a href="#重要知识点和代码段" class="headerlink" title="重要知识点和代码段"></a>重要知识点和代码段</h2><h4 id="1-在添加照片页面显示后判断是否可以拍照"><a href="#1-在添加照片页面显示后判断是否可以拍照" class="headerlink" title="1. 在添加照片页面显示后判断是否可以拍照"></a>1. 在添加照片页面显示后判断是否可以拍照</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)viewDidAppear:(BOOL)animated</span><br><span class="line">&#123;</span><br><span class="line">    [super viewDidAppear:animated];</span><br><span class="line">    </span><br><span class="line">    if (![[self class] canAddPhoto]) &#123;</span><br><span class="line">        [self fatalAlert:@&quot;Sorry, this device cannot add a photo.&quot;];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        [self.locationManager startUpdatingLocation];//开始更新位置</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)viewWillDisappear:(BOOL)animated</span><br><span class="line">&#123;</span><br><span class="line">    [super viewWillDisappear:animated];</span><br><span class="line">    //页面消失前，停止更新位置，避免耗能    </span><br><span class="line">    [self.locationManager stopUpdatingLocation];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  判断当前设备是否可以添加照片</span><br><span class="line"> *</span><br><span class="line"> *  @return 是否</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">+ (BOOL)canAddPhoto</span><br><span class="line">&#123;</span><br><span class="line">    //判断相机是否可用</span><br><span class="line">    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) &#123;</span><br><span class="line">        //返回支持媒体类型的数组</span><br><span class="line">        NSArray *availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];</span><br><span class="line"></span><br><span class="line">        //判断数组里有无照片类型</span><br><span class="line">        if ([availableMediaTypes containsObject:(NSString *)kUTTypeImage]) &#123;</span><br><span class="line"></span><br><span class="line">            //判断可以支持照片类型后，判断当前设备是否可以获取位置信息</span><br><span class="line">            if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted) &#123;</span><br><span class="line"></span><br><span class="line">                return YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)fatalAlert:(NSString *)msg</span><br><span class="line">&#123;</span><br><span class="line">    [[[UIAlertView alloc] initWithTitle:@&quot;Add Photo&quot;</span><br><span class="line">                                message:msg</span><br><span class="line">                               delegate:self</span><br><span class="line">                      cancelButtonTitle:nil</span><br><span class="line">                      otherButtonTitles:@&quot;Cancel&quot;, nil] show];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-CLLocationManager的初始化和使用"><a href="#2-CLLocationManager的初始化和使用" class="headerlink" title="2. CLLocationManager的初始化和使用"></a>2. CLLocationManager的初始化和使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">- (CLLocationManager *)locationManager</span><br><span class="line">&#123;</span><br><span class="line">    if (!_locationManager) &#123;</span><br><span class="line"></span><br><span class="line">        //1. 初始化</span><br><span class="line">        CLLocationManager *locationManager = [[CLLocationManager alloc] init];</span><br><span class="line"></span><br><span class="line">        //2. 设置代理</span><br><span class="line">        locationManager.delegate = self;</span><br><span class="line"></span><br><span class="line">        //3. 设置精度</span><br><span class="line">        locationManager.desiredAccuracy = kCLLocationAccuracyBest;</span><br><span class="line">        _locationManager = locationManager;</span><br><span class="line">        //4. iOS8以上要调用，否则无法监听位置！</span><br><span class="line">        [_locationManager requestAlwaysAuthorization];</span><br><span class="line">        [_locationManager requestWhenInUseAuthorization];</span><br><span class="line">    &#125;</span><br><span class="line">    return _locationManager;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations</span><br><span class="line">&#123;</span><br><span class="line">    //获取最后得到的位置信息（最准确）</span><br><span class="line">    self.location = [locations lastObject];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error</span><br><span class="line">&#123;</span><br><span class="line">    //获取错误码</span><br><span class="line">    self.locationErrorCode = error.code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-UIImagePickerController的初始化和使用"><a href="#3-UIImagePickerController的初始化和使用" class="headerlink" title="3. UIImagePickerController的初始化和使用"></a>3. UIImagePickerController的初始化和使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  点击了“Take Photo 添加照片”</span><br><span class="line"> */</span><br><span class="line">- (IBAction)takePhoto</span><br><span class="line">&#123;</span><br><span class="line">    //1. 初始化</span><br><span class="line">    UIImagePickerController *uiipc = [[UIImagePickerController alloc] init];</span><br><span class="line"></span><br><span class="line">    //2. 设置代理</span><br><span class="line">    uiipc.delegate = self;</span><br><span class="line"></span><br><span class="line">    //3. 获取图片媒体</span><br><span class="line">    uiipc.mediaTypes = @[(NSString *)kUTTypeImage];</span><br><span class="line">    uiipc.sourceType = UIImagePickerControllerSourceTypeCamera | UIImagePickerControllerSourceTypePhotoLibrary;</span><br><span class="line"></span><br><span class="line">    //4. 允许裁剪</span><br><span class="line">    uiipc.allowsEditing = YES;</span><br><span class="line"></span><br><span class="line">    //5. 弹出UIImagePickerController</span><br><span class="line">    [self presentViewController:uiipc animated:YES completion:NULL];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  拍照成功</span><br><span class="line"> *</span><br><span class="line"> *  @param picker 当前的UIImagePickerController</span><br><span class="line"> *  @param info   获取的照片信息</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info</span><br><span class="line">&#123;</span><br><span class="line">    //获取裁剪后的图片</span><br><span class="line">    UIImage *image = info[UIImagePickerControllerEditedImage];</span><br><span class="line"></span><br><span class="line">    //如果无法获取裁剪后的图片，获取原图</span><br><span class="line">    if (!image) image = info[UIImagePickerControllerOriginalImage];</span><br><span class="line"></span><br><span class="line">    //更新当前的image属性</span><br><span class="line">    self.image = image;</span><br><span class="line"></span><br><span class="line">    [self dismissViewControllerAnimated:YES completion:NULL];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  点击了取消</span><br><span class="line"> *</span><br><span class="line"> *  @param picker 当前的UIImagePickerController</span><br><span class="line"> */</span><br><span class="line">- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker</span><br><span class="line">&#123;</span><br><span class="line">    [self dismissViewControllerAnimated:YES completion:NULL];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-判断是否执行某个Segue的Identifier"><a href="#4-判断是否执行某个Segue的Identifier" class="headerlink" title="4. 判断是否执行某个Segue的Identifier"></a>4. 判断是否执行某个Segue的Identifier</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if ([identifier isEqualToString:@&quot;Do Add Photo&quot;]) &#123;</span><br><span class="line">        if (!self.image) &#123;</span><br><span class="line">            //无照片</span><br><span class="line">            [self alert:@&quot;No photo taken!&quot;];</span><br><span class="line">            return NO;</span><br><span class="line">            </span><br><span class="line">        &#125; else if (![self.titleTextField.text length]) &#123;</span><br><span class="line"></span><br><span class="line">            //无标题</span><br><span class="line">            [self alert:@&quot;Title required!&quot;];</span><br><span class="line">            return NO;</span><br><span class="line">       </span><br><span class="line">        &#125; else if (!self.location) &#123;</span><br><span class="line">            </span><br><span class="line">            //没有获取到位置信息</span><br><span class="line">            switch (self.locationErrorCode) &#123;</span><br><span class="line"></span><br><span class="line">                case kCLErrorLocationUnknown:</span><br><span class="line">                    [self alert:@&quot;Couldn&apos;t figure out where this photo was taken (yet).&quot;]; break;</span><br><span class="line"></span><br><span class="line">                case kCLErrorDenied:</span><br><span class="line">                    [self alert:@&quot;Location Services disabled under Privacy in Settings application.&quot;]; break;</span><br><span class="line"></span><br><span class="line">                case kCLErrorNetwork:</span><br><span class="line">                    [self alert:@&quot;Can&apos;t figure out where this photo is being taken.  Verify your connection to the network.&quot;]; break;</span><br><span class="line"></span><br><span class="line">                default:</span><br><span class="line">                    [self alert:@&quot;Cant figure out where this photo is being taken, sorry.&quot;]; break;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            return NO;</span><br><span class="line"></span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return YES;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125; else &#123;</span><br><span class="line"></span><br><span class="line">        return [super shouldPerformSegueWithIdentifier:identifier sender:sender];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)alert:(NSString *)msg</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    [[[UIAlertView alloc] initWithTitle:@&quot;Add Photo&quot;</span><br><span class="line">                                message:msg</span><br><span class="line">                               delegate:nil</span><br><span class="line">                      cancelButtonTitle:nil</span><br><span class="line">                      otherButtonTitles:@&quot;Cancel&quot;, nil] show];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在添加照片后，我们需要将该页面取消并储存相应的数据。但由于业务需求，如果想要储存数据的前提下取消页面的话，那么就需要在取消页面之前来判断当前的数据是否满足储存的条件：是否有照片；是否设置了标题；是否获取了位置信息等。</p>
+</blockquote>
+<h4 id="5-确定页面可以被取消后，在页面被取消前储存数据："><a href="#5-确定页面可以被取消后，在页面被取消前储存数据：" class="headerlink" title="5. 确定页面可以被取消后，在页面被取消前储存数据："></a>5. 确定页面可以被取消后，在页面被取消前储存数据：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if ([segue.identifier isEqualToString:@&quot;Do Add Photo&quot;]) &#123;</span><br><span class="line"></span><br><span class="line">        NSManagedObjectContext *context = self.photographerTakingPhoto.managedObjectContext;</span><br><span class="line"></span><br><span class="line">        if (context) &#123;</span><br><span class="line"></span><br><span class="line">            Photo *photo = [NSEntityDescription insertNewObjectForEntityForName:@&quot;Photo&quot;  inManagedObjectContext:context];</span><br><span class="line"></span><br><span class="line">            photo.title = self.titleTextField.text;</span><br><span class="line">            photo.subtittle = self.subtitleTextField.text;</span><br><span class="line">            photo.whoTook = self.photographerTakingPhoto;</span><br><span class="line">            photo.latitude = @(self.location.coordinate.latitude);</span><br><span class="line">            photo.longitude = @(self.location.coordinate.longitude);</span><br><span class="line">            photo.imageURL = [self.imageURL absoluteString];</span><br><span class="line">            photo.thumbnailURL = [self.thumbnailURL absoluteString];            </span><br><span class="line"></span><br><span class="line">            self.addedPhoto = photo;         </span><br><span class="line">            self.imageURL = nil;</span><br><span class="line">            self.thumbnailURL = nil;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6-获取新增图片的本地路径"><a href="#6-获取新增图片的本地路径" class="headerlink" title="6. 获取新增图片的本地路径"></a>6. 获取新增图片的本地路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  获取图片的本地URL</span><br><span class="line"> *</span><br><span class="line"> *  @return 图片的本地URL</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">- (NSURL *)imageURL</span><br><span class="line">&#123;</span><br><span class="line">    if (!_imageURL &amp;&amp; self.image) &#123;</span><br><span class="line">        NSURL *url = [self uniqueDocumentURL];</span><br><span class="line">        if (url) &#123;</span><br><span class="line">            //UIImage -&gt; NSData</span><br><span class="line">            NSData *imageData = UIImageJPEGRepresentation(self.image, 1.0);</span><br><span class="line">            //将data写入url</span><br><span class="line">            if ([imageData writeToURL:url atomically:YES]) &#123;</span><br><span class="line">                //如果写入成功，更新imageURL属性</span><br><span class="line">                _imageURL = url;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return _imageURL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  获取图片缩略图的本地URL</span><br><span class="line"> *</span><br><span class="line"> *  @return 缩略图的本地URL</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">- (NSURL *)thumbnailURL</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    NSURL *url = [self.imageURL URLByAppendingPathExtension:@&quot;thumbnail&quot;];</span><br><span class="line">    if (![_thumbnailURL isEqual:url]) &#123;</span><br><span class="line"></span><br><span class="line">        _thumbnailURL = nil;</span><br><span class="line">        if (url) &#123;</span><br><span class="line">            //以某Size压缩图片（详情请看本Demo添加的image分类）</span><br><span class="line">            UIImage *thumbnail = [self.image imageByScalingToSize:CGSizeMake(75, 75)];</span><br><span class="line"></span><br><span class="line">            //0.5倍压缩</span><br><span class="line">            NSData *imageData = UIImageJPEGRepresentation(thumbnail, 0.5);</span><br><span class="line"></span><br><span class="line">            if ([imageData writeToURL:url atomically:YES]) &#123;</span><br><span class="line">                _thumbnailURL = url;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return _thumbnailURL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  以时间来生成唯一本地路径</span><br><span class="line"> *</span><br><span class="line"> *  @return 本地路径</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">- (NSURL *)uniqueDocumentURL</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    NSArray *documentDirectories = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];</span><br><span class="line"></span><br><span class="line">    NSString *unique = [NSString stringWithFormat:@&quot;%.0f&quot;, floor([NSDate timeIntervalSinceReferenceDate])];</span><br><span class="line">    return [[documentDirectories firstObject] URLByAppendingPathComponent:unique];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，我们用当前的时间来拼接Document路径，获得了图片的唯一地址。</p>
+</blockquote>
+<p>笔者今天在公司附近拍了一张照片来验证效果：一张南京东路苹果旗舰店的照片，不过定位比较不准。可能是由于周围高楼比较多，而且定位时间不够长的关系。</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，可以进入我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>下载哦~    这一系列到现在为止的所有Demo都在里面，分为英文注释版本和中文注释版本两种。</p>
+<p>如果嫌麻烦的童鞋可以在留言留下邮箱，笔者会将Demo包发给你~</p>
+<p>十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI/" rel="next" title="斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI">
+                <i class="fa fa-chevron-left"></i> 斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品/" rel="prev" title="斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品">
+                斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模态视图"><span class="nav-number">1.</span> <span class="nav-text">模态视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UITextField"><span class="nav-number">2.</span> <span class="nav-text">UITextField</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#让键盘出现和消失："><span class="nav-number">2.0.1.</span> <span class="nav-text">让键盘出现和消失：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理方法："><span class="nav-number">2.1.</span> <span class="nav-text">代理方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-当点击了确定按键-让键盘消失"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">1. 当点击了确定按键,让键盘消失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-当resignFirstResponder完成后执行："><span class="nav-number">2.1.0.2.</span> <span class="nav-text">2. 当resignFirstResponder完成后执行：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-内容发生变化时收到通知："><span class="nav-number">2.1.0.3.</span> <span class="nav-text">3. 内容发生变化时收到通知：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-键盘"><span class="nav-number">2.1.0.4.</span> <span class="nav-text">4. 键盘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-监听键盘的高度："><span class="nav-number">2.1.0.5.</span> <span class="nav-text">5. 监听键盘的高度：</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Alert"><span class="nav-number">3.</span> <span class="nav-text">Alert</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化："><span class="nav-number">3.1.</span> <span class="nav-text">初始化：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加按钮"><span class="nav-number">3.2.</span> <span class="nav-text">增加按钮</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示在屏幕上"><span class="nav-number">3.3.</span> <span class="nav-text">显示在屏幕上:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理点击事件："><span class="nav-number">3.4.</span> <span class="nav-text">处理点击事件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动让其消失"><span class="nav-number">3.5.</span> <span class="nav-text">手动让其消失</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UImagePickerController"><span class="nav-number">4.</span> <span class="nav-text">UImagePickerController</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用步骤："><span class="nav-number">4.1.</span> <span class="nav-text">使用步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查硬件设备："><span class="nav-number">4.2.</span> <span class="nav-text">检查硬件设备：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查是否可以摄像："><span class="nav-number">4.3.</span> <span class="nav-text">检查是否可以摄像：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#允许用户编辑（裁剪）："><span class="nav-number">4.4.</span> <span class="nav-text">允许用户编辑（裁剪）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取了媒体（照片）后的代理方法"><span class="nav-number">4.5.</span> <span class="nav-text">获取了媒体（照片）后的代理方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点击了取消后的代理方法："><span class="nav-number">4.6.</span> <span class="nav-text">点击了取消后的代理方法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo"><span class="nav-number">5.</span> <span class="nav-text">Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo需求："><span class="nav-number">5.1.</span> <span class="nav-text">Demo需求：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo效果图"><span class="nav-number">5.2.</span> <span class="nav-text">Demo效果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要知识点和代码段"><span class="nav-number">5.3.</span> <span class="nav-text">重要知识点和代码段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在添加照片页面显示后判断是否可以拍照"><span class="nav-number">5.3.0.1.</span> <span class="nav-text">1. 在添加照片页面显示后判断是否可以拍照</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-CLLocationManager的初始化和使用"><span class="nav-number">5.3.0.2.</span> <span class="nav-text">2. CLLocationManager的初始化和使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-UIImagePickerController的初始化和使用"><span class="nav-number">5.3.0.3.</span> <span class="nav-text">3. UIImagePickerController的初始化和使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-判断是否执行某个Segue的Identifier"><span class="nav-number">5.3.0.4.</span> <span class="nav-text">4. 判断是否执行某个Segue的Identifier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-确定页面可以被取消后，在页面被取消前储存数据："><span class="nav-number">5.3.0.5.</span> <span class="nav-text">5. 确定页面可以被取消后，在页面被取消前储存数据：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-获取新增图片的本地路径"><span class="nav-number">5.3.0.6.</span> <span class="nav-text">6. 获取新增图片的本地路径</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">6.</span> <span class="nav-text">最后的话</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

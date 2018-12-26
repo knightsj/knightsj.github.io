@@ -1,0 +1,1383 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Swift,Data Structure,Algorithm,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本篇是《数据结构 &amp;amp; 算法 in Swift》系列连载的第二篇，内容分为如下两个部分：  算法基础：简单介绍算法的概念，时间复杂度与空间复杂度，递归，作为本文第二部分的背景知识。 排序算法：结合Swift的代码实现来讲解冒泡排序，选择排序，插入排序，归并排序，快速排序。">
+<meta name="keywords" content="iOS,Swift,Data Structure,Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构 &amp; 算法 in Swift （二）：算法概述和排序算法">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/数据结构 & 算法 in Swift （二）：算法概述和排序算法/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="本篇是《数据结构 &amp;amp; 算法 in Swift》系列连载的第二篇，内容分为如下两个部分：  算法基础：简单介绍算法的概念，时间复杂度与空间复杂度，递归，作为本文第二部分的背景知识。 排序算法：结合Swift的代码实现来讲解冒泡排序，选择排序，插入排序，归并排序，快速排序。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/data_structure_algorithm_in_swift/ds_al_header.png">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/8/1617175d7ca0cf3a">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/8/1617175e46a4baf6?w=840&h=460&f=png&s=366231">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/8/1617175e51624070?w=941&h=429&f=png&s=31535">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/8/1617175e83e236cf?w=944&h=637&f=png&s=70522">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/2/8/1617175e884d80a7?w=580&h=378&f=png&s=19270">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.617Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构 &amp; 算法 in Swift （二）：算法概述和排序算法">
+<meta name="twitter:description" content="本篇是《数据结构 &amp;amp; 算法 in Swift》系列连载的第二篇，内容分为如下两个部分：  算法基础：简单介绍算法的概念，时间复杂度与空间复杂度，递归，作为本文第二部分的背景知识。 排序算法：结合Swift的代码实现来讲解冒泡排序，选择排序，插入排序，归并排序，快速排序。">
+<meta name="twitter:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/data_structure_algorithm_in_swift/ds_al_header.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/数据结构 & 算法 in Swift （二）：算法概述和排序算法/">
+
+
+
+
+
+  <title> 数据结构 & 算法 in Swift （二）：算法概述和排序算法 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/数据结构 & 算法 in Swift （二）：算法概述和排序算法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据结构 & 算法 in Swift （二）：算法概述和排序算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-Structure-Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure & Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  15,295 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  62 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/data_structure_algorithm_in_swift/ds_al_header.png" alt=""></p>
+<p>本篇是《数据结构 &amp; 算法 in Swift》系列连载的第二篇，内容分为如下两个部分：</p>
+<ul>
+<li>算法基础：简单介绍算法的概念，时间复杂度与空间复杂度，递归，作为本文第二部分的背景知识。</li>
+<li>排序算法：结合Swift的代码实现来讲解冒泡排序，选择排序，插入排序，归并排序，快速排序。</li>
+</ul>
+<a id="more"></a>
+<h1 id="算法基础"><a href="#算法基础" class="headerlink" title="算法基础"></a>算法基础</h1><blockquote>
+<p>该部分是给那些对算法以及相关知识不了解的读者准备的，如果已经对算法的相关知识有所了解，可以略过该部分，直接看本文的第二部分：排序算法。</p>
+</blockquote>
+<p>关于该部分的讨论不属于本文介绍的重点，因此没有过多非常专业的论述，只是让那些对算法不了解的读者可以对算法先有一个基本的认识，为阅读和理解本文的第二部分做好准备。</p>
+<h2 id="算法的概念"><a href="#算法的概念" class="headerlink" title="算法的概念"></a>算法的概念</h2><p>算法是解决特定问题求解步骤的描述，在计算机中表现为指令的有限序列，并且每条指令表示一个或多个操作。</p>
+<blockquote>
+<p>摘自《大话数据结构》</p>
+</blockquote>
+<p>简单说来，算法就是“一个问题的解法”。对于相同一个问题，可能会有多种不同的解法。这些解法虽然可以得到相同的结果，但是每个算法的执行所需要的时间和空间资源却可以是千差万别的。</p>
+<p>以消耗的时间的角度为出发点，我们看一下对于同一个问题，两种不同的解法的效率会相差多大：</p>
+<p>现在让我们解决这个问题：<strong>计算从1到100数字的总和</strong>。</p>
+<p>把比较容易想到的下面两种方法作为比较：</p>
+<ol>
+<li>1到100循环遍历逐步相加</li>
+<li>等差数列求和</li>
+</ol>
+<p>用Swift函数来分别实现一下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sumOpration1</span><span class="params">(<span class="number">_</span> n:Int)</span></span> -&gt; <span class="type">Int</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span> ... n &#123;</span><br><span class="line">        sum += i</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line">sumOpration1(<span class="number">100</span>)<span class="comment">//5050</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sumOpration2</span><span class="params">(<span class="number">_</span> n:Int)</span></span> -&gt; <span class="type">Int</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (<span class="number">1</span> + n) * n/<span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line">sumOpration2(<span class="number">100</span>)<span class="comment">//5050</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码中，<code>sumOpration1</code>使用的是循环遍历的方式；<code>sumOpration2</code>使用的是等差数列求和的公式。</p>
+<p>虽然两个函数都能得到正确的结果，但是不难看出两个函数实现的效率是有区别的:</p>
+<p><strong>遍历求和所需要的时间是依赖于传入函数的n的大小的，而等差数列求和的方法所需要的时间对传入的n的大小是完全不依赖的。</strong></p>
+<p>在遍历求和中，如果传入的n值是100，则需要遍历100次并相加才能得到结果，那么如果传入的n值是一百万呢？</p>
+<p>而在等差数列求和的函数中，无论n值有多大，只需要一个公式就可以解决。</p>
+<p>我们对此可以以小见大：世上千千万万种问题（算法题）可能也有类似的情况：相同的问题，相同的结果，但是执行效率缺差之千里。那么有没有什么方法可以度量某种算法的执行效率以方便人们去选择或是衡量算法之间的差异呢？ 答案是肯定的。</p>
+<p>下面笔者就向大家介绍算法所消耗资源的两个维度：时间复杂度和空间复杂度。</p>
+<h2 id="时间复杂度与空间复杂度"><a href="#时间复杂度与空间复杂度" class="headerlink" title="时间复杂度与空间复杂度"></a>时间复杂度与空间复杂度</h2><h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>算法的时间复杂度是指算法需要消耗的时间资源。一般来说，计算机算法是问题规模!n的函数f(n)，算法的时间复杂度也因此记做：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/8/1617175d7ca0cf3a" alt=""></p>
+<p>常见的时间复杂度有：常数阶O(1)，对数阶O(log n），线性阶 O(n)，线性对数阶O(nlog n)，平方阶O(n^{2})，立方阶O(n^{3})，!k次方阶O(n^{k})，指数阶 O(2^{n})}。随着问题规模n的不断增大，上述时间复杂度不断增大，算法的执行效率越低。</p>
+<p>拿其中几个复杂度做对比：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/8/1617175e46a4baf6?w=840&amp;h=460&amp;f=png&amp;s=366231" alt=""></p>
+<p>从上图中我们可以看到，平方阶O(n^{2})随着n值的增大，其复杂度近乎直线飙升；而线性阶 O(n)随着n的增大，复杂度是线性增长的；我们还可以看到常数阶 O(1)随着n增大，其复杂度是不变的。</p>
+<p>参考上一节的求和问题，我们可以看出来遍历求和的算法复杂度是线性阶O(n)：随着求和的最大数值的大小而线性增长；而等差数列求和算法的复杂度为常数阶 O(1)其算法复杂度与输入n值的大小无关。</p>
+<p>读者可以试着想一个算法的复杂度与输入值n的平方成正比的算法。</p>
+<p>在这里笔者举一个例子：求一个数组中某两个元素和为某个值的元素index的算法。数组为<code>[0,2,1,3,6]</code>，和为8：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findTwoSum</span><span class="params">(<span class="number">_</span> array: [Int], target: Int)</span></span> -&gt; (<span class="type">Int</span>, <span class="type">Int</span>)? &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;array.<span class="built_in">count</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">left</span> = array[i]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> (i + <span class="number">1</span>)..&lt;array.<span class="built_in">count</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">right</span> = array[j]</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">left</span> + <span class="keyword">right</span> == target &#123;</span><br><span class="line">                <span class="keyword">return</span> (i, j)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> array = [<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> indexes = findTwoSum(array, target: <span class="number">8</span>) &#123;</span><br><span class="line">    <span class="built_in">print</span>(indexes) <span class="comment">//1， 4</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"No pairs are found"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的算法准确地计算出了两个元素的index为1和4。因为使用了两层的遍历，所以这里算法的复杂度是平方阶O(n^{2}。关于算法复杂度的详细推倒方法，可以参考网上和算法相关书籍的资料。</p>
+<p>而其实，不需要遍历两层，只需要遍历一层即可：在遍历的时候，我么知道当前元素的值a，那么只要其余元素里面有值等于（target - a）的值即可。所以这次算法的复杂度就是线性阶O(n)了。</p>
+<p>同样地，上面两种算法虽然可以达到相同的效果，但是当n非常大的时候，二者的计算效率就会相差更大：n = 1000的时候，二者得到结果所需要的时间可能会差好几百倍。可以说平方阶O(n^{2})复杂度的算法在数据量很大的时候是无法让人接受的。</p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>算法的空间复杂度是指算法需要消耗的空间资源。其计算和表示方法与时间复杂度类似，一般都用复杂度的渐近性来表示。同时间复杂度相比，空间复杂度的分析要简单得多。而且控件复杂度不属于本文讨论的重点，因此在这里不展开介绍了。</p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>在算法的实现中，遍历与递归是经常出现的两种操作。</p>
+<p>对于遍历，无非就是使用一个for循环来遍历集合里的元素，相信大家已经非常熟悉了。但是对于递归操作就可能比较陌生。而且由于本文第二部分讲解算法的是时候有两个算法（也是比较重要）的算法使用了递归操作，所以为了能帮助大家理解这两个算法，笔者觉得有必要将递归单独拿出来讲解。</p>
+<p>先看一下递归的概念。</p>
+<h3 id="递归的概念"><a href="#递归的概念" class="headerlink" title="递归的概念"></a>递归的概念</h3><p>递归的概念是：在<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%A6" target="_blank" rel="noopener">数学</a>与<a href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6" target="_blank" rel="noopener">计算机科学</a>中，是指在函数的定义中使用函数自身的方法摘自维基百科</p>
+<blockquote>
+<p>摘自维基百科</p>
+</blockquote>
+<p>通过使用递归，可以把一个<strong>大型复杂的问题逐层转化为一个与原问题相似的规模较小的问题来求解</strong>。因此如果使用递归，可以达到使用少量的代码就可描述出解题过程所需的多次重复计算的目的，减少了程序的代码量 。</p>
+<p>下面用一个例子来具体感受一下递归操作：</p>
+<p>大家应该都比较熟悉阶乘的算法：3！= 3 <em> 2 </em> 1 ； 4！= 4 <em> 3 </em> 2 * 1</p>
+<p>不难看出，在这里反复执行了一个逐渐-1和相乘的操作，如果可以使用某段代码达到重复调用的效果就很方便了，在这里就可以使用递归：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">factorial</span><span class="params">(<span class="number">_</span> n:Int)</span></span> -&gt; <span class="type">Int</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n &lt; <span class="number">2</span> ? <span class="number">1</span>: n * factorial(n-<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">factorial(<span class="number">3</span>) <span class="comment">//6</span></span><br></pre></td></tr></table></figure>
+<p>在上面的代码里，<code>factorial</code>函数调用了它自己，并且在n&lt;2的时候返回了1；否则继续调用自己。</p>
+<p>从代码本身其实不难理解函数调用的方式，但是这个6究竟是怎么算出来的呢？这就涉及到递归的实现原理了。</p>
+<h3 id="递归的实现原理"><a href="#递归的实现原理" class="headerlink" title="递归的实现原理"></a>递归的实现原理</h3><p>递归的调用实际上是通过调用栈（callback stack）来实现的，笔者用一张图从factorial(3)开始调用到最后得出6这个顺序之间发生的事情画了出来：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/8/1617175e51624070?w=941&amp;h=429&amp;f=png&amp;s=31535" alt=""></p>
+<p>由上图可以看出，整个递归的过程和栈的入栈出栈的操作非常类似：橘黄色背景的圆角矩形代表了栈顶元素，也就是正在执行的操作，而灰色背景的圆角矩形则代表了其余的元素，它们的顺序就是当初被调用的顺序，而且在内容上保持了当时被调用时执行的代码。</p>
+<p>现在笔者按照时间顺序从左到右来说明一下整个调用的过程：</p>
+<ul>
+<li>最开始传入3之后，3满足了n&gt;=2的条件，继续调用自己：3 * factorial(2) ，入栈。</li>
+<li>传入2之后，2满足了n&gt;=2的条件，继续调用自己：2 * factorial(1) ，入栈。</li>
+<li>传入1之后，1满足了n&lt;2的条件，停止调用自己，返回了1，出栈。</li>
+<li>此时的栈顶元素为2 <em> factorial(1) ，而刚刚factorial(1)返回了1，所以现在这里变成了2 </em> 1 = 2，出栈。</li>
+<li>同样地，此时栈顶元素为3 <em> factorial(2)里的 factorial(2)返回了2，所以现在这里变成了3 </em> 2 = 6，出栈。</li>
+<li>最后，factorial(3)返回了6，出栈，递归结束。</li>
+</ul>
+<p>按照笔者个人的理解：整个递归的过程可以大致理解为：在使递归继续的条件为false之前，持续递归调用，以栈的形式保存调用上下文（临时变量，函数等）。一旦这个条件变为true，则立即按照出栈的顺序（入栈顺序的逆序）来返回值，逐个传递，最终传递到最开始调用的那一层返回最终结果。</p>
+<p>再简单点，递归中的“递”就是入栈，传递调用信息；“归”就是出栈，输出返回值。</p>
+<p>而这个分界线就是递归的终止条件。很显然，这个终止条件在整个递归过程中起着举足轻重的作用。试想一下，如果这个条件永远不会改变，那么就会一直入栈，就会发生栈溢出的情况。</p>
+<h3 id="使用递归时需要注意的问题"><a href="#使用递归时需要注意的问题" class="headerlink" title="使用递归时需要注意的问题"></a>使用递归时需要注意的问题</h3><p>基于上面递归的例子，我们将递归终止条件去掉：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">factorialInfinite</span><span class="params">(<span class="number">_</span> n:Int)</span></span> -&gt; <span class="type">Int</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n * factorialInfinite(n-<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">factorialInfinite(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>这段代码如果放在playground里，经过一小段时间（几秒钟或更多）后，会报一个运行时错误。也可以在return语句上面写一个print函数打印一些字符串，接着就会看到不停的打印，直到运行时错误，栈溢出。</p>
+<p>所以说在今后写关于递归的代码的时候，一定要注意递归的终止条件是否合理，因为即使条件存在也不一定就是合理的条件。我们看一下下面这个例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sumOperation</span><span class="params">( <span class="number">_</span> n:Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n + sumOperation(n - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sumOperation(<span class="number">2</span>) <span class="comment">//3</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码跟阶乘类似，也是和小于当前参数的值相加，如果传入2，那么知道 n=0时就开始出栈，</p>
+<p>2 + 1 + 0 = 3。看似没什么问题，但是如果一开始传入 - 1 呢？结果就是不停的入栈，直到栈溢出。因为 n == 0 这个条件在传入 - 1 的时候是无法终止入栈的，因为 - 1 之后的 -1 操作都是非0的。</p>
+<p>所以说这个条件就不是合理的，一个比较合理的条件是 n &lt; = 0。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sumOperation</span><span class="params">( <span class="number">_</span> n:Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n + sumOperation(n - <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sumOperation(-<span class="number">1</span>) <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+<p>相信到这里，读者应该对递归的使用，调用过程以及注意事项有个基本的认识了。</p>
+<p>那么到这里，关于算法的基本介绍已经讲完了，下面正式开始讲解排序算法。</p>
+<h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><p>讲解算法之前，我们先来看一下几个常见的排序算法的对比：</p>
+<table>
+<thead>
+<tr>
+<th>排序算法</th>
+<th>平均情况下</th>
+<th>最好情况</th>
+<th>最坏情况</th>
+<th>稳定性</th>
+<th>空间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冒泡</td>
+<td>O(n^2)</td>
+<td>O(n）</td>
+<td>O(n^2)</td>
+<td>稳定</td>
+<td>1</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>O(n^2)</td>
+<td>O(n^2)</td>
+<td>O(n^2)</td>
+<td>不稳定</td>
+<td>1</td>
+</tr>
+<tr>
+<td>插入排序</td>
+<td>O(n^2)</td>
+<td>O(n）</td>
+<td>O(n^2)</td>
+<td>稳定</td>
+<td>1</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>O(nlogn)</td>
+<td>依赖步长</td>
+<td>依赖步长</td>
+<td>稳定</td>
+<td>1</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>稳定</td>
+<td>1</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>稳定</td>
+<td>O(n）</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(n^2)</td>
+<td>不稳定</td>
+<td>O(logn)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>最好情况和最坏情况以及稳定性的概念不在本文的讨论范围之内，有兴趣的读者可以查阅相关资料。</p>
+</blockquote>
+<p>现在只看平均情况下的性能：</p>
+<ul>
+<li>冒泡排序，选择排序，插入排序的时间复杂度为平方阶O(n^{2})</li>
+<li>希尔排序，堆排序，归并排序，快速排序的时间复杂度为线性对数阶O(nlog n)</li>
+</ul>
+<p>本篇要给大家介绍的是冒泡排序，选择排序，插入排序，归并排序和快速排序。</p>
+<p>希尔排序是基于插入排序，理解了插入排序以后，理解希尔排序会很容易，故在本文不做介绍。堆排序涉及到一个全新的数据结构：堆，所以笔者将堆这个数据结构和堆排序放在下一篇来做介绍。</p>
+<h2 id="排序初探"><a href="#排序初探" class="headerlink" title="排序初探"></a>排序初探</h2><p>在讲排序算法之前，我们先看一种最简单的排序算法（也是性能最低的，也是最好理解的），在这里先称之为“交换排序”。</p>
+<blockquote>
+<p>注意，这个名称是笔者自己起的，在互联网和相关技术书籍上面没有对该算法起名。</p>
+</blockquote>
+<h3 id="算法讲解"><a href="#算法讲解" class="headerlink" title="算法讲解"></a>算法讲解</h3><p>用两个循环来嵌套遍历：</p>
+<ul>
+<li>外层遍历数组从0到末尾的元素，索引为i.</li>
+<li>里层遍历数组从i+1至数组末尾的元素，索引为j。</li>
+<li>当i上的元素比j上的元素大的时候，交换i和j的元素，目的是保持index为i的元素是最小的。</li>
+</ul>
+<p>我们用一个例子看一下是怎么做交换的：</p>
+<p>给定一个初始数组：<code>array = [4, 1, 2, 5, 0]</code></p>
+<p><strong>i = 0 时</strong>：</p>
+<ul>
+<li>array[0] &gt; array[1] : 交换4和1：<code>[1, 4, 2, 5, 0]</code>，内层的j继续遍历，j++。</li>
+<li>array[0] &gt; array[4] : 交换0和1：<code>[0, 4, 2, 5, 1]</code>，i = 0的外层循环结束，i++。</li>
+</ul>
+<p><strong>i  = 1时</strong>：</p>
+<ul>
+<li>array[1] &gt; array[2] : 交换2和4：<code>[0, 2, 4, 5, 1]</code>，内层的j继续遍历，j++。</li>
+<li>array[1] &gt; array[4] : 交换1和2：<code>[0, 1, 4, 5, 2]</code>，i = 1的外层循环结束，i++。</li>
+</ul>
+<p><strong>i = 2 时</strong>：</p>
+<ul>
+<li>array[2] &gt; array[4] : 交换2和4：<code>[0, 1, 2, 5, 4]</code>，i = 2的外层循环结束，i++。</li>
+</ul>
+<p><strong>i = 3 时</strong>：</p>
+<ul>
+<li>array[3] &gt; array[4] : 交换5和4：<code>[0, 1, 2, 4, 5]</code>，i = 3的外层循环结束，i++。</li>
+</ul>
+<p><strong>i = 4 时</strong>：不符合内循环的边界条件，不进行内循环，排序结束。</p>
+<p>那么用代码如何实现呢？</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">switchSort</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> i + <span class="number">1</span> ..&lt; array.<span class="built_in">count</span> &#123;</span><br><span class="line">          </span><br><span class="line">            <span class="keyword">if</span> array[i] &gt; array[j] &#123;</span><br><span class="line">                array.swapAt(i, j) </span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"\(array)"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> array </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面<code>swapAt</code>函数是使用了Swift内置的数组内部交换两个index的函数，在后面会经常用到。</p>
+<p>为了用代码验证上面所讲解的交换过程，可以在<code>swapAt</code>函数下面将交换元素后的数组打印出来：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> originalArray = [<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"original array:\n\(originalArray)\n"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">switchSort</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> i + <span class="number">1</span> ..&lt; array.<span class="built_in">count</span> &#123;</span><br><span class="line">          </span><br><span class="line">            <span class="keyword">if</span> array[i] &gt; array[j] &#123;</span><br><span class="line">                array.swapAt(i, j) </span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"\(array)"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> array   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">switchSort(&amp;originalArray)</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">original array:</span><br><span class="line">[4, 1, 2, 5, 0]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">switch sort...</span><br><span class="line">[1, 4, 2, 5, 0]</span><br><span class="line">[0, 4, 2, 5, 1]</span><br><span class="line">[0, 2, 4, 5, 1]</span><br><span class="line">[0, 1, 4, 5, 2]</span><br><span class="line">[0, 1, 2, 5, 4]</span><br><span class="line">[0, 1, 2, 4, 5]</span><br></pre></td></tr></table></figure>
+<p>验证后我们可以看到，结果和上面分析的结果是一样的。</p>
+<p>各位读者也可以自己设置原数组，然后在运行代码之前按照自己的理解，把每一次交换的结果写出来，接着和运行算法之后进行对比。该方法对算法的理解很有帮助，推荐大家使用~</p>
+<blockquote>
+<p>请务必理解好上面的逻辑，可以通过动笔写结果的方式来帮助理解和巩固，有助于对下面讲解的排序算法的理解。</p>
+</blockquote>
+<p>大家看上面的交换过程（排序过程）有没有什么问题？相信细致的读者已经看出来了：<strong>在原数组中，1和2都是比较靠前的位置，但是经过中间的排序以后，被放在了数组后方，然后再次又交换回来</strong>。这显然是比较低效的，给人的感觉像是做了无用功。</p>
+<p>那么有没有什么方法可以优化一下交换的过程，让交换后的结果与元素最终在数组的位置基本保持一致呢？</p>
+<p>答案是肯定的，这就引出了笔者要第一个正式介绍的排序算法冒泡排序：</p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="算法讲解-1"><a href="#算法讲解-1" class="headerlink" title="算法讲解"></a>算法讲解</h3><p>与上面讲的交换排序类似的是，冒泡排序也是用两层的循环来实现的；但与其不同的是：</p>
+<ul>
+<li>循环的边界条件：冒泡排序的外层是[0,array.count-1);内层是[0,array.count-1-i)。可以看到内层的范围是不断缩小的，而且范围的前端不变，后端在向前移。</li>
+</ul>
+<ul>
+<li>交换排序比较的是内外层索引的元素（array[i] 和 array[j]）,但是冒泡排序比较的是两个相邻的内层索引的元素：array[j]和array[j+1]。</li>
+</ul>
+<p>笔者用和上面交换排序使用的同一个数组来演示下元素是如何交换的：</p>
+<p>初始数组：<code>array = [4, 1, 2, 5, 0]</code></p>
+<p><strong>i = 0 时</strong>：</p>
+<ul>
+<li>array[0] &gt; array[1] : 交换4和1：<code>[1, 4, 2, 5, 0]</code>，内层的j继续遍历，j++。</li>
+<li>array[1] &gt; array[2] : 交换4和2：<code>[1, 2, 4, 5, 0]</code>，内层的j继续遍历，j++。</li>
+<li>array[2] &lt; array[3] : 不交换，内层的j继续遍历，j++。</li>
+<li>array[3] &gt; array[4] : 交换5和0：<code>[1, 2, 4, 0, 5]</code>，i = 0的外层循环结束，i++。</li>
+</ul>
+<p><strong>i  = 1时</strong>：</p>
+<ul>
+<li>array[2] &gt; array[3] : 交换2和4：<code>[1, 2, 0, 4, 5]</code>，内层的j继续遍历，j++。</li>
+<li>array[3] &lt; array[4] : 不交换，i = 1的外层循环结束，i++。</li>
+</ul>
+<p><strong>i = 2 时</strong>：</p>
+<ul>
+<li>array[1] &gt; array[2] : 交换2和0：<code>[1, 0, 2, 4, 5]</code>，内层的j继续遍历，j++，直到退出i=2的外层循环，i++。</li>
+</ul>
+<p><strong>i = 3 时</strong>：</p>
+<ul>
+<li>array[0] &gt; array[1] : 交换1和0：<code>[0, 1, 2, 4, 5]</code>，内层的j继续遍历，j++，直到退出i=3的外层循环，i++。</li>
+</ul>
+<p>i = 4 时：不符合外层循环的边界条件，不进行外层循环，排序结束。</p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><p>我们来看一下冒泡排序的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bubbleSort</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> - <span class="number">1</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> - <span class="number">1</span> - i &#123;</span><br><span class="line">          </span><br><span class="line">            <span class="keyword">if</span> array[j] &gt; array[j+<span class="number">1</span>] &#123;</span><br><span class="line">                array.swapAt(j, j+<span class="number">1</span>)                 </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码我们可以清楚地看到循环遍历的边界条件和交换时机。同样地，我们添加上log，将冒泡排序每次交换后的数组打印出来（为了进行对比，笔者将交换排序的log也打印了出来）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">original array:</span><br><span class="line">[4, 1, 2, 5, 0]</span><br><span class="line"></span><br><span class="line">switch sort...</span><br><span class="line">[1, 4, 2, 5, 0]</span><br><span class="line">[0, 4, 2, 5, 1]</span><br><span class="line">[0, 2, 4, 5, 1]</span><br><span class="line">[0, 1, 4, 5, 2]</span><br><span class="line">[0, 1, 2, 5, 4]</span><br><span class="line">[0, 1, 2, 4, 5]</span><br><span class="line"></span><br><span class="line">bubble sort...</span><br><span class="line">[1, 4, 2, 5, 0]</span><br><span class="line">[1, 2, 4, 5, 0]</span><br><span class="line">[1, 2, 4, 0, 5]</span><br><span class="line">[1, 2, 0, 4, 5]</span><br><span class="line">[1, 0, 2, 4, 5]</span><br><span class="line">[0, 1, 2, 4, 5]</span><br></pre></td></tr></table></figure>
+<p>从上面两组打印可以看出，冒泡排序算法解决了交换排序算法的不足：</p>
+<ul>
+<li>原来就处于靠前位置的1，2两个元素，在排序的过程中一直是靠前的。</li>
+<li>原来处于末尾的0元素，在冒泡排序的过程中一点一点地向前移动，最终到了应该处于的位置。</li>
+</ul>
+<p>现在我们知道冒泡排序是好于交换排序的，而且它的做法是相邻元素的两两比较：如果是逆序（左大右小）的话就做交换。</p>
+<p>那么如果在排序过程中，数组已经变成有序的了，那么再进行两两比较就很不划算了。</p>
+<p>为了证实上面这个排序算法的局限性，我们用新的测试用例来看一下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> originalArray = [<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<p>而且这次我们不仅仅在交换以后打log，也记录一下作比较的次数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bubbleSort</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;    </span><br><span class="line">    <span class="keyword">var</span> compareCount = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> - <span class="number">1</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> - <span class="number">1</span> - i &#123;</span><br><span class="line"></span><br><span class="line">            compareCount += <span class="number">1</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"No.\(compareCount) compare \(array[j]) and \(array[j+1])"</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> array[j] &gt; array[j+<span class="number">1</span>] &#123;</span><br><span class="line">                array.swapAt(j, j+<span class="number">1</span>) <span class="comment">//keeping index of j is the smaller one</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"after swap: \(array)"</span>)</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">original array:</span><br><span class="line">[2, 1, 3, 4, 5]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bubble sort...</span><br><span class="line">No.1 compare 2 and 1</span><br><span class="line">after swap: [1, 2, 3, 4, 5] //already sorted, but keep comparing</span><br><span class="line">No.2 compare 2 and 3</span><br><span class="line">No.3 compare 3 and 4</span><br><span class="line">No.4 compare 4 and 5</span><br><span class="line">No.5 compare 1 and 2</span><br><span class="line">No.6 compare 2 and 3</span><br><span class="line">No.7 compare 3 and 4</span><br><span class="line">No.8 compare 1 and 2</span><br><span class="line">No.9 compare 2 and 3</span><br><span class="line">No.10 compare 1 and 2</span><br></pre></td></tr></table></figure>
+<p>从打印的结果可以看出，其实在第一次交换过之后，数组已经是有序的了，但是该算法还是继续在比较，做了很多无用功，能不能有个办法可以让这种两两比较在已知有序的情况下提前结束呢？答案是肯定的。</p>
+<p>提前结束这个操作很容易，我们只需要跳出最外层的循环就好了。关键是这个时机：我们需要让算法自己知道<strong>什么时候数组已经是有序的了</strong>。</p>
+<p>是否已经想到了呢？就是在一次内循环过后，如果没有发生元素交换，就说明数组已经是有序的，不需要再次缩小内循环的范围继续比较了。所以我们需要在外部设置一个布尔值的变量来标记“该数组是否有序”：</p>
+<p>我们将这个算法称为：advanced bubble sort</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bubbleSortAdvanced</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> - <span class="number">1</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//bool switch</span></span><br><span class="line">        <span class="keyword">var</span> swapped = <span class="literal">false</span></span><br><span class="line">      </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> - i - <span class="number">1</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> array[j] &gt; array [j+<span class="number">1</span>] &#123;</span><br><span class="line">                array.swapAt(j, j+<span class="number">1</span>) </span><br><span class="line">                swapped = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//if there is no swapping in inner loop, it means the the part looped is already sorted,</span></span><br><span class="line">        <span class="comment">//so it's time to break</span></span><br><span class="line">        <span class="keyword">if</span> (swapped == <span class="literal">false</span>)&#123; <span class="keyword">break</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看出，在第一个冒泡排序的算法之内，只添加了一个<code>swapped</code>这个布尔值，默认为false：</p>
+<ul>
+<li>如果在当前内循环里面没有发生过元素交换，则说明当前内循环范围的元素都是有序的；那么就说明后续的内循环范围的元素也是有序的（因为内循环每次迭代后都会缩小），就可以跳出循环了。</li>
+<li>反之，如果在当前内循环里发生过元素交换，则说明当前内循环很可能是无序的（也可能是有序的，但是有序性需要在下一个内循环中验证，所以还是不能提前退出，还需要进行一次内循环）。</li>
+</ul>
+<p>为了验证上面这个改进冒泡排序是否能解决最初给出的冒泡排序的问题，我们添加上对比次数的log：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">original array:</span><br><span class="line">[2, 1, 3, 4, 5]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bubble sort...</span><br><span class="line">No.1 compare 2 and 1</span><br><span class="line">after swap: [1, 2, 3, 4, 5]</span><br><span class="line">No.2 compare 2 and 3</span><br><span class="line">No.3 compare 3 and 4</span><br><span class="line">No.4 compare 4 and 5</span><br><span class="line">No.5 compare 1 and 2</span><br><span class="line">No.6 compare 2 and 3</span><br><span class="line">No.7 compare 3 and 4</span><br><span class="line">No.8 compare 1 and 2</span><br><span class="line">No.9 compare 2 and 3</span><br><span class="line">No.10 compare 1 and 2</span><br><span class="line">bubble sort time duration : 1.96ms</span><br><span class="line"></span><br><span class="line">advanced bubble sort...</span><br><span class="line">No.1 compare 2 and 1</span><br><span class="line">after swap: [1, 2, 3, 4, 5]</span><br><span class="line">No.2 compare 2 and 3</span><br><span class="line">No.3 compare 3 and 4</span><br><span class="line">No.4 compare 4 and 5</span><br><span class="line">No.5 compare 1 and 2</span><br><span class="line">No.6 compare 2 and 3</span><br><span class="line">No.7 compare 3 and 4</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，在使用改进的冒泡排序后，对比的次数少了3次。之所以没有立即返回，是因为即使在交换完变成有序数组以后，也无法在当前内循环判断出是有序的。需要在下次内循环才能验证出来。</p>
+<p>因为数组的元素数量比较小，所以可能对这个改进所达到的效果体会得不是很明显。现在我们增加一下数组元素的个数，并用记录<strong>比较总和</strong>的方式来看一下二者的区别：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">original array:</span><br><span class="line">[<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>]</span><br><span class="line"></span><br><span class="line">bubble <span class="built_in">sort</span>...</span><br><span class="line">total compare <span class="built_in">count</span>： <span class="number">91</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">advanced bubble <span class="built_in">sort</span>...</span><br><span class="line">total compare <span class="built_in">count</span>： <span class="number">25</span></span><br></pre></td></tr></table></figure>
+<p>从比较结果可以看出，这两种算法在该测试样本下的差距是比较大的，而且随着元素个数的增多这个差距会越来越大（因为做了更多没有意义的比较）。</p>
+<p>虽然这种测试样本比较极端，但是在某种意义上还是优化了最初的冒泡排序算法。一般在网上的冒泡排序算法应该都能看到这个优化版的。</p>
+<p>现在我们知道这个优化版的冒泡排序算法可以在知道当前数组已经有序的时候提前结束，但是毕竟不断的交换还是比较耗费性能的，有没有什么方法可以只移动一次就能做好当前元素的排序呢？答案又是肯定的，这就引出了笔者即将介绍的选择排序算法。</p>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="算法讲解-2"><a href="#算法讲解-2" class="headerlink" title="算法讲解"></a>算法讲解</h3><p>选择排序也是两层循环：</p>
+<ul>
+<li>外层循环的边界是[0,array.count-1)，index为i。</li>
+<li>内层循环的边界是[i+1,array.count)，index为j。可以看到内层的范围也是不断缩小的，而且范围的前端一直后移，后端保持不变。</li>
+</ul>
+<p>具体做法是：</p>
+<ul>
+<li>在外层循环的开始，将i作为最小值index（很可能不是该数组的最小值）。</li>
+<li>在内层循环里面找到当前内层循环范围内的最小值，并与已经记录的最小值作比较：<ul>
+<li>如果与当前记录的最小值index不同，则替换</li>
+<li>如果与当前记录的最小值index相同，则不替换</li>
+</ul>
+</li>
+</ul>
+<p>我们还是用手写迭代的方式看一下选择排序的机制，使用的数组和上面交换排序和冒泡排序（非优化版）的数组一致：<code>[4, 1, 2, 5, 0]</code></p>
+<p>i = 0 时：</p>
+<ol>
+<li>记录当前的最小值的index为0，当前最小值为4。</li>
+<li>内层循环开始，找到[1,5)之间的最小值为0，0的index为4，与当前最小值的index0不同，所以二者要做交换。交换后的数组：<code>[0, 1, 2, 5, 4]</code>。当前内层循环结束，i++。</li>
+</ol>
+<p><strong>i = 1 时</strong>：</p>
+<ol>
+<li>记录当前的最小值的index为1，当前最小值为1。</li>
+<li>内层循环开始，找到[2,5)之间的最小值为1，与当前记录的最小值index相同。也就是说后面没有比1还要小的了，不做交换。当前内层循环结束，i++。</li>
+</ol>
+<p><strong>i = 2 时</strong>：</p>
+<ol>
+<li>记录当前的最小值的index为2，当前最小值为2。</li>
+<li>内层循环开始，找到[3,5)之间的最小值为2，与当前记录的最小值index相同。也就是说后面没有比1还要小的了，不做交换。当前内层循环结束，i++。</li>
+</ol>
+<p><strong>i = 3 时</strong>：</p>
+<ol>
+<li>记录当前的最小值的index为3，当前最小值为2。</li>
+<li>内层循环开始，找到[4,5)之间的最小值为4，4的index为4，与当前记录的最小值index3不同，所以二者要做交换。交换后的数组：<code>[0, 1, 2, 4, 5]</code>。当前内层循环结束，i++。</li>
+</ol>
+<p><strong>i = 4 时</strong>：不符合外层循环的边界条件，不进行外层循环，排序结束。</p>
+<p>我们可以看到，同样的初始序列，使用选择排序只进行了2次交换，因为它知道需要替换的最小值是什么，做了很少没意义的交换。</p>
+<h3 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h3><p>我们用代码来实现一下上面选择排序的算法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">selectionSort</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; array.<span class="built_in">count</span> - <span class="number">1</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> <span class="built_in">min</span> = i</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> i + <span class="number">1</span> ..&lt; array.<span class="built_in">count</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> array[j] &lt; array[<span class="built_in">min</span>] &#123;</span><br><span class="line">                <span class="built_in">min</span> = j </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//if min has changed, it means there is value smaller than array[min]</span></span><br><span class="line">        <span class="comment">//if min has not changed, it means there is no value smallter than array[min]</span></span><br><span class="line">        <span class="keyword">if</span> i != <span class="built_in">min</span> &#123;</span><br><span class="line">            array.swapAt(i, <span class="built_in">min</span>) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看到，在这里使用了<code>min</code>这个变量记录了当前外层循环所需要被比较的index值，如果当前外层循环的内层循环内部找到了比这个最小值还小的值，就替换他们。</p>
+<p>下面我们使用log来看一下此时选择排序作替换的次数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">original array:</span><br><span class="line">[4, 1, 2, 5, 0]</span><br><span class="line"></span><br><span class="line">advanced bubble sort...</span><br><span class="line">after swap: [1, 4, 2, 5, 0]</span><br><span class="line">after swap: [1, 2, 4, 5, 0]</span><br><span class="line">after swap: [1, 2, 4, 0, 5]</span><br><span class="line">after swap: [1, 2, 0, 4, 5]</span><br><span class="line">after swap: [1, 0, 2, 4, 5]</span><br><span class="line">after swap: [0, 1, 2, 4, 5]</span><br><span class="line"></span><br><span class="line">selection sort...</span><br><span class="line">after swap: [0, 1, 2, 5, 4]</span><br><span class="line">after swap: [0, 1, 2, 4, 5]</span><br></pre></td></tr></table></figure>
+<p>从上面的log可以看出二者的对比应该比较明显了。</p>
+<p>为了进一步验证选择排序的性能，笔者在网上找到了两个工具：</p>
+<ul>
+<li>计算程序运行时间的类：<code>executionTimeInterval.swift</code></li>
+<li>生成各种类型随机数的Array的分类：<code>Array+Extension.swift</code></li>
+</ul>
+<p>首先看<code>executionTimeInterval.swift</code>的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//time interval</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">executionTimeInterval</span><span class="params">(block: <span class="params">()</span></span></span> -&gt; ()) -&gt; <span class="type">CFTimeInterval</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> start = <span class="type">CACurrentMediaTime</span>()</span><br><span class="line">    block();</span><br><span class="line">    <span class="keyword">let</span> end = <span class="type">CACurrentMediaTime</span>()</span><br><span class="line">    <span class="keyword">return</span> end - start</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//formatted time</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">extension</span> <span class="title">CFTimeInterval</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> formattedTime: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span> &gt;= <span class="number">1000</span> ? <span class="type">String</span>(<span class="type">Int</span>(<span class="keyword">self</span>)) + <span class="string">"s"</span></span><br><span class="line">            : <span class="keyword">self</span> &gt;= <span class="number">1</span> ? <span class="type">String</span>(format: <span class="string">"%.3gs"</span>, <span class="keyword">self</span>)</span><br><span class="line">            : <span class="keyword">self</span> &gt;= 1e-<span class="number">3</span> ? <span class="type">String</span>(format: <span class="string">"%.3gms"</span>, <span class="keyword">self</span> * 1e3)</span><br><span class="line">            : <span class="keyword">self</span> &gt;= 1e-<span class="number">6</span> ? <span class="type">String</span>(format: <span class="string">"%.3gµs"</span>, <span class="keyword">self</span> * 1e6)</span><br><span class="line">            : <span class="keyword">self</span> &lt; 1e-<span class="number">9</span> ? <span class="string">"0s"</span></span><br><span class="line">            : <span class="type">String</span>(format: <span class="string">"%.3gns"</span>, <span class="keyword">self</span> * 1e9)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一个函数以block的形式传入需要测试运行时间的函数，返回了函数运行的时间。</p>
+<p>第二个函数是<code>CFTimeInterval</code>的分类，将秒数添加了单位：毫秒级的以毫秒显示，微秒级的以微秒显示，大于1秒的以秒单位显示。</p>
+<p>使用方法是：将两个swift文件拖进playground里面的Sources文件夹里，并点击二者后，进入playground内部：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> selectionSortedArray = [<span class="type">Int</span>]()</span><br><span class="line"><span class="keyword">var</span> time4 = executionTimeInterval&#123;</span><br><span class="line">    selectionSortedArray = selectionSort(&amp;originalArray4) <span class="comment">//要测试的函数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"selection sort time duration : \(time4.formattedTime)"</span>) <span class="comment">//打印出时间</span></span><br></pre></td></tr></table></figure>
+<p>再来看一下<code>Array+Extension.swift</code>类：</p>
+<p>先介绍其中的一个方法，生成随机数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">randomArray</span><span class="params">(size: Int, maxValue: UInt)</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">        <span class="keyword">var</span> result = [<span class="type">Int</span>](repeating: <span class="number">0</span>, <span class="built_in">count</span>:size)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; size &#123;</span><br><span class="line">            result[i] = <span class="type">Int</span>(arc4random_uniform(<span class="type">UInt32</span>(maxValue)))</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法只需要传入数组的大小以及最大值就可以生成一个不超过这个最大值的随机数组。</p>
+<p>比如我们要生成一个数组长度为10，最大值为100的数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> originalArray = <span class="type">Array</span>&lt;<span class="type">Int</span>&gt;.randomArray(size: inputSize, maxValue:<span class="number">100</span>)</span><br><span class="line"><span class="comment">//originalArray:[87, 56, 54, 20, 86, 33, 41, 9, 88, 55]</span></span><br></pre></td></tr></table></figure>
+<p>那么现在有了上面两个工具，我们就可以按照我们自己的意愿来生成测试用例数组，并且打印出所用算法的执行时间。我们现在生成一个数组长度为10，最大值为100的数组，然后分别用优化的冒泡排序和选择排序来看一下二者的性能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">original array:</span><br><span class="line">[1, 4, 80, 83, 92, 63, 83, 23, 9, 85]</span><br><span class="line"></span><br><span class="line">advanced bubble sort...</span><br><span class="line">advanced bubble sort result: [1, 4, 9, 23, 63, 80, 83, 83, 85, 92] time duration : 8.53ms</span><br><span class="line"></span><br><span class="line">selection sort...</span><br><span class="line">selection sort result: [1, 4, 9, 23, 63, 80, 83, 83, 85, 92] time duration : 3.4ms</span><br></pre></td></tr></table></figure>
+<p>我们现在让数组长度更长一点:一个长度为100，最大值为200：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">advanced bubble sort...</span><br><span class="line">advanced bubble sort sorted elemets: 100 time duration : 6.27s</span><br><span class="line"></span><br><span class="line">selection sort...</span><br><span class="line">selection sort sorted elemets: 100 time duration : 414ms</span><br></pre></td></tr></table></figure>
+<p>可以看到，二者的差别大概在12倍左右。这个差别已经很大了，如果说用选择排序需要1天的话，冒泡排序需要12天。</p>
+<p>现在我们学习了选择排序，知道了它是通过减少交换次数来提高排序算法的性能的。</p>
+<p>但是关于排序，<strong>除了交换操作以外，对比操作也是需要时间的</strong>：选择排序通过内层循环的不断对比才得到了当前内层循环的最小值，然后进行后续的判断和操作。</p>
+<p>那么有什么办法可以减少对比的次数呢？猜对了，答案又是肯定的。这就引出了笔者下面要说的算法：插入排序算法。</p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><h3 id="算法讲解-3"><a href="#算法讲解-3" class="headerlink" title="算法讲解"></a>算法讲解</h3><p>插入排序的基本思想是：从数组中拿出一个元素（通常就是第一个元素）以后，再从数组中按顺序拿出其他元素。如果拿出来的这个元素比这个元素小，就放在这个元素左侧；反之，则放在右侧。整体上看来有点和玩儿扑克牌的时候将刚拿好的牌来做排序差不多。</p>
+<p>选择排序也是两层循环：</p>
+<ul>
+<li>外层循环的边界是[1,array.count)，index为i。</li>
+<li>内层循环开始的时候初始index j = i，然后使用一个while循环，循环条件是<code>j&gt;0 &amp;&amp; array[j] &lt; array[j - 1]</code>,循环内侧是交换j-1和j的元素，并使得j-1。可以简单理解为如果当前的元素比前一个元素小，则调换位置；反之进行下一个外层循环。</li>
+</ul>
+<p>下面我们还是用手写迭代的方式看一下插入排序的机制，使用的数组和上面选择排序的数组一致：<code>[4, 1, 2, 5, 0]</code></p>
+<p><strong>i = 1 时</strong>：</p>
+<ol>
+<li>j = 1：array[1] &lt; array[0]， 交换4和1：<code>[1, 4, 2, 5, 0]</code>，j-1之后不符合内层循环条件，退出内层循环，i+1。</li>
+</ol>
+<p><strong>i = 2 时</strong>：</p>
+<ol>
+<li>j = 2，array[3] &lt; array[2]，交换4和2：<code>[1, 2, 4, 5, 0]</code>，j向左移动，array[2] &gt; array[1]，不符合内层循环条件，退出内层循环，i+1。</li>
+</ol>
+<p><strong>i = 3 时</strong>：</p>
+<ol>
+<li>j = 3，array[3] &gt; array[2]，不符合内层循环条件，退出内层循环，i+1。</li>
+</ol>
+<p><strong>i = 4 时</strong>：</p>
+<ol>
+<li>j = 4，array[4] &lt; array[3]，交换5和0：<code>[1, 2, 4, 0, 5]</code>，j -1。</li>
+<li>j = 3，array[3] &lt; array[2]，交换4和0：<code>[1, 2, 0, 4, 5]</code>，j -1。</li>
+<li>j = 2，array[2] &lt; array[1]，交换4和0：<code>[1, 0, 2, 4, 5]</code>，j -1。</li>
+<li>j = 1，array[1] &lt; array[0]，交换1和0：<code>[0, 1, 2, 4, 5]</code>，j -1 = 0，不符合内层循环条件，退出内层循环，i+1 = 5，不符合外层循环条件，排序终止。</li>
+</ol>
+<p>从上面的描述可以看出，和选择排序相比，<strong>插入排序的内层循环是可以提前推出的</strong>，其条件就是<code>array[j] &gt;= array[j - 1]</code>,也就是说，当前index为j的元素只要比前面的元素大，那么该内层循环就立即退出，不需要再排序了，因为该算法从一开始就是小的放前面，大的放后面。</p>
+<h3 id="代码实现-3"><a href="#代码实现-3" class="headerlink" title="代码实现"></a>代码实现</h3><p>下面我们通过代码来看一下如何实现插入排序算法:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>..&lt;array.<span class="built_in">count</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> j = i</span><br><span class="line">        <span class="keyword">while</span> j &gt; <span class="number">0</span> &amp;&amp; array[j] &lt; array[j - <span class="number">1</span>] &#123;</span><br><span class="line">             array.swapAt(j - <span class="number">1</span>, j)</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码可以看出插入排序内层循环的条件：<code>j &gt; 0 &amp;&amp; array[j] &lt; array[j - 1]</code>。只要当前元素比前面的元素小，就会一直交换下去；反之，当大于等于前面的元素，就会立即跳出循环。</p>
+<p>之前笔者有提到相对于选择排序，说插入排序可以减少元素之间对比的次数，下面我们通过打印对比次数来对比一下两种算法：</p>
+<p>使用元素个数为50，最大值为50的随机数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">selection sort...</span><br><span class="line">compare times:1225</span><br><span class="line">selection sort time duration : 178ms</span><br><span class="line"></span><br><span class="line">insertion sort...</span><br><span class="line">compare times:519</span><br><span class="line">insertion sort time duration : 676ms</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，使用选择排序的比较次数比插入排序的比较次数多了2倍。但是遗憾的是整体的性能选择排序要高于插入排序。</p>
+<p>也就是说虽然插入排序的比较次数少了，但是交换的次数却比选择排序要多，所以性能上有时可能不如选择排序。</p>
+<blockquote>
+<p>注意，这不与笔者之前的意思相矛盾，笔者只是说在减少比较次数上插入排序是优于选择排序的，但没有说插入排序整体上优于选择排序。</p>
+</blockquote>
+<p>那么有何种特性的数组可以让排序算法有其用武之地呢？</p>
+<p>从上面使用插入排序来排序<code>[4, 1, 2, 5, 0]</code>这个数组的时候，我们可以看到，因为0这个元素已经在末尾了，所以在j=4的时候我们费了好大劲才把它移到前面去。</p>
+<p>那么将这个情况作为一个极端，我们可以这样想：如果这个数组里的元素里的index大致于最终顺序差不多的情况是不是就不用做这么多的搬移了？。这句话听起来像是理所当然的话，但是有一种数组属于“基本有序”的数组，这种数组也是无需的，但是它在整体上是有序的，比如：</p>
+<p><code>[2,1,3,6,4,5,9,7,8]</code></p>
+<p>用笔者的话就叫做整体有序，部分无序。</p>
+<p>我们可以简单用这个数组来分别进行选择排序和插入排序做个比较：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">selection sort...</span><br><span class="line">compare times:36</span><br><span class="line">selection sort time duration : 4.7ms</span><br><span class="line"></span><br><span class="line">insertion sort...</span><br><span class="line">compare times:5</span><br><span class="line">insertion sort time duration : 3.2ms</span><br></pre></td></tr></table></figure>
+<p>我们可以看到插入排序在基本有序的测试用例下表现更好。为了让差距更明显，笔者在<code>Array+Extension.swift</code>文件里增加了一个生成基本有序随机数组的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">nearlySortedArray</span><span class="params">(size: Int, gap:Int)</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> result = [<span class="type">Int</span>](repeating: <span class="number">0</span>, <span class="built_in">count</span>:size)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; size &#123;</span><br><span class="line">        result[i] = i</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">count</span> : <span class="type">Int</span> = size / gap</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="type">Int</span>]()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; <span class="built_in">count</span> &#123;</span><br><span class="line">        arr.append(i*gap)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span> ..&lt; arr.<span class="built_in">count</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> swapIndex = arr[j]</span><br><span class="line">        result.swapAt(swapIndex,swapIndex+<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该函数需要传入数组的长度以及需要打乱顺序的index的跨度，它的实现是这样子的：</p>
+<ul>
+<li>首先生成一个完全有序的序列。</li>
+<li>将数组长度除以跨度来得出需要交换的index的个数count。</li>
+<li>根据这个count可以得出需要交换的index，把这些index放在一个新的arr里面</li>
+<li>便利这个arr来取出index，将之前生成好的w安全有序的数组的index于index+1做交换。</li>
+</ul>
+<p>举个例子，如果我们生成一个数组长度为12，跨度为3的基本有序的数组，就可以这么调用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> originalArray = <span class="type">Array</span>&lt;<span class="type">Int</span>&gt;.nearlySortedArray(size: <span class="number">12</span>, gap: <span class="number">3</span>)</span><br><span class="line"><span class="comment">//[1, 0, 2, 4, 3, 5, 7, 6, 8, 10, 9, 11]</span></span><br></pre></td></tr></table></figure>
+<p>跨度为3，说明有12/3 = 4 - 1 = 3 个元素需要调换位置，序号分别为0，3，6，9。所以序号为0，1；3，4；6，7；9，10的元素被调换了位置，可以看到调换后的数组还是基本有序的。</p>
+<p>现在我们可以用一个比较大的数组来验证了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> originalArray = <span class="type">Array</span>&lt;<span class="type">Int</span>&gt;.nearlySortedArray(size: <span class="number">100</span>, gap: <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">selection sort...</span><br><span class="line">compare times:4950</span><br><span class="line">selection sort time duration : 422ms</span><br><span class="line"></span><br><span class="line">insertion sort...</span><br><span class="line">compare times:10</span><br><span class="line">insertion sort time duration : 56.4ms</span><br></pre></td></tr></table></figure>
+<p>我们可以看到差距是非常明显的，插入排序的性能是选择排序的性能的近乎10倍</p>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><h3 id="算法讲解-4"><a href="#算法讲解-4" class="headerlink" title="算法讲解"></a>算法讲解</h3><p>归并排序使用了算法思想里的<strong>分治思想</strong>（divide conquer）。顾名思义，就是将一个大问题，分成类似的小问题来逐个攻破。在归并排序的算法实现上，首先逐步将要排序的数组等分成最小的组成部分（通常是1各元素），然后再反过来逐步合并。</p>
+<p>用一张图来体会一下归并算法的实现过程： </p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/8/1617175e83e236cf?w=944&amp;h=637&amp;f=png&amp;s=70522" alt=""></p>
+<p>上图面的虚线箭头代表拆分的过程；实线代表合并的过程。仔细看可以发现，拆分和归并的操作都是重复进行的，在这里面我们可以使用递归来操作。</p>
+<p>首先看一下归并的操作：</p>
+<p>归并的操作就是把两个数组（在这里这两个数组的元素个数通常是一致的）合并成一个完全有序数组。</p>
+<p>归并操作的实现步骤是：</p>
+<ul>
+<li>新建一个空数组，该数组用于存放合并后的有序数组。</li>
+<li>两个传入的数组从index 0 开始两两比较，较小的元素放在新建的空数组中，index + 1; 较大的元素不作操作，index 不变，然后继续两两比较。知道index移到末尾为止。</li>
+<li>个别情况当两个数组长度不一致的情况下需要将数组里剩余的元素放在新建的数组中。</li>
+</ul>
+<h3 id="代码实现-4"><a href="#代码实现-4" class="headerlink" title="代码实现"></a>代码实现</h3><p>我们来看一下归并排序算法的代码实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">_merge</span><span class="params">(leftPile: [Int], rightPile: [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> leftIndex = <span class="number">0</span>   <span class="comment">//left pile index, start from 0</span></span><br><span class="line">    <span class="keyword">var</span> rightIndex = <span class="number">0</span>  <span class="comment">//right pile index, start from 0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> sortedPile = [<span class="type">Int</span>]() <span class="comment">//sorted pile, empty in the first place</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> leftIndex &lt; leftPile.<span class="built_in">count</span> &amp;&amp; rightIndex &lt; rightPile.<span class="built_in">count</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//append the smaller value into sortedPile</span></span><br><span class="line">        <span class="keyword">if</span> leftPile[leftIndex] &lt; rightPile[rightIndex] &#123;</span><br><span class="line">            </span><br><span class="line">            sortedPile.append(leftPile[leftIndex])</span><br><span class="line">            leftIndex += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> leftPile[leftIndex] &gt; rightPile[rightIndex] &#123;</span><br><span class="line">            </span><br><span class="line">            sortedPile.append(rightPile[rightIndex])</span><br><span class="line">            rightIndex += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//same value, append both of them and move the corresponding index</span></span><br><span class="line">            sortedPile.append(leftPile[leftIndex])</span><br><span class="line">            leftIndex += <span class="number">1</span></span><br><span class="line">            sortedPile.append(rightPile[rightIndex])</span><br><span class="line">            rightIndex += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//left pile is not empty</span></span><br><span class="line">    <span class="keyword">while</span> leftIndex &lt; leftPile.<span class="built_in">count</span> &#123;</span><br><span class="line">        sortedPile.append(leftPile[leftIndex])</span><br><span class="line">        leftIndex += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//right pile is not empty</span></span><br><span class="line">    <span class="keyword">while</span> rightIndex &lt; rightPile.<span class="built_in">count</span> &#123;</span><br><span class="line">        sortedPile.append(rightPile[rightIndex])</span><br><span class="line">        rightIndex += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sortedPile</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>因为该函数是归并排序函数内部调用的函数，所以在函数名称的前面添加了下划线。仅仅是为了区分，并不是必须的。</p>
+</blockquote>
+<p>从上面代码可以看出合并的实现逻辑：</p>
+<ul>
+<li>新建空数组，初始化两个传入数组的index为0</li>
+<li>两两比较两个数组index上的值，较小的放在新建数组里面并且index+1。</li>
+<li>最后检查是否有剩余元素，如果有则添加到新建数组里面。</li>
+</ul>
+<p>理解了合并的算法，下面我们看一下拆分的算法。拆分算法使用了递归：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mergeSort</span><span class="params">(<span class="number">_</span> array: [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> middleIndex = array.<span class="built_in">count</span> / <span class="number">2</span></span><br><span class="line">    <span class="keyword">let</span> leftArray = mergeSort(<span class="type">Array</span>(array[<span class="number">0</span>..&lt;middleIndex]))             <span class="comment">// recursively split left part of original array</span></span><br><span class="line">    <span class="keyword">let</span> rightArray = mergeSort(<span class="type">Array</span>(array[middleIndex..&lt;array.<span class="built_in">count</span>]))  <span class="comment">// recursively split right part of original array</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> _merge(leftPile: leftArray, rightPile: rightArray)             <span class="comment">// merge left part and right part</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到<code>mergeSort</code>调用了自身，它的递归终止条件是<code>!(array.count &gt;1)</code>，也就是说当数组元素个数 = 1的时候就会返回，会触发调用栈的出栈。</p>
+<p>从这个递归函数的实现可以看到它的作用是不断以中心店拆分传入的数组。根据他的递归终止条件，当数组元素 &gt; 1的时候，拆分会继续进行。而下面的合并函数只有在递归终止，开始出栈的时候才开始真正执行。也就是说在拆分结束后才开始进行合并，这样符合了上面笔者介绍的归并算法的实现过程。</p>
+<p>上段文字需要反复体会。</p>
+<p>为了更形象体现出归并排序的实现过程，可以在合并函数(<code>_merge</code>)内部添加log来验证上面的说法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">_merge</span><span class="params">(leftPile: [Int], rightPile: [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\nmerge left pile:\(leftPile)  |  right pile:\(rightPile)"</span>)</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"sorted pile：\(sortedPile)"</span>)</span><br><span class="line">    <span class="keyword">return</span> sortedPile</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而且为了方便和上图作比较，初始数组可以取图中的<code>[3, 5, 9, 2, 7, 4, 8, 0]</code>。运行一下看看效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">original array:</span><br><span class="line">[3, 5, 9, 2, 7, 4, 8, 0]</span><br><span class="line"></span><br><span class="line">merge sort...</span><br><span class="line"></span><br><span class="line">merge left pile:[3]  |  right pile:[5]</span><br><span class="line">sorted pile：[3, 5]</span><br><span class="line"></span><br><span class="line">merge left pile:[9]  |  right pile:[2]</span><br><span class="line">sorted pile：[2, 9]</span><br><span class="line"></span><br><span class="line">merge left pile:[3, 5]  |  right pile:[2, 9]</span><br><span class="line">sorted pile：[2, 3, 5, 9]</span><br><span class="line"></span><br><span class="line">merge left pile:[7]  |  right pile:[4]</span><br><span class="line">sorted pile：[4, 7]</span><br><span class="line"></span><br><span class="line">merge left pile:[8]  |  right pile:[0]</span><br><span class="line">sorted pile：[0, 8]</span><br><span class="line"></span><br><span class="line">merge left pile:[4, 7]  |  right pile:[0, 8]</span><br><span class="line">sorted pile：[0, 4, 7, 8]</span><br><span class="line"></span><br><span class="line">merge left pile:[2, 3, 5, 9]  |  right pile:[0, 4, 7, 8]</span><br><span class="line">sorted pile：[0, 2, 3, 4, 5, 7, 8, 9]</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，拆分归并的操作是先处理原数组的左侧部分，然后处理原数组的右侧部分。这是为什么呢？</p>
+<p>我们来看下最初函数是怎么调用的：</p>
+<p>最开始我们调用函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mergeSort</span><span class="params">(<span class="number">_</span> array: [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> middleIndex = array.<span class="built_in">count</span> / <span class="number">2</span></span><br><span class="line">    <span class="keyword">let</span> leftArray = mergeSort(<span class="type">Array</span>(array[<span class="number">0</span>..&lt;middleIndex]))             <span class="comment">//1 </span></span><br><span class="line">    <span class="keyword">let</span> rightArray = mergeSort(<span class="type">Array</span>(array[middleIndex..&lt;array.<span class="built_in">count</span>]))  <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> _merge(leftPile: leftArray, rightPile: rightArray)            <span class="comment">//3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在//1这一行开始了递归，这个时候数组是原数组，元素个数是8，而调用mergeSort时原数组被拆分了一半，是4。而4&gt;1，不满足递归终止的条件，继续递归，直到符合了终止条件（[3]）,递归开始返回。以为此时最初被拆分的是数组的左半部分，所以左半部分的拆分会逐步合并，最终得到了<code>[2,3,5,9]</code>。</p>
+<p>同理，再回到了最初被拆分的数组的右半部分（上面代码段中的//2），也是和左测一样的拆分和归并，得到了右侧部分的归并结果：<code>[0,4,7,8</code>。</p>
+<p>而此时的递归调用栈只有一个mergeSort函数了，mergeSort会进行最终的合并（上面代码段中的//3），调用<code>_merge</code>函数，得到了最终的结果：<code>[0, 2, 3, 4, 5, 7, 8, 9]</code>。</p>
+<p>关于归并排序的性能：由于使用了分治和递归并且利用了一些其他的内存空间，所以其性能是高于上述介绍的所有排序的，不过前提是初始元素量不小的情况下。</p>
+<p>我们可以将选择排序和归并排序做个比较：初始数组为长度500，最大值为500的随机数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">selection sort...</span><br><span class="line">selection sort time duration : 12.7s</span><br><span class="line"></span><br><span class="line">merge sort...</span><br><span class="line">merge sort time duration : 5.21s</span><br></pre></td></tr></table></figure>
+<p>可以看到归并排序的算法是优与选择排序的。</p>
+<p>现在我们知道归并排序使用了分治思想而且使用了递归，能够高效地将数组排序。其实还有一个也是用分治思想和递归，但是却比归并排序还要优秀的算法 - 快速排序算法。</p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序算法被称之为20世纪十大算法之一，也是各大公司面试比较喜欢考察的算法。</p>
+<h3 id="算法讲解-5"><a href="#算法讲解-5" class="headerlink" title="算法讲解"></a>算法讲解</h3><p>快速排序的基本思想是：通过一趟排序将带排记录分割成独立的两部分，其中一部分记录的关键字均比另一部分记录的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序的目的。</p>
+<blockquote>
+<p>上述文字摘自《大话数据结构》</p>
+</blockquote>
+<p>它的实现步骤为：</p>
+<ol>
+<li>从数列中挑出一个元素（挑选的算法可以是随机，也可以作其他的优化），称为”基准”（pivot）。</li>
+<li>重新对数组进行排序：所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面，相同的放两边。</li>
+<li>递归地进行分区操作，继续把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
+</ol>
+<p>从上面的描述可以看出，分区操作是快速排序中的核心算法。下面笔者结合实例来描述一下分区操作的过程。</p>
+<p>首先拿到初始的数组：<code>[5,4,9,1,3,6,7,8,2]</code></p>
+<ul>
+<li>选择5作为pivot。</li>
+<li>从剩下部分的两端开始：左侧1的标记为low，最右侧2的标记为high。</li>
+<li>先看j：2 &lt; 5 , 交换5和2，j不变 ：<code>[2,4,9,1,3,6,7,8,5]</code> ；</li>
+<li>再看i：2 &lt; 5 , i ++ ；4 &lt; 5, i++；9 &gt; 5，交换 9 和 5，i不变<code>[2,4,5,1,3,6,7,8,9]</code>。</li>
+</ul>
+<h3 id="代码实现-5"><a href="#代码实现-5" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="使用Swift的filter函数"><a href="#使用Swift的filter函数" class="headerlink" title="使用Swift的filter函数"></a>使用Swift的filter函数</h4><p>因为在Swift中有一个数组的filter函数可以找出数组中符合某范围的一些数值，所以笔者先介绍一个会用该函数的简单的快速排序的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort0</span>&lt;T: Comparable&gt;<span class="params">(<span class="number">_</span> array: [T])</span></span> -&gt; [<span class="type">T</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> pivot = array[array.<span class="built_in">count</span>/<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">let</span> less = array.<span class="built_in">filter</span> &#123; $<span class="number">0</span> &lt; pivot &#125;</span><br><span class="line">    <span class="keyword">let</span> greater = array.<span class="built_in">filter</span> &#123; $<span class="number">0</span> &gt; pivot &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> quickSort0(less) + quickSort0(greater)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不难看出这里面使用了递归：选中pivot以后，将数组分成了两个部分，最后将它们合并在一起。虽然这里面使用了Swift里面内置的函数来找出符合这两个个部分的元素，但是读者可以通过这个例子更好地理解快速排序的实现方式。</p>
+<h4 id="使用取index-0-的partition函数"><a href="#使用取index-0-的partition函数" class="headerlink" title="使用取index = 0 的partition函数"></a>使用取index = 0 的partition函数</h4><p>除了使用swift内置的filter函数，当然我们也可以自己实现分区的功能，通常使用的是自定义的partition函数。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">_partition</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int], low: Int, high: Int)</span></span> -&gt; <span class="type">Int</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> low       = low</span><br><span class="line">    <span class="keyword">var</span> high      = high</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> pivotValue = array[low]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> low &lt; high &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> low &lt; high &amp;&amp; array[high] &gt;= pivotValue &#123;</span><br><span class="line">            high -= <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        array[low] = array[high]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> low &lt; high &amp;&amp; array[low] &lt;= pivotValue &#123;</span><br><span class="line">            low += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        array[high] = array[low]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    array[low] = pivotValue</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> low</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从代码实现可以看出，最初在这里选择的pivotValue是当前数组的第一个元素。</p>
+<p>然后从数组的最右侧的index逐渐向左侧移动，如果值大于pivotValue，那么index-1；否则直接将high与low位置上的元素调换；同样左侧的index也是类似的操作。</p>
+<p>该函数执行的最终效果就是将最初的array按照选定的pivotValue前后划分。</p>
+<p>那么<code>_partition</code>如何使用呢？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort1</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int], low: Int, high: Int)</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> low &lt; high &#123;        </span><br><span class="line">        <span class="keyword">let</span> pivotIndex = _partition(&amp;array, low: low, high: high)</span><br><span class="line">        quickSort1(&amp;array, low: low, high: pivotIndex - <span class="number">1</span>)</span><br><span class="line">        quickSort1(&amp;array, low: pivotIndex + <span class="number">1</span>, high: high)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>外层调用的<code>quickSort1</code>是一个递归函数，不断地进行分区操作，最终得到排好序的结果。</p>
+<p>我们将上面实现的归并排序，使用swift内置函数的快速排序，以及自定义partition函数的快速排序的性能作对比：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">merge <span class="built_in">sort</span>...</span><br><span class="line">merge <span class="built_in">sort</span> time duration : <span class="number">4</span>.85s</span><br><span class="line"></span><br><span class="line">quick <span class="built_in">sort</span>...</span><br><span class="line">quick sort0 time duration : 984ms <span class="comment">//swift filter function</span></span><br><span class="line">quick sort1 time duration : <span class="number">2</span>.64s <span class="comment">//custom partition</span></span><br></pre></td></tr></table></figure>
+<p>上面的测试用例是选择随机数组的，我们看一下测试用例为元素个数一致的基本有序的数组试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">merge sort...</span><br><span class="line">merge sort time duration : 4.88s</span><br><span class="line"></span><br><span class="line">quick sort...</span><br><span class="line">quick sort0 time duration : 921ms</span><br><span class="line">quick sort1 time duration : 11.3s</span><br></pre></td></tr></table></figure>
+<p>虽然元素个数一致，但是性能却差了很多，是为什么呢？因为我们在分区的时候，pivot的index强制为第一个。那么如果这个第一个元素的值本来就非常小，那么就会造成分区不均的情况（前重后轻），而且由于是迭代操作，每次分区都会造成分区不均，导致性能直线下降。所以有一个相对合理的方案就是在选取pivot的index的时候随机选取。</p>
+<h4 id="使用随机选择pivotValue的partition函数"><a href="#使用随机选择pivotValue的partition函数" class="headerlink" title="使用随机选择pivotValue的partition函数"></a>使用随机选择pivotValue的partition函数</h4><p>实现方法肯简单，只需在分区函数里将pivotValue的index随机生成即可：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">_partitionRandom</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int], low: Int, high: Int)</span></span> -&gt; <span class="type">Int</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> x      = <span class="type">UInt32</span>(low)</span><br><span class="line">    <span class="keyword">let</span> y      = <span class="type">UInt32</span>(high)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> pivotIndex = <span class="type">Int</span>(arc4random() % (y - x)) + <span class="type">Int</span>(x)</span><br><span class="line">    <span class="keyword">let</span> pivotValue = array[pivotIndex] </span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在用一个数组长度和上面的测试用例一致的基本有序的数组来测试一下随机选取pivotValue的算法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">merge sort...</span><br><span class="line">merge sort time duration : 4.73s</span><br><span class="line"></span><br><span class="line">quick sort...</span><br><span class="line">quick sort0 time duration : 866ms</span><br><span class="line">quick sort1 time duration : 15.1s  //fixed pivote index</span><br><span class="line">quick sort2 time duration : 4.28s  //random pivote index</span><br></pre></td></tr></table></figure>
+<p>我们可以看到当随机抽取pivot的index的时候，其运行速度速度是上面方案的3倍。</p>
+<p>现在我们知道了3种快速排序的实现，都是根据pivotValue将原数组一分为二。但是如果数组中有大量的重复的元素，而且pivotValue很有可能落在这些元素里，那么显然上面这些算法对于这些可能出现多次于pivotValue重复的情况没有单独做处理。而为了很好解决存在与pivot值相等的元素很多的数组的排序，使用三路排序算法会比较有效果。</p>
+<h4 id="三路快速排序"><a href="#三路快速排序" class="headerlink" title="三路快速排序"></a>三路快速排序</h4><p>三路快速排序将大于，等于，小于pivotValue的元素都区分开，我们看一下具体的实现。先看一下partition函数的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(<span class="number">_</span> arr: <span class="keyword">inout</span> [Int],  <span class="number">_</span> j: Int, <span class="number">_</span> k: Int)</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> j != k <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> temp = arr[j]</span><br><span class="line">    arr[j] = arr[k]</span><br><span class="line">    arr[k] = temp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort3W</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int], low: Int, high: Int)</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> high &lt;= low &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> lt = low       <span class="comment">// arr[low+1...lt] &lt; v</span></span><br><span class="line">    <span class="keyword">var</span> gt = high + <span class="number">1</span>  <span class="comment">// arr[gt...high] &gt; v</span></span><br><span class="line">    <span class="keyword">var</span> i  = low + <span class="number">1</span>   <span class="comment">// arr[lt+1...i) == v</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> pivoteIndex = low</span><br><span class="line">    <span class="keyword">let</span> pivoteValue = array[pivoteIndex]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> i &lt; gt &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> array[i] &lt; pivoteValue &#123;</span><br><span class="line">          </span><br><span class="line">            <span class="built_in">swap</span>(&amp;array, i, lt + <span class="number">1</span>)</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            lt += <span class="number">1</span></span><br><span class="line">           </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> pivoteValue &lt; array[i]&#123;</span><br><span class="line">       </span><br><span class="line">            <span class="built_in">swap</span>(&amp;array, i, gt - <span class="number">1</span>)</span><br><span class="line">            gt -= <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">swap</span>(&amp;array, low, lt)</span><br><span class="line">    quickSort3W(&amp;array, low: low, high: lt - <span class="number">1</span>)</span><br><span class="line">    quickSort3W(&amp;array, low: gt, high: high)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quickSort3</span><span class="params">(<span class="number">_</span> array: <span class="keyword">inout</span> [Int] )</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    quickSort3W(&amp;array, low: <span class="number">0</span>, high: array.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要看<code>quickSort3W</code>方法，这里将数组分成了三个区间，分别是大于，等于，小于pivote的值，对有大量重复元素的数组做了比较好的处理。</p>
+<p>我们生成一个元素数量为500，最大值为5的随机数组看一下这些快速排序算法的性能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">quick sort1 time duration : 6.19s //fixed pivote index</span><br><span class="line">quick sort2 time duration : 8.1s  //random pivote index</span><br><span class="line">quick sort3 time duration : 4.81s //quick sort 3 way</span><br></pre></td></tr></table></figure>
+<p>可以看到三路快速排序（quick sort 3 way）在处理大量重复元素的数组的表现最好。</p>
+<p>对于三路快速排序，我们也可以使用Swift内置的filter函数来实现:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">quicksort4</span><span class="params">(<span class="number">_</span> array: [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">guard</span> array.<span class="built_in">count</span> &gt; <span class="number">1</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> array &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> pivot = array[array.<span class="built_in">count</span>/<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">let</span> less = array.<span class="built_in">filter</span> &#123; $<span class="number">0</span> &lt; pivot &#125;</span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">equal</span> = array.<span class="built_in">filter</span> &#123; $<span class="number">0</span> == pivot &#125;</span><br><span class="line">    <span class="keyword">let</span> greater = array.<span class="built_in">filter</span> &#123; $<span class="number">0</span> &gt; pivot &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> quicksort4(less) + <span class="built_in">equal</span> + quicksort4(greater)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上，介绍完了快速排序在Swift中的5中实现方式。</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文讲解了算法的一些基本概念以及结合了Swift代码的实现讲解了冒泡排序，选择排序，插入排序，归并排序，快速排序。相信认真阅读本文的读者能对这些算法有进一步的了解。</p>
+<h2 id="关于算法学习的思考"><a href="#关于算法学习的思考" class="headerlink" title="关于算法学习的思考"></a>关于算法学习的思考</h2><p>关于算法的学习，笔者有一些思考想分享出来，也有可能有不对的地方，但笔者觉得有必要在这里说出来，希望可以引发读者的思考：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/8/1617175e884d80a7?w=580&amp;h=378&amp;f=png&amp;s=19270" alt=""></p>
+<p>上图的Question是指问题；Mind是指想法，或者解决问题的思路；Code是指代码实现。</p>
+<p>在阅读资料或书籍的算法学习过程，往往是按照图中1，2，3这些实线的路径进行的：</p>
+<ul>
+<li>路径1：给出一个既定的问题后，马上给出解题策略</li>
+<li>路径2：给出一个既定的问题后，马上给出算法实现</li>
+<li>路径3：给出一个算法实现后，马上告诉你这些实现代码的意思</li>
+</ul>
+<p>这些路径在算法的学习中虽然也是必不可少的，但是很容易给人一个错觉，这个错觉就是“<strong>我已经学会了这个算法了</strong>”。但是，仅仅是通过这些路径，对于真正理解算法，和今后对算法的应用还是远远不够的，原因是：</p>
+<ul>
+<li>今后遇到的问题，几乎不可能与现在学习的问题一模一样，所以应该知其所以然，将问题本身抽象出来，达到触类旁通，举一反三。</li>
+<li>有了一个新想法，如果没有足够的代码实现经验，很难以非常合理的方式用代码将其实现出来。所以应该增强将想法转化为代码的能力。</li>
+</ul>
+<p>上面所说的两点的第一点，对应的是上图的路径4：给定一个策略或是设计，要思考这个策略或是设计是解决什么样的问题的，这样也就理解了这个策略或是设计的意义在哪里；而第二点对应的是上图中的路径5：怎样根据一个给定的策略来正确地，合理地用代码地实现出来；而上图中的路径6，笔者觉得也很重要：给定一份解决问题的代码，是否可以想到它所对应的问题是什么。</p>
+<p>综上所述，笔者认为对于算法的学习，需要经常反复在问题，策略以及代码之间反复思考，这样才能真正地达到学以致用。</p>
+<p>因为笔者也刚刚接触这一领域的知识，所以难免会在有些地方的表述有不妥当的地方，还需读者多多给出意见和建议。</p>
+<hr>
+<p><strong>Swift代码</strong></p>
+<p>本篇中出现的代码已经放在GitHub仓库中：</p>
+<ul>
+<li>算法基础部分：<a href="https://github.com/knightsj/data-structure-and-algorithm-in-Swift/tree/master/%5B3%5D.Algorithm">Algorithm Introduction</a></li>
+<li>排序算法部分：<a href="https://github.com/knightsj/data-structure-and-algorithm-in-Swift/tree/master/%5B4%5D.Sort%20algorithms">Sort Algorithms</a></li>
+</ul>
+<p><strong>参考文献&amp;网站</strong></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">维基百科：算法</a></p>
+<p>《大话数据结构》</p>
+<p>《数据结构与算法分析：C语言描述》</p>
+<p><strong>下篇预告</strong></p>
+<p>下篇会介绍堆这个数据结构以及堆排序算法。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+          
+            <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/数据结构 & 算法 in Swift （一）：Swift基础和数据结构/" rel="next" title="数据结构 & 算法 in Swift （一）：Swift基础和数据结构">
+                <i class="fa fa-chevron-left"></i> 数据结构 & 算法 in Swift （一）：Swift基础和数据结构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/" rel="prev" title="斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架">
+                斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法基础"><span class="nav-number">1.</span> <span class="nav-text">算法基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的概念"><span class="nav-number">1.1.</span> <span class="nav-text">算法的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度与空间复杂度"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度与空间复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度"><span class="nav-number">1.2.1.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间复杂度"><span class="nav-number">1.2.2.</span> <span class="nav-text">空间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">1.3.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归的概念"><span class="nav-number">1.3.1.</span> <span class="nav-text">递归的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归的实现原理"><span class="nav-number">1.3.2.</span> <span class="nav-text">递归的实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用递归时需要注意的问题"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用递归时需要注意的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排序算法"><span class="nav-number">2.</span> <span class="nav-text">排序算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序初探"><span class="nav-number">2.1.</span> <span class="nav-text">排序初探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法讲解"><span class="nav-number">2.1.1.</span> <span class="nav-text">算法讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">2.1.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冒泡排序"><span class="nav-number">2.2.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法讲解-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">算法讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择排序"><span class="nav-number">2.3.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法讲解-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">算法讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入排序"><span class="nav-number">2.4.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法讲解-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">算法讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-3"><span class="nav-number">2.4.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归并排序"><span class="nav-number">2.5.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法讲解-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">算法讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-4"><span class="nav-number">2.5.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序"><span class="nav-number">2.6.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#算法讲解-5"><span class="nav-number">2.6.1.</span> <span class="nav-text">算法讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现-5"><span class="nav-number">2.6.2.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Swift的filter函数"><span class="nav-number">2.6.2.1.</span> <span class="nav-text">使用Swift的filter函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用取index-0-的partition函数"><span class="nav-number">2.6.2.2.</span> <span class="nav-text">使用取index = 0 的partition函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用随机选择pivotValue的partition函数"><span class="nav-number">2.6.2.3.</span> <span class="nav-text">使用随机选择pivotValue的partition函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三路快速排序"><span class="nav-number">2.6.2.4.</span> <span class="nav-text">三路快速排序</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">3.</span> <span class="nav-text">最后的话</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于算法学习的思考"><span class="nav-number">3.2.</span> <span class="nav-text">关于算法学习的思考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

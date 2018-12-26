@@ -1,0 +1,951 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="在移动开发中，有时不得不在客户端本地保存一些数据。在iOS端，我们可以使用plist，属性列表等技术来存储数据，而相比而下更高端一点的，我们也可以使用数据库来存储数据。 有趣的是，很多iOS开发者没有去选择使用苹果自家的Core Data技术来操作数据库，而是选择了FMDB)这个第三方框架。 该框架很好地封装了操作繁琐的SQLite语句，让数据库的操作更加面向对象，而且上手快，门槛低，不用学习数据">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高度封装FMDB框架：各用一句代码更新（添加&amp;修改），查询，删除用户信息">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="在移动开发中，有时不得不在客户端本地保存一些数据。在iOS端，我们可以使用plist，属性列表等技术来存储数据，而相比而下更高端一点的，我们也可以使用数据库来存储数据。 有趣的是，很多iOS开发者没有去选择使用苹果自家的Core Data技术来操作数据库，而是选择了FMDB)这个第三方框架。 该框架很好地封装了操作繁琐的SQLite语句，让数据库的操作更加面向对象，而且上手快，门槛低，不用学习数据">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-404e4004af3b981a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-f32a934c4eb45af6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.667Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高度封装FMDB框架：各用一句代码更新（添加&amp;修改），查询，删除用户信息">
+<meta name="twitter:description" content="在移动开发中，有时不得不在客户端本地保存一些数据。在iOS端，我们可以使用plist，属性列表等技术来存储数据，而相比而下更高端一点的，我们也可以使用数据库来存储数据。 有趣的是，很多iOS开发者没有去选择使用苹果自家的Core Data技术来操作数据库，而是选择了FMDB)这个第三方框架。 该框架很好地封装了操作繁琐的SQLite语句，让数据库的操作更加面向对象，而且上手快，门槛低，不用学习数据">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-404e4004af3b981a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息/">
+
+
+
+
+
+  <title> 高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Production/" itemprop="url" rel="index">
+                    <span itemprop="name">Production</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,100 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  12 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在移动开发中，有时不得不在客户端本地保存一些数据。在iOS端，我们可以使用plist，属性列表等技术来存储数据，而相比而下更高端一点的，我们也可以使用<strong>数据库</strong>来存储数据。</p>
+<p>有趣的是，很多iOS开发者没有去选择使用苹果自家的Core Data技术来操作数据库，而是选择了<a href="[https://github.com/ccgus/fmdb](https://github.com/ccgus/fmdb">FMDB</a>)这个第三方框架。</p>
+<p>该框架很好地封装了操作繁琐的SQLite语句，让数据库的操作更加面向对象，而且上手快，门槛低，不用学习数据库的相关知识就可以使用自如。如此优秀流行的框架是值得学习的，于是笔者这两天研究了一下FMDB。研究后，略有所思，将它封装了一下，写了一个<code>Manager</code>类，最后结合了一个Demo演示如何使用这个类。</p>
+<p>该博客分为两个部分:第一个部分讲解笔者封装的这个<code>Manager</code>类；第二部分结合Demo来体现该类的实用性。</p>
+<a id="more"></a>
+<h1 id="1-封装FMDB"><a href="#1-封装FMDB" class="headerlink" title="1. 封装FMDB"></a>1. 封装FMDB</h1><hr>
+<h2 id="1-1-封装类的功能"><a href="#1-1-封装类的功能" class="headerlink" title="1.1 封装类的功能"></a>1.1 封装类的功能</h2><p>首先看一下这个类的大名：SJUserInfoManager</p>
+<ul>
+<li>SJ：笔者的名字缩写，作为前缀，都懂得。</li>
+<li>UserInfo:说明这个类用于操作用户信息。</li>
+<li>Manager:这个类只具有工厂方法，省内存，而且方便使用。</li>
+</ul>
+<p><strong>这个类的功能是：它可以创建一个关于用户信息的表（数据库），可以保存，修改，读取，删除用户信息</strong>。</p>
+<blockquote>
+<p>现在几乎每个app都有登录功能，有登录就意味着有用户信息。有的时候，我们需要将一些用户信息存储到本地，方便今后的读取和操作。</p>
+<p>而对于用户信息，几乎永远不变的一项就是用户id，因为用户可以改自己的名字，自己的注册手机号，用户签名等等，然而用户id是唯一一成不变的，后端查找用户信息一般都通过用户id来查找，这不难理解。</p>
+</blockquote>
+<p>因此，这个封装类基于用户id（user_id），让使用者可以自主添加<strong>一项</strong>自定义的用户信息（可以是用户名，用户签名，用户性别等等），从而形成一个只具有两个纵行的表（第一个纵行是默认的字段：user_id,第二个纵行是自定义字段，可以是user_name等等）。</p>
+<p>这样一来，我们就可以生成很多基于用户id的表：可以是用户姓名的表，可以是用户出生日期的表，可以是用户手机号的表等等。</p>
+<h2 id="1-2-API介绍"><a href="#1-2-API介绍" class="headerlink" title="1.2 API介绍"></a>1.2 API介绍</h2><p>该封装类的API一共有五个，分别是：</p>
+<ol>
+<li>创建表格</li>
+<li>更新用户信息（添加&amp;修改）</li>
+<li>查询某个用户的信息</li>
+<li>查询全部用户的信息</li>
+<li>删除某个用户的信息</li>
+</ol>
+<p>下面开始一一讲解：</p>
+<h4 id="1-创建表格"><a href="#1-创建表格" class="headerlink" title="1. 创建表格"></a>1. 创建表格</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> ********** Create table with tableName and fieldName **********</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param   dataBaseName    tableNameString (表的名字)</span></span><br><span class="line"><span class="comment"> * @param   userInfoField   fieldNameString（自定义字段名）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @return  if the table is successfully created</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">BOOL</span>)createDataBaseWithName:(<span class="built_in">NSString</span> *)dataBaseName andUserInfoField:(<span class="built_in">NSString</span> *)userInfoField;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个方法的意图很明显，只要传进去表的名字和自定义字段的名字就能创造一个表。</p>
+<ul>
+<li>创建成功，返回YES；</li>
+<li>创建失败，返回NO。</li>
+</ul>
+<p>而且这个表有一个默认的字段：user_id。因为通过这个类创建用户信息的表是基于用户id来操作的，前面已有说明。</p>
+</blockquote>
+<h4 id="2-更新用户信息（添加-amp-修改）"><a href="#2-更新用户信息（添加-amp-修改）" class="headerlink" title="2. 更新用户信息（添加&amp;修改）"></a>2. 更新用户信息（添加&amp;修改）</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> ********** update specific userInfo with specific userID and userInfoField and userInfoValue **********</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param   dataBaseName    tableNameString (表的名字)</span></span><br><span class="line"><span class="comment"> * @param   userID          userIDString（用户id的值）</span></span><br><span class="line"><span class="comment"> * @param   userInfoField   fieldNameString（自定义字段名）</span></span><br><span class="line"><span class="comment"> * @param   userInfoValue   userInfoValueString（字段对应的值）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @return  the result of updating specific userInfo </span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)updateUserInfoIntoDataBase:(<span class="built_in">NSString</span> *)dataBaseName withUserID:(<span class="built_in">NSString</span> *)userID andUserInfoField:(<span class="built_in">NSString</span> *)userInfoField andUserInfoValue:(<span class="built_in">NSString</span> *)userInfoValue;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个方法用于更新用户信息，传入表的名字，用户id，自定义字段名，和自定义字段对应的值。</p>
+<ul>
+<li>如果输入的表不存在，则返回相应的错误信息。</li>
+<li>如果输入的用户id已经存在，就更新对应的用户信息。</li>
+<li>如果输入的用户id不存在，就添加这个用户的信息。</li>
+</ul>
+</blockquote>
+<h4 id="3-查询某个用户的信息"><a href="#3-查询某个用户的信息" class="headerlink" title="3. 查询某个用户的信息"></a>3. 查询某个用户的信息</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> ********** Query specific userInfoValue with tableName and userID and userInfoField **********</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param   dataBaseName    tableNameString (表的名字)</span></span><br><span class="line"><span class="comment"> * @param   userID          userIDString（用户id的值）</span></span><br><span class="line"><span class="comment"> * @param   userInfoField   fieldNameString（自定义字段名）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @return  specific userInfoValue （表内某用户id对应的用户信息）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)queryUserInfoInDataBase:(<span class="built_in">NSString</span> *)dataBaseName WithUserID:(<span class="built_in">NSString</span> *)userId andUserInfoField:(<span class="built_in">NSString</span> *)userInfoField;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该方法用于查询某个用户的信息，传入表的名字，用户id和自定义字段名。</p>
+<ul>
+<li>如果输入的表不存在，则返回相应的错误信息。</li>
+<li>如果输入的用户id存在，则返回对应的信息。</li>
+<li>如果输入的用户id不存在，则返回相应的错误信息。</li>
+</ul>
+</blockquote>
+<h4 id="4-查询全部用户的信息"><a href="#4-查询全部用户的信息" class="headerlink" title="4. 查询全部用户的信息"></a>4. 查询全部用户的信息</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> ********** Query all userInfos in this table with userInfoField **********</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param   dataBaseName    tableNameString (表的名字)</span></span><br><span class="line"><span class="comment"> * @param   userInfoField   fieldNameString（自定义字段名）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @return  all the userInfos in this table （表内所有的用户信息）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSDictionary</span> *)queryUserInfosInDataBase:(<span class="built_in">NSString</span> *)dataBaseName andUserInfoField:(<span class="built_in">NSString</span> *)userInfoField;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该方法用户获取某个表内的所有用户信息，传入表的名字和自定义字段名即可。<br>返回的字典里包含一个数组，数组元素为表的每一行的信息。每一行的信息是一个字典：</p>
+<ul>
+<li>其中一个key为默认的字段名：user_id，它的值为对应的user_id的值。</li>
+<li>另一个key为添加的自定义字段名，它对应的值为该字段对应的值。</li>
+</ul>
+</blockquote>
+<h4 id="5-删除某个用户的信息"><a href="#5-删除某个用户的信息" class="headerlink" title="5. 删除某个用户的信息"></a>5. 删除某个用户的信息</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> ********** Delete specific userInfo with specific userID **********</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param   dataBaseName    tableNameString (表的名字)</span></span><br><span class="line"><span class="comment"> * @param   userId          userIDString（用户id的值）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @return  the result of deleting specific userInfo （删除的结果）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)deleteUserInfoInDataBase:(<span class="built_in">NSString</span> *)dataBaseName WithUserID:(<span class="built_in">NSString</span> *)userId;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>该方法用于删除表里的某个用户信息，只要传入表的名字和用户id即可，可以删除表中对应的一整行信息。同样地，如果输入的表不存在，则返回相应的错误信息。</p>
+</blockquote>
+<p>如果觉得有点抽象的话，可以看下面这个Demo，可以看到该封装类的具体使用方法。</p>
+<h1 id="2-Demo演示"><a href="#2-Demo演示" class="headerlink" title="2. Demo演示"></a>2. Demo演示</h1><hr>
+<p>在这个Demo中，我们要在表里添加的自定义字段名(fieldNameString)为：“user_name”。也就是说这个表将保存用户id和用户名信息。</p>
+<h2 id="2-1-需求"><a href="#2-1-需求" class="headerlink" title="2.1 需求"></a>2.1 需求</h2><ol>
+<li>在插入板块中插入用户信息（用户id和用户名）。</li>
+<li>在查询板块中，根据输入的用户id，可以显示对应的用户名。如果没有对应的用户id，则显示“没有对应id”。</li>
+<li>在删除板块中，根据输入的用户id，可以删除对应的用户信息（包括用户id和用户名，也就是删除了表的一整行）。如果没有对应的用户id，则显示“没有对应id”。</li>
+<li>点击导航栏右侧的按钮，进入“用户信息列表页”。在这一页显示当前表里的全部用户的信息（在cell的textLabel里显示用户名；在cell的detailTextLabel里显示用户id）。</li>
+</ol>
+<h2 id="2-2-效果图"><a href="#2-2-效果图" class="headerlink" title="2.2 效果图"></a>2.2 效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-404e4004af3b981a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左图：数据库操作页面（插入，查询，删除板块）| 右图：数据库全部用户信息"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-f32a934c4eb45af6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="本地沙盒中sqlite表文件内容"></p>
+<h3 id="2-3-代码讲解"><a href="#2-3-代码讲解" class="headerlink" title="2.3 代码讲解"></a>2.3 代码讲解</h3><p><strong>1. 最先导入这个封装类和FMDB框架：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"SJUserInfoManager.h"</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>2. 因为表的名字和自定义字段是固定的，所以就以宏来定义了：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#define DATABASENAME  @<span class="meta-string">"userInfoTable"</span> //表的名字</span></span><br><span class="line"><span class="meta">#define USERINFOFIELD @<span class="meta-string">"user_name"</span>     //自定义字段的名字</span></span><br></pre></td></tr></table></figure>
+<p><strong>3. 添加几个输入框的属性，获取输入框的内容；和查询结果显示</strong>Label：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextField</span> *insertUserIdTextfield;       <span class="comment">//插入输入框：输入用户id</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextField</span> *insertUserInfoValueTextfiled;<span class="comment">//插入收入框：输入用户名</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextField</span> *queryUserIdTextfield;        <span class="comment">//查询输入框：输入用户id</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> *queryUserInfoValueLabel;         <span class="comment">//查询结果显示Label:显示用户id对应的用户名</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UITextField</span> *deleteUserIdTextField;       <span class="comment">//删除输入框：输入用户id</span></span><br></pre></td></tr></table></figure>
+<p><strong>4. 下面看一下封装的增改&amp;查&amp;删的代码：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//插入用户信息</span></span><br><span class="line">- (<span class="keyword">IBAction</span>)insertAction:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">   </span><br><span class="line">    <span class="built_in">NSString</span> *result = <span class="string">@""</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.insertUserInfoValueTextfiled.text.length == <span class="number">0</span>) &#123;</span><br><span class="line">        </span><br><span class="line">         result = <span class="string">@"Please Input UserID!"</span>;<span class="comment">//没有输入用户id就点击了插入按钮</span></span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        </span><br><span class="line">         result = [SJUserInfoManager updateUserInfoIntoDataBase:DATABASENAME withUserID:<span class="keyword">self</span>.insertUserIdTextfield.text andUserInfoField:USERINFOFIELD andUserInfoValue:<span class="keyword">self</span>.insertUserInfoValueTextfiled.text];</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">   [<span class="keyword">self</span> showAlertWithTitle:result];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//查询用户信息</span></span><br><span class="line">- (<span class="keyword">IBAction</span>)queryUserInfoValue:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *result = <span class="string">@""</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.queryUserIdTextfield.text.length == <span class="number">0</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        result = <span class="string">@"Please Input UserID!"</span>;<span class="comment">//没有输入用户id就点击了查询按钮</span></span><br><span class="line">        <span class="keyword">self</span>.queryUserInfoValueLabel.text = <span class="string">@""</span>;<span class="comment">//重置查询输入框</span></span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        </span><br><span class="line">        result =  [SJUserInfoManager queryUserInfoInDataBase:DATABASENAME WithUserID:<span class="keyword">self</span>.queryUserIdTextfield.text andUserInfoField:USERINFOFIELD];</span><br><span class="line">        <span class="keyword">self</span>.queryUserInfoValueLabel.text = result;</span><br><span class="line">        [<span class="keyword">self</span> showAlertWithTitle:result];</span><br><span class="line">        </span><br><span class="line">    &#125;    </span><br><span class="line">    [<span class="keyword">self</span> showAlertWithTitle:result];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除用户信息</span></span><br><span class="line">- (<span class="keyword">IBAction</span>)deleteUserInfoWithUserID:(<span class="built_in">UIButton</span> *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *result = <span class="string">@""</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.deleteUserIdTextField.text.length == <span class="number">0</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        result = <span class="string">@"Please Input UserID!"</span>;</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        </span><br><span class="line">        result =  [SJUserInfoManager deleteUserInfoInDataBase:DATABASENAME WithUserID:<span class="keyword">self</span>.deleteUserIdTextField.text];</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="keyword">self</span> showAlertWithTitle:result];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其实不难看出，除了处理错误信息的代码以外，数据库的操作代码是非常简洁的:都是一行结束，而且返回一个结果字符串或者布尔值。</p>
+</blockquote>
+<p><strong>5. 在进入第二页之前，需要查询表内所有的用户信息并传递给第二个页面的VC：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)prepareForSegue:(<span class="built_in">UIStoryboardSegue</span> *)segue sender:(<span class="keyword">id</span>)sender</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ([segue.destinationViewController isKindOfClass:[DataListTableViewController <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        <span class="keyword">if</span> ([segue.identifier isEqualToString:<span class="string">@"userInfosList"</span>]) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">NSDictionary</span> *userInfosDict = [SJUserInfoManager queryUserInfosInDataBase:DATABASENAME andUserInfoField:USERINFOFIELD];</span><br><span class="line">            DataListTableViewController *dataListVc = (DataListTableViewController *)segue.destinationViewController;</span><br><span class="line">            dataListVc.userInfosDict = userInfosDict;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>6. 在第二页的viewDidLoad方法里获取用户信息列表，并刷新表格将其显示出来：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *alertTitle = [<span class="keyword">self</span>.userInfosDict objectForKey:<span class="string">@"result"</span>];</span><br><span class="line">    [<span class="keyword">self</span> showAlertWithTitle:alertTitle];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSArray</span> *userInfosArray = [<span class="keyword">self</span>.userInfosDict objectForKey:<span class="string">@"userInfosArray"</span>];</span><br><span class="line">    <span class="keyword">if</span> ([userInfosArray count] != <span class="number">0</span>) &#123;</span><br><span class="line">         <span class="keyword">self</span>.userInfosArray = userInfosArray;</span><br><span class="line">        [<span class="keyword">self</span>.tableView reloadData];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>想知道Demo是如何实现的么？</p>
+<p>Demo传送门：<a href="https://github.com/Shijie0111/SJUserInfoManager">SJUserInfoManager - GitHub</a></p>
+<p>如果可以给星星，或者给笔者提意见，那就再好不过啦~</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>说来惭愧，笔者封装的这个类的功能还是很有局限性的：</p>
+<ol>
+<li>操作表格前必须创建一次表格（一次就可以）。</li>
+<li>只支持NSString类型的值。</li>
+<li>除user_id字段以外只支持一个自定义字段。</li>
+<li>不同的自定义字段必须对应不同的表格名，也就是说不同的自定义字段不能对应同一个表格名。</li>
+<li>数据库操作API的返回值还不够完善，最好以枚举类型返回，有待改进。</li>
+<li>没有使用FMDB的队列API。</li>
+</ol>
+<p>虽然这个封装很简单，但是笔者始终赞同<strong>学习的最终目的在于应用和创造</strong>这句话。如果只是用眼睛看FMDB框架的API或是复制粘贴一些别人写好的FMDB的应用代码，那么其实是意义不大的。</p>
+<p>如果在学习后，可以融会贯通，将学到的知识可以按照自己的意图加以改进和运用的话，那么相对于“搬运工”式学习来说，显然收获更大。</p>
+<p>这是笔者第一个开源项目，虽然简单，算上优化和改bug只写了大概3个小时，但是毕竟是开源的第一步，对自己的鼓励还是蛮大的，以后还会封装优化更多的库，加油~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）/" rel="next" title="面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）">
+                <i class="fa fa-chevron-left"></i> 面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/高效能程序员的修炼 - 读书笔记/" rel="prev" title="高效能程序员的修炼 - 读书笔记">
+                高效能程序员的修炼 - 读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-封装FMDB"><span class="nav-number">1.</span> <span class="nav-text">1. 封装FMDB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-封装类的功能"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 封装类的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-API介绍"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 API介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建表格"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1. 创建表格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-更新用户信息（添加-amp-修改）"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2. 更新用户信息（添加&amp;修改）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-查询某个用户的信息"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">3. 查询某个用户的信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查询全部用户的信息"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">4. 查询全部用户的信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-删除某个用户的信息"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">5. 删除某个用户的信息</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Demo演示"><span class="nav-number">2.</span> <span class="nav-text">2. Demo演示</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-需求"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-效果图"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 效果图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-代码讲解"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.3 代码讲解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">3.</span> <span class="nav-text">最后的话</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

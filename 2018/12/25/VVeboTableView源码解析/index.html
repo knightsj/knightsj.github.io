@@ -1,0 +1,929 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,源码解析,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="这次分享一个关于性能优化的源码。 我们知道UITabelView在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，UITabelView的性能将直接影响这个app的性能。 如果UITabelView里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。 但是，当cell里面涉及到图文混排，cell高度不都相等的">
+<meta name="keywords" content="iOS,Objective-C,源码解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VVeboTableView源码解析">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/VVeboTableView源码解析/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="这次分享一个关于性能优化的源码。 我们知道UITabelView在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，UITabelView的性能将直接影响这个app的性能。 如果UITabelView里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。 但是，当cell里面涉及到图文混排，cell高度不都相等的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png">
+<meta property="og:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_optimization_map.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_cell_components.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_layout.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.563Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VVeboTableView源码解析">
+<meta name="twitter:description" content="这次分享一个关于性能优化的源码。 我们知道UITabelView在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，UITabelView的性能将直接影响这个app的性能。 如果UITabelView里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。 但是，当cell里面涉及到图文混排，cell高度不都相等的">
+<meta name="twitter:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/VVeboTableView源码解析/">
+
+
+
+
+
+  <title> VVeboTableView源码解析 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/VVeboTableView源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                VVeboTableView源码解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,241 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  25 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png" alt=""></p>
+<p>这次分享一个关于性能优化的源码。</p>
+<p>我们知道<code>UITabelView</code>在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，<code>UITabelView</code>的性能将直接影响这个app的性能。</p>
+<p>如果<code>UITabelView</code>里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。</p>
+<p>但是，当cell里面涉及到图文混排，cell高度不都相等的设计时，如果不进行一些操作的话，会非常影响性能，甚至会出现卡顿，造成非常不好的用户体验。</p>
+<p>最近在看一些iOS性能优化的文章，我找到了<a href="https://github.com/johnil/VVeboTableViewDemo">VVeboTableView</a>这个框架。严格来说这个不属于框架，而是作者用自己的方式优化<code>UITableView</code>的一个实现。</p>
+<p>作者模仿了新浪微博的cell样式，在里面展示了各种微博的cell。虽然样式比较复杂，但是性能却很好：我在我的iphone 4s上进行了Core Animation测试，在滑动的时候帧率没有低于56，而且也没有觉得有半点卡顿，那么他是怎么做到的呢？</p>
+<p>看了源码之后，我把作者的思路整理了出来：</p>
+<p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png" alt=""></p>
+<p>下面我就从左到右，从上到下，结合代码来展示一下作者是如何实现每一点的。</p>
+<a id="more"></a>
+<h2 id="1-减少CPU／GPU计算量"><a href="#1-减少CPU／GPU计算量" class="headerlink" title="1. 减少CPU／GPU计算量"></a>1. 减少CPU／GPU计算量</h2><h3 id="1-1-cell的重用机制"><a href="#1-1-cell的重用机制" class="headerlink" title="1.1 cell的重用机制"></a>1.1 cell的重用机制</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//cell重用</span></span><br><span class="line">    VVeboTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<span class="string">@"cell"</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (cell==<span class="literal">nil</span>) &#123;</span><br><span class="line">        cell = [[VVeboTableViewCell alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:<span class="string">@"cell"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//绘制</span></span><br><span class="line">    [<span class="keyword">self</span> drawCell:cell withIndexPath:indexPath];</span><br><span class="line">    <span class="keyword">return</span> cell;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这部分就不赘述了，相信大家都可以掌握。</p>
+<h3 id="1-2-将cell高度和-cell里的控件的frame缓存在model里"><a href="#1-2-将cell高度和-cell里的控件的frame缓存在model里" class="headerlink" title="1.2 将cell高度和 cell里的控件的frame缓存在model里"></a>1.2 将cell高度和 cell里的控件的frame缓存在model里</h3><p>这一步我们需要在字典转模型里统一计算(不需要看代码细节，只需要知道这里在模型里保存了需要保存的控件的frame和整个cell的高度即可)：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)loadData&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSDictionary</span> *dict <span class="keyword">in</span> temp) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSDictionary</span> *user = dict[<span class="string">@"user"</span>];</span><br><span class="line">        </span><br><span class="line">        ...</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSDictionary</span> *retweet = [dict valueForKey:<span class="string">@"retweeted_status"</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (retweet) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">NSMutableDictionary</span> *subData = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">            ...</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">float</span> width = [<span class="built_in">UIScreen</span> screenWidth]-SIZE_GAP_LEFT*<span class="number">2</span>;</span><br><span class="line">                <span class="built_in">CGSize</span> size = [subData[<span class="string">@"text"</span>] sizeWithConstrainedToWidth:width fromFont:FontWithSize(SIZE_FONT_SUBCONTENT) lineSpace:<span class="number">5</span>];</span><br><span class="line">                <span class="built_in">NSInteger</span> sizeHeight = (size.height+<span class="number">.5</span>);</span><br><span class="line">                subData[<span class="string">@"textRect"</span>] = [<span class="built_in">NSValue</span> valueWithCGRect:<span class="built_in">CGRectMake</span>(SIZE_GAP_LEFT, SIZE_GAP_BIG, width, sizeHeight)];</span><br><span class="line">                sizeHeight += SIZE_GAP_BIG;</span><br><span class="line">                <span class="keyword">if</span> (subData[<span class="string">@"pic_urls"</span>] &amp;&amp; [subData[<span class="string">@"pic_urls"</span>] count]&gt;<span class="number">0</span>) &#123;</span><br><span class="line">                    sizeHeight += (SIZE_GAP_IMG+SIZE_IMAGE+SIZE_GAP_IMG);</span><br><span class="line">                &#125;</span><br><span class="line">                sizeHeight += SIZE_GAP_BIG;</span><br><span class="line">                subData[<span class="string">@"frame"</span>] = [<span class="built_in">NSValue</span> valueWithCGRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, [<span class="built_in">UIScreen</span> screenWidth], sizeHeight)];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            data[<span class="string">@"subData"</span>] = subData;</span><br><span class="line">           </span><br><span class="line">        </span><br><span class="line">            <span class="keyword">float</span> width = [<span class="built_in">UIScreen</span> screenWidth]-SIZE_GAP_LEFT*<span class="number">2</span>;</span><br><span class="line">            <span class="built_in">CGSize</span> size = [data[<span class="string">@"text"</span>] sizeWithConstrainedToWidth:width fromFont:FontWithSize(SIZE_FONT_CONTENT) lineSpace:<span class="number">5</span>];</span><br><span class="line">            <span class="built_in">NSInteger</span> sizeHeight = (size.height+<span class="number">.5</span>);</span><br><span class="line">            ...</span><br><span class="line">            sizeHeight += SIZE_GAP_TOP+SIZE_AVATAR+SIZE_GAP_BIG;</span><br><span class="line">            <span class="keyword">if</span> (data[<span class="string">@"pic_urls"</span>] &amp;&amp; [data[<span class="string">@"pic_urls"</span>] count]&gt;<span class="number">0</span>) &#123;</span><br><span class="line">                sizeHeight += (SIZE_GAP_IMG+SIZE_IMAGE+SIZE_GAP_IMG);</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            <span class="built_in">NSMutableDictionary</span> *subData = [data valueForKey:<span class="string">@"subData"</span>];</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (subData) &#123;</span><br><span class="line">                sizeHeight += SIZE_GAP_BIG;</span><br><span class="line">                <span class="built_in">CGRect</span> frame = [subData[<span class="string">@"frame"</span>] <span class="built_in">CGRectValue</span>];</span><br><span class="line">                ...</span><br><span class="line">                sizeHeight += frame.size.height;</span><br><span class="line">                data[<span class="string">@"subData"</span>] = subData;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            sizeHeight += <span class="number">30</span>;</span><br><span class="line">            data[<span class="string">@"frame"</span>] = [<span class="built_in">NSValue</span> valueWithCGRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, [<span class="built_in">UIScreen</span> screenWidth], sizeHeight)];</span><br><span class="line">        &#125;</span><br><span class="line">        [datas addObject:data];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取高度缓存</span></span><br><span class="line">- (<span class="built_in">CGFloat</span>)tableView:(<span class="built_in">UITableView</span> *)tableView heightForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line">    <span class="built_in">NSDictionary</span> *dict = datas[indexPath.row];</span><br><span class="line">    <span class="keyword">float</span> height = [dict[<span class="string">@"frame"</span>] <span class="built_in">CGRectValue</span>].size.height;</span><br><span class="line">    <span class="keyword">return</span> height;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们可以看到，作者根据帖子类型的不同：原贴(subData)的存在与否），来逐渐叠加cell的高度。</p>
+<p>而缓存的控件的frame，我们在下面讲解绘制cell的代码里详细介绍。</p>
+<h3 id="1-3-减少cell内部控件的层级"><a href="#1-3-减少cell内部控件的层级" class="headerlink" title="1.3 减少cell内部控件的层级"></a>1.3 减少cell内部控件的层级</h3><p>我们先来看一下一个带有原贴的转发贴的布局：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_optimization_map.png" alt="布局"></p>
+<p>可能有小伙伴会将上中下这三个部分各自封装成一个view，再通过每个view来管理各自的子view。但是这个框架的作者却将它们都排列到一层上。</p>
+<p>减少了子view的层级，有助于减少cpu对各种约束的计算。这在子view的数量，层级都很多的情况下对cpu的压力会减轻很多。</p>
+<h3 id="1-4-通过覆盖圆角图片来实现头像的圆角效果"><a href="#1-4-通过覆盖圆角图片来实现头像的圆角效果" class="headerlink" title="1.4 通过覆盖圆角图片来实现头像的圆角效果"></a>1.4 通过覆盖圆角图片来实现头像的圆角效果</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//头像，frame固定</span></span><br><span class="line">avatarView = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];<span class="comment">//[[VVeboAvatarView alloc] initWithFrame:avatarRect];</span></span><br><span class="line">avatarView.frame = <span class="built_in">CGRectMake</span>(SIZE_GAP_LEFT, SIZE_GAP_TOP, SIZE_AVATAR, SIZE_AVATAR);</span><br><span class="line">avatarView.backgroundColor = [<span class="built_in">UIColor</span> colorWithRed:<span class="number">250</span>/<span class="number">255.0</span> green:<span class="number">250</span>/<span class="number">255.0</span> blue:<span class="number">250</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>];</span><br><span class="line">avatarView.hidden = <span class="literal">NO</span>;</span><br><span class="line">avatarView.tag = <span class="built_in">NSIntegerMax</span>;</span><br><span class="line">avatarView.clipsToBounds = <span class="literal">YES</span>;</span><br><span class="line">[<span class="keyword">self</span>.contentView addSubview:avatarView];</span><br><span class="line"><span class="comment">//覆盖在头像上面的图片，制造圆角效果：frame</span></span><br><span class="line">cornerImage = [[<span class="built_in">UIImageView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, SIZE_AVATAR+<span class="number">5</span>, SIZE_AVATAR+<span class="number">5</span>)];</span><br><span class="line">cornerImage.center = avatarView.center;</span><br><span class="line">cornerImage.image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"corner_circle@2x.png"</span>];</span><br><span class="line">cornerImage.tag = <span class="built_in">NSIntegerMax</span>;</span><br><span class="line">[<span class="keyword">self</span>.contentView addSubview:cornerImage];</span><br></pre></td></tr></table></figure>
+<p>在这里，作者没有使用任何复杂的技术来实现图片的圆角（使用layer或者裁剪图片），只是将一张圆角颜色和cell背景色一致的图片覆盖在了原来的头像上，实现了圆角的效果（但是这个方法不太适用于有多个配色方案的app）。</p>
+<h2 id="2-按需加载cell"><a href="#2-按需加载cell" class="headerlink" title="2. 按需加载cell"></a>2. 按需加载cell</h2><p>上文提到过，<code>UITableView</code>持有一个<code>needLoadArr</code>数组，它保存着需要刷新的cell的<code>NSIndexPath</code>。</p>
+<p>我们先来看一下<code>needLoadArr</code>是如何使用的：</p>
+<h3 id="2-1-在cellForRow-方法里只加载可见cell"><a href="#2-1-在cellForRow-方法里只加载可见cell" class="headerlink" title="2.1 在cellForRow:方法里只加载可见cell"></a>2.1 在cellForRow:方法里只加载可见cell</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line">    ...</span><br><span class="line">    [<span class="keyword">self</span> drawCell:cell withIndexPath:indexPath];</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)drawCell:(VVeboTableViewCell *)cell withIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSDictionary</span> *data = [datas objectAtIndex:indexPath.row];    </span><br><span class="line">    ...</span><br><span class="line">    cell.data = data;</span><br><span class="line">    <span class="comment">//当前的cell的indexPath不在needLoadArr里面，不用绘制</span></span><br><span class="line">    <span class="keyword">if</span> (needLoadArr.count&gt;<span class="number">0</span>&amp;&amp;[needLoadArr indexOfObject:indexPath]==<span class="built_in">NSNotFound</span>) &#123;</span><br><span class="line">        [cell clear];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="comment">//将要滚动到顶部，不绘制</span></span><br><span class="line">    <span class="keyword">if</span> (scrollToToping) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">//真正绘制cell的代码</span></span><br><span class="line">    [cell draw];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-监听tableview的快速滚动，保存目标滚动范围的前后三行的索引"><a href="#2-2-监听tableview的快速滚动，保存目标滚动范围的前后三行的索引" class="headerlink" title="2.2 监听tableview的快速滚动，保存目标滚动范围的前后三行的索引"></a>2.2 监听tableview的快速滚动，保存目标滚动范围的前后三行的索引</h3><p>知道了如何使用<code>needLoadArr</code>，我们看一下<code>needLoadArr</code>里面的元素师如何添加和删除。</p>
+<h4 id="添加元素NSIndexPath"><a href="#添加元素NSIndexPath" class="headerlink" title="添加元素NSIndexPath"></a>添加元素NSIndexPath</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//按需加载 - 如果目标行与当前行相差超过指定行数，只在目标滚动范围的前后指定3行加载。</span></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewWillEndDragging:(<span class="built_in">UIScrollView</span> *)scrollView withVelocity:(<span class="built_in">CGPoint</span>)velocity targetContentOffset:(<span class="keyword">inout</span> <span class="built_in">CGPoint</span> *)targetContentOffset&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//targetContentOffset ： 停止后的contentOffset</span></span><br><span class="line">    <span class="built_in">NSIndexPath</span> *ip = [<span class="keyword">self</span> indexPathForRowAtPoint:<span class="built_in">CGPointMake</span>(<span class="number">0</span>, targetContentOffset-&gt;y)];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当前可见第一行row的index</span></span><br><span class="line">    <span class="built_in">NSIndexPath</span> *cip = [[<span class="keyword">self</span> indexPathsForVisibleRows] firstObject];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置最小跨度，当滑动的速度很快，超过这个跨度时候执行按需加载</span></span><br><span class="line">    <span class="built_in">NSInteger</span> skipCount = <span class="number">8</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//快速滑动(跨度超过了8个cell)</span></span><br><span class="line">    <span class="keyword">if</span> (labs(cip.row-ip.row)&gt;skipCount) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//某个区域里的单元格的indexPath</span></span><br><span class="line">        <span class="built_in">NSArray</span> *temp = [<span class="keyword">self</span> indexPathsForRowsInRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, targetContentOffset-&gt;y, <span class="keyword">self</span>.width, <span class="keyword">self</span>.height)];</span><br><span class="line">        <span class="built_in">NSMutableArray</span> *arr = [<span class="built_in">NSMutableArray</span> arrayWithArray:temp];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (velocity.y&lt;<span class="number">0</span>) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//向上滚动</span></span><br><span class="line">            <span class="built_in">NSIndexPath</span> *indexPath = [temp lastObject];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//超过倒数第3个</span></span><br><span class="line">            <span class="keyword">if</span> (indexPath.row+<span class="number">3</span>&lt;datas.count) &#123;</span><br><span class="line">                [arr addObject:[<span class="built_in">NSIndexPath</span> indexPathForRow:indexPath.row+<span class="number">1</span> inSection:<span class="number">0</span>]];</span><br><span class="line">                [arr addObject:[<span class="built_in">NSIndexPath</span> indexPathForRow:indexPath.row+<span class="number">2</span> inSection:<span class="number">0</span>]];</span><br><span class="line">                [arr addObject:[<span class="built_in">NSIndexPath</span> indexPathForRow:indexPath.row+<span class="number">3</span> inSection:<span class="number">0</span>]];</span><br><span class="line">            &#125;</span><br><span class="line">        </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//向下滚动</span></span><br><span class="line">            <span class="built_in">NSIndexPath</span> *indexPath = [temp firstObject];</span><br><span class="line">            <span class="comment">//超过正数第3个</span></span><br><span class="line">            <span class="keyword">if</span> (indexPath.row&gt;<span class="number">3</span>) &#123;</span><br><span class="line">                [arr addObject:[<span class="built_in">NSIndexPath</span> indexPathForRow:indexPath.row<span class="number">-3</span> inSection:<span class="number">0</span>]];</span><br><span class="line">                [arr addObject:[<span class="built_in">NSIndexPath</span> indexPathForRow:indexPath.row<span class="number">-2</span> inSection:<span class="number">0</span>]];</span><br><span class="line">                [arr addObject:[<span class="built_in">NSIndexPath</span> indexPathForRow:indexPath.row<span class="number">-1</span> inSection:<span class="number">0</span>]];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//添加arr里的内容到needLoadArr的末尾</span></span><br><span class="line">        [needLoadArr addObjectsFromArray:arr];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>知道了如何向<code>needLoadArr</code>里添加元素，现在看一下何时（重置）清理这个array：</p>
+<h4 id="移除元素NSIndexPath"><a href="#移除元素NSIndexPath" class="headerlink" title="移除元素NSIndexPath"></a>移除元素NSIndexPath</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用户触摸时第一时间加载内容</span></span><br><span class="line">- (<span class="built_in">UIView</span> *)hitTest:(<span class="built_in">CGPoint</span>)point withEvent:(<span class="built_in">UIEvent</span> *)event&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!scrollToToping) &#123;</span><br><span class="line">        [needLoadArr removeAllObjects];</span><br><span class="line">        [<span class="keyword">self</span> loadContent];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> hitTest:point withEvent:event];</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)scrollViewWillBeginDragging:(<span class="built_in">UIScrollView</span> *)scrollView&#123;</span><br><span class="line">    [needLoadArr removeAllObjects];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将要滚动到顶部</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)scrollViewShouldScrollToTop:(<span class="built_in">UIScrollView</span> *)scrollView&#123;</span><br><span class="line">    scrollToToping = <span class="literal">YES</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//停止滚动</span></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidEndScrollingAnimation:(<span class="built_in">UIScrollView</span> *)scrollView&#123;</span><br><span class="line">    scrollToToping = <span class="literal">NO</span>;</span><br><span class="line">    [<span class="keyword">self</span> loadContent];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//滚动到了顶部</span></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidScrollToTop:(<span class="built_in">UIScrollView</span> *)scrollView&#123;</span><br><span class="line">    scrollToToping = <span class="literal">NO</span>;</span><br><span class="line">    [<span class="keyword">self</span> loadContent];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，当手指触碰到tableview时 和 开始拖动tableview的时候就要清理这个数组。</p>
+<p>而且在手指触碰到tableview时和 tableview停止滚动后就会执行<code>loadContent</code>方法，用来加载可见区域的cell。</p>
+<p><code>loadContent</code>方法的具体实现：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)loadContent&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//正在滚动到顶部</span></span><br><span class="line">    <span class="keyword">if</span> (scrollToToping) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//可见cell数</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.indexPathsForVisibleRows.count&lt;=<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//触摸的时候刷新可见cell</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.visibleCells&amp;&amp;<span class="keyword">self</span>.visibleCells.count&gt;<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">id</span> temp <span class="keyword">in</span> [<span class="keyword">self</span>.visibleCells <span class="keyword">copy</span>]) &#123;</span><br><span class="line">            VVeboTableViewCell *cell = (VVeboTableViewCell *)temp;</span><br><span class="line">            [cell draw];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里注意一下，tableview的<code>visibleCells</code>属性是可见的cell的数组。</p>
+<h2 id="3-异步处理cell"><a href="#3-异步处理cell" class="headerlink" title="3. 异步处理cell"></a>3. 异步处理cell</h2><p>在讲解cell是如何显示出来之前，我们大致看一下这个cell都有哪些控件：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_cell_components.png" alt="控件名称"></p>
+<p>了解到控件的名称，位置之后，我们看一下作者是如何布局这些控件的：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_layout.png" alt="控件布局"></p>
+<p>在上面可以大致看出来，除了需要异步网络加载的头像(avatarView)和帖子图片(multiPhotoScrollView)，作者都将这些控件画在了一张图上面（postBgView）。</p>
+<p>而且我们可以看到，在postBgView上面需要异步显示的内容分为四种：</p>
+<ol>
+<li>UIImageView：本地图片（comments, more,reposts）。</li>
+<li>UIView：背景，分割线(topLine)。</li>
+<li>NSString：name，from字符串。</li>
+<li>Label：原贴的detailLabel 和 当前贴的 label。</li>
+</ol>
+<p>下面结合代码来讲解这四种绘制：</p>
+<p>首先看一下cell内部的核心绘制方法：</p>
+<p>现在我们来看一下cell绘制的核心方法,draw方法:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将cell的主要内容绘制到图片上</span></span><br><span class="line">- (<span class="keyword">void</span>)draw&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//drawed = YES说明正在绘制，则立即返回。因为绘制是异步的，所以在开始绘制之后需要立即设为yes，防止重复绘制</span></span><br><span class="line">    <span class="keyword">if</span> (drawed) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//标记当前的绘制</span></span><br><span class="line">    <span class="built_in">NSInteger</span> flag = drawColorFlag;</span><br><span class="line">    </span><br><span class="line">    drawed = <span class="literal">YES</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//获取整个cell的frame，已经换存在模型里了</span></span><br><span class="line">        <span class="built_in">CGRect</span> rect = [_data[<span class="string">@"frame"</span>] <span class="built_in">CGRectValue</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//开启图形上下文</span></span><br><span class="line">        <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(rect.size, <span class="literal">YES</span>, <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//获取图形上下文</span></span><br><span class="line">        <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//背景颜色</span></span><br><span class="line">        [[<span class="built_in">UIColor</span> colorWithRed:<span class="number">250</span>/<span class="number">255.0</span> green:<span class="number">250</span>/<span class="number">255.0</span> blue:<span class="number">250</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>] set];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//通过rect填充背景颜色</span></span><br><span class="line">        <span class="built_in">CGContextFillRect</span>(context, rect);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果有原帖（说明当前贴是转发贴）</span></span><br><span class="line">        <span class="keyword">if</span> ([_data valueForKey:<span class="string">@"subData"</span>]) &#123;</span><br><span class="line">            </span><br><span class="line">            [[<span class="built_in">UIColor</span> colorWithRed:<span class="number">243</span>/<span class="number">255.0</span> green:<span class="number">243</span>/<span class="number">255.0</span> blue:<span class="number">243</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>] set];</span><br><span class="line">            <span class="built_in">CGRect</span> subFrame = [_data[<span class="string">@"subData"</span>][<span class="string">@"frame"</span>] <span class="built_in">CGRectValue</span>];</span><br><span class="line">            <span class="built_in">CGContextFillRect</span>(context, subFrame);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//原帖上面的分割线</span></span><br><span class="line">            [[<span class="built_in">UIColor</span> colorWithRed:<span class="number">200</span>/<span class="number">255.0</span> green:<span class="number">200</span>/<span class="number">255.0</span> blue:<span class="number">200</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>] set];</span><br><span class="line">            <span class="built_in">CGContextFillRect</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, subFrame.origin.y, rect.size.width, <span class="number">.5</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">float</span> leftX = SIZE_GAP_LEFT+SIZE_AVATAR+SIZE_GAP_BIG;</span><br><span class="line">            <span class="keyword">float</span> x = leftX;</span><br><span class="line">            <span class="keyword">float</span> y = (SIZE_AVATAR-(SIZE_FONT_NAME+SIZE_FONT_SUBTITLE+<span class="number">6</span>))/<span class="number">2</span><span class="number">-2</span>+SIZE_GAP_TOP+SIZE_GAP_SMALL<span class="number">-5</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//绘制名字</span></span><br><span class="line">            [_data[<span class="string">@"name"</span>] drawInContext:context withPosition:<span class="built_in">CGPointMake</span>(x, y) andFont:FontWithSize(SIZE_FONT_NAME)</span><br><span class="line">                             andTextColor:[<span class="built_in">UIColor</span> colorWithRed:<span class="number">106</span>/<span class="number">255.0</span> green:<span class="number">140</span>/<span class="number">255.0</span> blue:<span class="number">181</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>]</span><br><span class="line">                                andHeight:rect.size.height];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//绘制名字下面的info</span></span><br><span class="line">            y += SIZE_FONT_NAME+<span class="number">5</span>;</span><br><span class="line">            <span class="keyword">float</span> fromX = leftX;</span><br><span class="line">            <span class="keyword">float</span> size = [<span class="built_in">UIScreen</span> screenWidth]-leftX;</span><br><span class="line">            <span class="built_in">NSString</span> *from = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@  %@"</span>, _data[<span class="string">@"time"</span>], _data[<span class="string">@"from"</span>]];</span><br><span class="line">            </span><br><span class="line">            [from drawInContext:context withPosition:<span class="built_in">CGPointMake</span>(fromX, y) andFont:FontWithSize(SIZE_FONT_SUBTITLE)</span><br><span class="line">                   andTextColor:[<span class="built_in">UIColor</span> colorWithRed:<span class="number">178</span>/<span class="number">255.0</span> green:<span class="number">178</span>/<span class="number">255.0</span> blue:<span class="number">178</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>]</span><br><span class="line">                      andHeight:rect.size.height andWidth:size];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//评论角</span></span><br><span class="line">            <span class="built_in">CGRect</span> countRect = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, rect.size.height<span class="number">-30</span>, [<span class="built_in">UIScreen</span> screenWidth], <span class="number">30</span>);</span><br><span class="line">            [[<span class="built_in">UIColor</span> colorWithRed:<span class="number">250</span>/<span class="number">255.0</span> green:<span class="number">250</span>/<span class="number">255.0</span> blue:<span class="number">250</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>] set];</span><br><span class="line">            <span class="built_in">CGContextFillRect</span>(context, countRect);</span><br><span class="line">            <span class="keyword">float</span> alpha = <span class="number">1</span>;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">float</span> x = [<span class="built_in">UIScreen</span> screenWidth]-SIZE_GAP_LEFT<span class="number">-10</span>;</span><br><span class="line">            <span class="built_in">NSString</span> *comments = _data[<span class="string">@"comments"</span>];</span><br><span class="line">            <span class="keyword">if</span> (comments) &#123;</span><br><span class="line">                <span class="built_in">CGSize</span> size = [comments sizeWithConstrainedToSize:<span class="built_in">CGSizeMake</span>(<span class="built_in">CGFLOAT_MAX</span>, <span class="built_in">CGFLOAT_MAX</span>) fromFont:FontWithSize(SIZE_FONT_SUBTITLE) lineSpace:<span class="number">5</span>];</span><br><span class="line">                </span><br><span class="line">                x -= size.width;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//图片文字</span></span><br><span class="line">                [comments drawInContext:context withPosition:<span class="built_in">CGPointMake</span>(x, <span class="number">8</span>+countRect.origin.y)</span><br><span class="line">                                andFont:FontWithSize(<span class="number">12</span>)</span><br><span class="line">                           andTextColor:[<span class="built_in">UIColor</span> colorWithRed:<span class="number">178</span>/<span class="number">255.0</span> green:<span class="number">178</span>/<span class="number">255.0</span> blue:<span class="number">178</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>]</span><br><span class="line">                              andHeight:rect.size.height];</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//评论图片（bundle里的图片）</span></span><br><span class="line">                [[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"t_comments.png"</span>] drawInRect:<span class="built_in">CGRectMake</span>(x<span class="number">-5</span>, <span class="number">10.5</span>+countRect.origin.y, <span class="number">10</span>, <span class="number">9</span>) blendMode:kCGBlendModeNormal alpha:alpha];</span><br><span class="line">                </span><br><span class="line">                commentsRect = <span class="built_in">CGRectMake</span>(x<span class="number">-5</span>, <span class="keyword">self</span>.height<span class="number">-50</span>, [<span class="built_in">UIScreen</span> screenWidth]-x+<span class="number">5</span>, <span class="number">50</span>);</span><br><span class="line">                x -= <span class="number">20</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//转发角</span></span><br><span class="line">            <span class="built_in">NSString</span> *reposts = _data[<span class="string">@"reposts"</span>];</span><br><span class="line">            <span class="keyword">if</span> (reposts) &#123;</span><br><span class="line">                <span class="built_in">CGSize</span> size = [reposts sizeWithConstrainedToSize:<span class="built_in">CGSizeMake</span>(<span class="built_in">CGFLOAT_MAX</span>, <span class="built_in">CGFLOAT_MAX</span>) fromFont:FontWithSize(SIZE_FONT_SUBTITLE) lineSpace:<span class="number">5</span>];</span><br><span class="line">                </span><br><span class="line">                x -= MAX(size.width, <span class="number">5</span>)+SIZE_GAP_BIG;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//转发文字</span></span><br><span class="line">                [reposts drawInContext:context withPosition:<span class="built_in">CGPointMake</span>(x, <span class="number">8</span>+countRect.origin.y)</span><br><span class="line">                                andFont:FontWithSize(<span class="number">12</span>)</span><br><span class="line">                           andTextColor:[<span class="built_in">UIColor</span> colorWithRed:<span class="number">178</span>/<span class="number">255.0</span> green:<span class="number">178</span>/<span class="number">255.0</span> blue:<span class="number">178</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>]</span><br><span class="line">                 </span><br><span class="line">                             andHeight:rect.size.height];</span><br><span class="line">               </span><br><span class="line">                <span class="comment">//转发图片（bundle里的图片）</span></span><br><span class="line">                [[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"t_repost.png"</span>] drawInRect:<span class="built_in">CGRectMake</span>(x<span class="number">-5</span>, <span class="number">11</span>+countRect.origin.y, <span class="number">10</span>, <span class="number">9</span>) blendMode:kCGBlendModeNormal alpha:alpha];</span><br><span class="line">                repostsRect = <span class="built_in">CGRectMake</span>(x<span class="number">-5</span>, <span class="keyword">self</span>.height<span class="number">-50</span>, commentsRect.origin.x-x, <span class="number">50</span>);</span><br><span class="line">                x -= <span class="number">20</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//更多角</span></span><br><span class="line">            [<span class="string">@"•••"</span> drawInContext:context</span><br><span class="line">                     withPosition:<span class="built_in">CGPointMake</span>(SIZE_GAP_LEFT, <span class="number">8</span>+countRect.origin.y)</span><br><span class="line">                          andFont:FontWithSize(<span class="number">11</span>)</span><br><span class="line">                     andTextColor:[<span class="built_in">UIColor</span> colorWithRed:<span class="number">178</span>/<span class="number">255.0</span> green:<span class="number">178</span>/<span class="number">255.0</span> blue:<span class="number">178</span>/<span class="number">255.0</span> alpha:<span class="number">.5</span>]</span><br><span class="line">                        andHeight:rect.size.height];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//绘制原帖底部的分割线</span></span><br><span class="line">            <span class="keyword">if</span> ([_data valueForKey:<span class="string">@"subData"</span>]) &#123;</span><br><span class="line">                [[<span class="built_in">UIColor</span> colorWithRed:<span class="number">200</span>/<span class="number">255.0</span> green:<span class="number">200</span>/<span class="number">255.0</span> blue:<span class="number">200</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>] set];</span><br><span class="line">                <span class="built_in">CGContextFillRect</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, rect.size.height<span class="number">-30.5</span>, rect.size.width, <span class="number">.5</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//将整个contex转化为图片，赋给背景imageview</span></span><br><span class="line">        <span class="built_in">UIImage</span> *temp = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">        <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            <span class="keyword">if</span> (flag==drawColorFlag) &#123;</span><br><span class="line">                postBGView.frame = rect;</span><br><span class="line">                postBGView.image = <span class="literal">nil</span>;</span><br><span class="line">                postBGView.image = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//绘制两个label的text</span></span><br><span class="line">    [<span class="keyword">self</span> drawText];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//加载帖子里的网路图片，使用SDWebImage</span></span><br><span class="line">    [<span class="keyword">self</span> loadThumb];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面抽出每一种绘制内容的代码，分别讲解：</p>
+<h3 id="3-1-异步加载网络图片"><a href="#3-1-异步加载网络图片" class="headerlink" title="3.1 异步加载网络图片"></a>3.1 异步加载网络图片</h3><p>关于网络图片的异步加载和缓存，作者使用了第三方框架：<code>SDWebImage</code>。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setData:(<span class="built_in">NSDictionary</span> *)data&#123;</span><br><span class="line">    _data = data;</span><br><span class="line">    [avatarView setBackgroundImage:<span class="literal">nil</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    <span class="keyword">if</span> ([data valueForKey:<span class="string">@"avatarUrl"</span>]) &#123;</span><br><span class="line">        <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:[data valueForKey:<span class="string">@"avatarUrl"</span>]];</span><br><span class="line">        [avatarView sd_setBackgroundImageWithURL:url forState:<span class="built_in">UIControlStateNormal</span> placeholderImage:<span class="literal">nil</span> options:SDWebImageLowPriority];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于<code>SDWebImage</code>，我相信大家都不会陌生，我前一阵写了一篇源码解析，有兴趣的话可以看一下：<a href="http://www.jianshu.com/p/93696717b4a3" target="_blank" rel="noopener">SDWebImage源码解析</a>。</p>
+<h3 id="3-2-异步绘制本地图片"><a href="#3-2-异步绘制本地图片" class="headerlink" title="3.2 异步绘制本地图片"></a>3.2 异步绘制本地图片</h3><p>本地图片的绘制，只需要提供图片在bundle内部的名字和frame就可以绘制：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"t_comments.png"</span>] drawInRect:<span class="built_in">CGRectMake</span>(x<span class="number">-5</span>, <span class="number">10.5</span>+countRect.origin.y, <span class="number">10</span>, <span class="number">9</span>) blendMode:kCGBlendModeNormal alpha:alpha];</span><br></pre></td></tr></table></figure>
+<p>###3.3  异步绘制UIView</p>
+<p>对于<code>UIView</code>的绘制，我们只需要知道要绘制的<code>UIView</code>的frame和颜色即可：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//背景颜色</span></span><br><span class="line">[[<span class="built_in">UIColor</span> colorWithRed:<span class="number">250</span>/<span class="number">255.0</span> green:<span class="number">250</span>/<span class="number">255.0</span> blue:<span class="number">250</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>] set];</span><br><span class="line">        </span><br><span class="line"><span class="comment">//通过rect填充背景颜色</span></span><br><span class="line"><span class="built_in">CGContextFillRect</span>(context, rect);</span><br></pre></td></tr></table></figure>
+<p>讲到现在，就剩下了关于文字的绘制，包括脱离了UILabel的纯文本的绘制和UILabel里文本的绘制，我们先说一下关于简单的纯NSString的绘制：</p>
+<h3 id="3-4-异步绘制NSString"><a href="#3-4-异步绘制NSString" class="headerlink" title="3.4  异步绘制NSString"></a>3.4  异步绘制NSString</h3><p>作者通过传入字符串的字体，颜色和行高，以及位置就实现了纯文本的绘制：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//绘制名字</span></span><br><span class="line">[_data[<span class="string">@"name"</span>] drawInContext:context withPosition:<span class="built_in">CGPointMake</span>(x, y) andFont:FontWithSize(SIZE_FONT_NAME)</span><br><span class="line">                 andTextColor:[<span class="built_in">UIColor</span> colorWithRed:<span class="number">106</span>/<span class="number">255.0</span> green:<span class="number">140</span>/<span class="number">255.0</span> blue:<span class="number">181</span>/<span class="number">255.0</span> alpha:<span class="number">1</span>]</span><br><span class="line">             andHeight:rect.size.height];</span><br></pre></td></tr></table></figure>
+<p>这个方法是作者在<code>NSString</code>的一个分类里自定义的，我们看一下它的实现：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawInContext:(<span class="built_in">CGContextRef</span>)context withPosition:(<span class="built_in">CGPoint</span>)p andFont:(<span class="built_in">UIFont</span> *)font andTextColor:(<span class="built_in">UIColor</span> *)color andHeight:(<span class="keyword">float</span>)height andWidth:(<span class="keyword">float</span>)width&#123;    </span><br><span class="line">    <span class="built_in">CGSize</span> size = <span class="built_in">CGSizeMake</span>(width, font.pointSize+<span class="number">10</span>);    </span><br><span class="line">    <span class="built_in">CGContextSetTextMatrix</span>(context,<span class="built_in">CGAffineTransformIdentity</span>);    </span><br><span class="line">    <span class="comment">//移动坐标系统，所有点的y增加了height</span></span><br><span class="line">    <span class="built_in">CGContextTranslateCTM</span>(context,<span class="number">0</span>,height);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//缩放坐标系统，所有点的x乘以1.0，所有的点的y乘以-1.0</span></span><br><span class="line">    <span class="built_in">CGContextScaleCTM</span>(context,<span class="number">1.0</span>,<span class="number">-1.0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//文字颜色</span></span><br><span class="line">    <span class="built_in">UIColor</span>* textColor = color;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//生成CTFont</span></span><br><span class="line">    <span class="built_in">CTFontRef</span> font1 = <span class="built_in">CTFontCreateWithName</span>((__bridge <span class="built_in">CFStringRef</span>)font.fontName, font.pointSize,<span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//用于创建CTParagraphStyleRef的一些基本数据</span></span><br><span class="line">    <span class="built_in">CGFloat</span> minimumLineHeight = font.pointSize,maximumLineHeight = minimumLineHeight+<span class="number">10</span>, linespace = <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">CTLineBreakMode</span> lineBreakMode = kCTLineBreakByTruncatingTail;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//左对齐</span></span><br><span class="line">    <span class="built_in">CTTextAlignment</span> alignment = kCTLeftTextAlignment;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建CTParagraphStyleRef</span></span><br><span class="line">    <span class="built_in">CTParagraphStyleRef</span> style = <span class="built_in">CTParagraphStyleCreate</span>((<span class="built_in">CTParagraphStyleSetting</span>[<span class="number">6</span>])&#123;</span><br><span class="line">        &#123;kCTParagraphStyleSpecifierAlignment, <span class="keyword">sizeof</span>(alignment), &amp;alignment&#125;,</span><br><span class="line">        &#123;kCTParagraphStyleSpecifierMinimumLineHeight,<span class="keyword">sizeof</span>(minimumLineHeight),&amp;minimumLineHeight&#125;,</span><br><span class="line">        &#123;kCTParagraphStyleSpecifierMaximumLineHeight,<span class="keyword">sizeof</span>(maximumLineHeight),&amp;maximumLineHeight&#125;,</span><br><span class="line">        &#123;kCTParagraphStyleSpecifierMaximumLineSpacing, <span class="keyword">sizeof</span>(linespace), &amp;linespace&#125;,</span><br><span class="line">        &#123;kCTParagraphStyleSpecifierMinimumLineSpacing, <span class="keyword">sizeof</span>(linespace), &amp;linespace&#125;,</span><br><span class="line">        &#123;kCTParagraphStyleSpecifierLineBreakMode,<span class="keyword">sizeof</span>(<span class="built_in">CTLineBreakMode</span>),&amp;lineBreakMode&#125;</span><br><span class="line">    &#125;,<span class="number">6</span>);</span><br><span class="line">    <span class="comment">//设置属性字典；对象，key</span></span><br><span class="line">    <span class="built_in">NSDictionary</span>* attributes = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:</span><br><span class="line">                                (__bridge <span class="keyword">id</span>)font1,(<span class="built_in">NSString</span>*)kCTFontAttributeName,</span><br><span class="line">                                textColor.CGColor,kCTForegroundColorAttributeName,</span><br><span class="line">                                style,kCTParagraphStyleAttributeName,</span><br><span class="line">                                <span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成path，添加到cgcontex上</span></span><br><span class="line">    <span class="built_in">CGMutablePathRef</span> path = <span class="built_in">CGPathCreateMutable</span>();</span><br><span class="line">    <span class="built_in">CGPathAddRect</span>(path,<span class="literal">NULL</span>,<span class="built_in">CGRectMake</span>(p.x, height-p.y-size.height,(size.width),(size.height)));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//生成CF属性字符串</span></span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *attributedStr = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:<span class="keyword">self</span> attributes:attributes];</span><br><span class="line">    <span class="built_in">CFAttributedStringRef</span> attributedString = (__bridge <span class="built_in">CFAttributedStringRef</span>)attributedStr;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//从attributedString拿到ctframesetter</span></span><br><span class="line">    <span class="built_in">CTFramesetterRef</span> framesetter = <span class="built_in">CTFramesetterCreateWithAttributedString</span>((<span class="built_in">CFAttributedStringRef</span>)attributedString);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//从framesetter拿到 core text 的 ctframe</span></span><br><span class="line">    <span class="built_in">CTFrameRef</span> ctframe = <span class="built_in">CTFramesetterCreateFrame</span>(framesetter, <span class="built_in">CFRangeMake</span>(<span class="number">0</span>,<span class="built_in">CFAttributedStringGetLength</span>(attributedString)),path,<span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将ctframe绘制到context里面</span></span><br><span class="line">    <span class="built_in">CTFrameDraw</span>(ctframe,context);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//因为不是对象类型，需要释放</span></span><br><span class="line">    <span class="built_in">CGPathRelease</span>(path);</span><br><span class="line">    <span class="built_in">CFRelease</span>(font1);</span><br><span class="line">    <span class="built_in">CFRelease</span>(framesetter);</span><br><span class="line">    <span class="built_in">CFRelease</span>(ctframe);</span><br><span class="line">    [[attributedStr mutableString] setString:<span class="string">@""</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//恢复context坐标系统</span></span><br><span class="line">    <span class="built_in">CGContextSetTextMatrix</span>(context,<span class="built_in">CGAffineTransformIdentity</span>);</span><br><span class="line">    <span class="built_in">CGContextTranslateCTM</span>(context,<span class="number">0</span>, height);</span><br><span class="line">    <span class="built_in">CGContextScaleCTM</span>(context,<span class="number">1.0</span>,<span class="number">-1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，作者根据文字的起点，颜色，字体大小和行高，使用Core Text，将文字绘制在了传入的context上面。</p>
+<h3 id="3-5-异步绘制UILabel"><a href="#3-5-异步绘制UILabel" class="headerlink" title="3.5 异步绘制UILabel"></a>3.5 异步绘制UILabel</h3><p>而对于<code>UILabel</code>里面的绘制，作者也采取了类似的方法：</p>
+<p>首先看一下在cell实现文件里，关于绘制label文字方法的调用：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将文本内容绘制到图片上，也是异步绘制</span></span><br><span class="line">- (<span class="keyword">void</span>)drawText&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果发现label或detailLabel不存在，则重新add一次</span></span><br><span class="line">    <span class="keyword">if</span> (label==<span class="literal">nil</span>||detailLabel==<span class="literal">nil</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> addLabel];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//传入frame</span></span><br><span class="line">    label.frame = [_data[<span class="string">@"textRect"</span>] <span class="built_in">CGRectValue</span>];</span><br><span class="line">    <span class="comment">//异步绘制text</span></span><br><span class="line">    [label setText:_data[<span class="string">@"text"</span>]];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果存在原帖</span></span><br><span class="line">    <span class="keyword">if</span> ([_data valueForKey:<span class="string">@"subData"</span>]) &#123;</span><br><span class="line">        </span><br><span class="line">        detailLabel.frame = [[_data valueForKey:<span class="string">@"subData"</span>][<span class="string">@"textRect"</span>] <span class="built_in">CGRectValue</span>];</span><br><span class="line">        <span class="comment">//异步绘制text</span></span><br><span class="line">        [detailLabel setText:[_data valueForKey:<span class="string">@"subData"</span>][<span class="string">@"text"</span>]];</span><br><span class="line">        detailLabel.hidden = <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，对于帖子而言，是否存在原贴（当前贴是否是转发贴）是不固定的，所以需要在判断之后，用<code>hidden</code>属性来控制相应控件的隐藏和显示，而不是用<code>addSubView</code>的方法。</p>
+<p>这里的label是作者自己封装的<code>VVeboLabel</code>。它具有高亮显示点击，利用正则表达式区分不同类型的特殊文字（话题名，用户名，网址，emoji）的功能。</p>
+<p>简单介绍一下这个封装好的label：</p>
+<ul>
+<li>继承于<code>UIView</code>,可以响应用户点击，在初始化之后，<code>_textAlignment</code>,<code>_textColor</code>,<code>_font</code>,<code>_lienSpace</code>属性都会被初始化。</li>
+<li>使用Core Text绘制文字。</li>
+<li>持有两种UIImageView，用来显示默认状态和高亮状态的图片（将字符串绘制成图片）。</li>
+<li>保存了四种特殊文字的颜色，用正则表达式识别以后，给其着色。</li>
+</ul>
+<p>这里讲一下这个label的<code>setText:</code>方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用coretext将文本绘制到图片。</span></span><br><span class="line">- (<span class="keyword">void</span>)setText:(<span class="built_in">NSString</span> *)text&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//labelImageView 普通状态时的imageview</span></span><br><span class="line">    <span class="comment">//highlightImageView 高亮状态时的iamgeview</span></span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//绘制标记，初始化时赋一个随机值；clear之后更新一个随机值</span></span><br><span class="line">    <span class="built_in">NSInteger</span> flag = drawFlag;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//是否正在高亮（在点击label的时候设置为yes，松开的时候设置为NO）</span></span><br><span class="line">    <span class="built_in">BOOL</span> isHighlight = highlighting;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSString</span> *temp = text;</span><br><span class="line">        _text = text;</span><br><span class="line">        <span class="built_in">CGSize</span> size = <span class="keyword">self</span>.frame.size;</span><br><span class="line">        size.height += <span class="number">10</span>;</span><br><span class="line">       </span><br><span class="line">        <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(size, ![<span class="keyword">self</span>.backgroundColor isEqual:[<span class="built_in">UIColor</span> clearColor]], <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">        <span class="keyword">if</span> (context==<span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (![<span class="keyword">self</span>.backgroundColor isEqual:[<span class="built_in">UIColor</span> clearColor]]) &#123;</span><br><span class="line">            [<span class="keyword">self</span>.backgroundColor set];</span><br><span class="line">            <span class="built_in">CGContextFillRect</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, size.width, size.height));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGContextSetTextMatrix</span>(context,<span class="built_in">CGAffineTransformIdentity</span>);</span><br><span class="line">        <span class="built_in">CGContextTranslateCTM</span>(context,<span class="number">0</span>,size.height);</span><br><span class="line">        <span class="built_in">CGContextScaleCTM</span>(context,<span class="number">1.0</span>,<span class="number">-1.0</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//Determine default text color</span></span><br><span class="line">        <span class="built_in">UIColor</span>* textColor = <span class="keyword">self</span>.textColor;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//Set line height, font, color and break mode</span></span><br><span class="line">        <span class="built_in">CGFloat</span> minimumLineHeight = <span class="keyword">self</span>.font.pointSize,maximumLineHeight = minimumLineHeight, linespace = <span class="keyword">self</span>.lineSpace;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CTFontRef</span> font = <span class="built_in">CTFontCreateWithName</span>((__bridge <span class="built_in">CFStringRef</span>)<span class="keyword">self</span>.font.fontName, <span class="keyword">self</span>.font.pointSize,<span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">CTLineBreakMode</span> lineBreakMode = kCTLineBreakByWordWrapping;</span><br><span class="line">        <span class="built_in">CTTextAlignment</span> alignment = <span class="built_in">CTTextAlignmentFromUITextAlignment</span>(<span class="keyword">self</span>.textAlignment);</span><br><span class="line">        <span class="comment">//Apply paragraph settings</span></span><br><span class="line">        <span class="built_in">CTParagraphStyleRef</span> style = <span class="built_in">CTParagraphStyleCreate</span>((<span class="built_in">CTParagraphStyleSetting</span>[<span class="number">6</span>])&#123;</span><br><span class="line">            &#123;kCTParagraphStyleSpecifierAlignment, <span class="keyword">sizeof</span>(alignment), &amp;alignment&#125;,</span><br><span class="line">            &#123;kCTParagraphStyleSpecifierMinimumLineHeight,<span class="keyword">sizeof</span>(minimumLineHeight),&amp;minimumLineHeight&#125;,</span><br><span class="line">            &#123;kCTParagraphStyleSpecifierMaximumLineHeight,<span class="keyword">sizeof</span>(maximumLineHeight),&amp;maximumLineHeight&#125;,</span><br><span class="line">            &#123;kCTParagraphStyleSpecifierMaximumLineSpacing, <span class="keyword">sizeof</span>(linespace), &amp;linespace&#125;,</span><br><span class="line">            &#123;kCTParagraphStyleSpecifierMinimumLineSpacing, <span class="keyword">sizeof</span>(linespace), &amp;linespace&#125;,</span><br><span class="line">            &#123;kCTParagraphStyleSpecifierLineBreakMode,<span class="keyword">sizeof</span>(<span class="built_in">CTLineBreakMode</span>),&amp;lineBreakMode&#125;</span><br><span class="line">        &#125;,<span class="number">6</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="comment">//属性字典</span></span><br><span class="line">        <span class="built_in">NSDictionary</span>* attributes = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:(__bridge <span class="keyword">id</span>)font,(<span class="built_in">NSString</span>*)kCTFontAttributeName,</span><br><span class="line">                                    textColor.CGColor,kCTForegroundColorAttributeName,</span><br><span class="line">                                    style,kCTParagraphStyleAttributeName,</span><br><span class="line">                                    <span class="literal">nil</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//拿到CFAttributedStringRef</span></span><br><span class="line">        <span class="built_in">NSMutableAttributedString</span> *attributedStr = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:text attributes:attributes];</span><br><span class="line">        <span class="built_in">CFAttributedStringRef</span> attributedString = (__bridge <span class="built_in">CFAttributedStringRef</span>)[<span class="keyword">self</span> highlightText:attributedStr];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//根据attributedStringRef 获取CTFramesetterRef</span></span><br><span class="line">        <span class="built_in">CTFramesetterRef</span> framesetter = <span class="built_in">CTFramesetterCreateWithAttributedString</span>((<span class="built_in">CFAttributedStringRef</span>)attributedString);</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGRect</span> rect = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">5</span>,(size.width),(size.height<span class="number">-5</span>));</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ([temp isEqualToString:text]) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//根据 framesetter 和 attributedString 绘制text</span></span><br><span class="line">            [<span class="keyword">self</span> drawFramesetter:framesetter attributedString:attributedStr textRange:<span class="built_in">CFRangeMake</span>(<span class="number">0</span>, text.length) inRect:rect context:context];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//恢复context</span></span><br><span class="line">            <span class="built_in">CGContextSetTextMatrix</span>(context,<span class="built_in">CGAffineTransformIdentity</span>);</span><br><span class="line">            <span class="built_in">CGContextTranslateCTM</span>(context,<span class="number">0</span>,size.height);</span><br><span class="line">            <span class="built_in">CGContextScaleCTM</span>(context,<span class="number">1.0</span>,<span class="number">-1.0</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//截取当前图片</span></span><br><span class="line">            <span class="built_in">UIImage</span> *screenShotimage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">            <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                </span><br><span class="line">                <span class="built_in">CFRelease</span>(font);</span><br><span class="line">                <span class="built_in">CFRelease</span>(framesetter);</span><br><span class="line">                [[attributedStr mutableString] setString:<span class="string">@""</span>];</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span> (drawFlag==flag) &#123;</span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">if</span> (isHighlight) &#123;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//高亮状态：把图片付给highlightImageView</span></span><br><span class="line">                        <span class="keyword">if</span> (highlighting) &#123;</span><br><span class="line">                            highlightImageView.image = <span class="literal">nil</span>;</span><br><span class="line">                            <span class="keyword">if</span> (highlightImageView.width!=screenShotimage.size.width) &#123;</span><br><span class="line">                                highlightImageView.width = screenShotimage.size.width;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">if</span> (highlightImageView.height!=screenShotimage.size.height) &#123;</span><br><span class="line">                                highlightImageView.height = screenShotimage.size.height;</span><br><span class="line">                            &#125;</span><br><span class="line">                            highlightImageView.image = screenShotimage;</span><br><span class="line">                        &#125;</span><br><span class="line">                    </span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//非高亮状态，把图片付给labelImageView</span></span><br><span class="line">                        <span class="keyword">if</span> ([temp isEqualToString:text]) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (labelImageView.width!=screenShotimage.size.width) &#123;</span><br><span class="line">                                labelImageView.width = screenShotimage.size.width;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">if</span> (labelImageView.height!=screenShotimage.size.height) &#123;</span><br><span class="line">                                labelImageView.height = screenShotimage.size.height;</span><br><span class="line">                            &#125;</span><br><span class="line">                            highlightImageView.image = <span class="literal">nil</span>;</span><br><span class="line">                            labelImageView.image = <span class="literal">nil</span>;</span><br><span class="line">                            labelImageView.image = screenShotimage;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"><span class="comment">//                    [self debugDraw];//绘制可触摸区域</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个被作者封装好的Label里面还有很多其他的方法，比如用正则表达式高亮显示特殊字符串等等。</p>
+<p>关于tableView的优化，作者做了很多处理，使得这种显示内容比较丰富的cell在4s真机上好不卡顿，非常值得学习。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+            <a href="/tags/源码解析/" rel="tag"># 源码解析</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/SDWebImage源码解析/" rel="next" title="SDWebImage源码解析">
+                <i class="fa fa-chevron-left"></i> SDWebImage源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/YTKNetwork源码解析/" rel="prev" title="YTKNetwork源码解析">
+                YTKNetwork源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-减少CPU／GPU计算量"><span class="nav-number">1.</span> <span class="nav-text">1. 减少CPU／GPU计算量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-cell的重用机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 cell的重用机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-将cell高度和-cell里的控件的frame缓存在model里"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 将cell高度和 cell里的控件的frame缓存在model里</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-减少cell内部控件的层级"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 减少cell内部控件的层级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-通过覆盖圆角图片来实现头像的圆角效果"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 通过覆盖圆角图片来实现头像的圆角效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-按需加载cell"><span class="nav-number">2.</span> <span class="nav-text">2. 按需加载cell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-在cellForRow-方法里只加载可见cell"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 在cellForRow:方法里只加载可见cell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-监听tableview的快速滚动，保存目标滚动范围的前后三行的索引"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 监听tableview的快速滚动，保存目标滚动范围的前后三行的索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加元素NSIndexPath"><span class="nav-number">2.2.1.</span> <span class="nav-text">添加元素NSIndexPath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除元素NSIndexPath"><span class="nav-number">2.2.2.</span> <span class="nav-text">移除元素NSIndexPath</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-异步处理cell"><span class="nav-number">3.</span> <span class="nav-text">3. 异步处理cell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-异步加载网络图片"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 异步加载网络图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-异步绘制本地图片"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 异步绘制本地图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-异步绘制NSString"><span class="nav-number">3.3.</span> <span class="nav-text">3.4  异步绘制NSString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-异步绘制UILabel"><span class="nav-number">3.4.</span> <span class="nav-text">3.5 异步绘制UILabel</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -269,7 +269,7 @@ var _hmt = _hmt || [];
   
 
   <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/06/08/2017年5月iOS招人心得（附面试题）/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/《Effective Objective-C》超级干货三部曲（一）：概念篇/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="J_Knight_">
@@ -291,7 +291,2026 @@ var _hmt = _hmt || [];
             
               
                 
-                <a class="post-title-link" href="/2017/06/08/2017年5月iOS招人心得（附面试题）/" itemprop="url">
+                <a class="post-title-link" href="/2018/12/25/《Effective Objective-C》超级干货三部曲（一）：概念篇/" itemprop="url">
+                  《Effective Objective-C》超级干货三部曲（一）：概念篇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,589 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  22 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
+<p>很多文章和大牛都在推荐这本书，说它讲授了很多编写Objective-C语言时所应该遵循的规范。刚好笔者前段时间因为产品刚开发完，有了一点空档期，于是用了3个星期的时间仔细研读和总结了这本书。</p>
+<p>在学习过程中也看过很多总结这本书的博客和文章，但是发现多数只是将每节的总结部分抄了过来，讲得并不是很详细，于是笔者就想按照自己的方式对这本书进行总结，并以博客的形式展现出来：既能分享，同时又能对知识进行一下梳理和二次复习。</p>
+<p>虽然本书的作者按照知识模块来将这本书分成七个章节，共52节，但是笔者在拜读的过程中发现本书介绍的知识点可以大致分为三类：概念类，规范类，和技巧类。笔者打算按照这三类来对这本书进行总结，形成三部曲：</p>
+<ul>
+<li>概念类：讲解了一些概念性知识。</li>
+<li>规范类：讲解了一些为了避免一些问题或者为后续开发提供便利所需要遵循的规范性知识。</li>
+<li>技巧类：讲解了一些为了解决某些特定问题而需要用到的技巧性知识。</li>
+</ul>
+<p>而且，笔者也按照自己的归类将这本书的结构用思维导图工具画了出来：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-539498fef0819472.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
+<blockquote>
+<p>从图中可以看到，笔者并没有打乱原来作者的标题顺序。本篇总结即是三部曲之一：概念篇，后续会呈上规范篇和技巧篇。<br>备注：本总结所有的代码和图片都来自原书。其中，代码会适当加上笔者的注释，便于各位看官理解。</p>
+</blockquote>
+<p>好了，不啰嗦了， 开始吧！</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/《Effective Objective-C》超级干货三部曲（一）：概念篇/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/iOS 代码规范/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/iOS 代码规范/" itemprop="url">
+                  iOS 代码规范
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Production/" itemprop="url" rel="index">
+                    <span itemprop="name">Production</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  11,445 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  47 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://upload-images.jianshu.io/upload_images/859001-a9d78ce3d5e7114f.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配图来自：nipic.com"></p>
+<p>利用上周的业余时间把这篇规范整理了出来，我会将这篇规范作为我们iOS团队的代码规范，并且还会根据读者的反馈，项目的实践和研究的深入做不定时更新，还希望各位朋友看了多多指正和批评。</p>
+<p>这篇规范一共分为三个部分：</p>
+<ol>
+<li>核心原则：介绍了这篇代码规范所遵循的核心原则。</li>
+<li>通用规范：不局限于iOS的通用性的代码规范（使用C语言和Swift语言）。</li>
+<li>iOS规范：仅适用于iOS的代码规范（使用Objective-C语言）。</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/iOS 代码规范/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/YYCache 源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/YYCache 源码解析/" itemprop="url">
+                  YYCache 源码解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  13,480 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  57 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://github.com/ibireme/YYCache">YYCache</a>是国内开发者<a href="https://blog.ibireme.com/" target="_blank" rel="noopener">ibireme</a>开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。</p>
+<p>阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/YYCache 源码解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/YTKNetwork源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/YTKNetwork源码解析/" itemprop="url">
+                  YTKNetwork源码解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  14,803 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  64 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>对于iOS开发来说，就算是没有用过<a href="https://github.com/yuantiku/YTKNetwork">YTKNetwork框架</a>，应该也见过，听过了。它是猿题库技术团队开源的一个网络请求框架，内部封装了AFNetworking。它把每个请求实例化，管理它的生命周期，也可以管理多个请求。<br>​<br>在正式讲解源码之前，我会先讲一下该框架所用的架构和设计模式。我总觉得对架构和设计有一定的了解的话，会有助于对源码的理解。</p>
+<h1 id="1-架构"><a href="#1-架构" class="headerlink" title="1. 架构"></a>1. 架构</h1><hr>
+<p>先上图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-054321f909402be5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="YTKRequest架构图"></p>
+<blockquote>
+<p>在这里简单说明一下：</p>
+<ol>
+<li>YTKNetwork框架将每一个请求实例化，YTKBaseRequest是所有请求类的基类，YTKRequest是它的子类。所以如果我们想要发送一个请求，则需要创建并实例化一个继承于YTKRequest的自定义的请求类（CustomRequest）并发送请求。 </li>
+<li>YTKNetworkAgent是一个单例，负责管理所有的请求类（例如CustomRequest）。当CustomRequest发送请求以后，会把自己放在YTKNetworkAgent持有的一个字典里，让其管理自己。</li>
+<li>我们说YTKNetwork封装了AFNetworking，实际上是YTKNetworkAgent封装了AFNetworking，由它负责AFNetworking请求的发送和AFNetworking的回调处理。所以如果我们想更换一个第三方网络请求库，就可以在这里更换一下。而YTKRequest更多的是只是负责缓存的处理。</li>
+<li>YTKNetworkConfig与YTKPriviate的具体职能现在不做介绍，会在后文给出。</li>
+</ol>
+</blockquote>
+<p>OK，现在我们知道了YTKNetwork中类与类之间的关系以及关键类的大致职能，接下来我会告诉你YTKNetwork为什么会采用这种关系来架构，以及采用这种架构会有什么好处。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/YTKNetwork源码解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/VVeboTableView源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/VVeboTableView源码解析/" itemprop="url">
+                  VVeboTableView源码解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,241 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  25 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png" alt=""></p>
+<p>这次分享一个关于性能优化的源码。</p>
+<p>我们知道<code>UITabelView</code>在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，<code>UITabelView</code>的性能将直接影响这个app的性能。</p>
+<p>如果<code>UITabelView</code>里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。</p>
+<p>但是，当cell里面涉及到图文混排，cell高度不都相等的设计时，如果不进行一些操作的话，会非常影响性能，甚至会出现卡顿，造成非常不好的用户体验。</p>
+<p>最近在看一些iOS性能优化的文章，我找到了<a href="https://github.com/johnil/VVeboTableViewDemo">VVeboTableView</a>这个框架。严格来说这个不属于框架，而是作者用自己的方式优化<code>UITableView</code>的一个实现。</p>
+<p>作者模仿了新浪微博的cell样式，在里面展示了各种微博的cell。虽然样式比较复杂，但是性能却很好：我在我的iphone 4s上进行了Core Animation测试，在滑动的时候帧率没有低于56，而且也没有觉得有半点卡顿，那么他是怎么做到的呢？</p>
+<p>看了源码之后，我把作者的思路整理了出来：</p>
+<p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png" alt=""></p>
+<p>下面我就从左到右，从上到下，结合代码来展示一下作者是如何实现每一点的。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/VVeboTableView源码解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/SDWebImage源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/SDWebImage源码解析/" itemprop="url">
+                  SDWebImage源码解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4,258 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  20 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>相信对于广大的iOS开发者，对<a href="https://github.com/rs/SDWebImage">SDWebImage</a>并不会陌生，这个框架通过给UIImageView和UIButton添加分类，实现一个异步下载图片并且支持缓存的功能。整个框架的接口非常简洁，每个类的分工都很明确，是很值得大家学习的。</p>
+<p>在使用这个框架的时候，只需要提供一个下载的url和占位图就可以在回调里拿到下载后的图片：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[imageview sd_setImageWithURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"pic.jpg"</span>] placeholderImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"placeholder"</span>] completed:^(<span class="built_in">UIImage</span> * _Nullable image, <span class="built_in">NSError</span> * _Nullable error, SDImageCacheType cacheType, <span class="built_in">NSURL</span> * _Nullable imageURL) &#123;</span><br><span class="line">        </span><br><span class="line">        imageview.image = image;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"图片加载完成"</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<p>而且我们还可以不设置占位图片，也可以不使用回调的block，非常灵活:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//图片下载完成后直接显示下载后的图片</span></span><br><span class="line">[imageview sd_setImageWithURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"pic.jpg"</span>]];</span><br></pre></td></tr></table></figure>
+<p>在最开始先简单介绍这个框架：</p>
+<p>这个框架的核心类是<code>SDWebImageManger</code>，在外部有<code>UIImageView+WebCache</code> 和 <code>UIButton+WebCache</code> 为下载图片的操作提供接口。内部有<code>SDWebImageManger</code>负责处理和协调 <code>SDWebImageDownloader</code> 和 <code>SDWebImageCache</code>：<code>SDWebImageDownloader</code>负责具体的下载任务，<code>SDWebImageCache</code>负责关于缓存的工作：添加，删除，查询缓存。</p>
+<p>首先我们大致看一下这个框架的调用流程图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-7ad6493a2b2f0b43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SDWebImage"></p>
+<p>从这个流程图里可以大致看出，该框架分为两个层：UIKit层（负责接收下载参数）和工具层（负责下载操作和缓存）。</p>
+<p>OK～基本流程大概清楚了，我们看一下每个层具体实现吧～</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/SDWebImage源码解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/PNChart源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/PNChart源码解析/" itemprop="url">
+                  PNChart源码解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  6,889 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  30 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一-框架介绍"><a href="#一-框架介绍" class="headerlink" title="一. 框架介绍"></a>一. 框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
+<p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png" alt="层级图"></p>
+<blockquote>
+<p>在这张图里，需要注意以下几点：</p>
+<ol>
+<li>带箭头的线和不带箭头的线的区别。</li>
+<li><code>Data</code>类对应图表的一组数据，因为当前类型的图表支持多组数据（例如：饼状图没有<code>Data</code>类，因为饼状图没有多组数据，而折线图<code>LineChart</code>是支持多组数据的，所以有<code>Data</code>类。</li>
+<li><code>Item</code>类负责将传入图表的某个真实值转化为图表中显示的值，具体做法会在下文详细讲解。</li>
+<li><code>BarChart</code>类里面的每一根柱子都是<code>PNBar</code>的实例（该类型的图表不在本篇讲解的范围之内）。</li>
+</ol>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/PNChart源码解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/MJRefresh 源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/MJRefresh 源码解析/" itemprop="url">
+                  MJRefresh源码解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,430 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  24 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://github.com/CoderMJLee/MJRefresh">MJRefresh</a>是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。</p>
+<p>该框架的结构设计得很清晰，使用一个基类<code>MJRefreshComponent</code>来做一些基本的设定，然后通过继承的方式，让<code>MJRefreshHeader</code>和<code>MJRefreshFooter</code>分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_header.png" alt="框架组织结构图"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/MJRefresh 源码解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/MBProgressHUD源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/MBProgressHUD源码解析/" itemprop="url">
+                  MBProgressHUD源码解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,043 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的<strong>读好源码Project</strong>。</p>
+<p>从哪个框架开始呢？我想到了<code>SDWebImage</code>，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/MBProgressHUD源码解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/JSONModel源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/JSONModel源码解析/" itemprop="url">
+                  JSONModel源码解析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,659 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  26 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>这一系列的<a href="http://www.jianshu.com/nb/9137726" target="_blank" rel="noopener">源码解析</a>分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。</p>
+<p>想来想去，还是从<a href="https://github.com/jsonmodel/jsonmodel">JSONModel</a>开始吧～</p>
+<p>首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋还是很有帮助的。</p>
+<p>该框架的核心代码并不是很多，主要还是错误类型判断和容错处理占了不少内容。读过一遍之后，感觉到作者思维的严谨性是非常值得我们学习的：作者专门建立了一个展示错误(NSError)的类，里面封装了很多错误类型，而且这个框架还允许用户根据自己的需求来自定义错误类型并阻止最终模型的生成，在后文会有详细讲解。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/JSONModel源码解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/2018年 iOS 面试心得/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/2018年 iOS 面试心得/" itemprop="url">
+                  2018年 iOS 面试心得
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Career/" itemprop="url" rel="index">
+                    <span itemprop="name">Career</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,352 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  18 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/2018_interview_header.png" alt=""></p>
+<p>面试了几家公司之后，最后来到了爱奇艺（坐标上海），工作的内容是笔者个人非常感兴趣的领域。能拿到这个结果对于入行两年半&amp;非科班的笔者来说无疑是幸运的。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/2018年 iOS 面试心得/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/2017年5月iOS招人心得（附面试题）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/2017年5月iOS招人心得（附面试题）/" itemprop="url">
                   2017年5月iOS招人心得（附面试题）
                 </a>
               
@@ -308,8 +2327,8 @@ var _hmt = _hmt || [];
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T13:29:07+08:00">
-                2017-06-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
               </time>
             
 
@@ -410,7 +2429,7 @@ var _hmt = _hmt || [];
 <p>我重点在本文的第二部分说一下这次面试别人的心得体会。而关于第一部分的面试题，文中不提供答案（因为不是本文的重点）。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/06/08/2017年5月iOS招人心得（附面试题）/#more" rel="contents">
+            <a class="btn" href="/2018/12/25/2017年5月iOS招人心得（附面试题）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -456,7 +2475,7 @@ var _hmt = _hmt || [];
   
 
   <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/05/15/使用Block实现KVO/">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/2016年终总结 | 善于总结，把握方向/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="J_Knight_">
@@ -478,2005 +2497,7 @@ var _hmt = _hmt || [];
             
               
                 
-                <a class="post-title-link" href="/2017/05/15/使用Block实现KVO/" itemprop="url">
-                  使用Block实现KVO
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-15T08:28:17+08:00">
-                2017-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Production/" itemprop="url" rel="index">
-                    <span itemprop="name">Production</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  3,629 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  17 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在iOS开发中，我们可以通过KVO机制来监听某个对象的某个属性的变化。</p>
-<p>用过KVO的同学都应该知道，KVO的回调是以代理的形式实现的：在给某个对象添加观察以后，需要在另外一个地方实现回调代理方法。这种设计给人感觉比较分散，因此突然想试试用Block来实现KVO，将添加观察的代码和回调处理的代码写在一起。在学习了<a href="https://github.com/okcomp/ImplementKVO">ImplementKVO</a>的实现以后，自己也写了一个：<a href="https://github.com/knightsj/SJKVOController">SJKVOController</a></p>
-<p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/my_production/kvo_header.png" alt="使用Block来实现KVO"></p>
-<h1 id="SJKVOController的用法"><a href="#SJKVOController的用法" class="headerlink" title="SJKVOController的用法"></a>SJKVOController的用法</h1><p>只需要引入<code>NSObject+SJKVOController.h</code>头文件就可以使用SJKVOController。<br>先看一下它的头文件：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"SJKVOHeader.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">SJKVOController</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//============== add observer ===============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys withBlock:(SJKVOBlock)block;</span><br><span class="line">- (<span class="keyword">void</span>)sj_addObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key withBlock:(SJKVOBlock)block;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//============= remove observer =============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKeys:(<span class="built_in">NSArray</span> &lt;<span class="built_in">NSString</span> *&gt;*)keys;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer forKey:(<span class="built_in">NSString</span> *)key;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeObserver:(<span class="built_in">NSObject</span> *)observer;</span><br><span class="line">- (<span class="keyword">void</span>)sj_removeAllObservers;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//============= list observers ===============//</span></span><br><span class="line">- (<span class="keyword">void</span>)sj_listAllObservers;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/15/使用Block实现KVO/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/05/15/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/15/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/" itemprop="url">
-                  基于MVVM，用于快速搭建设置页，个人信息页的框架
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-15T08:13:57+08:00">
-                2017-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Production/" itemprop="url" rel="index">
-                    <span itemprop="name">Production</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  7,911 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  34 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="更新记录："><a href="#更新记录：" class="headerlink" title="更新记录："></a>更新记录：</h3><p><strong>2017.4.23：新增支持数据源完全依赖网络请求的情况。</strong><br><strong>2017.4.22：新增支持请求新数据后刷新表格。</strong><br><strong>2017.4.21： 新增CocoaPods支持：pod ‘SJStaticTableView’, ‘~&gt; 1.2.0’。</strong></p>
-<hr>
-<p>写一个小小轮子～</p>
-<p>写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。</p>
-<p>而且这些页面的共性比较多：</p>
-<ol>
-<li>大多数情况下在进入页面之前就已经拿到所有数据。</li>
-<li>cell样式单一，自定义cell出现的几率比较小（几乎都是高度为44的cell）。</li>
-<li>多数都分组。</li>
-</ol>
-<p>因为自己非常想写一个开源的东西出来（也可以暴露自己的不足），同时又受限于水平，所以就打算写这么一个比较简单，又具有通用性的框架：<strong>一个定制性比较高的适合在个人页和设置页使用的UITableView</strong>。</p>
-<p>在真正写之前，看了几篇类似的文章，挑出三篇自己觉得比较好的：</p>
-<ol>
-<li><a href="https://www.objc.io/issues/1-view-controllers/table-views/" target="_blank" rel="noopener">Clean Table View Code</a> </li>
-<li><a href="http://www.jianshu.com/p/504c61a9dc82" target="_blank" rel="noopener">如何写好一个UITableView</a></li>
-<li><a href="http://www.jianshu.com/p/81d0c573f7a8" target="_blank" rel="noopener">利用MVVM设计快速开发个人中心、设置等模块</a></li>
-</ol>
-<p>看完总结之后，利用上周3天的业余时间写好了这个框架，为了它实用性，我仿照了微信客户端的发现页，个人页和设置页写了一个Demo，来看一下效果图：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2017/4/24/85789de80b62c93ff0c9f77b603dba70" alt="发现页 | 个人页 | 个人信息页 | 设置页"></p>
-<blockquote>
-<p>项目所用资源来自：<a href="https://github.com/zhengwenming/WeChat">GitHub:zhengwenming/WeChat</a><br>Demo地址：<a href="https://github.com/knightsj/SJStaticTableView">GitHub: knightsj/SJStaticTableView</a></p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/05/15/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感/" itemprop="url">
-                  远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:56:26+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/BookNote/" itemprop="url" rel="index">
-                    <span itemprop="name">BookNote</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  2,684 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  9 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>朝九晚五，被禁锢在办公室里的工作模式是工业社会的产物。然而，在互联网崛起的今天，这种固定死板的工作模式反而拖累了我们。办公室早已变成了干扰工厂，把你的时间切成七零八碎的小块儿，工作无法顺利、及时地完成，更会造成心理上的疲惫。</p>
-<p>如果您也是一名互联网从业者，特别是程序员，问问周围的人：如果你可以自己选择时间地点来完成工作你会选择哪里？你能在哪一时间段或是哪一地点才能高效地完成工作？我想答案<strong>一定不是下午的办公室</strong>。</p>
-<p>笔者自己就是一名程序员，上班的时候被会议和同行的打断弄得苦不堪言，虽然有些沟通确是必要的。不过有一点我很清楚，我经常是在早上上班之前或是晚上睡觉之前才能<strong>完完全全，满意地</strong>完成一个模块的开发。在下午的时候，我就会给自己安排做一些难度不高的任务，这样一来，打断所带来的负面影响会很低。</p>
-<p>因此笔者非常期望自己可以远程工作，摆脱这种固话的工作和生活方式，因为它能带来的好处真的是太多太多了！</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-92f9e8f6e5690223.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="远程工作"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结/" itemprop="url">
-                  先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:56:04+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Career/" itemprop="url" rel="index">
-                    <span itemprop="name">Career</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  1,155 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  4 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://upload-images.jianshu.io/upload_images/859001-10c56d4121bfe78d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Objective-C | Swift | C"></p>
-<p>这篇面试总结很短，也没有面试题的答案，只是写给像我一样的非科班iOS开发者的一些话。</p>
-<p>昨天进行了人生第一次视频面试，一共三个小时的技术面，还没见到人事，应该是挂了。</p>
-<p>不过整个过程下来感触还是蛮多的，除了感受到面试官的牛X之外，也知道自己平时在学习中的不足。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/先是程序员，然后才是iOS程序员 — 写给广大非科班iOS开发者的一篇面试总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/如何高效学习 - 读书笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/如何高效学习 - 读书笔记/" itemprop="url">
-                  如何高效学习 - 读书笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:53:29+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/BookNote/" itemprop="url" rel="index">
-                    <span itemprop="name">BookNote</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  4,791 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  16 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://upload-images.jianshu.io/upload_images/859001-19e2323f8483e093.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="如何高效学习"></p>
-<p>笔者的话：本书介绍了整体性学习法，强调在学习过程中，需要通过比喻和抽象的方法，将新知识与旧知识相互联系，以提高学习效率和深度的学习方法。笔者亲测，甚是有效，在此强烈推荐给大家。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/如何高效学习 - 读书笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/浅谈互联网商业思维的几个误区 - 读《重来》有感/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/浅谈互联网商业思维的几个误区 - 读《重来》有感/" itemprop="url">
-                  浅谈互联网商业思维的几个误区 - 读《重来》有感
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:53:04+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/BookNote/" itemprop="url" rel="index">
-                    <span itemprop="name">BookNote</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  2,821 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  9 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近读了一些关于互联网思维和管理的一些书籍，感触颇深，想从团队，产品，公司方向和个人几个方面，结合笔者的个人经历分享一下笔者的思考和感悟。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-063cce725ad58f38.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：www.pexels.com"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/浅谈互联网商业思维的几个误区 - 读《重来》有感/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/高效能程序员的修炼 - 读书笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/高效能程序员的修炼 - 读书笔记/" itemprop="url">
-                  高效能程序员的修炼 - 读书笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:52:46+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/BookNote/" itemprop="url" rel="index">
-                    <span itemprop="name">BookNote</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  2,896 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  10 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://upload-images.jianshu.io/upload_images/859001-d4f6ace667765fd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="高效能程序员的修炼"></p>
-<p>俗话说：程序员不能只想着写代码。在编程以外的闲暇时间，读一点这种有助于程序员扩展视野和提高素养的书籍是很好的。</p>
-<p>笔者找到了这本《高效能程序员的修炼》：本书作者是大名鼎鼎<a href="http://stackoverflow.com/" target="_blank" rel="noopener">Stack Overflow</a>的创始人Jeff Atwood，内容是有关代码以外的，需要每个程序员思考和注意的事情。</p>
-<p>这本书是笔者在今年1月份看的，因为忙于项目开发，所以没有整理好笔记。正好这周五公司app提交过审，有空宅在家里整理一下。笔记内容没有提到书中所说的每个方面，<strong>只是针对了笔者觉得比较重要的几点并结合了笔者自己的想法和感悟整理而成</strong>。</p>
-<p>笔者的<strong>读书笔记的格式</strong>：<br><strong>标题</strong>：与书中目录不符，完全由笔者自己列出。<br><strong>正文</strong>：浅灰色框中的文字为书中摘录，其他部分均为笔者个人观点。</p>
-<p><strong>欢迎各路大侠指点！欢迎各路大侠指点！欢迎各路大侠指点！</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/高效能程序员的修炼 - 读书笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息/" itemprop="url">
-                  高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:52:33+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Production/" itemprop="url" rel="index">
-                    <span itemprop="name">Production</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  3,100 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  12 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在移动开发中，有时不得不在客户端本地保存一些数据。在iOS端，我们可以使用plist，属性列表等技术来存储数据，而相比而下更高端一点的，我们也可以使用<strong>数据库</strong>来存储数据。</p>
-<p>有趣的是，很多iOS开发者没有去选择使用苹果自家的Core Data技术来操作数据库，而是选择了<a href="[https://github.com/ccgus/fmdb](https://github.com/ccgus/fmdb">FMDB</a>)这个第三方框架。</p>
-<p>该框架很好地封装了操作繁琐的SQLite语句，让数据库的操作更加面向对象，而且上手快，门槛低，不用学习数据库的相关知识就可以使用自如。如此优秀流行的框架是值得学习的，于是笔者这两天研究了一下FMDB。研究后，略有所思，将它封装了一下，写了一个<code>Manager</code>类，最后结合了一个Demo演示如何使用这个类。</p>
-<p>该博客分为两个部分:第一个部分讲解笔者封装的这个<code>Manager</code>类；第二部分结合Demo来体现该类的实用性。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/高度封装FMDB框架：各用一句代码更新（添加&修改），查询，删除用户信息/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/程序员的修炼：从优秀到卓越 - 读书笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/程序员的修炼：从优秀到卓越 - 读书笔记/" itemprop="url">
-                  程序员的修炼：从优秀到卓越 - 读书笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:51:41+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/BookNote/" itemprop="url" rel="index">
-                    <span itemprop="name">BookNote</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  3,328 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  11 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="程序员的修炼 - 从优秀到卓越"></p>
-<p>本书是笔者上一篇读书笔记<a href="http://www.jianshu.com/p/33933a3ba977" target="_blank" rel="noopener">高效能程序员的修炼</a>的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。</p>
-<p>和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。</p>
-<hr>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/程序员的修炼：从优秀到卓越 - 读书笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/程序员的职业素养 - 读书笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/程序员的职业素养 - 读书笔记/" itemprop="url">
-                  程序员的职业素养 - 读书笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:51:35+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/BookNote/" itemprop="url" rel="index">
-                    <span itemprop="name">BookNote</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  3,508 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  12 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>好久木有读书了，因为前两次迭代比较忙，工作下来也在一直写代码。不过还好现在把握好了节奏，有时间读书了。</p>
-<p>我找了这本《程序员的职业素养》，内容比较简单，但是涵盖了一些程序员在工作过程中需要注意的一些细节问题，如果读者是程序员的话会对职业有很大帮助的。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-7f961cd28e79379f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="程序员的职业素养"></p>
-<p>本书一直围绕着“专业”二字展开，以作者的观点阐述了何为”专业的程序员”：专业的程序员是如何思考，如何解决问题，如何承担责任。笔者将一些比较有体会的部分摘录出来，结合自己的心得整理出这篇读书笔记。内容的顺序和书中的顺序基本不符，完全按照笔者按照几大块归类整理而成。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/程序员的职业素养 - 读书笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/" itemprop="url">
-                  2016年10月求职记 | iOS工作经验不到1年，在1个月内拿到了3个offer
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:51:10+08:00">
-                2017-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Career/" itemprop="url" rel="index">
-                    <span itemprop="name">Career</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计</span>
-                
-                <span title="字数统计">
-                  3,464 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长</span>
-                
-                <span title="阅读时长">
-                  12 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~</p>
-<p>新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。</p>
-<p>笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简历到拿到最后一个offer历时3周多。因为在这段求职时间里感触很多，所以想专门写一篇博客来讲述一下自己的求职心得，希望能给各位年底求职的小伙伴，特别是做iOS的同行一些值得借鉴的东西。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/859001-23f60ab52ef7bafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：pixabay.com"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2017/03/20/2016年终总结 | 善于总结，把握方向/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="J_Knight_">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="J_Knight_">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/20/2016年终总结 | 善于总结，把握方向/" itemprop="url">
+                <a class="post-title-link" href="/2018/12/25/2016年终总结 | 善于总结，把握方向/" itemprop="url">
                   2016年终总结 | 善于总结，把握方向
                 </a>
               
@@ -2493,8 +2514,8 @@ var _hmt = _hmt || [];
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T15:51:03+08:00">
-                2017-03-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
               </time>
             
 
@@ -2595,7 +2616,187 @@ var _hmt = _hmt || [];
 <p>下面开始按时间顺序分别总结一下每个时期里我的所做所思。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/03/20/2016年终总结 | 善于总结，把握方向/#more" rel="contents">
+            <a class="btn" href="/2018/12/25/2016年终总结 | 善于总结，把握方向/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/12/25/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/" itemprop="url">
+                  2016年10月求职记 | iOS工作经验不到1年，在1个月内拿到了3个offer
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Career/" itemprop="url" rel="index">
+                    <span itemprop="name">Career</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,464 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  12 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>真的是非常非常感谢我的新东家，在我最需要新工作的时候给我抛来橄榄枝~</p>
+<p>新东家的知名度很高，但并不是做互联网起家的，是一家有自己线下产业的大公司，创立时间也比较久，新项目（互联网）的技术团队组成非常优秀，所以虽然给我的待遇并没有很多，但还是毫不犹豫选择了这一家。为此还谢绝了后面的面试邀请（因为要准备一些入职材料和入职之前的相关学习）。</p>
+<p>笔者在国庆节期间准备简历，在国庆节后开始投递简历。从最开始投递简历到拿到最后一个offer历时3周多。因为在这段求职时间里感触很多，所以想专门写一篇博客来讲述一下自己的求职心得，希望能给各位年底求职的小伙伴，特别是做iOS的同行一些值得借鉴的东西。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-23f60ab52ef7bafa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片来自：pixabay.com"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/25/2016年10月求职记：iOS工作经验不到1年，在1个月内拿到了3个offer/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2679,7 +2880,7 @@ var _hmt = _hmt || [];
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

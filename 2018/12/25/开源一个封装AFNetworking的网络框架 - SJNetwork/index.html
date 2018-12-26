@@ -1,0 +1,1140 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="介绍该框架是一个通用的网络层，可以供给不同app的业务层调用。该框架封装了AFNetworking，而且有些地方借鉴了YTKNetwork的设计思路：以对象的形式封装并管理请求。 它在功能上支持：  发送请求方法为GET，POST，PUT，DELETE的普通网络请求的功能 上传图片功能（单张与多张上传，指定上传前的图片压缩比率） 下载功能（支持断点续传和后台下载） 缓存管理（写入，读取，清除缓存，">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源一个封装AFNetworking的网络框架 - SJNetwork">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/开源一个封装AFNetworking的网络框架 - SJNetwork/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="介绍该框架是一个通用的网络层，可以供给不同app的业务层调用。该框架封装了AFNetworking，而且有些地方借鉴了YTKNetwork的设计思路：以对象的形式封装并管理请求。 它在功能上支持：  发送请求方法为GET，POST，PUT，DELETE的普通网络请求的功能 上传图片功能（单张与多张上传，指定上传前的图片压缩比率） 下载功能（支持断点续传和后台下载） 缓存管理（写入，读取，清除缓存，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/26/1609352038129d87?w=839&h=539&f=png&s=45872">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/12/24/160873e31e97cd9b?w=1037&h=617&f=png&s=64142">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开源一个封装AFNetworking的网络框架 - SJNetwork">
+<meta name="twitter:description" content="介绍该框架是一个通用的网络层，可以供给不同app的业务层调用。该框架封装了AFNetworking，而且有些地方借鉴了YTKNetwork的设计思路：以对象的形式封装并管理请求。 它在功能上支持：  发送请求方法为GET，POST，PUT，DELETE的普通网络请求的功能 上传图片功能（单张与多张上传，指定上传前的图片压缩比率） 下载功能（支持断点续传和后台下载） 缓存管理（写入，读取，清除缓存，">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/12/26/1609352038129d87?w=839&h=539&f=png&s=45872">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/开源一个封装AFNetworking的网络框架 - SJNetwork/">
+
+
+
+
+
+  <title> 开源一个封装AFNetworking的网络框架 - SJNetwork | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/开源一个封装AFNetworking的网络框架 - SJNetwork/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                开源一个封装AFNetworking的网络框架 - SJNetwork
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Production/" itemprop="url" rel="index">
+                    <span itemprop="name">Production</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  5,229 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  21 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>该框架是一个通用的网络层，可以供给不同app的业务层调用。该框架封装了AFNetworking，而且有些地方借鉴了YTKNetwork的设计思路：以对象的形式封装并管理请求。</p>
+<p>它在功能上支持：</p>
+<ul>
+<li>发送请求方法为GET，POST，PUT，DELETE的普通网络请求的功能</li>
+<li>上传图片功能（单张与多张上传，指定上传前的图片压缩比率）</li>
+<li>下载功能（支持断点续传和后台下载）</li>
+<li>缓存管理（写入，读取，清除缓存，计算大小）功能</li>
+<li>请求管理（查看正在进行的请求的状态，请求的单个与批量取消）功能</li>
+<li>设置请求体里的默认键值对（eg.需要添加版本号进行版本控制）</li>
+<li>添加请求头（eg.针对一些需要使用token的服务）</li>
+<li>设置服务器地址</li>
+<li>设置debug模式（调试时打印出便于调试的log，比如读取缓存失败的具体原因）</li>
+</ul>
+<p>GitHub链接：<a href="https://github.com/knightsj/SJNetwork">SJNetwork</a></p>
+<blockquote>
+<p>里面附有demo</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p>在看架构图之前，先简单介绍一下该框架里每个类的职责:</p>
+<h2 id="职责划分"><a href="#职责划分" class="headerlink" title="职责划分"></a>职责划分</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">类名</th>
+<th style="text-align:left">职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">SJNetwork</td>
+<td style="text-align:left">总头文件，只需要引入该文件即可使用该框架所有功能</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkProtocol</td>
+<td style="text-align:left">定制了请求结束后的处理方法，今后可能还会扩展</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkHeader</td>
+<td style="text-align:left">定义了回调block和一些枚举类型</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkManager</td>
+<td style="text-align:left">与业务层直接对接的类，包含了除配置接口外所有关于网络请求功能的接口</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkBaseEngine</td>
+<td style="text-align:left">所有负责发送请求类的基类</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkRequestEngine</td>
+<td style="text-align:left">发送（GET,POST,PUT,DELETE）请求的类：支持设置缓存有效期，读，写和清理缓存</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkUploadEngine</td>
+<td style="text-align:left">发送上传请求的类：支持设置图片类型和压缩上传，批量上传</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkDownloadEngine</td>
+<td style="text-align:left">发送下载请求的类：支持断点续传和后台下载</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkRequestModel</td>
+<td style="text-align:left">请求对象类：持有某个网络请求的一些数据；比如请求url，请求体等）</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkCacheManager</td>
+<td style="text-align:left">缓存处理类：缓存的写入，读取，删除</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkConfig</td>
+<td style="text-align:left">配置类：配置服务器地址，debug模式等</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkUtils</td>
+<td style="text-align:left">工具类：可以用于生成缓存路径，app版本号等</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkRequestPool</td>
+<td style="text-align:left">请求对象池：用于存放正在进行的请求对象</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkCacheInfo</td>
+<td style="text-align:left">缓存元数据：记录其对应缓存数据的信息（版本号，缓存过期时间）</td>
+</tr>
+<tr>
+<td style="text-align:left">SJNetworkDownloadResumeDataInfo</td>
+<td style="text-align:left">未下载完成数据的元数据：记录未下载完成数据的信息（已经下载的比例，下载数据的总长度，已经下载数据的长度）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h2><p><img src="https://user-gold-cdn.xitu.io/2017/12/26/1609352038129d87?w=839&amp;h=539&amp;f=png&amp;s=45872" alt="architecture"></p>
+<blockquote>
+<p>从架构图中可以看出：</p>
+<ul>
+<li>业务方调用<code>SJNetworkManager</code>的接口来发送请求（或进行操作请求等操作），而实际进行工作的类其实是<code>SJNetworkRequestEngine</code>,<code>SJNetworkUploadEngine</code>,<code>SJNetworkDownloadEngine</code>，<code>SJNetworkCacheManager</code>这些类。</li>
+<li>所有的请求都会被封装成一个<code>SJNetworkRequestModel</code>实例来管理，其管理者为<code>SJNetworkRequestPool</code>。</li>
+<li>在该框架内，<code>SJNetworkConfig</code>和<code>SJNetworkUtils</code>是可以在任意地方调用的，因为要经常获取用户所做的一些配置以及调用一些常用的工具类方法。</li>
+</ul>
+</blockquote>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p><strong>Step1:下载与导入框架</strong></p>
+<p>通过Pod:</p>
+<figure class="highlight plain"><figcaption><span>'SJNetwork'```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">或者 手动将 ``SJNetwork``文件夹拖入到工程里面。</span><br><span class="line"></span><br><span class="line">&gt;因为代码刚上传到Cocoapods，所以很可能还没有审核通过。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**Step2:引入头文件：**</span><br><span class="line"></span><br><span class="line">```objective-c</span><br><span class="line">#import &quot;SJNetwork.h&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h1><h2 id="基本的配置"><a href="#基本的配置" class="headerlink" title="基本的配置"></a>基本的配置</h2><p>因为配置对象是一个单例（<code>SJNetworkConfig</code>），所以可以在项目任何地方来使用。看一下该框架支持哪些配置项：</p>
+<h3 id="服务器地址："><a href="#服务器地址：" class="headerlink" title="服务器地址："></a>服务器地址：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[SJNetworkConfig sharedConfig].baseUrl = @&quot;http://v.juhe.cn&quot;;</span><br></pre></td></tr></table></figure>
+<h3 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数:"></a>默认参数:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[SJNetworkConfig sharedConfig].defailtParameters = @&#123;@&quot;app_version&quot;:[SJNetworkUtils appVersionStr],</span><br><span class="line">                                                        @&quot;platform&quot;:@&quot;iOS&quot;&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>默认参数会拼接在所有请求的请求体中；</p>
+<p>如果是GET请求，则拼接在url里面。</p>
+</blockquote>
+<h3 id="超时时间："><a href="#超时时间：" class="headerlink" title="超时时间："></a>超时时间：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[SJNetworkConfig sharedConfig].timeoutSeconds = 30;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>超时时间默认为20s。</p>
+</blockquote>
+<h3 id="Debug模式："><a href="#Debug模式：" class="headerlink" title="Debug模式："></a>Debug模式：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[SJNetworkConfig sharedConfig].debugMode = YES;//默认为NO</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果设置debug模式为YES，则会打印出很多详细的log，便于调试。</p>
+<p>如果设置为NO，则没有log。</p>
+</blockquote>
+<h3 id="添加请求头键值对："><a href="#添加请求头键值对：" class="headerlink" title="添加请求头键值对："></a>添加请求头键值对：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkConfig sharedConfig] addCustomHeader:@&#123;@&quot;token&quot;:@&quot;2j4jd9s74bfm9sn3&quot;&#125;];</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] addCustomHeader:@&#123;@&quot;token&quot;:@&quot;2j4jd9s74bfm9sn3&quot;&#125;];//实际上调用了SJNetworkConfig的addCustomHeader方法</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>添加的请求头键值对会自动添加到所有的请求头中；</p>
+<p>如果键值对原来不存在，则添加；如果原来存在，则替换原有的。</p>
+</blockquote>
+<h2 id="普通网络请求"><a href="#普通网络请求" class="headerlink" title="普通网络请求"></a>普通网络请求</h2><p>在这里定义GET，POST，PUT，DELETE请求为普通的网络请求，是由<code>SJNetworkRequestManager</code>实现的。所有的这些普通的网络请求都支持写入和读取缓存，但是默认是不支持的，由用户来决定是否写入，读取缓存。</p>
+<p>发送一个不支持写入和读取缓存的POST请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] sendPostRequest:@&quot;toutiao/index&quot;</span><br><span class="line">                                       parameters:@&#123;@&quot;type&quot;:@&quot;top&quot;,</span><br><span class="line">                                                    @&quot;key&quot; :@&quot;0c60&quot;&#125;</span><br><span class="line">                                          success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;request succeed:%@&quot;,responseObject);</span><br><span class="line"></span><br><span class="line">  &#125; failure:^(NSURLSessionTask *task, NSError *error, NSInteger statusCode) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;request failed:%@&quot;,error);</span><br><span class="line">  &#125;];</span><br></pre></td></tr></table></figure>
+<p>发送一个支持写入有效时间为180秒并在缓存有效时读取缓存的POST请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] sendPostRequest:@&quot;toutiao/index&quot;</span><br><span class="line">                                       parameters:@&#123;@&quot;type&quot;:@&quot;top&quot;,</span><br><span class="line">                                                    @&quot;key&quot; :@&quot;0c60&quot;&#125;</span><br><span class="line">                                        loadCache:YES</span><br><span class="line">                                    cacheDuration:180</span><br><span class="line">                                          success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">     NSLog(@&quot;request succeed:%@&quot;,responseObject);</span><br><span class="line"></span><br><span class="line"> &#125; failure:^(NSURLSessionTask *task, NSError *error, NSInteger statusCode) &#123;</span><br><span class="line"></span><br><span class="line">     NSLog(@&quot;request failed:%@&quot;,error);</span><br><span class="line"> &#125;];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>cacheDuration：缓存有效的时间，单位为秒。</p>
+<ul>
+<li>如果大于0，则进行缓存。</li>
+<li>如果小于等于0，则不进行缓存。</li>
+</ul>
+<p>loadCache：如果设置为YES，则在发起请求前，先查看是否缓存有效（如果设置为NO，则无论有没有缓存，都进行网络请求）：</p>
+<ul>
+<li>如果缓存存在并有效，则返回缓存，不进行网络请求；</li>
+<li>如果缓存不存在，或者存在但失效（时间过期）则删除缓存（如果缓存存在）并进行网络请求。</li>
+</ul>
+</blockquote>
+<p>完整的带有缓存判断的普通网络请求的流程图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/12/24/160873e31e97cd9b?w=1037&amp;h=617&amp;f=png&amp;s=64142" alt="request"></p>
+<h2 id="缓存管理"><a href="#缓存管理" class="headerlink" title="缓存管理"></a>缓存管理</h2><p>缓存管理是由<code>SJNetworkCacheManager</code>的单例来实现的，功能分为缓存的读取，删除和计算。先来看一下缓存的读取：</p>
+<h3 id="缓存的读取"><a href="#缓存的读取" class="headerlink" title="缓存的读取"></a>缓存的读取</h3><p>该框架支持单个缓存的读取和多个缓存的读取：</p>
+<ul>
+<li>单个缓存的读取只返回某个缓存对象（字典，或数组）或nil。</li>
+<li>多个缓存的读取返回的是一个数组或nil。</li>
+</ul>
+<h4 id="单个缓存的读取："><a href="#单个缓存的读取：" class="headerlink" title="单个缓存的读取："></a>单个缓存的读取：</h4><p>如果知道这个缓存对应的请求url，method，请求体，就能尝试获取它所对应的缓存对象：</p>
+<p>举个例子，如果想获取上面有写入缓存的网络请求的缓存，就可以用如下API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] loadCacheWithUrl:@&quot;toutiao/index&quot;</span><br><span class="line">                                            method:@&quot;POST&quot;</span><br><span class="line">                                        parameters:@&#123;@&quot;type&quot;:@&quot;top&quot;,</span><br><span class="line">                                                   @&quot;key&quot; :@&quot;0c60&quot;&#125;</span><br><span class="line">                                   completionBlock:^(id  _Nullable cacheObject) &#123;</span><br><span class="line">                               </span><br><span class="line">    NSLog(@&quot;%@&quot;,cacheObject);</span><br><span class="line">                               </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，在缓存的读取过程中会有以下几种情况： </p>
+<ul>
+<li><p>如果这个请求对应的缓存不存在，则会从block里传过来nil。</p>
+</li>
+<li><p>如果这个请求对应的缓存存在，但是失效了（有效期过了），则这个缓存就会被清除掉，并会在block里传过来nil。</p>
+</li>
+<li><p>如果这个请求对应的缓存存在并有效，则会从block里传过来缓存对象。</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="多个缓存的读取："><a href="#多个缓存的读取：" class="headerlink" title="多个缓存的读取："></a>多个缓存的读取：</h4><p>如果有些请求使用的是同一个url（但是不同的请求方法或者参数）并做了缓存，那么通过如下方法可以获取它们的缓存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] loadCacheWithUrl:@&quot;toutiao/index&quot;</span><br><span class="line">                                   completionBlock:^(NSArray * _Nullable cacheArr) &#123;</span><br><span class="line">    NSLog(@&quot;%@&quot;,cacheArr);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果有些请求使用的是同一个url以及请求方法，但是请求参数不同，那么通过如下方法可以获取它们的缓存（用数组保存）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] loadCacheWithUrl:@&quot;toutiao/index&quot;</span><br><span class="line">                                            method:@&quot;POST&quot;</span><br><span class="line">                                   completionBlock:^(NSArray * _Nullable cacheArr) &#123;</span><br><span class="line">     NSLog(@&quot;%@&quot;,cacheArr);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>现在我们知道这个框架在缓存的读取上支持单个与批量读取，接下来看一下缓存的删除：</p>
+<h3 id="缓存的删除"><a href="#缓存的删除" class="headerlink" title="缓存的删除"></a>缓存的删除</h3><p>同样地，该框架也支持缓存的单个与批量删除。</p>
+<p>如果你想删除属于某个特定url，method，请求参数的请求的缓存，可以使用下面这个API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] clearCacheWithUrl:@&quot;toutiao/index&quot;</span><br><span class="line">                                             method:@&quot;POST&quot;</span><br><span class="line">                                         parameters:@&#123;@&quot;type&quot;:@&quot;top&quot;,</span><br><span class="line">                                                      @&quot;key&quot; :@&quot;0c60&quot;&#125;</span><br><span class="line">                                    completionBlock:^(BOOL isSuccess) &#123;</span><br><span class="line"></span><br><span class="line">     if (isSuccess) &#123;</span><br><span class="line">       NSLog(@&quot;Clearing cache successfully!&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果你想删除使用的是同一个url（但是不同的请求方法或者参数）的请求的缓存，可以使用下面这个API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] clearCacheWithUrl:@&quot;toutiao/index&quot;</span><br><span class="line">                                    completionBlock:^(BOOL isSuccess) &#123;</span><br><span class="line"></span><br><span class="line">     if (isSuccess) &#123;</span><br><span class="line">       NSLog(@&quot;Clearing cache successfully!&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果你想删除使用同一个url和method，但是不同请求参数的的请求的缓存，可以使用下面这个API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] clearCacheWithUrl:@&quot;toutiao/index&quot;</span><br><span class="line">                                             method:@&quot;POST&quot;</span><br><span class="line">                                withCompletionBlock:^(BOOL isSuccess) &#123;</span><br><span class="line">     if (isSuccess) &#123;</span><br><span class="line">        NSLog(@&quot;Clearing cache successfully!&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;];</span><br></pre></td></tr></table></figure>
+<p>看完了缓存的读取和删除，我们来看一下缓存的计算:</p>
+<h3 id="缓存的计算"><a href="#缓存的计算" class="headerlink" title="缓存的计算"></a>缓存的计算</h3><p>缓存的计算只提供了一个接口，在block回调的时候会回传一个文件个数，所有缓存的大小，以及带有KB或MB的字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] calculateCacheSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize, NSString *totalSizeString) &#123;</span><br><span class="line">        </span><br><span class="line">        NSLog(@&quot;file count :%lu and total size:%lu total size string:%@&quot;,(unsigned long)fileCount,(unsigned long)totalSize, totalSizeString);</span><br><span class="line"> &#125;];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>fileCount:缓存文件的个数，为整数</p>
+<p>total size：单位为字节</p>
+<p>totalSizeString：带有KB和MB转化的字符串：在1024*1024字节以内以KB为单位；以外以MB为单位。例如：<figure class="highlight plain"><figcaption><span>count :5 and total size:1298609 total size string:1.2385 MB```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&gt;</span><br><span class="line">&gt; **注意：**所计算的缓存包括所有普通请求的缓存以及未下载完成，以后需要继续下载的数据。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 上传功能</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">上传图片的功能是由``SJNetworkUploadManager`类的单例实现的：支持上传单个与多个``UIImage``对象，可以设置压缩比率（不设置时默认为1，不压缩）。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 单张图片，原图上传</span><br><span class="line"></span><br><span class="line">上传单个UIImage对象，上传前不对图片进行压缩：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```objective-c</span><br><span class="line">[[SJNetworkManager sharedManager]  sendUploadImageRequest:@&quot;api&quot;</span><br><span class="line">                                               parameters:nil</span><br><span class="line">                                                    image:image_1</span><br><span class="line">                                                     name:@&quot;color&quot;</span><br><span class="line">                                                 mimeType:@&quot;png&quot;</span><br><span class="line">                                                 progress:^(NSProgress *uploadProgress) </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    self.progressView.observedProgress = uploadProgress;</span><br><span class="line"></span><br><span class="line">&#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;upload succeed&quot;);</span><br><span class="line"></span><br><span class="line">&#125; failure:^(NSURLSessionTask *task, NSError *error, NSInteger statusCode, NSArray&lt;UIImage *&gt; *uploadFailedImages) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;upload failed, failed images:%@&quot;,uploadFailedImages);</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="多张图片，压缩一半"><a href="#多张图片，压缩一半" class="headerlink" title="多张图片，压缩一半"></a>多张图片，压缩一半</h3><p>上传多个UIImage对象，压缩比率为0.5：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager]  sendUploadImagesRequest:@&quot;api&quot;</span><br><span class="line">                                                parameters:nil</span><br><span class="line">                                                    images:@[image_1,image_2]</span><br><span class="line">                                             compressRatio:0.5</span><br><span class="line">                                                      name:@&quot;images&quot;</span><br><span class="line">                                                  mimeType:@&quot;jpg&quot;</span><br><span class="line">                                                  progress:^(NSProgress *uploadProgress) </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    self.progressView.observedProgress = uploadProgress;</span><br><span class="line"></span><br><span class="line">&#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;upload succeed&quot;);</span><br><span class="line"></span><br><span class="line">&#125; failure:^(NSURLSessionTask *task, NSError *error, NSInteger statusCode, NSArray&lt;UIImage *&gt; *uploadFailedImages) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;upload failed, failed images:%@&quot;,uploadFailedImages);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里的mimeType可以设置为jpg/JPG, png/PNG, jpeg/JPEG，作为图片上传到服务器时的类型。需要注意的是，如果mimeType为png/PNG的时候，设置的压缩比率就是无效的，将会一定以原图大小上传。</p>
+</blockquote>
+<h3 id="忽略设置过的BaseUrl"><a href="#忽略设置过的BaseUrl" class="headerlink" title="忽略设置过的BaseUrl"></a>忽略设置过的BaseUrl</h3><p>考虑到上传图片的服务器可能与普通请求的服务器不同，特意增加了一个参数：<code>ignoreBaseUrl</code>。如果该布尔值设置为YES，则在<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```objective-c</span><br><span class="line">[[SJNetworkManager sharedManager]  sendUploadImagesRequest:@&quot;http://uploads.im/api&quot;</span><br><span class="line">                                               ignoreBaseUrl:YES</span><br><span class="line">                                                  parameters:nil</span><br><span class="line">                                                      images:@[image_1,image_2]</span><br><span class="line">                                               compressRatio:0.5</span><br><span class="line">                                                        name:@&quot;images&quot;</span><br><span class="line">                                                    mimeType:@&quot;jpg&quot;</span><br><span class="line">                                                    progress:^(NSProgress *uploadProgress) </span><br><span class="line">  &#123;</span><br><span class="line"></span><br><span class="line">      self.progressView.observedProgress = uploadProgress;</span><br><span class="line"></span><br><span class="line">  &#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;upload succeed&quot;);</span><br><span class="line"></span><br><span class="line">  &#125; failure:^(NSURLSessionTask *task, NSError *error, NSInteger statusCode, NSArray&lt;UIImage *&gt; *uploadFailedImages) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;upload failed, failed images:%@&quot;,uploadFailedImages);</span><br><span class="line"></span><br><span class="line">  &#125;];</span><br></pre></td></tr></table></figure></p>
+<p>还有一个方法，就是强制更改<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```objective-c</span><br><span class="line">[SJNetworkConfig sharedConfig].baseUrl = @&quot;http://uploads.im&quot;;</span><br><span class="line">[[SJNetworkManager sharedManager]  sendUploadImagesRequest:@&quot;api&quot;</span><br><span class="line">                                             ignoreBaseUrl:NO</span><br><span class="line">                                                parameters:nil</span><br><span class="line">                                                    images:@[image_3,image_4]</span><br><span class="line">                                             compressRatio:0.5</span><br><span class="line">                                                      name:@&quot;color&quot;</span><br><span class="line">                                                  mimeType:@&quot;png&quot;</span><br><span class="line">                                                  progress:^(NSProgress *uploadProgress) </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    self.progressView.observedProgress = uploadProgress;</span><br><span class="line"></span><br><span class="line">&#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;upload succeed&quot;);</span><br><span class="line"></span><br><span class="line">&#125; failure:^(NSURLSessionTask *task, NSError *error, NSInteger statusCode, NSArray&lt;UIImage *&gt; *uploadFailedImages) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;upload failed, failed images:%@&quot;,uploadFailedImages);</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
+<p>虽然看上去不是很优雅，但却也是可行的：在请求所有普通网络请求之前将baseUrl再次改回去即可。</p>
+<p>暂时该框架还无法支持多个baseUrl的功能，以后如果有研究到的话就会添加上去。</p>
+<h2 id="下载功能"><a href="#下载功能" class="headerlink" title="下载功能"></a>下载功能</h2><p>下载功能是由<code>SJNetworkDownloadManager</code>的单例来实现的，支持断点续传以及后台下载。</p>
+<ul>
+<li>如果设置为支持后台下载，则在内部生成的task类为：<code>NSURLSessionDownloadTask</code>。在手机退出前台，进入后台后后仍然可以下载。</li>
+<li>如果设置为不支持后台下载，则在内部生成的task类为：<code>NSURLSessionDataTask</code>。在手机退出前台后无法继续下载，但是通过框架内部的<strong>自动恢复下载机制</strong>，在回到前台后就会继续之前的下载。而且结合了<code>NSOutputStream</code>实例，将下载下来的数据一点一点的写在沙盒里面，减少了内存的压力，也就是支持大文件下载。</li>
+<li>如果支持断点续传，则由于断网或者取消请求等造成的下载失败后会保存未下载完成的数据。在后来启动该下载任务后，会继续下载。</li>
+<li>如果不支持断点续传，则不会保留未下载完成的数据。在后来启动该下载后只能从头开始下载。</li>
+</ul>
+<p>综上会是由四种情况：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>支持断点续传</th>
+<th>不支持断点续传</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>支持后台下载</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>不支持后台下载</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p><strong>默认配置</strong>为：支持断点续传，不支持后台下载（因为除非是音乐视频类等特殊app，后台下载的操作可能会被Apple拒掉）。</p>
+<h3 id="下载接口"><a href="#下载接口" class="headerlink" title="下载接口"></a>下载接口</h3><h4 id="默认的下载功能（支持断点续传，不支持后台下载）："><a href="#默认的下载功能（支持断点续传，不支持后台下载）：" class="headerlink" title="默认的下载功能（支持断点续传，不支持后台下载）："></a>默认的下载功能（支持断点续传，不支持后台下载）：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] sendDownloadRequest:@&quot;wallpaper.jpg&quot;</span><br><span class="line">                                     downloadFilePath:_imageFileLocalPath</span><br><span class="line">                                             progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress)</span><br><span class="line">&#123;</span><br><span class="line">       self.progressView.progress = progress;</span><br><span class="line"></span><br><span class="line">&#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;Download succeed!&quot;);</span><br><span class="line"></span><br><span class="line">&#125; failure:^(NSURLSessionTask *task, NSError *error, NSString *resumableDataPath) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;Download failed!&quot;);</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果支持断点续传，在返回失败的回调里面会传过来未下载完成数据的路径：<code>resumableDataPath</code>。</p>
+</blockquote>
+<h4 id="不支持断点续传，不支持后台下载："><a href="#不支持断点续传，不支持后台下载：" class="headerlink" title="不支持断点续传，不支持后台下载："></a>不支持断点续传，不支持后台下载：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] sendDownloadRequest:@&quot;half-eatch.jpg&quot;</span><br><span class="line">                                     downloadFilePath:_imageFileLocalPath</span><br><span class="line">                                            resumable:NO</span><br><span class="line">                                    backgroundSupport:NO</span><br><span class="line">                                             progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    self.progressView.progress = progress;</span><br><span class="line"></span><br><span class="line">&#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;Download succeed!&quot;);</span><br><span class="line"></span><br><span class="line">&#125; failure:^(NSURLSessionTask *task, NSError *error, NSString *resumableDataPath) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;Download failed!&quot;);</span><br><span class="line">    </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h4 id="支持断点续传，支持后台下载："><a href="#支持断点续传，支持后台下载：" class="headerlink" title="支持断点续传，支持后台下载："></a>支持断点续传，支持后台下载：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] sendDownloadRequest:@&quot;universe.jpg&quot;</span><br><span class="line">                                     downloadFilePath:_imageFileLocalPath</span><br><span class="line">                                            resumable:YES</span><br><span class="line">                                    backgroundSupport:YES</span><br><span class="line">                                             progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    self.progressView.progress = progress;</span><br><span class="line"></span><br><span class="line">&#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">     NSLog(@&quot;Download succeed!&quot;);</span><br><span class="line"></span><br><span class="line">&#125; failure:^(NSURLSessionTask *task, NSError *error, NSString *resumableDataPath) &#123;</span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;Download failed!&quot;);</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h4 id="不支持断点续传，支持后台下载："><a href="#不支持断点续传，支持后台下载：" class="headerlink" title="不支持断点续传，支持后台下载："></a>不支持断点续传，支持后台下载：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] sendDownloadRequest:@&quot;iceberg.jpg&quot;</span><br><span class="line">                                     downloadFilePath:_imageFileLocalPath</span><br><span class="line">                                            resumable:NO</span><br><span class="line">                                    backgroundSupport:YES</span><br><span class="line">                                             progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    self.progressView.progress = progress;</span><br><span class="line"></span><br><span class="line"> &#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">     NSLog(@&quot;Download succeed!&quot;);</span><br><span class="line"></span><br><span class="line"> &#125; failure:^(NSURLSessionTask *task, NSError *error, NSString *resumableDataPath) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;Download failed!&quot;);</span><br><span class="line"></span><br><span class="line"> &#125;];</span><br></pre></td></tr></table></figure>
+<p>和上传一样，下载接口也都支持是否忽略baseUrl：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] sendDownloadRequest:@&quot;http://oih3a9o4n.bkt.clouddn.com/wallpaper.jpg&quot;</span><br><span class="line">                                        ignoreBaseUrl:YES</span><br><span class="line">                                     downloadFilePath:_imageFileLocalPath</span><br><span class="line">                                             progress:^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress)</span><br><span class="line">&#123;</span><br><span class="line">      self.progressView.progress = progress;</span><br><span class="line"></span><br><span class="line">&#125; success:^(id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;Download succeed!&quot;);</span><br><span class="line"></span><br><span class="line">&#125; failure:^(NSURLSessionTask *task, NSError *error, NSString *resumableDataPath) &#123;</span><br><span class="line"></span><br><span class="line">      NSLog(@&quot;Download failed!&quot;);</span><br><span class="line"></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h3 id="下载的暂停，恢复和取消"><a href="#下载的暂停，恢复和取消" class="headerlink" title="下载的暂停，恢复和取消"></a>下载的暂停，恢复和取消</h3><p>所有的下载请求都支持暂停，恢复和取消操作。并且这些操作都支持单独与批量操作：</p>
+<h4 id="下载的暂停"><a href="#下载的暂停" class="headerlink" title="下载的暂停"></a>下载的暂停</h4><p>暂停单独的下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] suspendDownloadRequest:@&quot;universe.jpg&quot;];</span><br></pre></td></tr></table></figure>
+<p>暂停多个下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] suspendDownloadRequests:@[@&quot;universe.jpg&quot;,@&quot;wallpaper.jpg&quot;]];</span><br></pre></td></tr></table></figure>
+<p>暂停所有下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] suspendAllDownloadRequests];</span><br></pre></td></tr></table></figure>
+<h4 id="下载的恢复"><a href="#下载的恢复" class="headerlink" title="下载的恢复"></a>下载的恢复</h4><p>恢复单独的正在暂停的下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] resumeDownloadReqeust:@&quot;universe.jpg&quot;];</span><br></pre></td></tr></table></figure>
+<p>恢复多个正在暂停的下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] resumeDownloadReqeusts:@[@&quot;universe.jpg&quot;,@&quot;wallpaper.jpg&quot;]];</span><br></pre></td></tr></table></figure>
+<p>恢复所有正在暂停的下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] resumeAllDownloadRequests];</span><br></pre></td></tr></table></figure>
+<h4 id="下载的取消"><a href="#下载的取消" class="headerlink" title="下载的取消"></a>下载的取消</h4><p>取消单独的下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] cancelDownloadRequest:@&quot;universe.jpg&quot;];</span><br></pre></td></tr></table></figure>
+<p>取消多个下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] cancelDownloadRequests:@[@&quot;universe.jpg&quot;,@&quot;wallpaper.jpg&quot;]];</span><br></pre></td></tr></table></figure>
+<p>取消所有下载请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] cancelAllDownloadRequests];</span><br></pre></td></tr></table></figure>
+<h2 id="请求的管理"><a href="#请求的管理" class="headerlink" title="请求的管理"></a>请求的管理</h2><p>在该框架中，无论是普通的下载请求，上传请求和下载请求，在发送请求之前都将用户传入的参数保存在专门的请求对象<code>SJNetworkRequestModel</code>的实例里面。而这些实例的管理工作交给了<code>SJNetworkRequestPool</code>类的单例：</p>
+<ul>
+<li>在请求开始之前，将请求实例放入其中的一个字典里管理。</li>
+<li>当请求结束以后，将所对应的请求实例移除。</li>
+</ul>
+<p>除了添加和移除请求对象以外，<code>SJNetworkRequestPool</code>对请求的管理还包括：</p>
+<ul>
+<li>对正在进行的请求状况的查询</li>
+<li>对正在进行的请求的取消。</li>
+</ul>
+<h3 id="请求状况的查询"><a href="#请求状况的查询" class="headerlink" title="请求状况的查询"></a>请求状况的查询</h3><h4 id="是否仍然有正在进行的请求："><a href="#是否仍然有正在进行的请求：" class="headerlink" title="是否仍然有正在进行的请求："></a>是否仍然有正在进行的请求：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BOOL remaining =  [[SJNetworkManager sharedManager] remainingCurrentRequests];</span><br><span class="line">if (remaining) &#123;</span><br><span class="line">    NSLog(@&quot;There is remaining request&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="正在进行的请求个数："><a href="#正在进行的请求个数：" class="headerlink" title="正在进行的请求个数："></a>正在进行的请求个数：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSUInteger count = [[SJNetworkManager sharedManager] currentRequestCount];</span><br><span class="line">if (count &gt; 0) &#123;</span><br><span class="line">    NSLog(@&quot;There is %lu requests&quot;,(unsigned long)count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="打印所有正在进行的请求对象："><a href="#打印所有正在进行的请求对象：" class="headerlink" title="打印所有正在进行的请求对象："></a>打印所有正在进行的请求对象：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] logAllCurrentRequests];</span><br></pre></td></tr></table></figure>
+<h3 id="请求的取消"><a href="#请求的取消" class="headerlink" title="请求的取消"></a>请求的取消</h3><p>请求的取消也分为单个和批量的取消：</p>
+<h4 id="取消某个请求："><a href="#取消某个请求：" class="headerlink" title="取消某个请求："></a>取消某个请求：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] cancelCurrentRequestWithUrl:@&quot;toutiao/index&quot;</span><br><span class="line">                                                           method:@&quot;POST&quot;</span><br><span class="line">                                                       parameters:@&#123;@&quot;type&quot;:@&quot;top&quot;,</span><br><span class="line">                                                                    @&quot;key&quot; :@&quot;0c60&quot;&#125;];</span><br></pre></td></tr></table></figure>
+<h4 id="取消相同url的请求："><a href="#取消相同url的请求：" class="headerlink" title="取消相同url的请求："></a>取消相同url的请求：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] cancelCurrentRequestWithUrl:@&quot;toutiao/index&quot;];</span><br></pre></td></tr></table></figure>
+<h4 id="取消多个指定url的请求："><a href="#取消多个指定url的请求：" class="headerlink" title="取消多个指定url的请求："></a>取消多个指定url的请求：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] cancelDownloadRequests:@[@&quot;toutiao/index&quot;,@&quot;weixin/query&quot;]];</span><br></pre></td></tr></table></figure>
+<h4 id="取消所有正在进行的请求："><a href="#取消所有正在进行的请求：" class="headerlink" title="取消所有正在进行的请求："></a>取消所有正在进行的请求：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[SJNetworkManager sharedManager] cancelAllCurrentRequests];</span><br></pre></td></tr></table></figure>
+<h2 id="Log输出"><a href="#Log输出" class="headerlink" title="Log输出"></a>Log输出</h2><p>如果将debug模式设置为YES，则会打印出很多便于调试的log：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[SJNetworkConfig sharedConfig].debugMode = YES;</span><br></pre></td></tr></table></figure>
+<h3 id="请求对象的log"><a href="#请求对象的log" class="headerlink" title="请求对象的log"></a>请求对象的log</h3><p>由于重写了<code>SJNetworkRequestModel</code>的<code>description</code>方法，所以在打印该对象的时候，普通的网络请求，上传请求，下载请求都有属于自己的log，在这里举一个普通请求的log：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &lt;SJNetworkRequestModel: 0x6040001fc100&gt;</span><br><span class="line">   type:             ordinary request</span><br><span class="line">   method:          GET</span><br><span class="line">   url:             http://v.juhe.cn/toutiao/index</span><br><span class="line">   parameters:      &#123;</span><br><span class="line">    &quot;app_version&quot; = &quot;1.0&quot;;</span><br><span class="line">    key = 0c60;</span><br><span class="line">    platform = iOS;</span><br><span class="line">    type = top;</span><br><span class="line">&#125;</span><br><span class="line">   loadCache:       YES</span><br><span class="line">   cacheDuration:   5 seconds</span><br><span class="line">   requestIdentifer:b4b36793efabad54a14389cf09bc8133_a6a72ddee1dd86825cb5707c500784f5_7b65261ff298c6a386c89a632bd17b39_30c9b994c268547f38a2f9af6f8c171f</span><br><span class="line">   task:            &lt;__NSCFLocalDataTask: 0x7f8e075320a0&gt;&#123; taskIdentifier: 1 &#125; &#123; completed &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="请求和缓存的log"><a href="#请求和缓存的log" class="headerlink" title="请求和缓存的log"></a>请求和缓存的log</h3><p>举一个需要获取缓存的网络请求但是遇到缓存过期的情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">=========== Load cache info failed, reason:Cache is expired, begin to clear cache...</span><br><span class="line">=========== Load cache failed: Cache info is invalid </span><br><span class="line">=========== Faild to load cache, start to sending network request...</span><br><span class="line">=========== Start requesting...</span><br><span class="line">=========== url:http://v.juhe.cn/toutiao/index</span><br><span class="line">=========== method:GET</span><br><span class="line">=========== parameters:&#123;</span><br><span class="line">    &quot;app_version&quot; = &quot;1.0&quot;;</span><br><span class="line">    key = 0c60;</span><br><span class="line">    platform = iOS;</span><br><span class="line">    type = top;</span><br><span class="line">&#125;</span><br><span class="line">=========== Request succeed! </span><br><span class="line">=========== Request url:http://v.juhe.cn/toutiao/index</span><br><span class="line">=========== Response object:&#123;</span><br><span class="line">  code = 200,</span><br><span class="line">  msg = &quot;&quot;,</span><br><span class="line">  data = &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">=========== Write cache succeed!</span><br><span class="line">=========== cache object: &#123;</span><br><span class="line">  code = 200,</span><br><span class="line">  msg = &quot;&quot;,</span><br><span class="line">  data = &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">=========== Cache path: /Users/****/***/***/*******.cacheData</span><br><span class="line">=========== Available duration: 180 seconds</span><br></pre></td></tr></table></figure>
+<h1 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h1><p>在调试这个框架的时候使用了很多网络资源，也看了好多文章，获得了很多帮助，所以不得不提一下：</p>
+<h2 id="API服务"><a href="#API服务" class="headerlink" title="API服务"></a>API服务</h2><ul>
+<li>免费的接口服务：<a href="https://www.juhe.cn/" target="_blank" rel="noopener">聚合数据</a></li>
+<li>上传图片的接口服务：<a href="http://uploads.im" target="_blank" rel="noopener">Uploads</a></li>
+<li>下载图片的图床：<a href="https://portal.qiniu.com/" target="_blank" rel="noopener">七牛云开发者平台</a></li>
+</ul>
+<h2 id="使用和参考的框架"><a href="#使用和参考的框架" class="headerlink" title="使用和参考的框架"></a>使用和参考的框架</h2><ul>
+<li><a href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a></li>
+<li><a href="https://github.com/yuantiku/YTKNetwork">YTKNetwork</a></li>
+</ul>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="http://www.jianshu.com/p/f65e32012f07" target="_blank" rel="noopener">iOS开发网络篇之文件下载、大文件下载、断点下载</a></li>
+<li><a href="http://www.jianshu.com/p/1211cf99dfc3" target="_blank" rel="noopener">iOS使用NSURLSession进行下载（包括后台下载，断点下载）</a></li>
+<li><a href="https://www.cnblogs.com/goodboy-heyang/p/5195806.html" target="_blank" rel="noopener">iOS开发之网络编程 –2. NSURLSessionDownloadTask文件下载</a></li>
+<li><a href="http://www.cnblogs.com/machao/p/5864251.html" target="_blank" rel="noopener">MCDownloadManager ios文件下载管理器</a></li>
+<li><a href="http://www.jianshu.com/p/5e6630e999fa?utm_campaign=hugo&amp;utm_medium=reader_share&amp;utm_content=note&amp;utm_source=weixin-friends" target="_blank" rel="noopener">华山论剑之浅谈iOS的文件下载,断点下载(基于NSURLSession的网络请求)</a></li>
+</ul>
+<h1 id="框架传送门"><a href="#框架传送门" class="headerlink" title="框架传送门"></a>框架传送门</h1><p>GitHub地址：<a href="https://github.com/knightsj/SJNetwork">SJNetwork</a></p>
+<blockquote>
+<p>里面附有demo</p>
+</blockquote>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><p>现在社区里二次封装AFNetworking，上传图片，以及下载器的框架有很多，但是因为总是想写一个<strong>属于自己代码风格的框架</strong>，而且网络层对我自己还是有些挑战的，所以想试一试。</p>
+<p>除去中间间隔的时间，整个框架基本成型的时间用了有一个多月，但是写全英文的注释，最后的重构（修改了架构，分离了一些类），命名的规范，修改bug，优化等事情又花去了半个月。特别是由于自己对下载这一块不熟，尤其是断点续传，后台下载这两方面更是没有实战经验，在写的时候也花了不少时间。</p>
+<p>希望能多给出宝贵意见和建议，我自己发现有不足的地方也会更新~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/如何高效学习 - 读书笔记/" rel="next" title="如何高效学习 - 读书笔记">
+                <i class="fa fa-chevron-left"></i> 如何高效学习 - 读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/我从写技术博客中收获到了什么 - J_Knight_/" rel="prev" title="我从写技术博客中收获到了什么 - J_Knight_">
+                我从写技术博客中收获到了什么 - J_Knight_ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#职责划分"><span class="nav-number">2.1.</span> <span class="nav-text">职责划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图"><span class="nav-number">2.2.</span> <span class="nav-text">架构图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#功能介绍"><span class="nav-number">4.</span> <span class="nav-text">功能介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本的配置"><span class="nav-number">4.1.</span> <span class="nav-text">基本的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器地址："><span class="nav-number">4.1.1.</span> <span class="nav-text">服务器地址：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认参数"><span class="nav-number">4.1.2.</span> <span class="nav-text">默认参数:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时时间："><span class="nav-number">4.1.3.</span> <span class="nav-text">超时时间：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Debug模式："><span class="nav-number">4.1.4.</span> <span class="nav-text">Debug模式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加请求头键值对："><span class="nav-number">4.1.5.</span> <span class="nav-text">添加请求头键值对：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#普通网络请求"><span class="nav-number">4.2.</span> <span class="nav-text">普通网络请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存管理"><span class="nav-number">4.3.</span> <span class="nav-text">缓存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存的读取"><span class="nav-number">4.3.1.</span> <span class="nav-text">缓存的读取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个缓存的读取："><span class="nav-number">4.3.1.1.</span> <span class="nav-text">单个缓存的读取：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个缓存的读取："><span class="nav-number">4.3.1.2.</span> <span class="nav-text">多个缓存的读取：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存的删除"><span class="nav-number">4.3.2.</span> <span class="nav-text">缓存的删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存的计算"><span class="nav-number">4.3.3.</span> <span class="nav-text">缓存的计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多张图片，压缩一半"><span class="nav-number">4.3.4.</span> <span class="nav-text">多张图片，压缩一半</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#忽略设置过的BaseUrl"><span class="nav-number">4.3.5.</span> <span class="nav-text">忽略设置过的BaseUrl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载功能"><span class="nav-number">4.4.</span> <span class="nav-text">下载功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载接口"><span class="nav-number">4.4.1.</span> <span class="nav-text">下载接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#默认的下载功能（支持断点续传，不支持后台下载）："><span class="nav-number">4.4.1.1.</span> <span class="nav-text">默认的下载功能（支持断点续传，不支持后台下载）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不支持断点续传，不支持后台下载："><span class="nav-number">4.4.1.2.</span> <span class="nav-text">不支持断点续传，不支持后台下载：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#支持断点续传，支持后台下载："><span class="nav-number">4.4.1.3.</span> <span class="nav-text">支持断点续传，支持后台下载：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不支持断点续传，支持后台下载："><span class="nav-number">4.4.1.4.</span> <span class="nav-text">不支持断点续传，支持后台下载：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载的暂停，恢复和取消"><span class="nav-number">4.4.2.</span> <span class="nav-text">下载的暂停，恢复和取消</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载的暂停"><span class="nav-number">4.4.2.1.</span> <span class="nav-text">下载的暂停</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载的恢复"><span class="nav-number">4.4.2.2.</span> <span class="nav-text">下载的恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载的取消"><span class="nav-number">4.4.2.3.</span> <span class="nav-text">下载的取消</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求的管理"><span class="nav-number">4.5.</span> <span class="nav-text">请求的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求状况的查询"><span class="nav-number">4.5.1.</span> <span class="nav-text">请求状况的查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#是否仍然有正在进行的请求："><span class="nav-number">4.5.1.1.</span> <span class="nav-text">是否仍然有正在进行的请求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正在进行的请求个数："><span class="nav-number">4.5.1.2.</span> <span class="nav-text">正在进行的请求个数：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打印所有正在进行的请求对象："><span class="nav-number">4.5.1.3.</span> <span class="nav-text">打印所有正在进行的请求对象：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求的取消"><span class="nav-number">4.5.2.</span> <span class="nav-text">请求的取消</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#取消某个请求："><span class="nav-number">4.5.2.1.</span> <span class="nav-text">取消某个请求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取消相同url的请求："><span class="nav-number">4.5.2.2.</span> <span class="nav-text">取消相同url的请求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取消多个指定url的请求："><span class="nav-number">4.5.2.3.</span> <span class="nav-text">取消多个指定url的请求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取消所有正在进行的请求："><span class="nav-number">4.5.2.4.</span> <span class="nav-text">取消所有正在进行的请求：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Log输出"><span class="nav-number">4.6.</span> <span class="nav-text">Log输出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求对象的log"><span class="nav-number">4.6.1.</span> <span class="nav-text">请求对象的log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求和缓存的log"><span class="nav-number">4.6.2.</span> <span class="nav-text">请求和缓存的log</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#感谢"><span class="nav-number">5.</span> <span class="nav-text">感谢</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#API服务"><span class="nav-number">5.1.</span> <span class="nav-text">API服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用和参考的框架"><span class="nav-number">5.2.</span> <span class="nav-text">使用和参考的框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">5.3.</span> <span class="nav-text">参考文章</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#框架传送门"><span class="nav-number">6.</span> <span class="nav-text">框架传送门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">7.</span> <span class="nav-text">最后的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

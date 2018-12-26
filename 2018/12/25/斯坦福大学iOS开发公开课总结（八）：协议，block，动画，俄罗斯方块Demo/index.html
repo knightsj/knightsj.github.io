@@ -1,0 +1,948 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本节课介绍了协议，block，动画的相关知识，最后结合了这些知识点展示了一个类似俄罗斯方块的小游戏Demo。总体来说本节课的内容比较重要，稍微摆脱了UI层面的知识，对于初学者来说理解起来不是很容易，不过笔者会尽量详细地讲解给大家。 协议 关于协议所介绍的知识点比较简单，而且实现起来相对容易，故不做详细介绍，各位可以参考文档或者相关博客即可。在这里只强调一个知识点： id obj 和 id&amp;lt;M">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="本节课介绍了协议，block，动画的相关知识，最后结合了这些知识点展示了一个类似俄罗斯方块的小游戏Demo。总体来说本节课的内容比较重要，稍微摆脱了UI层面的知识，对于初学者来说理解起来不是很容易，不过笔者会尽量详细地讲解给大家。 协议 关于协议所介绍的知识点比较简单，而且实现起来相对容易，故不做详细介绍，各位可以参考文档或者相关博客即可。在这里只强调一个知识点： id obj 和 id&amp;lt;M">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-6116d4bb61ba202a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-a6bc68132ab0425a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.626Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo">
+<meta name="twitter:description" content="本节课介绍了协议，block，动画的相关知识，最后结合了这些知识点展示了一个类似俄罗斯方块的小游戏Demo。总体来说本节课的内容比较重要，稍微摆脱了UI层面的知识，对于初学者来说理解起来不是很容易，不过笔者会尽量详细地讲解给大家。 协议 关于协议所介绍的知识点比较简单，而且实现起来相对容易，故不做详细介绍，各位可以参考文档或者相关博客即可。在这里只强调一个知识点： id obj 和 id&amp;lt;M">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-6116d4bb61ba202a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/">
+
+
+
+
+
+  <title> 斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3,249 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  14 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本节课介绍了协议，block，动画的相关知识，最后结合了这些知识点展示了一个类似<strong>俄罗斯方块</strong>的小游戏Demo。<br>总体来说本节课的内容比较重要，稍微摆脱了UI层面的知识，对于初学者来说理解起来不是很容易，不过笔者会尽量详细地讲解给大家。</p>
+<h1 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h1><hr>
+<p>关于协议所介绍的知识点比较简单，而且实现起来相对容易，故不做详细介绍，各位可以参考文档或者相关博客即可。<br>在这里只强调一个知识点：</p>
+<h3 id="id-obj-和-id-lt-MyProtocol-gt-obj的相同点和不同点"><a href="#id-obj-和-id-lt-MyProtocol-gt-obj的相同点和不同点" class="headerlink" title="id obj 和 id&lt;MyProtocol&gt;obj的相同点和不同点:"></a><code>id obj</code> 和 <code>id&lt;MyProtocol&gt;obj</code>的相同点和不同点:</h3><p><strong>相同点</strong>：都表示了某个对象。<br><strong>不同点</strong>：<br><code>id obj</code>表示<code>obj</code>是具体某一类的实例对象。<br><code>id&lt;MyProtocol&gt;obj</code>只表示遵守了某协议的对象 。</p>
+<blockquote>
+<p>因为有的时候我们并不需要确保某个对象一定是某个类的实例对象，而只需要它遵循了某个协议，这个时候就需要用第二行的写法来确保这个对象确实遵循了<myprotocol>。</myprotocol></p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Block"><a href="#Block" class="headerlink" title="Block"></a>Block</h1><hr>
+<p>关于block的概念和语法在这里就不赘述了，因为有文档和很多牛人已经总结地很好了。<br>在这里只强调两点关于block的使用注意事项。</p>
+<h2 id="修改block内部变量的方案"><a href="#修改block内部变量的方案" class="headerlink" title="修改block内部变量的方案"></a>修改block内部变量的方案</h2><p>如果我们要在block里将<code>found</code>值设为YES,就应该在block外部添加<code>__block</code>关键字。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    __block BOOL found = NO;</span><br><span class="line">    //通过__block关键字，将found从栈中移动到堆中保证其可以被修改；block结束后，将该变量复制一份到堆中，再放回栈上</span><br><span class="line"></span><br><span class="line">    [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop)&#123;        </span><br><span class="line"></span><br><span class="line">        if ([targetString isEqualToString:obj]) &#123;            </span><br><span class="line"></span><br><span class="line">            *stop = YES; //停止</span><br><span class="line">            found = YES;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure></p>
+<h2 id="存储循环的解决方案"><a href="#存储循环的解决方案" class="headerlink" title="存储循环的解决方案"></a>存储循环的解决方案</h2><p>只要block存在，block内部消息中的每个对象都会被block的一个强指针指着。此时，如果这些对象里的某个或几个对象也有指向该block的指针，就会造成存储循环。</p>
+<p>问题重现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    //这个block有强指针指向self，而self也通过myBlocks数组有强指针指向block</span><br><span class="line"></span><br><span class="line">    [self.myBlocks addObject:^&#123;    </span><br><span class="line"></span><br><span class="line">        [self doSomething];</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<p>解决方案：创建弱类型的局部变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    __weak ViewController *weakSelf = self; //创建弱类型的局部变量</span><br><span class="line"></span><br><span class="line">    [self.myBlocks addObject:^&#123;    </span><br><span class="line"></span><br><span class="line">        [weakSelf doSomething];</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<h2 id="Block的应用"><a href="#Block的应用" class="headerlink" title="Block的应用"></a>Block的应用</h2><p>block可以直接保存在变量中，属性中，字典和数组中。</p>
+<p>具体使用环境：</p>
+<ul>
+<li>多线程：用于主线程，子线程的回调。</li>
+<li>枚举：数组，字典的枚举等。</li>
+<li>通知：某件事情发生后，信息的传递。</li>
+<li>错误时调用：“包住”错误发生后需要执行的代码。</li>
+<li>成功时调用：“包住”任务成功后需要执行的代码。</li>
+<li>动画</li>
+<li>排序</li>
+</ul>
+<h1 id="通过View改变视图的属性来实现动画"><a href="#通过View改变视图的属性来实现动画" class="headerlink" title="通过View改变视图的属性来实现动画"></a>通过View改变视图的属性来实现动画</h1><hr>
+<ul>
+<li>改变<code>frame</code></li>
+<li>改变<code>transform</code></li>
+<li>改变<code>alpha</code></li>
+</ul>
+<p>具体通过UIView的类方法来改变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+ (void)animateWithDuration:(NSTimeInterval)duration   //动画在这个屏幕上出现的时间</span><br><span class="line">                                     delay:(NSTimeInterval)delay       //等待多长时间再执行</span><br><span class="line">                                  options:(UIViewAnimationOptions)options </span><br><span class="line">                             animations:(void (^)(void))animations  //在此代码块中修改frame，transform 和 alpha</span><br><span class="line">                             completion:(void (^ __nullable)(BOOL finished))completion;</span><br></pre></td></tr></table></figure>
+<p>options参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    UIViewAnimationOptionLayoutSubviews            = 1 &lt;&lt;  0,</span><br><span class="line">    UIViewAnimationOptionAllowUserInteraction      = 1 &lt;&lt;  1, // turn on user interaction while animating</span><br><span class="line">    UIViewAnimationOptionBeginFromCurrentState     = 1 &lt;&lt;  2, // start all views from current value, not initial value</span><br><span class="line">    UIViewAnimationOptionRepeat                    = 1 &lt;&lt;  3, // repeat animation indefinitely</span><br><span class="line">    UIViewAnimationOptionAutoreverse               = 1 &lt;&lt;  4, // if repeat, run animation back and forth</span><br><span class="line">    UIViewAnimationOptionOverrideInheritedDuration = 1 &lt;&lt;  5, // ignore nested duration</span><br><span class="line">    UIViewAnimationOptionOverrideInheritedCurve    = 1 &lt;&lt;  6, // ignore nested curve</span><br><span class="line">    UIViewAnimationOptionAllowAnimatedContent      = 1 &lt;&lt;  7, // animate contents (applies to transitions only)</span><br><span class="line">    UIViewAnimationOptionShowHideTransitionViews   = 1 &lt;&lt;  8, // flip to/from hidden state instead of adding/removing</span><br><span class="line">    UIViewAnimationOptionOverrideInheritedOptions  = 1 &lt;&lt;  9, // do not inherit any options or animation type</span><br></pre></td></tr></table></figure></p>
+<h1 id="通过给视图添加物理效果实现动画"><a href="#通过给视图添加物理效果实现动画" class="headerlink" title="通过给视图添加物理效果实现动画"></a>通过给视图添加物理效果实现动画</h1><hr>
+<p>添加物理效果主要需要三个元素：</p>
+<ol>
+<li>DynamicAnimator</li>
+<li>UIGravityBehavior</li>
+<li>遵守<uidynamicitem>协议的item(大部分情况是UIView)</uidynamicitem></li>
+</ol>
+<h2 id="DynamicAnimator：动力动画"><a href="#DynamicAnimator：动力动画" class="headerlink" title="DynamicAnimator：动力动画"></a>DynamicAnimator：动力动画</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIDynamicAnimator *animator =[ [ UIDynamicAnimator alloc] initWithReferenceView:aView]; //aview是动画Views的顶级视图</span><br></pre></td></tr></table></figure>
+<p>动力动画的初始化需要给其添加要进行动画的顶级视图，详细内容后面再介绍。</p>
+<h2 id="UIDynamicBehavior：动力行为"><a href="#UIDynamicBehavior：动力行为" class="headerlink" title="UIDynamicBehavior：动力行为"></a>UIDynamicBehavior：动力行为</h2><p>动力行为分为重力动力行为，碰撞行为等具体的行为。<br>这个类有很多子类：</p>
+<h3 id="1-UIGravityBehavior：重力行为"><a href="#1-UIGravityBehavior：重力行为" class="headerlink" title="1. UIGravityBehavior：重力行为"></a>1. UIGravityBehavior：重力行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@property (readwrite, nonatomic) CGFloat angle;//重力方向</span><br><span class="line">@property (readwrite, nonatomic) CGFloat magnitude; //重力加速度值</span><br></pre></td></tr></table></figure>
+<h3 id="2-UICollisionBehavior：碰撞行为"><a href="#2-UICollisionBehavior：碰撞行为" class="headerlink" title="2. UICollisionBehavior：碰撞行为"></a>2. UICollisionBehavior：碰撞行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, readwrite) UICollisionBehaviorMode collisionMode;//互相碰撞弹开还是只是从边界碰撞弹开</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readwrite) BOOL translatesReferenceBoundsIntoBoundary; //是否是有弹性的边界</span><br></pre></td></tr></table></figure>
+<h3 id="3-UIAttachmentBehavior-：吸附行为"><a href="#3-UIAttachmentBehavior-：吸附行为" class="headerlink" title="3. UIAttachmentBehavior ：吸附行为"></a>3. UIAttachmentBehavior ：吸附行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (readwrite, nonatomic) CGPoint anchorPoint; //设置锚点</span><br><span class="line">- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item attachedToAnchor:(CGPoint)point;//将动力项吸附在锚点上</span><br><span class="line">- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item1 attachedToItem:(id &lt;UIDynamicItem&gt;)item2;//吸附两个动力项</span><br></pre></td></tr></table></figure>
+<h3 id="4-UISnapBehavior：速甩行为"><a href="#4-UISnapBehavior：速甩行为" class="headerlink" title="4. UISnapBehavior：速甩行为"></a>4. UISnapBehavior：速甩行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item snapToPoint:(CGPoint)point NS_DESIGNATED_INITIALIZER;</span><br></pre></td></tr></table></figure>
+<h3 id="5-UIPushBehavior：推动行为"><a href="#5-UIPushBehavior：推动行为" class="headerlink" title="5. UIPushBehavior：推动行为"></a>5. UIPushBehavior：推动行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, readonly) UIPushBehaviorMode mode;</span><br><span class="line">@property (readwrite, nonatomic) CGFloat magnitude;//推力</span><br><span class="line">@property (readwrite, nonatomic) CGVector pushDirection;//推动方向</span><br></pre></td></tr></table></figure>
+<h3 id="6-UIDynamicItemBehavior：动力项行为"><a href="#6-UIDynamicItemBehavior：动力项行为" class="headerlink" title="6. UIDynamicItemBehavior：动力项行为"></a>6. UIDynamicItemBehavior：动力项行为</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@property (readwrite, nonatomic) CGFloat elasticity; // Usually between 0 (inelastic) and 1 (collide elastically) </span><br><span class="line"></span><br><span class="line">@property (readwrite, nonatomic) CGFloat friction; // 0 being no friction between objects slide along each other</span><br><span class="line"></span><br><span class="line">@property (readwrite, nonatomic) CGFloat density; // 1 by default</span><br><span class="line"></span><br><span class="line">@property (readwrite, nonatomic) CGFloat resistance; // 0: no velocity damping</span><br><span class="line"></span><br><span class="line">- (CGPoint)linearVelocityForItem:(id &lt;UIDynamicItem&gt;)item;//线速度</span><br><span class="line">- (CGFloat)angularVelocityForItem:(id &lt;UIDynamicItem&gt;)item;//角速度</span><br></pre></td></tr></table></figure>
+<h2 id="遵守协议的item-大部分情况是UIView"><a href="#遵守协议的item-大部分情况是UIView" class="headerlink" title="遵守协议的item(大部分情况是UIView)"></a>遵守<uidynamicitem>协议的item(大部分情况是UIView)</uidynamicitem></h2><p>只要是遵守了<uidynamicitem>协议（动力项协议）的对象，都可以添加动力行为。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id&lt;UIDynamicItem&gt;item1 = ....;</span><br><span class="line">id&lt;UIDynamicItem&gt;item2 = ....;</span><br><span class="line">[gravity addItem:itme2];</span><br></pre></td></tr></table></figure></uidynamicitem></p>
+<p>动力项协议的属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic, readwrite) CGPoint center;//动力项的中心</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readonly) CGRect bounds; //动力项的绘制区域，只读，通过变换，居中，移动进行修改</span><br><span class="line"></span><br><span class="line">@property (nonatomic, readwrite) CGAffineTransform transform;//动力项的旋转或缩放比例</span><br></pre></td></tr></table></figure></p>
+<p>若想与animator的动画相抗争，需要调用animator的以下方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)updateItemUsingCurrentState:(id &lt;UIDynamicItem&gt;)item;</span><br></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><hr>
+<h2 id="Demo需求"><a href="#Demo需求" class="headerlink" title="Demo需求"></a>Demo需求</h2><ul>
+<li>点击屏幕后，在顶部随机位置生成具有随机色的正方形，正方形显示后立即下落并停止。</li>
+<li>方块排满的行会自动被炸飞，而且带动画。</li>
+</ul>
+<h2 id="Demo效果图"><a href="#Demo效果图" class="headerlink" title="Demo效果图"></a>Demo效果图</h2><p><img src="http://upload-images.jianshu.io/upload_images/859001-6116d4bb61ba202a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：炸飞前 | 右：炸飞后"></p>
+<h2 id="重要代码段"><a href="#重要代码段" class="headerlink" title="重要代码段"></a>重要代码段</h2><p>因为每个方块的动作行为都是一致的，所以在这里自定义了一个<code>UIDynamicBehavior</code>类，给每个方块增加相同的动作行为。</p>
+<p><strong>1. 自定义统一行为类：DropItBehavior</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];    </span><br><span class="line">   //重写初始化方法，同时增加重力和碰撞行为</span><br><span class="line">    [self addChildBehavior:self.gravity];</span><br><span class="line">    [self addChildBehavior:self.collider];</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//同时增加重力和碰撞行为</span><br><span class="line">- (void)addItem:(id&lt;UIDynamicItem&gt;)item</span><br><span class="line">&#123;</span><br><span class="line">    [self.gravity addItem:item];</span><br><span class="line">    [self.collider addItem:item];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//同时移除重力和碰撞行为</span><br><span class="line"></span><br><span class="line">- (void)removeItem:(id&lt;UIDynamicItem&gt;)item</span><br><span class="line">&#123;</span><br><span class="line">    [self.gravity removeItem:item];</span><br><span class="line">    [self.collider removeItem:item];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (UIGravityBehavior *)gravity</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if (!_gravity) &#123;</span><br><span class="line"></span><br><span class="line">        _gravity = [[UIGravityBehavior alloc] init];</span><br><span class="line">         //设置重力加速度</span><br><span class="line">        _gravity.magnitude = 1.9;</span><br><span class="line">    &#125;</span><br><span class="line">    return _gravity;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (UICollisionBehavior *)collider</span><br><span class="line">&#123;</span><br><span class="line">    if (!_collider) &#123;</span><br><span class="line">        _collider = [[UICollisionBehavior alloc] init];</span><br><span class="line">        //触碰边缘弹性 </span><br><span class="line">        _collider.translatesReferenceBoundsIntoBoundary = YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return _collider;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 初始化animator</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (UIDynamicAnimator *)animator</span><br><span class="line">&#123;</span><br><span class="line">    if (!_animator) &#123;</span><br><span class="line">        //self.gameView 是动画实现的顶级视图，它的子视图是掉落的方块</span><br><span class="line">        _animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.gameView];</span><br><span class="line">    &#125;</span><br><span class="line">    return _animator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>3. 给<code>UIDynamicAnimator</code>添加行为</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (DropItBehavior *)dropitBehavior</span><br><span class="line">&#123;</span><br><span class="line">    if (!_dropitBehavior) &#123;</span><br><span class="line">         _dropitBehavior = [[DropItBehavior alloc] init];</span><br><span class="line">        [self.animator addBehavior:_dropitBehavior];</span><br><span class="line">    &#125;</span><br><span class="line">    return _dropitBehavior;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>4. 生成随机方块并让其下落</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> *  生成随机方块并下落</span><br><span class="line"> */</span><br><span class="line">- (void)drop</span><br><span class="line">&#123;</span><br><span class="line">    //1. 随机位置</span><br><span class="line"></span><br><span class="line">    CGRect frame;</span><br><span class="line">    frame.origin = CGPointZero;</span><br><span class="line">    frame.size = DROP_SIZE;</span><br><span class="line">    int x = (arc4random()%(int)self.gameView.bounds.size.width)/DROP_SIZE.width;</span><br><span class="line">    frame.origin.x = x * DROP_SIZE.width;</span><br><span class="line">    UIView *dropView = [[UIView alloc] initWithFrame:frame];</span><br><span class="line">  </span><br><span class="line">    //2. 随机颜色</span><br><span class="line">    dropView.backgroundColor = [self randomColor];</span><br><span class="line">    [self.gameView addSubview:dropView];</span><br><span class="line">    </span><br><span class="line">    //3. 添加下落</span><br><span class="line">    [self.dropitBehavior addItem:dropView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>目前小方块下落碰到障碍物后会旋转，所以容易让这些小方块散落成堆。这样一来，就不能计算好整行的排列情况，所以我们应该让小方块们没有旋转的特性。</p>
+</blockquote>
+<p><strong>5.取消旋转特性</strong></p>
+<p>在公用的behavior类<code>DropItBehavior</code>里增加一个<code>UIDynamicItemBehavior</code>实例，取消其旋转特性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (UIDynamicItemBehavior *)animationOptions</span><br><span class="line">&#123;</span><br><span class="line">    if (!_animationOptions) &#123;</span><br><span class="line"></span><br><span class="line">        _animationOptions = [[UIDynamicItemBehavior alloc] init];</span><br><span class="line">        _animationOptions.allowsRotation = NO;        </span><br><span class="line">    &#125;</span><br><span class="line">    return _animationOptions;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就能整齐排列小方块了：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-a6bc68132ab0425a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：可旋转 | 右：不可旋转"></p>
+<p><strong>6. 动画炸掉排满的行</strong></p>
+<p>最好在方块都静止了之后再判断是否有排满的行，这里需要遵守协议<code>&lt;UIDynamicAnimatorDelegate&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  监听动力动画内部的所有动画停止后调用炸飞整行的方法</span><br><span class="line"> *</span><br><span class="line"> *  @param animator 动力动画</span><br><span class="line"> */</span><br><span class="line">- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    [self removeCompleteRows];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面来看一下炸飞整行的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  炸飞整行的方法：包括查看是否存在整行的算法和炸飞整行的动画</span><br><span class="line"> */</span><br><span class="line">- (void)removeCompleteRows</span><br><span class="line">&#123;</span><br><span class="line">    NSMutableArray *dropsToRemove = [[NSMutableArray alloc] init];</span><br><span class="line">    </span><br><span class="line">    //遍历每一行</span><br><span class="line">    for (CGFloat y = self.gameView.bounds.size.height - DROP_SIZE.height/2;y &gt; 0;y-= DROP_SIZE.height) &#123;</span><br><span class="line">        </span><br><span class="line">        BOOL rowIsComplete = YES;</span><br><span class="line">        NSMutableArray *dropsFound = [[NSMutableArray alloc] init];</span><br><span class="line"></span><br><span class="line">        for (CGFloat x = DROP_SIZE.width/2; x &lt; self.gameView.bounds.size.width - DROP_SIZE.width/2; x+=DROP_SIZE.width) &#123;</span><br><span class="line">            </span><br><span class="line">            //移动(x,y)获取这个点所在的view</span><br><span class="line">            UIView *hitView = [self.gameView hitTest:CGPointMake(x, y) withEvent:NULL];</span><br><span class="line"></span><br><span class="line">            if ([hitView superview] == self.gameView) &#123;</span><br><span class="line">               </span><br><span class="line">                //如果获取的view的父视图是gameView,就说明它是方块</span><br><span class="line">                [dropsFound addObject:hitView];</span><br><span class="line">                </span><br><span class="line">            &#125;else&#123;</span><br><span class="line"></span><br><span class="line">                //否则这个行肯定是不完整的</span><br><span class="line">                rowIsComplete = NO;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (![dropsFound count]) break;</span><br><span class="line">        if (rowIsComplete)[dropsToRemove addObjectsFromArray:dropsFound];</span><br><span class="line">  </span><br><span class="line">    &#125;    </span><br><span class="line"></span><br><span class="line">    //如果有排满的行，则炸掉它</span><br><span class="line">    if ([dropsToRemove count])&#123;</span><br><span class="line">        for (UIView *drop in dropsToRemove)&#123;</span><br><span class="line">            [self.dropitBehavior removeItem:drop];</span><br><span class="line">        &#125;</span><br><span class="line">        [self animatedRemovingDrops:dropsToRemove];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  炸飞整行</span><br><span class="line"> *</span><br><span class="line"> *  @param dropsToRemove 需要炸飞的View的数组</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">- (void)animatedRemovingDrops:(NSArray *)dropsToRemove</span><br><span class="line">&#123;</span><br><span class="line">    [UIView animateWithDuration:0.5 animations:^&#123;</span><br><span class="line">        </span><br><span class="line">        for (UIView *drop in dropsToRemove) &#123;</span><br><span class="line">           </span><br><span class="line">            //设定炸飞后终点的位置</span><br><span class="line">            int x = (arc4random()%(int)(self.gameView.bounds.size.width*5)) - (int)self.gameView.bounds.size.width*2;</span><br><span class="line">            int y = self.gameView.bounds.size.height;</span><br><span class="line">            drop.center = CGPointMake(x,-y);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125; completion:^(BOOL finished) &#123;</span><br><span class="line"></span><br><span class="line">        [dropsToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="思考一下"><a href="#思考一下" class="headerlink" title="思考一下"></a>思考一下</h1><hr>
+<p>关于通过给view添加物理效果的方法添加动画，需要弄清楚<code>DynamicAnimator</code>,<code>UIDynamicBehavior</code>和遵守<uidynamicitem>协议的item三者之间的关系。</uidynamicitem></p>
+<p>通过对代码的分析以及讲师的讲解，笔者将这三者以比喻的方法将他们的关系梳理了一下：</p>
+<ul>
+<li><code>DynamicAnimator</code>:代表了一个游乐场。</li>
+<li><code>UIDynamicBehavior</code>：代表了游乐场里的娱乐设施。</li>
+<li>遵守<uidynamicitem>协议的item：代表了去游乐场玩儿的小孩。</uidynamicitem></li>
+</ul>
+<p>我们从代码看一下如何映射他们的关系：</p>
+<h4 id="DynamicAnimator"><a href="#DynamicAnimator" class="headerlink" title="DynamicAnimator"></a>DynamicAnimator</h4><p><code>UIDynamicAnimator *animator =[ [ UIDynamicAnimator alloc] initWithReferenceView:aView];</code><br>在这里，<code>aView</code>代表了一片空地，这句话的意思是我们把游乐场建在了这片空地上。</p>
+<h4 id="UIDynamicBehavior"><a href="#UIDynamicBehavior" class="headerlink" title="UIDynamicBehavior"></a>UIDynamicBehavior</h4><p><code>[self.animator addBehavior:_dropitBehavior];</code><br>在这里，代表了我们在这个游乐场里增加了某个娱乐设施。</p>
+<h4 id="遵守协议的item"><a href="#遵守协议的item" class="headerlink" title="遵守协议的item"></a>遵守<uidynamicitem>协议的item</uidynamicitem></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)addItem:(id&lt;UIDynamicItem&gt;)item</span><br><span class="line">&#123;</span><br><span class="line">    [self.gravity addItem:item];</span><br><span class="line">    [self.collider addItem:item];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，代表了我们让某个小孩来玩儿某个娱乐设施。</p>
+<p>这样就理清了：我们要让一个小孩玩儿一个娱乐设施就应该:</p>
+<ol>
+<li>找一片空地建设游乐场。</li>
+<li>在游乐场引进娱乐设备。</li>
+<li>孩子来玩儿这个娱乐设备。</li>
+</ol>
+<p>笔者在开始看到这三者的相关代码的时候略懵逼，不知道为什么会这么设计，但是用了“比喻法”之后，顿时豁然开朗了~</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>如果哪位小伙伴想拿到本文Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/" rel="next" title="斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo">
+                <i class="fa fa-chevron-left"></i> 斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo/" rel="prev" title="斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo">
+                斯坦福大学iOS开发公开课总结（六）：多态，导航控制器和选项卡栏控制器Demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#协议"><span class="nav-number">1.</span> <span class="nav-text">协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#id-obj-和-id-lt-MyProtocol-gt-obj的相同点和不同点"><span class="nav-number">1.0.1.</span> <span class="nav-text">id obj 和 id&lt;MyProtocol&gt;obj的相同点和不同点:</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Block"><span class="nav-number">2.</span> <span class="nav-text">Block</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改block内部变量的方案"><span class="nav-number">2.1.</span> <span class="nav-text">修改block内部变量的方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储循环的解决方案"><span class="nav-number">2.2.</span> <span class="nav-text">存储循环的解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block的应用"><span class="nav-number">2.3.</span> <span class="nav-text">Block的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过View改变视图的属性来实现动画"><span class="nav-number">3.</span> <span class="nav-text">通过View改变视图的属性来实现动画</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过给视图添加物理效果实现动画"><span class="nav-number">4.</span> <span class="nav-text">通过给视图添加物理效果实现动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DynamicAnimator：动力动画"><span class="nav-number">4.1.</span> <span class="nav-text">DynamicAnimator：动力动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIDynamicBehavior：动力行为"><span class="nav-number">4.2.</span> <span class="nav-text">UIDynamicBehavior：动力行为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-UIGravityBehavior：重力行为"><span class="nav-number">4.2.1.</span> <span class="nav-text">1. UIGravityBehavior：重力行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-UICollisionBehavior：碰撞行为"><span class="nav-number">4.2.2.</span> <span class="nav-text">2. UICollisionBehavior：碰撞行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-UIAttachmentBehavior-：吸附行为"><span class="nav-number">4.2.3.</span> <span class="nav-text">3. UIAttachmentBehavior ：吸附行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-UISnapBehavior：速甩行为"><span class="nav-number">4.2.4.</span> <span class="nav-text">4. UISnapBehavior：速甩行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-UIPushBehavior：推动行为"><span class="nav-number">4.2.5.</span> <span class="nav-text">5. UIPushBehavior：推动行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-UIDynamicItemBehavior：动力项行为"><span class="nav-number">4.2.6.</span> <span class="nav-text">6. UIDynamicItemBehavior：动力项行为</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遵守协议的item-大部分情况是UIView"><span class="nav-number">4.3.</span> <span class="nav-text">遵守协议的item(大部分情况是UIView)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo"><span class="nav-number">5.</span> <span class="nav-text">Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo需求"><span class="nav-number">5.1.</span> <span class="nav-text">Demo需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo效果图"><span class="nav-number">5.2.</span> <span class="nav-text">Demo效果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要代码段"><span class="nav-number">5.3.</span> <span class="nav-text">重要代码段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考一下"><span class="nav-number">6.</span> <span class="nav-text">思考一下</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DynamicAnimator"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">DynamicAnimator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UIDynamicBehavior"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">UIDynamicBehavior</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遵守协议的item"><span class="nav-number">6.0.0.3.</span> <span class="nav-text">遵守协议的item</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">7.</span> <span class="nav-text">最后的话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2016-7-12日更新："><span class="nav-number">8.</span> <span class="nav-text">2016.7.12日更新：</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

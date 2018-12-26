@@ -1,0 +1,1203 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="BookNote,IT,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="一. 为什么读这本书很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用代码的可读性来概括。">
+<meta name="keywords" content="BookNote,IT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何提高代码的可读性? -读《编写可读代码的艺术》">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/如何提高代码的可读性/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="一. 为什么读这本书很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用代码的可读性来概括。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-63f87902508af82e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.605Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何提高代码的可读性? -读《编写可读代码的艺术》">
+<meta name="twitter:description" content="一. 为什么读这本书很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用代码的可读性来概括。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-63f87902508af82e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/如何提高代码的可读性/">
+
+
+
+
+
+  <title> 如何提高代码的可读性? -读《编写可读代码的艺术》 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/如何提高代码的可读性/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何提高代码的可读性? -读《编写可读代码的艺术》
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/BookNote/" itemprop="url" rel="index">
+                    <span itemprop="name">BookNote</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  10,363 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  37 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/859001-63f87902508af82e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《编写可读代码的艺术》封面"></p>
+<h1 id="一-为什么读这本书"><a href="#一-为什么读这本书" class="headerlink" title="一. 为什么读这本书"></a>一. 为什么读这本书</h1><p>很多同行在编写代码的时候往往只关注一些宏观上的主题：架构，设计模式，数据结构等等，却忽视了一些更细节上的点：比如变量如何命名与使用，控制流的设计，以及注释的写法等等。以上这些细节上的东西可以用<strong>代码的可读性</strong>来概括。</p>
+<a id="more"></a>
+<p>不同于宏观上的架构，设计模式等需要好几个类，好几个模块才能看出来：代码的可读性是能够立刻从微观上的，一个变量的命名，函数的逻辑划分，注释的信息质量里面看出来的。</p>
+<p>宏观层面上的东西固然重要，但是代码的可读性也属于评价代码质量的一个无法让人忽视的指标：它影响了阅读代码的成本（毕竟代码注意是给人看的），甚至会影响代码出错的概率！</p>
+<p>这里引用《编写可读代码的艺术》这本书里的一句话:</p>
+<blockquote>
+<p>对于一个整体的软件系统而言，既需要宏观的架构决策，设计与指导原则，也必须重视围观的代码细节。在软件历史中，有许多影响深远的重大失败，其根源往往是编码细节出现了疏漏。</p>
+</blockquote>
+<p>因此笔者认为代码的可读性可以作为考量一名程序员专业程度的指标。</p>
+<p>或许已经有很多同行也正在努力提高自己代码的可读性。然而这里有一个很典型的错觉（笔者之前就有这种错觉）是：越少的代码越容易让人理解。</p>
+<p>但是事实上，并不是代码越精简就越容易让人理解。相对于追求最小化代码行数，一个更好的提高可读性方法是<strong>最小化人们理解代码所需要的时间。</strong></p>
+<p>这就引出了这本中的一个核心定理：</p>
+<blockquote>
+<p>可读性基本定理：代码的写法应当使别人理解它所需要的时间最小化。</p>
+</blockquote>
+<p>正式这句话深深地吸引了我，于是决定利用这两周的业余时间读完并总结了这本书。</p>
+<p>这本书讲的就是关于”如何提高代码的可读性“。<br>总结下来，这本书从浅入深，在三个层次告诉了我们如何让代码易于理解：</p>
+<ul>
+<li>表层上的改进：在命名方法（变量名，方法名），变量声明，代码格式，注释等方面的改进。</li>
+<li>控制流和逻辑的改进：在控制流，逻辑表达式上让代码变得更容易理解。</li>
+<li>结构上的改进：善于抽取逻辑，借助自然语言的描述来改善代码。</li>
+</ul>
+<h1 id="二-表层的改进"><a href="#二-表层的改进" class="headerlink" title="二. 表层的改进"></a>二. 表层的改进</h1><p>首先来讲最近简单的一层如何改进，涉及到以下几点：</p>
+<ul>
+<li>如何命名</li>
+<li>如何声明与使用变量</li>
+<li>如何简化表达式</li>
+<li>如何让代码具有美感</li>
+<li>如何写注释</li>
+</ul>
+<h2 id="如何命名"><a href="#如何命名" class="headerlink" title="如何命名"></a>如何命名</h2><p>关于如何命名，作者提出了一个关键思想：</p>
+<blockquote>
+<p>关键思想：把尽可能多的信息装入名字中。</p>
+</blockquote>
+<p>这里的多指的是有价值的多。那么如何做到有价值呢？作者介绍了以下几个建议：</p>
+<ul>
+<li>选择专业的词汇，避免泛泛的名字</li>
+<li>给名字附带更多信息</li>
+<li>决定名字最适合的长度</li>
+<li>名字不能引起歧义</li>
+</ul>
+<h3 id="选择专业的词汇，避免泛泛的名字"><a href="#选择专业的词汇，避免泛泛的名字" class="headerlink" title="选择专业的词汇，避免泛泛的名字"></a>选择专业的词汇，避免泛泛的名字</h3><p>一个比较常见的反例：<code>get</code> 。</p>
+<p><code>get</code>这个词最好是用来做轻量级的取方法的开头，而如果用到其他的地方就会显得很不专业。</p>
+<p>举个书中的例子：</p>
+<p><code>getPage(url)</code></p>
+<p>通过这个方法名很难判断出这个方法是从缓存中获取页面数据还是从网页中获取。如果是从网页中获取，更专业的词应该是<code>fetchPage(url)</code>或者<code>downloadPage(url)</code>。</p>
+<p>还有一个比较常见的反例：<code>returnValue</code>和<code>retval</code>。这两者都是“返回值”的意思，他们被滥用在各个有返回值的函数里面。其实这两个次除了携带他们本来的意思<code>返回值</code>以外并不具备任何其他的信息，是典型的泛泛的名字。</p>
+<p>那么如何选择一个专业的词汇呢？答案是在非常贴近你自己的意图的基础上，选择一个富有表现力的词汇。</p>
+<p>举几个例子：</p>
+<ul>
+<li>相对于<code>make</code>，选择<code>create</code>,<code>generate</code>,<code>build</code>等词汇会更有表现力，更加专业。</li>
+<li>相对于<code>find</code>，选择<code>search</code>,<code>extract</code>,<code>recover</code>等词汇会更有表现力，更加专业。</li>
+<li>相对于<code>retval</code>，选择一个能充分描述这个返回值的性质的名字，例如：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> euclidean_norm = <span class="function"><span class="keyword">function</span> (<span class="params">v</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> retval = <span class="number">0.0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; v.length; i += <span class="number">1</span>;)</span><br><span class="line">       retval += v[i] * v[i];</span><br><span class="line">    <span class="keyword">return</span> Match.sqrt(retval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的retval表示的是“平方的和”，因此<code>sum_squares</code>这个词更加贴切你的意图，更加专业。</p>
+<p>但是，有些情况下，泛泛的名字也是有意义的，例如一个交换变量的情景：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (right &lt; left)&#123;</span><br><span class="line">    tmp = right;</span><br><span class="line">    right = left;</span><br><span class="line">    left = temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>像上面这种<code>tmp</code>只是作为一个临时存储的情况下，tmp表达的意思就比较贴切了。因此，像<code>tmp</code>这个名字，只适用于短期存在而且特性为临时性的变量。</p>
+<h3 id="给名字附带更多信息"><a href="#给名字附带更多信息" class="headerlink" title="给名字附带更多信息"></a>给名字附带更多信息</h3><p>除了选择一个专业，贴切意图的词汇，我们也可以通过添加一些前后缀来给这个词附带更多的信息。这里所指的更多的信息有三种：</p>
+<ul>
+<li>变量的单位</li>
+<li>变量的属性</li>
+<li>变量的格式</li>
+</ul>
+<h4 id="为变量添加单位"><a href="#为变量添加单位" class="headerlink" title="为变量添加单位"></a>为变量添加单位</h4><p>有些变量是有单位的，在变量名的后面添加其单位可以让这个变量名携带更多信息：</p>
+<ul>
+<li>一个表达时间间隔的变量，它的单位是秒：相对于<code>duraction</code>，<code>ducation_secs</code>携带了更多的信息</li>
+<li>一个表达内存大小的变量，它的单位是mb：相对于<code>size</code>，<code>cache_mb</code>携带了更多的信息。</li>
+</ul>
+<h4 id="为变量添加重要属性"><a href="#为变量添加重要属性" class="headerlink" title="为变量添加重要属性"></a>为变量添加重要属性</h4><p>有些变量是具有一些非常重要的属性，其重要程度是不允许使用者忽略的。例如：</p>
+<ul>
+<li>一个UTF-8格式的html字节，相对于<code>html</code>，<code>html_utf8</code>更加清楚地描述了这个变量的格式。</li>
+<li>一个纯文本，需要加密的密码字符串：相对于<code>password</code>，<code>plaintext_password</code>更清楚地描述了这个变量的特点。</li>
+</ul>
+<h4 id="为变量选择适当的格式"><a href="#为变量选择适当的格式" class="headerlink" title="为变量选择适当的格式"></a>为变量选择适当的格式</h4><p>对于命名，有些既定的格式需要注意：</p>
+<ul>
+<li>使用大驼峰命名来表示类名：<code>HomeViewController</code>。</li>
+<li>使用小驼峰命名来表示属性名：<code>userNameLabel</code>。</li>
+<li>使用下划线连接词来表示变量名：<code>product_id</code>。</li>
+<li>使用<code>kConstantName</code>来表示常量：<code>kCacheDuraction</code>。</li>
+<li>使用MACRO_NAME来表示宏：<code>SCREEN_WIDTH</code>。</li>
+</ul>
+<h3 id="决定名字最适合的长度"><a href="#决定名字最适合的长度" class="headerlink" title="决定名字最适合的长度"></a>决定名字最适合的长度</h3><p>名字越长越难记住，名字越短所持有的信息就越少，如何决定名字的长度呢？这里有几个原则：</p>
+<ul>
+<li>如果变量的作用域很小，可以取很短的名字</li>
+<li>驼峰命名中的单元不能超过3个</li>
+<li>不能使用大家不熟悉的缩写</li>
+<li>丢掉不必要的单元</li>
+</ul>
+<h4 id="如果变量的作用域很小，可以取很短的名字"><a href="#如果变量的作用域很小，可以取很短的名字" class="headerlink" title="如果变量的作用域很小，可以取很短的名字"></a>如果变量的作用域很小，可以取很短的名字</h4><p>如果一个变量作用域很小：则可以给它取一个很短的名字也无妨。</p>
+<p>看下面这个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(debug)&#123;</span><br><span class="line">    map &lt;string,<span class="keyword">int</span>&gt;m;</span><br><span class="line">    LookUpNamesNumbers(&amp;m);</span><br><span class="line">    Print(m);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，变量的类型和使用范围一眼可见，读者可以了解这段代码的所有信息，所以即使是取<code>m</code>这个非常简短的名字，也不影响读者来理解作者的意图。</p>
+<p>相反的，如果<code>m</code>是一个全局变量，当你看到下面这段代码就会很头疼，因为你不知道它的类型并不明确:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LookUpNamesNumbers(&amp;m);</span><br><span class="line">Print(m);</span><br></pre></td></tr></table></figure>
+<h4 id="驼峰命名中的单元不能超过3个"><a href="#驼峰命名中的单元不能超过3个" class="headerlink" title="驼峰命名中的单元不能超过3个"></a>驼峰命名中的单元不能超过3个</h4><p>我们知道驼峰命名可以很清晰地体现变量的含义，但是当驼峰命名中的单元超过了3个之后，就会很影响阅读体验:</p>
+<p><code>userFriendsInfoModel</code></p>
+<p><code>memoryCacheCalculateTool</code></p>
+<p>是不是看上去很吃力？因为我们大脑同时可以记住的信息非常有限，尤其是在看代码的时候，这种短期记忆的局限性是无法让我们同时记住或者瞬间理解几个具有3~4个单元的变量名的。所以我们需要在变量名里面去除一些不必要的单元：</p>
+<h4 id="丢掉不必要的单元"><a href="#丢掉不必要的单元" class="headerlink" title="丢掉不必要的单元"></a>丢掉不必要的单元</h4><p>有些单元在变量里面是可以去掉的，例如：</p>
+<p><code>convertToString</code>可以省略成<code>toString</code>。</p>
+<h4 id="不能使用大家不熟悉的缩写"><a href="#不能使用大家不熟悉的缩写" class="headerlink" title="不能使用大家不熟悉的缩写"></a>不能使用大家不熟悉的缩写</h4><p>有些缩写是大家熟知的：</p>
+<ul>
+<li><code>doc</code> 可以代替<code>document</code></li>
+<li><code>str</code> 可以代替<code>string</code></li>
+</ul>
+<p>但是如果你想用<code>BEManager</code>来代替<code>BackEndManager</code>就比较不合适了。因为不了解的人几乎是无法猜到这个名称的意义的。</p>
+<p>所以类似这种情况不能偷懒，该是什么就是什么，否则会起到相反的效果。因为它看起来非常陌生，跟我们熟知的一些缩写规则相去甚远。</p>
+<h3 id="名字不能引起歧义"><a href="#名字不能引起歧义" class="headerlink" title="名字不能引起歧义"></a>名字不能引起歧义</h3><p>有些名字会引起歧义，例如：</p>
+<ul>
+<li>filter：过滤这个词，可以是过滤出符合标准的，也可以是减少不符合标准的：是两种完全相反的结果，所以不推荐使用。</li>
+<li>clip：类似的，到底是在原来的基础上截掉某一段还是另外截出来某一段呢？同样也不推荐使用。</li>
+<li>布尔值：read_password:是表达需要读取密码，还是已经读了密码呢？所以最好使用<code>need_password</code>或者<code>is_authenticated</code>来代替比较好。通常来说，给布尔值的变量加上<code>is</code>,<code>has</code>,<code>can</code>,<code>should</code>这样的词可以使布尔值表达的意思更加明确</li>
+</ul>
+<p>这一节讲了很多关于如何起好一个变量名的方法。其实有一个很简单的原则来判断这个变量名起的是否是好的：那就是：<strong>团队的新成员是否能迅速理解这个变量名的含义</strong>。如果是，那么这个命名就是成功的，否则就不要偷懒了，起个好名字，对谁都好。其实如果你养成习惯多花几秒钟想出个好名字，你会发现你的“命名能力”会很快提升。 </p>
+<h2 id="如何声明与使用变量"><a href="#如何声明与使用变量" class="headerlink" title="如何声明与使用变量"></a>如何声明与使用变量</h2><p>在写程序的过程中我们会声明很多变量（成员变量，临时变量），而我们要知道变量的声明与使用策略是会对代码的可读性造成影响的：</p>
+<ul>
+<li>变量越多，越难跟踪它们的动向。</li>
+<li>变量的作用域越大，就需要跟踪它们的动向越久。</li>
+<li>变量改变的越频繁，就越难跟踪它的当前值。</li>
+</ul>
+<p>相对的，对于变量的声明与使用，我们可以从这四个角度来提高代码的可读性：</p>
+<ol>
+<li>减少变量的个数</li>
+<li>缩小变量的作用域</li>
+<li>缩短变量声明与使用其代码的距离</li>
+<li>变量最好只写一次</li>
+</ol>
+<h3 id="减少变量的个数"><a href="#减少变量的个数" class="headerlink" title="减少变量的个数"></a>减少变量的个数</h3><p>在一个函数里面可能会声明很多变量，但是有些变量的声明是毫无意义的，比如：</p>
+<ul>
+<li>没有价值的临时变量</li>
+<li>表示中间结果的变量</li>
+</ul>
+<h4 id="没有价值的临时变量"><a href="#没有价值的临时变量" class="headerlink" title="没有价值的临时变量"></a>没有价值的临时变量</h4><p>有些变量的声明完全是多此一举，它们的存在反而加大了阅读代码的成本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> now = datetime.datatime.now()</span><br><span class="line">root_message.last_view_time = now</span><br></pre></td></tr></table></figure>
+<p>上面这个<code>now</code>变量的存在是毫无意义的，因为：</p>
+<ul>
+<li>没有拆分任何复杂的表达式</li>
+<li><code>datetime.datatime.now</code>已经很清楚地表达了意思</li>
+<li>只使用了一次，因此而没有压缩任何冗余的代码</li>
+</ul>
+<p>所以完全不用这个变量也是完全可以的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root_message.last_view_time = datetime.datatime.now()</span><br></pre></td></tr></table></figure>
+<h4 id="表示中间结果的变量"><a href="#表示中间结果的变量" class="headerlink" title="表示中间结果的变量"></a>表示中间结果的变量</h4><p>有的时候为了达成一个目标，把一件事情分成了两件事情来做，这两件事情中间需要一个变量来传递结果。但往往这件事情不需要分成两件事情来做，这个“中间结果”也就不需要了：</p>
+<p>看一个比较常见的需求，一个把数组中的某个值移除的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> remove_value = <span class="function"><span class="keyword">function</span> (<span class="params">array, value_to_remove</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> index_to_remove = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.length; i+=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (array[i] === value_to_remove)&#123;</span><br><span class="line">            index_to_remove = i;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (index_to_remove !== <span class="literal">null</span>)&#123;</span><br><span class="line">        array.splice(index_to_remove,<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面把这个事情分成了两件事情来做：</p>
+<ol>
+<li>找出要删除的元素的序号，保存在变量<code>index_to_remove</code>里面。</li>
+<li>拿到<code>index_to_remove</code>以后使用<code>splice</code>方法删除它。（这段代码是JavaScript代码）</li>
+</ol>
+<p>这个例子对于变量的命名还是比较合格的，但实际上这里所使用的中间结果变量是完全不需要的，整个过程也不需要分两个步骤进行。来看一下如何一步实现这个需求：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> remove_value = <span class="function"><span class="keyword">function</span> (<span class="params">array, value_to_remove</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.length; i+=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (array[i] === value_to_remove)&#123;</span><br><span class="line">            array.splice(i,<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的方法里面，当知道应该删除的元素的序号<code>i</code>的时候，就直接用它来删除了应该删除的元素并立即返回。</p>
+<p>除了减轻了内存和处理器的负担（因为不需要开辟新的内容来存储结果变量以及可能不用完全走遍整个的for语句），阅读代码的人也会很快领会代码的意图。</p>
+<p>所以在写代码的时候，如果可以“速战速决”，就尽量使用最快，最简洁的方式来实现目的。</p>
+<h3 id="缩小变量的作用域"><a href="#缩小变量的作用域" class="headerlink" title="缩小变量的作用域"></a>缩小变量的作用域</h3><p>变量的作用域越广，就越难追踪它，值也越难控制，所以我们应该让你的<strong>变量对尽量少的代码可见</strong>。</p>
+<p>比如类的成员变量就相当于一个“小型局部变量”。如果这个类比较庞大，我们就会很难追踪它，因为所有方法都可以“隐式”调用它。所以相反地，如果我们可以把它“降格”为局部变量，就会很容易追踪它的行踪：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//成员变量，比较难追踪</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LargeCass</span></span>&#123;</span><br><span class="line">  string str_;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Method1</span><span class="params">()</span></span>&#123;</span><br><span class="line">     str_ = ...;</span><br><span class="line">     Method2();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Method2</span><span class="params">()</span></span>&#123;</span><br><span class="line">     <span class="comment">//using str_</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>降格：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//局部变量，容易追踪</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LargeCass</span></span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Method1</span><span class="params">()</span></span>&#123;</span><br><span class="line">     string str = ...;</span><br><span class="line">     Method2(str);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">Method2</span><span class="params">(string str)</span></span>&#123;</span><br><span class="line">     <span class="comment">//using str</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以在设计类的时候如果这个数据（变量）可以通过方法参数来传递，就不要以成员变量来保存它。</p>
+<h3 id="缩短变量声明与使用其代码的距离"><a href="#缩短变量声明与使用其代码的距离" class="headerlink" title="缩短变量声明与使用其代码的距离"></a>缩短变量声明与使用其代码的距离</h3><p>在实现一个函数的时候，我们可能会声明比较多的变量，但这些变量的使用位置却不都是在函数开头。</p>
+<p>有一个比较不好的习惯就是无论变量在当前函数的哪个位置使用，都在一开始（函数的开头）就声明了它们。这样可能导致的问题是：阅读代码的人读到函数后半部分的时候就忘记了这个变量的类型和初始值；而且因为在函数的开头就声明了好几个变量，也对阅读代码的人的大脑造成了负担，因为人的短期记忆是有限的，特别是记一些暂时还不知道怎么用的东西。</p>
+<p>因此，如果在函数内部需要在不同地方使用几个不同的变量，建议在真正使用它们之前再声明它。</p>
+<h3 id="变量最好只写一次"><a href="#变量最好只写一次" class="headerlink" title="变量最好只写一次"></a>变量最好只写一次</h3><p>操作一个变量的地方越多，就越难确定它的当前值。所以在很多语言里面有其各自的方式让一些变量不可变（是个常量），比如C++里的<code>const</code>和Java中的<code>final</code>。</p>
+<h2 id="如何简化表达式"><a href="#如何简化表达式" class="headerlink" title="如何简化表达式"></a>如何简化表达式</h2><p>有些表达式比较长，很难让人马上理解。这时候最好可以将其拆分成更容易的几个小块。可以尝试下面的几个方法：</p>
+<ul>
+<li>使用解释变量</li>
+<li>使用总结变量</li>
+<li>使用德摩根定理</li>
+</ul>
+<h3 id="使用解释变量"><a href="#使用解释变量" class="headerlink" title="使用解释变量"></a>使用解释变量</h3><p>有些变量会从一个比较长的算式得出，这个表达式可能很难让人看懂。这时候就需要用一个简短的“解释”变量来诠释算式的含义。使用书中的一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> line.split(<span class="string">':'</span>)[<span class="number">0</span>].strip() == <span class="string">"root"</span></span><br></pre></td></tr></table></figure>
+<p>其实上面左侧的表达式其实得出的是用户名，我们可以用<code>username</code>来替换它：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username = line.split(<span class="string">':'</span>)[<span class="number">0</span>].strip()</span><br><span class="line"><span class="keyword">if</span> username == <span class="string">"root"</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用总结变量"><a href="#使用总结变量" class="headerlink" title="使用总结变量"></a>使用总结变量</h3><p>除了以“变量”替换“算式”，还可以用“变量”来替换含有更多变量更复杂的内容，比如条件语句，这时候该变量可以被称为”总结变量”。使用书中的一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(request.user.id == document.owner_id)&#123;</span><br><span class="line">   <span class="comment">//do something </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这条判断语句所判断的是：“该文档的所有者是不是该用户”。我们可以使用一个总结性的变量<code>user_owns_document</code>来替换它：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">boolean</span> user_owns_document = (request.user.id == document.owner_id);</span><br><span class="line"><span class="keyword">if</span> (user_owns_document)&#123;</span><br><span class="line">   <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用德摩根定理"><a href="#使用德摩根定理" class="headerlink" title="使用德摩根定理"></a>使用德摩根定理</h3><p>德摩根定理:</p>
+<ol>
+<li><code>not(a or b or c)</code>等价于<code>(not a) and (not b) and (not c)</code></li>
+<li><code>not(a and b and c)</code>等价于<code>(not a) or (not b) or (not c)</code></li>
+</ol>
+<p>当我们条件语句里面存在外部取反的情况，就可以使用德摩根定理来做个转换。使用书中的一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用德摩根定理转换以前</span></span><br><span class="line"><span class="keyword">if</span>(!(file_exists &amp;&amp; !is_protected))&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用德摩根定理转换以后</span></span><br><span class="line"><span class="keyword">if</span>(!file_exists || is_protected)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="如何让代码具有美感"><a href="#如何让代码具有美感" class="headerlink" title="如何让代码具有美感"></a>如何让代码具有美感</h2><p>在读过一些好的源码之后我有一个感受：好的源码往往都看上去都很漂亮，很有美感。这里说的漂亮和美感不是指代码的逻辑清晰有条理，而是指感官上的视觉感受让人感觉很舒服。这是从一种纯粹的审美的角度来评价代码的：富有美感的代码让人赏心悦目，也容易让人读懂。</p>
+<p>为了让代码更有美感，采取以下实践会很有帮助：</p>
+<ul>
+<li>用换行和列对齐来让代码更加整齐</li>
+<li>选择一个有意义的顺序</li>
+<li>把代码分成”段落”</li>
+<li>保持风格一致性</li>
+</ul>
+<h3 id="用换行和列对齐来让代码更加整齐"><a href="#用换行和列对齐来让代码更加整齐" class="headerlink" title="用换行和列对齐来让代码更加整齐"></a>用换行和列对齐来让代码更加整齐</h3><p>有些时候，我们可以利用换行和列对齐来让代码显得更加整齐。</p>
+<h4 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h4><p>换行比较常用在函数或方法的参数比较多的时候。</p>
+<p>使用换行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)requestWithUrl:(NSString*)url </span><br><span class="line">  				method:(NSString*)method </span><br><span class="line">                params:(NSDictionary *)params </span><br><span class="line">               success:(SuccessBlock)success </span><br><span class="line">               failure:(FailuireBlock)failure&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不使用换行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)requestWithUrl:(NSString*)url method:(NSString*)method params:(NSDictionary *)params success:(SuccessBlock)success failure:(FailuireBlock)failure&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过比较可以看出，如果不使用换行，就很难一眼看清楚都是用了什么参数，而且代码整体看上去整洁干净了很多。</p>
+<h4 id="列对齐"><a href="#列对齐" class="headerlink" title="列对齐"></a>列对齐</h4><p>在声明一组变量的时候，由于每个变量名的长度不同，导致了在变量名左侧对齐的情况下，等号以及右侧的内容没有对齐：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *name = userInfo[@&quot;name&quot;];</span><br><span class="line">NSString *sex = userInfo[@&quot;sex&quot;];</span><br><span class="line">NSString *address = userInfo[@&quot;address&quot;];</span><br></pre></td></tr></table></figure>
+<p>而如果使用了列对齐的方法，让等号以及右侧的部分对齐的方式会使代码看上去更加整洁：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *name    = userInfo[@&quot;name&quot;];</span><br><span class="line">NSString *sex     = userInfo[@&quot;sex&quot;];</span><br><span class="line">NSString *address = userInfo[@&quot;address&quot;];</span><br></pre></td></tr></table></figure>
+<p>这二者的区别在条目数比较多以及变量名称长度相差较大的时候会更加明显。</p>
+<h3 id="选择一个有意义的顺序"><a href="#选择一个有意义的顺序" class="headerlink" title="选择一个有意义的顺序"></a>选择一个有意义的顺序</h3><p>当涉及到相同变量（属性）组合的存取都存在的时候，最好以一个有意义的顺序来排列它们：</p>
+<ul>
+<li>让变量的顺序与对应的HTML表单中<input>字段的顺序相匹配</li>
+<li>从最重要到最不重要排序</li>
+<li>按照字母排序</li>
+</ul>
+<p>举个例子：相同集合里的元素同时出现的时候最好保证每个元素出现顺序是一致的。除了便于阅读这个好处以外，也有助于能发现漏掉的部分，尤其当元素很多的时候：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//给model赋值</span><br><span class="line">model.name	  = dict[&quot;name&quot;]；</span><br><span class="line">model.sex 	  = dict[&quot;sex&quot;]；</span><br><span class="line">model.address = dict[&quot;address&quot;]；</span><br><span class="line"></span><br><span class="line"> ...</span><br><span class="line">  </span><br><span class="line">//拿到model来绘制UI</span><br><span class="line">nameLabel.text    = model.name;</span><br><span class="line">sexLabel.text     = model.sex;</span><br><span class="line">addressLabel.text = model.address;</span><br></pre></td></tr></table></figure>
+<h3 id="把代码分成”段落”"><a href="#把代码分成”段落”" class="headerlink" title="把代码分成”段落”"></a>把代码分成”段落”</h3><p>在写文章的时候，为了能让整个文章看起来结构清晰，我们通常会把大段文字分成一个个小的段落，让表达相同主旨的语言凑到一起，与其他主旨的内容分隔开来。</p>
+<p>而且除了让读者明确哪些内容是表达同一主旨之外，把文章分为一个个段落的好处还有便于找到你的阅读”脚印“，便于段落之间的导航；也可以让你的阅读具有一定的节奏感。</p>
+<p>其实这些道理同样适用于写代码：如果你可以把一个拥有好几个步骤的大段函数，以空行+注释的方法将每一个步骤区分开来，那么则会对读者理解该函数的功能有极大的帮助。这样一来，代码既能有一定的美感，也具备了可读性。其实可读性又何尝不是来自于规则，富有美感的代码呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">BigFunction&#123;</span><br><span class="line">  </span><br><span class="line">     <span class="comment">//step1:*****</span></span><br><span class="line">     ....</span><br><span class="line">       </span><br><span class="line">     <span class="comment">//step2:*****</span></span><br><span class="line">     ...</span><br><span class="line">        </span><br><span class="line">     <span class="comment">//step3:*****</span></span><br><span class="line">     ....</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="保持风格一致性"><a href="#保持风格一致性" class="headerlink" title="保持风格一致性"></a>保持风格一致性</h3><p>有些时候，你的某些代码风格可能与大众比较容易接受的风格不太一样。但是如果你在你自己所写的代码各处能够保持你这种独有的风格，也是可以对代码的可读性有积极的帮助的。</p>
+<p>比如一个比较经典的代码风格问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(condition)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>or:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(condition)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于上面的两种写法，每个人对条件判断右侧的大括号的位置会有不同的看法。但是无论你坚持的是哪一个，请在你的代码里做到始终如一。因为如果有某几个特例的话，是非常影响代码的阅读体验的。</p>
+<p>我们要知道，一个逻辑清晰的代码也可以因为留白的不规则，格式不对齐，顺序混乱而让人很难读懂，这是十分让人痛心的事情。所以既然你的代码在命名上，逻辑上已经很优秀了，就不妨再费一点功夫把她打扮的漂漂亮亮的吧！</p>
+<h2 id="如何写注释"><a href="#如何写注释" class="headerlink" title="如何写注释"></a>如何写注释</h2><p>首先引用书中的一句话：</p>
+<blockquote>
+<p>注释的目的是尽量帮助读者了解得和作者一样多。</p>
+</blockquote>
+<p>在你写代码的时候，在脑海中可能会留下一些代码里面很难体现出来的部分：这些部分在别人读你的代码的时候可能很难体会到。而这些“不对称”的信息就是需要通过以注释的方式来告诉阅读代码的人。</p>
+<p>想要写出好的注释，就需要首先知道：</p>
+<ul>
+<li>什么不能作为注释</li>
+<li>什么应该作为注释</li>
+</ul>
+<h3 id="什么不能作为注释"><a href="#什么不能作为注释" class="headerlink" title="什么不能作为注释"></a>什么不能作为注释</h3><p>我们都知道注释占用了代码的空间，而且实际上对程序本身的运行毫无帮助，所以最好保证它是<strong>物有所值的</strong>。</p>
+<p>不幸的是，有一些注释是毫无价值的，它无情的占用了代码间的空间，影响了阅读代码的人的阅读效率，也浪费了写注释的人的时间。这样的注释有以下两种：</p>
+<ul>
+<li>描述能立刻从代码自身就能立刻理解的代码意图的注释</li>
+<li>给不好的命名添加的注释</li>
+</ul>
+<h4 id="描述能立刻从代码自身就能立刻理解的代码意图的注释"><a href="#描述能立刻从代码自身就能立刻理解的代码意图的注释" class="headerlink" title="描述能立刻从代码自身就能立刻理解的代码意图的注释"></a>描述能立刻从代码自身就能立刻理解的代码意图的注释</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//add params1 and params2 and return sum of them</span><br><span class="line">- (int)addParam1:(int)param1 param2:(int)param2</span><br></pre></td></tr></table></figure>
+<p>上面这个例子举的比较简单，但反映的问题很明显：这里面的注释是完全不需要的，它的存在反而增加了阅读代码的人的工作量。因为他从方法名就可以马上意会到这个函数的作用了。</p>
+<h4 id="给不好的命名添加的注释"><a href="#给不好的命名添加的注释" class="headerlink" title="给不好的命名添加的注释"></a>给不好的命名添加的注释</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)</span><br></pre></td></tr></table></figure>
+<p>讲完了注释不应该是什么内容，现在讲一下注释应该是什么样的内容：</p>
+<h3 id="什么应该作为注释"><a href="#什么应该作为注释" class="headerlink" title="什么应该作为注释"></a>什么应该作为注释</h3><p>本书中介绍的注释大概有以下几种：</p>
+<ul>
+<li><p>写代码时的思考</p>
+</li>
+<li><p>对代码的评价</p>
+</li>
+<li><p>常量</p>
+</li>
+<li><p>全局观的概述</p>
+<p>​</p>
+</li>
+</ul>
+<h4 id="写代码时的思考"><a href="#写代码时的思考" class="headerlink" title="写代码时的思考"></a>写代码时的思考</h4><p>你的代码可能不是一蹴而就的，它的产生可能会需要一些思考的过程。然而很多时候代码本身却无法将这些思考表达出来，所以你就可能有必要通过注释的方式来呈现你的思考，让阅读代码的人知道这段代码是哪些思考的结晶，从而也让读者理解了<strong>这段代码为什么这么写</strong>。如果遇到了比你高明的高手，在他看到你的注释之后兴许会马上设计出一套更加合适的方案。</p>
+<h4 id="对代码的评价"><a href="#对代码的评价" class="headerlink" title="对代码的评价"></a>对代码的评价</h4><p>有些时候你知道你现在写的代码是个<strong>临时的方案</strong>：它可能确实是解决当前问题的一个方法，但是：</p>
+<ul>
+<li><p>你知道同时它也存在着某些缺陷，甚至是陷阱</p>
+</li>
+<li><p>你不知道有其他的方案可以替代了</p>
+</li>
+<li><p>你知道有哪个方案可以替代但是由于时间的关系或者自身的能力无法实现</p>
+<p>​</p>
+</li>
+</ul>
+<p>也可能你知道你现在实现的这个方案几乎就是”完美的“，因为如果使用了其他的方案，可能会消耗更多的资源等等。</p>
+<p>对于上面这些情况，你都有必要写上几个字作为注释来诚实的告诉阅读你的这段代码的人这段代码的情况，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//该方案有一个很容易忽略的陷阱：****</span><br><span class="line">//该方案是存在性能瓶颈，性能瓶颈在其中的**函数中</span><br><span class="line">//该方案的性能可能并不是最好的，因为如果使用某某算法的话可能会好很多</span><br></pre></td></tr></table></figure>
+<h4 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h4><p>在定义常量的时候，在其后面最好添加一个关于它是什么或者为什么它是这个值的原因。因为常量通常是不应该被修改的，所以最好把这个常量为什么是这个值说明一下：</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image_quality = 0.72 // 最佳的size/quanlity比率</span><br><span class="line">retry_limit   = 4    // 服务器性能所允许的请求失败的重试上限</span><br></pre></td></tr></table></figure>
+<h4 id="全局观的概述"><a href="#全局观的概述" class="headerlink" title="全局观的概述"></a>全局观的概述</h4><p>对于一个刚加入团队的新人来说，除了团队文化，代码规范以外，可能最需要了解的是当前被分配到的项目的一些“全局观”的认识：比如组织架构，类与类之间如何交互，数据如何保存，如何流动，以及模块的入口点等等。</p>
+<p>有时仅仅添加了几句话，可能就会让新人迅速地了解当前系统或者当前类的结构以及作用，而且这些也同样对开发过当前系统的人员迅速回忆出之前开发的细节有很大帮助。</p>
+<p>这些注释可以在一个类的开头（介绍这个类的职责，以及在整个系统中的角色）也可以在一个模块入口处。书中举了一个关于这种注释的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//这个文件包含了一些辅助函数，尾门的文件系统提供了更便利的接口</span><br></pre></td></tr></table></figure>
+<p>再举一个iOS开发里众所周知的网络框架<code>AFNetworking</code>的例子。在<code>AFHTTPSessionManager</code>的头文件里说明了这个类的职责：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//AFHTTPSessionManager` is a subclass of `AFURLSessionManager` with convenience methods for making HTTP requests. When a `baseURL` is provided, requests made with the `GET` / `POST` / et al. convenience methods can be made with relative paths</span><br></pre></td></tr></table></figure>
+<p>在知道了什么不应该是注释以及什么应该是注释以后，我们来看一下一个真正合格的注释应该是什么样子的：</p>
+<blockquote>
+<p>注释应当有很高的信息/空间率</p>
+</blockquote>
+<p>也就是说，注释应该用最简短的话来最明确地表达。要做到这一点需要做的努力是：</p>
+<ul>
+<li><strong>让注释保持紧凑</strong>：尽量用最简洁的话来表达，不应该有重复的内容</li>
+<li><strong>准确地描述函数的行为</strong>：要把函数的具体行为准确表达出来，不能停留在表明</li>
+<li><strong>用输入/输出的例子来说明特别的情况</strong>：有时相对于文字，可能用一个实际的参数和返回值就能立刻体现出函数的作用。而且有些特殊情况也可以通过这个方式来提醒阅读代码的人</li>
+<li><strong>声明代码的意图</strong>：也就是说明这段代码存在的意义，你为什么当时是这么写的原因</li>
+</ul>
+<p>其实好的代码是自解释的，由于其命名的合理以及架构的清晰，几乎不需要注释来向阅读代码的人添加额外的信息，书中有一个公式可以很形象地表明一个好的代码本身的重要性：</p>
+<blockquote>
+<p>好代码 &gt; (坏代码 + 注释)</p>
+</blockquote>
+<h1 id="三-控制流和逻辑的改进"><a href="#三-控制流和逻辑的改进" class="headerlink" title="三. 控制流和逻辑的改进"></a>三. 控制流和逻辑的改进</h1><p>控制流在编码中占据着很重要的位置，它往往代表着一些核心逻辑和算法。因此，如果我们可以让控制流变得看上去更加“自然”，那么就会对阅读代码的人理解这些逻辑甚至是整个系统提供很大的帮助。</p>
+<p>那么都有哪相关实践呢？</p>
+<ul>
+<li>使用符合人类自然语言的表达习惯</li>
+<li>if/else语句块的顺序</li>
+<li>使用return提前返回</li>
+</ul>
+<h2 id="使用符合人类自然语言的表达习惯"><a href="#使用符合人类自然语言的表达习惯" class="headerlink" title="使用符合人类自然语言的表达习惯"></a>使用符合人类自然语言的表达习惯</h2><p>写代码也是一个表达的过程，虽然表现形式不同，但是如果我们能够采用符合人类自然语言习惯的表达习惯来写代码，对阅读代码的人理解我们的代码是很有帮助的。</p>
+<p>这里有两个比较典型的情景：</p>
+<ol>
+<li>条件语句中参数的顺序</li>
+<li>条件语句中的正负逻辑</li>
+</ol>
+<h3 id="条件语句中参数的顺序："><a href="#条件语句中参数的顺序：" class="headerlink" title="条件语句中参数的顺序："></a>条件语句中参数的顺序：</h3><p>首先比较一下下面两段代码，哪一个更容易读懂？</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//code 1</span></span><br><span class="line"><span class="keyword">if</span>(length &gt; <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//code 2</span></span><br><span class="line"><span class="keyword">if</span>(<span class="number">10</span> &lt; length)</span><br></pre></td></tr></table></figure>
+<p>大家习惯上应该会觉得code1容易读懂。</p>
+<p>再来看下面一个例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//code 3</span></span><br><span class="line"><span class="keyword">if</span>(received_number &lt; standard_number) </span><br><span class="line"></span><br><span class="line"><span class="comment">//code 4</span></span><br><span class="line"><span class="keyword">if</span>( standard_number&lt; received_number)</span><br></pre></td></tr></table></figure>
+<p>仔细看会发现，和上面那一组情况类似，大多数人还是会觉得code3更容易读懂。</p>
+<p>那么code1 和 code3有什么共性呢？</p>
+<p>它们的共性就是：<strong>左侧都是被询问的内容（通常是一个变量）；右侧都是用来做比较的内容（通常是一个常量）</strong></p>
+<p>这应该是符合自然语言的一个顺序。比如我们一般会说“今天的气温大于20摄氏度”，而不习惯说“20摄氏度小于今天的气温”。</p>
+<h3 id="条件语句中的正负逻辑："><a href="#条件语句中的正负逻辑：" class="headerlink" title="条件语句中的正负逻辑："></a>条件语句中的正负逻辑：</h3><p>在判断一些正负逻辑的时候，建议使用<code>if(result)</code>而不是<code>if(!result)</code>。</p>
+<p>因为大脑比较容易处理正逻辑，比如我们可能比较习惯说“某某某是个男人”，而不习惯说“某某某不是个女人”。如果我们使用了负逻辑，大脑还要对它进行取反，相当于多做了一次处理。</p>
+<h2 id="if-else语句块的顺序"><a href="#if-else语句块的顺序" class="headerlink" title="if/else语句块的顺序"></a>if/else语句块的顺序</h2><p>在写if/else语句的时候，可能会有很多不同的互斥情况（好多个<code>elseif</code>）。那么这些互斥的情况可以遵循哪些顺序呢？</p>
+<ul>
+<li><strong>先处理掉简单的情况，后处理复杂的情况</strong>：这样有助于阅读代码的人循序渐进地地理解你的逻辑，而不是一开始就吃掉一个胖子，耗费不少精力。</li>
+<li><strong>先处理特殊或者可疑的情况，后处理正常的情况</strong>：这样有助于阅读代码的人会马上看到当前逻辑的边界条件以及需要注意的地方。</li>
+</ul>
+<h2 id="使用return提前返回"><a href="#使用return提前返回" class="headerlink" title="使用return提前返回"></a>使用return提前返回</h2><p>在一个函数或是方法里，可能有一些情况是比较特殊或者极端的，对结果的产生影响很大（甚至是终止继续进行）。如果存在这些情况，我们应该把他们写在前面，用return来提前返回（或者返回需要返回的返回值）。</p>
+<p>这样做的好处是可以减少if/else语句的嵌套，也可以明确体现出：“哪些情况是引起异常的”。</p>
+<p>再举一个<code>JSONModel</code>里的例子，在<code>initWithDictionary:error</code>方法里面就有很多return操作，它们都体现出了“在什么情况下是不能成功将字典转化为model对象”的；而且在方法的最后返回了对象，说明如果到了这一步，则在转化的过程中通过了层层考验：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">-(id)initWithDictionary:(NSDictionary*)dict error:(NSError**)err</span><br><span class="line">&#123;</span><br><span class="line">    //check for nil input</span><br><span class="line">    if (!dict) &#123;</span><br><span class="line">        if (err) *err = [JSONModelError errorInputIsNil];</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //invalid input, just create empty instance</span><br><span class="line">    if (![dict isKindOfClass:[NSDictionary class]]) &#123;</span><br><span class="line">        if (err) *err = [JSONModelError errorInvalidDataWithMessage:@&quot;Attempt to initialize JSONModel object using initWithDictionary:error: but the dictionary parameter was not an &apos;NSDictionary&apos;.&quot;];</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //create a class instance</span><br><span class="line">    self = [self init];</span><br><span class="line">    if (!self) &#123;</span><br><span class="line"></span><br><span class="line">        //super init didn&apos;t succeed</span><br><span class="line">        if (err) *err = [JSONModelError errorModelIsInvalid];</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //check incoming data structure</span><br><span class="line">    if (![self __doesDictionary:dict matchModelWithKeyMapper:self.__keyMapper error:err]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //import the data from a dictionary</span><br><span class="line">    if (![self __importDictionary:dict withKeyMapper:self.__keyMapper validation:YES error:err]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //run any custom model validation</span><br><span class="line">    if (![self validate:err]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //model is valid! yay!</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="四-代码组织的改进"><a href="#四-代码组织的改进" class="headerlink" title="四. 代码组织的改进"></a>四. 代码组织的改进</h1><p>关于代码组织的改进，作者介绍了以下三种方法:</p>
+<ul>
+<li>抽取出与程序主要目的“不相关的子逻辑”</li>
+<li>重新组织代码使它一次只做一件事情</li>
+<li>借助自然语言描述来将想法变成代码</li>
+</ul>
+<h2 id="抽取出与程序主要目的“不相关的子逻辑”"><a href="#抽取出与程序主要目的“不相关的子逻辑”" class="headerlink" title="抽取出与程序主要目的“不相关的子逻辑”"></a>抽取出与程序主要目的“不相关的子逻辑”</h2><p>一个函数里面往往包含了其主逻辑与子逻辑，我们应该积极地发现并抽取出与主逻辑不相关的子逻辑。具体思考的步骤是：</p>
+<ol>
+<li>首先确认这段代码的高层次目标是什么（主要目标）？</li>
+<li>对于每一行代码，都要反思一下：“它是直接为了目标而工作么？”</li>
+<li>如果答案是肯定的并且这些代码占据着一定数量的行数，我们就应该将他们抽取到独立的函数中。</li>
+</ol>
+<p>比如某个函数的目标是<strong>为了寻找距离某个商家最近的地铁口</strong>，那么这其中一定会重复出现一些计算两组经纬度之间距离的子逻辑。但是这些子逻辑的具体实现是不应该出现在这个主函数里面的，因为这些细节与这个主函数的目标来讲应该是无关的。</p>
+<p>即是说，像这种类似于工具方法的函数其实是脱离于某个具体的需求的：它可以用在其他的主函数中，也可以放在其他的项目里面。比如<strong>找到离运动场场最近的几个公交站</strong>这个需求等等。</p>
+<p>而像这种“抽取子逻辑或工具方法”的做法有什么好处呢？</p>
+<ul>
+<li>提高了代码的可读性：将函数的调用与原来复杂的实现进行替换，让阅读代码的人很快能了解到该子逻辑的目的，让他们把注意力放在更高层的主逻辑上，而不会被子逻辑的实现（往往是复杂无味的）所影响。</li>
+<li>便于修改和调试：因为一个项目中可能会多次调用该子逻辑（计算距离，计算汇率，保留小数点），当业务需求发生改变的时候只需要改变这一处就可以了，而且调试起来也非常容易。</li>
+<li>便于测试：同理，也是因为可以被多次调用，在进行测试的时候就比较有针对性。</li>
+</ul>
+<p>从函数扩大到项目，其实在一个项目里面，有很多东西不当前这个项目所专有的，它们是可以用在其他项目中的一些“通用代码”。这些通用代码可以对当前的项目一无所知，可以被用在其他任何项目中去。</p>
+<p>我们可以养成这个习惯，“把一般代码与项目专有代码分开”，并不断扩大我们的通用代码库来解决更多的一般性问题。</p>
+<h2 id="重新组织代码使它一次只做一件事情"><a href="#重新组织代码使它一次只做一件事情" class="headerlink" title="重新组织代码使它一次只做一件事情"></a>重新组织代码使它一次只做一件事情</h2><p>一个比较大的函数或者功能可能由很多任务代码组合而来，在这个时候我们有必要将他们分为更小的函数来调用它们。</p>
+<p>这样做的好处是：我们可以清晰地看到这个功能是人如何一步一步完成的，而且拆分出来的小的函数或许也可以用在其他的地方。</p>
+<p>所以如果你遇到了比较难读懂的代码，可以尝试将它所做的所有任务列出来。可能马上你就会发现这其中有些任务可以转化成歹毒的函数或者类。而其他的部分可以简单的成为函数中的一个逻辑段落。</p>
+<h2 id="借助自然语言描述来将想法变成代码"><a href="#借助自然语言描述来将想法变成代码" class="headerlink" title="借助自然语言描述来将想法变成代码"></a>借助自然语言描述来将想法变成代码</h2><p>在设计一个解决方案之前，如果你能够用自然语言把问题说清楚会对整个设计非常有帮助。因为如果直接从大脑中的想法转化为代码，可能会露掉一些东西。</p>
+<p>但是如果你可以将整个问题和想法滴水不漏地说出来，就可能会发现一些之前没有想到的问题。这样可以不断完善你的思路和设计。</p>
+<h1 id="五-最后想说的"><a href="#五-最后想说的" class="headerlink" title="五. 最后想说的"></a>五. 最后想说的</h1><p>这本书从变量的命名到代码的组织来讲解了一些让代码的可读性提高的一些实践方法。</p>
+<p>其实笔者认为代码的可读性也可以算作是一种沟通能力的一种体现。因为写代码的过程也可以被看做是写代码的人与阅读代码的人的一种沟通，只不过这个沟通是单向的：代码的可读性高，可以说明写代码的人思路清晰，而且TA可以明确，高效地把自己的思考和工作内容以代码的形式表述出来。<br>所以笔者相信能写出可读性很高的代码的人，TA对于自己的思考和想法的描述能力一定不会很差。</p>
+<p>如果你真的打算好好做编程这件事情，建议你从最小的事情上做起：好好为你的变量起个名字。不要再以“我英语不好”或者“没时间想名字”作为托辞；把态度端正起来，平时多动脑，多查字典，多看源码，自然就会了。</p>
+<p>如果你连起个好的变量名都懒得查个字典，那你怎么证明你在遇到更难的问题的时候能够以科学的态度解决它？<br>如果你连编程里这种最小的事情都不好好做，那你又怎么证明你对编程是有追求的呢？</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BookNote/" rel="tag"># BookNote</a>
+          
+            <a href="/tags/IT/" rel="tag"># IT</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/" rel="next" title="基于MVVM，用于快速搭建设置页，个人信息页的框架">
+                <i class="fa fa-chevron-left"></i> 基于MVVM，用于快速搭建设置页，个人信息页的框架
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/如何高效学习 - 读书笔记/" rel="prev" title="如何高效学习 - 读书笔记">
+                如何高效学习 - 读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-为什么读这本书"><span class="nav-number">1.</span> <span class="nav-text">一. 为什么读这本书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-表层的改进"><span class="nav-number">2.</span> <span class="nav-text">二. 表层的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何命名"><span class="nav-number">2.1.</span> <span class="nav-text">如何命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择专业的词汇，避免泛泛的名字"><span class="nav-number">2.1.1.</span> <span class="nav-text">选择专业的词汇，避免泛泛的名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给名字附带更多信息"><span class="nav-number">2.1.2.</span> <span class="nav-text">给名字附带更多信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为变量添加单位"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">为变量添加单位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为变量添加重要属性"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">为变量添加重要属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为变量选择适当的格式"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">为变量选择适当的格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#决定名字最适合的长度"><span class="nav-number">2.1.3.</span> <span class="nav-text">决定名字最适合的长度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如果变量的作用域很小，可以取很短的名字"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">如果变量的作用域很小，可以取很短的名字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#驼峰命名中的单元不能超过3个"><span class="nav-number">2.1.3.2.</span> <span class="nav-text">驼峰命名中的单元不能超过3个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#丢掉不必要的单元"><span class="nav-number">2.1.3.3.</span> <span class="nav-text">丢掉不必要的单元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不能使用大家不熟悉的缩写"><span class="nav-number">2.1.3.4.</span> <span class="nav-text">不能使用大家不熟悉的缩写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#名字不能引起歧义"><span class="nav-number">2.1.4.</span> <span class="nav-text">名字不能引起歧义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何声明与使用变量"><span class="nav-number">2.2.</span> <span class="nav-text">如何声明与使用变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#减少变量的个数"><span class="nav-number">2.2.1.</span> <span class="nav-text">减少变量的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#没有价值的临时变量"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">没有价值的临时变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表示中间结果的变量"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">表示中间结果的变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩小变量的作用域"><span class="nav-number">2.2.2.</span> <span class="nav-text">缩小变量的作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩短变量声明与使用其代码的距离"><span class="nav-number">2.2.3.</span> <span class="nav-text">缩短变量声明与使用其代码的距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量最好只写一次"><span class="nav-number">2.2.4.</span> <span class="nav-text">变量最好只写一次</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何简化表达式"><span class="nav-number">2.3.</span> <span class="nav-text">如何简化表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用解释变量"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用解释变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用总结变量"><span class="nav-number">2.3.2.</span> <span class="nav-text">使用总结变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用德摩根定理"><span class="nav-number">2.3.3.</span> <span class="nav-text">使用德摩根定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何让代码具有美感"><span class="nav-number">2.4.</span> <span class="nav-text">如何让代码具有美感</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用换行和列对齐来让代码更加整齐"><span class="nav-number">2.4.1.</span> <span class="nav-text">用换行和列对齐来让代码更加整齐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#换行"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">换行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列对齐"><span class="nav-number">2.4.1.2.</span> <span class="nav-text">列对齐</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择一个有意义的顺序"><span class="nav-number">2.4.2.</span> <span class="nav-text">选择一个有意义的顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把代码分成”段落”"><span class="nav-number">2.4.3.</span> <span class="nav-text">把代码分成”段落”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保持风格一致性"><span class="nav-number">2.4.4.</span> <span class="nav-text">保持风格一致性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写注释"><span class="nav-number">2.5.</span> <span class="nav-text">如何写注释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么不能作为注释"><span class="nav-number">2.5.1.</span> <span class="nav-text">什么不能作为注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述能立刻从代码自身就能立刻理解的代码意图的注释"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">描述能立刻从代码自身就能立刻理解的代码意图的注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#给不好的命名添加的注释"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">给不好的命名添加的注释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么应该作为注释"><span class="nav-number">2.5.2.</span> <span class="nav-text">什么应该作为注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写代码时的思考"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">写代码时的思考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对代码的评价"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">对代码的评价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常量"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局观的概述"><span class="nav-number">2.5.2.4.</span> <span class="nav-text">全局观的概述</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-控制流和逻辑的改进"><span class="nav-number">3.</span> <span class="nav-text">三. 控制流和逻辑的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用符合人类自然语言的表达习惯"><span class="nav-number">3.1.</span> <span class="nav-text">使用符合人类自然语言的表达习惯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条件语句中参数的顺序："><span class="nav-number">3.1.1.</span> <span class="nav-text">条件语句中参数的顺序：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件语句中的正负逻辑："><span class="nav-number">3.1.2.</span> <span class="nav-text">条件语句中的正负逻辑：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-else语句块的顺序"><span class="nav-number">3.2.</span> <span class="nav-text">if/else语句块的顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用return提前返回"><span class="nav-number">3.3.</span> <span class="nav-text">使用return提前返回</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四-代码组织的改进"><span class="nav-number">4.</span> <span class="nav-text">四. 代码组织的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽取出与程序主要目的“不相关的子逻辑”"><span class="nav-number">4.1.</span> <span class="nav-text">抽取出与程序主要目的“不相关的子逻辑”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新组织代码使它一次只做一件事情"><span class="nav-number">4.2.</span> <span class="nav-text">重新组织代码使它一次只做一件事情</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#借助自然语言描述来将想法变成代码"><span class="nav-number">4.3.</span> <span class="nav-text">借助自然语言描述来将想法变成代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五-最后想说的"><span class="nav-number">5.</span> <span class="nav-text">五. 最后想说的</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

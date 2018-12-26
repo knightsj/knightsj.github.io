@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-12-04T00:27:23.885Z</updated>
+  <updated>2018-12-24T18:45:27.505Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -17,26 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>我从写技术博客中收获到了什么 - J_Knight_</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/03/%E6%88%91%E4%BB%8E%E5%86%99%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%94%B6%E8%8E%B7%E5%88%B0%E4%BA%86%E4%BB%80%E4%B9%88%20-%20J_Knight_/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/12/03/我从写技术博客中收获到了什么 - J_Knight_/</id>
-    <published>2018-12-03T13:17:03.366Z</published>
-    <updated>2018-12-04T00:27:23.885Z</updated>
+    <title>2018 年年终总结 - J_Knight_</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/2018%20%E5%B9%B4%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93%20-%20J_Knight_/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/2018 年年终总结 - J_Knight_/</id>
+    <published>2018-12-24T18:41:19.916Z</published>
+    <updated>2018-12-24T18:45:27.505Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://user-gold-cdn.xitu.io/2018/12/2/1676f0af490ee858?w=1080&amp;amp;h=658&amp;amp;f=jpeg&amp;amp;s=70619&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;我是 J&lt;em&gt;Knight&lt;/em&gt;，熟悉我的人都应该知道我是一名刚工作满3年的非科班 iOS 开发者，而且一直坚持写技术博客快有2年半的时间了。&lt;/p&gt;
-&lt;p&gt;其实从去年开始就一直想分享我写博客的心得，但是一直也没有找到合适的契机，刚好在今年年底前达成了&lt;code&gt;掘金粉丝量过万&lt;/code&gt;的小目标，索性就借着这个机会分享一下我自己关于写博客的一些收获，同时也算顺便做一个阶段性的总结。&lt;/p&gt;
-&lt;p&gt;这篇文章分为三个部分：&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/self_conclusion_2019_header.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本篇是我今年的年终总结，主要总结了自己除了工作上的一些小目标的达成情况，包括社区，读书，健身，理财这几方面。&lt;/p&gt;
+&lt;p&gt;工作方面最大的收获是来到了爱奇艺工作，来到这个平台之后所收获的不仅仅来自于自己做的事情本身，还有接触到的新同事们，新平台带给我的种种收获，感觉自己还是非常幸运的。&lt;/p&gt;
+&lt;p&gt;工作上就提到这里，下面开始是本篇的主要内容。本篇分为三个部分：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;写技术博客的历程&lt;/li&gt;
-&lt;li&gt;写技术博客的收获&lt;/li&gt;
-&lt;li&gt;回答一些朋友（粉丝）的一些关于写博客的几个问题&lt;/li&gt;
+&lt;li&gt;今年达成的小目标：介绍今年已经达成的小目标以及详细情况&lt;/li&gt;
+&lt;li&gt;今年未达成的小目标：介绍今年未达成的小目标以及详细情况&lt;/li&gt;
+&lt;li&gt;展望明年：简单列一下想在明年达成的小目标。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;第一部分先简单介绍关于我的博客的一些数据：写博客的起始时间，使用的博客平台，博客内容等等。&lt;/p&gt;
-&lt;p&gt;第二部分是本篇的重点，讲解的从博客中我的收获有哪些。&lt;/p&gt;
-&lt;p&gt;第三部分罗列了几个经常从一些朋友（粉丝）中听到的关于写博客的问题以及我的回答。&lt;/p&gt;
+&lt;p&gt;现在就从已经达成的小目标来开始介绍。&lt;/p&gt;
+&lt;h1 id=&quot;今年达成的小目标&quot;&gt;&lt;a href=&quot;#今年达成的小目标&quot; class=&quot;headerlink&quot; title=&quot;今年达成的小目标&quot;&gt;&lt;/a&gt;今年达成的小目标&lt;/h1&gt;&lt;p&gt;今年已经达成的几个小目标有以下几个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;掘金社区粉丝超过1w（10300+）&lt;/li&gt;
+&lt;li&gt;看完5+本技术书籍（8本）&lt;/li&gt;
+&lt;li&gt;看完20+本非技术书籍（24本）&lt;/li&gt;
+&lt;li&gt;减掉20+斤（21斤）&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
@@ -50,11 +55,63 @@
   </entry>
   
   <entry>
+    <title>高效能程序员的修炼 - 读书笔记</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E9%AB%98%E6%95%88%E8%83%BD%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BF%AE%E7%82%BC%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/高效能程序员的修炼 - 读书笔记/</id>
+    <published>2018-12-24T18:33:45.667Z</published>
+    <updated>2018-12-24T18:33:45.668Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-d4f6ace667765fd3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;高效能程序员的修炼&quot;&gt;&lt;/p&gt;
+&lt;p&gt;俗话说：程序员不能只想着写代码。在编程以外的闲暇时间，读一点这种有助于程序员扩展视野和提高素养的书籍是很好的。&lt;/p&gt;
+&lt;p&gt;笔者找到了这本《高效能程序员的修炼》：本书作者是大名鼎鼎&lt;a href=&quot;http://stackoverflow.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Stack Overflow&lt;/a&gt;的创始人Jeff Atwood，内容是有关代码以外的，需要每个程序员思考和注意的事情。&lt;/p&gt;
+&lt;p&gt;这本书是笔者在今年1月份看的，因为忙于项目开发，所以没有整理好笔记。正好这周五公司app提交过审，有空宅在家里整理一下。笔记内容没有提到书中所说的每个方面，&lt;strong&gt;只是针对了笔者觉得比较重要的几点并结合了笔者自己的想法和感悟整理而成&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;笔者的&lt;strong&gt;读书笔记的格式&lt;/strong&gt;：&lt;br&gt;&lt;strong&gt;标题&lt;/strong&gt;：与书中目录不符，完全由笔者自己列出。&lt;br&gt;&lt;strong&gt;正文&lt;/strong&gt;：浅灰色框中的文字为书中摘录，其他部分均为笔者个人观点。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;欢迎各路大侠指点！欢迎各路大侠指点！欢迎各路大侠指点！&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/categories/BookNote/"/>
+    
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>高度封装FMDB框架：各用一句代码更新（添加&amp;修改），查询，删除用户信息</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E9%AB%98%E5%BA%A6%E5%B0%81%E8%A3%85FMDB%E6%A1%86%E6%9E%B6%EF%BC%9A%E5%90%84%E7%94%A8%E4%B8%80%E5%8F%A5%E4%BB%A3%E7%A0%81%E6%9B%B4%E6%96%B0%EF%BC%88%E6%B7%BB%E5%8A%A0&amp;%E4%BF%AE%E6%94%B9%EF%BC%89%EF%BC%8C%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%88%A0%E9%99%A4%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/高度封装FMDB框架：各用一句代码更新（添加&amp;修改），查询，删除用户信息/</id>
+    <published>2018-12-24T18:33:45.666Z</published>
+    <updated>2018-12-24T18:33:45.667Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在移动开发中，有时不得不在客户端本地保存一些数据。在iOS端，我们可以使用plist，属性列表等技术来存储数据，而相比而下更高端一点的，我们也可以使用&lt;strong&gt;数据库&lt;/strong&gt;来存储数据。&lt;/p&gt;
+&lt;p&gt;有趣的是，很多iOS开发者没有去选择使用苹果自家的Core Data技术来操作数据库，而是选择了&lt;a href=&quot;[https://github.com/ccgus/fmdb](https://github.com/ccgus/fmdb&quot;&gt;FMDB&lt;/a&gt;)这个第三方框架。&lt;/p&gt;
+&lt;p&gt;该框架很好地封装了操作繁琐的SQLite语句，让数据库的操作更加面向对象，而且上手快，门槛低，不用学习数据库的相关知识就可以使用自如。如此优秀流行的框架是值得学习的，于是笔者这两天研究了一下FMDB。研究后，略有所思，将它封装了一下，写了一个&lt;code&gt;Manager&lt;/code&gt;类，最后结合了一个Demo演示如何使用这个类。&lt;/p&gt;
+&lt;p&gt;该博客分为两个部分:第一个部分讲解笔者封装的这个&lt;code&gt;Manager&lt;/code&gt;类；第二部分结合Demo来体现该类的实用性。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Production" scheme="https://github.com/knightsj/knightsj.github.io/categories/Production/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/11/28/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/11/28/面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）/</id>
-    <published>2018-11-27T16:27:03.008Z</published>
-    <updated>2018-12-03T13:41:11.902Z</updated>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/面向对象设计的设计模式（二）：结构型模式（附 Demo 及 UML 类图）/</id>
+    <published>2018-12-24T18:33:45.663Z</published>
+    <updated>2018-12-24T18:33:45.666Z</updated>
     
     <summary type="html">
     
@@ -93,10 +150,10 @@
   
   <entry>
     <title>面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/10/21/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/10/21/面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）/</id>
-    <published>2018-10-21T12:26:28.660Z</published>
-    <updated>2018-11-27T16:32:12.396Z</updated>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）/</id>
+    <published>2018-12-24T18:33:45.654Z</published>
+    <updated>2018-12-24T18:33:45.662Z</updated>
     
     <summary type="html">
     
@@ -136,10 +193,10 @@
   
   <entry>
     <title>面向对象设计的六大设计原则（附 Demo 及 UML 类图）</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/09/09/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/09/09/面向对象设计的六大设计原则（附 Demo 及 UML 类图）/</id>
-    <published>2018-09-09T14:56:38.000Z</published>
-    <updated>2018-12-03T13:43:12.683Z</updated>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88%E9%99%84%20Demo%20%E5%8F%8A%20UML%20%E7%B1%BB%E5%9B%BE%EF%BC%89/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/面向对象设计的六大设计原则（附 Demo 及 UML 类图）/</id>
+    <published>2018-12-24T18:33:45.652Z</published>
+    <updated>2018-12-24T18:33:45.654Z</updated>
     
     <summary type="html">
     
@@ -204,16 +261,19 @@
   </entry>
   
   <entry>
-    <title>《如何有效整理信息》- 读书笔记</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/08/20/%E3%80%8A%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E6%95%B4%E7%90%86%E4%BF%A1%E6%81%AF%E3%80%8B%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/08/20/《如何有效整理信息》 - 读书笔记/</id>
-    <published>2018-08-20T13:56:40.870Z</published>
-    <updated>2018-12-03T13:24:41.384Z</updated>
+    <title>远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C%E6%89%8D%E6%98%AF%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E5%B7%A5%E4%BD%9C%E5%92%8C%E5%B9%B8%E7%A6%8F%E7%94%9F%E6%B4%BB%E7%9A%84%E6%9C%89%E6%95%88%E9%80%94%E5%BE%84%20-%20%E8%AF%BB%E3%80%8A%E9%87%8D%E6%9D%A52%E3%80%8B%E6%9C%89%E6%84%9F/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感/</id>
+    <published>2018-12-24T18:33:45.651Z</published>
+    <updated>2018-12-24T18:33:45.652Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/book-note/rhyxzlxx-header.png&quot; alt=&quot;《如何有效整理信息》封面&quot;&gt;&lt;/p&gt;
-&lt;p&gt;本书作者（奥野宣之）介绍了一个关于整理笔记的方法：“一元笔记法”。该方法摒弃了将笔记进行分类整理的方式，而是采用了一元化的方案：&lt;strong&gt;不采用分类记录的方式，而是将所有分类的笔记按照时间顺序写到一起记录&lt;/strong&gt;。&lt;/p&gt;
+      &lt;p&gt;朝九晚五，被禁锢在办公室里的工作模式是工业社会的产物。然而，在互联网崛起的今天，这种固定死板的工作模式反而拖累了我们。办公室早已变成了干扰工厂，把你的时间切成七零八碎的小块儿，工作无法顺利、及时地完成，更会造成心理上的疲惫。&lt;/p&gt;
+&lt;p&gt;如果您也是一名互联网从业者，特别是程序员，问问周围的人：如果你可以自己选择时间地点来完成工作你会选择哪里？你能在哪一时间段或是哪一地点才能高效地完成工作？我想答案&lt;strong&gt;一定不是下午的办公室&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;笔者自己就是一名程序员，上班的时候被会议和同行的打断弄得苦不堪言，虽然有些沟通确是必要的。不过有一点我很清楚，我经常是在早上上班之前或是晚上睡觉之前才能&lt;strong&gt;完完全全，满意地&lt;/strong&gt;完成一个模块的开发。在下午的时候，我就会给自己安排做一些难度不高的任务，这样一来，打断所带来的负面影响会很低。&lt;/p&gt;
+&lt;p&gt;因此笔者非常期望自己可以远程工作，摆脱这种固话的工作和生活方式，因为它能带来的好处真的是太多太多了！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-92f9e8f6e5690223.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;远程工作&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -222,391 +282,16 @@
     
       <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
     
-  </entry>
-  
-  <entry>
-    <title>出一套 iOS 高级面试题</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/07/24/%E5%87%BA%E4%B8%80%E5%A5%97%20iOS%20%E9%AB%98%E7%BA%A7%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/07/24/出一套 iOS 高级面试题/</id>
-    <published>2018-07-23T17:56:31.373Z</published>
-    <updated>2018-12-03T11:51:56.120Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/interview_question_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;一千个读者眼中有一千个哈姆雷特，一千名 iOS 程序员心目中就有一千套 iOS 高级面试题。本文就是笔者认为可以用来面试高级 iOS 程序员的面试题。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Career" scheme="https://github.com/knightsj/knightsj.github.io/categories/Career/"/>
-    
-    
-      <category term="Life" scheme="https://github.com/knightsj/knightsj.github.io/tags/Life/"/>
-    
-      <category term="Job" scheme="https://github.com/knightsj/knightsj.github.io/tags/Job/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2018年 iOS 面试心得</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/07/17/2018%E5%B9%B4%20iOS%20%E9%9D%A2%E8%AF%95%E5%BF%83%E5%BE%97/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/07/17/2018年 iOS 面试心得/</id>
-    <published>2018-07-16T17:32:54.879Z</published>
-    <updated>2018-12-03T11:49:40.760Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/career/2018_interview_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;面试了几家公司之后，最后来到了爱奇艺（坐标上海），工作的内容是笔者个人非常感兴趣的领域。能拿到这个结果对于入行两年半&amp;amp;非科班的笔者来说无疑是幸运的。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Career" scheme="https://github.com/knightsj/knightsj.github.io/categories/Career/"/>
-    
-    
-      <category term="Life" scheme="https://github.com/knightsj/knightsj.github.io/tags/Life/"/>
-    
-      <category term="Job" scheme="https://github.com/knightsj/knightsj.github.io/tags/Job/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构 &amp; 算法 in Swift （二）：算法概述和排序算法</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0%E5%92%8C%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/08/数据结构 &amp; 算法 in Swift （二）：算法概述和排序算法/</id>
-    <published>2018-02-08T00:53:22.000Z</published>
-    <updated>2018-12-03T13:41:20.694Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/data_structure_algorithm_in_swift/ds_al_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;本篇是《数据结构 &amp;amp; 算法 in Swift》系列连载的第二篇，内容分为如下两个部分：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;算法基础：简单介绍算法的概念，时间复杂度与空间复杂度，递归，作为本文第二部分的背景知识。&lt;/li&gt;
-&lt;li&gt;排序算法：结合Swift的代码实现来讲解冒泡排序，选择排序，插入排序，归并排序，快速排序。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="Data Structure &amp; Algorithm" scheme="https://github.com/knightsj/knightsj.github.io/categories/Data-Structure-Algorithm/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Swift" scheme="https://github.com/knightsj/knightsj.github.io/tags/Swift/"/>
-    
-      <category term="Data Structure" scheme="https://github.com/knightsj/knightsj.github.io/tags/Data-Structure/"/>
-    
-      <category term="Algorithm" scheme="https://github.com/knightsj/knightsj.github.io/tags/Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20&amp;%20%E7%AE%97%E6%B3%95%20in%20Swift%20%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/数据结构 &amp; 算法 in Swift （一）：Swift基础和数据结构/</id>
-    <published>2018-02-03T08:25:26.000Z</published>
-    <updated>2018-12-03T13:41:27.775Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/data_structure_algorithm_in_swift/ds_al_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h1&gt;&lt;p&gt;从本文标题中的序号可以看出，本文是一个连载的开篇。&lt;/p&gt;
-&lt;p&gt;而且这个连载的标题是：数据结构 &amp;amp; 算法 in Swift。从这个连载的标题中可以看出，笔者分享的是使用Swift语言来实现所学的的数据结构和算法的知识。这里面需要解释两点：&lt;/p&gt;
-&lt;h2 id=&quot;第一：为什么学习数据结构和算法？&quot;&gt;&lt;a href=&quot;#第一：为什么学习数据结构和算法？&quot; class=&quot;headerlink&quot; title=&quot;第一：为什么学习数据结构和算法？&quot;&gt;&lt;/a&gt;第一：为什么学习数据结构和算法？&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;学习通用性知识，突破技能瓶颈&lt;/strong&gt;：笔者做iOS开发也有两年了，这期间通过从项目，第三方源码，相关应用类的编程书籍提高了些技术水平。而作为没学过数据结构和算法的非科班大军中的一员，这些知识始终是绕不过去的。因为对此类知识的掌握程度会对今后编程技能的提高有着无可估量的影响，所以就决定学习了。&lt;/p&gt;
-&lt;h2 id=&quot;第二：为什么用Swift语言来实现？&quot;&gt;&lt;a href=&quot;#第二：为什么用Swift语言来实现？&quot; class=&quot;headerlink&quot; title=&quot;第二：为什么用Swift语言来实现？&quot;&gt;&lt;/a&gt;第二：为什么用Swift语言来实现？&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;选择哪个语言并不重要，重要的是数据结构和算法本身的理解&lt;/strong&gt;：通过两个星期的学习，如今笔者已经可以使用Swift语言来实现几种数据结构和算法了，但我相信如果我使用C语言或者Objective-C语言的话会学得更快些，因为在实现的时候由于对该语言的不熟悉导致在实现过程中踩了不少坑。不过可以反过来思考：如果我可以使用Swift来实现这些，那么我今后用C，Objective-C，甚至是Java就容易多了，再加上我还顺便学习了Swift不是么？&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;如今Swift的势头还在上涨&lt;/strong&gt;：笔者已经观察到很多新的库，教学都使用了Swift语言。而且听说一些面试的朋友在面试过程中多少有问过Swift相关的知识，一些公司的新项目也有用Swift写了。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="Data Structure &amp; Algorithm" scheme="https://github.com/knightsj/knightsj.github.io/categories/Data-Structure-Algorithm/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Swift" scheme="https://github.com/knightsj/knightsj.github.io/tags/Swift/"/>
-    
-      <category term="Data Structure" scheme="https://github.com/knightsj/knightsj.github.io/tags/Data-Structure/"/>
-    
-      <category term="Algorithm" scheme="https://github.com/knightsj/knightsj.github.io/tags/Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浅显易懂讲解iOS多线程技术-GCD</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/浅显易懂讲解的iOS多线程技术-GCD/</id>
-    <published>2018-02-02T16:21:25.000Z</published>
-    <updated>2018-07-16T16:44:12.325Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;励志打造一篇浅显易懂地介绍iOS中GCD的文章！&lt;br&gt;笔者见过很多其他讲解GCD的博客，有些写得非常详细非常专业，几乎涵盖了GCD大大小小的全部知识，细致庞杂的内容容易让人摸不清主次，笔者觉得这类文章&lt;strong&gt;并不适合初学者学习&lt;/strong&gt;，于是决定写一篇针对一些只是听过，但是对GCD还不了解的童鞋们。&lt;/p&gt;
-&lt;p&gt;本文排除了一些细枝末节，扰乱人头绪的东西，着重讲解了GCD中重要的知识点，并在最后展示了GCD中&lt;strong&gt;经常使用的函数&lt;/strong&gt;并附上结果图和讲解，简单明了。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>YYCache 源码解析</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/YYCache%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/YYCache 源码解析/</id>
-    <published>2018-02-02T16:18:08.000Z</published>
-    <updated>2018-07-16T16:47:18.950Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://github.com/ibireme/YYCache&quot;&gt;YYCache&lt;/a&gt;是国内开发者&lt;a href=&quot;https://blog.ibireme.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ibireme&lt;/a&gt;开源的一个线程安全的高性能键值缓存组件，代码风格简洁清晰，在GitHub上已经有了1600+颗星。&lt;/p&gt;
-&lt;p&gt;阅读它的源码有助于建立比较完整的缓存设计的思路，同时也能巩固一下双向链表，线程锁，数据库操作相关的知识。如果你还没有看过YYCache的源码，那么恭喜你，阅读此文会对理解YYCache的源码有比较大的帮助。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-      <category term="源码解析" scheme="https://github.com/knightsj/knightsj.github.io/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>YTKNetwork源码解析</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/YTKNetwork%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/YTKNetwork源码解析/</id>
-    <published>2018-02-02T16:18:02.000Z</published>
-    <updated>2018-07-16T16:47:11.157Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;对于iOS开发来说，就算是没有用过&lt;a href=&quot;https://github.com/yuantiku/YTKNetwork&quot;&gt;YTKNetwork框架&lt;/a&gt;，应该也见过，听过了。它是猿题库技术团队开源的一个网络请求框架，内部封装了AFNetworking。它把每个请求实例化，管理它的生命周期，也可以管理多个请求。&lt;br&gt;​&lt;br&gt;在正式讲解源码之前，我会先讲一下该框架所用的架构和设计模式。我总觉得对架构和设计有一定的了解的话，会有助于对源码的理解。&lt;/p&gt;
-&lt;h1 id=&quot;1-架构&quot;&gt;&lt;a href=&quot;#1-架构&quot; class=&quot;headerlink&quot; title=&quot;1. 架构&quot;&gt;&lt;/a&gt;1. 架构&lt;/h1&gt;&lt;hr&gt;
-&lt;p&gt;先上图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-054321f909402be5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;YTKRequest架构图&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在这里简单说明一下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;YTKNetwork框架将每一个请求实例化，YTKBaseRequest是所有请求类的基类，YTKRequest是它的子类。所以如果我们想要发送一个请求，则需要创建并实例化一个继承于YTKRequest的自定义的请求类（CustomRequest）并发送请求。 &lt;/li&gt;
-&lt;li&gt;YTKNetworkAgent是一个单例，负责管理所有的请求类（例如CustomRequest）。当CustomRequest发送请求以后，会把自己放在YTKNetworkAgent持有的一个字典里，让其管理自己。&lt;/li&gt;
-&lt;li&gt;我们说YTKNetwork封装了AFNetworking，实际上是YTKNetworkAgent封装了AFNetworking，由它负责AFNetworking请求的发送和AFNetworking的回调处理。所以如果我们想更换一个第三方网络请求库，就可以在这里更换一下。而YTKRequest更多的是只是负责缓存的处理。&lt;/li&gt;
-&lt;li&gt;YTKNetworkConfig与YTKPriviate的具体职能现在不做介绍，会在后文给出。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;OK，现在我们知道了YTKNetwork中类与类之间的关系以及关键类的大致职能，接下来我会告诉你YTKNetwork为什么会采用这种关系来架构，以及采用这种架构会有什么好处。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-      <category term="源码解析" scheme="https://github.com/knightsj/knightsj.github.io/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VVeboTableView源码解析</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/VVeboTableView%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/VVeboTableView源码解析/</id>
-    <published>2018-02-02T16:17:55.000Z</published>
-    <updated>2018-12-03T12:00:26.494Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;这次分享一个关于性能优化的源码。&lt;/p&gt;
-&lt;p&gt;我们知道&lt;code&gt;UITabelView&lt;/code&gt;在iOS开发中扮演者举足轻重的角色，因为它是iOS开发中使用频率非常高的控件之一：几乎每个app都离不开它，因此，&lt;code&gt;UITabelView&lt;/code&gt;的性能将直接影响这个app的性能。&lt;/p&gt;
-&lt;p&gt;如果&lt;code&gt;UITabelView&lt;/code&gt;里的cell设计的比较简单，那么即使不做相应的优化，对性能的影响也不会很大。&lt;/p&gt;
-&lt;p&gt;但是，当cell里面涉及到图文混排，cell高度不都相等的设计时，如果不进行一些操作的话，会非常影响性能，甚至会出现卡顿，造成非常不好的用户体验。&lt;/p&gt;
-&lt;p&gt;最近在看一些iOS性能优化的文章，我找到了&lt;a href=&quot;https://github.com/johnil/VVeboTableViewDemo&quot;&gt;VVeboTableView&lt;/a&gt;这个框架。严格来说这个不属于框架，而是作者用自己的方式优化&lt;code&gt;UITableView&lt;/code&gt;的一个实现。&lt;/p&gt;
-&lt;p&gt;作者模仿了新浪微博的cell样式，在里面展示了各种微博的cell。虽然样式比较复杂，但是性能却很好：我在我的iphone 4s上进行了Core Animation测试，在滑动的时候帧率没有低于56，而且也没有觉得有半点卡顿，那么他是怎么做到的呢？&lt;/p&gt;
-&lt;p&gt;看了源码之后，我把作者的思路整理了出来：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/vvweibo_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;下面我就从左到右，从上到下，结合代码来展示一下作者是如何实现每一点的。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-      <category term="源码解析" scheme="https://github.com/knightsj/knightsj.github.io/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SDWebImage源码解析</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/SDWebImage%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/SDWebImage源码解析/</id>
-    <published>2018-02-02T16:17:50.000Z</published>
-    <updated>2018-07-16T16:47:00.154Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;相信对于广大的iOS开发者，对&lt;a href=&quot;https://github.com/rs/SDWebImage&quot;&gt;SDWebImage&lt;/a&gt;并不会陌生，这个框架通过给UIImageView和UIButton添加分类，实现一个异步下载图片并且支持缓存的功能。整个框架的接口非常简洁，每个类的分工都很明确，是很值得大家学习的。&lt;/p&gt;
-&lt;p&gt;在使用这个框架的时候，只需要提供一个下载的url和占位图就可以在回调里拿到下载后的图片：&lt;/p&gt;
-&lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[imageview sd_setImageWithURL:[&lt;span class=&quot;built_in&quot;&gt;NSURL&lt;/span&gt; URLWithString:&lt;span class=&quot;string&quot;&gt;@&quot;pic.jpg&quot;&lt;/span&gt;] placeholderImage:[&lt;span class=&quot;built_in&quot;&gt;UIImage&lt;/span&gt; imageNamed:&lt;span class=&quot;string&quot;&gt;@&quot;placeholder&quot;&lt;/span&gt;] completed:^(&lt;span class=&quot;built_in&quot;&gt;UIImage&lt;/span&gt; * _Nullable image, &lt;span class=&quot;built_in&quot;&gt;NSError&lt;/span&gt; * _Nullable error, SDImageCacheType cacheType, &lt;span class=&quot;built_in&quot;&gt;NSURL&lt;/span&gt; * _Nullable imageURL) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        imageview.image = image;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;NSLog&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;@&quot;图片加载完成&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;而且我们还可以不设置占位图片，也可以不使用回调的block，非常灵活:&lt;/p&gt;
-&lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//图片下载完成后直接显示下载后的图片&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[imageview sd_setImageWithURL:[&lt;span class=&quot;built_in&quot;&gt;NSURL&lt;/span&gt; URLWithString:&lt;span class=&quot;string&quot;&gt;@&quot;pic.jpg&quot;&lt;/span&gt;]];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在最开始先简单介绍这个框架：&lt;/p&gt;
-&lt;p&gt;这个框架的核心类是&lt;code&gt;SDWebImageManger&lt;/code&gt;，在外部有&lt;code&gt;UIImageView+WebCache&lt;/code&gt; 和 &lt;code&gt;UIButton+WebCache&lt;/code&gt; 为下载图片的操作提供接口。内部有&lt;code&gt;SDWebImageManger&lt;/code&gt;负责处理和协调 &lt;code&gt;SDWebImageDownloader&lt;/code&gt; 和 &lt;code&gt;SDWebImageCache&lt;/code&gt;：&lt;code&gt;SDWebImageDownloader&lt;/code&gt;负责具体的下载任务，&lt;code&gt;SDWebImageCache&lt;/code&gt;负责关于缓存的工作：添加，删除，查询缓存。&lt;/p&gt;
-&lt;p&gt;首先我们大致看一下这个框架的调用流程图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-7ad6493a2b2f0b43.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;SDWebImage&quot;&gt;&lt;/p&gt;
-&lt;p&gt;从这个流程图里可以大致看出，该框架分为两个层：UIKit层（负责接收下载参数）和工具层（负责下载操作和缓存）。&lt;/p&gt;
-&lt;p&gt;OK～基本流程大概清楚了，我们看一下每个层具体实现吧～&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-      <category term="源码解析" scheme="https://github.com/knightsj/knightsj.github.io/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PNChart源码解析</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/PNChart%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/PNChart源码解析/</id>
-    <published>2018-02-02T16:17:45.000Z</published>
-    <updated>2018-12-03T12:05:03.328Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;一-框架介绍&quot;&gt;&lt;a href=&quot;#一-框架介绍&quot; class=&quot;headerlink&quot; title=&quot;一. 框架介绍&quot;&gt;&lt;/a&gt;一. 框架介绍&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kevinzhow/PNChart&quot;&gt;PNChart&lt;/a&gt;是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。&lt;/p&gt;
-&lt;p&gt;该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类&lt;code&gt;PNGenericChart&lt;/code&gt;,第二层就是所有类型的图表。提供一张图来直观感受一下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png&quot; alt=&quot;层级图&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在这张图里，需要注意以下几点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;带箭头的线和不带箭头的线的区别。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Data&lt;/code&gt;类对应图表的一组数据，因为当前类型的图表支持多组数据（例如：饼状图没有&lt;code&gt;Data&lt;/code&gt;类，因为饼状图没有多组数据，而折线图&lt;code&gt;LineChart&lt;/code&gt;是支持多组数据的，所以有&lt;code&gt;Data&lt;/code&gt;类。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Item&lt;/code&gt;类负责将传入图表的某个真实值转化为图表中显示的值，具体做法会在下文详细讲解。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;BarChart&lt;/code&gt;类里面的每一根柱子都是&lt;code&gt;PNBar&lt;/code&gt;的实例（该类型的图表不在本篇讲解的范围之内）。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-      <category term="源码解析" scheme="https://github.com/knightsj/knightsj.github.io/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MJRefresh源码解析</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/MJRefresh%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/MJRefresh 源码解析/</id>
-    <published>2018-02-02T16:17:40.000Z</published>
-    <updated>2018-12-03T12:03:19.798Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://github.com/CoderMJLee/MJRefresh&quot;&gt;MJRefresh&lt;/a&gt;是李明杰老师的作品，到现在已经有9800多颗star了，是一个简单实用，功能强大的iOS下拉刷新（也支持上拉加载更多）控件。它的可定制性很高，几乎可以满足大部分下拉刷新的设计需求，值得学习。&lt;/p&gt;
-&lt;p&gt;该框架的结构设计得很清晰，使用一个基类&lt;code&gt;MJRefreshComponent&lt;/code&gt;来做一些基本的设定，然后通过继承的方式，让&lt;code&gt;MJRefreshHeader&lt;/code&gt;和&lt;code&gt;MJRefreshFooter&lt;/code&gt;分别具备下拉刷新和上拉加载的功能。从继承机构来看可以分为三层，具体可以从下面的图里看出来：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/mjrefresh_header.png&quot; alt=&quot;框架组织结构图&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-      <category term="源码解析" scheme="https://github.com/knightsj/knightsj.github.io/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MBProgressHUD源码解析</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/MBProgressHUD%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/MBProgressHUD源码解析/</id>
-    <published>2018-02-02T16:17:34.000Z</published>
-    <updated>2018-07-16T16:46:42.492Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;听过好多次：“程序员要通过多读好的源码来提升自己”这样类似的话，而且又觉得自己有很多不会的，于是就马上启动了自己的&lt;strong&gt;读好源码Project&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;从哪个框架开始呢？我想到了&lt;code&gt;SDWebImage&lt;/code&gt;，但是大致看下来文件很多，代码也不少，不知道从何看起，于是作罢。所以茅塞顿开，还是从最最简单的框架开始吧～因为学习曲线要给自己设定得平缓一点才有利于稳步提升，小步快跑才是王道～&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-      <category term="源码解析" scheme="https://github.com/knightsj/knightsj.github.io/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JSONModel源码解析</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/JSONModel%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/JSONModel源码解析/</id>
-    <published>2018-02-02T16:17:27.000Z</published>
-    <updated>2018-07-16T16:46:37.927Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这一系列的&lt;a href=&quot;http://www.jianshu.com/nb/9137726&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;源码解析&lt;/a&gt;分享到现在已经是第五篇了。这五篇讲解的都是view层的一些流行的iOS开源框架。而从本篇开始开始，我打算要逐渐加深难度，讲解一些model层和网络层相关的开源框架。&lt;/p&gt;
-&lt;p&gt;想来想去，还是从&lt;a href=&quot;https://github.com/jsonmodel/jsonmodel&quot;&gt;JSONModel&lt;/a&gt;开始吧～&lt;/p&gt;
-&lt;p&gt;首先因为该框架还是比较流行的，在GitHub上也有将近6000颗星了，而且我自己对这个框架的使用也比较熟悉。还有一点是这个框架运用了运行时的相关知识，对想要了解运行时的童鞋还是很有帮助的。&lt;/p&gt;
-&lt;p&gt;该框架的核心代码并不是很多，主要还是错误类型判断和容错处理占了不少内容。读过一遍之后，感觉到作者思维的严谨性是非常值得我们学习的：作者专门建立了一个展示错误(NSError)的类，里面封装了很多错误类型，而且这个框架还允许用户根据自己的需求来自定义错误类型并阻止最终模型的生成，在后文会有详细讲解。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-      <category term="源码解析" scheme="https://github.com/knightsj/knightsj.github.io/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
     
   </entry>
   
   <entry>
     <title>详解iOS多图下载的缓存机制</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E8%AF%A6%E8%A7%A3iOS%E5%A4%9A%E5%9B%BE%E4%B8%8B%E8%BD%BD%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/详解iOS多图下载的缓存机制/</id>
-    <published>2018-02-02T16:17:12.000Z</published>
-    <updated>2018-07-16T16:46:19.502Z</updated>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E8%AF%A6%E8%A7%A3iOS%E5%A4%9A%E5%9B%BE%E4%B8%8B%E8%BD%BD%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/详解iOS多图下载的缓存机制/</id>
+    <published>2018-12-24T18:33:45.650Z</published>
+    <updated>2018-12-24T18:33:45.651Z</updated>
     
     <summary type="html">
     
@@ -626,18 +311,302 @@
   </entry>
   
   <entry>
-    <title>斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/02/03/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9AiOS%E7%9A%84MVC%E6%A1%86%E6%9E%B6/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/02/03/斯坦福大学iOS开发公开课总结（一）：iOS的MVC框架/</id>
-    <published>2018-02-02T16:17:05.000Z</published>
-    <updated>2018-07-16T16:46:07.608Z</updated>
+    <title>结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E7%BB%93%E5%90%88%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%84%E5%BA%95%E9%83%A8%E8%8F%9C%E5%8D%95%E7%BB%84%E4%BB%B6%E6%9D%A5%E8%AE%B2%E4%B8%80%E4%B8%8B%E5%A6%82%E4%BD%95%E5%B0%81%E8%A3%85%E4%B8%80%E4%B8%AAReact%20Native%E7%BB%84%E4%BB%B6/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件/</id>
+    <published>2018-12-24T18:33:45.647Z</published>
+    <updated>2018-12-24T18:33:45.650Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;写在开头&quot;&gt;&lt;a href=&quot;#写在开头&quot; class=&quot;headerlink&quot; title=&quot;写在开头&quot;&gt;&lt;/a&gt;写在开头&lt;/h2&gt;&lt;hr&gt;
-&lt;p&gt;入职iOS开发也有半年了，一直没有积极更新技术博客，感到甚是惭愧。虽然这期斯坦福公开课内容相对基础一些，但是笔者还是想把每一课的内容都总结一下然后分享出去，也算是对自己的锻炼以及对这一经典的课程致敬吧。&lt;/p&gt;
-&lt;p&gt;课程地址：&lt;a href=&quot;http://open.163.com/special/opencourse/ios7.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;斯坦福大学公开课：iOS 7应用开发&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;废话少说，开始！&lt;/p&gt;
+      &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;前几天写了一个React Native组件：一个可定制性比较高的底部弹出菜单（ActionSheet）。该组件符合React Native的特性：同时支持iOS和Android双平台，一份相同的代码会在两个平台上展示几乎完全相同的样式。&lt;/p&gt;
+&lt;p&gt;先看一下效果(上排为iOS模拟器，下排为Android模拟器)：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_show.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;上图展示的是该组件的默认样式。由于该组件具有较高的定制性，所以只需要通过设置一些属性就可以得到更多不同的样式。&lt;/p&gt;
+&lt;p&gt;开源项目地址：&lt;a href=&quot;https://github.com/knightsj/react-naive-highly-customizable-action-sheet&quot;&gt;GitHub:react-naive-highly-customizable-action-sheet&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Production" scheme="https://github.com/knightsj/knightsj.github.io/categories/Production/"/>
+    
+    
+      <category term="React Native" scheme="https://github.com/knightsj/knightsj.github.io/tags/React-Native/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>程序员的职业素养 - 读书笔记</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E7%B4%A0%E5%85%BB%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/程序员的职业素养 - 读书笔记/</id>
+    <published>2018-12-24T18:33:45.644Z</published>
+    <updated>2018-12-24T18:33:45.646Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;好久木有读书了，因为前两次迭代比较忙，工作下来也在一直写代码。不过还好现在把握好了节奏，有时间读书了。&lt;/p&gt;
+&lt;p&gt;我找了这本《程序员的职业素养》，内容比较简单，但是涵盖了一些程序员在工作过程中需要注意的一些细节问题，如果读者是程序员的话会对职业有很大帮助的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-7f961cd28e79379f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;程序员的职业素养&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本书一直围绕着“专业”二字展开，以作者的观点阐述了何为”专业的程序员”：专业的程序员是如何思考，如何解决问题，如何承担责任。笔者将一些比较有体会的部分摘录出来，结合自己的心得整理出这篇读书笔记。内容的顺序和书中的顺序基本不符，完全按照笔者按照几大块归类整理而成。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/categories/BookNote/"/>
+    
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>程序员的修炼：从优秀到卓越 - 读书笔记</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E4%BF%AE%E7%82%BC%EF%BC%9A%E4%BB%8E%E4%BC%98%E7%A7%80%E5%88%B0%E5%8D%93%E8%B6%8A%20-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/程序员的修炼：从优秀到卓越 - 读书笔记/</id>
+    <published>2018-12-24T18:33:45.643Z</published>
+    <updated>2018-12-24T18:33:45.644Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-f3a3b8377fa20a7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;程序员的修炼 - 从优秀到卓越&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本书是笔者上一篇读书笔记&lt;a href=&quot;http://www.jianshu.com/p/33933a3ba977&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;高效能程序员的修炼&lt;/a&gt;的姊妹篇，同样介绍了一些程序员需要了解的，有关于编程本身以外的一些事情。&lt;/p&gt;
+&lt;p&gt;和上一篇读书笔记的风格类似，笔者摘录了几段原书内容并结合了作者的感悟写下了这篇读书笔记。笔者还是深切希望各路英雄能提出宝贵的意见和想法。&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/categories/BookNote/"/>
+    
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅谈互联网商业思维的几个误区 - 读《重来》有感</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%B5%85%E8%B0%88%E4%BA%92%E8%81%94%E7%BD%91%E5%95%86%E4%B8%9A%E6%80%9D%E7%BB%B4%E7%9A%84%E5%87%A0%E4%B8%AA%E8%AF%AF%E5%8C%BA%20-%20%E8%AF%BB%E3%80%8A%E9%87%8D%E6%9D%A5%E3%80%8B%E6%9C%89%E6%84%9F/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/浅谈互联网商业思维的几个误区 - 读《重来》有感/</id>
+    <published>2018-12-24T18:33:45.642Z</published>
+    <updated>2018-12-24T18:33:45.642Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近读了一些关于互联网思维和管理的一些书籍，感触颇深，想从团队，产品，公司方向和个人几个方面，结合笔者的个人经历分享一下笔者的思考和感悟。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://upload-images.jianshu.io/upload_images/859001-063cce725ad58f38.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;图片来自：www.pexels.com&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/categories/BookNote/"/>
+    
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+      <category term="IT" scheme="https://github.com/knightsj/knightsj.github.io/tags/IT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅显易懂讲解iOS多线程技术-GCD</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%B5%85%E6%98%BE%E6%98%93%E6%87%82%E8%AE%B2%E8%A7%A3%E7%9A%84iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8A%80%E6%9C%AF-GCD/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/浅显易懂讲解的iOS多线程技术-GCD/</id>
+    <published>2018-12-24T18:33:45.641Z</published>
+    <updated>2018-12-24T18:33:45.642Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;励志打造一篇浅显易懂地介绍iOS中GCD的文章！&lt;br&gt;笔者见过很多其他讲解GCD的博客，有些写得非常详细非常专业，几乎涵盖了GCD大大小小的全部知识，细致庞杂的内容容易让人摸不清主次，笔者觉得这类文章&lt;strong&gt;并不适合初学者学习&lt;/strong&gt;，于是决定写一篇针对一些只是听过，但是对GCD还不了解的童鞋们。&lt;/p&gt;
+&lt;p&gt;本文排除了一些细枝末节，扰乱人头绪的东西，着重讲解了GCD中重要的知识点，并在最后展示了GCD中&lt;strong&gt;经常使用的函数&lt;/strong&gt;并附上结果图和讲解，简单明了。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%9B%9B%20%E4%BA%94%EF%BC%89%EF%BC%9A%E5%B1%9E%E6%80%A7%E5%AD%97%E7%AC%A6%E4%B8%B2Demo/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（四 五）：属性字符串Demo/</id>
+    <published>2018-12-24T18:33:45.640Z</published>
+    <updated>2018-12-24T18:33:45.641Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本节课讲解了iOS框架里几个重要的知识点：动态绑定，控制器的生命周期，属性字符串等。最后演示了一个Demo用来讲解属性字符串的几个功能。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%EF%BC%89%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%8CUIScrollView%EF%BC%8C%E5%9B%BE%E7%89%87%E6%B5%8F%E8%A7%88%E5%99%A8Demo/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十）：多线程，UIScrollView，图片浏览器Demo/</id>
+    <published>2018-12-24T18:33:45.637Z</published>
+    <updated>2018-12-24T18:33:45.640Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本节课讲授了多线程编程和UIScrollview控件，最后通过一个显示图片的Demo综合了本节课讲解的知识。通过本节课的学习，我们可以初步了解该如何处理耗时的任务来提高系统性能的方法以及通过UIScrollview控件来显示超出屏幕大小的图片并实现滚动和缩放的效果。&lt;/p&gt;
+&lt;h1 id=&quot;多线程&quot;&gt;&lt;a href=&quot;#多线程&quot; class=&quot;headerlink&quot; title=&quot;多线程&quot;&gt;&lt;/a&gt;多线程&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;实现多线程编程（将不同的任务放在主线程和子线程工作），可以有效利用系统硬件优势提高系统性能。&lt;br&gt;首先，先介绍几个概念：&lt;/p&gt;
+&lt;h2 id=&quot;队列&quot;&gt;&lt;a href=&quot;#队列&quot; class=&quot;headerlink&quot; title=&quot;队列&quot;&gt;&lt;/a&gt;队列&lt;/h2&gt;&lt;p&gt;队列：在队列中放入用来执行任务的block。这些block按照队列的性质被取出到应该工作的线程(主线程，子线程)。&lt;/p&gt;
+&lt;p&gt;队列分为串行队列和并行队列。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;放入串行队列的任务将会在主线程执行，执行顺序是按照顺序执行。&lt;/li&gt;
+&lt;li&gt;放入并行队列的任务会在子线程执行，执行顺序是并行执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么什么样的任务会放在主线程或子线程执行呢？&lt;/p&gt;
+&lt;h2 id=&quot;主线程-amp-子线程&quot;&gt;&lt;a href=&quot;#主线程-amp-子线程&quot; class=&quot;headerlink&quot; title=&quot;主线程&amp;amp;子线程&quot;&gt;&lt;/a&gt;主线程&amp;amp;子线程&lt;/h2&gt;&lt;p&gt;主线程：负责执行UI活动，绝大部分的UI活动都要在这里调用，不能让其阻塞，要将耗时的任务放到子线程来做。&lt;br&gt;子线程：负责执行耗时的运算，网络请求等不能放在主线程的任务。&lt;/p&gt;
+&lt;p&gt;系统为我们提供了共用的主队列(Main Dispatch Queue)和全局并行队列(Global Dispatch Queue)。我们只需将需要执行的任务放入到这两类队列里就可以实现多线程编程。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%9B%9B%20%E5%8D%81%E4%BA%94%EF%BC%89%EF%BC%9ACoreLocation%EF%BC%8CMapKit%EF%BC%8C%E5%9C%A8%E5%9C%B0%E5%9B%BE%E4%B8%8A%E6%A0%87%E8%AF%86Flickr%E6%91%84%E5%BD%B1%E5%B8%88%E7%9A%84%E4%BD%9C%E5%93%81/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十四 十五）：CoreLocation，MapKit，在地图上标识Flickr摄影师的作品/</id>
+    <published>2018-12-24T18:33:45.635Z</published>
+    <updated>2018-12-24T18:33:45.637Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本总结将第十四和十五课放在了一起，原因有二：第一是略去了ipad开发Demo的部分（因为笔者木有ipad，无法进行调试）。第二是两节课都讲解了关于地图框架的相关知识，故将二者放在一起总结。&lt;/p&gt;
+&lt;p&gt;在本篇总结的最后，会给大家讲解在地图上显示Flickr上摄影师的照片作品。&lt;/p&gt;
+&lt;h1 id=&quot;Network-Activity-Indicator&quot;&gt;&lt;a href=&quot;#Network-Activity-Indicator&quot; class=&quot;headerlink&quot; title=&quot;Network Activity Indicator&quot;&gt;&lt;/a&gt;Network Activity Indicator&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;顾名思义，该控件叫做网络活动指示器。当app有网络活动时，可以让状态栏左边的小圆圈滚动用来提示用户当前的网络状态。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@property(nonatomic,getter=isNetworkActivityIndicatorVisible) BOOL networkActivityIndicatorVisible;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果设定为YES，状态栏上的小转轮就会转，反之亦然。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意：应用中的所有线程都可使用这个转轮，我们需要通过各种方法来向用户准确显示转轮的状态。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField，UImagePickerController，在Flickr添加摄影师照片Demo</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89%EF%BC%9A%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE%EF%BC%8CUITextField,UImagePickerController%EF%BC%8C%E5%9C%A8Flickr%E6%B7%BB%E5%8A%A0%E6%91%84%E5%BD%B1%E5%B8%88%E7%85%A7%E7%89%87Demo/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十六）：模态视图，UITextField,UImagePickerController，在Flickr添加摄影师照片Demo/</id>
+    <published>2018-12-24T18:33:45.634Z</published>
+    <updated>2018-12-24T18:33:45.635Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本节课讲解了模态视图，文本框，UImagePickerController的相关知识，并延续了上一节课的Demo，添加了照相并存储照片的功能。&lt;/p&gt;
+&lt;h1 id=&quot;模态视图&quot;&gt;&lt;a href=&quot;#模态视图&quot; class=&quot;headerlink&quot; title=&quot;模态视图&quot;&gt;&lt;/a&gt;模态视图&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;模态视图不同于左右滑入的视图，它是从下往上，覆盖整个屏幕的视图。每次滑入都会重新新建一个控制器。通常用于修改信息等操作。&lt;/p&gt;
+&lt;p&gt;显示模态视图：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;  [self presentViewController:(nonnull UIViewController *) animated:(BOOL) completion:^&amp;#123;&amp;#125;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;让模态视图消失：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)dissmissViewControllerAnimated:(BOOL)animated completion:(void(^))block;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意:该消息是发送给present该模态视图的控制器，而不是该模态视图本身。因此，调用方法应该是：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[self.presentingViewController dissmissViewControllerAnimated:YES ...];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E5%85%AB%EF%BC%89%EF%BC%9A%E5%9B%BD%E9%99%85%E5%8C%96%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AE%BE%E7%BD%AEUI/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十八）：国际化，自定义设置UI/</id>
+    <published>2018-12-24T18:33:45.633Z</published>
+    <updated>2018-12-24T18:33:45.634Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇是斯坦福大学iOS7系列课程（CS193P）的最后一节课的总结，终于把18节课的内容都总结完了，而且这个文集也画上了句号，有点不舍的赶脚。。&lt;/p&gt;
+&lt;p&gt;好了，不煽情了，开始！&lt;br&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斯坦福大学iOS开发公开课总结（十二 十三）：CoreData,表格视图，Flickr摄影师资料列表Demo</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%BA%8C%20%E5%8D%81%E4%B8%89%EF%BC%89%EF%BC%9ACoreData%EF%BC%8C%E8%A1%A8%E6%A0%BC%E8%A7%86%E5%9B%BE%EF%BC%8CFlickr%E6%91%84%E5%BD%B1%E5%B8%88%E8%B5%84%E6%96%99%E5%88%97%E8%A1%A8/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十二 十三）：CoreData，表格视图，Flickr摄影师资料列表/</id>
+    <published>2018-12-24T18:33:45.631Z</published>
+    <updated>2018-12-24T18:33:45.632Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。&lt;/p&gt;
+&lt;p&gt;笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。&lt;/p&gt;
+&lt;p&gt;开始吧！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
+    
+    
+      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
+    
+      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%83%EF%BC%89%EF%BC%9ACoreMotion%EF%BC%8Capp%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%8C%E6%96%B9%E5%9D%97%E7%A2%B0%E6%92%9E%E6%B8%B8%E6%88%8FDemo/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/</id>
+    <published>2018-12-24T18:33:45.630Z</published>
+    <updated>2018-12-24T18:33:45.631Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。&lt;/p&gt;
+&lt;h1 id=&quot;Core-Motion&quot;&gt;&lt;a href=&quot;#Core-Motion&quot; class=&quot;headerlink&quot; title=&quot;Core Motion&quot;&gt;&lt;/a&gt;Core Motion&lt;/h1&gt;&lt;hr&gt;
+&lt;p&gt;CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作，可以根据用户的动作做出相应的动作；磁力针可以判断设备的方向。&lt;/p&gt;
+&lt;p&gt;CoreMotion的工作是基于&lt;code&gt;CMMotionManager&lt;/code&gt;类来执行的。我们看一下该类的API：&lt;/p&gt;
+&lt;h2 id=&quot;CMMotionManager&quot;&gt;&lt;a href=&quot;#CMMotionManager&quot; class=&quot;headerlink&quot; title=&quot;CMMotionManager&quot;&gt;&lt;/a&gt;CMMotionManager&lt;/h2&gt;&lt;h3 id=&quot;检测硬件设备：&quot;&gt;&lt;a href=&quot;#检测硬件设备：&quot; class=&quot;headerlink&quot; title=&quot;检测硬件设备：&quot;&gt;&lt;/a&gt;检测硬件设备：&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable __TVOS_PROHIBITED;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable __TVOS_PROHIBITED;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable __TVOS_PROHIBITED;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     

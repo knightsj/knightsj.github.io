@@ -1,0 +1,1033 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="更新记录：2017.4.23：新增支持数据源完全依赖网络请求的情况。2017.4.22：新增支持请求新数据后刷新表格。2017.4.21： 新增CocoaPods支持：pod ‘SJStaticTableView’, ‘~&amp;gt; 1.2.0’。  写一个小小轮子～ 写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于MVVM，用于快速搭建设置页，个人信息页的框架">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="更新记录：2017.4.23：新增支持数据源完全依赖网络请求的情况。2017.4.22：新增支持请求新数据后刷新表格。2017.4.21： 新增CocoaPods支持：pod ‘SJStaticTableView’, ‘~&amp;gt; 1.2.0’。  写一个小小轮子～ 写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/85789de80b62c93ff0c9f77b603dba70">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/a38f9f8459fbd168e3f434e5cff27526">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/1f8db817518311481d64d30ec481cf71">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/d1ea6240a3760acbcb92198f1c454044">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/dc3d7675b3eedb3dbe4ac3b7bb20d7db">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/8906383a490f9507e37f9f122e2a4eee">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/4/24/dddb4eed3379c043133ba38d2d8ef1a4.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.603Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于MVVM，用于快速搭建设置页，个人信息页的框架">
+<meta name="twitter:description" content="更新记录：2017.4.23：新增支持数据源完全依赖网络请求的情况。2017.4.22：新增支持请求新数据后刷新表格。2017.4.21： 新增CocoaPods支持：pod ‘SJStaticTableView’, ‘~&amp;gt; 1.2.0’。  写一个小小轮子～ 写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/4/24/85789de80b62c93ff0c9f77b603dba70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/">
+
+
+
+
+
+  <title> 基于MVVM，用于快速搭建设置页，个人信息页的框架 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/基于MVVM，用于快速搭建设置页，个人信息页的框架（附：仿微信iOS客户端发现页，个人页，设置页Demo）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于MVVM，用于快速搭建设置页，个人信息页的框架
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Production/" itemprop="url" rel="index">
+                    <span itemprop="name">Production</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  7,911 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  34 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="更新记录："><a href="#更新记录：" class="headerlink" title="更新记录："></a>更新记录：</h3><p><strong>2017.4.23：新增支持数据源完全依赖网络请求的情况。</strong><br><strong>2017.4.22：新增支持请求新数据后刷新表格。</strong><br><strong>2017.4.21： 新增CocoaPods支持：pod ‘SJStaticTableView’, ‘~&gt; 1.2.0’。</strong></p>
+<hr>
+<p>写一个小小轮子～</p>
+<p>写UITableView的时候，我们经常遇到的是完全依赖于网络请求，需要自定义的动态cell的需求（比如微博帖子列表）。但是同时，大多数app里面几乎也都有设置页，个人页等其他以静态表格为主的页面。</p>
+<p>而且这些页面的共性比较多：</p>
+<ol>
+<li>大多数情况下在进入页面之前就已经拿到所有数据。</li>
+<li>cell样式单一，自定义cell出现的几率比较小（几乎都是高度为44的cell）。</li>
+<li>多数都分组。</li>
+</ol>
+<p>因为自己非常想写一个开源的东西出来（也可以暴露自己的不足），同时又受限于水平，所以就打算写这么一个比较简单，又具有通用性的框架：<strong>一个定制性比较高的适合在个人页和设置页使用的UITableView</strong>。</p>
+<p>在真正写之前，看了几篇类似的文章，挑出三篇自己觉得比较好的：</p>
+<ol>
+<li><a href="https://www.objc.io/issues/1-view-controllers/table-views/" target="_blank" rel="noopener">Clean Table View Code</a> </li>
+<li><a href="http://www.jianshu.com/p/504c61a9dc82" target="_blank" rel="noopener">如何写好一个UITableView</a></li>
+<li><a href="http://www.jianshu.com/p/81d0c573f7a8" target="_blank" rel="noopener">利用MVVM设计快速开发个人中心、设置等模块</a></li>
+</ol>
+<p>看完总结之后，利用上周3天的业余时间写好了这个框架，为了它实用性，我仿照了微信客户端的发现页，个人页和设置页写了一个Demo，来看一下效果图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/4/24/85789de80b62c93ff0c9f77b603dba70" alt="发现页 | 个人页 | 个人信息页 | 设置页"></p>
+<blockquote>
+<p>项目所用资源来自：<a href="https://github.com/zhengwenming/WeChat">GitHub:zhengwenming/WeChat</a><br>Demo地址：<a href="https://github.com/knightsj/SJStaticTableView">GitHub: knightsj/SJStaticTableView</a></p>
+</blockquote>
+<a id="more"></a>
+<p>为了体现出这个框架的定制性，我自己也在里面添加了两个页面，入口在设置页里面：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/4/24/a38f9f8459fbd168e3f434e5cff27526" alt="分组定制 | 同组定制"></p>
+<blockquote>
+<p>先不要纠结分组定制和同组定制的具体意思，在后面讲到定制性的时候我会详细说明。现在只是让大家看一下效果。</p>
+</blockquote>
+<p>在大概了解了功能之后，开始详细介绍这个框架。写这篇介绍的原因倒不是希望有多少人来用，而是表达一下我自己的思路而已。各位觉得不好的地方请多批评。</p>
+<p>在正式讲解之前，先介绍一下本篇的基本目录：</p>
+<ol>
+<li>用到的技术点。</li>
+<li>功能说明。</li>
+<li>使用方法。</li>
+<li>定制性介绍。</li>
+<li>新增支持刷新功能。</li>
+<li>新增支持数据源完全依赖网络请求。</li>
+</ol>
+<h1 id="1-用到的技术点"><a href="#1-用到的技术点" class="headerlink" title="1. 用到的技术点"></a>1. 用到的技术点</h1><hr>
+<p>框架整体来说还是比较简单的，主要还是基于苹果的<code>UITableView</code>组件，为了解耦和责任分离，主要运用了以下技术点：</p>
+<ul>
+<li><strong>MVVM</strong>：采用MVVM架构，将每一行“纯粹”的数据交给一个单独的<code>ViewModel</code>,让其持有每个cell的数据（行高，cell类型，文本宽度，图片高度等等）。而且每一个section也对应一个<code>ViewModel</code>，它持有当前section的配置数据（title，header和footer的高度等等）。</li>
+<li><strong>轻UIViewController</strong>：分离<code>UITableViewDataSource</code>与<code>UIViewController</code>，让单独一个类来实现<code>UITableViewDataSource</code>的职能。</li>
+<li><strong>block</strong>：使用block来调用cell的绘制方法。</li>
+<li><strong>分类</strong>：使用分类来定义每一种不同的cell的绘制方法。</li>
+</ul>
+<p>知道了主要运用的技术点以后，给大家详细介绍一下该框架的功能。</p>
+<h1 id="2-功能介绍"><a href="#2-功能介绍" class="headerlink" title="2. 功能介绍"></a>2. 功能介绍</h1><hr>
+<p>这个框架可以用来快速搭建设置页，个人信息页能静态表格页面，使用者只需要给tableView的DataSource传入元素是viewModel的数组就可以了。</p>
+<p>虽说这类页面的布局还是比较单一的，但是还是会有几种不同的情况（cell的布局类型），我对比较常见的cell布局做了封装，使用者可以直接使用。</p>
+<p>我在定义这些cell的类型的时候，大致划分了两类：</p>
+<ol>
+<li>第一类是系统风格的cell，大多数情况下，cell高度为44；在cell左侧会有一张图，一个label，也可以只存在一种（但是只存在图片的情况很少）；在cell右侧一般都有一个向右的箭头，而且有时这个箭头的左侧还可能有label，image，也可以两个都有。</li>
+<li>第二类就是自定义的cell了，它的高度不一定是44，而且布局和系统风格的cell很不一样，需要用户自己添加。</li>
+</ol>
+<p>基于这两大类，再细分了几种情况，可以由下面这张图来直观看一下：</p>
+<p>既然是cell的类型，那么就类型的枚举就需要定义在cell的viewModel里面：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, SJStaticCellType) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//系统风格的各种cell类型，已封装好，可以直接用</span></span><br><span class="line">    SJStaticCellTypeSystemLogout,                          <span class="comment">//退出登录cell</span></span><br><span class="line">    SJStaticCellTypeSystemAccessoryNone,                   <span class="comment">//右侧没有任何控件</span></span><br><span class="line">    SJStaticCellTypeSystemAccessorySwitch,                 <span class="comment">//右侧是开关</span></span><br><span class="line">    SJStaticCellTypeSystemAccessoryDisclosureIndicator,    <span class="comment">//右侧是三角箭头(箭头左侧可以有一个image或者一个label，或者二者都有，根据传入的参数决定)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//需要用户自己添加的自定义cell类型</span></span><br><span class="line">    SJStaticCellTypeMeAvatar,                              <span class="comment">//个人页“我”cell    </span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>来一张图直观得体会一下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/4/24/1f8db817518311481d64d30ec481cf71" alt="支持cell类型"></p>
+<p>在这里有三点需要说一下：</p>
+<ol>
+<li>这里面除了自定义的cell以外，其他类型的cell都不需要开发者自己布局，都已经被我封装好，只需要在cell的<code>ViewModel</code>里面传入相应的类型和数据（文字，图片）即可。</li>
+<li>因为左侧的两个控件（图片和文字）是至少存在一个而且左右顺序固定（图片永远在最左侧），所以该框架通过开发者传入的左侧需要显示的图片和文字，可以自己进行cell的布局。所以类型的判断主要作用于cell的右侧。</li>
+<li>值得一提的是，在”最右侧是一个箭头”子分支的五个类型其实都属于一个类型，只需要传入文字和图片，以及文字图片的显示顺序参数（这个参数只在同时存在图片和文字的时候有效）就可以自行判断布局。</li>
+</ol>
+<p>在了解了该框架的功能之后，我们先看一下如何使用这个框架：</p>
+<h1 id="3-使用方法"><a href="#3-使用方法" class="headerlink" title="3. 使用方法"></a>3. 使用方法</h1><hr>
+<h2 id="集成方法："><a href="#集成方法：" class="headerlink" title="集成方法："></a>集成方法：</h2><ol>
+<li>静态：手动将SJStaticTableViewComponent文件夹拖入到工程中。</li>
+<li>动态：CocoaPods：<code>pod &#39;SJStaticTableView&#39;, &#39;~&gt; 1.1.2</code>。</li>
+</ol>
+<p>具体的方法先用文字说明一下：</p>
+<ol>
+<li>将要开发的页面的ViewController继承<code>SJStaticTableViewController</code>。</li>
+<li>在新ViewController里实现<code>createDataSource</code>方法，将viewModel数组传给控制器的<code>dataSource</code>属性。</li>
+<li>根据不同的cell类型，调用不同的cell绘制方法。</li>
+<li>如果需要接受cell的点击，需要实现<code>didSelectViewModel</code>方法。</li>
+</ol>
+<p>可能感觉比较抽象，我拿设置页来具体说明一下：</p>
+<p>先看一下设置页的布局：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/4/24/d1ea6240a3760acbcb92198f1c454044" alt="设置页"></p>
+<p>然后我们看一下设置的ViewController的代码：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="keyword">self</span>.navigationItem.title = <span class="string">@"设置"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)createDataSource</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.dataSource = [[SJStaticTableViewDataSource alloc] initWithViewModelsArray:[Factory settingPageData] configureBlock:^(SJStaticTableViewCell *cell, SJStaticTableviewCellViewModel *viewModel) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">switch</span> (viewModel.staticCellType)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">case</span> SJStaticCellTypeSystemAccessoryDisclosureIndicator:</span><br><span class="line">            &#123;</span><br><span class="line">                [cell configureAccessoryDisclosureIndicatorCellWithViewModel:viewModel];</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                </span><br><span class="line">            <span class="keyword">case</span> SJStaticCellTypeSystemAccessorySwitch:</span><br><span class="line">            &#123;</span><br><span class="line">                [cell configureAccessorySwitchCellWithViewModel:viewModel];</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                </span><br><span class="line">            <span class="keyword">case</span> SJStaticCellTypeSystemLogout:</span><br><span class="line">            &#123;</span><br><span class="line">                [cell configureLogoutTableViewCellWithViewModel:viewModel];</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                </span><br><span class="line">            <span class="keyword">case</span> SJStaticCellTypeSystemAccessoryNone:</span><br><span class="line">            &#123;</span><br><span class="line">                [cell configureAccessoryNoneCellWithViewModel:viewModel];</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                </span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)didSelectViewModel:(SJStaticTableviewCellViewModel *)viewModel atIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">switch</span> (viewModel.identifier)</span><br><span class="line">    &#123;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"退出登录"</span>);</span><br><span class="line">            [<span class="keyword">self</span> showAlertWithMessage:<span class="string">@"真的要退出登录嘛？"</span>];</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"清理缓存"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"跳转到定制性cell展示页面 - 分组"</span>);</span><br><span class="line">            SJCustomCellsViewController *vc = [[SJCustomCellsViewController alloc] init];</span><br><span class="line">            [<span class="keyword">self</span>.navigationController pushViewController:vc animated:<span class="literal">YES</span>];</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"跳转到定制性cell展示页面 - 同组"</span>);</span><br><span class="line">            SJCustomCellsOneSectionViewController *vc = [[SJCustomCellsOneSectionViewController alloc] init];</span><br><span class="line">            [<span class="keyword">self</span>.navigationController pushViewController:vc animated:<span class="literal">YES</span>];</span><br><span class="line">        &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看到这里，你可能会有这些疑问：</p>
+<ol>
+<li>UITableViewDataSource方法哪儿去了？</li>
+<li>viewModel数组是如何设置的？</li>
+<li>cell的绘制方法是如何区分的？</li>
+<li>UITableViewDelegate的方法哪里去了？</li>
+</ol>
+<p>下面我会一一解答，看完了下面的解答，就能几乎完全掌握这个框架的思路了：</p>
+<h3 id="问题1：UITableViewDataSource方法哪儿去了？"><a href="#问题1：UITableViewDataSource方法哪儿去了？" class="headerlink" title="问题1：UITableViewDataSource方法哪儿去了？"></a>问题1：UITableViewDataSource方法哪儿去了？</h3><p>我自己封装了一个类<code>SJStaticTableViewDataSource</code>专门作为数据源，需要控制器给它一个viewModel数组。</p>
+<p>来看一下它的实现文件：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SJStaticTableViewDataSource.m</span></span><br><span class="line">- (<span class="built_in">NSInteger</span>)numberOfSectionsInTableView:(<span class="built_in">UITableView</span> *)tableView</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.viewModelsArray.count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section</span><br><span class="line">&#123;</span><br><span class="line">    SJStaticTableviewSectionViewModel *vm = <span class="keyword">self</span>.viewModelsArray[section];</span><br><span class="line">    <span class="keyword">return</span> vm.cellViewModelsArray.count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//获取section的ViewModel</span></span><br><span class="line">    SJStaticTableviewSectionViewModel *sectionViewModel = <span class="keyword">self</span>.viewModelsArray[indexPath.section];</span><br><span class="line">    <span class="comment">//获取cell的viewModel</span></span><br><span class="line">    SJStaticTableviewCellViewModel *cellViewModel = sectionViewModel.cellViewModelsArray[indexPath.row];</span><br><span class="line">    </span><br><span class="line">    SJStaticTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellViewModel.cellID];</span><br><span class="line">    <span class="keyword">if</span> (!cell) &#123;</span><br><span class="line">        cell = [[SJStaticTableViewCell alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:cellViewModel.cellID];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">self</span>.cellConfigureBlock(cell,cellViewModel);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> cell;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForHeaderInSection:(<span class="built_in">NSInteger</span>)section&#123;</span><br><span class="line">    SJStaticTableviewSectionViewModel *vm = <span class="keyword">self</span>.viewModelsArray[section];</span><br><span class="line">    <span class="keyword">return</span> vm.sectionHeaderTitle;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView titleForFooterInSection:(<span class="built_in">NSInteger</span>)section</span><br><span class="line">&#123;</span><br><span class="line">    SJStaticTableviewSectionViewModel *vm = <span class="keyword">self</span>.viewModelsArray[section];</span><br><span class="line">    <span class="keyword">return</span> vm.sectionFooterTitle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>表格的cell和section都设置了与其对应的viewModel，用于封装其对应的数据：</p>
+</blockquote>
+<p>cell的viewModel(大致看一下即可，后面有详细说明)：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, SJStaticCellType) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//系统风格的各种cell类型，已封装好，可以直接用</span></span><br><span class="line">    SJStaticCellTypeSystemLogout,                          <span class="comment">//退出登录cell（已封装好）</span></span><br><span class="line">    SJStaticCellTypeSystemAccessoryNone,                   <span class="comment">//右侧没有任何控件</span></span><br><span class="line">    SJStaticCellTypeSystemAccessorySwitch,                 <span class="comment">//右侧是开关</span></span><br><span class="line">    SJStaticCellTypeSystemAccessoryDisclosureIndicator,    <span class="comment">//右侧是三角箭头(箭头左侧可以有一个image或者一个label，或者二者都有，根据传入的参数决定)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//需要用户自己添加的自定义cell类型</span></span><br><span class="line">    SJStaticCellTypeMeAvatar,                              <span class="comment">//个人页“我”cell</span></span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^SwitchValueChagedBlock)(<span class="built_in">BOOL</span> isOn);           <span class="comment">//switch开关切换时调用的block</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJStaticTableviewCellViewModel</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) SJStaticCellType staticCellType;                  <span class="comment">//类型</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *cellID;                                  <span class="comment">//cell reuser identifier</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> identifier;                              <span class="comment">//区别每个cell，用于点击</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// =============== 系统默认cell左侧 =============== //</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImage</span>  *leftImage;                               <span class="comment">//左侧的image，按需传入</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGSize</span> leftImageSize;                              <span class="comment">//左侧image的大小，存在默认设置</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *leftTitle;                               <span class="comment">//cell主标题，按需传入</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIColor</span> *leftLabelTextColor;                       <span class="comment">//当前组cell左侧label里文字的颜色</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIFont</span> *leftLabelTextFont;                         <span class="comment">//当前组cell左侧label里文字的字体</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> leftImageAndLabelGap;                      <span class="comment">//左侧image和label的距离，存在默认值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// =============== 系统默认cell右侧 =============== //</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *indicatorLeftTitle;                      <span class="comment">//右侧箭头左侧的文本，按需传入</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIColor</span> *indicatorLeftLabelTextColor;              <span class="comment">//右侧文字的颜色，存在默认设置，也可以自定义</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIFont</span> *indicatorLeftLabelTextFont;                <span class="comment">//右侧文字的字体，存在默认设置，也可以自定义</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImage</span> *indicatorLeftImage;                       <span class="comment">//右侧箭头左侧的image，按需传入</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGSize</span> indicatorLeftImageSize;                     <span class="comment">//右侧尖头左侧image大小，存在默认设置，也可以自定义</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>, <span class="keyword">readonly</span>)  <span class="built_in">BOOL</span> hasIndicatorImageAndLabel;         <span class="comment">//右侧尖头左侧的文本和image是否同时存在，只能通过内部计算</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> indicatorLeftImageAndLabelGap;             <span class="comment">//右侧尖头左侧image和label的距离，存在默认值</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> isImageFirst;                                 <span class="comment">//右侧尖头左侧的文本和image同时存在时，是否是image挨着箭头，默认为YES</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) SwitchValueChagedBlock switchValueDidChangeBlock;    <span class="comment">//切换switch开关的时候调用的block</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// =============== 长宽数据 =============== //</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> cellHeight;                                <span class="comment">//cell高度,默认是44，可以设置</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGSize</span>  leftTitleLabelSize;                        <span class="comment">//左侧默认Label的size，传入text以后内部计算</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGSize</span>  indicatorLeftLabelSize;                    <span class="comment">//右侧label的size</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// =============== 自定义cell的数据放在这里 =============== //</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImage</span> *avatarImage;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImage</span> *codeImage;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *userName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *userID;</span><br></pre></td></tr></table></figure></p>
+<p>section的viewModel(大致看一下即可，后面有详细说明)：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJStaticTableviewSectionViewModel</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *sectionHeaderTitle;         <span class="comment">//该section的标题</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>)   <span class="built_in">NSString</span> *sectionFooterTitle;         <span class="comment">//该section的标题</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span>  *cellViewModelsArray;        <span class="comment">//该section的数据源</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span>  sectionHeaderHeight;         <span class="comment">//header的高度</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span>  sectionFooterHeight;         <span class="comment">//footer的高度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGSize</span> leftImageSize;                 <span class="comment">//当前组cell左侧image的大小</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIColor</span> *leftLabelTextColor;          <span class="comment">//当前组cell左侧label里文字的颜色</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIFont</span> *leftLabelTextFont;            <span class="comment">//当前组cell左侧label里文字的字体</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> leftImageAndLabelGap;         <span class="comment">//当前组左侧image和label的距离，存在默认值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIColor</span> *indicatorLeftLabelTextColor; <span class="comment">//当前组cell右侧label里文字的颜色</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIFont</span> *indicatorLeftLabelTextFont;   <span class="comment">//当前组cell右侧label里文字的字体</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGSize</span> indicatorLeftImageSize;        <span class="comment">//当前组cell右侧image的大小</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> indicatorLeftImageAndLabelGap;<span class="comment">//当前组cell右侧image和label的距离，存在默认值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCellViewModelsArray:(<span class="built_in">NSArray</span> *)cellViewModelsArray;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>你可能会觉得属性太多了，但这些属性的存在意义是为cell的定制性服务的，在后文会有解释。</p>
+</blockquote>
+<p>现在了解了我封装好的数据源，cell的viewModel，section的viewModel以后，我们看一下第二个问题：</p>
+<h2 id="问题2：-viewModel数组是如何设置的？"><a href="#问题2：-viewModel数组是如何设置的？" class="headerlink" title="问题2： viewModel数组是如何设置的？"></a>问题2： viewModel数组是如何设置的？</h2><p>我们来看一下设置页的viewModel数组的设置：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span> *)settingPageData</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ========== section 0</span></span><br><span class="line">    SJStaticTableviewCellViewModel *vm0 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm0.leftTitle = <span class="string">@"账号与安全"</span>;</span><br><span class="line">    vm0.identifier = <span class="number">0</span>;</span><br><span class="line">    vm0.indicatorLeftTitle = <span class="string">@"已保护"</span>;</span><br><span class="line">    vm0.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"ProfileLockOn"</span>];</span><br><span class="line">    vm0.isImageFirst = <span class="literal">NO</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section0 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm0]];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">// ========== section 1</span></span><br><span class="line">    SJStaticTableviewCellViewModel *vm1 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm1.leftTitle = <span class="string">@"新消息通知"</span>;</span><br><span class="line">    vm1.identifier = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//额外添加switch</span></span><br><span class="line">    SJStaticTableviewCellViewModel *vm7 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm7.leftTitle = <span class="string">@"夜间模式"</span>;</span><br><span class="line">    vm7.switchValueDidChangeBlock = ^(<span class="built_in">BOOL</span> isON)&#123;</span><br><span class="line">        <span class="built_in">NSString</span> *message = isON?<span class="string">@"打开夜间模式"</span>:<span class="string">@"关闭夜间模式"</span>;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,message);</span><br><span class="line">    &#125;;</span><br><span class="line">    vm7.staticCellType = SJStaticCellTypeSystemAccessorySwitch;</span><br><span class="line">    vm7.identifier = <span class="number">7</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm8 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm8.leftTitle = <span class="string">@"清理缓存"</span>;</span><br><span class="line">    vm8.indicatorLeftTitle = <span class="string">@"12.3M"</span>;</span><br><span class="line">    vm8.identifier = <span class="number">8</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm2 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm2.leftTitle = <span class="string">@"隐私"</span>;</span><br><span class="line">    vm2.identifier = <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm3 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm3.leftTitle = <span class="string">@"通用"</span>;</span><br><span class="line">    vm3.identifier = <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section1 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm1,vm7,vm8,vm2,vm3]];</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ========== section 2</span></span><br><span class="line">    SJStaticTableviewCellViewModel *vm4 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm4.leftTitle = <span class="string">@"帮助与反馈"</span>;</span><br><span class="line">    vm4.identifier = <span class="number">4</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm5 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm5.leftTitle = <span class="string">@"关于微信"</span>;</span><br><span class="line">    vm5.identifier = <span class="number">5</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section2 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm4,vm5]];</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="comment">// ========== section 4</span></span><br><span class="line">    SJStaticTableviewCellViewModel *vm9 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm9.leftTitle = <span class="string">@"定制性cell展示页面 - 分组"</span>;</span><br><span class="line">    vm9.identifier = <span class="number">9</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm10 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm10.leftTitle = <span class="string">@"定制性cell展示页面 - 同组"</span>;</span><br><span class="line">    vm10.identifier = <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section4 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm9,vm10]];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">// ========== section 3</span></span><br><span class="line">    SJStaticTableviewCellViewModel *vm6 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm6.staticCellType = SJStaticCellTypeSystemLogout;</span><br><span class="line">    vm6.cellID = <span class="string">@"logout"</span>;</span><br><span class="line">    vm6.identifier = <span class="number">6</span>;</span><br><span class="line">   </span><br><span class="line">    SJStaticTableviewSectionViewModel *section3 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm6]];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> @[section0,section1,section2,section4,section3];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到，交给dataSource的数组是一个二维数组：</p>
+<ul>
+<li>第一维是section数组，元素是每一个section对应的viewModel：<code>SJStaticTableviewSectionViewModel</code>。</li>
+<li>第二维是cell数组，元素是每一个cell对应的viewModel:<code>SJStaticTableviewCellViewModel</code>。</li>
+</ul>
+<p>有几个<code>SJStaticTableviewCellViewModel</code>的属性需要强调一下：</p>
+<ol>
+<li>isImageFirst：因为该页面第一组的cell右侧的箭头左边同时存在一个image和一个label，所以需要额外设置二者的顺序。因为默认紧挨着箭头的是图片，所以我们需要重新设置它为NO，作用是让label紧挨着箭头。</li>
+<li>identifier：这个属性是一个整数，它用来标记每个cell，用于在用户点击cell的时候进行判断。我没有将用户的点击与cell的index相关联，是因为有的时候因为需求我们可能会更改cell的顺序或者删除某个cell，所以依赖cell的index是不妥的，容易出错。</li>
+<li>cellID：这个属性用来cell的复用。因为总是有个别cell的布局是不同的：在这里出现了一个退出登录的cell，所以需要和其他的cell区别开来（cellID可以不用设置，有默认值，用来标记最常用的cell类型）。</li>
+</ol>
+<p>显然，<code>Factory</code>类属于<code>Model</code>，它将“纯数据”交给了dataSource使用的两个viewModel。这个类是我自己定义的，读者在使用这个框架的时候可以根据需求自己定义。</p>
+<p>现在知道了数据源的设置方法，我们看一下第三个问题：</p>
+<h3 id="问题3：cell的绘制方法是如何区分的？"><a href="#问题3：cell的绘制方法是如何区分的？" class="headerlink" title="问题3：cell的绘制方法是如何区分的？"></a>问题3：cell的绘制方法是如何区分的？</h3><p>心细的同学会发现，在dataSource的<code>cellForRow:</code>方法里，我用了block方法来绘制了cell。</p>
+<p>先看一下这个block的定义：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^SJStaticCellConfigureBlock)(SJStaticTableViewCell *cell, SJStaticTableviewCellViewModel * viewModel);</span><br></pre></td></tr></table></figure></p>
+<p>这个block在控制器里面回调，通过判断cell的类型来绘制不同的cell。</p>
+<p>那么不同类型的cell是如何区分的呢？<br>— 我用的是分类。</p>
+<p>有分类，就一定有一个被分类的类： <code>SJStaticTableViewCell</code></p>
+<p>看一下它的头文件：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//所有cell都是这个类的分类</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJStaticTableViewCell</span> : <span class="title">UITableViewCell</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) SJStaticTableviewCellViewModel *viewModel;</span><br><span class="line"></span><br><span class="line"><span class="comment">// =============== 系统风格cell的所有控件 =============== //</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//左半部分</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *leftImageView;               <span class="comment">//左侧的ImageView</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UILabel</span> *leftTitleLabel;                  <span class="comment">//左侧的Label</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//右半部分</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *indicatorArrow;              <span class="comment">//右侧的箭头</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *indicatorLeftImageView;      <span class="comment">//右侧的箭头的左边的imageview</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UILabel</span> *indicatorLeftLabel;              <span class="comment">//右侧的箭头的左边的Label</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UISwitch</span> *indicatorSwitch;                <span class="comment">//右侧的箭头的左边的开关</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UILabel</span> *logoutLabel;                     <span class="comment">//退出登录的label</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// =============== 用户自定义的cell里面的控件 =============== //</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//MeViewController里面的头像cell</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *avatarImageView;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *codeImageView;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIImageView</span> *avatarIndicatorImageView;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UILabel</span> *userNameLabel;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UILabel</span> *userIdLabel;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//统一的，布局cell左侧部分的内容（标题 ／ 图片 + 标题），所有系统风格的cell都要调用这个方法</span></span><br><span class="line">- (<span class="keyword">void</span>)layoutLeftPartSubViewsWithViewModel:(SJStaticTableviewCellViewModel *)viewModel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>在这里我定义了所有的控件和一个布局cell左侧的控件的方法。因为几乎所有的分类的左侧几乎都是类似的，所以将它抽取出来。</p>
+<p>那么究竟有几个分类呢？（可以参考上面cellViewModel头文件里的枚举类型）</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//右侧有剪头的cell（最常见）</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJStaticTableViewCell</span> (<span class="title">AccessoryDisclosureIndicator</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)configureAccessoryDisclosureIndicatorCellWithViewModel:(SJStaticTableviewCellViewModel *)viewModel;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//右侧没有控件的cell</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJStaticTableViewCell</span> (<span class="title">AccessoryNone</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)configureAccessoryNoneCellWithViewModel:(SJStaticTableviewCellViewModel *)viewModel;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//右侧是开关的 cell</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJStaticTableViewCell</span> (<span class="title">AccessorySwitch</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)configureAccessorySwitchCellWithViewModel:(SJStaticTableviewCellViewModel *)viewModel;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//退出登录cell</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJStaticTableViewCell</span> (<span class="title">Logout</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)configureLogoutTableViewCellWithViewModel:(SJStaticTableviewCellViewModel *)viewModel;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个自定义的cell（在个人页的第一排）</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SJStaticTableViewCell</span> (<span class="title">MeAvatar</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)configureMeAvatarTableViewCellWithViewModel:(SJStaticTableviewCellViewModel *)viewModel;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在使用这个框架的时候，如果遇到不满足当前需求的情况，可以自己添加分类。</p>
+<h3 id="问题4：UITableViewDelegate的方法哪里去了？"><a href="#问题4：UITableViewDelegate的方法哪里去了？" class="headerlink" title="问题4：UITableViewDelegate的方法哪里去了？"></a>问题4：UITableViewDelegate的方法哪里去了？</h3><p>说到<code>UITableViewDelegate</code>的代理方法，我们最熟悉的莫过于<code>didSelectRowAtIndexPath:</code>了。</p>
+<p>但是我在写这个框架的时候，自己定义了一个继承于<code>UITableViewDelegate</code>的代理：<code>SJStaticTableViewDelegate</code>，并给它添加了一个代理方法：<br>``<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">SJStaticTableViewDelegate</span> &lt;<span class="title">UITableViewDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@optional</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)didSelectViewModel: (SJStaticTableviewCellViewModel *)viewModel atIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>这个方法返回的是当前点击的cell对应的viewModel，弱化了indexPath的作用。</p>
+<p>为什么要这么做？</p>
+<p>想一想原来点击cell的代理方法：<code>didSelectRowAtIndexPath:</code>。我们通过这个点击方法，拿到的是cell对应的indexPath，然后再通过这个indexPath，就可以在数据源里面查找对应的模型（viewModel或者model）。</p>
+<p>因此，我定义的这个方法直接返回了被点击cell对应的viewModel，等于说帮使用者节省了一个步骤。当然如果要使用的话也可以使用系统原来的<code>didSelectRowAtIndexPath:</code>方法。</p>
+<p>来看一下这个新的代理方法是如何实现的：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SJStaticTableView.m</span></span><br><span class="line">- (<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView didSelectRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    [tableView deselectRowAtIndexPath:indexPath animated:<span class="literal">YES</span>];</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">self</span>.sjDelegate) &amp;&amp; [<span class="keyword">self</span>.sjDelegate respondsToSelector:<span class="keyword">@selector</span>(didSelectViewModel:atIndexPath:)]) &#123;</span><br><span class="line">        </span><br><span class="line">        SJStaticTableviewCellViewModel *cellViewModel = [<span class="keyword">self</span>.sjDataSource tableView:tableView cellViewModelAtIndexPath:indexPath];</span><br><span class="line">        [<span class="keyword">self</span>.sjDelegate didSelectViewModel:cellViewModel atIndexPath:indexPath];</span><br><span class="line">        </span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>((<span class="keyword">self</span>.sjDelegate)&amp;&amp; [<span class="keyword">self</span>.sjDelegate respondsToSelector:<span class="keyword">@selector</span>(tableView:didSelectRowAtIndexPath:)])&#123;</span><br><span class="line">        </span><br><span class="line">        [<span class="keyword">self</span>.sjDelegate tableView:tableView didSelectRowAtIndexPath:indexPath];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在读者应该大致了解了这个框架的实现思路，现在我讲一下这个框架的定制性。</p>
+<h1 id="4-定制性"><a href="#4-定制性" class="headerlink" title="4. 定制性"></a>4. 定制性</h1><hr>
+<p>这个框架有一个配置文件：SJConst.h，它定义了这个框架的所有默认数据和默认配置，比如cell左侧lable的字体，颜色；左侧label和image的距离；右侧label的字体和颜色，右侧图片的默认大小等等。来看一下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ifndef SJConst_h</span></span><br><span class="line"><span class="meta">#define SJConst_h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//distance</span></span><br><span class="line"><span class="meta">#define SJScreenWidth      [UIScreen mainScreen].bounds.size.width</span></span><br><span class="line"><span class="meta">#define SJScreenHeight     [UIScreen mainScreen].bounds.size.height</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#define SJTopGap 8               //same as bottom gap</span></span><br><span class="line"><span class="meta">#define SJLeftGap 12             //same as right gap</span></span><br><span class="line"><span class="meta">#define SJLeftMiddleGap 10       //in left  part: the gap between image and label</span></span><br><span class="line"><span class="meta">#define SJRightMiddleGap 6       //in right part: the gap between image and label</span></span><br><span class="line"><span class="meta">#define SJImgWidth 30            //default width and height</span></span><br><span class="line"><span class="meta">#define SJTitleWidthLimit 180    //limt width of left and right labels</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//image</span></span><br><span class="line"><span class="meta">#define SJIndicatorArrow @<span class="meta-string">"arrow"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//font</span></span><br><span class="line"><span class="meta">#define SJLeftTitleTextFont               [UIFont systemFontOfSize:15]</span></span><br><span class="line"><span class="meta">#define SJLogoutButtonFont                [UIFont systemFontOfSize:16]</span></span><br><span class="line"><span class="meta">#define SJIndicatorLeftTitleTextFont      [UIFont systemFontOfSize:13]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//color</span></span><br><span class="line"><span class="meta">#define SJColorWithRGB(R,G,B,A)           [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]</span></span><br><span class="line"><span class="meta">#define SJLeftTitleTextColor              [UIColor blackColor]</span></span><br><span class="line"><span class="meta">#define SJIndicatorLeftTitleTextColor     SJColorWithRGB(136,136,136,1)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#endif /* SJConst_h */</span></span><br></pre></td></tr></table></figure>
+<p>这里定义的默认配置在cellViewModel和sectionViewModel初始化的时候使用：</p>
+<p>cell的viewModel：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SJStaticTableviewCellViewModel.m</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)init</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;        </span><br><span class="line">        _cellHeight = <span class="number">44</span>;</span><br><span class="line">        _cellID = <span class="string">@"defaultCell"</span>;</span><br><span class="line">        _staticCellType = SJStaticCellTypeSystemAccessoryDisclosureIndicator;<span class="comment">//默认是存在三角箭头的cell</span></span><br><span class="line">        _isImageFirst = <span class="literal">YES</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//都是默认配置</span></span><br><span class="line">        _leftLabelTextFont = SJLeftTitleTextFont;</span><br><span class="line">        _leftLabelTextColor = SJLeftTitleTextColor;</span><br><span class="line">        _leftImageSize = <span class="built_in">CGSizeMake</span>(SJImgWidth, SJImgWidth);</span><br><span class="line">        _leftImageAndLabelGap = SJLeftMiddleGap;</span><br><span class="line">        _indicatorLeftLabelTextFont = SJIndicatorLeftTitleTextFont;</span><br><span class="line">        _indicatorLeftLabelTextColor = SJIndicatorLeftTitleTextColor;</span><br><span class="line">        _indicatorLeftImageSize = <span class="built_in">CGSizeMake</span>(SJImgWidth, SJImgWidth);</span><br><span class="line">        _indicatorLeftImageAndLabelGap = SJRightMiddleGap;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>section的viewModel：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)initWithCellViewModelsArray:(<span class="built_in">NSArray</span> *)cellViewModelsArray</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _sectionHeaderHeight = <span class="number">10</span>;</span><br><span class="line">        _sectionFooterHeight = <span class="number">10</span>;</span><br><span class="line">        _leftLabelTextFont = SJLeftTitleTextFont;</span><br><span class="line">        _leftLabelTextColor = SJLeftTitleTextColor;</span><br><span class="line">        _leftImageSize = <span class="built_in">CGSizeMake</span>(SJImgWidth, SJImgWidth);</span><br><span class="line">        _leftImageAndLabelGap = SJLeftMiddleGap;</span><br><span class="line">        _indicatorLeftLabelTextFont = SJIndicatorLeftTitleTextFont;</span><br><span class="line">        _indicatorLeftLabelTextColor = SJIndicatorLeftTitleTextColor;</span><br><span class="line">        _indicatorLeftImageSize = <span class="built_in">CGSizeMake</span>(SJImgWidth, SJImgWidth);</span><br><span class="line">        _indicatorLeftImageAndLabelGap = SJRightMiddleGap;</span><br><span class="line">        _cellViewModelsArray = cellViewModelsArray;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>显然，这个默认配置只有一组，但是可能一个app里面同时存在一个设置页和一个个人页。而这两个页面的风格也可能是不一样的，所以这个默认配置只能给其中一个页面，另一个页面需要另外配置，于是就有了定制性的功能。</p>
+<p>再来看一下展示定制性效果的图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/4/24/dc3d7675b3eedb3dbe4ac3b7bb20d7db" alt="分组定制 | 同组定制"></p>
+<p>参照这个效果图，我们看一下这两个页面的数据源是如何设置的：</p>
+<p>分组页面：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span> *)customCellsPageData</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//默认配置</span></span><br><span class="line">    SJStaticTableviewCellViewModel *vm1 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm1.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm1.leftTitle = <span class="string">@"全部默认配置，用于对照"</span>;</span><br><span class="line">    vm1.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm1.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section1 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm1]];</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm2 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm2.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm2.leftTitle = <span class="string">@"左侧图片变小"</span>;</span><br><span class="line">    vm2.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm2.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section2 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm2]];</span><br><span class="line">    section2.leftImageSize = <span class="built_in">CGSizeMake</span>(<span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm3 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm3.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm3.leftTitle = <span class="string">@"字体变小变红"</span>;</span><br><span class="line">    vm3.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm3.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section3 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm3]];</span><br><span class="line">    section3.leftLabelTextFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">8</span>];</span><br><span class="line">    section3.leftLabelTextColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm4 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm4.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm4.leftTitle = <span class="string">@"左侧两个控件距离变大"</span>;</span><br><span class="line">    vm4.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm4.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section4 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm4]];</span><br><span class="line">    section4.leftImageAndLabelGap = <span class="number">20</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm5 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm5.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm5.leftTitle = <span class="string">@"右侧图片变小"</span>;</span><br><span class="line">    vm5.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm5.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section5 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm5]];</span><br><span class="line">    section5.indicatorLeftImageSize = <span class="built_in">CGSizeMake</span>(<span class="number">15</span>, <span class="number">15</span>);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm6= [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm6.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm6.leftTitle = <span class="string">@"右侧字体变大变蓝"</span>;</span><br><span class="line">    vm6.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm6.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section6 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm6]];</span><br><span class="line">    section6.indicatorLeftLabelTextFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18</span>];</span><br><span class="line">    section6.indicatorLeftLabelTextColor = [<span class="built_in">UIColor</span> blueColor];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm7= [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm7.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm7.leftTitle = <span class="string">@"右侧两个控件距离变大"</span>;</span><br><span class="line">    vm7.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm7.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section7 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm7]];</span><br><span class="line">    section7.indicatorLeftImageAndLabelGap = <span class="number">18</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> @[section1,section2,section3,section4,section5,section6,section7];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>我们可以看到，定制的代码都作用于section的viewModel。</p>
+</blockquote>
+<p>同组页面：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSArray</span> *)customCellsOneSectionPageData</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//默认配置</span></span><br><span class="line">    SJStaticTableviewCellViewModel *vm1 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm1.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm1.leftTitle = <span class="string">@"全部默认配置，用于对照"</span>;</span><br><span class="line">    vm1.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm1.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm2 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm2.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm2.leftTitle = <span class="string">@"左侧图片变小"</span>;</span><br><span class="line">    vm2.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm2.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    vm2.leftImageSize = <span class="built_in">CGSizeMake</span>(<span class="number">20</span>, <span class="number">20</span>);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm3 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm3.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm3.leftTitle = <span class="string">@"字体变小变红"</span>;</span><br><span class="line">    vm3.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm3.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    vm3.leftLabelTextFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">8</span>];</span><br><span class="line">    vm3.leftLabelTextColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm4 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm4.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm4.leftTitle = <span class="string">@"左侧两个控件距离变大"</span>;</span><br><span class="line">    vm4.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm4.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    vm4.leftImageAndLabelGap = <span class="number">20</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm5 = [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm5.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm5.leftTitle = <span class="string">@"右侧图片变小"</span>;</span><br><span class="line">    vm5.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm5.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    vm5.indicatorLeftImageSize = <span class="built_in">CGSizeMake</span>(<span class="number">15</span>, <span class="number">15</span>);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm6= [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm6.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm6.leftTitle = <span class="string">@"右侧字体变大变蓝"</span>;</span><br><span class="line">    vm6.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm6.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    vm6.indicatorLeftLabelTextFont = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18</span>];</span><br><span class="line">    vm6.indicatorLeftLabelTextColor = [<span class="built_in">UIColor</span> blueColor];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewCellViewModel *vm7= [[SJStaticTableviewCellViewModel alloc] init];</span><br><span class="line">    vm7.leftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"MoreGame"</span>];</span><br><span class="line">    vm7.leftTitle = <span class="string">@"右侧两个控件距离变大"</span>;</span><br><span class="line">    vm7.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"wzry"</span>];</span><br><span class="line">    vm7.indicatorLeftTitle = <span class="string">@"王者荣耀!"</span>;</span><br><span class="line">    vm7.indicatorLeftImageAndLabelGap = <span class="number">18</span>;</span><br><span class="line">    </span><br><span class="line">    SJStaticTableviewSectionViewModel *section1 = [[SJStaticTableviewSectionViewModel alloc] initWithCellViewModelsArray:@[vm1,vm2,vm3,vm4,vm5,vm6,vm7]];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> @[section1];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>为了方便比较，同组页面的定制和分组是一致的。我们可以看到，定制代码都作用于cell的viewModel上了。</p>
+</blockquote>
+<p>为什么要有同组和分组展示？</p>
+<p>同组和分组展示的目的，是为了展示这个框架的两种定制性。</p>
+<ul>
+<li><p>分组页面所展示的是section级的定制性：cell的配置任务交给section层的viewModel。一旦设置，该section里面的所有cell都能保持这一配置。</p>
+</li>
+<li><p>同组页面所展示的是cell级的定制性：cell的配置任务交给cell层的viewModel。一旦设置，只有当前cell具有这个配置，不影响其他cell。</p>
+</li>
+</ul>
+<p>其实为了省事，只在section层的viewModel上配置即可（如果给每个cell都给设置相同的配置太不优雅了），因为从设计角度来看，一个section里面的cell的风格不一致的情况比较少见（我觉得不符合设计）：比如在一个section里面，不太可能两个cell里面的图片大小是不一样的，或者字体大小也不一样。</p>
+<p>还是看一下section级的定制代码吧：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//重新设置了该组全部cell里面左侧label的字体</span></span><br><span class="line">- (<span class="keyword">void</span>)setLeftLabelTextFont:(<span class="built_in">UIFont</span> *)leftLabelTextFont</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (_leftLabelTextFont != leftLabelTextFont) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (![<span class="keyword">self</span> font1:_leftLabelTextFont hasSameFontSizeOfFont2:leftLabelTextFont]) &#123;</span><br><span class="line">            </span><br><span class="line">            _leftLabelTextFont = leftLabelTextFont;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//如果新的宽度大于原来的宽度，需要重新设置，否则不需要</span></span><br><span class="line">            [_cellViewModelsArray enumerateObjectsUsingBlock:^(SJStaticTableviewCellViewModel * viewModel, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</span><br><span class="line">                viewModel.leftLabelTextFont = _leftLabelTextFont;</span><br><span class="line">                <span class="built_in">CGSize</span> size = [<span class="keyword">self</span> sizeForTitle:viewModel.leftTitle withFont:_leftLabelTextFont];</span><br><span class="line">                <span class="keyword">if</span> (size.width &gt; viewModel.leftTitleLabelSize.width) &#123;</span><br><span class="line">                    viewModel.leftTitleLabelSize = size;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//重新设置了该组全部cell里面左侧label的字的颜色</span></span><br><span class="line">- (<span class="keyword">void</span>)setLeftLabelTextColor:(<span class="built_in">UIColor</span> *)leftLabelTextColor</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> color1:_leftLabelTextColor hasTheSameRGBAOfColor2:leftLabelTextColor]) &#123;</span><br><span class="line">         _leftLabelTextColor = leftLabelTextColor;</span><br><span class="line">        [_cellViewModelsArray makeObjectsPerformSelector:<span class="keyword">@selector</span>(setLeftLabelTextColor:) withObject:_leftLabelTextColor];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//重新设置了该组全部cell里面左侧图片等大小</span></span><br><span class="line">- (<span class="keyword">void</span>)setLeftImageSize:(<span class="built_in">CGSize</span>)leftImageSize</span><br><span class="line">&#123;</span><br><span class="line">    SJStaticTableviewCellViewModel *viewMoel = _cellViewModelsArray.firstObject;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> cellHeight = viewMoel.cellHeight;</span><br><span class="line">    <span class="keyword">if</span> ( (!<span class="built_in">CGSizeEqualToSize</span>(_leftImageSize, leftImageSize)) &amp;&amp; (leftImageSize.height &lt; cellHeight)) &#123;</span><br><span class="line">        _leftImageSize = leftImageSize;</span><br><span class="line">        [_cellViewModelsArray enumerateObjectsUsingBlock:^(SJStaticTableviewCellViewModel *viewModel, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop)</span><br><span class="line">        &#123;</span><br><span class="line">            viewMoel.leftImageSize = _leftImageSize;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为每个section都持有它内部的所有cell的viewModel，所以在set方法里面，如果发现传进来的配置与当前配置不一致，就需要更新所有cell的viewModel对应的属性。</p>
+<p>既然section的ViewModel能做这些，为什么还要有一个cell层的配置呢？</p>
+<p>– 只是为了提高配置的自由度罢了，万一突然来个需求需要某个cell很独特呢？（大家应该知道我说的神么意思 ^^）</p>
+<p>cell的viewModel属性的set方法的实现和section的一致，这里就不上代码了。</p>
+<h1 id="5-新增支持刷新功能"><a href="#5-新增支持刷新功能" class="headerlink" title="5. 新增支持刷新功能"></a>5. 新增支持刷新功能</h1><p>在1.1.2版本支持了：在更新数据源后，刷新数据源。<br>举个例子：在发现页模拟网络请求，在请求结束后更新某个cell的viewmodel：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//模拟网络请求</span></span><br><span class="line">dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">2</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//请求成功x</span></span><br><span class="line">        <span class="built_in">NSDictionary</span> *responseDict = @&#123;<span class="string">@"title_info"</span>:<span class="string">@"新游戏上架啦"</span>,</span><br><span class="line">                                       <span class="string">@"title_icon"</span>:<span class="string">@"game_1"</span>,</span><br><span class="line">                                       <span class="string">@"game_info"</span>:<span class="string">@"一起来玩斗地主呀！"</span>,</span><br><span class="line">                                       <span class="string">@"game_icon"</span>:<span class="string">@"doudizhu"</span></span><br><span class="line">                                       &#125;;</span><br><span class="line">        <span class="comment">//将要刷新cell的indexPath</span></span><br><span class="line">        <span class="built_in">NSIndexPath</span> *indexPath = [<span class="built_in">NSIndexPath</span> indexPathForRow:<span class="number">1</span> inSection:<span class="number">3</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//获取cell对应的viewModel</span></span><br><span class="line">        SJStaticTableviewCellViewModel *viewModel = [<span class="keyword">self</span>.dataSource tableView:<span class="keyword">self</span>.tableView cellViewModelAtIndexPath:indexPath];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (viewModel) &#123;</span><br><span class="line">            <span class="comment">//更新viewModel</span></span><br><span class="line">            viewModel.leftTitle = responseDict[<span class="string">@"title_info"</span>];</span><br><span class="line">            viewModel.leftImage = [<span class="built_in">UIImage</span> imageNamed:responseDict[<span class="string">@"title_icon"</span>]];</span><br><span class="line">            viewModel.indicatorLeftImage = [<span class="built_in">UIImage</span> imageNamed:responseDict[<span class="string">@"game_icon"</span>]];</span><br><span class="line">            viewModel.indicatorLeftTitle = responseDict[<span class="string">@"game_info"</span>];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//刷新tableview</span></span><br><span class="line">            [<span class="keyword">self</span>.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:<span class="built_in">UITableViewRowAnimationFade</span>];</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<p>效果图：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2017/4/24/8906383a490f9507e37f9f122e2a4eee" alt="更新数据源后刷新表格"></p>
+<h1 id="6-新增支持数据源完全依赖网络请求"><a href="#6-新增支持数据源完全依赖网络请求" class="headerlink" title="6. 新增支持数据源完全依赖网络请求"></a>6. 新增支持数据源完全依赖网络请求</h1><p>在1.2.0版本支持了：数据源完全依赖网络请求的情况。</p>
+<p>现在的最新版本里，SJStaticViewController在创建的时候分为两种情况:</p>
+<ol>
+<li>SJDefaultDataTypeExist：在表格生成之前就存在数据，可以是表格的全部数据，也可以是表格的默认数据（后来通过网络请求来更新部分数据，参考上一节）。</li>
+<li>SJDefaultDataTypeNone：意味着当前没有任何的默认数据可以使用，也就是无法生成tableview，需要在网络请求拿到数据后，再手动调用生成数据源，生成表格的方法。</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SJStaticTableViewController.h</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> : <span class="built_in">NSUInteger</span> &#123;</span><br><span class="line">    </span><br><span class="line">    SJDefaultDataTypeExist,    <span class="comment">//在表格生成之前就有数据（1. 完全不依赖网络请求，有现成的完整数据 2. 先生成默认数据，然后通过网络请求来更新数据并刷新表格）</span></span><br><span class="line">    SJDefaultDataTypeNone,     <span class="comment">//无法生成默认数据，需要完全依赖网络请求，在拿到数据后，生成表格</span></span><br><span class="line">    </span><br><span class="line">&#125;SJDefaultDataType;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithDefaultDataType:(SJDefaultDataType)defualtDataType;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SJStaticTableViewController.m</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithDefaultDataType:(SJDefaultDataType)defualtDataType</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.defualtDataType = defualtDataType;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">self</span> initWithDefaultDataType:SJDefaultDataTypeExist];<span class="comment">//默认是SJDefaultDataTypeExist</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    [<span class="keyword">self</span> configureNav];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//在能够提供给tableivew全部，或者部分数据源的情况下，可以先构造出tableview；</span></span><br><span class="line">    <span class="comment">//否则，需要在网络请求结束后，手动调用configureTableView方法</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.defualtDataType == SJDefaultDataTypeExist) &#123;</span><br><span class="line">        [<span class="keyword">self</span> configureTableView];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//只有在SJDefaultDataTypeExist的时候才会自动调用，否则需要手动调用</span></span><br><span class="line">- (<span class="keyword">void</span>)configureTableView</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> createDataSource];<span class="comment">//生成数据源</span></span><br><span class="line">    [<span class="keyword">self</span> createTableView];<span class="comment">//生成表格</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一个例子，我们将表情页设置为<code>SJDefaultDataTypeNone</code>，那么就意味着我们需要手动调用<code>configureTableView</code>方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    </span><br><span class="line">     <span class="keyword">self</span>.navigationItem.title = <span class="string">@"表情"</span>;</span><br><span class="line">    [<span class="keyword">self</span> networkRequest];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)networkRequest</span><br><span class="line">&#123;</span><br><span class="line">    [MBProgressHUD showHUDAddedTo: <span class="keyword">self</span>.view animated:<span class="literal">YES</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//模拟网络请求</span></span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1.5</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        </span><br><span class="line">        [MBProgressHUD hideHUDForView: <span class="keyword">self</span>.view animated:<span class="literal">YES</span>];</span><br><span class="line">         <span class="keyword">self</span>.modelsArray = [Factory emoticonPage];<span class="comment">//网络请求后，将数据保存在self.modelsArray里面</span></span><br><span class="line">        [<span class="keyword">self</span> configureTableView];<span class="comment">//手动调用</span></span><br><span class="line">        </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)createDataSource</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.dataSource = [[SJStaticTableViewDataSource alloc] initWithViewModelsArray:<span class="keyword">self</span>.modelsArray configureBlock:^(SJStaticTableViewCell *cell, SJStaticTableviewCellViewModel *viewModel) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">switch</span> (viewModel.staticCellType) &#123;</span><br><span class="line">                </span><br><span class="line">            <span class="keyword">case</span> SJStaticCellTypeSystemAccessoryDisclosureIndicator:</span><br><span class="line">            &#123;</span><br><span class="line">                [cell configureAccessoryDisclosureIndicatorCellWithViewModel:viewModel];</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                </span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下效果图：<br><img src="https://user-gold-cdn.xitu.io/2017/4/24/dddb4eed3379c043133ba38d2d8ef1a4.png" alt=""><br>好了，到这里就讲差不多了，代码量虽然不多，但是都说清楚还是感觉挺需要时间想的。</p>
+<p>希望如果各位觉得哪里不好，可以给出您的宝贵意见～</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/出一套 iOS 高级面试题/" rel="next" title="出一套 iOS 高级面试题">
+                <i class="fa fa-chevron-left"></i> 出一套 iOS 高级面试题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/如何提高代码的可读性/" rel="prev" title="如何提高代码的可读性? -读《编写可读代码的艺术》">
+                如何提高代码的可读性? -读《编写可读代码的艺术》 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新记录："><span class="nav-number">1.</span> <span class="nav-text">更新记录：</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#1-用到的技术点"><span class="nav-number"></span> <span class="nav-text">1. 用到的技术点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-功能介绍"><span class="nav-number"></span> <span class="nav-text">2. 功能介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-使用方法"><span class="nav-number"></span> <span class="nav-text">3. 使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集成方法："><span class="nav-number"></span> <span class="nav-text">集成方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1：UITableViewDataSource方法哪儿去了？"><span class="nav-number">1.</span> <span class="nav-text">问题1：UITableViewDataSource方法哪儿去了？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题2：-viewModel数组是如何设置的？"><span class="nav-number"></span> <span class="nav-text">问题2： viewModel数组是如何设置的？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题3：cell的绘制方法是如何区分的？"><span class="nav-number">1.</span> <span class="nav-text">问题3：cell的绘制方法是如何区分的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题4：UITableViewDelegate的方法哪里去了？"><span class="nav-number">2.</span> <span class="nav-text">问题4：UITableViewDelegate的方法哪里去了？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-定制性"><span class="nav-number"></span> <span class="nav-text">4. 定制性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-新增支持刷新功能"><span class="nav-number"></span> <span class="nav-text">5. 新增支持刷新功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-新增支持数据源完全依赖网络请求"><span class="nav-number"></span> <span class="nav-text">6. 新增支持数据源完全依赖网络请求</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

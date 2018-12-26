@@ -1,0 +1,1275 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objectice-C,Object-Oriented,Design Principle,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="学习初衷与讲解方式笔者想在iOS从业第三年结束之前系统学习一下关于设计模式方面的知识。而在学习设计模式之前，觉得更有必要先学习面向对象设计（OOD：Object Oriented Design）的几大设计原则，为后面设计模式的学习打下基础。 本篇分享的就是笔者近阶段学习和总结的面向对象设计的六个设计原则：    缩写 英文名称 中文名称     SRP Single Responsibility">
+<meta name="keywords" content="iOS,Objectice-C,Object-Oriented,Design Principle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象设计的六大设计原则（附 Demo 及 UML 类图）">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/面向对象设计的六大设计原则（附 Demo 及 UML 类图）/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="学习初衷与讲解方式笔者想在iOS从业第三年结束之前系统学习一下关于设计模式方面的知识。而在学习设计模式之前，觉得更有必要先学习面向对象设计（OOD：Object Oriented Design）的几大设计原则，为后面设计模式的学习打下基础。 本篇分享的就是笔者近阶段学习和总结的面向对象设计的六个设计原则：    缩写 英文名称 中文名称     SRP Single Responsibility">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/design-principle/odd_dp_banner.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/OCP11.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/OCP2.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/SRP11.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/SRP2.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/DIP1.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/DIP22.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/ISP1.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/ISP2.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/LOD111.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/LOD2.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/LSP11.png">
+<meta property="og:image" content="http://oih3a9o4n.bkt.clouddn.com/LSP22.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向对象设计的六大设计原则（附 Demo 及 UML 类图）">
+<meta name="twitter:description" content="学习初衷与讲解方式笔者想在iOS从业第三年结束之前系统学习一下关于设计模式方面的知识。而在学习设计模式之前，觉得更有必要先学习面向对象设计（OOD：Object Oriented Design）的几大设计原则，为后面设计模式的学习打下基础。 本篇分享的就是笔者近阶段学习和总结的面向对象设计的六个设计原则：    缩写 英文名称 中文名称     SRP Single Responsibility">
+<meta name="twitter:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/design-principle/odd_dp_banner.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/面向对象设计的六大设计原则（附 Demo 及 UML 类图）/">
+
+
+
+
+
+  <title> 面向对象设计的六大设计原则（附 Demo 及 UML 类图） | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/面向对象设计的六大设计原则（附 Demo 及 UML 类图）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                面向对象设计的六大设计原则（附 Demo 及 UML 类图）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Object-Oriented/" itemprop="url" rel="index">
+                    <span itemprop="name">Object-Oriented</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  11,461 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  45 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/design-principle/odd_dp_banner.png" alt=""></p>
+<h1 id="学习初衷与讲解方式"><a href="#学习初衷与讲解方式" class="headerlink" title="学习初衷与讲解方式"></a>学习初衷与讲解方式</h1><p>笔者想在iOS从业第三年结束之前系统学习一下关于设计模式方面的知识。而在学习设计模式之前，觉得更有必要先学习面向对象设计（OOD：Object Oriented Design）的几大设计原则，为后面设计模式的学习打下基础。</p>
+<p>本篇分享的就是笔者近阶段学习和总结的面向对象设计的六个设计原则：</p>
+<table>
+<thead>
+<tr>
+<th>缩写</th>
+<th>英文名称</th>
+<th>中文名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SRP</td>
+<td>Single Responsibility Principle</td>
+<td>单一职责原则</td>
+</tr>
+<tr>
+<td>OCP</td>
+<td>Open Close Principle</td>
+<td>开闭原则</td>
+</tr>
+<tr>
+<td>LSP</td>
+<td>Liskov Substitution Principle</td>
+<td>里氏替换原则</td>
+</tr>
+<tr>
+<td>LoD</td>
+<td>Law of Demeter （ Least Knowledge Principle）</td>
+<td>迪米特法则（最少知道原则）</td>
+</tr>
+<tr>
+<td>ISP</td>
+<td>Interface Segregation Principle</td>
+<td>接口分离原则</td>
+</tr>
+<tr>
+<td>DIP</td>
+<td>Dependency Inversion Principle</td>
+<td>依赖倒置原则</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<blockquote>
+<p>注意，通常所说的<code>SOLID</code>（上方表格缩写的首字母，从上到下）设计原则没有包含本篇介绍的迪米特法则，而只有其他五项。另外，本篇不包含合成/聚合复用原则(CARP)，因为笔者认为该原则没有其他六个原则典型，而且在实践中也不容易违背。有兴趣的同学可以自行查资料学习。</p>
+</blockquote>
+<p>在下一章节笔者将分别讲解这些设计原则，讲解的方式是将概念与代码及其对应的UML 类图结合起来讲解的方式。</p>
+<p>代码的语言使用的是笔者最熟悉的Objective-C语言。虽然是一个比较小众的语言，但是因为有 UML 类图的帮助，而且主流的面向对象语言关于类，接口（Objective-C里面是协议）的使用在形式上类似，所以笔者相信语言的小众不会对知识的理解产生太大的阻力。</p>
+<p>另外，在每个设计模式的讲解里，笔者会首先描述一个应用场景（需求点），接着用<strong>两种设计的代码来进行对比</strong>讲解：先提供相对不好的设计的代码，再提供相对好的设计的代码。而且两种代码都会附上标准的 UML 类图来进行更形象地对比，帮助大家来理解。同时也可以帮助不了解 UML 类图的读者先简单熟悉一下 UML 类图的语法。</p>
+<h1 id="六大设计原则"><a href="#六大设计原则" class="headerlink" title="六大设计原则"></a>六大设计原则</h1><p>本篇讲解六大设计原则的顺序大致按照难易程序排列。在这里最先讲解开闭原则，因为其在理解上比较简单，而且也是其他设计原则的基石。</p>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>六个原则的讲解所用的例子之间并没有关联，所以阅读顺序可以按照读者的喜好来定。</li>
+<li>Java语言里的接口在Objective-C里面叫做协议。虽然Demo是用Objective-C写的，但是因为协议的叫法比较小众，故后面一律用接口代替协议这个说法。</li>
+</ol>
+</blockquote>
+<h2 id="原则一：开闭原则（Open-Close-Principle）"><a href="#原则一：开闭原则（Open-Close-Principle）" class="headerlink" title="原则一：开闭原则（Open Close Principle）"></a>原则一：开闭原则（Open Close Principle）</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.</p>
+</blockquote>
+<p>即：一个软件实体如类、模块和函数应该对扩展开放，对修改关闭。</p>
+<h3 id="定义的解读"><a href="#定义的解读" class="headerlink" title="定义的解读"></a>定义的解读</h3><ul>
+<li>用抽象构建框架，用实现扩展细节。</li>
+<li>不以改动原有类的方式来实现新需求，而是应该以实现事先抽象出来的接口（或具体类继承抽象类）的方式来实现。</li>
+</ul>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>实践开闭原则的优点在于可以在不改动原有代码的前提下给程序扩展功能。增加了程序的可扩展性，同时也降低了程序的维护成本。</p>
+<h3 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h3><p>下面通过一个简单的关于在线课程的例子讲解一下开闭原则的实践。</p>
+<h4 id="需求点"><a href="#需求点" class="headerlink" title="需求点"></a>需求点</h4><p>设计一个在线课程类：</p>
+<p>由于教学资源有限，开始的时候只有类似于博客的，通过文字讲解的课程。<br>但是随着教学资源的增多，后来增加了视频课程，音频课程以及直播课程。</p>
+<p>先来看一下不好的设计：</p>
+<h4 id="不好的设计"><a href="#不好的设计" class="headerlink" title="不好的设计"></a>不好的设计</h4><p>最开始的文字课程类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Course.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Course</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *courseTitle;         <span class="comment">//课程名称</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *courseIntroduction;  <span class="comment">//课程介绍</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *teacherName;         <span class="comment">//讲师姓名</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *content;             <span class="comment">//课程内容</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p><code>Course</code>类声明了最初的在线课程所需要包含的数据：</p>
+<ul>
+<li>课程名称</li>
+<li>课程介绍</li>
+<li>讲师姓名</li>
+<li>文字内容</li>
+</ul>
+<p>接着按照上面所说的需求变更：增加了视频，音频，直播课程：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Course.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Course</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *courseTitle;         <span class="comment">//课程名称</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *courseIntroduction;  <span class="comment">//课程介绍</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *teacherName;         <span class="comment">//讲师姓名</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *content;             <span class="comment">//文字内容</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//新需求：视频课程</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *videoUrl;</span><br><span class="line"></span><br><span class="line"><span class="comment">//新需求：音频课程</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *audioUrl;</span><br><span class="line"></span><br><span class="line"><span class="comment">//新需求：直播课程</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *liveUrl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>三种新增的课程都在原<code>Course</code>类中添加了对应的url。也就是每次添加一个新的类型的课程，都在原有<code>Course</code>类里面修改：新增这种课程需要的数据。</p>
+<p>这就导致：我们从<code>Course</code>类实例化的视频课程对象会包含并不属于自己的数据：<code>audioUrl</code>和<code>liveUrl</code>：这样就造成了冗余，视频课程对象并不是纯粹的视频课程对象，它包含了音频地址，直播地址等成员。</p>
+<p>很显然，这个设计不是一个好的设计，因为（对应上面两段叙述）：</p>
+<ol>
+<li>随着需求的增加，需要反复修改之前创建的类。</li>
+<li>给新增的类造成了不必要的冗余。</li>
+</ol>
+<p>之所以会造成上述两个缺陷，是因为该设计<strong>没有遵循对修改关闭，对扩展开放的开闭原则</strong>，而是反其道而行之：开放修改，而且不给扩展提供便利。</p>
+<p>难么怎么做可以遵循开闭原则呢？下面看一下遵循开闭原则的较好的设计：</p>
+<h4 id="较好的设计"><a href="#较好的设计" class="headerlink" title="较好的设计"></a>较好的设计</h4><p>首先在<code>Course</code>类中仅仅保留所有课程都含有的数据：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Course.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Course</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *courseTitle;         <span class="comment">//课程名称</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *courseIntroduction;  <span class="comment">//课程介绍</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *teacherName;         <span class="comment">//讲师姓名</span></span><br></pre></td></tr></table></figure>
+<p>接着，针对文字课程，视频课程，音频课程，直播课程这三种新型的课程采用继承<code>Course</code>类的方式。而且继承后，添加自己独有的数据：</p>
+<p>文字课程类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== TextCourse.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">TextCourse</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *content;             <span class="comment">//文字内容</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>视频课程类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== VideoCourse.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">VideoCourse</span> : <span class="title">Course</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *videoUrl;            <span class="comment">//视频地址</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>音频课程类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== AudioCourse.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AudioCourse</span> : <span class="title">Course</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *audioUrl;            <span class="comment">//音频地址</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>直播课程类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== LiveCourse.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">LiveCourse</span> : <span class="title">Course</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *liveUrl;             <span class="comment">//直播地址</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>这样一来，上面的两个问题都得到了解决：</p>
+<ol>
+<li>随着课程类型的增加，不需要反复修改最初的父类（<code>Course</code>），只需要新建一个继承于它的子类并在子类中添加仅属于该子类的数据（或行为）即可。</li>
+<li>因为各种课程独有的数据（或行为）都被分散到了不同的课程子类里，所以每个子类的数据（或行为）没有任何冗余。</li>
+</ol>
+<p>而且对于第二点：或许今后的视频课程可以有高清地址，视频加速功能。而这些功能只需要在<code>VideoCourse</code>类里添加即可，因为它们都是视频课程所独有的。同样地，直播课程后面还可以支持在线问答功能，也可以仅加在<code>LiveCourse</code>里面。</p>
+<p>我们可以看到，正是由于最初程序设计合理，所以对后面需求的增加才会处理得很好。</p>
+<p>下面来看一下这两个设计的UML 类图，可以更形象地看出两种设计上的区别：</p>
+<h4 id="UML-类图对比"><a href="#UML-类图对比" class="headerlink" title="UML 类图对比"></a>UML 类图对比</h4><p>未实践开闭原则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/OCP11.png" alt="未实践开闭原则"></p>
+<p>实践了开闭原则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/OCP2.png" alt="实践了开闭原则"></p>
+<blockquote>
+<p>在实践了开闭原则的 UML 类图中，四个课程类继承了<code>Course</code>类并添加了自己独有的属性。（在 UML 类图中：实线空心三角箭头代表继承关系：由子类指向其父类）</p>
+</blockquote>
+<h3 id="如何实践"><a href="#如何实践" class="headerlink" title="如何实践"></a>如何实践</h3><p>为了更好地实践开闭原则，在设计之初就要想清楚在该场景里哪些数据（或行为）是一定不变（或很难再改变）的，哪些是很容易变动的。将后者抽象成接口或抽象方法，以便于在将来通过创造具体的实现应对不同的需求。</p>
+<h2 id="原则二：单一职责原则（Single-Responsibility-Principle）"><a href="#原则二：单一职责原则（Single-Responsibility-Principle）" class="headerlink" title="原则二：单一职责原则（Single Responsibility Principle）"></a>原则二：单一职责原则（Single Responsibility Principle）</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>A class should have a single responsibility, where a responsibility is nothing but a reason to change.</p>
+</blockquote>
+<p>即：一个类只允许有一个职责，即只有一个导致该类变更的原因。</p>
+<h3 id="定义的解读-1"><a href="#定义的解读-1" class="headerlink" title="定义的解读"></a>定义的解读</h3><ul>
+<li><p>类职责的变化往往就是导致类变化的原因：也就是说如果一个类具有多种职责，就会有多种导致这个类变化的原因，从而导致这个类的维护变得困难。</p>
+</li>
+<li><p>往往在软件开发中随着需求的不断增加，可能会给原来的类添加一些本来不属于它的一些职责，从而违反了单一职责原则。如果我们发现当前类的职责不仅仅有一个，就应该将本来不属于该类真正的职责分离出去。</p>
+</li>
+<li>不仅仅是类，函数（方法）也要遵循单一职责原则，即：一个函数（方法）只做一件事情。如果发现一个函数（方法）里面有不同的任务，则需要将不同的任务以另一个函数（方法）的形式分离出去。</li>
+</ul>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>如果类与方法的职责划分得很清晰，不但可以提高代码的可读性，更实际性地更降低了程序出错的风险，因为清晰的代码会让bug无处藏身，也有利于bug的追踪，也就是降低了程序的维护成本。</p>
+<h3 id="代码讲解-1"><a href="#代码讲解-1" class="headerlink" title="代码讲解"></a>代码讲解</h3><p>单一职责原则的demo比较简单，通过对象（属性）的设计上讲解已经足够，不需要具体的客户端调用。我们先看一下需求点：</p>
+<h4 id="需求点-1"><a href="#需求点-1" class="headerlink" title="需求点"></a>需求点</h4><p>初始需求：需要创造一个员工类，这个类有员工的一些基本信息。</p>
+<p>新需求：增加两个方法：</p>
+<ul>
+<li>判定员工在今年是否升职</li>
+<li>计算员工的薪水</li>
+</ul>
+<p>先来看一下不好的设计：</p>
+<h4 id="不好的设计-1"><a href="#不好的设计-1" class="headerlink" title="不好的设计"></a>不好的设计</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Employee.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Employee</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//============ 初始需求 ============</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;       <span class="comment">//员工姓名</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *address;    <span class="comment">//员工住址</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *employeeID; <span class="comment">//员工ID</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">//============ 新需求 ============</span></span><br><span class="line"><span class="comment">//计算薪水</span></span><br><span class="line">- (<span class="keyword">double</span>)calculateSalary;</span><br><span class="line"></span><br><span class="line"><span class="comment">//今年是否晋升</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)willGetPromotionThisYear;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>由上面的代码可以看出：</p>
+<ul>
+<li>在初始需求下，我们创建了<code>Employee</code>这个员工类，并声明了3个员工信息的属性：员工姓名，地址，员工ID。</li>
+<li>在新需求下，两个方法直接加到了员工类里面。</li>
+</ul>
+<p>新需求的做法看似没有问题，因为都是和员工有关的，但却违反了单一职责原则：<strong>因为这两个方法并不是员工本身的职责</strong>。</p>
+<ul>
+<li><code>calculateSalary</code>这个方法的职责是属于会计部门的：薪水的计算是会计部门负责。</li>
+<li><code>willPromotionThisYear</code>这个方法的职责是属于人事部门的：考核与晋升机制是人事部门负责。</li>
+</ul>
+<p>而上面的设计将本来不属于员工自己的职责强加进了员工类里面，而这个类的设计初衷（原始职责）就是单纯地保留员工的一些信息而已。因此这么做就是给这个类引入了新的职责，故<strong>此设计违反了单一职责原则</strong>。</p>
+<p>我们可以简单想象一下这么做的后果是什么：如果员工的晋升机制变了，或者税收政策等影响员工工资的因素变了，我们还需要修改当前这个类。</p>
+<p>那么怎么做才能不违反单一职责原则呢？- 我们需要将这两个方法（责任）分离出去，让本应该处理这类任务的类来处理。</p>
+<h4 id="较好的设计-1"><a href="#较好的设计-1" class="headerlink" title="较好的设计"></a>较好的设计</h4><p>我们保留员工类的基本信息：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Employee.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Employee</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//初始需求</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *address;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *employeeID;</span><br></pre></td></tr></table></figure></p>
+<p>然后创建新的<strong>会计部门</strong>类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== FinancialApartment.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Employee.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//会计部门类</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">FinancialApartment</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//计算薪水</span></span><br><span class="line">- (<span class="keyword">double</span>)calculateSalary:(Employee *)employee;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>和<strong>人事部门</strong>类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== HRApartment.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Employee.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//人事部门类</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">HRApartment</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//今年是否晋升</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)willGetPromotionThisYear:(Employee*)employee;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>通过创建了两个分别专门处理薪水和晋升的部门，会计部门和人事部门的类：<code>FinancialApartment</code> 和 <code>HRApartment</code>，把两个任务（责任）分离了出去，让本该处理这些职责的类来处理这些职责。</p>
+<p>这样一来，不仅仅在此次新需求中满足了单一职责原则，以后如果还要增加人事部门和会计部门处理的任务，就可以直接在这两个类里面添加即可。</p>
+<p>下面来看一下这两个设计的UML 类图，可以更形象地看出两种设计上的区别：</p>
+<h4 id="UML-类图对比-1"><a href="#UML-类图对比-1" class="headerlink" title="UML 类图对比"></a>UML 类图对比</h4><p>未实践单一职责原则：</p>
+<p><img src="http://oih3a9o4n.bkt.clouddn.com/SRP11.png" alt="未实践单一职责原则"></p>
+<p>实践了单一职责原则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/SRP2.png" alt="实践了单一职责原则"></p>
+<blockquote>
+<p>可以看到，在实践了单一职责原则的 UML 类图中，不属于<code>Employee</code>的两个职责被分类了<code>FinancialApartment</code>类 和 <code>HRApartment</code>类。（在 UML 类图中，虚线箭头表示依赖关系，常用在方法参数等，由依赖方指向被依赖方）</p>
+</blockquote>
+<p>上面说过除了类要遵循单一职责设计原则之外，在函数（方法）的设计上也要遵循单一职责的设计原则。因函数（方法）的单一职责原则理解起来比较容易，故在这里就不提供Demo和UML 类图了。</p>
+<p>可以简单举一个例子：</p>
+<p>APP的默认导航栏的样式是这样的：</p>
+<ul>
+<li>白色底</li>
+<li>黑色标题</li>
+<li>底部有阴影</li>
+</ul>
+<p>那么创建默认导航栏的伪代码可能是这样子的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认样式的导航栏</span></span><br><span class="line">- (<span class="keyword">void</span>)createDefaultNavigationBarWithTitle:(<span class="built_in">NSString</span> *)title&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//create white color background view</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//create black color title</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//create shadow bottom</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们可以用这个方法统一创建默认的导航栏了。<br>但是过不久又有新的需求来了，有的页面的导航栏需要做成透明的，因此需要一个透明样式的导航栏：</p>
+<ul>
+<li>透明底</li>
+<li>白色标题</li>
+<li>底部无阴影</li>
+</ul>
+<p>针对这个需求，我们可以新增一个方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//透明样式的导航栏</span></span><br><span class="line">- (<span class="keyword">void</span>)createTransParentNavigationBarWithTitle:(<span class="built_in">NSString</span> *)title&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//create transparent color background view</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//create white color title</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看出问题来了么？在这两个方法里面，创造background view和 title color title的方法的差别仅仅是颜色不同而已，而其他部分的代码是重复的。<br>因此我们应该将这两个方法抽出来：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据传入的颜色参数设置导航栏的背景色</span></span><br><span class="line">- (<span class="keyword">void</span>)createBackgroundViewWithColor:(<span class="built_in">UIColor</span>)color;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据传入的标题字符串和颜色参数设置标题</span></span><br><span class="line">- (<span class="keyword">void</span>)createTitlewWithColorWithTitle:(<span class="built_in">NSString</span> *)title color:(<span class="built_in">UIColor</span>)color;</span><br></pre></td></tr></table></figure>
+<p>而且上面的制造阴影的部分也可以作为方法抽出来：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)createShadowBottom;</span><br></pre></td></tr></table></figure>
+<p>这样一来，原来的两个方法可以写成：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认样式的导航栏</span></span><br><span class="line">- (<span class="keyword">void</span>)createDefaultNavigationBarWithTitle:(<span class="built_in">NSString</span> *)title&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置白色背景</span></span><br><span class="line">    [<span class="keyword">self</span> createBackgroundViewWithColor:[<span class="built_in">UIColor</span> whiteColor]];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置黑色标题</span></span><br><span class="line">    [<span class="keyword">self</span> createTitlewWithColorWithTitle:title color:[<span class="built_in">UIColor</span> blackColor]];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置底部阴影</span></span><br><span class="line">    [<span class="keyword">self</span> createShadowBottom];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//透明样式的导航栏</span></span><br><span class="line">- (<span class="keyword">void</span>)createTransParentNavigationBarWithTitle:(<span class="built_in">NSString</span> *)title&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置透明背景</span></span><br><span class="line">    [<span class="keyword">self</span> createBackgroundViewWithColor:[<span class="built_in">UIColor</span> clearColor]];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置白色标题</span></span><br><span class="line">    [<span class="keyword">self</span> createTitlewWithColorWithTitle:title color:[<span class="built_in">UIColor</span> whiteColor]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而且我们也可以将里面的方法拿出来在外面调用也可以：</p>
+<p>设置默认样式的导航栏：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置白色背景</span></span><br><span class="line">[navigationBar createBackgroundViewWithColor:[<span class="built_in">UIColor</span> whiteColor]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置黑色标题</span></span><br><span class="line">[navigationBar createTitlewWithColorWithTitle:title color:[<span class="built_in">UIColor</span> blackColor]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置阴影</span></span><br><span class="line">[navigationBar createShadowBottom];</span><br></pre></td></tr></table></figure></p>
+<p>设置透明样式的导航栏:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置透明色背景</span></span><br><span class="line">[navigationBar createBackgroundViewWithColor:[<span class="built_in">UIColor</span> clearColor]];</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置白色标题</span></span><br><span class="line">[navigationBar createTitlewWithColorWithTitle:title color:[<span class="built_in">UIColor</span> whiteColor]];</span><br></pre></td></tr></table></figure></p>
+<p>这样一来，无论写在一个大方法里面调用或是分别在外面调用，都能很清楚地看到导航栏的每个元素是如何生成的，因为每个职责都分配到了一个单独的方法里面。而且还有一个好处是，透明导航栏如果遇到浅色背景的话，使用白色字体不如使用黑色字体好，所以遇到这种情况我们可以在<code>createTitlewWithColorWithTitle:color:</code>方法里面传入黑色色值。<br>而且今后可能还会有更多的导航栏样式，那么我们只需要分别改变传入的色值即可，不需要有大量的重复代码了，修改起来也很方便。</p>
+<h3 id="如何实践-1"><a href="#如何实践-1" class="headerlink" title="如何实践"></a>如何实践</h3><p>对于上面的员工类的例子，或许是因为我们先入为主，知道一个公司的合理组织架构，觉得这么设计理所当然。但是在实际开发中，我们很容易会将不同的责任揉在一起，这点还是需要开发者注意的。</p>
+<h2 id="原则三：依赖倒置原则（Dependency-Inversion-Principle）"><a href="#原则三：依赖倒置原则（Dependency-Inversion-Principle）" class="headerlink" title="原则三：依赖倒置原则（Dependency Inversion Principle）"></a>原则三：依赖倒置原则（Dependency Inversion Principle）</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<ul>
+<li>Depend upon Abstractions. Do not depend upon concretions.</li>
+<li>Abstractions should not depend upon details. Details should depend upon abstractions</li>
+<li>High-level modules should not depend on low-level modules. Both should depend on abstractions.</li>
+</ul>
+</blockquote>
+<p>即：</p>
+<ul>
+<li>依赖抽象，而不是依赖实现。</li>
+<li>抽象不应该依赖细节；细节应该依赖抽象。</li>
+<li>高层模块不能依赖低层模块，二者都应该依赖抽象。</li>
+</ul>
+<h3 id="定义解读"><a href="#定义解读" class="headerlink" title="定义解读"></a>定义解读</h3><ul>
+<li>针对接口编程，而不是针对实现编程。</li>
+<li>尽量不要从具体的类派生，而是以继承抽象类或实现接口来实现。</li>
+<li>关于高层模块与低层模块的划分可以按照决策能力的高低进行划分。业务层自然就处于上层模块，逻辑层和数据层自然就归类为底层。 </li>
+</ul>
+<h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><p>通过抽象来搭建框架，建立类和类的关联，以减少类间的耦合性。而且以抽象搭建的系统要比以具体实现搭建的系统更加稳定，扩展性更高，同时也便于维护。</p>
+<h3 id="代码讲解-2"><a href="#代码讲解-2" class="headerlink" title="代码讲解"></a>代码讲解</h3><p>下面通过一个模拟项目开发的例子来讲解依赖倒置原则。</p>
+<h3 id="需求点-2"><a href="#需求点-2" class="headerlink" title="需求点"></a>需求点</h3><p>实现下面这样的需求：</p>
+<p>用代码模拟一个实际项目开发的场景：前端和后端开发人员开发同一个项目。</p>
+<h4 id="不好的设计-2"><a href="#不好的设计-2" class="headerlink" title="不好的设计"></a>不好的设计</h4><p>首先生成两个类，分别对应前端和后端开发者：</p>
+<p>前端开发者：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== FrondEndDeveloper.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">FrondEndDeveloper</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeJavaScriptCode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== FrondEndDeveloper.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">FrondEndDeveloper</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeJavaScriptCode&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Write JavaScript code"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>后端开发者：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== BackEndDeveloper.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BackEndDeveloper</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeJavaCode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== BackEndDeveloper.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">BackEndDeveloper</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeJavaCode&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Write Java code"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>这两个开发者分别对外提供了自己开发的方法：<code>writeJavaScriptCode</code>和<code>writeJavaCode</code>。</p>
+<p>接着创建一个<code>Project</code>类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Project.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Project</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//构造方法，传入开发者的数组</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithDevelopers:(<span class="built_in">NSArray</span> *)developers;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始开发</span></span><br><span class="line">- (<span class="keyword">void</span>)startDeveloping;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== Project.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Project.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"FrondEndDeveloper.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"BackEndDeveloper.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Project</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *_developers;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithDevelopers:(<span class="built_in">NSArray</span> *)developers&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        _developers = developers;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)startDeveloping&#123;</span><br><span class="line">    </span><br><span class="line">    [_developers enumerateObjectsUsingBlock:^(<span class="keyword">id</span>  _Nonnull developer, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ([developer isKindOfClass:[FrondEndDeveloper <span class="keyword">class</span>]]) &#123;</span><br><span class="line">            </span><br><span class="line">            [developer writeJavaScriptCode];</span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> ([developer isKindOfClass:[BackEndDeveloper <span class="keyword">class</span>]])&#123;</span><br><span class="line">            </span><br><span class="line">            [developer writeJavaCode];</span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//no such developer</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在<code>Project</code>类中，我们首先通过一个构造器方法，将开发者的数组传入<code>project</code>的实例对象。然后在开始开发的方法<code>startDeveloping</code>里面，遍历数组并判断元素类型的方式让不同类型的开发者调用和自己对应的函数。</p>
+<p>思考一下，这样的设计有什么问题？</p>
+<p><strong>问题一：</strong></p>
+<p>假如后台的开发语言改成了GO语言，那么上述代码需要改动两个地方：</p>
+<ul>
+<li><code>BackEndDeveloper</code>:需要向外提供一个<code>writeGolangCode</code>方法。</li>
+<li><code>Project</code>类的<code>startDeveloping</code>方法里面需要将<code>BackEndDeveloper</code>类的<code>writeJavaCode</code>改成<code>writeGolangCode</code>。</li>
+</ul>
+<p><strong>问题二：</strong></p>
+<p>假如后期老板要求做移动端的APP（需要iOS和安卓的开发者），那么上述代码仍然需要改动两个地方：</p>
+<ul>
+<li>还需要给<code>Project</code>类的构造器方法里面传入<code>IOSDeveloper</code>和<code>AndroidDeveloper</code>两个类。而且按照现有的设计，还要分别向外部提供<code>writeSwiftCode</code>和<code>writeKotlinCode</code>。</li>
+<li><code>Project</code>类的<code>startDeveloping</code>方法里面需要再多两个<code>elseif</code>判断，专门判断<code>IOSDeveloper</code>和<code>AndroidDeveloper</code>这两个类。</li>
+</ul>
+<blockquote>
+<p>开发安卓的代码也可以用Java，但是为了和后台的开发代码区分一下，这里用了同样可以开发安卓的Kotlin语言。</p>
+</blockquote>
+<p>很显然，在这两种假设的场景下，<strong>高层模块（Project）都依赖了低层模块（BackEndDeveloper）的改动，因此上述设计不符合依赖倒置原则</strong>。</p>
+<p>那么该如何设计才可以符合依赖倒置原则呢？</p>
+<p>答案是<strong>将开发者写代码的方法抽象出来，让Project类不再依赖所有低层的开发者类的具体实现，而是依赖抽象。而且从下至上，所有底层的开发者类也都依赖这个抽象，通过实现这个抽象来做自己的任务</strong>。</p>
+<p>这个抽象可以用接口，也可以用抽象类的方式来做，在这里笔者用<strong>使用接口</strong>的方式进行讲解：</p>
+<h4 id="较好的设计-2"><a href="#较好的设计-2" class="headerlink" title="较好的设计"></a>较好的设计</h4><p>首先，创建一个接口，接口里面有一个写代码的方法<code>writeCode</code>：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== DeveloperProtocol.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">DeveloperProtocol</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeCode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>然后，让前端程序员和后端程序员类实现这个接口（遵循这个协议）并按照自己的方式实现：</p>
+<p>前端程序员类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== FrondEndDeveloper.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">FrondEndDeveloper</span> : <span class="title">NSObject</span>&lt;<span class="title">DeveloperProtocol</span>&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== FrondEndDeveloper.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">FrondEndDeveloper</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeCode&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Write JavaScript code"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>后端程序员类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== BackEndDeveloper.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BackEndDeveloper</span> : <span class="title">NSObject</span>&lt;<span class="title">DeveloperProtocol</span>&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== BackEndDeveloper.m ==================</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">BackEndDeveloper</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeCode&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Write Java code"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>最后我们看一下新设计后的<code>Project</code>类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Project.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"DeveloperProtocol.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Project</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//只需传入遵循DeveloperProtocol的对象数组即可</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithDevelopers:(<span class="built_in">NSArray</span> &lt;<span class="keyword">id</span> &lt;DeveloperProtocol&gt;&gt;*)developers;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始开发</span></span><br><span class="line">- (<span class="keyword">void</span>)startDeveloping;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== Project.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"FrondEndDeveloper.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"BackEndDeveloper.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Project</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> &lt;<span class="keyword">id</span> &lt;DeveloperProtocol&gt;&gt;* _developers;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithDevelopers:(<span class="built_in">NSArray</span> &lt;<span class="keyword">id</span> &lt;DeveloperProtocol&gt;&gt;*)developers&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        _developers = developers;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)startDeveloping&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//每次循环，直接向对象发送writeCode方法即可，不需要判断</span></span><br><span class="line">    [_developers enumerateObjectsUsingBlock:^(<span class="keyword">id</span>&lt;DeveloperProtocol&gt;  _Nonnull developer, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</span><br><span class="line">        </span><br><span class="line">        [developer writeCode];</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>新的<code>Project</code>的构造方法只需传入遵循DeveloperProtocol协议的对象构成的数组即可。这样也比较符合现实中的需求：只需要会写代码就可以加入到项目中。</p>
+<p>而新的<code>startDeveloping</code>方法里：每次循环，直接向当前对象发送writeCode方法即可，不需要对程序员的类型做判断。因为这个对象一定是遵循<code>DeveloperProtocol</code>接口的，而遵循该接口的对象一定会实现<code>writeCode</code>方法（就算不实现也不会引起重大错误）。</p>
+<p>现在新的设计接受完了，我们通过上面假设的两个情况来和之前的设计做个对比：</p>
+<p><strong>假设1：后台的开发语言改成了GO语言</strong></p>
+<p>在这种情况下，只需更改<code>BackEndDeveloper</code>类里面对于<code>DeveloperProtocol</code>接口的<code>writeCode</code>方法的实现即可：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== BackEndDeveloper.m ==================</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">BackEndDeveloper</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)writeCode&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Old：</span></span><br><span class="line">    <span class="comment">//NSLog(@"Write Java code");</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//New:</span></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Write Golang code"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>而在<code>Project</code>里面不需要修改任何代码，因为<code>Project</code>类只依赖了接口方法<code>WriteCode</code>，没有依赖其具体的实现。</p>
+<p>我们接着看一下第二个假设：</p>
+<p><strong>假设2：后期老板要求做移动端的APP（需要iOS和安卓的开发者）</strong></p>
+<p>在这个新场景下，我们只需要将新创建的两个开发者类：<code>IOSDeveloper</code>和<code>AndroidDeveloper</code>分别实现<code>DeveloperProtocol</code>接口的<code>writeCode</code>方法即可。</p>
+<p>同样，<code>Project</code>的接口和实现代码都不用修改：客户端只需要在<code>Project</code>的构建方法的数组参数里面添加这两个新类的实例即可，不需要在<code>startDeveloping</code>方法里面添加类型判断，原因同上。</p>
+<p>我们可以看到，新设计很好地在高层类（<code>Project</code>）与低层类（各种<code>developer</code>类）中间加了一层抽象，解除了二者在旧设计中的耦合，使得在低层类中的改动没有影响到高层类。</p>
+<p>同样是抽象，新设计同样也可以用抽象类的方式：创建一个<code>Developer</code>的抽象类并提供一个<code>writeCode</code>方法，让不同的开发者类继承与它并按照自己的方式实现<code>writeCode</code>方法。这样一来，在<code>Project</code>类的构造方法就是传入已<code>Developer</code>类型为元素的数组了。有兴趣的小伙伴可以自己实现一下~ </p>
+<p>下面来看一下这两个设计的UML 类图，可以更形象地看出两种设计上的区别：</p>
+<h4 id="UML-类图对比-2"><a href="#UML-类图对比-2" class="headerlink" title="UML 类图对比"></a>UML 类图对比</h4><p>未实践依赖倒置原则：</p>
+<p><img src="http://oih3a9o4n.bkt.clouddn.com/DIP1.png" alt="未实践依赖倒置原则"></p>
+<p>实践了依赖倒置原则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/DIP22.png" alt="实践了依赖倒置原则"></p>
+<blockquote>
+<p>在实践了依赖倒置原则的 UML 类图中，我们可以看到<code>Project</code>仅仅依赖于新的接口；而且低层的<code>FrondEndDevelope</code>和<code>BackEndDevelope</code>类按照自己的方式实现了这个接口：通过接口解除了原有的依赖。（在 UML 类图中，虚线三角箭头表示接口实线，由实现方指向接口）</p>
+</blockquote>
+<h3 id="如何实践-2"><a href="#如何实践-2" class="headerlink" title="如何实践"></a>如何实践</h3><p>今后在处理高低层模块（类）交互的情景时，尽量将二者的依赖通过抽象的方式解除掉，实现方式可以是通过接口也可以是抽象类的方式。</p>
+<h2 id="原则四：接口分离原则（Interface-Segregation-Principle）"><a href="#原则四：接口分离原则（Interface-Segregation-Principle）" class="headerlink" title="原则四：接口分离原则（Interface Segregation Principle）"></a>原则四：接口分离原则（Interface Segregation Principle）</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>Many client specific interfaces are better than one general purpose interface.</p>
+</blockquote>
+<p>即：多个特定的客户端接口要好于一个通用性的总接口。</p>
+<h3 id="定义解读-1"><a href="#定义解读-1" class="headerlink" title="定义解读"></a>定义解读</h3><ul>
+<li>客户端不应该依赖它不需要实现的接口。</li>
+<li>不建立庞大臃肿的接口，应尽量细化接口，接口中的方法应该尽量少。</li>
+</ul>
+<p>需要注意的是：接口的粒度也不能太小。如果过小，则会造成接口数量过多，使设计复杂化。</p>
+<h3 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h3><p>避免同一个接口里面包含不同类职责的方法，接口责任划分更加明确，符合高内聚低耦合的思想。</p>
+<h3 id="代码讲解-3"><a href="#代码讲解-3" class="headerlink" title="代码讲解"></a>代码讲解</h3><p>下面通过一个餐厅服务的例子讲解一下接口分离原则。</p>
+<h4 id="需求点-3"><a href="#需求点-3" class="headerlink" title="需求点"></a>需求点</h4><p>现在的餐厅除了提供传统的店内服务，多数也都支持网上下单，网上支付功能。写一些接口方法来涵盖餐厅的所有的下单及支付功能。</p>
+<h4 id="不好的设计-3"><a href="#不好的设计-3" class="headerlink" title="不好的设计"></a>不好的设计</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== RestaurantProtocol.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">RestaurantProtocol</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeOnlineOrder;         <span class="comment">//下订单：online</span></span><br><span class="line">- (<span class="keyword">void</span>)placeTelephoneOrder;      <span class="comment">//下订单：通过电话</span></span><br><span class="line">- (<span class="keyword">void</span>)placeWalkInCustomerOrder; <span class="comment">//下订单：在店里</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payOnline;                <span class="comment">//支付订单：online</span></span><br><span class="line">- (<span class="keyword">void</span>)payInPerson;              <span class="comment">//支付订单：在店里支付</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在这里声明了一个接口，它包含了下单和支付的几种方式：</p>
+<ul>
+<li><p>下单：</p>
+<ul>
+<li>online下单</li>
+<li>电话下单</li>
+<li>店里下单（店内服务）</li>
+</ul>
+</li>
+<li><p>支付</p>
+<ul>
+<li>online支付（适用于online下单和电话下单的顾客）</li>
+<li>店里支付（店内服务）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>这里先不讨论电话下单的顾客是用online支付还是店内支付。</p>
+</blockquote>
+<p>对应的，我们有三种下单方式的顾客：</p>
+<p>1.online下单，online支付的顾客</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== OnlineClient.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"RestaurantProtocol.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">OnlineClient</span> : <span class="title">NSObject</span>&lt;<span class="title">RestaurantProtocol</span>&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== OnlineClient.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OnlineClient</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeOnlineOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"place on line order"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeTelephoneOrder&#123;</span><br><span class="line">    <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeWalkInCustomerOrder&#123;</span><br><span class="line">    <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payOnline&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"pay on line"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payInPerson&#123;</span><br><span class="line">    <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>2.电话下单，online支付的顾客</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== TelephoneClient.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"RestaurantProtocol.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">TelephoneClient</span> : <span class="title">NSObject</span>&lt;<span class="title">RestaurantProtocol</span>&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== TelephoneClient.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">TelephoneClient</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeOnlineOrder&#123;</span><br><span class="line">    <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeTelephoneOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"place telephone order"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeWalkInCustomerOrder&#123;</span><br><span class="line">    <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payOnline&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"pay on line"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payInPerson&#123;</span><br><span class="line">    <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>3.在店里下单并支付的顾客：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== WalkinClient.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"RestaurantProtocol.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">WalkinClient</span> : <span class="title">NSObject</span>&lt;<span class="title">RestaurantProtocol</span>&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== WalkinClient.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">WalkinClient</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeOnlineOrder&#123;</span><br><span class="line">   <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeTelephoneOrder&#123;</span><br><span class="line">    <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeWalkInCustomerOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"place walk in customer order"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payOnline&#123;</span><br><span class="line">   <span class="comment">//not necessarily</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payInPerson&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"pay in person"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>我们发现，并不是所有顾客都必须要实现<code>RestaurantProtocol</code>里面的所有方法。<strong>由于接口方法的设计造成了冗余，因此该设计不符合接口隔离原则</strong>。</p>
+<blockquote>
+<p>注意，Objective-C中的协议可以通过<code>@optional</code>关键字设置不需要必须实现的方法，该特性不与接口分离原则冲突：只要属于同一类责任的接口，都可以放入同一接口中。</p>
+</blockquote>
+<p>那么如何做才符合接口隔离原则呢？我们来看一下较好的设计。</p>
+<h4 id="较好的设计-3"><a href="#较好的设计-3" class="headerlink" title="较好的设计"></a>较好的设计</h4><p>要符合接口隔离原则，只需要将不同类型的接口分离出来即可。我们将原来的<code>RestaurantProtocol</code>接口拆分成两个接口：下单接口和支付接口。</p>
+<p>下单接口：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== RestaurantPlaceOrderProtocol.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">RestaurantPlaceOrderProtocol</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeOrder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>支付接口：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== RestaurantPaymentProtocol.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">RestaurantPaymentProtocol</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payOrder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>现在有了下单接口和支付接口，我们就可以让不同的客户来以自己的方式实现下单和支付操作了：</p>
+<p>首先创建一个所有客户的父类，来遵循这个两个接口：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Client.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"RestaurantPlaceOrderProtocol.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"RestaurantPaymentProtocol.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Client</span> : <span class="title">NSObject</span>&lt;<span class="title">RestaurantPlaceOrderProtocol</span>,<span class="title">RestaurantPaymentProtocol</span>&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>接着另online下单，电话下单，店内下单的顾客继承这个父类，分别实现这两个接口的方法：</p>
+<p>1.online下单，online支付的顾客</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== OnlineClient.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Client.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">OnlineClient</span> : <span class="title">Client</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== OnlineClient.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OnlineClient</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"place on line order"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"pay on line"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>2.电话下单，online支付的顾客</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== TelephoneClient.h ==================</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Client.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">TelephoneClient</span> : <span class="title">Client</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== TelephoneClient.m ==================</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">TelephoneClient</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"place telephone order"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"pay on line"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>3.在店里下单并支付顾客：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== WalkinClient.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Client.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">WalkinClient</span> : <span class="title">Client</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== WalkinClient.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">WalkinClient</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)placeOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"place walk in customer order"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)payOrder&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"pay in person"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>因为我们把不同职责的接口拆开，使得接口的责任更加清晰，简洁明了。不同的客户端可以根据自己的需求遵循所需要的接口来以自己的方式实现。</p>
+<p>而且今后如果还有和下单或者支付相关的方法，也可以分别加入到各自的接口中，避免了接口的臃肿，同时也提高了程序的内聚性。</p>
+<p>下面来看一下这两个设计的UML 类图，可以更形象地看出两种设计上的区别：</p>
+<h4 id="UML-类图对比-3"><a href="#UML-类图对比-3" class="headerlink" title="UML 类图对比"></a>UML 类图对比</h4><p>未实践接口分离原则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/ISP1.png" alt="未实践接口分离原则"></p>
+<p>实践了接口分离原则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/ISP2.png" alt="实践了接口分离原则"></p>
+<blockquote>
+<p>通过遵守接口分离原则，接口的设计变得更加简洁，而且各种客户类不需要实现自己不需要实现的接口。</p>
+</blockquote>
+<h3 id="如何实践-3"><a href="#如何实践-3" class="headerlink" title="如何实践"></a>如何实践</h3><p>在设计接口时，尤其是在向现有的接口添加方法时，我们需要仔细斟酌这些方法是否是处理同一类任务的：如果是则可以放在一起；如果不是则需要做拆分。</p>
+<p>做iOS开发的朋友对<code>UITableView</code>的<code>UITableViewDelegate</code>和<code>UITableViewDataSource</code>这两个协议应该会非常熟悉。这两个协议里的方法都是与<code>UITableView</code>相关的，但iOS SDK的设计者却把这些方法放在不同的两个协议中。原因就是这两个协议所包含的方法所处理的任务是不同的两种：</p>
+<ul>
+<li><code>UITableViewDelegate</code>：含有的方法是<code>UITableView</code>的实例告知其代理一些点击事件的方法，即<strong>事件的传递</strong>，方向是从<code>UITableView</code>的实例到其代理。</li>
+<li><code>UITableViewDataSource</code>：含有的方法是<code>UITableView</code>的代理传给<code>UITableView</code>一些必要数据供<code>UITableView</code>展示出来，即<strong>数据的传递</strong>，方向是从<code>UITableView</code>的代理到<code>UITableView</code>。</li>
+</ul>
+<p>很显然，<code>UITableView</code>协议的设计者很好地实践了接口分离的原则，值得我们大家学习。</p>
+<h2 id="原则五：迪米特法则（Law-of-Demeter）"><a href="#原则五：迪米特法则（Law-of-Demeter）" class="headerlink" title="原则五：迪米特法则（Law of Demeter）"></a>原则五：迪米特法则（Law of Demeter）</h2><h3 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>You only ask for objects which you directly need.</p>
+</blockquote>
+<p>即：一个对象应该对尽可能少的对象有接触，也就是只接触那些真正需要接触的对象。</p>
+<h3 id="定义解读-2"><a href="#定义解读-2" class="headerlink" title="定义解读"></a>定义解读</h3><ul>
+<li>迪米特法则也叫做最少知道原则（Least Know Principle）， 一个类应该只和它的成员变量，方法的输入，返回参数中的类作交流，而不应该引入其他的类（间接交流）。</li>
+</ul>
+<h3 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h3><p>实践迪米特法则可以良好地降低类与类之间的耦合，减少类与类之间的关联程度，让类与类之间的协作更加直接。</p>
+<h3 id="代码讲解-4"><a href="#代码讲解-4" class="headerlink" title="代码讲解"></a>代码讲解</h3><p>下面通过一个简单的关于汽车的例子来讲解一下迪米特法则。</p>
+<h4 id="需求点-4"><a href="#需求点-4" class="headerlink" title="需求点"></a>需求点</h4><p>设计一个汽车类，包含汽车的品牌名称，引擎等成员变量。提供一个方法返回引擎的品牌名称。</p>
+<h4 id="不好的设计-4"><a href="#不好的设计-4" class="headerlink" title="不好的设计"></a>不好的设计</h4><p>Car类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//================== Car.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">GasEngine</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Car</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//构造方法</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithEngine:(GasEngine *)engine;</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回私有成员变量：引擎的实例</span></span><br><span class="line">- (GasEngine *)usingEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== Car.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"GasEngine.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Car</span></span></span><br><span class="line">&#123;</span><br><span class="line">    GasEngine *_engine;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithEngine:(GasEngine *)engine&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _engine = engine;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (GasEngine *)usingEngine&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _engine;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>从上面可以看出，Car的构造方法需要传入一个引擎的实例对象。而且因为引擎的实例对象被赋到了Car对象的私有成员变量里面。所以Car类给外部提供了一个返回引擎对象的方法：<code>usingEngine</code>。</p>
+<p>而这个引擎类<code>GasEngine</code>有一个品牌名称的成员变量<code>brandName</code>：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== GasEngine.h ==================</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">GasEngine</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *brandName;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>这样一来，客户端就可以拿到引擎的品牌名称了：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Client.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"GasEngine.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)findCarEngineBrandName:(Car *)car&#123;</span><br><span class="line"></span><br><span class="line">    GasEngine *engine = [car usingEngine];</span><br><span class="line">    <span class="built_in">NSString</span> *engineBrandName = engine.brandName;<span class="comment">//获取到了引擎的品牌名称</span></span><br><span class="line">    <span class="keyword">return</span> engineBrandName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的设计完成了需求，但是却违反了迪米特法则。原因是<strong>在客户端的</strong><code>findCarEngineBrandName:</code><strong>中引入了和入参（Car）和返回值（NSString）无关的</strong><code>GasEngine</code><strong>对象</strong>。增加了客户端与<br><code>GasEngine</code>的耦合。而这个耦合显然是不必要更是可以避免的。</p>
+<p>接下来我们看一下如何设计可以避免这种耦合：</p>
+<h4 id="较好的设计-4"><a href="#较好的设计-4" class="headerlink" title="较好的设计"></a>较好的设计</h4><p>同样是Car这个类，我们去掉原有的返回引擎对象的方法，而是增加一个直接返回引擎品牌名称的方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Car.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">GasEngine</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Car</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//构造方法</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithEngine:(GasEngine *)engine;</span><br><span class="line"></span><br><span class="line"><span class="comment">//直接返回引擎品牌名称</span></span><br><span class="line">- (<span class="built_in">NSString</span> *)usingEngineBrandName;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== Car.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"GasEngine.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Car</span></span></span><br><span class="line">&#123;</span><br><span class="line">    GasEngine *_engine;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithEngine:(GasEngine *)engine&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _engine = engine;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)usingEngineBrandName&#123;</span><br><span class="line">    <span class="keyword">return</span> _engine.brand;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>因为直接<code>usingEngineBrandName</code>直接返回了引擎的品牌名称，所以在客户端里面就可以直接拿到这个值，而不需要间接地通过原来的<code>GasEngine</code>实例来获取。</p>
+<p>我们看一下客户端操作的变化：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Client.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Car.h"</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)findCarEngineBrandName:(Car *)car&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *engineBrandName = [car usingEngineBrandName]; <span class="comment">//直接获取到了引擎的品牌名称</span></span><br><span class="line">    <span class="keyword">return</span> engineBrandName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与之前的设计不同，在客户端里面，没有引入<code>GasEngine</code>类，而是直接通过<code>Car</code>实例获取到了需要的数据。</p>
+<p>这样设计的好处是，如果这辆车的引擎换成了电动引擎(原来的<code>GasEngine</code>类换成了<code>ElectricEngine</code>类)，<strong>客户端代码可以不做任何修改</strong>！因为它没有引入任何引擎类，而是直接获取了引擎的品牌名称。</p>
+<p>所以在这种情况下我们只需要修改Car类的<code>usingEngineBrandName</code>方法实现，将新引擎的品牌名称返回即可。</p>
+<p>下面来看一下这两个设计的UML 类图，可以更形象地看出两种设计上的区别：</p>
+<h4 id="UML-类图对比-4"><a href="#UML-类图对比-4" class="headerlink" title="UML 类图对比"></a>UML 类图对比</h4><p>未实践迪米特法则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/LOD111.png" alt="未实践迪米特法则"></p>
+<p>实践了迪米特法则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/LOD2.png" alt="实践了迪米特法则"></p>
+<blockquote>
+<p>很明显，在实践了迪米特法则的 UML 类图里面，没有了<code>Client</code>对<code>GasEngine</code>的依赖，耦合性降低。</p>
+</blockquote>
+<h3 id="如何实践-4"><a href="#如何实践-4" class="headerlink" title="如何实践"></a>如何实践</h3><p>今后在做对象与对象之间交互的设计时，应该极力避免引出中间对象的情况（需要导入其他对象的类）：需要什么对象直接返回即可，降低类之间的耦合度。</p>
+<h2 id="原则六：里氏替换原则（Liskov-Substitution-Principle）"><a href="#原则六：里氏替换原则（Liskov-Substitution-Principle）" class="headerlink" title="原则六：里氏替换原则（Liskov Substitution Principle）"></a>原则六：里氏替换原则（Liskov Substitution Principle）</h2><h3 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>In a computer program, if S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e. an object of type T may be substituted with any object of a subtype S) without altering any of the desirable properties of the program (correctness, task performed, etc.)</p>
+</blockquote>
+<p>即：所有引用基类的地方必须能透明地使用其子类的对象，也就是说子类对象可以替换其父类对象，而程序执行效果不变。</p>
+<h3 id="定义的解读-2"><a href="#定义的解读-2" class="headerlink" title="定义的解读"></a>定义的解读</h3><p>在继承体系中，子类中可以增加自己特有的方法，也可以实现父类的抽象方法，但是不能重写父类的非抽象方法，否则该继承关系就不是一个正确的继承关系。</p>
+<h3 id="优点-5"><a href="#优点-5" class="headerlink" title="优点"></a>优点</h3><p>可以检验继承使用的正确性，约束继承在使用上的泛滥。</p>
+<h3 id="代码讲解-5"><a href="#代码讲解-5" class="headerlink" title="代码讲解"></a>代码讲解</h3><p>在这里用一个简单的长方形与正方形的例子讲解一下里氏替换原则。</p>
+<h4 id="需求点-5"><a href="#需求点-5" class="headerlink" title="需求点"></a>需求点</h4><p>创建两个类：长方形和正方形，都可以设置宽高（边长），也可以输出面积大小。</p>
+<h4 id="不好的设计-5"><a href="#不好的设计-5" class="headerlink" title="不好的设计"></a>不好的设计</h4><p>首先声明一个长方形类，然后让正方形类继承于长方形。</p>
+<p>长方形类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Rectangle.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Rectangle</span> : <span class="title">NSObject</span></span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">@protected</span> <span class="keyword">double</span> _width;</span><br><span class="line"><span class="keyword">@protected</span> <span class="keyword">double</span> _height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置宽高</span></span><br><span class="line">- (<span class="keyword">void</span>)setWidth:(<span class="keyword">double</span>)width;</span><br><span class="line">- (<span class="keyword">void</span>)setHeight:(<span class="keyword">double</span>)height;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取宽高</span></span><br><span class="line">- (<span class="keyword">double</span>)width;</span><br><span class="line">- (<span class="keyword">double</span>)height;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取面积</span></span><br><span class="line">- (<span class="keyword">double</span>)getArea;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== Rectangle.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Rectangle</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setWidth:(<span class="keyword">double</span>)width&#123;</span><br><span class="line">    _width = width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setHeight:(<span class="keyword">double</span>)height&#123;</span><br><span class="line">    _height = height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)width&#123;</span><br><span class="line">    <span class="keyword">return</span> _width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)height&#123;</span><br><span class="line">    <span class="keyword">return</span> _height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)getArea&#123;</span><br><span class="line">    <span class="keyword">return</span> _width * _height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>正方形类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Square.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Square</span> : <span class="title">Rectangle</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== Square.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Square</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setWidth:(<span class="keyword">double</span>)width&#123;</span><br><span class="line">    </span><br><span class="line">    _width = width;</span><br><span class="line">    _height = width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setHeight:(<span class="keyword">double</span>)height&#123;</span><br><span class="line">    </span><br><span class="line">    _width = height;</span><br><span class="line">    _height = height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，正方形类继承了长方形类以后，为了保证边长永远是相等的，特意在两个set方法里面强制将宽和高都设置为传入的值，也就是重写了父类<code>Rectangle</code>的两个set方法。但是里氏替换原则里规定，子类不能重写父类的方法，所以上面的设计是违反该原则的。</p>
+<p>而且里氏替换原则原则里面所属：子类对象能够替换父类对象，而程序执行效果不变。我们通过一个例子来看一下上面的设计是否符合：</p>
+<p>在客户端类写一个方法：传入一个<code>Rectangle</code>类型并返回它的面积：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">double</span>)calculateAreaOfRect:(Rectangle *)rect&#123;</span><br><span class="line">    <span class="keyword">return</span> rect.getArea;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们先用<code>Rectangle</code>对象试一下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Rectangle *rect = [[Rectangle alloc] init];</span><br><span class="line">rect.width = <span class="number">10</span>;</span><br><span class="line">rect.height = <span class="number">20</span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">double</span> rectArea = [<span class="keyword">self</span> calculateAreaOfRect:rect];<span class="comment">//output:200</span></span><br></pre></td></tr></table></figure>
+<p>长宽分别设置为10，20以后，结果输出200，没有问题。</p>
+<p>现在我们使用<code>Rectange</code>的子类<code>Square</code>的对象替换原来的<code>Rectange</code>对象，看一下结果如何：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Square *square = [[Square alloc] init];</span><br><span class="line">square.width = <span class="number">10</span>;</span><br><span class="line">square.height = <span class="number">20</span>;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">double</span> squareArea = [<span class="keyword">self</span> calculateAreaOfRect:square];<span class="comment">//output:400</span></span><br></pre></td></tr></table></figure>
+<p>结果输出为400，结果不一致，再次说明了上述设计不符合里氏替换原则，因为子类的对象<code>square</code>替换父类的对象<code>rect</code>以后，程序执行的结果变了。</p>
+<p>不符合里氏替换原则就说明该继承关系不是正确的继承关系，也就是说正方形类不能继承于长方形类，程序需要重新设计。</p>
+<p>我们现在看一下比较好的设计。</p>
+<h4 id="较好的设计-5"><a href="#较好的设计-5" class="headerlink" title="较好的设计"></a>较好的设计</h4><p>既然正方形不能继承于长方形，那么是否可以让二者都继承于其他的父类呢？答案是可以的。</p>
+<p>既然要继承于其他的父类，它们这个父类肯定具备这两种形状共同的特点：有4个边。那么我们就定义一个四边形的类：<code>Quadrangle</code>。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Quadrangle.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Quadrangle</span> : <span class="title">NSObject</span></span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">@protected</span> <span class="keyword">double</span> _width;</span><br><span class="line"><span class="keyword">@protected</span> <span class="keyword">double</span> _height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setWidth:(<span class="keyword">double</span>)width;</span><br><span class="line">- (<span class="keyword">void</span>)setHeight:(<span class="keyword">double</span>)height;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)width;</span><br><span class="line">- (<span class="keyword">double</span>)height;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)getArea;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>接着，让<code>Rectangle</code>类和<code>Square</code>类继承于它：</p>
+<p><code>Rectangle</code>类：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Rectangle.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Quadrangle.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Rectangle</span> : <span class="title">Quadrangle</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== Rectangle.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Rectangle</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setWidth:(<span class="keyword">double</span>)width&#123;</span><br><span class="line">    _width = width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setHeight:(<span class="keyword">double</span>)height&#123;</span><br><span class="line">    _height = height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)width&#123;</span><br><span class="line">    <span class="keyword">return</span> _width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)height&#123;</span><br><span class="line">    <span class="keyword">return</span> _height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)getArea&#123;</span><br><span class="line">    <span class="keyword">return</span> _width * _height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p><code>Square</code>类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//================== Square.h ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Square</span> : <span class="title">Quadrangle</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">@protected</span> <span class="keyword">double</span> _sideLength;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)setSideLength:(<span class="keyword">double</span>)sideLength;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">double</span>)sideLength;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//================== Square.m ==================</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Square</span></span></span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)setSideLength:(<span class="keyword">double</span>)sideLength&#123;    </span><br><span class="line">    _sideLength = sideLength;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">double</span>)sideLength&#123;</span><br><span class="line">    <span class="keyword">return</span> _sideLength;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setWidth:(<span class="keyword">double</span>)width&#123;</span><br><span class="line">    _sideLength = width;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setHeight:(<span class="keyword">double</span>)height&#123;</span><br><span class="line">    _sideLength = height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)width&#123;</span><br><span class="line">    <span class="keyword">return</span> _sideLength;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)height&#123;</span><br><span class="line">    <span class="keyword">return</span> _sideLength;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">double</span>)getArea&#123;</span><br><span class="line">    <span class="keyword">return</span> _sideLength * _sideLength;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到，<code>Rectange</code>和<code>Square</code>类都以自己的方式实现了父类<code>Quadrangle</code>的公共方法。而且由于<code>Square</code>的特殊性，它也声明了自己独有的成员变量<code>_sideLength</code>以及其对应的公共方法。</p>
+<blockquote>
+<p>注意，这里<code>Rectange</code>和<code>Square</code>并不是重写了其父类的公共方法，而是实现了其抽象方法。</p>
+</blockquote>
+<p>下面来看一下这两个设计的UML 类图，可以更形象地看出两种设计上的区别：</p>
+<h4 id="UML-类图对比-5"><a href="#UML-类图对比-5" class="headerlink" title="UML 类图对比"></a>UML 类图对比</h4><p>未实践里氏替换原则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/LSP11.png" alt="未实践里氏替换原则"></p>
+<p>实践了里氏替换原则：<br><img src="http://oih3a9o4n.bkt.clouddn.com/LSP22.png" alt="实践了里氏替换原则"></p>
+<h3 id="如何实践-5"><a href="#如何实践-5" class="headerlink" title="如何实践"></a>如何实践</h3><p>里氏替换原则是对继承关系的一种检验：检验是否真正符合继承关系，以避免继承的滥用。因此，在使用继承之前，需要反复思考和确认该继承关系是否正确，或者当前的继承体系是否还可以支持后续的需求变更，如果无法支持，则需要及时重构，采用更好的方式来设计程序。</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><p>到这里关于六大设计原则的讲解已经结束了。本篇文章所展示的Demo和UML 类图都在笔者维护的一个专门的GitHub库中：<a href="https://github.com/knightsj/object-oriented-design">object-oriented-design</a>。想看Demo和UML图的同学可以点击链接查看。欢迎fork，更欢迎给出更多语言的不同例子的PR~ 而且后续还会添加关于设计模式的 代码和 UML 类图。</p>
+<p>关于这几个设计原则还有最后一点需要强调的是：<br>设计原则是设计模式的基石，但是很难在使实际开发中的某个设计中全部都满足这些设计原则。因此我们需要抓住具体设计场景的特殊性，有选择地遵循最合适的设计原则。</p>
+<hr>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objectice-C/" rel="tag"># Objectice-C</a>
+          
+            <a href="/tags/Object-Oriented/" rel="tag"># Object-Oriented</a>
+          
+            <a href="/tags/Design-Principle/" rel="tag"># Design Principle</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感/" rel="next" title="远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感">
+                <i class="fa fa-chevron-left"></i> 远程工作才是实现高效工作和幸福生活的有效途径 - 读《重来2》有感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）/" rel="prev" title="面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图）">
+                面向对象设计的设计模式（一）：创建型模式（附 Demo 及 UML 类图） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习初衷与讲解方式"><span class="nav-number">1.</span> <span class="nav-text">学习初衷与讲解方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#六大设计原则"><span class="nav-number">2.</span> <span class="nav-text">六大设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原则一：开闭原则（Open-Close-Principle）"><span class="nav-number">2.1.</span> <span class="nav-text">原则一：开闭原则（Open Close Principle）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义的解读"><span class="nav-number">2.1.2.</span> <span class="nav-text">定义的解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">2.1.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码讲解"><span class="nav-number">2.1.4.</span> <span class="nav-text">代码讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求点"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">需求点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不好的设计"><span class="nav-number">2.1.4.2.</span> <span class="nav-text">不好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#较好的设计"><span class="nav-number">2.1.4.3.</span> <span class="nav-text">较好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML-类图对比"><span class="nav-number">2.1.4.4.</span> <span class="nav-text">UML 类图对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何实践"><span class="nav-number">2.1.5.</span> <span class="nav-text">如何实践</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则二：单一职责原则（Single-Responsibility-Principle）"><span class="nav-number">2.2.</span> <span class="nav-text">原则二：单一职责原则（Single Responsibility Principle）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义的解读-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">定义的解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码讲解-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">代码讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求点-1"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">需求点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不好的设计-1"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">不好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#较好的设计-1"><span class="nav-number">2.2.4.3.</span> <span class="nav-text">较好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML-类图对比-1"><span class="nav-number">2.2.4.4.</span> <span class="nav-text">UML 类图对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何实践-1"><span class="nav-number">2.2.5.</span> <span class="nav-text">如何实践</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则三：依赖倒置原则（Dependency-Inversion-Principle）"><span class="nav-number">2.3.</span> <span class="nav-text">原则三：依赖倒置原则（Dependency Inversion Principle）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义解读"><span class="nav-number">2.3.2.</span> <span class="nav-text">定义解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码讲解-2"><span class="nav-number">2.3.4.</span> <span class="nav-text">代码讲解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需求点-2"><span class="nav-number">2.3.5.</span> <span class="nav-text">需求点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不好的设计-2"><span class="nav-number">2.3.5.1.</span> <span class="nav-text">不好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#较好的设计-2"><span class="nav-number">2.3.5.2.</span> <span class="nav-text">较好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML-类图对比-2"><span class="nav-number">2.3.5.3.</span> <span class="nav-text">UML 类图对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何实践-2"><span class="nav-number">2.3.6.</span> <span class="nav-text">如何实践</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则四：接口分离原则（Interface-Segregation-Principle）"><span class="nav-number">2.4.</span> <span class="nav-text">原则四：接口分离原则（Interface Segregation Principle）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义解读-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">定义解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-3"><span class="nav-number">2.4.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码讲解-3"><span class="nav-number">2.4.4.</span> <span class="nav-text">代码讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求点-3"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">需求点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不好的设计-3"><span class="nav-number">2.4.4.2.</span> <span class="nav-text">不好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#较好的设计-3"><span class="nav-number">2.4.4.3.</span> <span class="nav-text">较好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML-类图对比-3"><span class="nav-number">2.4.4.4.</span> <span class="nav-text">UML 类图对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何实践-3"><span class="nav-number">2.4.5.</span> <span class="nav-text">如何实践</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则五：迪米特法则（Law-of-Demeter）"><span class="nav-number">2.5.</span> <span class="nav-text">原则五：迪米特法则（Law of Demeter）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义解读-2"><span class="nav-number">2.5.2.</span> <span class="nav-text">定义解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-4"><span class="nav-number">2.5.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码讲解-4"><span class="nav-number">2.5.4.</span> <span class="nav-text">代码讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求点-4"><span class="nav-number">2.5.4.1.</span> <span class="nav-text">需求点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不好的设计-4"><span class="nav-number">2.5.4.2.</span> <span class="nav-text">不好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#较好的设计-4"><span class="nav-number">2.5.4.3.</span> <span class="nav-text">较好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML-类图对比-4"><span class="nav-number">2.5.4.4.</span> <span class="nav-text">UML 类图对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何实践-4"><span class="nav-number">2.5.5.</span> <span class="nav-text">如何实践</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则六：里氏替换原则（Liskov-Substitution-Principle）"><span class="nav-number">2.6.</span> <span class="nav-text">原则六：里氏替换原则（Liskov Substitution Principle）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-5"><span class="nav-number">2.6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义的解读-2"><span class="nav-number">2.6.2.</span> <span class="nav-text">定义的解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-5"><span class="nav-number">2.6.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码讲解-5"><span class="nav-number">2.6.4.</span> <span class="nav-text">代码讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求点-5"><span class="nav-number">2.6.4.1.</span> <span class="nav-text">需求点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不好的设计-5"><span class="nav-number">2.6.4.2.</span> <span class="nav-text">不好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#较好的设计-5"><span class="nav-number">2.6.4.3.</span> <span class="nav-text">较好的设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML-类图对比-5"><span class="nav-number">2.6.4.4.</span> <span class="nav-text">UML 类图对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何实践-5"><span class="nav-number">2.6.5.</span> <span class="nav-text">如何实践</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">3.</span> <span class="nav-text">最后的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1032 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="React Native,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="简介前几天写了一个React Native组件：一个可定制性比较高的底部弹出菜单（ActionSheet）。该组件符合React Native的特性：同时支持iOS和Android双平台，一份相同的代码会在两个平台上展示几乎完全相同的样式。 先看一下效果(上排为iOS模拟器，下排为Android模拟器)：  上图展示的是该组件的默认样式。由于该组件具有较高的定制性，所以只需要通过设置一些属性就可以">
+<meta name="keywords" content="React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="简介前几天写了一个React Native组件：一个可定制性比较高的底部弹出菜单（ActionSheet）。该组件符合React Native的特性：同时支持iOS和Android双平台，一份相同的代码会在两个平台上展示几乎完全相同的样式。 先看一下效果(上排为iOS模拟器，下排为Android模拟器)：  上图展示的是该组件的默认样式。由于该组件具有较高的定制性，所以只需要通过设置一些属性就可以">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_show.png">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_1.gif?raw=true">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_2.gif?raw=true">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_3.gif?raw=true">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_default.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_ios.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_one.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting1.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting2.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting3.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting4.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting5.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.650Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件">
+<meta name="twitter:description" content="简介前几天写了一个React Native组件：一个可定制性比较高的底部弹出菜单（ActionSheet）。该组件符合React Native的特性：同时支持iOS和Android双平台，一份相同的代码会在两个平台上展示几乎完全相同的样式。 先看一下效果(上排为iOS模拟器，下排为Android模拟器)：  上图展示的是该组件的默认样式。由于该组件具有较高的定制性，所以只需要通过设置一些属性就可以">
+<meta name="twitter:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_show.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件/">
+
+
+
+
+
+  <title> 结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                结合一个开源的底部菜单组件来讲一下如何封装一个React Native组件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Production/" itemprop="url" rel="index">
+                    <span itemprop="name">Production</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4,644 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  18 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>前几天写了一个React Native组件：一个可定制性比较高的底部弹出菜单（ActionSheet）。该组件符合React Native的特性：同时支持iOS和Android双平台，一份相同的代码会在两个平台上展示几乎完全相同的样式。</p>
+<p>先看一下效果(上排为iOS模拟器，下排为Android模拟器)：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_show.png" alt=""></p>
+<p>上图展示的是该组件的默认样式。由于该组件具有较高的定制性，所以只需要通过设置一些属性就可以得到更多不同的样式。</p>
+<p>开源项目地址：<a href="https://github.com/knightsj/react-naive-highly-customizable-action-sheet">GitHub:react-naive-highly-customizable-action-sheet</a></p>
+<a id="more"></a>
+<h2 id="定制性介绍"><a href="#定制性介绍" class="headerlink" title="定制性介绍"></a>定制性介绍</h2><p>在该组件里：最顶部的标题，中间的选择项，最底部的取消项都是可有可无的，而且每一部分的字体，颜色，高度，距离，分割线颜色，圆角等也都是可以定制的。</p>
+<p>先来看几个默认的样式：</p>
+<h3 id="默认的样式："><a href="#默认的样式：" class="headerlink" title="默认的样式："></a>默认的样式：</h3><p>默认的样式是指使用者在不设置样式相关属性，只设置数据（文字）相关属性时展现的样式。该样式是微信，微博里使用的样式，也是我个人非常喜欢的样式。</p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_1.gif?raw=true" alt=""></p>
+<h3 id="类似iOS原生-ActionSheet的样式"><a href="#类似iOS原生-ActionSheet的样式" class="headerlink" title="类似iOS原生 ActionSheet的样式"></a>类似iOS原生 ActionSheet的样式</h3><p>用户可以通过设置某些属性可以实现iOS默认的ActionSheet的样式：</p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_2.gif?raw=true" alt=""></p>
+<p>除此之外，用户还可以通过设置某些属性来实现各种其他的样式：</p>
+<p><img src="https://github.com/knightsj/blog-image-storage/blob/master/react-native/action-sheet/as_3.gif?raw=true" alt=""></p>
+<p>下面结合使用方法来看一下如何通过代码来定制这些样式：</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h3><p><code>npm install react-naive-highly-customizable-action-sheet</code></p>
+<p>引用组件：</p>
+<p><code>import ActionSheet from &#39;react-naive-highly-customizable-action-sheet&#39;</code></p>
+<p>然后给该组件传入标题，选项文字数组，回调方法数组等实现一个ActionSheet的组件。</p>
+<p>下面结合一下代码和demo截图讲解一下：</p>
+<p>一个默认样式的例子:</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_default.png" alt=""></p>
+<p>该样式的实现代码：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;ActionSheet</span><br><span class="line">   mainTitle=<span class="string">"There are three ways to contact. Please choose one to contact."</span></span><br><span class="line">   itemTitles = &#123;[<span class="string">"By phone"</span>,<span class="string">"By message"</span>,<span class="string">"By email"</span>]&#125;</span><br><span class="line">   selectionCallbacks = &#123;[<span class="keyword">this</span>.clickedByPhone,<span class="keyword">this</span>.clickedByMessage,<span class="keyword">this</span>.clickedByEmail]&#125;</span><br><span class="line">   mainTitleTextAlign = <span class="string">'center'</span></span><br><span class="line">   ref=&#123;(actionsheet)=&gt;&#123;<span class="keyword">this</span>.actionsheet = actionsheet&#125;&#125;</span><br><span class="line">/&gt;</span><br><span class="line">  </span><br><span class="line"><span class="comment">//弹出底部菜单</span></span><br><span class="line">showActionSheet()&#123;</span><br><span class="line">	<span class="keyword">this</span>.actionsheet.show();  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByPhone()&#123;</span><br><span class="line">   alert(<span class="string">'By Phone'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByMessage()&#123;</span><br><span class="line">    alert(<span class="string">'By Message'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByEmail()&#123;</span><br><span class="line">    alert(<span class="string">'By Email'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，</p>
+<ul>
+<li><code>mainTitle</code>：是最上方的标题。</li>
+<li><code>itemTitles</code>：选项文字的数组。</li>
+<li><code>selectionCallbacks</code>：点击选项后的回调函数数组。</li>
+</ul>
+<p>需要注意的是，选项文字的数组和回调函数数组里的元素应该是一一对应的。不过即使回调函数数组里的元素个数少于选项文字数组里的元素个数也不会引起崩溃。</p>
+<p>一个iOS ActionSheet样式的例子：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_ios.png" alt=""></p>
+<p>该样式的实现代码：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> &lt;ActionSheet</span><br><span class="line">    mainTitle=<span class="string">"There are three ways to contact. Please choose one to contact."</span></span><br><span class="line">    itemTitles = &#123;[<span class="string">"By phone"</span>,<span class="string">"By message"</span>,<span class="string">"By email"</span>]&#125;</span><br><span class="line">    selectionCallbacks = &#123;[<span class="keyword">this</span>.clickedByPhone,<span class="keyword">this</span>.clickedByMessage,<span class="keyword">this</span>.clickedByEmail]&#125;</span><br><span class="line">    mainTitleTextAlign = <span class="string">'center'</span></span><br><span class="line">    contentBackgroundColor = <span class="string">'#EFF0F1'</span></span><br><span class="line">    bottomSpace = &#123;<span class="number">10</span>&#125;</span><br><span class="line">    cancelVerticalSpace = &#123;<span class="number">10</span>&#125;</span><br><span class="line">    borderRadius = &#123;<span class="number">5</span>&#125;</span><br><span class="line">    sideSpace = &#123;<span class="number">6</span>&#125;</span><br><span class="line">    itemTitleColor = <span class="string">'#006FFF'</span></span><br><span class="line">    cancelTitleColor = <span class="string">'#006FFF'</span></span><br><span class="line">    ref=&#123;(actionsheet)=&gt;&#123;<span class="keyword">this</span>.actionsheet = actionsheet&#125;&#125;</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//弹出底部菜单</span></span><br><span class="line">showActionSheet()&#123;</span><br><span class="line">	<span class="keyword">this</span>.actionsheet.show();  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByPhone()&#123;</span><br><span class="line">   alert(<span class="string">'By Phone'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByMessage()&#123;</span><br><span class="line">    alert(<span class="string">'By Message'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//回调函数</span></span><br><span class="line">clickedByEmail()&#123;</span><br><span class="line">    alert(<span class="string">'By Email'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多其他的样式设定可以参考<a href="https://github.com/knightsj/react-naive-highly-customizable-action-sheet">demo</a>里的<code>Example</code>。</p>
+<p>大致介绍完这个组件的功能和使用方法，下面来看一下该组件是如何封装的。</p>
+<h2 id="React-Native组件的封装"><a href="#React-Native组件的封装" class="headerlink" title="React Native组件的封装"></a>React Native组件的封装</h2><h3 id="封装些什么"><a href="#封装些什么" class="headerlink" title="封装些什么"></a>封装些什么</h3><p>对于GUI编程里视图组件来说，无外乎是以下三个内容：</p>
+<ol>
+<li>数据</li>
+<li>样式</li>
+<li>交互</li>
+</ol>
+<p>而对于视图组件的封装，我个人的理解是：封装接收数据的形式，数据与样式之间的转化规则以及交互的逻辑。而这些都是从数据的接收开始的。没有数据的接收就没有UI的展示，更谈不上交互了。</p>
+<p>所以在最开始从React Native视图组件的数据接收来说起是比较妥当的。</p>
+<h3 id="数据接收"><a href="#数据接收" class="headerlink" title="数据接收"></a>数据接收</h3><p>在iOS开发中，给view提供数据的方式是通过设置属性或者实现数据源方法来做的。但是在React Native开发中，通常<strong>只能</strong>通过设置属性来传入该组件为了实现某个样式所需要的一些数据。比如在上面的两个例子里，标题，以及选项文字都是通过设置特定的属性来传入的。</p>
+<p>而且，为了保证设置属性的类型正确，最好对属性做一个类型检查：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123;Component, PropTypes&#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> propTypes = &#123;</span><br><span class="line"> </span><br><span class="line">    mainTitle:PropTypes.string.isRequired,<span class="comment">//类型为字符串，且必须传入</span></span><br><span class="line">    mainTitleFont:PropTypes.number,<span class="comment">//类型为数字</span></span><br><span class="line">    mainTitleColor:PropTypes.string,<span class="comment">//类型为字符串</span></span><br><span class="line">    mainTitleTextAlign:PropTypes.oneOf([<span class="string">'center'</span>, <span class="string">'left'</span>]),<span class="comment">//二者选其一</span></span><br><span class="line">    hideCancel:PropTypes.bool,<span class="comment">//类型为布尔值</span></span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意一下第一行的<code>mainTitle</code>属性，在上面将它设置为必须传入的属性。所以如果在这种情况下没有传入该属性，就会出现警告。</p>
+<p>上面的只是我举的例子，在我封装的这个组件里没有任何属性是必须传入的。因为要提高定制性，所以所有属性都是可传可不传。</p>
+<p>现在我们知道了如何将数据传入到组件里。但是这仅仅是第一步。因为组件所需要的数据可能不仅仅包括用户传入的这些数据，还包括一些通过用户传入的这些数据计算后得到的另一些数据，比如弹窗的总高度。不难理解，弹窗的总高度取决于标题的高度，选项的高度和选项的个数，以及取消项的高度总和。而这个数据显然是通过传入的标题，选项等数据后经过计算得到的。</p>
+<p>而且，对于一些可以不一定需要用户传入的数据，可能组件自己也许要提供一下对应属性的默认值。</p>
+<p>综上所述，对于数据处理部分，可以分为两类的处理：</p>
+<ol>
+<li>计算额外的数据。</li>
+<li>提供对应属性的默认值。</li>
+</ol>
+<p>分别举两个在该组件中的代码（之间省略了部分内容）讲解一下。</p>
+<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><h4 id="1-额外需要计算的数据"><a href="#1-额外需要计算的数据" class="headerlink" title="1. 额外需要计算的数据"></a>1. 额外需要计算的数据</h4><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">componentWillMount()&#123;</span><br><span class="line">    </span><br><span class="line">     ...</span><br><span class="line">    <span class="comment">//Calculate Title Height</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.props.mainTitle)&#123;</span><br><span class="line">        <span class="keyword">this</span>.real_titleHeight = <span class="number">0</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.real_titleHeight = <span class="keyword">this</span>.state.mainTitleHeight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Calculate Items height</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.props.itemTitles)&#123;</span><br><span class="line">        <span class="keyword">this</span>.real_itemsPartHeight = <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.real_itemsPartHeight = (<span class="keyword">this</span>.state.itemHeight + <span class="keyword">this</span>.state.itemVerticalSpace) * <span class="keyword">this</span>.props.itemTitles.length;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Calculate Cancel part height</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.props.hideCancel)&#123;</span><br><span class="line">        <span class="keyword">this</span>.real_cancelPartHeight = <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.real_cancelPartHeight = <span class="keyword">this</span>.state.cancelVerticalSpace + <span class="keyword">this</span>.state.cancelHeight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// total content height</span></span><br><span class="line">    <span class="keyword">this</span>.totalHeight = <span class="keyword">this</span>.real_titleHeight +  <span class="keyword">this</span>.real_itemsPartHeight + <span class="keyword">this</span>.real_cancelPartHeight + <span class="keyword">this</span>.state.bottomSpace;</span><br><span class="line">     ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，<code>this.real_titleHeight</code>,<code>this.real_itemsPartHeight</code>,<code>this.real_cancelPartHeigh</code>,<code>this.totalHeight</code>都是在拿到属性以后，需要额外计算的数据。我把这些工作放在了<code>componentWillMount()</code>方法里面。</p>
+<h4 id="2-提供对应属性的默认值"><a href="#2-提供对应属性的默认值" class="headerlink" title="2. 提供对应属性的默认值"></a>2. 提供对应属性的默认值</h4><p>如果用户没有传入标题文字的颜色，则提供一个默认的标题颜色：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props) &#123;</span><br><span class="line"><span class="keyword">super</span>(props);</span><br><span class="line">   <span class="keyword">this</span>.state = &#123;</span><br><span class="line">     ...</span><br><span class="line">     mainTitleColor:<span class="keyword">this</span>.props.mainTitleColor?<span class="keyword">this</span>.props.mainTitleColor:<span class="string">'gray'</span>,<span class="comment">//主标题颜色</span></span><br><span class="line">     cancelTitle:<span class="keyword">this</span>.props.cancelTitle?<span class="keyword">this</span>.props.cancelTitle:<span class="string">'Cancel'</span>,<span class="comment">//取消的文字</span></span><br><span class="line">     ...</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，如果用户没有设置<code>mainTitleColor</code>和<code>cancelTitle</code>这两个属性值，组件内部会提供相应的默认值。</p>
+<h3 id="数据展示"><a href="#数据展示" class="headerlink" title="数据展示"></a>数据展示</h3><p>在React Native里，组件的<code>render()</code>函数负责渲染组件。因此这个函数里会使用之前计算好的数据来渲染组件：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">   retrun(  </span><br><span class="line">     &lt;View&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>._renderTitleItem()&#125;</span><br><span class="line">        &#123;<span class="keyword">this</span>._renderItemsPart()&#125;</span><br><span class="line">        &#123;<span class="keyword">this</span>._renderCancelItem()&#125;</span><br><span class="line">    &lt;<span class="regexp">/View&gt;)</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/render title part</span></span><br><span class="line"><span class="regexp">_renderTitleItem()&#123;</span></span><br><span class="line"><span class="regexp">    if(!this.props.mainTitle)&#123;</span></span><br><span class="line"><span class="regexp">        return null;</span></span><br><span class="line"><span class="regexp">    &#125;else &#123;</span></span><br><span class="line"><span class="regexp">        return (</span></span><br><span class="line"><span class="regexp">            &lt;TouchableWithoutFeedback&gt;</span></span><br><span class="line"><span class="regexp">                &lt;View style=&#123;[styles.contentViewStyle]&#125;&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;Text&gt;&#123;this.props.mainTitle&#125;&lt;/</span>Text&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>TouchableWithoutFeedback&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//render selection items part</span></span><br><span class="line">_renderItemsPart()&#123;</span><br><span class="line">    <span class="keyword">var</span> itemsArr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="keyword">let</span> title = <span class="keyword">this</span>.state.itemTitles[i];</span><br><span class="line">    <span class="keyword">let</span> itemView =</span><br><span class="line">        &lt;View key=&#123;i&#125;&gt;</span><br><span class="line">            &#123;<span class="comment">/* Seperate Line */</span>&#125;</span><br><span class="line">            &#123;<span class="keyword">this</span>._renderItemSeperateLine(showItemSeperateLine)&#125;</span><br><span class="line">            &#123;<span class="comment">/* item for selection*/</span>&#125;</span><br><span class="line">            &lt;TouchableOpacity onPress=&#123;<span class="keyword">this</span>._didSelect.bind(<span class="keyword">this</span>, i)&#125;&gt;</span><br><span class="line">                &lt;View style=&#123;[styles.contentViewStyle]&#125; key=&#123;i&#125;&gt;</span><br><span class="line">                    &lt;Text style=&#123;[styles.textStyle]&#125;&gt;&#123;title&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">                &lt;/</span>View&gt;</span><br><span class="line">            &lt;<span class="regexp">/TouchableOpacity&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>View&gt;</span><br><span class="line">        itemsArr.push(itemView);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> itemsArr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//render cancel part</span></span><br><span class="line">_renderCancelItem()&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View style=&#123;&#123;<span class="attr">width</span>:<span class="keyword">this</span>.contentWidth,<span class="attr">height</span>: <span class="keyword">this</span>.real_cancelPartHeight&#125;&#125;&gt;</span><br><span class="line">          &#123;<span class="comment">/* Seperate Line */</span>&#125;</span><br><span class="line">          &#123;<span class="keyword">this</span>._renderCancelSeperateLine(showCancelSeperateLine)&#125;</span><br><span class="line">          &#123;<span class="comment">/* Cancel Item */</span>&#125;</span><br><span class="line">            &lt;TouchableOpacity onPress=&#123;<span class="keyword">this</span>._dismiss.bind(<span class="keyword">this</span>)&#125;&gt;</span><br><span class="line">                &lt;View style=&#123;[styles.contentViewStyle]&#125;&gt;</span><br><span class="line">                    &lt;Text style=&#123;[styles.textStyle]&#125;&gt;&#123;<span class="keyword">this</span>.state.cancelTitle&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">                &lt;/</span>View&gt;</span><br><span class="line">            &lt;<span class="regexp">/TouchableOpacity&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="交互"><a href="#交互" class="headerlink" title="交互"></a>交互</h3><p>组件的交互可以分为两种：有外部回调的交互以及没有外部回调的交互。这个外部回调是指在组件外部所需要执行的函数。比如底部菜单组件：如果用户点击了某一项，菜单会回落，并调用该组件外部的函数（例如退出登录，清除缓存等等）。类比在iOS开发中，可以使用代理或者block的方式进行回调，而在React Native中实现回调的方式与iOS中block的方式类似。</p>
+<h4 id="有回调的交互"><a href="#有回调的交互" class="headerlink" title="有回调的交互"></a>有回调的交互</h4><p>在React Native中，如果需要调用外部的函数，就需要在一开始的时候将该函数作为属性传入组件中。然后拦截用户的点击，调用相应的回调函数。这里面分为三个步骤：</p>
+<ol>
+<li>传入回调函数</li>
+<li>拦截用户操作</li>
+<li>调用回调函数</li>
+</ol>
+<p><strong>1. 传入回调函数：</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> propTypes = &#123;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//selection items callback</span></span><br><span class="line">    selectionCallbacks:PropTypes.array,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，<code>selectionCallbacks</code>是对应选择项的回调函数数组属性。这里因为选择项数量不确定，所以用数组来保存回调函数。</p>
+</blockquote>
+<p><strong>2. 拦截用户操作(点击)：</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;TouchableOpacity onPress=&#123;<span class="keyword">this</span>._didSelect.bind(<span class="keyword">this</span>, i)&#125;  activeOpacity = &#123;<span class="number">0.9</span>&#125;&gt;</span><br><span class="line">    &lt;View style=&#123;styles.contentViewStyle&#125; key=&#123;i&#125;&gt;</span><br><span class="line">        &lt;Text style=&#123;styles.textStyle&#125;&gt;&#123;title&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>View&gt;</span><br><span class="line">&lt;<span class="regexp">/TouchableOpacity&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，使用了<code>TouchableOpacity</code>组件让<code>View</code>组件获得可以被点击的能力，并且绑定了函数<code>_select(index)</code>。</p>
+</blockquote>
+<p><strong>3. 调用回调函数：</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取出相应的回调函数并调用</span></span><br><span class="line">_select(i) &#123;</span><br><span class="line">    <span class="keyword">let</span> callback = <span class="keyword">this</span>.state.selectionCallbacks[i];</span><br><span class="line">    <span class="keyword">if</span>(callback)&#123;</span><br><span class="line">        &#123;callback()&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，_didSelect(index)函数是某个选项被点击后调用的函数。该函数拿到传入的index值，从callback数组里面获取对应index的回调函数并调用。而且为了避免崩溃，还判断了callback是否为空。</p>
+</blockquote>
+<h4 id="没有回调的交互"><a href="#没有回调的交互" class="headerlink" title="没有回调的交互"></a>没有回调的交互</h4><p>如果这个交互没有回调就比较简单了，在组件内部做就可以了。比如点击取消后的回落事件：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;TouchableOpacity onPress=&#123;<span class="keyword">this</span>._dismiss.bind(<span class="keyword">this</span>)&#125; activeOpacity = &#123;<span class="number">0.9</span>&#125;&gt;</span><br><span class="line">    &lt;View style=&#123;styles.contentViewStyle&#125;&gt;</span><br><span class="line">        &lt;Text style=&#123;styles.textStyle&#125;&gt;&#123;<span class="keyword">this</span>.state.cancelTitle&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>View&gt;</span><br><span class="line">&lt;<span class="regexp">/TouchableOpacity&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/dismiss ActionSheet</span></span><br><span class="line"><span class="regexp">_dismiss() &#123;</span></span><br><span class="line"><span class="regexp">    if (!this.state.hide) &#123;</span></span><br><span class="line"><span class="regexp">        this._fade();</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>在这里除了使菜单回落以外，再点击取消的时候还给了用户反馈：点击时背景色的透明度改变。实现方法是利用的<code>TouchableOpacity</code>的<code>activeOpacity = {0.9}</code></p>
+<p>OK，现在讲完了数据和交互，再来看一下React Native是如何支持动画效果的（因为用到了所以就顺带讲一下了）。</p>
+<h3 id="动画效果"><a href="#动画效果" class="headerlink" title="动画效果"></a>动画效果</h3><p>一般来说，底部菜单在弹出和回落的时候是有动画效果的，React Native的动画效果可以用其内置的<code>Animated</code>库来实现。</p>
+<p>结合菜单弹出的例子来说明一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//animation of showing</span></span><br><span class="line">_appear() &#123;</span><br><span class="line">    Animated.parallel([</span><br><span class="line">        Animated.timing(</span><br><span class="line">            <span class="keyword">this</span>.state.opacity, <span class="comment">//动画改编的变量</span></span><br><span class="line">            &#123;</span><br><span class="line">                easing: Easing.linear,</span><br><span class="line">                duration: <span class="number">200</span>,  <span class="comment">//动画时长，单位是毫秒</span></span><br><span class="line">                toValue: <span class="number">0.7</span>,   <span class="comment">//终点值</span></span><br><span class="line">            &#125;</span><br><span class="line">        ),</span><br><span class="line">        Animated.timing(</span><br><span class="line">            <span class="keyword">this</span>.state.offset,</span><br><span class="line">            &#123;</span><br><span class="line">                easing: Easing.linear,</span><br><span class="line">                duration: <span class="number">200</span>,</span><br><span class="line">                toValue: <span class="number">1</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">    ]).start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，</p>
+<ul>
+<li><p><code>Animated.parallel</code>函数负责执行<strong>同时执行的组合动画</strong>。既然是组合动画，那么传入的就应该是一个动画的数组。仔细看一下就会发现这里有两个<code>Animated.timing</code>函数。</p>
+</li>
+<li><p><code>Animated.timing</code>函数负责执行以时间为单位的动画。从注释上不难看出，在这里同时执行的两个动画是：</p>
+<ul>
+<li><code>this.state.opacity</code>值在200毫秒内，从0到0.7渐变的动画。</li>
+<li><code>this.state.offset</code>值在200毫秒内，从0到1渐变的动画。</li>
+</ul>
+</li>
+<li><p>最底部的<code>start()</code>函数触发了这个组合动画。</p>
+<p>​</p>
+</li>
+</ul>
+<blockquote>
+<p>这里没有提供起点值，因为在这里直接获取的是传入变量的当前值。</p>
+</blockquote>
+<p>相对底部菜单的弹出动画，来看一下底部菜单的回落动画：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//animation of fading</span></span><br><span class="line">_fade() &#123;</span><br><span class="line">    Animated.parallel([</span><br><span class="line">        Animated.timing(</span><br><span class="line">            <span class="keyword">this</span>.state.opacity,</span><br><span class="line">            &#123;</span><br><span class="line">                easing: Easing.linear,</span><br><span class="line">                duration: <span class="number">200</span>,</span><br><span class="line">                toValue: <span class="number">0</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        ),</span><br><span class="line">        Animated.timing(</span><br><span class="line">            <span class="keyword">this</span>.state.offset,</span><br><span class="line">            &#123;</span><br><span class="line">                easing: Easing.linear,</span><br><span class="line">                duration: <span class="number">200</span>,</span><br><span class="line">                toValue: <span class="number">0</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">    ]).start(<span class="function">(<span class="params">finished</span>) =&gt;</span> <span class="keyword">this</span>.setState(&#123;<span class="attr">hide</span>: <span class="literal">true</span>&#125;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有关动画的知识可以查看官方文档[React Native :动画](<a href="http://reactnative.cn/docs/0.48/animations.html#conte" target="_blank" rel="noopener">http://reactnative.cn/docs/0.48/animations.html#conte</a></p>
+<p>其实到这里，对于组件的封装就基本讲完了，讲解的内容还是集中在数据这一块，组件是怎么画出来的就不讲解了。因为毕竟每个组件将数据转化为样式的代码是不一样的，学会一个弹出菜单的画法对于画其他的组件没有太大的借鉴意义。但是对于一个通用组件来说，其定制性必须达到一定标准才可以。所以相对于讲解“组件是如何画出来的”，我认为讲一下“提高组件定制性”应该更实际一些。</p>
+<h3 id="为提高定制性所做的工作："><a href="#为提高定制性所做的工作：" class="headerlink" title="为提高定制性所做的工作："></a>为提高定制性所做的工作：</h3><p>最开始做这个控件也仅仅只能设置标题，选项以及回调函数，样式也只有这一种：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_one.png" alt=""></p>
+<p>但是为了提高定制性，支持更多的样式，也为了自己能更好地了解React Native，就决定挑战一下，看定制性能提高到什么程度。</p>
+<p>如上文所说，在React Native里，组件的数据传递是通过设置其属性来实现的。所以如果想要提高组件的定制性就需要增加该组件的属性。</p>
+<p>看一下该组件的所有属性：</p>
+<ul>
+<li><code>itemTitles</code><em>(Array)</em>:选择项的标题数组</li>
+<li><code>selectionCallbacks</code><em>(Array)</em>：点击选项的回调数组</li>
+</ul>
+<ul>
+<li><code>mainTitle</code><em>(String)</em>:标题文字</li>
+<li><code>mainTitleFont</code><em>(Number)</em>:标题字体</li>
+<li><code>mainTitleColor</code><em>(String)</em>:标题颜色</li>
+<li><code>mainTitleHeight</code><em>(Number)</em>:标题栏高度</li>
+<li><code>mainTitleTextAlign</code><em>(String)</em>:标题对齐方式</li>
+<li><code>mainTitlePadding</code><em>(Number)</em>:标题内边距</li>
+<li><code>itemTitleFont</code><em>(Number)</em>:选择项字体</li>
+<li><code>itemTitleColor</code><em>(String)</em>:选择项颜色</li>
+<li><code>itemHeight</code><em>(Number)</em>:选择栏高度</li>
+</ul>
+<ul>
+<li><code>cancelTitle</code><em>(String)</em>:取消项标题，默认为’Cancel’</li>
+<li><code>cancelTitleFont</code><em>(Number)</em>:取消标题字体</li>
+<li><code>cancelTitleColor</code><em>(String)</em>:取消标题颜色</li>
+<li><code>cancelHeight</code><em>(Number)</em>:取消栏高度</li>
+<li><code>hideCancel</code><em>(Bool)</em>:是否隐藏取消项（默认不隐藏）</li>
+</ul>
+<ul>
+<li><code>fontWeight</code><em>(String)</em>:所有文字的字体粗细（同时设置标题，选择项，取消项的字体粗细）</li>
+<li><code>titleFontWeight</code><em>(String)</em>:标题的字体粗细，默认为’normal’</li>
+<li><code>itemFontWeight</code><em>(String)</em>:选择项的字体粗细，默认为’normal’</li>
+<li><code>cancelFontWeight</code><em>(String)</em>:取消项的字体粗细，默认为’bold’</li>
+</ul>
+<ul>
+<li><code>contentBackgroundColor</code><em>(String)</em>:所有项目的背景色（同时设置标题，选择项，取消项的背景色）</li>
+<li><code>titleBackgroundColor</code><em>(String)</em>:标题的背景色（默认是白色）</li>
+<li><code>itemBackgroundColor</code><em>(String)</em>:选择项的背景色（默认是白色）</li>
+<li><code>cancelBackgroundColor</code><em>(String)</em>:取消项的背景色（默认是白色）</li>
+<li><code>itemSpaceColor</code><em>(String)</em>:选择项之间的分割线颜色（默认是浅灰色）</li>
+<li><code>cancelSpaceColor</code><em>(String)</em>:取消项和最后一个选择项之间的分割线颜色（默认是浅灰色）</li>
+</ul>
+<ul>
+<li><code>itemVerticalSpace</code><em>(Number)</em>:选择项之间分割线的高度</li>
+</ul>
+<ul>
+<li><code>cancelVerticalSpace</code><em>(Number)</em>:取消项和最后一个选择项之间的分割线的高度</li>
+<li><code>bottomSpace</code><em>(Number)</em>:屏幕底部距离取消项底部的距离</li>
+<li><code>sideSpace</code><em>(Number)</em>:弹出框左右侧边距离屏幕左右侧边的距离</li>
+</ul>
+<ul>
+<li><code>borderRadius</code><em>(Number)</em>:弹出框的圆角</li>
+</ul>
+<ul>
+<li><code>maskOpacity</code><em>(Number)</em>:mask的透明度（默认为0.3）</li>
+</ul>
+<p>不难看出，该组件的三个部分（标题，选项，取消）里，每个部分都有各自对应的属性可以设置。因为在设计这个组件的时候就将这三个部分高度解耦了：每个部分都互不影响，有各自的数据（除了少数可以共同使用的数据），并分别进行绘制。</p>
+<p>比如，我们可以设置：</p>
+<h4 id="每个部分文字内容，字体大小，高度"><a href="#每个部分文字内容，字体大小，高度" class="headerlink" title="每个部分文字内容，字体大小，高度"></a>每个部分文字内容，字体大小，高度</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting1.png" alt=""></p>
+<h4 id="背景颜色（可以统一设置，也可以单独设置）"><a href="#背景颜色（可以统一设置，也可以单独设置）" class="headerlink" title="背景颜色（可以统一设置，也可以单独设置）"></a>背景颜色（可以统一设置，也可以单独设置）</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting2.png" alt=""></p>
+<h4 id="分割线高度，距离底部的高度，距离屏幕侧边的距离"><a href="#分割线高度，距离底部的高度，距离屏幕侧边的距离" class="headerlink" title="分割线高度，距离底部的高度，距离屏幕侧边的距离"></a>分割线高度，距离底部的高度，距离屏幕侧边的距离</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting3.png" alt=""></p>
+<h4 id="分割线的颜色"><a href="#分割线的颜色" class="headerlink" title="分割线的颜色"></a>分割线的颜色</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting4.png" alt=""></p>
+<p>上面这些图片的效果对应的代码在<a href="https://github.com/knightsj/react-naive-highly-customizable-action-sheet">demo</a>中都有提供(具体查看Example文件夹)。</p>
+<p>另外该组件也支持一些比较极端的情况，虽然可能需求上极少遇到，但还是提供了支持。</p>
+<h4 id="极端情况："><a href="#极端情况：" class="headerlink" title="极端情况："></a>极端情况：</h4><p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/action_sheet/rn_as_setting5.png" alt=""></p>
+<p>高度解耦的程度可以通过这最后一张图看出来：主标题，选择项，取消项都可以根据传入属性的情况来展示，互不影响。而且在都不设置的情况下，只展示了灰色的底部mask。</p>
+<h2 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h2><p>写这个组件一共花了3天的时间，其实第一天就已经完成了默认样式的开发。而后2天主要做的是提高定制性的工作。因为定制性的工作是与数据处理和应用分不开的，而自己对JavaScript语法了解得不是很好，所以期间写了不少的bug。值得庆幸的是，由于React Native本身搭建UI的能力很强，效率很高，所以数据处理好了之后工作量就不大了。</p>
+<p>毕竟是自己封装的第一个React Native组件，我相信它还是有很多提升空间的，比如数据处理这一块可能有不妥的地方，还需要各位能给出宝贵的意见和建议。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React-Native/" rel="tag"># React Native</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/程序员的职业素养 - 读书笔记/" rel="next" title="程序员的职业素养 - 读书笔记">
+                <i class="fa fa-chevron-left"></i> 程序员的职业素养 - 读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/详解iOS多图下载的缓存机制/" rel="prev" title="详解iOS多图下载的缓存机制">
+                详解iOS多图下载的缓存机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定制性介绍"><span class="nav-number">2.</span> <span class="nav-text">定制性介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认的样式："><span class="nav-number">2.1.</span> <span class="nav-text">默认的样式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类似iOS原生-ActionSheet的样式"><span class="nav-number">2.2.</span> <span class="nav-text">类似iOS原生 ActionSheet的样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装："><span class="nav-number">3.1.</span> <span class="nav-text">安装：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Native组件的封装"><span class="nav-number">4.</span> <span class="nav-text">React Native组件的封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装些什么"><span class="nav-number">4.1.</span> <span class="nav-text">封装些什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据接收"><span class="nav-number">4.2.</span> <span class="nav-text">数据接收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">4.3.</span> <span class="nav-text">数据处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-额外需要计算的数据"><span class="nav-number">4.3.1.</span> <span class="nav-text">1. 额外需要计算的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-提供对应属性的默认值"><span class="nav-number">4.3.2.</span> <span class="nav-text">2. 提供对应属性的默认值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据展示"><span class="nav-number">4.4.</span> <span class="nav-text">数据展示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互"><span class="nav-number">4.5.</span> <span class="nav-text">交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有回调的交互"><span class="nav-number">4.5.1.</span> <span class="nav-text">有回调的交互</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有回调的交互"><span class="nav-number">4.5.2.</span> <span class="nav-text">没有回调的交互</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画效果"><span class="nav-number">4.6.</span> <span class="nav-text">动画效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为提高定制性所做的工作："><span class="nav-number">4.7.</span> <span class="nav-text">为提高定制性所做的工作：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#每个部分文字内容，字体大小，高度"><span class="nav-number">4.7.1.</span> <span class="nav-text">每个部分文字内容，字体大小，高度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景颜色（可以统一设置，也可以单独设置）"><span class="nav-number">4.7.2.</span> <span class="nav-text">背景颜色（可以统一设置，也可以单独设置）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分割线高度，距离底部的高度，距离屏幕侧边的距离"><span class="nav-number">4.7.3.</span> <span class="nav-text">分割线高度，距离底部的高度，距离屏幕侧边的距离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分割线的颜色"><span class="nav-number">4.7.4.</span> <span class="nav-text">分割线的颜色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#极端情况："><span class="nav-number">4.7.5.</span> <span class="nav-text">极端情况：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的话"><span class="nav-number">5.</span> <span class="nav-text">最后的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

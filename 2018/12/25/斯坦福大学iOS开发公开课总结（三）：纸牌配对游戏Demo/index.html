@@ -1,0 +1,904 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：斯坦福大学iOS开发公开课总结（二） ：翻纸牌Demo），将一张纸牌扩展到一个多张纸牌并进行配对和打分的小游戏。 本节课的内容虽然简单，但是十分重要，讲师强调了MVC的设计原则并实际运用到了代码中，本文就Demo的具体代码来讲解本节课提到的知识点。">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：斯坦福大学iOS开发公开课总结（二） ：翻纸牌Demo），将一张纸牌扩展到一个多张纸牌并进行配对和打分的小游戏。 本节课的内容虽然简单，但是十分重要，讲师强调了MVC的设计原则并实际运用到了代码中，本文就Demo的具体代码来讲解本节课提到的知识点。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-6371568b2e366281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-0c8b70fd62292aa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.623Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo">
+<meta name="twitter:description" content="本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：斯坦福大学iOS开发公开课总结（二） ：翻纸牌Demo），将一张纸牌扩展到一个多张纸牌并进行配对和打分的小游戏。 本节课的内容虽然简单，但是十分重要，讲师强调了MVC的设计原则并实际运用到了代码中，本文就Demo的具体代码来讲解本节课提到的知识点。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-6371568b2e366281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/">
+
+
+
+
+
+  <title> 斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                斯坦福大学iOS开发公开课总结（三）：纸牌配对游戏Demo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,778 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本节课知识点内容不多，主要是延续了上一节课翻单张纸牌的游戏(详情请见：<a href="http://www.jianshu.com/p/332324bff10a" target="_blank" rel="noopener">斯坦福大学iOS开发公开课总结（二） ：翻纸牌Demo</a>），将一张纸牌扩展到一个多张纸牌并进行配对和打分的小游戏。</p>
+<p>本节课的内容虽然简单，但是十分重要，讲师强调了MVC的设计原则并实际运用到了代码中，本文就Demo的具体代码来讲解本节课提到的知识点。</p>
+<a id="more"></a>
+<h1 id="设计需求"><a href="#设计需求" class="headerlink" title="设计需求"></a>设计需求</h1><hr>
+<ul>
+<li>显示多张纸牌，点击任意一张牌可以翻牌。</li>
+<li>两张牌都显示正面后可以进行配对：<ul>
+<li>花色匹配得1分；数字匹配得4分，匹配后，两张牌切换为不可点击状态（置灰）。</li>
+<li>都不匹配扣2分。</li>
+<li>每次翻牌都减一分。</li>
+</ul>
+</li>
+<li>每次翻牌都要更新分数。</li>
+</ul>
+<h1 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h1><hr>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-6371568b2e366281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：初始界面 ；右：游戏中界面"></p>
+<h1 id="重要代码段与知识点"><a href="#重要代码段与知识点" class="headerlink" title="重要代码段与知识点"></a>重要代码段与知识点</h1><hr>
+<h2 id="模型类：CardMatchingGame"><a href="#模型类：CardMatchingGame" class="headerlink" title="模型类：CardMatchingGame"></a>模型类：CardMatchingGame</h2><h4 id="1-在公共接口设置只读属性"><a href="#1-在公共接口设置只读属性" class="headerlink" title="1. 在公共接口设置只读属性"></a>1. 在公共接口设置只读属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//CardMatchingGame.h</span><br><span class="line">@property (nonatomic, readonly) NSInteger score;</span><br><span class="line"></span><br><span class="line">//CardMatchingGame.m</span><br><span class="line">@property (nonatomic, readwrite) NSInteger score;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在.h文件中将分数属性设置为只读，并在.m文件中设定该属性为读写，以便在内部计算。</p>
+<p>原因：不希望其他类更改此属性，只能获取该属性。通俗一点地说：“你们就拿我给你算好的分数就好了，你们是不能更改它的！”</p>
+</blockquote>
+<h4 id="2-指定初始化器：Designated-initializer"><a href="#2-指定初始化器：Designated-initializer" class="headerlink" title="2. 指定初始化器：Designated initializer"></a>2. 指定初始化器：Designated initializer</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    </span><br><span class="line">    if (self) &#123;</span><br><span class="line">        </span><br><span class="line">        for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">            </span><br><span class="line">            Card *card = [deck drawRandomCard];</span><br><span class="line">            </span><br><span class="line">            if (card) &#123;</span><br><span class="line">               </span><br><span class="line">                [self.cards addObject:card];</span><br><span class="line">                </span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                </span><br><span class="line">                self = nil;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>有些时候，我们需要在类实例化的时候就要求对象持有某些数据,这就需要设计<strong>指定初始化器</strong>，因为原始的初始化方法<code>-(instancetype)init</code>方法是无法让实例对象持有非零数据的(初始化后，基本数据类型属性=0；对象属性=nil)。</p>
+<p>在这段代码里，该模型类通过数量<code>count</code>和一堆纸牌<code>deck</code>中拿到了自己持有的数组<code>self.cards</code>。</p>
+<p>举个🌰 ：想要从一个有52张牌的堆里抽取了12张牌来作为自己的一堆纸牌的话，就要设置Deck为具有52张牌的数组；而设置count为12即可。</p>
+</blockquote>
+<h4 id="3-设定常量"><a href="#3-设定常量" class="headerlink" title="3. 设定常量"></a>3. 设定常量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define MISMATCH_PENALTY 2 //简单的替换，不具有数据类型</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static const int MISMATCH_PENALTY = 2; //非简单替换，具有数据类型</span><br></pre></td></tr></table></figure>
+<h2 id="控制器类：CardMathcingGameViewController"><a href="#控制器类：CardMathcingGameViewController" class="headerlink" title="控制器类：CardMathcingGameViewController"></a>控制器类：CardMathcingGameViewController</h2><hr>
+<h4 id="1-接收来自View的点击事件并更新UI"><a href="#1-接收来自View的点击事件并更新UI" class="headerlink" title="1. 接收来自View的点击事件并更新UI"></a>1. 接收来自View的点击事件并更新UI</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  接收用户的点击事件</span><br><span class="line"> *</span><br><span class="line"> *  @param sender 点击的按钮对象</span><br><span class="line"> */</span><br><span class="line">- (IBAction)touchCardButton:(UIButton *)sender &#123;</span><br><span class="line"></span><br><span class="line">    //1. 找到界面中所点击的按钮index</span><br><span class="line">    NSInteger cardIndex = [self.cardButtons indexOfObject:sender];</span><br><span class="line">    </span><br><span class="line">    //2. 找到模型中相同index的纸牌数据，并判断是否匹配，计算分数</span><br><span class="line">    [self.game chooseCardAtIndex: cardIndex];</span><br><span class="line">    </span><br><span class="line">    //3. 更新UI</span><br><span class="line">    [self updateUI];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  更新UI</span><br><span class="line"> */</span><br><span class="line">- (void)updateUI</span><br><span class="line">&#123;</span><br><span class="line">    //1. 更新view上所有牌面</span><br><span class="line">    for (UIButton *cardButton in self.cardButtons) &#123;</span><br><span class="line">        </span><br><span class="line">        //1.1 找到界面中的一张纸牌(按照枚举的顺序)</span><br><span class="line">        NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];</span><br><span class="line">        </span><br><span class="line">        //1.2 找到模型中对应的纸牌数据</span><br><span class="line">        Card *card  = [self.game cardAtIndex:cardIndex];</span><br><span class="line">        </span><br><span class="line">        //1.3 根据数据更新纸牌的UI和可点击性</span><br><span class="line">        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];</span><br><span class="line">        [cardButton setBackgroundImage: [self backgroundImageForCard:card] forState:UIControlStateNormal];</span><br><span class="line">         cardButton.enabled = !card.isMatched;        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //2. 更新分数</span><br><span class="line">    self.scoreLabel.text = [NSString stringWithFormat:@&quot;Score: %ld&quot;, (long)self.game.score];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，我们可以很容易看到MVC的工作流程：</p>
+<ol>
+<li>在View里发生了点击事件并通知给了Controller。</li>
+<li>Controller告诉Model发生了点击。</li>
+<li>Model根据点击事件更新自己，然后将更新后的自己告诉Controller。</li>
+<li>Controller根据更新后的模型去更新UI。</li>
+</ol>
+</blockquote>
+<p>这里笔者有一张自己画的图，略逗逼，掩面贴出，独乐乐不如众乐乐~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-0c8b70fd62292aa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MVC流程图.png"></p>
+<h2 id="零散知识点"><a href="#零散知识点" class="headerlink" title="零散知识点"></a>零散知识点</h2><hr>
+<h4 id="1-在数组里传入其包含的对象返回其所在序号"><a href="#1-在数组里传入其包含的对象返回其所在序号" class="headerlink" title="1. 在数组里传入其包含的对象返回其所在序号"></a>1. 在数组里传入其包含的对象返回其所在序号</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSInteger cardIndex = [self.cardButtons indexOfObject:cardButton];</span><br></pre></td></tr></table></figure>
+<h4 id="2-在数组中找到第一个元素"><a href="#2-在数组中找到第一个元素" class="headerlink" title="2. 在数组中找到第一个元素"></a>2. 在数组中找到第一个元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//应该使用：</span><br><span class="line">PlayingCard *otherCard = [otherCards firstObject];</span><br><span class="line"></span><br><span class="line">//不应该使用：</span><br><span class="line">PlayingCard *otherCard = otherCards[0];</span><br><span class="line"></span><br><span class="line">//不应该使用：</span><br><span class="line">PlayingCard *otherCard = [otherCards objectAtIndex:0];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>应该使用第一种情况。<br>因为如果数组为空，那么如果使用第一种情况会返回nil,而向nil发送消息是不会造成崩溃的。<br>但是如果使用后两种方法，一旦数组为空，就会立刻造成程序崩溃！而且同样适用与取数组的最后一个元素的情况。<br>在数组中找到最后一个元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PlayingCard *otherCard = [otherCards lastObject];</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="3-在数组中是否包含某元素"><a href="#3-在数组中是否包含某元素" class="headerlink" title="3. 在数组中是否包含某元素"></a>3. 在数组中是否包含某元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ([ [PlayingCard ValidSuits] containsObject:suit]) &#123;</span><br><span class="line">        _suit = suit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>containsObject:是NSArray的方法，返回布尔值，用来判断是否包含某个元素。</p>
+</blockquote>
+<h4 id="4-JPG格式图片的读取"><a href="#4-JPG格式图片的读取" class="headerlink" title="4. JPG格式图片的读取"></a>4. JPG格式图片的读取</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (UIImage *)backgroundImageForCard: (Card *)card</span><br><span class="line">&#123;</span><br><span class="line">    //默认是png，如果是jpg需要加上.jpg的后缀</span><br><span class="line">    return [UIImage imageNamed:card.isChosen? @&quot;cardFront.jpg&quot;:@&quot;CardBack.png&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果使用<code>imageNamed:</code>方法，仅传入jpg格式的文件名是无法显示出图片的，应该讲后缀<code>.jpg</code>拼接后传入才可以哦~而相同情况下，若要显示<code>png</code>格式的图片的话是不需要另外加后缀的。</p>
+</blockquote>
+<h1 id="最后的话："><a href="#最后的话：" class="headerlink" title="最后的话："></a>最后的话：</h1><hr>
+<p>如果哪位小伙伴想拿到此Demo的代码请不要客气，在评论里留言即可。<br>而且十分欢迎给笔者的代码和文笔抛出宝贵的意见和建议~</p>
+<p>本文为笔者原创，如需转载，请事先与笔者交涉~</p>
+<h1 id="2016-7-12日更新："><a href="#2016-7-12日更新：" class="headerlink" title="2016.7.12日更新："></a>2016.7.12日更新：</h1><hr>
+<p>笔者已经把目前为止整理的所有Demo(第二课到第十课)放入到了我的<a href="https://github.com/Shijie0111/Stanford_iOS_Lecture_DemoBundle">GitHub</a>仓库里。分为英文注释版和中文注释版(英文注释要少一点，嘿嘿)想要的小伙伴可以果断下载~ 如果有不知道怎么下载的小伙伴请联系我~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo/" rel="next" title="斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo">
+                <i class="fa fa-chevron-left"></i> 斯坦福大学iOS开发公开课总结（七）：自定义视图，手势识别，绘制纸牌Demo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/" rel="prev" title="斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo">
+                斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计需求"><span class="nav-number">1.</span> <span class="nav-text">设计需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#效果图："><span class="nav-number">2.</span> <span class="nav-text">效果图：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重要代码段与知识点"><span class="nav-number">3.</span> <span class="nav-text">重要代码段与知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型类：CardMatchingGame"><span class="nav-number">3.1.</span> <span class="nav-text">模型类：CardMatchingGame</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在公共接口设置只读属性"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">1. 在公共接口设置只读属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-指定初始化器：Designated-initializer"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">2. 指定初始化器：Designated initializer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-设定常量"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">3. 设定常量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制器类：CardMathcingGameViewController"><span class="nav-number">3.2.</span> <span class="nav-text">控制器类：CardMathcingGameViewController</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-接收来自View的点击事件并更新UI"><span class="nav-number">3.2.0.1.</span> <span class="nav-text">1. 接收来自View的点击事件并更新UI</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#零散知识点"><span class="nav-number">3.3.</span> <span class="nav-text">零散知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-在数组里传入其包含的对象返回其所在序号"><span class="nav-number">3.3.0.1.</span> <span class="nav-text">1. 在数组里传入其包含的对象返回其所在序号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-在数组中找到第一个元素"><span class="nav-number">3.3.0.2.</span> <span class="nav-text">2. 在数组中找到第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-在数组中是否包含某元素"><span class="nav-number">3.3.0.3.</span> <span class="nav-text">3. 在数组中是否包含某元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-JPG格式图片的读取"><span class="nav-number">3.3.0.4.</span> <span class="nav-text">4. JPG格式图片的读取</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话："><span class="nav-number">4.</span> <span class="nav-text">最后的话：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2016-7-12日更新："><span class="nav-number">5.</span> <span class="nav-text">2016.7.12日更新：</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

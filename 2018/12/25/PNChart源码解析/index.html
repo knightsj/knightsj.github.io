@@ -1,0 +1,998 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,源码解析,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="一. 框架介绍PNChart是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。 该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类PNGenericChart,第二层就是所有类型的图表。提供一张图来直观感受一下：   在这张图里，需要注意以下几点：  带箭头的线和不">
+<meta name="keywords" content="iOS,Objective-C,源码解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PNChart源码解析">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/PNChart源码解析/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="一. 框架介绍PNChart是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。 该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类PNGenericChart,第二层就是所有类型的图表。提供一张图来直观感受一下：   在这张图里，需要注意以下几点：  带箭头的线和不">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_chart.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_linechart.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PNChart源码解析">
+<meta name="twitter:description" content="一. 框架介绍PNChart是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。 该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类PNGenericChart,第二层就是所有类型的图表。提供一张图来直观感受一下：   在这张图里，需要注意以下几点：  带箭头的线和不">
+<meta name="twitter:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/PNChart源码解析/">
+
+
+
+
+
+  <title> PNChart源码解析 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/PNChart源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PNChart源码解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  6,889 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  30 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一-框架介绍"><a href="#一-框架介绍" class="headerlink" title="一. 框架介绍"></a>一. 框架介绍</h2><p><a href="https://github.com/kevinzhow/PNChart">PNChart</a>是国内开发者开发的iOS图表框架，现在已经7900多颗star了。它涵盖了折线图，柱状图，饼图，散点图等图表。图表的可定制性很高，而且UI设计简洁大方。</p>
+<p>该框架分为两层：视图层和数据层。视图层里有两层继承关系，第一层是所有类型图表的父类<code>PNGenericChart</code>,第二层就是所有类型的图表。提供一张图来直观感受一下：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_header.png" alt="层级图"></p>
+<blockquote>
+<p>在这张图里，需要注意以下几点：</p>
+<ol>
+<li>带箭头的线和不带箭头的线的区别。</li>
+<li><code>Data</code>类对应图表的一组数据，因为当前类型的图表支持多组数据（例如：饼状图没有<code>Data</code>类，因为饼状图没有多组数据，而折线图<code>LineChart</code>是支持多组数据的，所以有<code>Data</code>类。</li>
+<li><code>Item</code>类负责将传入图表的某个真实值转化为图表中显示的值，具体做法会在下文详细讲解。</li>
+<li><code>BarChart</code>类里面的每一根柱子都是<code>PNBar</code>的实例（该类型的图表不在本篇讲解的范围之内）。</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+<p>今天就来介绍一下该框架里的折线图的源码。上文提到过，该框架的折线图是支持多组数据的，也就是在同一张图表上显示多条折线。先带大家看一下效果图：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_chart.png" alt="折线图"></p>
+<p>折线图在效果上还是很简洁美观的，如果现在的你还不知道如何使用<code>CAShapeLayer</code>和<code>UIBezierPath</code>画图并附加动画效果，那么本篇源码解析非常适合你。</p>
+<p>阅读本文之后，你可以掌握有关图形绘制的相关知识，也可以掌握自定义各种图形（<code>UIView</code>）的方法，而且你也应该有能力作出这样的图表，甚至更好！</p>
+<p>在开始讲解之前，我先粗略介绍一下利用<code>CAShapeLayer</code>画图的过程。这个过程有三个大前提：</p>
+<ul>
+<li>因为<code>UIView</code>是对<code>CALayer</code>的封装，所以我们可以通过改变<code>UIView</code>所持有的<code>layer</code>属性来直接改变<code>UIView</code>的显示效果。</li>
+<li><code>CAShapeLayer</code>是<code>CALayer</code>的子类。</li>
+<li><code>CAShapeLayer</code>的使用是依赖于<code>UIBezierPath</code>的。<code>UIBezierPath</code>就是“路径”，可以理解为形状。不难理解，想象一下，如果我们想画一个图形，那么这个图形的形状（包括颜色）是必不可少的，而这个角色，就需要<code>UIBezierPath</code>来充当。</li>
+</ul>
+<p>那么了这三个大前提，我们就可以知道如何画图了：</p>
+<ol>
+<li>实例化一个<code>UIBezierPath</code>，并赋给<code>CAShapeLayer</code>实例的<code>path</code>属性。</li>
+<li>将这个<code>CAShapeLayer</code>的实例添加到<code>UIView</code>的<code>layer</code>上。</li>
+</ol>
+<p>简单的代码演示上述过程：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIBezierPath</span> *path = [<span class="built_in">UIBezierPath</span> bezierPath];</span><br><span class="line">...自定义path...</span><br><span class="line"><span class="built_in">CAShapeLayer</span> *shapLayer = [<span class="built_in">CAShapeLayer</span> alloc] init];</span><br><span class="line">shapLayer.path = path;</span><br><span class="line">[<span class="keyword">self</span>.view.layer addSubLayer:shapeLayer];</span><br></pre></td></tr></table></figure></p>
+<p>现在大致了解了画图的过程，我们来看一下该框架的作者是如何实现一个折线图的吧！</p>
+<h2 id="二-源码解析"><a href="#二-源码解析" class="headerlink" title="二. 源码解析"></a>二. 源码解析</h2><p>首先看一下整个绘制折线图的步骤：</p>
+<ol>
+<li>图表的初始化。</li>
+<li>获取横轴和纵轴的数据。</li>
+<li>计算折线上所有拐点的x，y值。</li>
+<li>计算每个拐点中间的圆圈的贝塞尔曲线（UIBezierPath）。</li>
+<li>生成每个拐点上面的Label（可有可无）。</li>
+<li>计算每条线段的贝塞尔曲线（UIBezierPath）。</li>
+<li>将上面得到的贝塞尔曲线赋给每条线段和圆圈的layer（CAShapeLayer）。</li>
+<li>绘制所有折线（所有线段+所有圆圈）。</li>
+<li>添加动画(可有可无)。</li>
+<li>绘制x，y坐标轴。</li>
+</ol>
+<p>在集合代码具体讲解之前，我们要清楚三点（非常非常重要）：</p>
+<ol>
+<li>此折线图框架是可以设置拐点的样式的:可以设置为没有样式，也可以设置有样式：圆圈，方块，三角形。<ul>
+<li>如果没有样式，则是简单的线段与线段的连接，在拐点处没有任何其他控件。</li>
+<li>如果是有样式的，那么这条折线里的每条线段（在本篇文章里统一说成线段）之间是<strong>分离的</strong>，因为线段中间有一个拐点控件。本篇文章介绍的是圆圈样式（如上图所示，拐点控件是一个圆圈）。</li>
+</ul>
+</li>
+<li>上文提到过，该折线图框架可以在一张图表里同时显示多条折线，也就是可以设置多组数据（一条折线对应一组数据）。因此，上面的3，4，5，6，7项都是用各自不同的一个数组保存的，数组里的每一个元素对应一条折线的数据。</li>
+<li>既然同一个张图表可以显示多条折线：<ul>
+<li>那么有些属性就是这些折线共有的，比如横坐标的value，这些属性保存在<code>PNLineChart</code>的实例里面。</li>
+<li>有些属性是每条折线私有的，比如每条折线的颜色，纵坐标value等等，这些属性保存在<code>PNLineChartData</code>里面。每一条折线对应一个<code>PNLineChartData</code>实例。这些实例汇总到一个数组里面，这个数组由<code>PNLineChart</code>的实例管理。</li>
+</ul>
+</li>
+</ol>
+<p>在充分了解了这三点之后，我们结合一下代码来看一下具体的实现：</p>
+<h3 id="1-图表的初始化"><a href="#1-图表的初始化" class="headerlink" title="1. 图表的初始化"></a>1. 图表的初始化</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> initWithFrame:frame];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        [<span class="keyword">self</span> setupDefaultValues];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)setupDefaultValues &#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> setupDefaultValues];</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//四个内边距</span></span><br><span class="line">    _chartMarginLeft = <span class="number">25.0</span>;</span><br><span class="line">    _chartMarginRight = <span class="number">25.0</span>;</span><br><span class="line">    _chartMarginTop = <span class="number">25.0</span>;</span><br><span class="line">    _chartMarginBottom = <span class="number">25.0</span>;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//真正绘制图表的画布（CavanWidth）的宽高</span></span><br><span class="line">    _chartCavanWidth = <span class="keyword">self</span>.frame.size.width - _chartMarginLeft - _chartMarginRight;</span><br><span class="line">    _chartCavanHeight = <span class="keyword">self</span>.frame.size.height - _chartMarginBottom - _chartMarginTop;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面这段代码我刻意省去了其他一些基本的设置，突出了图表布局的设置。</p>
+<p>布局的设置是图表绘制的前提，因为在最开始的时候，就应该计算出“画布”，也就是图表内容（不包括坐标轴和坐标label）的具体大小和位置（内边距以内的部分）。</p>
+<p>在这里，我们需要获取真正绘制图表的画布的宽高(<code>_chartCavanWidth</code>和<code>_chartCavanHeight</code>)。而且，要留意的是<code>_chartMarginLeft</code>在将来是要用作y轴Label的宽度，而<code>_chartMarginBottom</code>在将来是要用作x轴Label的高度的。</p>
+</blockquote>
+<p>用一张图直观看一下：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/source_code_analysis/pnchart_linechart.png" alt="整个控件的大小和画布的大小"></p>
+<h3 id="2-获取横轴和纵轴的数据"><a href="#2-获取横轴和纵轴的数据" class="headerlink" title="2. 获取横轴和纵轴的数据"></a>2. 获取横轴和纵轴的数据</h3><p>现在画布的位置和大小确定了，我们可以来看一下折线图是怎么画的了。<br>整个图表的绘制都基于三组数据（也可以是两组，为什么是两组，我稍后会给出解释），在讲解该框架是如何利用这些数据之前，我们来看一下这些数据是如何传进图表的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">//设置x轴的数据</span></span><br><span class="line">[<span class="keyword">self</span>.lineChart setXLabels:@[<span class="string">@"SEP 1"</span>, <span class="string">@"SEP 2"</span>, <span class="string">@"SEP 3"</span>, <span class="string">@"SEP 4"</span>, <span class="string">@"SEP 5"</span>, <span class="string">@"SEP 6"</span>, <span class="string">@"SEP 7"</span>]];</span><br><span class="line"><span class="comment">//设置y轴的数据</span></span><br><span class="line">[<span class="keyword">self</span>.lineChart setYLabels:@[</span><br><span class="line">                             <span class="string">@"0"</span>,<span class="string">@"50"</span>,<span class="string">@"100"</span>,<span class="string">@"150"</span>,<span class="string">@"200"</span>,<span class="string">@"250"</span>,<span class="string">@"300"</span>,</span><br><span class="line">                             ]</span><br><span class="line"> ];</span><br><span class="line"><span class="comment">// Line Chart</span></span><br><span class="line"><span class="comment">//设置每个点的y值</span></span><br><span class="line"><span class="built_in">NSArray</span> *dataArray = @[@<span class="number">0.0</span>, @<span class="number">180.1</span>, @<span class="number">26.4</span>, @<span class="number">202.2</span>, @<span class="number">126.2</span>, @<span class="number">167.2</span>, @<span class="number">276.2</span>];</span><br><span class="line">PNLineChartData *data = [PNLineChartData new];</span><br><span class="line">data.pointLabelColor = [<span class="built_in">UIColor</span> blackColor];</span><br><span class="line">data.color = PNTwitterColor;</span><br><span class="line">data.alpha = <span class="number">0.5</span>f;</span><br><span class="line">data.itemCount = dataArray.count;</span><br><span class="line">data.inflexionPointStyle = PNLineChartPointStyleCircle;</span><br><span class="line"><span class="comment">//这个block的作用是将上面的dataArray里的每一个值传给line chart。</span></span><br><span class="line">data.getData = ^(<span class="built_in">NSUInteger</span> index) &#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> yValue = [dataArray[index] floatValue];</span><br><span class="line">    <span class="keyword">return</span> [PNLineChartDataItem dataItemWithY:yValue];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//因为只有一条折线，所以只有一组数据</span></span><br><span class="line"><span class="keyword">self</span>.lineChart.chartData = @[data];</span><br><span class="line"><span class="comment">//绘制图表</span></span><br><span class="line">[<span class="keyword">self</span>.lineChart strokeChart];</span><br><span class="line"><span class="comment">//设置代理，响应点击</span></span><br><span class="line"><span class="keyword">self</span>.lineChart.delegate = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.lineChart];</span><br></pre></td></tr></table></figure>
+<p>上面的代码我可以略去了很多多余的设置，目的是突出图表数据的设置。</p>
+<p>不难看出，这里有三个数据传给了lineChart：</p>
+<p>1.x轴的数据：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.lineChart setXLabels:@[<span class="string">@"SEP 1"</span>, <span class="string">@"SEP 2"</span>, <span class="string">@"SEP 3"</span>, <span class="string">@"SEP 4"</span>, <span class="string">@"SEP 5"</span>, <span class="string">@"SEP 6"</span>, <span class="string">@"SEP 7"</span>]];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这段代码调用之后，实现了：</p>
+<ol>
+<li>根据传入的xLabel数组里元素的数量，内容宽度(<code>_chartCavanWidth</code>)和下边距（<code>_chartMarginBottom</code>），计算每个xlabel的size。</li>
+<li>根据xLabel所需要展示的内容(<code>NSString</code>)和宽度，实例化所有的xLabel（包括内容，位置）并显示出来，最后保存在<code>_xChartLabels</code>里面。</li>
+</ol>
+</blockquote>
+<p>2.y轴的数据：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.lineChart setYLabels:@[</span><br><span class="line">                <span class="string">@"0"</span>,<span class="string">@"50"</span>,<span class="string">@"100"</span>,<span class="string">@"150"</span>,<span class="string">@"200"</span>,<span class="string">@"250"</span>,<span class="string">@"300"</span>,</span><br><span class="line">                ]</span><br><span class="line">    ];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这段代码调用之后，实现了：</p>
+<ol>
+<li>根据传入的yLabel数组里元素的数量，内容高度(<code>_chartCavanHeight</code>)和左边距(<code>_chartMarginLeft</code>)，计算出每个ylabel的size。</li>
+<li>根据xLabel所需要展示的内容(<code>NSString</code>)和宽度，实例化所有的yLabel（包括内容，位置）并显示出来，最后保存在<code>_yChartLabels</code>里面。</li>
+</ol>
+</blockquote>
+<p>3.一条折线上每个点的实际值：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *dataArray = @[@<span class="number">0.0</span>, @<span class="number">180.1</span>, @<span class="number">26.4</span>, @<span class="number">202.2</span>, @<span class="number">126.2</span>, @<span class="number">167.2</span>, @<span class="number">276.2</span>];</span><br><span class="line">data.getData = ^(<span class="built_in">NSUInteger</span> index) &#123;</span><br><span class="line">        <span class="built_in">CGFloat</span> yValue = [dataArray[index] floatValue];</span><br><span class="line">        <span class="keyword">return</span> [PNLineChartDataItem dataItemWithY:yValue];</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="keyword">self</span>.lineChart.chartData = @[data];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>着重讲一下block：为什么不直接把这个数组(<code>dataArray</code>)作为line chart的属性传进去呢？我认为作者是想提供一个接口给用户一个自己转化y值的机会。</p>
+<p>像上文所说的，这里1，2是属于<code>lineChart</code>的数据，它适用于这张图表上所有的折线的。而3是属于某一条折线的。</p>
+<p>现在回答一下为什么可以只传入两组数据：因为y轴数据可以由每个点的实际值数组得出。可以简单想一下，我们可以获取这些真实值里面的最大值，然后将它n等分，就自然得到了y轴数据了。</p>
+</blockquote>
+<p>我们已经布局了x轴和y轴的所有label，现在开始真正计算图表的数据了。</p>
+<blockquote>
+<p>注意：下面要介绍的3，4，5，6项都是在同一方法中计算出来，为了避免代码过长，我将每个部分分解开来做出解释。因为在同一方法里，所以这些涉及到for循环的语句是一致的。</p>
+<p>整个图表的绘制都是依赖于数据的处理，所以3，4，5，6项也是理解该框架的一个关键！</p>
+</blockquote>
+<p>首先，我们需要计算每个数据点（拐点）的准确位置：</p>
+<h3 id="3-计算折线上所有拐点的x，y值。"><a href="#3-计算折线上所有拐点的x，y值。" class="headerlink" title="3. 计算折线上所有拐点的x，y值。"></a>3. 计算折线上所有拐点的x，y值。</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历图表里每条折线</span></span><br><span class="line"><span class="comment">//还记得chartData属性么？它是用来保存多组折线的数据的，在这里只有一个折线，所以这个循环只循环一次）</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSUInteger</span> lineIndex = <span class="number">0</span>; lineIndex &lt; <span class="keyword">self</span>.chartData.count; lineIndex++) &#123;</span><br><span class="line">   <span class="comment">//保存每条折线上的所有点的CGPoint  </span></span><br><span class="line">   <span class="built_in">NSMutableArray</span> *linePointsArray = [[<span class="built_in">NSMutableArray</span> alloc] init];</span><br><span class="line">    <span class="comment">//遍历每条折线里的每个点    </span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; chartData.itemCount; i++) &#123;</span><br><span class="line">       </span><br><span class="line">        <span class="comment">//传入index，获取y值(调用的是上文提到的block)</span></span><br><span class="line">        yValue = chartData.getData(i).y;</span><br><span class="line">        <span class="comment">//当前点的x： _chartMarginLeft + _xLabelWidth / 2.0为0坐标，每多一个点就多一个_xLabelWidth</span></span><br><span class="line">        <span class="keyword">int</span> x = (<span class="keyword">int</span>) (i * _xLabelWidth + _chartMarginLeft + _xLabelWidth / <span class="number">2.0</span>);</span><br><span class="line">            </span><br><span class="line">        <span class="comment">//当前点的y：根据当前点的值和当前点所在的数组里的最大值的比例 以及 图表的总高度，算出当前点在图表里的y坐标</span></span><br><span class="line">        <span class="keyword">int</span> y = (<span class="keyword">int</span>)[<span class="keyword">self</span> yValuePositionInLineChart:yValue];</span><br><span class="line">        <span class="comment">//保存所有拐点的坐标</span></span><br><span class="line">        [linePointsArray addObject:[<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(x, y)]];</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">//保存多条折线的CGPoint（这里只有一条折线，所以该数组只有一个元素）</span></span><br><span class="line">  [pathPoints addObject:[linePointsArray <span class="keyword">copy</span>]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里需要注意两点：</p>
+<ol>
+<li>这里的<code>pathPoints</code>对应的是<code>lineChart</code>的<code>_pathPoints</code>属性。它是一个二维数组，保存每条折线上所有点的<code>CGPoint</code>。</li>
+<li>y值的计算：是需要从y的真实值转化为这个拐点在图表里的y坐标，转化方法的实现(仔细看几遍就懂了)：</li>
+</ol>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">CGFloat</span>)yValuePositionInLineChart:(<span class="built_in">CGFloat</span>)y &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> innerGrade;<span class="comment">//真实的最大值与最小值的差 与 当前点与最小值的差 的比值</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!(_yValueMax - _yValueMin)) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//特殊情况：当_yValueMax和_yValueMin相等的时候</span></span><br><span class="line">        innerGrade = <span class="number">0.5</span>;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        </span><br><span class="line">        innerGrade = ((<span class="built_in">CGFloat</span>) y - _yValueMin) / (_yValueMax - _yValueMin);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//innerGrade 与画布的高度（_chartCavanHeight）相乘，就能得出在画布中的高度</span></span><br><span class="line">    <span class="keyword">return</span> _chartCavanHeight - (innerGrade * _chartCavanHeight) - (_yLabelHeight / <span class="number">2</span>) + _chartMarginTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-计算每个拐点中间的圆圈的贝塞尔曲线（UIBezierPath）"><a href="#4-计算每个拐点中间的圆圈的贝塞尔曲线（UIBezierPath）" class="headerlink" title="4. 计算每个拐点中间的圆圈的贝塞尔曲线（UIBezierPath）"></a>4. 计算每个拐点中间的圆圈的贝塞尔曲线（UIBezierPath）</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历图表里每条折线</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSUInteger</span> lineIndex = <span class="number">0</span>; lineIndex &lt; <span class="keyword">self</span>.chartData.count; lineIndex++) &#123;</span><br><span class="line">    <span class="comment">//每条折线所有圆圈的贝塞尔曲线</span></span><br><span class="line">    <span class="built_in">UIBezierPath</span> *pointPath = [<span class="built_in">UIBezierPath</span> bezierPath];    </span><br><span class="line">    <span class="comment">//inflexionWidth默认是6,是两个线段中间的距离（因为中间有一个圈圈，所以需要定一个距离）</span></span><br><span class="line">    <span class="built_in">CGFloat</span> inflexionWidth = chartData.inflexionPointWidth;</span><br><span class="line">    <span class="comment">//遍历每条折线里的每个点</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; chartData.itemCount; i++) &#123;  </span><br><span class="line">        <span class="comment">//1. 计算圆圈的rect：已当前点为中心，以inflexionWidth为半径</span></span><br><span class="line">        <span class="built_in">CGRect</span> circleRect = <span class="built_in">CGRectMake</span>(x - inflexionWidth / <span class="number">2</span>, y - inflexionWidth / <span class="number">2</span>, inflexionWidth, inflexionWidth);    </span><br><span class="line">        <span class="comment">//2. 计算圆圈的中心：由圆圈的x，y和inflexionWidth算出</span></span><br><span class="line">        <span class="built_in">CGPoint</span> circleCenter = <span class="built_in">CGPointMake</span>(circleRect.origin.x + (circleRect.size.width / <span class="number">2</span>), circleRect.origin.y + (circleRect.size.height / <span class="number">2</span>));</span><br><span class="line">        <span class="comment">//3.1 移动到圆圈的右中部</span></span><br><span class="line">        [pointPath moveToPoint:<span class="built_in">CGPointMake</span>(circleCenter.x + (inflexionWidth / <span class="number">2</span>), circleCenter.y)];        </span><br><span class="line">        <span class="comment">//3.2 画线（圆形）</span></span><br><span class="line">        [pointPath addArcWithCenter:circleCenter radius:inflexionWidth / <span class="number">2</span> startAngle:<span class="number">0</span> endAngle:(<span class="built_in">CGFloat</span>) (<span class="number">2</span> * M_PI) clockwise:<span class="literal">YES</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//保存到pointsPath数组里</span></span><br><span class="line">    [pointsPath insertObject:pointPath atIndex:lineIndex];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，<code>pointsPath</code>对应的是<code>lineChart</code>的<code>_pointsPath</code>属性。它是一个一维数组，保存每条折线上的圆圈贝塞尔曲线（UIBezierPath）。</p>
+</blockquote>
+<h3 id="5-生成每个拐点上面的Label（可有可无）"><a href="#5-生成每个拐点上面的Label（可有可无）" class="headerlink" title="5. 生成每个拐点上面的Label（可有可无）"></a>5. 生成每个拐点上面的Label（可有可无）</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历图表里每条折线</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSUInteger</span> lineIndex = <span class="number">0</span>; lineIndex &lt; <span class="keyword">self</span>.chartData.count; lineIndex++) &#123;</span><br><span class="line">    <span class="comment">//遍历每条折线里的每一段</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; chartData.itemCount; i++) &#123;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (chartData.showPointLabel) &#123;</span><br><span class="line">            [gradePathArray addObject:[<span class="keyword">self</span> createPointLabelFor:chartData.getData(i).rawY pointCenter:circleCenter width:inflexionWidth withChartData:chartData]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，在这里，这些label的实现是通过一个<code>CATextLayer</code>实现的，并不是生成一个个<code>Label</code>放在数组里保存，具体实现方法如下：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">CATextLayer</span> *)createPointLabelFor:(<span class="built_in">CGFloat</span>)grade pointCenter:(<span class="built_in">CGPoint</span>)pointCenter width:(<span class="built_in">CGFloat</span>)width withChartData:(PNLineChartData *)chartData &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//grade：提供textLayer显示的数值</span></span><br><span class="line">    <span class="comment">//pointCenter：根据pointCenter算出textLayer的x，y</span></span><br><span class="line">    <span class="comment">//width：根据width得到textLayer的总宽度</span></span><br><span class="line">    <span class="comment">//chartData：获取chartData里保存的textLayer上应该保存的字体大小和颜色</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CATextLayer</span> *textLayer = [[<span class="built_in">CATextLayer</span> alloc] init];</span><br><span class="line">    [textLayer setAlignmentMode:kCAAlignmentCenter];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置textLayer的背景色</span></span><br><span class="line">    [textLayer setForegroundColor:[chartData.pointLabelColor <span class="built_in">CGColor</span>]];</span><br><span class="line">    [textLayer setBackgroundColor:<span class="keyword">self</span>.backgroundColor.CGColor];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置textLayer的字体大小和颜色</span></span><br><span class="line">    <span class="keyword">if</span> (chartData.pointLabelFont != <span class="literal">nil</span>) &#123;</span><br><span class="line">        [textLayer setFont:(__bridge <span class="built_in">CFTypeRef</span>) (chartData.pointLabelFont)];</span><br><span class="line">        textLayer.fontSize = [chartData.pointLabelFont pointSize];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置textLayer的高度</span></span><br><span class="line">    <span class="built_in">CGFloat</span> textHeight = (<span class="built_in">CGFloat</span>) (textLayer.fontSize * <span class="number">1.1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> textWidth = width * <span class="number">8</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> textStartPosY;</span><br><span class="line">    </span><br><span class="line">    textStartPosY = pointCenter.y - textLayer.fontSize;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.layer addSublayer:textLayer];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置textLayer的文字显示格式</span></span><br><span class="line">    <span class="keyword">if</span> (chartData.pointLabelFormat != <span class="literal">nil</span>) &#123;</span><br><span class="line">        [textLayer setString:[[<span class="built_in">NSString</span> alloc] initWithFormat:chartData.pointLabelFormat, grade]];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        [textLayer setString:[[<span class="built_in">NSString</span> alloc] initWithFormat:_yLabelFormat, grade]];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置textLayer的位置和scale（1x，2x，3x）</span></span><br><span class="line">    [textLayer setFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, textWidth, textHeight)];</span><br><span class="line">    [textLayer setPosition:<span class="built_in">CGPointMake</span>(pointCenter.x, textStartPosY)];</span><br><span class="line">    textLayer.contentsScale = [<span class="built_in">UIScreen</span> mainScreen].scale;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> textLayer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-计算每条线段的贝塞尔曲线（UIBezierPath）"><a href="#6-计算每条线段的贝塞尔曲线（UIBezierPath）" class="headerlink" title="6. 计算每条线段的贝塞尔曲线（UIBezierPath）"></a>6. 计算每条线段的贝塞尔曲线（UIBezierPath）</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历图表里每条折线</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSUInteger</span> lineIndex = <span class="number">0</span>; lineIndex &lt; <span class="keyword">self</span>.chartData.count; lineIndex++) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//每一条线段的贝塞尔曲线（UIBezierPath），用数组装起来</span></span><br><span class="line">    <span class="built_in">NSMutableArray</span>&lt;<span class="built_in">UIBezierPath</span> *&gt; *progressLines = [<span class="built_in">NSMutableArray</span> new];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//chartPath（二维数组）：保存所有折线上所有线段的贝塞尔曲线。现在只有一条折线，所以只有一个元素</span></span><br><span class="line">    [chartPath insertObject:progressLines atIndex:lineIndex];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//progressLinePaths的每个元素是一个字典，字典里存放每一条线段的端点（from，to）</span></span><br><span class="line">    <span class="built_in">NSMutableArray</span>&lt;<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *, <span class="built_in">NSValue</span> *&gt; *&gt; *progressLinePaths = [<span class="built_in">NSMutableArray</span> new];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> last_x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> last_y = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//遍历每条折线里的每一段</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; chartData.itemCount; i++) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//x，y的算法参考上文第三项</span></span><br><span class="line">            <span class="comment">// 计算index为0以后的点的位置</span></span><br><span class="line">            <span class="keyword">float</span> distance = (<span class="keyword">float</span>) sqrt(pow(x - last_x, <span class="number">2</span>) + pow(y - last_y, <span class="number">2</span>));</span><br><span class="line">            <span class="keyword">float</span> last_x1 = last_x + (inflexionWidth / <span class="number">2</span>) / distance * (x - last_x);</span><br><span class="line">            <span class="keyword">float</span> last_y1 = last_y + (inflexionWidth / <span class="number">2</span>) / distance * (y - last_y);</span><br><span class="line">            <span class="keyword">float</span> x1 = x - (inflexionWidth / <span class="number">2</span>) / distance * (x - last_x);</span><br><span class="line">            <span class="keyword">float</span> y1 = y - (inflexionWidth / <span class="number">2</span>) / distance * (y - last_y);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//当前线段的端点</span></span><br><span class="line">            from = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(last_x1, last_y1)];</span><br><span class="line">            to = [<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(x1, y1)];</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(from != <span class="literal">nil</span> &amp;&amp; to != <span class="literal">nil</span>) &#123;</span><br><span class="line">                <span class="comment">//保存每一段的端点</span></span><br><span class="line">                [progressLinePaths addObject:@&#123;<span class="string">@"from"</span>: from,  <span class="string">@"to"</span>:to&#125;];</span><br><span class="line">                <span class="comment">//保存所有的端点</span></span><br><span class="line">                [lineStartEndPointsArray addObject:from];</span><br><span class="line">                [lineStartEndPointsArray addObject:to];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//保存所有折点的坐标</span></span><br><span class="line">            [linePointsArray addObject:[<span class="built_in">NSValue</span> valueWithCGPoint:<span class="built_in">CGPointMake</span>(x, y)]];</span><br><span class="line">            <span class="comment">//将当前的x转化为下一个点的last_x（y也一样）</span></span><br><span class="line">            last_x = x;</span><br><span class="line">            last_y = y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//pointsOfPath：保存所有折线里的所有线段两端的端点</span></span><br><span class="line">    [pointsOfPath addObject:[lineStartEndPointsArray <span class="keyword">copy</span>]];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//根据每一条线段的两个端点，成生每条线段的贝塞尔曲线</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *, <span class="built_in">NSValue</span> *&gt; *item <span class="keyword">in</span> progressLinePaths) &#123;</span><br><span class="line">        <span class="built_in">NSArray</span>&lt;<span class="built_in">NSDictionary</span> *&gt; *calculatedRanges =</span><br><span class="line">        ...</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSDictionary</span> *range <span class="keyword">in</span> calculatedRanges) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">UIBezierPath</span> *currentProgressLine = [<span class="built_in">UIBezierPath</span> bezierPath];</span><br><span class="line">            [currentProgressLine moveToPoint:[range[<span class="string">@"from"</span>] <span class="built_in">CGPointValue</span>]];</span><br><span class="line">            [currentProgressLine addLineToPoint:[range[<span class="string">@"to"</span>] <span class="built_in">CGPointValue</span>]];</span><br><span class="line">            [progressLines addObject:currentProgressLine];</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-将上面得到的贝塞尔曲线赋给每条线段和圆圈的layer（CAShapeLayer）。"><a href="#7-将上面得到的贝塞尔曲线赋给每条线段和圆圈的layer（CAShapeLayer）。" class="headerlink" title="7. 将上面得到的贝塞尔曲线赋给每条线段和圆圈的layer（CAShapeLayer）。"></a>7. 将上面得到的贝塞尔曲线赋给每条线段和圆圈的layer（CAShapeLayer）。</h3><h4 id="7-1-所有线段的layer："><a href="#7-1-所有线段的layer：" class="headerlink" title="7.1 所有线段的layer："></a>7.1 所有线段的layer：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)populateChartLines &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//遍历每条线段</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> lineIndex = <span class="number">0</span>; lineIndex &lt; <span class="keyword">self</span>.chartData.count; lineIndex++) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSArray</span>&lt;<span class="built_in">UIBezierPath</span> *&gt; *progressLines = <span class="keyword">self</span>.chartPath[lineIndex];</span><br><span class="line">        </span><br><span class="line">        ...</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//_chartLineArray:二维数组，装载每个chartData对应的一个数组。这个数组的元素是这一条折线上所有线段对应的CAShapeLayer</span></span><br><span class="line">        [<span class="keyword">self</span>.chartLineArray[lineIndex] removeAllObjects];</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSUInteger</span> progressLineIndex = <span class="number">0</span>;;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//遍历含有UIBezierPath对象元素的数组。在每个循环里新建一个CAShapeLayer对象，将UIBezierPath赋给它。</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">UIBezierPath</span> *progressLinePath <span class="keyword">in</span> progressLines) &#123;</span><br><span class="line">            </span><br><span class="line">            PNLineChartData *chartData = <span class="keyword">self</span>.chartData[lineIndex];</span><br><span class="line">            <span class="built_in">CAShapeLayer</span> *chartLine = [<span class="built_in">CAShapeLayer</span> layer];</span><br><span class="line">            </span><br><span class="line">            ...</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//将当前线段的UIBezierPath赋给当前线段的CAShapeLayer</span></span><br><span class="line">            chartLine.path = progressLinePath.CGPath;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//添加layer</span></span><br><span class="line">            [<span class="keyword">self</span>.layer addSublayer:chartLine];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//保存当前线段的layer</span></span><br><span class="line">            [<span class="keyword">self</span>.chartLineArray[lineIndex] addObject:chartLine];</span><br><span class="line">            progressLineIndex++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="7-2-所有圆圈的layer："><a href="#7-2-所有圆圈的layer：" class="headerlink" title="7.2 所有圆圈的layer："></a>7.2 所有圆圈的layer：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)recreatePointLayers &#123;</span><br><span class="line">- </span><br><span class="line">    <span class="keyword">for</span> (PNLineChartData *chartData <span class="keyword">in</span> _chartData) &#123;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// create as many chart line layers as there are data-lines</span></span><br><span class="line">        [<span class="keyword">self</span>.chartLineArray addObject:[<span class="built_in">NSMutableArray</span> new]];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// create point</span></span><br><span class="line">        <span class="built_in">CAShapeLayer</span> *pointLayer = [<span class="built_in">CAShapeLayer</span> layer];</span><br><span class="line">        pointLayer.strokeColor = [[chartData.color colorWithAlphaComponent:chartData.alpha] <span class="built_in">CGColor</span>];</span><br><span class="line">        pointLayer.lineCap = kCALineCapRound;</span><br><span class="line">        pointLayer.lineJoin = kCALineJoinBevel;</span><br><span class="line">        pointLayer.fillColor = <span class="literal">nil</span>;</span><br><span class="line">        pointLayer.lineWidth = chartData.lineWidth;</span><br><span class="line">        [<span class="keyword">self</span>.layer addSublayer:pointLayer];</span><br><span class="line">        [<span class="keyword">self</span>.chartPointArray addObject:pointLayer];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，这里并没有将所有圆圈的<code>UIBezierPath</code>赋给对应的<code>layer</code>，而是在下一步，绘图的时候做的。</p>
+</blockquote>
+<h3 id="8-绘制所有折线（所有线段-所有圆圈）-amp-amp-9-添加动画"><a href="#8-绘制所有折线（所有线段-所有圆圈）-amp-amp-9-添加动画" class="headerlink" title="8.绘制所有折线（所有线段+所有圆圈）&amp;&amp; 9. 添加动画"></a>8.绘制所有折线（所有线段+所有圆圈）&amp;&amp; 9. 添加动画</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)strokeChart &#123;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 绘制所有折线（所有线段+所有圆圈）</span></span><br><span class="line">    <span class="comment">// 遍历所有折线</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> lineIndex = <span class="number">0</span>; lineIndex &lt; <span class="keyword">self</span>.chartData.count; lineIndex++) &#123;</span><br><span class="line">       </span><br><span class="line">        PNLineChartData *chartData = <span class="keyword">self</span>.chartData[lineIndex];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//当前折线的所有线段的CAShapeLayer</span></span><br><span class="line">        <span class="built_in">NSArray</span>&lt;<span class="built_in">CAShapeLayer</span> *&gt; *chartLines =<span class="keyword">self</span>.chartLineArray[lineIndex];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//当前折线的所有圆圈的CAShapeLayer</span></span><br><span class="line">        <span class="built_in">CAShapeLayer</span> *pointLayer = (<span class="built_in">CAShapeLayer</span> *) <span class="keyword">self</span>.chartPointArray[lineIndex];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//开始绘制折线</span></span><br><span class="line">        <span class="built_in">UIGraphicsBeginImageContext</span>(<span class="keyword">self</span>.frame.size);</span><br><span class="line">        </span><br><span class="line">        ...</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//当前折线的所有线段的UIBezierPath</span></span><br><span class="line">        <span class="built_in">NSArray</span>&lt;<span class="built_in">UIBezierPath</span> *&gt; *progressLines = _chartPath[lineIndex];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//当前折线的所有圆圈的UIBezierPath</span></span><br><span class="line">        <span class="built_in">UIBezierPath</span> *pointPath = _pointPath[lineIndex];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//7.2将圆圈的UIBezierPath赋给了圆圈的CAShapeLayer</span></span><br><span class="line">        pointLayer.path = pointPath.CGPath;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//添加动画</span></span><br><span class="line">        [<span class="built_in">CATransaction</span> begin];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> index = <span class="number">0</span>; index &lt; progressLines.count; index++) &#123;</span><br><span class="line">            <span class="built_in">CAShapeLayer</span> *chartLine = chartLines[index];</span><br><span class="line">            <span class="comment">//chartLine strokeColor is already set. no need to override here</span></span><br><span class="line">            [chartLine addAnimation:<span class="keyword">self</span>.pathAnimation forKey:<span class="string">@"strokeEndAnimation"</span>];</span><br><span class="line">            chartLine.strokeEnd = <span class="number">1.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// if you want cancel the point animation, comment this code, the point will show immediately</span></span><br><span class="line">        <span class="keyword">if</span> (chartData.inflexionPointStyle != PNLineChartPointStyleNone) &#123;</span><br><span class="line">            [pointLayer addAnimation:<span class="keyword">self</span>.pathAnimation forKey:<span class="string">@"strokeEndAnimation"</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//提交动画</span></span><br><span class="line">        [<span class="built_in">CATransaction</span> commit];</span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">        <span class="comment">//绘制完毕</span></span><br><span class="line">        <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="keyword">self</span> setNeedsDisplay];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里要注意两点：</p>
+<blockquote>
+<p>1.如果想给layer添加动画，只需要实例化一个animation（在这里是<code>CABasicAnimation</code>）并调用layer的<code>addAnimation:</code>方法即可。我们看一下关于<code>CABasicAnimation</code>的实例化代码：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">CABasicAnimation</span> *)pathAnimation &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.displayAnimated &amp;&amp; !_pathAnimation) &#123;</span><br><span class="line">        _pathAnimation = [<span class="built_in">CABasicAnimation</span> animationWithKeyPath:<span class="string">@"strokeEnd"</span>];</span><br><span class="line">        <span class="comment">//持续时间</span></span><br><span class="line">        _pathAnimation.duration = <span class="number">1.0</span>;</span><br><span class="line">         <span class="comment">//类型</span></span><br><span class="line">        _pathAnimation.timingFunction = [<span class="built_in">CAMediaTimingFunction</span> functionWithName:kCAMediaTimingFunctionEaseInEaseOut];</span><br><span class="line">        _pathAnimation.fromValue = @<span class="number">0.0</span>f;</span><br><span class="line">        _pathAnimation.toValue = @<span class="number">1.0</span>f;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">self</span>.displayAnimated) &#123;</span><br><span class="line">        _pathAnimation = <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _pathAnimation;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>2.在这里调用了<code>setNeedsDisplay</code>方法之后，会调用<code>drawRect：</code>方法，在这个方法里，完成了x，y坐标轴的绘制：</p>
+</blockquote>
+<h3 id="10-绘制x，y坐标轴"><a href="#10-绘制x，y坐标轴" class="headerlink" title="10.绘制x，y坐标轴"></a>10.绘制x，y坐标轴</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//绘制坐标轴和背景竖线</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.isShowCoordinateAxis) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGFloat</span> yAxisOffset = <span class="number">10.</span>f;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGContextRef</span> ctx = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">        <span class="built_in">UIGraphicsPopContext</span>();</span><br><span class="line">        <span class="built_in">UIGraphicsPushContext</span>(ctx);</span><br><span class="line">        <span class="built_in">CGContextSetLineWidth</span>(ctx, <span class="keyword">self</span>.axisWidth);</span><br><span class="line">        <span class="built_in">CGContextSetStrokeColorWithColor</span>(ctx, [<span class="keyword">self</span>.axisColor <span class="built_in">CGColor</span>]);</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGFloat</span> xAxisWidth = <span class="built_in">CGRectGetWidth</span>(rect) - (_chartMarginLeft + _chartMarginRight) / <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">CGFloat</span> yAxisHeight = _chartMarginBottom + _chartCavanHeight;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 绘制xy轴</span></span><br><span class="line">        <span class="built_in">CGContextMoveToPoint</span>(ctx, _chartMarginBottom + yAxisOffset, <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">CGContextAddLineToPoint</span>(ctx, _chartMarginBottom + yAxisOffset, yAxisHeight);</span><br><span class="line">        <span class="built_in">CGContextAddLineToPoint</span>(ctx, xAxisWidth, yAxisHeight);</span><br><span class="line">        <span class="built_in">CGContextStrokePath</span>(ctx);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 绘制y轴的箭头</span></span><br><span class="line">        <span class="built_in">CGContextMoveToPoint</span>(ctx, _chartMarginBottom + yAxisOffset - <span class="number">3</span>, <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">CGContextAddLineToPoint</span>(ctx, _chartMarginBottom + yAxisOffset, <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">CGContextAddLineToPoint</span>(ctx, _chartMarginBottom + yAxisOffset + <span class="number">3</span>, <span class="number">6</span>);</span><br><span class="line">        <span class="built_in">CGContextStrokePath</span>(ctx);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 绘制x轴的箭头</span></span><br><span class="line">        <span class="built_in">CGContextMoveToPoint</span>(ctx, xAxisWidth - <span class="number">6</span>, yAxisHeight - <span class="number">3</span>);</span><br><span class="line">        <span class="built_in">CGContextAddLineToPoint</span>(ctx, xAxisWidth, yAxisHeight);</span><br><span class="line">        <span class="built_in">CGContextAddLineToPoint</span>(ctx, xAxisWidth - <span class="number">6</span>, yAxisHeight + <span class="number">3</span>);</span><br><span class="line">        <span class="built_in">CGContextStrokePath</span>(ctx);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//绘制x轴和y轴的label</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.showLabel) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 绘制x轴的小分割线</span></span><br><span class="line">            <span class="built_in">CGPoint</span> point;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; [<span class="keyword">self</span>.xLabels count]; i++) &#123;</span><br><span class="line">                point = <span class="built_in">CGPointMake</span>(<span class="number">2</span> * _chartMarginLeft + (i * _xLabelWidth), _chartMarginBottom + _chartCavanHeight);</span><br><span class="line">                <span class="built_in">CGContextMoveToPoint</span>(ctx, point.x, point.y - <span class="number">2</span>);</span><br><span class="line">                <span class="built_in">CGContextAddLineToPoint</span>(ctx, point.x, point.y);</span><br><span class="line">                <span class="built_in">CGContextStrokePath</span>(ctx);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 绘制y轴的小分割线</span></span><br><span class="line">            <span class="built_in">CGFloat</span> yStepHeight = _chartCavanHeight / _yLabelNum;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; [<span class="keyword">self</span>.xLabels count]; i++) &#123;</span><br><span class="line">                point = <span class="built_in">CGPointMake</span>(_chartMarginBottom + yAxisOffset, (_chartCavanHeight - i * yStepHeight + _yLabelHeight / <span class="number">2</span>));</span><br><span class="line">                <span class="built_in">CGContextMoveToPoint</span>(ctx, point.x, point.y);</span><br><span class="line">                <span class="built_in">CGContextAddLineToPoint</span>(ctx, point.x + <span class="number">2</span>, point.y);</span><br><span class="line">                <span class="built_in">CGContextStrokePath</span>(ctx);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">UIFont</span> *font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">11</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 绘制y轴单位</span></span><br><span class="line">        <span class="keyword">if</span> ([<span class="keyword">self</span>.yUnit length]) &#123;</span><br><span class="line">            <span class="built_in">CGFloat</span> height = [PNLineChart sizeOfString:<span class="keyword">self</span>.yUnit withWidth:<span class="number">30.</span>f font:font].height;</span><br><span class="line">            <span class="built_in">CGRect</span> drawRect = <span class="built_in">CGRectMake</span>(_chartMarginLeft + <span class="number">10</span> + <span class="number">5</span>, <span class="number">0</span>, <span class="number">30.</span>f, height);</span><br><span class="line">            [<span class="keyword">self</span> drawTextInContext:ctx text:<span class="keyword">self</span>.yUnit inRect:drawRect font:font color:<span class="keyword">self</span>.yLabelColor];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 绘制x轴的单位</span></span><br><span class="line">        <span class="keyword">if</span> ([<span class="keyword">self</span>.xUnit length]) &#123;</span><br><span class="line">            <span class="built_in">CGFloat</span> height = [PNLineChart sizeOfString:<span class="keyword">self</span>.xUnit withWidth:<span class="number">30.</span>f font:font].height;</span><br><span class="line">            <span class="built_in">CGRect</span> drawRect = <span class="built_in">CGRectMake</span>(<span class="built_in">CGRectGetWidth</span>(rect) - _chartMarginLeft + <span class="number">5</span>, _chartMarginBottom + _chartCavanHeight - height / <span class="number">2</span>, <span class="number">25.</span>f, height);</span><br><span class="line">            [<span class="keyword">self</span> drawTextInContext:ctx text:<span class="keyword">self</span>.xUnit inRect:drawRect font:font color:<span class="keyword">self</span>.xLabelColor];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//绘制竖线</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.showYGridLines) &#123;</span><br><span class="line">        <span class="built_in">CGContextRef</span> ctx = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">        <span class="built_in">CGFloat</span> yAxisOffset = _showLabel ? <span class="number">10.</span>f : <span class="number">0.0</span>f;</span><br><span class="line">        <span class="built_in">CGPoint</span> point;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//每一条竖线的跨度</span></span><br><span class="line">        <span class="built_in">CGFloat</span> yStepHeight = _chartCavanHeight / _yLabelNum;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//颜色</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.yGridLinesColor) &#123;</span><br><span class="line">            <span class="built_in">CGContextSetStrokeColorWithColor</span>(ctx, <span class="keyword">self</span>.yGridLinesColor.CGColor);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">CGContextSetStrokeColorWithColor</span>(ctx, [<span class="built_in">UIColor</span> lightGrayColor].CGColor);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//绘制每一条竖线</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; _yLabelNum; i++) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//拿到起点</span></span><br><span class="line">            point = <span class="built_in">CGPointMake</span>(_chartMarginLeft + yAxisOffset, (_chartCavanHeight - i * yStepHeight + _yLabelHeight / <span class="number">2</span>));</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//将画笔移动到起点</span></span><br><span class="line">            <span class="built_in">CGContextMoveToPoint</span>(ctx, point.x, point.y);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//设置线的属性</span></span><br><span class="line">            <span class="built_in">CGFloat</span> dash[] = &#123;<span class="number">6</span>, <span class="number">5</span>&#125;;</span><br><span class="line">            <span class="built_in">CGContextSetLineWidth</span>(ctx, <span class="number">0.5</span>);</span><br><span class="line">            <span class="built_in">CGContextSetLineCap</span>(ctx, kCGLineCapRound);</span><br><span class="line">            <span class="built_in">CGContextSetLineDash</span>(ctx, <span class="number">0.0</span>, dash, <span class="number">2</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//设置这条线的终点</span></span><br><span class="line">            <span class="built_in">CGContextAddLineToPoint</span>(ctx, <span class="built_in">CGRectGetWidth</span>(rect) - _chartMarginLeft + <span class="number">5</span>, point.y);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//画线</span></span><br><span class="line">            <span class="built_in">CGContextStrokePath</span>(ctx);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> drawRect:rect];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里，一张完整的图表就可以画出来了。但是当前绘制的图表的折线都是直线，在上面还展示了一张曲线图。那么如果想绘制带有曲线的折线图应该怎么做呢？对，就是在贝塞尔曲线上下功夫。</p>
+<p>当我们获取了所有线段的端点数组后，我们可以通过他们绘制弯曲的贝塞尔曲线（注意：该方法是对应上面对第6项的下半部分:生成每一个线段对贝塞尔曲线）：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//_showSmoothLines是用来控制是否绘制曲线折线的开关属性</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.showSmoothLines &amp;&amp; chartData.itemCount &gt;= <span class="number">4</span>) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *, <span class="built_in">NSValue</span> *&gt; *item <span class="keyword">in</span> progressLinePaths) &#123;</span><br><span class="line">        </span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSDictionary</span> *range <span class="keyword">in</span> calculatedRanges) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">UIBezierPath</span> *currentProgressLine = [<span class="built_in">UIBezierPath</span> bezierPath];</span><br><span class="line">            <span class="built_in">CGPoint</span> segmentP1 = [range[<span class="string">@"from"</span>] <span class="built_in">CGPointValue</span>];</span><br><span class="line">            <span class="built_in">CGPoint</span> segmentP2 = [range[<span class="string">@"to"</span>] <span class="built_in">CGPointValue</span>];</span><br><span class="line">            </span><br><span class="line">            [currentProgressLine moveToPoint:segmentP1];</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">CGPoint</span> midPoint = [PNLineChart midPointBetweenPoint1:segmentP1 andPoint2:segmentP2];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//以每条线段以中间点为分割点，分成两组。每一组形成柔和的外凸曲线，而不是内凹</span></span><br><span class="line">            [currentProgressLine addQuadCurveToPoint:midPoint</span><br><span class="line">                                        controlPoint:[PNLineChart controlPointBetweenPoint1:midPoint andPoint2:segmentP1]];</span><br><span class="line">            </span><br><span class="line">            [currentProgressLine addQuadCurveToPoint:segmentP2</span><br><span class="line">                                        controlPoint:[PNLineChart controlPointBetweenPoint1:midPoint andPoint2:segmentP2]];</span><br><span class="line">            </span><br><span class="line">            [progressLines addObject:currentProgressLine];</span><br><span class="line">            [progressLineColors addObject:range[<span class="string">@"color"</span>]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意一下生成弯曲的贝塞尔曲线的方法：<code>controlPointBetweenPoint1:andPoint2</code>:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回的点的x：是两点的中间；返回的点的y：与第二个点保持一致</span></span><br><span class="line">+ (<span class="built_in">CGPoint</span>)controlPointBetweenPoint1:(<span class="built_in">CGPoint</span>)point1 andPoint2:(<span class="built_in">CGPoint</span>)point2 &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//线段两端的中间点</span></span><br><span class="line">    <span class="built_in">CGPoint</span> controlPoint = [<span class="keyword">self</span> midPointBetweenPoint1:point1 andPoint2:point2];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//末端点 和  中间点y的差</span></span><br><span class="line">    <span class="built_in">CGFloat</span> diffY = abs((<span class="keyword">int</span>) (point2.y - controlPoint.y));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (point1.y &lt; point2.y)</span><br><span class="line">    <span class="comment">//如果前端点更高</span></span><br><span class="line">        controlPoint.y += diffY;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (point1.y &gt; point2.y)</span><br><span class="line">    <span class="comment">//如果后端点更高</span></span><br><span class="line">        controlPoint.y -= diffY;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> controlPoint;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OK，这样一来，直线的曲线图还有曲线的曲线图就大概掌握了。不过还差一个东西，就是图表对点击的响应。</p>
+<p>我们需要思考一下：既然一张图表里可以显示多条折线，所以，当手指点击图表上的点以后，应该同时返回两个数据：</p>
+<ol>
+<li>点击了哪条折线上的这个点。</li>
+<li>点击了这条折线上的哪个点。</li>
+</ol>
+<p>该框架的作者很好地完成了这两个任务，我们来看一下他是如何实现的：</p>
+<h3 id="响应点击的代理方法"><a href="#响应点击的代理方法" class="headerlink" title="响应点击的代理方法"></a>响应点击的代理方法</h3><h4 id="点击了哪条折线的判断"><a href="#点击了哪条折线的判断" class="headerlink" title="点击了哪条折线的判断"></a>点击了哪条折线的判断</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchPoint:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="comment">// Get the point user touched</span></span><br><span class="line">    <span class="built_in">UITouch</span> *touch = [touches anyObject];</span><br><span class="line">    <span class="built_in">CGPoint</span> touchPoint = [touch locationInView:<span class="keyword">self</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> p = <span class="number">0</span>; p &lt; _pathPoints.count; p++) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSArray</span> *linePointsArray = _endPointsOfPath[p];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//遍历每个端点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; (<span class="keyword">int</span>) linePointsArray.count - <span class="number">1</span>; i += <span class="number">2</span>) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">CGPoint</span> p1 = [linePointsArray[i] <span class="built_in">CGPointValue</span>];</span><br><span class="line">            <span class="built_in">CGPoint</span> p2 = [linePointsArray[i + <span class="number">1</span>] <span class="built_in">CGPointValue</span>];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// Closest distance from point to line</span></span><br><span class="line">            <span class="comment">//触摸点到线段的距离</span></span><br><span class="line">            <span class="keyword">float</span> distance = (<span class="keyword">float</span>) fabs(((p2.x - p1.x) * (touchPoint.y - p1.y)) - ((p1.x - touchPoint.x) * (p1.y - p2.y)));</span><br><span class="line">            distance /= hypot(p2.x - p1.x, p1.y - p2.y);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//如果距离小于5，则判断为“点击了当前的线段”，剩下的工作是判断具体点击了哪一条线段</span></span><br><span class="line">            <span class="keyword">if</span> (distance &lt;= <span class="number">5.0</span>) &#123;</span><br><span class="line">                <span class="comment">// Conform to delegate parameters, figure out what bezier path this CGPoint belongs to.</span></span><br><span class="line">                <span class="built_in">NSUInteger</span> lineIndex = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="built_in">NSArray</span>&lt;<span class="built_in">UIBezierPath</span> *&gt; *paths <span class="keyword">in</span> _chartPath) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="built_in">UIBezierPath</span> *path <span class="keyword">in</span> paths) &#123;</span><br><span class="line">                        <span class="comment">//如果当前点处于UIBezierPath曲线上</span></span><br><span class="line">                        <span class="built_in">BOOL</span> pointContainsPath = <span class="built_in">CGPathContainsPoint</span>(path.CGPath, <span class="literal">NULL</span>, p1, <span class="literal">NO</span>);</span><br><span class="line">                        <span class="keyword">if</span> (pointContainsPath) &#123;</span><br><span class="line">                            <span class="comment">//点击了某一条折线</span></span><br><span class="line">                            [_delegate userClickedOnLinePoint:touchPoint lineIndex:lineIndex];</span><br><span class="line">                            <span class="keyword">return</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    lineIndex++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="点击了哪个点的判断"><a href="#点击了哪个点的判断" class="headerlink" title="点击了哪个点的判断"></a>点击了哪个点的判断</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchKeyPoint:(<span class="built_in">NSSet</span> *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="comment">// Get the point user touched</span></span><br><span class="line">    <span class="built_in">UITouch</span> *touch = [touches anyObject];</span><br><span class="line">    <span class="built_in">CGPoint</span> touchPoint = [touch locationInView:<span class="keyword">self</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> p = <span class="number">0</span>; p &lt; _pathPoints.count; p++) &#123;</span><br><span class="line">        <span class="built_in">NSArray</span> *linePointsArray = _pathPoints[p];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//遍历所有的点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; (<span class="keyword">int</span>) linePointsArray.count - <span class="number">1</span>; i += <span class="number">1</span>) &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">CGPoint</span> p1 = [linePointsArray[i] <span class="built_in">CGPointValue</span>];</span><br><span class="line">            <span class="built_in">CGPoint</span> p2 = [linePointsArray[i + <span class="number">1</span>] <span class="built_in">CGPointValue</span>];</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//获取到前一点的距离和后一点的距离</span></span><br><span class="line">            <span class="keyword">float</span> distanceToP1 = (<span class="keyword">float</span>) fabs(hypot(touchPoint.x - p1.x, touchPoint.y - p1.y));</span><br><span class="line">            <span class="keyword">float</span> distanceToP2 = (<span class="keyword">float</span>) hypot(touchPoint.x - p2.x, touchPoint.y - p2.y);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">float</span> distance = MIN(distanceToP1, distanceToP2);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//如果较小的距离小于10，则判定为点击了某个点</span></span><br><span class="line">            <span class="keyword">if</span> (distance &lt;= <span class="number">10.0</span>) &#123;</span><br><span class="line">                <span class="comment">//点击了某一条折线上的某个点</span></span><br><span class="line">                [_delegate userClickedOnLineKeyPoint:touchPoint</span><br><span class="line">                                           lineIndex:p</span><br><span class="line">                                          pointIndex:(distance == distanceToP2 ? i + <span class="number">1</span> : i)];</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这下就完整了，一个带有响应功能的图表就做好啦！</p>
+<h3 id="关于自定义UIView"><a href="#关于自定义UIView" class="headerlink" title="关于自定义UIView"></a>关于自定义UIView</h3><p>这里只是将图表的<code>layer</code>加在了<code>UIView</code>的layer上，那如果想完全自定义view的话，只需将图表的<code>layer</code>完全赋给<code>UIView</code>的layer即可，这样一来，想要画出任意形状的<code>UIView</code>都可以。</p>
+<hr>
+<h2 id="三-最后的话"><a href="#三-最后的话" class="headerlink" title="三. 最后的话"></a>三. 最后的话</h2><p>关于图表的绘制，相对贝塞尔曲线与<code>CALayer</code>来说，数据的处理是一个比较麻烦的点。但是一旦学会了折线图的绘制，了解了绘图原理，那么其他类型的图表就可以触类旁通。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+            <a href="/tags/源码解析/" rel="tag"># 源码解析</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/MJRefresh 源码解析/" rel="next" title="MJRefresh源码解析">
+                <i class="fa fa-chevron-left"></i> MJRefresh源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/SDWebImage源码解析/" rel="prev" title="SDWebImage源码解析">
+                SDWebImage源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-框架介绍"><span class="nav-number">1.</span> <span class="nav-text">一. 框架介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-源码解析"><span class="nav-number">2.</span> <span class="nav-text">二. 源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-图表的初始化"><span class="nav-number">2.1.</span> <span class="nav-text">1. 图表的初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-获取横轴和纵轴的数据"><span class="nav-number">2.2.</span> <span class="nav-text">2. 获取横轴和纵轴的数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-计算折线上所有拐点的x，y值。"><span class="nav-number">2.3.</span> <span class="nav-text">3. 计算折线上所有拐点的x，y值。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-计算每个拐点中间的圆圈的贝塞尔曲线（UIBezierPath）"><span class="nav-number">2.4.</span> <span class="nav-text">4. 计算每个拐点中间的圆圈的贝塞尔曲线（UIBezierPath）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-生成每个拐点上面的Label（可有可无）"><span class="nav-number">2.5.</span> <span class="nav-text">5. 生成每个拐点上面的Label（可有可无）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-计算每条线段的贝塞尔曲线（UIBezierPath）"><span class="nav-number">2.6.</span> <span class="nav-text">6. 计算每条线段的贝塞尔曲线（UIBezierPath）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-将上面得到的贝塞尔曲线赋给每条线段和圆圈的layer（CAShapeLayer）。"><span class="nav-number">2.7.</span> <span class="nav-text">7. 将上面得到的贝塞尔曲线赋给每条线段和圆圈的layer（CAShapeLayer）。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-所有线段的layer："><span class="nav-number">2.7.1.</span> <span class="nav-text">7.1 所有线段的layer：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-所有圆圈的layer："><span class="nav-number">2.7.2.</span> <span class="nav-text">7.2 所有圆圈的layer：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-绘制所有折线（所有线段-所有圆圈）-amp-amp-9-添加动画"><span class="nav-number">2.8.</span> <span class="nav-text">8.绘制所有折线（所有线段+所有圆圈）&amp;&amp; 9. 添加动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-绘制x，y坐标轴"><span class="nav-number">2.9.</span> <span class="nav-text">10.绘制x，y坐标轴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应点击的代理方法"><span class="nav-number">2.10.</span> <span class="nav-text">响应点击的代理方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#点击了哪条折线的判断"><span class="nav-number">2.10.1.</span> <span class="nav-text">点击了哪条折线的判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#点击了哪个点的判断"><span class="nav-number">2.10.2.</span> <span class="nav-text">点击了哪个点的判断</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于自定义UIView"><span class="nav-number">2.11.</span> <span class="nav-text">关于自定义UIView</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-最后的话"><span class="nav-number">3.</span> <span class="nav-text">三. 最后的话</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

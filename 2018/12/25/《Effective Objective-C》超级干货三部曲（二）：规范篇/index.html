@@ -1,0 +1,1133 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="继上一篇《Effective Objective-C 》超级干货三部曲（一）：概念篇之后，本篇即是三部曲的第二篇：规范篇。没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：  概念类：讲解了一些概念性知识。 规范类：讲解了一些为了避免一些问题或者为后续开发提供便利">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Effective Objective-C》超级干货三部曲（二）：规范篇">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/《Effective Objective-C》超级干货三部曲（二）：规范篇/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="继上一篇《Effective Objective-C 》超级干货三部曲（一）：概念篇之后，本篇即是三部曲的第二篇：规范篇。没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：  概念类：讲解了一些概念性知识。 规范类：讲解了一些为了避免一些问题或者为后续开发提供便利">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-d9349b44ab6fba52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-e880be58b75c49c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-d60b4571e7709e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Effective Objective-C》超级干货三部曲（二）：规范篇">
+<meta name="twitter:description" content="继上一篇《Effective Objective-C 》超级干货三部曲（一）：概念篇之后，本篇即是三部曲的第二篇：规范篇。没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：  概念类：讲解了一些概念性知识。 规范类：讲解了一些为了避免一些问题或者为后续开发提供便利">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/《Effective Objective-C》超级干货三部曲（二）：规范篇/">
+
+
+
+
+
+  <title> 《Effective Objective-C》超级干货三部曲（二）：规范篇 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/《Effective Objective-C》超级干货三部曲（二）：规范篇/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《Effective Objective-C》超级干货三部曲（二）：规范篇
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  8,356 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  33 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/859001-4696272b0a4ffe42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="《Effective Objective-C 编写高质量iOS与OS X代码的52个有效方法》"></p>
+<p>继上一篇<a href="http://www.jianshu.com/p/9c93c7ab734d" target="_blank" rel="noopener">《Effective Objective-C 》超级干货三部曲（一）：概念篇</a>之后，本篇即是三部曲的第二篇：规范篇。<br>没看过三部曲第一篇的小伙伴可能不知道我在说神马，在这里还是先啰嗦一下三部曲是咋回事：笔者将《Effective Objective-C 》这本书的52个知识点分为三大类进行了归类整理：</p>
+<ul>
+<li>概念类：讲解了一些概念性知识。</li>
+<li>规范类：讲解了一些为了避免一些问题或者为后续开发提供便利所需要遵循的规范性知识。</li>
+<li>技巧类：讲解了一些为了解决某些特定问题而需要用到的技巧性知识。</li>
+</ul>
+<p>然后用思维导图整理了一下：<br><img src="http://upload-images.jianshu.io/upload_images/859001-0599d987732d932e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三部曲分布图"></p>
+<p>作为三部曲的第二篇，本篇总结抽取了《Effective Objective-C 》这本书中讲解规范性知识的部分：这些知识点都是为了避免在开发过程中出现问题或给开发提供便利的规范性知识点。掌握这些知识有助于形成科学地写OC代码的习惯，使得代码更加容易维护和扩展，学习这类知识是iOS初学者进阶的必经之路。</p>
+<p>好吧，不费话了，开始了！</p>
+<a id="more"></a>
+<h1 id="第2条：-在类的头文件中尽量少引用其他头文件"><a href="#第2条：-在类的头文件中尽量少引用其他头文件" class="headerlink" title="第2条： 在类的头文件中尽量少引用其他头文件"></a>第2条： 在类的头文件中尽量少引用其他头文件</h1><hr>
+<p>有时，类A需要将类B的实例变量作为它公共API的属性。这个时候，我们不应该引入类B的头文件，而应该使用向前声明（forward declaring）使用class关键字，并且在A的实现文件引用B的头文件。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EOCPerson.h</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">EOCEmployer</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *firstName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *lastName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) EOCEmployer *employer;<span class="comment">//将EOCEmployer作为属性</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">// EOCPerson.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"EOCEmployer.h"</span></span></span><br></pre></td></tr></table></figure>
+<p>这样做有什么优点呢：</p>
+<blockquote>
+<ul>
+<li>不在A的头文件中引入B的头文件，就不会一并引入B的全部内容，这样就减少了编译时间。</li>
+<li>可以避免循环引用：因为如果两个类在自己的头文件中都引入了对方的头文件，那么就会导致其中一个类无法被正确编译。</li>
+</ul>
+</blockquote>
+<p>但是个别的时候，必须在头文件中引入其他类的头文件:</p>
+<blockquote>
+<p>主要有两种情况：</p>
+<ol>
+<li>该类继承于某个类，则应该引入父类的头文件。</li>
+<li>该类遵从某个协议，则应该引入该协议的头文件。而且最好将协议单独放在一个头文件中。</li>
+</ol>
+</blockquote>
+<h1 id="第3条：多用字面量语法，少用与之等价的方法"><a href="#第3条：多用字面量语法，少用与之等价的方法" class="headerlink" title="第3条：多用字面量语法，少用与之等价的方法"></a>第3条：多用字面量语法，少用与之等价的方法</h1><hr>
+<h2 id="1-声明时的字面量语法："><a href="#1-声明时的字面量语法：" class="headerlink" title="1. 声明时的字面量语法："></a>1. 声明时的字面量语法：</h2><p>在声明NSNumber，NSArray，NSDictionary时，应该尽量使用简洁字面量语法。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSNumber</span> *intNumber = @<span class="number">1</span>;</span><br><span class="line"><span class="built_in">NSNumber</span> *floatNumber = @<span class="number">2.5</span>f;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *animals =[<span class="built_in">NSArray</span> arrayWithObjects:<span class="string">@"cat"</span>, <span class="string">@"dog"</span>,<span class="string">@"mouse"</span>, <span class="string">@"badger"</span>, <span class="literal">nil</span>];</span><br><span class="line">Dictionary *dict = @&#123;<span class="string">@"animal"</span>:<span class="string">@"tiger"</span>,<span class="string">@"phone"</span>:<span class="string">@"iPhone 6"</span>&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="2-集合类取下标的字面量语法："><a href="#2-集合类取下标的字面量语法：" class="headerlink" title="2. 集合类取下标的字面量语法："></a>2. 集合类取下标的字面量语法：</h2><p>NSArray，NSDictionary，NSMutableArray，NSMutableDictionary 的取下标操作也应该尽量使用字面量语法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *cat = animals[0];</span><br><span class="line">NSString *iphone = dict[@&quot;phone&quot;];</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>使用字面量语法的优点：</p>
+<ol>
+<li>代码看起来更加简洁。</li>
+<li>如果存在nil值，则会立即抛出异常。如果在不用字面量语法定义数组的情况下，如果数组内部存在nil，则系统会将其设为数组最后一个元素并终止。所以当这个nil不是最后一个元素的话，就会出现难以排查的错误。</li>
+</ol>
+<p><strong>注意</strong>:<br>字面量语法创建出来的字符串，数组，字典对象都是不可变的。</p>
+</blockquote>
+<h1 id="第4条：多用类型常量，少用-define预处理命令"><a href="#第4条：多用类型常量，少用-define预处理命令" class="headerlink" title="第4条：多用类型常量，少用#define预处理命令"></a>第4条：多用类型常量，少用#define预处理命令</h1><hr>
+<p>在OC中，定义常量通常使用预处理命令，但是并不建议使用它，而是使用类型常量的方法。<br>首先比较一下这两种方法的区别：</p>
+<ul>
+<li>预处理命令：简单的文本替换，不包括类型信息，并且可被任意修改。</li>
+<li>类型常量：包括类型信息，并且可以设置其使用范围，而且不可被修改。</li>
+</ul>
+<p>我们可以看出来，使用预处理虽然能达到替换文本的目的，但是本身还是有局限性的：不具备类型 + 可以被任意修改，总之给人一种不安全的感觉。</p>
+<p>知道了它们的长短处，我们再来简单看一下它们的具体使用方法：</p>
+<h4 id="预处理命令："><a href="#预处理命令：" class="headerlink" title="预处理命令："></a>预处理命令：</h4><p><code>#define W_LABEL (W_SCREEN - 2*GAP)</code></p>
+<blockquote>
+<p>这里，(W_SCREEN - 2*GAP)替换了W_LABEL，它不具备W_LABEL的类型信息。而且要注意一下：如果替换式中存在运算符号，以笔者的经验最好用括号括起来，不然容易出现错误（有体会）。</p>
+</blockquote>
+<h4 id="类型常量："><a href="#类型常量：" class="headerlink" title="类型常量："></a>类型常量：</h4><p><code>static const NSTimeIntervalDuration = 0.3;</code></p>
+<blockquote>
+<p>这里:<br>const 将其设置为常量，不可更改。<br>static意味着该变量仅仅在定义此变量的编译单元中可见。如果不声明static,编译器会为它创建一个外部符号（external symbol）。我们来看一下对外公开的常量的声明方法：</p>
+</blockquote>
+<h4 id="对外公开某个常量："><a href="#对外公开某个常量：" class="headerlink" title="对外公开某个常量："></a>对外公开某个常量：</h4><p>如果我们需要发送通知，那么就需要在不同的地方拿到通知的“频道”字符串，那么显然这个字符串是不能被轻易更改，而且可以在不同的地方获取。这个时候就需要定义一个外界可见的字符串常量。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//header file</span></span><br><span class="line"><span class="keyword">extern</span> <span class="built_in">NSString</span> *<span class="keyword">const</span> NotificationString;</span><br><span class="line"><span class="comment">//implementation file</span></span><br><span class="line"><span class="built_in">NSString</span> *<span class="keyword">const</span>  NotificationString = <span class="string">@"Finish Download"</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里NSString *const NotificationString是指针常量。<br>extern关键字告诉编译器，在全局符号表中将会有一个名叫NotificationString的符号。</p>
+</blockquote>
+<p>我们通常在头文件声明常量，在其实现文件里定义该常量。由实现文件生成目标文件时，编译器会在“数据段”为字符串分配存储空间。</p>
+<p>最后注意一下公开和非公开的常量的命名规范：</p>
+<blockquote>
+<p>公开的常量：常量的名字最好用与之相关的类名做前缀。<br>非公开的常量：局限于某个编译单元（tanslation unit，实现文件 implementation file）内，在签名加上字母k。</p>
+</blockquote>
+<h1 id="第5条：用枚举表示状态，选项，状态码"><a href="#第5条：用枚举表示状态，选项，状态码" class="headerlink" title="第5条：用枚举表示状态，选项，状态码"></a>第5条：用枚举表示状态，选项，状态码</h1><hr>
+<p>我们经常需要给类定义几个状态，这些状态码可以用枚举来管理。下面是关于网络连接状态的状态码枚举：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, EOCConnectionState) &#123;</span><br><span class="line">  EOCConnectionStateDisconnected,</span><br><span class="line">  EOCConnectionStateConnecting,</span><br><span class="line">  EOCConnectionStateConnected,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>需要注意的一点是：<br>在枚举类型的switch语句中不要实现default分支。它的好处是，当我们给枚举增加成员时，编译器就会提示开发者：switch语句并未处理所有的枚举。对此，笔者有个教训，又一次在switch语句中将“默认分支”设置为枚举中的第一项，自以为这样写可以让程序更健壮，结果后来导致了严重的崩溃。</p>
+<h1 id="第7条：-在对象内部尽量直接访问实例变量"><a href="#第7条：-在对象内部尽量直接访问实例变量" class="headerlink" title="第7条： 在对象内部尽量直接访问实例变量"></a>第7条： 在对象内部尽量直接访问实例变量</h1><hr>
+<p>关于实例变量的访问，可以直接访问，也可以通过属性的方式(点语法)来访问。书中作者建议在读取实例变量时采用直接访问的形式，而在设置实例变量的时候通过属性来做。</p>
+<h4 id="直接访问属性的特点："><a href="#直接访问属性的特点：" class="headerlink" title="直接访问属性的特点："></a>直接访问属性的特点：</h4><ul>
+<li>绕过set，get语义，速度快；</li>
+</ul>
+<h4 id="通过属性访问属性的特点："><a href="#通过属性访问属性的特点：" class="headerlink" title="通过属性访问属性的特点："></a>通过属性访问属性的特点：</h4><ul>
+<li>不会绕过属性定义的内存管理语义</li>
+<li>有助于打断点排查错误</li>
+<li>可以触发KVO</li>
+</ul>
+<p>因此，有个关于折中的方案：</p>
+<blockquote>
+<p>设置属性：通过属性<br>读取属性：直接访问</p>
+</blockquote>
+<p>不过有两个特例：</p>
+<ol>
+<li>初始化方法和dealloc方法中，需要直接访问实例变量来进行设置属性操作。因为如果在这里没有绕过set方法，就有可能触发其他不必要的操作。</li>
+<li>惰性初始化（lazy initialization）的属性，必须通过属性来读取数据。因为惰性初始化是通过重写get方法来初始化实例变量的，如果不通过属性来读取该实例变量，那么这个实例变量就永远不会被初始化。</li>
+</ol>
+<h1 id="第15条：用前缀-避免命名空间冲突"><a href="#第15条：用前缀-避免命名空间冲突" class="headerlink" title="第15条：用前缀 避免命名空间冲突"></a>第15条：用前缀 避免命名空间冲突</h1><hr>
+<p>Apple宣称其保留使用所有”两字母前缀”的权利，所以我们选用的前缀应该是三个字母的。<br>而且，如果自己开发的程序使用到了第三方库，也应该加上前缀。</p>
+<h1 id="第18条：尽量使用不可变对象"><a href="#第18条：尽量使用不可变对象" class="headerlink" title="第18条：尽量使用不可变对象"></a>第18条：尽量使用不可变对象</h1><hr>
+<p>书中作者建议尽量把对外公布出来的属性设置为只读，在实现文件内部设为读写。具体做法是：</p>
+<p>在头文件中，设置对象属性为<code>readonly</code>，在实现文件中设置为<code>readwrite</code>。这样一来，在外部就只能读取该数据，而不能修改它，使得这个类的实例所持有的数据更加安全。</p>
+<p>而且，对于集合类的对象，更应该仔细考虑是否可以将其设为可变的。</p>
+<p>如果在公开部分只能设置其为只读属性，那么就在非公开部分存储一个可变型。这样一来，当在外部获取这个属性时，获取的只是内部可变型的一个不可变版本,例如：</p>
+<p>在公共API中：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *firstName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *lastName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">readonly</span>) <span class="built_in">NSSet</span> *friends <span class="comment">//向外公开的不可变集合</span></span><br><span class="line">- (<span class="keyword">id</span>)initWithFirstName:(<span class="built_in">NSString</span>*)firstName andLastName:(<span class="built_in">NSString</span>*)lastName;</span><br><span class="line">- (<span class="keyword">void</span>)addFriend:(EOCPerson*)person;</span><br><span class="line">- (<span class="keyword">void</span>)removeFriend:(EOCPerson*)person;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，我们将friends属性设置为不可变的set。然后，提供了来增加和删除这个set里的元素的公共接口。</p>
+</blockquote>
+<p>在实现文件里：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> ()</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readwrite</span>) <span class="built_in">NSString</span> *firstName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readwrite</span>) <span class="built_in">NSString</span> *lastName;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">EOCPerson</span> </span>&#123;</span><br><span class="line">     <span class="built_in">NSMutableSet</span> *_internalFriends;  <span class="comment">//实现文件里的可变集合</span></span><br><span class="line">&#125;</span><br><span class="line">- (<span class="built_in">NSSet</span>*)friends &#123;</span><br><span class="line">     <span class="keyword">return</span> [_internalFriends <span class="keyword">copy</span>]; <span class="comment">//get方法返回的永远是可变set的不可变型</span></span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)addFriend:(EOCPerson*)person &#123;</span><br><span class="line">    [_internalFriends addObject:person]; <span class="comment">//在外部增加集合元素的操作</span></span><br><span class="line">    <span class="comment">//do something when add element</span></span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)removeFriend:(EOCPerson*)person &#123;</span><br><span class="line">    [_internalFriends removeObject:person]; <span class="comment">//在外部移除元素的操作</span></span><br><span class="line">    <span class="comment">//do something when remove element</span></span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">id</span>)initWithFirstName:(<span class="built_in">NSString</span>*)firstName andLastName:(<span class="built_in">NSString</span>*)lastName &#123;</span><br><span class="line">     <span class="keyword">if</span> ((<span class="keyword">self</span> = [<span class="keyword">super</span> init])) &#123;</span><br><span class="line">        _firstName = firstName;</span><br><span class="line">        _lastName = lastName;</span><br><span class="line">        _internalFriends = [<span class="built_in">NSMutableSet</span> new];</span><br><span class="line">    &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，在实现文件里，保存一个可变set来记录外部的增删操作。</p>
+<p>这里最重要的代码是：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSSet</span>*)friends &#123;</span><br><span class="line"> <span class="keyword">return</span> [_internalFriends <span class="keyword">copy</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个是friends属性的获取方法：它将当前保存的可变set复制了一不可变的set并返回。因此，外部读取到的set都将是不可变的版本。</p>
+</blockquote>
+<h4 id="等一下，有个疑问：在公共接口设置不可变set-和-将增删的代码放在公共接口中是否矛盾的？"><a href="#等一下，有个疑问：在公共接口设置不可变set-和-将增删的代码放在公共接口中是否矛盾的？" class="headerlink" title="等一下，有个疑问：在公共接口设置不可变set 和 将增删的代码放在公共接口中是否矛盾的？"></a>等一下，有个疑问：在公共接口设置不可变set 和 将增删的代码放在公共接口中是否矛盾的？</h4><h4 id="答案：并不矛盾"><a href="#答案：并不矛盾" class="headerlink" title="答案：并不矛盾!"></a>答案：<strong>并不矛盾!</strong></h4><p>因为如果将friends属性设置为可变的，那么外部就可以随便更改set集合里的数据，这里的更改，仅仅是底层数据的更改，并不伴随其他任何操作。<br>然而有时，我们需要在更改set数据的同时<strong>要执行隐秘在实现文件里的其他工作</strong>，那么如果在外部随意更改这个属性的话，显然是达不到这种需求的。</p>
+<p>因此，我们需要提供给外界<strong>我们定制的</strong>增删的方法，并不让外部”自行“增删。</p>
+<h1 id="第19条：使用清晰而协调的命名方式"><a href="#第19条：使用清晰而协调的命名方式" class="headerlink" title="第19条：使用清晰而协调的命名方式"></a>第19条：使用清晰而协调的命名方式</h1><hr>
+<p>在给OC的方法取名字的时候要充分利用OC方法的命名优势，取一个<strong>语义清晰</strong>的方法名！什么叫语义清晰呢?就是说读起来像是一句话一样。</p>
+<p>我们看一个例子：</p>
+<p>先看名字取得不好的：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法定义</span></span><br><span class="line">- (<span class="keyword">id</span>)initWithSize:(<span class="keyword">float</span>)width :(<span class="keyword">float</span>)height;</span><br><span class="line"><span class="comment">//方法调用</span></span><br><span class="line">EOCRectangle *aRectangle =[[EOCRectangle alloc] initWithSize:<span class="number">5.0</span>f :<span class="number">10.0</span>f];</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里定义了Rectangle的初始化方法。虽然直观上可以知道这个方法通过传入的两个参数来组成矩形的size，但是我们并不知道哪个是矩形的宽，哪个是矩形的高。<br>来看一下正确的🌰 ：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法定义</span></span><br><span class="line">- (<span class="keyword">id</span>)initWithWidth:(<span class="keyword">float</span>)width andHeight:(<span class="keyword">float</span>)height;</span><br><span class="line"><span class="comment">//方法调用</span></span><br><span class="line">EOCRectangle *aRectangle =[[EOCRectangle alloc] initWithWidth:<span class="number">5.0</span>f andHeight:<span class="number">10.0</span>f];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个方法名就很好的诠释了该方法的意图：这个类的初始化是需要宽度和高度的。而且，哪个参数是高度，哪个参数是宽度，看得人一清二楚。永远要记得：<strong>代码是给人看的</strong>。</p>
+</blockquote>
+<p>笔者自己总结的方法命名规则：</p>
+<blockquote>
+<p>每个冒号左边的方法部分最好与右边的参数名一致。</p>
+</blockquote>
+<p>对于返回值是布尔值的方法，我们也要注意命名的规范：</p>
+<ul>
+<li>获取”是否“的布尔值，应该增加“is”前缀：</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- hasPrefix:</span><br></pre></td></tr></table></figure>
+<p>获取“是否有”的布尔值，应该增加“has”前缀：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- isEqualToString:</span><br></pre></td></tr></table></figure>
+<h1 id="第20条：为私有方法名加前缀"><a href="#第20条：为私有方法名加前缀" class="headerlink" title="第20条：为私有方法名加前缀"></a>第20条：为私有方法名加前缀</h1><hr>
+<p>建议在实现文件里将非公开的方法都加上前缀，便于调试，而且这样一来也很容易区分哪些是公共方法，哪些是私有方法。因为往往公共方法是不便于任意修改的。</p>
+<p>在这里，作者举了个例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCObject</span> : <span class="title">NSObject</span></span></span><br><span class="line">- (<span class="keyword">void</span>)publicMethod;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">EOCObject</span></span></span><br><span class="line">- (<span class="keyword">void</span>)publicMethod &#123;</span><br><span class="line"> <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)p_privateMethod &#123;</span><br><span class="line"> <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>：<br>不要用下划线来区分私有方法和公共方法，因为会和苹果公司的API重复。</p>
+</blockquote>
+<h1 id="第23条：通过委托与数据源协议进行对象间通信"><a href="#第23条：通过委托与数据源协议进行对象间通信" class="headerlink" title="第23条：通过委托与数据源协议进行对象间通信"></a>第23条：通过委托与数据源协议进行对象间通信</h1><hr>
+<p>如果给委托对象发送消息，那么必须提前判断该委托对象是否实现了该消息：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span> *data = <span class="comment">/* data obtained from network */</span>;</span><br><span class="line"><span class="keyword">if</span> ([_delegate respondsToSelector: <span class="keyword">@selector</span>(networkFetcher:didReceiveData:)])</span><br><span class="line">&#123;</span><br><span class="line">        [_delegate networkFetcher:<span class="keyword">self</span> didReceiveData:data];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而且，最好再加上一个判断：判断委托对象是否存在<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span> *data = <span class="comment">/* data obtained from network */</span>;</span><br><span class="line"><span class="keyword">if</span> ( (_delegate) &amp;&amp; ([_delegate respondsToSelector: <span class="keyword">@selector</span>(networkFetcher:didReceiveData:)]))</span><br><span class="line">&#123;</span><br><span class="line">        [_delegate networkFetcher:<span class="keyword">self</span> didReceiveData:data];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于代理模式，在iOS中分为两种：</p>
+<ul>
+<li>普通的委托模式:信息从类流向委托者</li>
+<li>信息源模式:信息从数据源流向类</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-d9349b44ab6fba52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="普通的委托 | 信息源"></p>
+<blockquote>
+<p>就好比tableview告诉它的代理（delegate）“我被点击了”；而它的数据源（data Source）告诉它“你有这些数据”。仔细回味一下，这两个信息的传递方向是相反的。</p>
+</blockquote>
+<h1 id="第24条：将类的实现代码分散到便于管理的数个分类中"><a href="#第24条：将类的实现代码分散到便于管理的数个分类中" class="headerlink" title="第24条：将类的实现代码分散到便于管理的数个分类中"></a>第24条：将类的实现代码分散到便于管理的数个分类中</h1><hr>
+<p>通常一个类会有很多方法，而这些方法往往可以用某种特有的逻辑来分组。我们可以利用OC的分类机制，将类的这些方法按一定的逻辑划入几个分区中。</p>
+<p>例子：</p>
+<p>无分类的类：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *firstName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *lastName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">readonly</span>) <span class="built_in">NSArray</span> *friends;</span><br><span class="line">- (<span class="keyword">id</span>)initWithFirstName:(<span class="built_in">NSString</span>*)firstName andLastName:(<span class="built_in">NSString</span>*)lastName;</span><br><span class="line"><span class="comment">/* Friendship methods */</span></span><br><span class="line">- (<span class="keyword">void</span>)addFriend:(EOCPerson*)person;</span><br><span class="line">- (<span class="keyword">void</span>)removeFriend:(EOCPerson*)person;</span><br><span class="line">- (<span class="built_in">BOOL</span>)isFriendsWith:(EOCPerson*)person;</span><br><span class="line"><span class="comment">/* Work methods */</span></span><br><span class="line">- (<span class="keyword">void</span>)performDaysWork;</span><br><span class="line">- (<span class="keyword">void</span>)takeVacationFromWork;</span><br><span class="line"><span class="comment">/* Play methods */</span></span><br><span class="line">- (<span class="keyword">void</span>)goToTheCinema;</span><br><span class="line">- (<span class="keyword">void</span>)goToSportsGame;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>分类之后：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *firstName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *lastName;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, <span class="keyword">readonly</span>) <span class="built_in">NSArray</span> *friends;</span><br><span class="line">- (<span class="keyword">id</span>)initWithFirstName:(<span class="built_in">NSString</span>*)firstName</span><br><span class="line">andLastName:(<span class="built_in">NSString</span>*)lastName;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> (<span class="title">Friendship</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)addFriend:(EOCPerson*)person;</span><br><span class="line">- (<span class="keyword">void</span>)removeFriend:(EOCPerson*)person;</span><br><span class="line">- (<span class="built_in">BOOL</span>)isFriendsWith:(EOCPerson*)person;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> (<span class="title">Work</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)performDaysWork;</span><br><span class="line">- (<span class="keyword">void</span>)takeVacationFromWork;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> (<span class="title">Play</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)goToTheCinema;</span><br><span class="line">- (<span class="keyword">void</span>)goToSportsGame;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>其中，FriendShip分类的实现代码可以这么写：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EOCPerson+Friendship.h</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"EOCPerson.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span> (<span class="title">Friendship</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)addFriend:(EOCPerson*)person;</span><br><span class="line">- (<span class="keyword">void</span>)removeFriend:(EOCPerson*)person;</span><br><span class="line">- (<span class="built_in">BOOL</span>)isFriendsWith:(EOCPerson*)person;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"><span class="comment">// EOCPerson+Friendship.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"EOCPerson+Friendship.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">EOCPerson</span> (<span class="title">Friendship</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)addFriend:(EOCPerson*)person &#123;</span><br><span class="line"> <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)removeFriend:(EOCPerson*)person &#123;</span><br><span class="line"> <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line">- (<span class="built_in">BOOL</span>)isFriendsWith:(EOCPerson*)person &#123;</span><br><span class="line"> <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：在新建分类文件时，一定要引入被分类的类文件。</p>
+</blockquote>
+<p>通过分类机制，可以把类代码分成很多个易于管理的功能区，同时也便于调试。因为分类的方法名称会包含分类的名称，可以马上看到该方法属于哪个分类中。</p>
+<p>利用这一点，我们可以创建名为Private的分类，将所有私有方法都放在该类里。这样一来，我们就可以根据private一词的出现位置来判断调用的合理性，这也是一种编写“自我描述式代码（self-documenting）”的办法。</p>
+<h1 id="第25条：总是为第三方类的分类名称加前缀"><a href="#第25条：总是为第三方类的分类名称加前缀" class="headerlink" title="第25条：总是为第三方类的分类名称加前缀"></a>第25条：总是为第三方类的分类名称加前缀</h1><hr>
+<p>分类机制虽然强大，但是如果分类里的方法与原来的方法名称一致，那么分类的方法就会覆盖掉原来的方法，而且总是以最后一次被覆盖为基准。</p>
+<p>因此，我们应该以命名空间来区别各个分类的名称与其中定义的方法。在OC里的做法就是给这些方法加上某个共用的前缀。例如：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSString</span> (<span class="title">ABC_HTTP</span>)</span></span><br><span class="line"><span class="comment">// Encode a string with URL encoding</span></span><br><span class="line">- (<span class="built_in">NSString</span>*)abc_urlEncodedString;</span><br><span class="line"><span class="comment">// Decode a URL encoded string</span></span><br><span class="line">- (<span class="built_in">NSString</span>*)abc_urlDecodedString;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>因此，如果我们想给第三方库或者iOS框架里的类添加分类时，最好将分类名和方法名加上前缀。</p>
+<h1 id="第26条-勿在分类中声明属性"><a href="#第26条-勿在分类中声明属性" class="headerlink" title="第26条:勿在分类中声明属性"></a>第26条:勿在分类中声明属性</h1><hr>
+<p>除了实现文件里的class-continuation分类中可以声明属性外，其他分类无法向类中新增实例变量。</p>
+<p>因此，类所封装的全部数据都应该定义在主接口中，这里是唯一能够定义实例变量的地方。</p>
+<p>关于分类，需要强调一点：</p>
+<blockquote>
+<p>分类机制，目标在于扩展类的功能，而不是封装数据。</p>
+</blockquote>
+<h2 id="第27条：使用class-continuation分类-隐藏实现细节"><a href="#第27条：使用class-continuation分类-隐藏实现细节" class="headerlink" title="#第27条：使用class-continuation分类 隐藏实现细节"></a>#第27条：使用class-continuation分类 隐藏实现细节</h2><p>通常，我们需要减少在公共接口中向外暴露的部分(包括属性和方法)，而因此带给我们的局限性可以利用class-continuation分类的特性来补偿：</p>
+<ul>
+<li>可以在class-continuation分类中增加实例变量。</li>
+<li>可以在class-continuation分类中将公共接口的只读属性设置为读写。</li>
+<li>可以在class-continuation分类中遵循协议，使其不为人知。</li>
+</ul>
+<h1 id="第31条：在dealloc方法中只释放引用并解除监听"><a href="#第31条：在dealloc方法中只释放引用并解除监听" class="headerlink" title="第31条：在dealloc方法中只释放引用并解除监听"></a>第31条：在dealloc方法中只释放引用并解除监听</h1><hr>
+<p>永远不要自己调用dealloc方法，运行期系统会在适当的时候调用它。根据性能需求我们有时需要在dealloc方法中做一些操作。那么我们可以在dealloc方法里做什么呢？</p>
+<ul>
+<li>释放对象所拥有的所有引用，不过ARC会自动添加这些释放代码，可以不必操心。</li>
+<li>而且对象拥有的其他非OC对象也要释放（CoreFoundation对象就必须手动释放）</li>
+<li>释放原来的观测行为：注销通知。如果没有及时注销，就会向其发送通知，使得程序崩溃。</li>
+</ul>
+<p>举个简单的🌰 ：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)dealloc &#123;</span><br><span class="line"></span><br><span class="line">     <span class="built_in">CFRelease</span>(coreFoundationObject);</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] removeObserver:<span class="keyword">self</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>尤其注意</strong>：在dealloc方法中不应该调用其他的方法，因为如果这些方法是异步的，并且回调中还要使用当前对象，那么很有可能当前对象已经被释放了，会导致崩溃。</p>
+<p>并且在dealloc方法中也不能调用属性的存取方法，因为很有可能在这些方法里还有其他操作。而且这个属性还有可能处于键值观察状态，该属性的观察者可能会在属性改变时保留或者使用这个即将回收的对象。</p>
+</blockquote>
+<h1 id="第36条：不要使用retainCount"><a href="#第36条：不要使用retainCount" class="headerlink" title="第36条：不要使用retainCount"></a>第36条：不要使用retainCount</h1><hr>
+<p>在非ARC得环境下使用retainCount可以返回当前对象的引用计数，但是在ARC环境下调用会报错，因为该方法已经被废弃了 。</p>
+<p>它被废弃的原因是因为它所返回的引用计数只能反映对象某一时刻的引用计数，而无法“预知”对象将来引用计数的变化（比如对象当前处于自动释放池中，那么将来就会自动递减引用计数）。</p>
+<h1 id="第46条：不要使用dispatch-get-current-queue"><a href="#第46条：不要使用dispatch-get-current-queue" class="headerlink" title="第46条：不要使用dispatch_get_current_queue"></a>第46条：不要使用dispatch_get_current_queue</h1><hr>
+<p>我们无法用某个队列来描述“当前队列”这一属性，因为派发队列是按照层级来组织的。</p>
+<p>那么什么是队列的层级呢?</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-e880be58b75c49c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="队列的层及分布"></p>
+<p>安排在某条队列中的快，会在其上层队列中执行，而层级地位最高的那个队列总是全局并发队列。</p>
+<p>在这里，B，C中的块会在A里执行。但是D中的块，可能与A里的块并行，因为A和D的目标队列是并发队列。</p>
+<p>正因为有了这种层级关系，所以检查当前队列是并发的还是非并发的就不会总是很准确。</p>
+<h1 id="第48条：多用块枚举，少用for循环"><a href="#第48条：多用块枚举，少用for循环" class="headerlink" title="第48条：多用块枚举，少用for循环"></a>第48条：多用块枚举，少用for循环</h1><hr>
+<p>当遍历集合元素时，建议使用块枚举，因为相对于传统的for循环，它更加高效，而且简洁,还能获取到用传统的for循环无法提供的值：</p>
+<p>我们首先看一下传统的遍历：</p>
+<h4 id="传统的for遍历"><a href="#传统的for遍历" class="headerlink" title="传统的for遍历"></a>传统的for遍历</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *anArray = <span class="comment">/* ... */</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; anArray.count; i++) &#123;</span><br><span class="line">   <span class="keyword">id</span> object = anArray[i];</span><br><span class="line">   <span class="comment">// Do something with 'object'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Dictionary</span></span><br><span class="line"><span class="built_in">NSDictionary</span> *aDictionary = <span class="comment">/* ... */</span>;</span><br><span class="line"><span class="built_in">NSArray</span> *keys = [aDictionary allKeys];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; keys.count; i++) &#123;</span><br><span class="line">   <span class="keyword">id</span> key = keys[i];</span><br><span class="line">   <span class="keyword">id</span> value = aDictionary[key];</span><br><span class="line">   <span class="comment">// Do something with 'key' and 'value'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Set</span></span><br><span class="line"><span class="built_in">NSSet</span> *aSet = <span class="comment">/* ... */</span>;</span><br><span class="line"><span class="built_in">NSArray</span> *objects = [aSet allObjects];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; objects.count; i++) &#123;</span><br><span class="line">   <span class="keyword">id</span> object = objects[i];</span><br><span class="line">   <span class="comment">// Do something with 'object'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，在遍历NSDictionary,和NSet时，我们又新创建了一个数组。虽然遍历的目的达成了，但是却加大了系统的开销。</p>
+<h4 id="利用快速遍历："><a href="#利用快速遍历：" class="headerlink" title="利用快速遍历："></a>利用快速遍历：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *anArray = <span class="comment">/* ... */</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">id</span> object <span class="keyword">in</span> anArray) &#123;</span><br><span class="line"> <span class="comment">// Do something with 'object'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Dictionary</span></span><br><span class="line"><span class="built_in">NSDictionary</span> *aDictionary = <span class="comment">/* ... */</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">id</span> key <span class="keyword">in</span> aDictionary) &#123;</span><br><span class="line"> <span class="keyword">id</span> value = aDictionary[key];</span><br><span class="line"> <span class="comment">// Do something with 'key' and 'value'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">NSSet</span> *aSet = <span class="comment">/* ... */</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">id</span> object <span class="keyword">in</span> aSet) &#123;</span><br><span class="line"> <span class="comment">// Do something with 'object'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种快速遍历的方法要比传统的遍历方法更加简洁易懂，但是缺点是无法方便获取元素的下标。</p>
+<h4 id="利用基于块（block）的遍历："><a href="#利用基于块（block）的遍历：" class="headerlink" title="利用基于块（block）的遍历："></a>利用基于块（block）的遍历：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *anArray = <span class="comment">/* ... */</span>;</span><br><span class="line">[anArray enumerateObjectsUsingBlock:^(<span class="keyword">id</span> object, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop)&#123;</span><br><span class="line">   <span class="comment">// Do something with 'object'</span></span><br><span class="line">   <span class="keyword">if</span> (shouldStop) &#123;</span><br><span class="line">      *stop = <span class="literal">YES</span>; <span class="comment">//使迭代停止</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;];</span><br><span class="line"><span class="comment">// Dictionary</span></span><br><span class="line"><span class="built_in">NSDictionary</span> *aDictionary = <span class="comment">/* ... */</span>;</span><br><span class="line">[aDictionary enumerateKeysAndObjectsUsingBlock:^(<span class="keyword">id</span> key, <span class="keyword">id</span> object, <span class="built_in">BOOL</span> *stop)&#123;</span><br><span class="line">     <span class="comment">// Do something with 'key' and 'object'</span></span><br><span class="line">     <span class="keyword">if</span> (shouldStop) &#123;</span><br><span class="line">        *stop = <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line"><span class="comment">// Set</span></span><br><span class="line"><span class="built_in">NSSet</span> *aSet = <span class="comment">/* ... */</span>;</span><br><span class="line">[aSet enumerateObjectsUsingBlock:^(<span class="keyword">id</span> object, <span class="built_in">BOOL</span> *stop)&#123;</span><br><span class="line">     <span class="comment">// Do something with 'object'</span></span><br><span class="line">     <span class="keyword">if</span> (shouldStop) &#123;</span><br><span class="line">        *stop = <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，在使用块进行快速枚举的时候，我们可以不创建临时数组。虽然语法上没有快速枚举简洁，但是我们可以获得数组元素对应的序号，字典元素对应的键值，而且，我们还可以随时令遍历终止。</p>
+<p>利用快速枚举和块的枚举还有一个优点：能够修改块的方法签名</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSString</span> *key <span class="keyword">in</span> aDictionary) &#123;</span><br><span class="line">         <span class="built_in">NSString</span> *object = (<span class="built_in">NSString</span>*)aDictionary[key];</span><br><span class="line">        <span class="comment">// Do something with 'key' and 'object'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *aDictionary = <span class="comment">/* ... */</span>;</span><br><span class="line">    [aDictionary enumerateKeysAndObjectsUsingBlock:^(<span class="built_in">NSString</span> *key, <span class="built_in">NSString</span> *obj, <span class="built_in">BOOL</span> *stop)&#123;</span><br><span class="line">             <span class="comment">// Do something with 'key' and 'obj'</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果我们可以知道集合里的元素类型，就可以修改签名。这样做的好处是：可以让编译期检查该元素是否可以实现我们想调用的方法，如果不能实现，就做另外的处理。这样一来，程序就能变得更加安全。</p>
+<h1 id="第50条：构建缓存时选用NSCache-而非NSDictionary"><a href="#第50条：构建缓存时选用NSCache-而非NSDictionary" class="headerlink" title="第50条：构建缓存时选用NSCache 而非NSDictionary"></a>第50条：构建缓存时选用NSCache 而非NSDictionary</h1><hr>
+<p>如果我们缓存使用得当，那么应用程序的响应速度就会提高。只有那种“重新计算起来很费事的数据，才值得放入缓存”，比如那些需要从网络获取或从磁盘读取的数据。</p>
+<p>在构建缓存的时候很多人习惯用NSDictionary或者NSMutableDictionary，但是作者建议大家使用NSCache，它作为管理缓存的类，有很多特点要优于字典，因为它本来就是为了管理缓存而设计的。</p>
+<h4 id="NSCache优于NSDictionary的几点："><a href="#NSCache优于NSDictionary的几点：" class="headerlink" title="NSCache优于NSDictionary的几点："></a>NSCache优于NSDictionary的几点：</h4><ul>
+<li>当系统资源将要耗尽时，NSCache具备自动删减缓冲的功能。并且还会先删减“最久未使用”的对象。</li>
+<li>NSCache不拷贝键，而是保留键。因为并不是所有的键都遵从拷贝协议（字典的键是必须要支持拷贝协议的，有局限性）。</li>
+<li>NSCache是线程安全的：不编写加锁代码的前提下，多个线程可以同时访问NSCache。</li>
+</ul>
+<h4 id="关于操控NSCache删减内容的时机"><a href="#关于操控NSCache删减内容的时机" class="headerlink" title="关于操控NSCache删减内容的时机"></a>关于操控NSCache删减内容的时机</h4><p>开发者可以通过两个尺度来调整这个时机：</p>
+<ul>
+<li>缓存中的对象总数.</li>
+<li>将对象加入缓存时，为其指定开销值。</li>
+</ul>
+<p>对于开销值，只有在能很快计算出开销值的情况下，才应该考虑采用这个尺度，不然反而会加大系统的开销。</p>
+<p>下面我们来看一下缓存的用法：缓存网络下载的数据</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Network fetcher class</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^EOCNetworkFetcherCompletionHandler)(<span class="built_in">NSData</span> *data);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCNetworkFetcher</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)initWithURL:(<span class="built_in">NSURL</span>*)url;</span><br><span class="line">- (<span class="keyword">void</span>)startWithCompletionHandler:(EOCNetworkFetcherCompletionHandler)handler;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Class that uses the network fetcher and caches results</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCClass</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">EOCClass</span> </span>&#123;</span><br><span class="line">     <span class="built_in">NSCache</span> *_cache;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)init &#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> ((<span class="keyword">self</span> = [<span class="keyword">super</span> init])) &#123;</span><br><span class="line">    _cache = [<span class="built_in">NSCache</span> new];</span><br><span class="line"></span><br><span class="line">     <span class="comment">// Cache a maximum of 100 URLs</span></span><br><span class="line">    _cache.countLimit = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The size in bytes of data is used as the cost,</span></span><br><span class="line"><span class="comment">     * so this sets a cost limit of 5MB.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    _cache.totalCostLimit = <span class="number">5</span> * <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)downloadDataForURL:(<span class="built_in">NSURL</span>*)url &#123; </span><br><span class="line"></span><br><span class="line">     <span class="built_in">NSData</span> *cachedData = [_cache objectForKey:url];</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> (cachedData) &#123;</span><br><span class="line"></span><br><span class="line">         <span class="comment">// Cache hit：存在缓存，读取</span></span><br><span class="line">        [<span class="keyword">self</span> useData:cachedData];</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">         <span class="comment">// Cache miss：没有缓存，下载</span></span><br><span class="line">         EOCNetworkFetcher *fetcher = [[EOCNetworkFetcher alloc] initWithURL:url];      </span><br><span class="line"></span><br><span class="line">        [fetcher startWithCompletionHandler:^(<span class="built_in">NSData</span> *data)&#123;</span><br><span class="line">         [_cache setObject:data forKey:url cost:data.length];    </span><br><span class="line">        [<span class="keyword">self</span> useData:data];</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在这里，我们使用URL作为缓存的key，将总对象数目设置为100，将开销值设置为5MB。</p>
+<h2 id="NSPurgeableData"><a href="#NSPurgeableData" class="headerlink" title="NSPurgeableData"></a>NSPurgeableData</h2><p>NSPurgeableData是NSMutableData的子类，把它和NSCache配合使用效果很好。</p>
+<p>因为当系统资源紧张时，可以把保存NSPurgeableData的那块内存释放掉。</p>
+<p>如果需要访问某个NSPurgeableData对象，可以调用<code>beginContentAccess</code>方发，告诉它现在还不应该丢弃自己所占据的内存。</p>
+<p>在使用完之后，调用<code>endContentAccess</code>方法，告诉系统在必要时可以丢弃自己所占据的内存。</p>
+<blockquote>
+<p>上面这两个方法类似于“引用计数”递增递减的操作，也就是说，只有当“引用计数”为0的时候，才可以在将来删去它所占的内存。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">- (void)downloadDataForURL:(NSURL*)url &#123; </span><br><span class="line"></span><br><span class="line">      NSPurgeableData *cachedData = [_cache objectForKey:url];</span><br><span class="line"></span><br><span class="line">      if (cachedData) &#123;         </span><br><span class="line"></span><br><span class="line">            // 如果存在缓存，需要调用beginContentAccess方法</span><br><span class="line">            [cacheData beginContentAccess];</span><br><span class="line"></span><br><span class="line">             // Use the cached data</span><br><span class="line">            [self useData:cachedData];</span><br><span class="line"></span><br><span class="line">             // 使用后，调用endContentAccess</span><br><span class="line">            [cacheData endContentAccess];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125; else &#123;</span><br><span class="line"></span><br><span class="line">                 //没有缓存</span><br><span class="line">                 EOCNetworkFetcher *fetcher = [[EOCNetworkFetcher alloc] initWithURL:url];    </span><br><span class="line"></span><br><span class="line">                  [fetcher startWithCompletionHandler:^(NSData *data)&#123;</span><br><span class="line"></span><br><span class="line">                         NSPurgeableData *purgeableData = [NSPurgeableData dataWithData:data];</span><br><span class="line">                         [_cache setObject:purgeableData forKey:url cost:purgeableData.length];</span><br><span class="line"></span><br><span class="line">                          // Don&apos;t need to beginContentAccess as it begins            </span><br><span class="line">                          // with access already marked</span><br><span class="line">                           // Use the retrieved data</span><br><span class="line">                            [self useData:data];</span><br><span class="line"></span><br><span class="line">                             // Mark that the data may be purged now</span><br><span class="line">                            [purgeableData endContentAccess];</span><br><span class="line"></span><br><span class="line">            &#125;];</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：</p>
+</blockquote>
+<p>在我们可以直接拿到purgeableData的情况下需要执行<code>beginContentAccess</code>方法。然而，在创建purgeableData的情况下，是不需要执行beginContentAccess，因为在创建了purgeableData之后，其引用计数会自动+1；</p>
+<h1 id="第51条-精简initialize-与-load的实现代码"><a href="#第51条-精简initialize-与-load的实现代码" class="headerlink" title="第51条: 精简initialize 与 load的实现代码"></a>第51条: 精简initialize 与 load的实现代码</h1><hr>
+<h2 id="load方法"><a href="#load方法" class="headerlink" title="load方法"></a>load方法</h2><p><code>+(void)load;</code><br>每个类和分类在加入运行期系统时，都会调用<code>load</code>方法，而且仅仅调用一次，可能有些小伙伴习惯在这里调用一些方法，但是作者建议尽量不要在这个方法里调用其他方法，尤其是使用其他的类。原因是每个类载入程序库的时机是不同的，如果该类调用了还未载入程序库的类，就会很危险。</p>
+<h2 id="initialize方法"><a href="#initialize方法" class="headerlink" title="initialize方法"></a>initialize方法</h2><p><code>+(void)initialize;</code></p>
+<p>这个方法与<code>load</code>方法类似，区别是这个方法会在程序<strong>首次</strong>调用这个类的时候调用（惰性调用），而且只调用一次（绝对不能主动使用代码调用）。</p>
+<p>值得注意的一点是，如果子类没有实现它，它的超类却实现了，那么就会运行超类的代码：这个情况往往很容易让人忽视。</p>
+<p>看一下🌰 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface EOCBaseClass : NSObject</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation EOCBaseClass</span><br><span class="line">+ (void)initialize &#123;</span><br><span class="line"> NSLog(@&quot;%@ initialize&quot;, self);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@interface EOCSubClass : EOCBaseClass</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation EOCSubClass</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>当使用EOCSubClass类时，控制台会输出两次打印方法：<br><code>EOCBaseClass initialize
+EOCSubClass initialize</code></p>
+<p>因为子类EOCSubClass并没有覆写<code>initialize</code>方法，那么自然会调用其父类EOCBaseClass的方法。<br>解决方案是通过检测类的类型的方法：</p>
+<p>``</p>
+<ul>
+<li>(void)initialize {<br> if (self == [EOCBaseClass class]) {<pre><code>NSLog(@&quot;%@ initialized&quot;, self);
+</code></pre>  }<br> }<br> ``</li>
+</ul>
+<p>这样一来，EOCBaseClass的子类EOCSubClass就无法再调用<code>initialize</code>方法了。<br>我们可以察觉到，如果在这个方法里执行过多的操作的话，会使得程序难以维护，也可能引起其他的bug。因此，在<code>initialize</code>方法里，最好只是设置内部的数据，不要调用其他的方法，因为将来可能会给这些方法添加其它的功能，那么会可能会引起难以排查的bug。</p>
+<h1 id="第52条-别忘了NSTimer会保留其目标对象"><a href="#第52条-别忘了NSTimer会保留其目标对象" class="headerlink" title="第52条: 别忘了NSTimer会保留其目标对象"></a>第52条: 别忘了NSTimer会保留其目标对象</h1><hr>
+<p>在使用NSTimer的时候，NSTimer会生成指向其使用者的引用，而其使用者如果也引用了NSTimer，那么就会生成保留环。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface EOCClass : NSObject</span><br><span class="line">- (void)startPolling;</span><br><span class="line">- (void)stopPolling;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation EOCClass &#123;</span><br><span class="line">     NSTimer *_pollTimer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (id)init &#123;</span><br><span class="line">     return [super init];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)dealloc &#123;</span><br><span class="line">    [_pollTimer invalidate];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)stopPolling &#123;</span><br><span class="line"></span><br><span class="line">    [_pollTimer invalidate];</span><br><span class="line">    _pollTimer = nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)startPolling &#123;</span><br><span class="line">   _pollTimer = [NSTimer scheduledTimerWithTimeInterval:5.0</span><br><span class="line">                                                 target:self</span><br><span class="line">                                               selector:@selector(p_doPoll)</span><br><span class="line">                                               userInfo:nil</span><br><span class="line">                                                repeats:YES];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)p_doPoll &#123;</span><br><span class="line">    // Poll the resource</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，在EOCClass和_pollTimer之间形成了保留环，如果不主动调用<code>stopPolling</code>方法就无法打破这个保留环。像这种通过主动调用方法来打破保留环的设计显然是不好的。</p>
+</blockquote>
+<p>而且，如果通过回收该类的方法来打破此保留环也是行不通的，因为会将该类和NSTimer孤立出来，形成“孤岛”:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-d60b4571e7709e46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="孤立了类和它的NSTimer"></p>
+<p>这可能是一个极其危险的情况，因为NSTimer没有消失，它还有可能持续执行一些任务，不断消耗系统资源。而且，如果任务涉及到下载，那么可能会更糟。。</p>
+<p>那么如何解决呢？ 通过“块”来解决！</p>
+<p>通过给NSTimer增加一个分类就可以解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface NSTimer (EOCBlocksSupport)</span><br><span class="line"></span><br><span class="line">+ (NSTimer*)eoc_scheduledTimerWithTimeInterval:(NSTimeInterval)interval</span><br><span class="line">                                         block:(void(^)())block</span><br><span class="line">                                         repeats:(BOOL)repeats;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation NSTimer (EOCBlocksSupport)</span><br><span class="line"></span><br><span class="line">+ (NSTimer*)eoc_scheduledTimerWithTimeInterval:(NSTimeInterval)interval</span><br><span class="line">                                         block:(void(^)())block</span><br><span class="line">                                        repeats:(BOOL)repeats</span><br><span class="line">&#123;</span><br><span class="line">             return [self scheduledTimerWithTimeInterval:interval</span><br><span class="line">                                                  target:self</span><br><span class="line">                                                selector:@selector(eoc_blockInvoke:)</span><br><span class="line">                                                userInfo:[block copy]</span><br><span class="line">                                                 repeats:repeats];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ (void)eoc_blockInvoke:(NSTimer*)timer &#123;</span><br><span class="line">     void (^block)() = timer.userInfo;</span><br><span class="line">         if (block) &#123;</span><br><span class="line">             block();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>我们在NSTimer类里添加了方法，我们来看一下如何使用它：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startPolling &#123;</span><br><span class="line"></span><br><span class="line">         __<span class="keyword">weak</span> EOCClass *weakSelf = <span class="keyword">self</span>;    </span><br><span class="line">         _pollTimer = [<span class="built_in">NSTimer</span> eoc_scheduledTimerWithTimeInterval:<span class="number">5.0</span> block:^&#123;</span><br><span class="line"></span><br><span class="line">               EOCClass *strongSelf = weakSelf;</span><br><span class="line">               [strongSelf p_doPoll];</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">                                                          repeats:<span class="literal">YES</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>﻿在这里，创建了一个self的弱引用，然后让块捕获了这个self变量，让其在执行期间存活。</p>
+<p>一旦外界指向EOC类的最后一个引用消失，该类就会被释放，被释放的同时，也会向NSTimer发送invalidate消息（因为在该类的dealloc方法中向NSTimer发送了invalidate消息）。</p>
+<p>而且，即使在dealloc方法里没有发送invalidate消息，因为块里的weakSelf会变成nil，所以NSTimer同样会失效。</p>
+<h1 id="最后的话"><a href="#最后的话" class="headerlink" title="最后的话"></a>最后的话</h1><hr>
+<p>总的来说这一部分还是比较容易理解的，更多的只是教我们一些编写OC程序的规范，并没有深入讲解技术细节。</p>
+<p>而三部曲的最后一篇：技巧篇则着重讲解了一些在编写OC代码的过程中可以使用的一些技巧。广义上来讲，这些技巧也可以被称为“规范”，例如“提供全能初始化方法”这一节，但是这些知识点更像是一些“设计模式”目的更偏向于在于解决一些实际问题，因此将这些知识点归类为“技巧类”。</p>
+<p>因为第三篇的内容稍微难一点，所以笔者打算再好好消化几天，将第三篇的初稿再三润饰之后呈献给大家~</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/《Effective Objective-C》超级干货三部曲（三）：技巧篇/" rel="next" title="《Effective Objective-C》超级干货三部曲（三）：技巧篇">
+                <i class="fa fa-chevron-left"></i> 《Effective Objective-C》超级干货三部曲（三）：技巧篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/《Objective-C 高级编程》干货三部曲（一）：引用计数篇/" rel="prev" title="《Objective-C 高级编程》干货三部曲（一）：引用计数篇">
+                《Objective-C 高级编程》干货三部曲（一）：引用计数篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第2条：-在类的头文件中尽量少引用其他头文件"><span class="nav-number">1.</span> <span class="nav-text">第2条： 在类的头文件中尽量少引用其他头文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第3条：多用字面量语法，少用与之等价的方法"><span class="nav-number">2.</span> <span class="nav-text">第3条：多用字面量语法，少用与之等价的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-声明时的字面量语法："><span class="nav-number">2.1.</span> <span class="nav-text">1. 声明时的字面量语法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-集合类取下标的字面量语法："><span class="nav-number">2.2.</span> <span class="nav-text">2. 集合类取下标的字面量语法：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第4条：多用类型常量，少用-define预处理命令"><span class="nav-number">3.</span> <span class="nav-text">第4条：多用类型常量，少用#define预处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预处理命令："><span class="nav-number">3.0.0.1.</span> <span class="nav-text">预处理命令：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类型常量："><span class="nav-number">3.0.0.2.</span> <span class="nav-text">类型常量：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对外公开某个常量："><span class="nav-number">3.0.0.3.</span> <span class="nav-text">对外公开某个常量：</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#第5条：用枚举表示状态，选项，状态码"><span class="nav-number">4.</span> <span class="nav-text">第5条：用枚举表示状态，选项，状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第7条：-在对象内部尽量直接访问实例变量"><span class="nav-number">5.</span> <span class="nav-text">第7条： 在对象内部尽量直接访问实例变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接访问属性的特点："><span class="nav-number">5.0.0.1.</span> <span class="nav-text">直接访问属性的特点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过属性访问属性的特点："><span class="nav-number">5.0.0.2.</span> <span class="nav-text">通过属性访问属性的特点：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第15条：用前缀-避免命名空间冲突"><span class="nav-number">6.</span> <span class="nav-text">第15条：用前缀 避免命名空间冲突</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第18条：尽量使用不可变对象"><span class="nav-number">7.</span> <span class="nav-text">第18条：尽量使用不可变对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#等一下，有个疑问：在公共接口设置不可变set-和-将增删的代码放在公共接口中是否矛盾的？"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">等一下，有个疑问：在公共接口设置不可变set 和 将增删的代码放在公共接口中是否矛盾的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#答案：并不矛盾"><span class="nav-number">7.0.0.2.</span> <span class="nav-text">答案：并不矛盾!</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第19条：使用清晰而协调的命名方式"><span class="nav-number">8.</span> <span class="nav-text">第19条：使用清晰而协调的命名方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第20条：为私有方法名加前缀"><span class="nav-number">9.</span> <span class="nav-text">第20条：为私有方法名加前缀</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第23条：通过委托与数据源协议进行对象间通信"><span class="nav-number">10.</span> <span class="nav-text">第23条：通过委托与数据源协议进行对象间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第24条：将类的实现代码分散到便于管理的数个分类中"><span class="nav-number">11.</span> <span class="nav-text">第24条：将类的实现代码分散到便于管理的数个分类中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第25条：总是为第三方类的分类名称加前缀"><span class="nav-number">12.</span> <span class="nav-text">第25条：总是为第三方类的分类名称加前缀</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第26条-勿在分类中声明属性"><span class="nav-number">13.</span> <span class="nav-text">第26条:勿在分类中声明属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第27条：使用class-continuation分类-隐藏实现细节"><span class="nav-number">13.1.</span> <span class="nav-text">#第27条：使用class-continuation分类 隐藏实现细节</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第31条：在dealloc方法中只释放引用并解除监听"><span class="nav-number">14.</span> <span class="nav-text">第31条：在dealloc方法中只释放引用并解除监听</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第36条：不要使用retainCount"><span class="nav-number">15.</span> <span class="nav-text">第36条：不要使用retainCount</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第46条：不要使用dispatch-get-current-queue"><span class="nav-number">16.</span> <span class="nav-text">第46条：不要使用dispatch_get_current_queue</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第48条：多用块枚举，少用for循环"><span class="nav-number">17.</span> <span class="nav-text">第48条：多用块枚举，少用for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#传统的for遍历"><span class="nav-number">17.0.0.1.</span> <span class="nav-text">传统的for遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用快速遍历："><span class="nav-number">17.0.0.2.</span> <span class="nav-text">利用快速遍历：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用基于块（block）的遍历："><span class="nav-number">17.0.0.3.</span> <span class="nav-text">利用基于块（block）的遍历：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第50条：构建缓存时选用NSCache-而非NSDictionary"><span class="nav-number">18.</span> <span class="nav-text">第50条：构建缓存时选用NSCache 而非NSDictionary</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NSCache优于NSDictionary的几点："><span class="nav-number">18.0.0.1.</span> <span class="nav-text">NSCache优于NSDictionary的几点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于操控NSCache删减内容的时机"><span class="nav-number">18.0.0.2.</span> <span class="nav-text">关于操控NSCache删减内容的时机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSPurgeableData"><span class="nav-number">18.1.</span> <span class="nav-text">NSPurgeableData</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第51条-精简initialize-与-load的实现代码"><span class="nav-number">19.</span> <span class="nav-text">第51条: 精简initialize 与 load的实现代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#load方法"><span class="nav-number">19.1.</span> <span class="nav-text">load方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#initialize方法"><span class="nav-number">19.2.</span> <span class="nav-text">initialize方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第52条-别忘了NSTimer会保留其目标对象"><span class="nav-number">20.</span> <span class="nav-text">第52条: 别忘了NSTimer会保留其目标对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后的话"><span class="nav-number">21.</span> <span class="nav-text">最后的话</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

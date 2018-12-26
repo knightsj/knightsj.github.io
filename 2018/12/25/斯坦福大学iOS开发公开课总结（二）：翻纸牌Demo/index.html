@@ -1,0 +1,876 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="iOS,Objective-C,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。 懒加载(lazy instantiation) 懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。 123456789101112131415161718@int">
+<meta name="keywords" content="iOS,Objective-C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。 懒加载(lazy instantiation) 懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。 123456789101112131415161718@int">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-191d3037dd166754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.625Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo">
+<meta name="twitter:description" content="本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。 懒加载(lazy instantiation) 懒加载：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在viewDidLoad:方法里)。 123456789101112131415161718@int">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/859001-191d3037dd166754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/">
+
+
+
+
+
+  <title> 斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                斯坦福大学iOS开发公开课总结（二）：翻纸牌Demo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,595 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本节课简单介绍了控件的懒加载(lazy instantiation)，数组，字典，类方法的使用，在最后展示了翻转卡牌的小demo。</p>
+<h2 id="懒加载-lazy-instantiation"><a href="#懒加载-lazy-instantiation" class="headerlink" title="懒加载(lazy instantiation)"></a>懒加载(lazy instantiation)</h2><hr>
+<p><strong>懒加载</strong>：在实例变量被使用之前的那一刻初始化。防止大量的实例变量(属性)在同一时间初始化(尤其是不用将创建对象的方法全部写在<code>viewDidLoad:</code>方法里)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@interface ViewController ()</span><br><span class="line"></span><br><span class="line">@property (nonatomic, strong) NSMutableArray *cards;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line"></span><br><span class="line">- (NSMutableArray *)cards</span><br><span class="line">&#123;</span><br><span class="line">    //如果此实例变量为空，则初始化；否则，直接调用</span><br><span class="line">    if (!_cards) &#123;</span><br><span class="line">        _cards = [[NSMutableArray alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line">    return _cards;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h2><hr>
+<h4 id="在可变数组中插入元素"><a href="#在可变数组中插入元素" class="headerlink" title="在可变数组中插入元素"></a>在可变数组中插入元素</h4><p>在数组中插入元素是可变数组的方法，因为不可变数组在初始化以后就无法再更改。<br>尤其注意的是：在数组中插入元素时，插入的元素必须不能为空，否则会引起程序崩溃。需要对要插入的元素做是否为空的判断！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (void)addCard: (Card *)card atTop:(BOOL)atTop</span><br><span class="line">&#123;</span><br><span class="line">    if (atTop) &#123;</span><br><span class="line">        </span><br><span class="line">        //插入到数组第一个位置</span><br><span class="line">        [self.cards insertObject:card atIndex:0];</span><br><span class="line">    </span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        </span><br><span class="line">        //添加到数组末尾</span><br><span class="line">        [self.cards addObject:card];</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="在可变数组中引用和移除数组元素"><a href="#在可变数组中引用和移除数组元素" class="headerlink" title="在可变数组中引用和移除数组元素"></a>在可变数组中引用和移除数组元素</h4><p>在数组中，提取和移除元素的时候需要注意的是需要判断数组是否为空，如果<strong>在数组为空的情况下引用或移除某个元素会引起程序的崩溃！</strong> 所以要先进行目标数组元素数量判断。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (Card *)drawRandomCard</span><br><span class="line">&#123;</span><br><span class="line">    //如果数组为空数组，则直接放回nil，因为没有可以抽取的元素。</span><br><span class="line">    Card *randomCard = nil;</span><br><span class="line">    </span><br><span class="line">    //判断数组元素个数是否不为0，如果为0，则返回nil</span><br><span class="line">    if ([self.cards count]) &#123;</span><br><span class="line">        </span><br><span class="line">        //生成0到[self.cards count]的随机数</span><br><span class="line">        NSUInteger index = arc4random() % [self.cards count];</span><br><span class="line">        </span><br><span class="line">        //引用下标为index的元素</span><br><span class="line">        randomCard = self.cards[index];</span><br><span class="line">        </span><br><span class="line">        //移除下标为index的元素</span><br><span class="line">        [self.cards removeObjectAtIndex:index];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return randomCard;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h2><hr>
+<p><strong>类方法</strong>也叫工厂方法，类方法主要包括两种：</p>
+<ol>
+<li><strong>类的初始化</strong>：形成类的实例。</li>
+<li><strong>工具方法</strong>：不经过实例化获得某些数据。</li>
+</ol>
+<p><strong>应用</strong>：用类方法生成四种不同花色：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+ (NSArray *)ValidSuits</span><br><span class="line">&#123;</span><br><span class="line">    return @[@&quot;♥︎&quot;,@&quot;♦︎&quot;,@&quot;♣︎&quot;,@&quot;♠︎&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)setSuit:(NSString *)suit</span><br><span class="line">&#123;</span><br><span class="line">    if ([ [PlayingCard ValidSuits] containsObject:suit]) &#123;</span><br><span class="line">        _suit = suit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="instancetype"><a href="#instancetype" class="headerlink" title="instancetype"></a>instancetype</h2><hr>
+<p>instancetype的使用目的是确保返回的对象同这条消息要发送到的对象一样。</p>
+<p>怎么说？</p>
+<p>常用在类的初始化方法的返回值中，因为如果类的初始化返回值是<code>id</code>,那么这个指针可以指向任何对象，所以有可能指向非此类的对象类型；</p>
+<p>所以，<code>instancetype</code>作为初始化方法的返回值后，那么初始化的结果一定会同此类的类型一致。</p>
+<p>举个🌰：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line">    //检查父类是否初始化成功</span><br><span class="line">    self = [super init];</span><br><span class="line">    </span><br><span class="line">    if (self) &#123;</span><br><span class="line">        //初始化代码</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="翻牌Demo"><a href="#翻牌Demo" class="headerlink" title="翻牌Demo"></a>翻牌Demo</h2><hr>
+<h4 id="设计需求："><a href="#设计需求：" class="headerlink" title="设计需求："></a>设计需求：</h4><p>在界面上显示一张扑克牌，点击后翻牌：如果是正面，点击后就显示背面；如果是背面，点击后显示正面。</p>
+<h4 id="效果图："><a href="#效果图：" class="headerlink" title="效果图："></a>效果图：</h4><p><img src="http://upload-images.jianshu.io/upload_images/859001-191d3037dd166754.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="左：纸牌背面；右：纸牌正面"></p>
+<h4 id="实现代码："><a href="#实现代码：" class="headerlink" title="实现代码："></a>实现代码：</h4><p><strong>1. 点击按钮翻牌</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (IBAction)touchCardButton:(UIButton *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    //先判断牌面：如果按钮的title有字，则为正面</span><br><span class="line">    if ([sender.currentTitle length]) &#123;</span><br><span class="line">       </span><br><span class="line">        //1. 背面的UI效果:</span><br><span class="line">        </span><br><span class="line">        //1.1 设置背景图片为背面的图片</span><br><span class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];</span><br><span class="line">       </span><br><span class="line">        //1.2 设置按钮title为空，因为要翻到背面</span><br><span class="line">        [sender setTitle:@&quot;&quot; forState:UIControlStateNormal];</span><br><span class="line">        </span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        </span><br><span class="line">        //2. 正面的UI效果:</span><br><span class="line">      </span><br><span class="line">        //2.1 设置背景图片为空</span><br><span class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];</span><br><span class="line">        </span><br><span class="line">        //2.2 设置背景颜色为白色</span><br><span class="line">        [sender setBackgroundColor:[UIColor whiteColor]];</span><br><span class="line">       </span><br><span class="line">        //2.3 设置按钮title为牌的花色</span><br><span class="line">        [sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //翻牌次数记录。同时存在setter和getter方法。首先getter方法取到当前的翻拍次数，然后用setter方法让翻拍次数+1</span><br><span class="line">    self.flipCount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 更新按钮UI</strong></p>
+<p>更新按钮的UI的代码放到了属性<code>flipCount</code>的setter方法里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)setFlipCount:(int)flipCount</span><br><span class="line">&#123;</span><br><span class="line">    _flipCount = flipCount;</span><br><span class="line">    </span><br><span class="line">    //在setter方法完成后，设置标签的显示数字</span><br><span class="line">    self.flipsLabel.text = [NSString stringWithFormat:@&quot;Flips: %d&quot;, self.flipCount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是笔者个人认为这种处理方式并不好，因为<strong>一个方法最好只做一件事情</strong>，所以应该将更新按钮UI的代码单独提取出来作为另一个方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">- (IBAction)touchCardButton:(UIButton *)sender &#123;</span><br><span class="line">    </span><br><span class="line">    //先判断牌面：如果按钮的title有字，则为正面</span><br><span class="line">    if ([sender.currentTitle length]) &#123;</span><br><span class="line">       </span><br><span class="line">        //背面的UI效果</span><br><span class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;cardBack&quot;] forState:UIControlStateNormal];</span><br><span class="line">        [sender setTitle:@&quot;&quot; forState:UIControlStateNormal];</span><br><span class="line">        </span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        </span><br><span class="line">        //正面的UI效果</span><br><span class="line">        [sender setBackgroundImage:[UIImage imageNamed:@&quot;&quot;] forState:UIControlStateNormal];</span><br><span class="line">        [sender setBackgroundColor:[UIColor whiteColor]];</span><br><span class="line">        [sender setTitle:@&quot;A♣︎&quot; forState:UIControlStateNormal];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //翻牌次数+1。</span><br><span class="line">    self.flipCount++;</span><br><span class="line">    </span><br><span class="line">    //更新Label显示的数字</span><br><span class="line">    [self updateFlipsLabel];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  单独提取出更新Label显示的数字的方法</span><br><span class="line"> */</span><br><span class="line">- (void)updateFlipsLabel</span><br><span class="line">&#123;</span><br><span class="line">     self.flipsLabel.text = [NSString stringWithFormat:@&quot;Flips: %d&quot;, self.flipCount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样一来，程序的可读性更高了一点。而且我们还不用重写<code>flipsCount</code>的setter方法。</p>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo/" rel="next" title="斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo">
+                <i class="fa fa-chevron-left"></i> 斯坦福大学iOS开发公开课总结（九）：AutoLayout，自动布局Demo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo/" rel="prev" title="斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo">
+                斯坦福大学iOS开发公开课总结（八）：协议，block，动画，俄罗斯方块Demo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#懒加载-lazy-instantiation"><span class="nav-number">1.</span> <span class="nav-text">懒加载(lazy instantiation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的使用"><span class="nav-number">2.</span> <span class="nav-text">数组的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在可变数组中插入元素"><span class="nav-number">2.0.1.</span> <span class="nav-text">在可变数组中插入元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在可变数组中引用和移除数组元素"><span class="nav-number">2.0.2.</span> <span class="nav-text">在可变数组中引用和移除数组元素</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#类方法"><span class="nav-number">3.</span> <span class="nav-text">类方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instancetype"><span class="nav-number">4.</span> <span class="nav-text">instancetype</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻牌Demo"><span class="nav-number">5.</span> <span class="nav-text">翻牌Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设计需求："><span class="nav-number">5.0.1.</span> <span class="nav-text">设计需求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#效果图："><span class="nav-number">5.0.2.</span> <span class="nav-text">效果图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现代码："><span class="nav-number">5.0.3.</span> <span class="nav-text">实现代码：</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

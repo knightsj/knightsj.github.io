@@ -1,0 +1,1254 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="React Native,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="J_Knight_" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="在进行了2个星期的基础学习（Flexbox, React.js, JSX, JavaScript）之后，想通过一个实战项目来提高React Native的开发水平，于是找到了下面这个项目： 一. 项目介绍这是我在学习贾鹏辉老师在慕课网上的一个很火的React Native实战的教程后，写出的课程Demo。该课程是慕课网里很火的一个React Native课程，当初在看了课程介绍和课程安排觉得讲解的">
+<meta name="keywords" content="React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从一个实战项目来看一下React Native开发的几个关键技术点">
+<meta property="og:url" content="https://github.com/knightsj/knightsj.github.io/2018/12/25/从一个实战项目来看一下React Native开发的几个关键技术点/index.html">
+<meta property="og:site_name" content="J_Knight_">
+<meta property="og:description" content="在进行了2个星期的基础学习（Flexbox, React.js, JSX, JavaScript）之后，想通过一个实战项目来提高React Native的开发水平，于是找到了下面这个项目： 一. 项目介绍这是我在学习贾鹏辉老师在慕课网上的一个很火的React Native实战的教程后，写出的课程Demo。该课程是慕课网里很火的一个React Native课程，当初在看了课程介绍和课程安排觉得讲解的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_header.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_theme.png">
+<meta property="og:image" content="https://github.com/knightsj/blog-image-storage/blob/master/react-native/imooc-demo/show_1.gif?raw=true">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cate.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_nav.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_fav.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/crazycodeboy/RNStudyNotes/master/React%20Native%E4%B9%8BReact%E9%80%9F%E5%AD%A6%E6%95%99%E7%A8%8B/images/component-lifecycle.jpg">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cell.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cel_layout.png">
+<meta property="og:image" content="hhttps://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_hot.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_static.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_theme_config.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_debug.png">
+<meta property="og:image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_debug_control.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_proj_folder.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_folder_detail.png">
+<meta property="og:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_folder_detail2.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-24T18:33:45.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从一个实战项目来看一下React Native开发的几个关键技术点">
+<meta name="twitter:description" content="在进行了2个星期的基础学习（Flexbox, React.js, JSX, JavaScript）之后，想通过一个实战项目来提高React Native的开发水平，于是找到了下面这个项目： 一. 项目介绍这是我在学习贾鹏辉老师在慕课网上的一个很火的React Native实战的教程后，写出的课程Demo。该课程是慕课网里很火的一个React Native课程，当初在看了课程介绍和课程安排觉得讲解的">
+<meta name="twitter:image" content="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_header.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/从一个实战项目来看一下React Native开发的几个关键技术点/">
+
+
+
+
+
+  <title> 从一个实战项目来看一下React Native开发的几个关键技术点 | J_Knight_ </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?46e6f54887b680a685201da90f1b9384";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">J_Knight_</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天进步一点点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/knightsj/knightsj.github.io/2018/12/25/从一个实战项目来看一下React Native开发的几个关键技术点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="J_Knight_">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="J_Knight_">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                从一个实战项目来看一下React Native开发的几个关键技术点
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-25T02:33:45+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/React-Native/" itemprop="url" rel="index">
+                    <span itemprop="name">React Native</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  12,616 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  50 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在进行了2个星期的基础学习（Flexbox, React.js, JSX, JavaScript）之后，想通过一个实战项目来提高React Native的开发水平，于是找到了下面这个项目：</p>
+<h1 id="一-项目介绍"><a href="#一-项目介绍" class="headerlink" title="一. 项目介绍"></a>一. 项目介绍</h1><p>这是我在学习<a href="http://www.devio.org/" target="_blank" rel="noopener">贾鹏辉</a>老师在慕课网上的一个很火的<a href="http://coding.imooc.com/class/89.html" target="_blank" rel="noopener">React Native实战的教程</a>后，写出的课程Demo。该课程是慕课网里很火的一个React Native课程，当初在看了课程介绍和课程安排觉得讲解的点还是很全的，所以毫不犹豫地买了下来。</p>
+<p>从看视频，敲代码到重构，改bug，大概花了2个多星期的时间，除了调用友盟的SDK以及CodePush集成之外，其他的部分都基本完成了，而且同时可以在iOS和Android设备上运行：<br><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_header.png" alt="上排是iOS模拟器 | 下排是Android模拟器"></p>
+<p>而且比较吸引人的是该项目可以实现多个主题的切换：<br><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_theme.png" alt="多主题切换"></p>
+<blockquote>
+<p>切换的技术实现会在下文给出。</p>
+</blockquote>
+<p>用一个动图来过一遍大致的需求：<br><img src="https://github.com/knightsj/blog-image-storage/blob/master/react-native/imooc-demo/show_1.gif?raw=true" alt=""></p>
+<p>Demo GitHub地址：<a href="https://github.com/knightsj/GitHubPopular-SJ">GitHubPopular-SJ</a><br>可以按照README文件里的方法运行该项目。</p>
+<blockquote>
+<p>已经贾老师允许上传到GitHub</p>
+</blockquote>
+<p>值得一提的是：这确实是一门物有所值的课程，可以让想入门React Native的开发者少走很多弯路。虽然我上传的Demo可以实现视频里大部分功能，但是经过调试，修改后的代码信息量还是很有限的，而且老师在视频中讲解的很多关于实际开发的知识点在代码中并没有体现出来，所以还是建议各位报名参加课程来提高自己的开发水平。</p>
+<a id="more"></a>
+<h1 id="二-React-Native开发的几个关键技术点"><a href="#二-React-Native开发的几个关键技术点" class="headerlink" title="二. React Native开发的几个关键技术点"></a>二. React Native开发的几个关键技术点</h1><p>首先用一张思维导图来看一下第二节讲的内容：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cate.png" alt=""></p>
+<h2 id="2-1-组件化的思想"><a href="#2-1-组件化的思想" class="headerlink" title="2.1 组件化的思想"></a>2.1 组件化的思想</h2><p>React Native是React在移动端的跨平台方案。如果想更快地理解和掌握React Native开发，就必须先了解React。</p>
+<p>React是FaceBook开源的一个前端框架，它起源于 Facebook 的内部项目，并于 2013 年 5 月开源。因为React 拥有较高的性能，代码逻辑非常简单，所以越来越多的人已开始关注和使用它，目前该框架在Github上已经有7万+star。</p>
+<p>React采用组件化的方式开发，通过将view构建成组件，使得代码更加容易得到复用，能够很好的应用在大项目的开发中。有一句话说的很形象：在React中，构建应用就像搭积木一样。</p>
+<p>因此，如果想掌握React Native，就必须先了解React中的组件。</p>
+<p>那么问题来了，什么是组件呢？</p>
+<p>在React中，在UI上每一个功能相对独立的模块就会被定义为组件。  相对小的组件可以通过组合或者嵌套的方式构成大的组件，最终完成整体UI的构建。</p>
+<p>因此，整个UI是一个通过小组件构成的大组件，而且每个组件只关心自己部分的逻辑，彼此独立。</p>
+<p>React认为一个组件应该具有如下特征：</p>
+<ul>
+<li>可组合（Composeable）：一个组件易于和其它组件一起使用，或者嵌套在另一个组件内部。如果一个组件内部创建了另一个组件，那么说父组件拥有它创建的子组件，通过这个特性，一个复杂的UI可以拆分成多个简单的UI组件；</li>
+<li>可重用（Reusable）：每个组件都是具有独立功能的，它可以被使用在多个UI场景；</li>
+<li>可维护（Maintainable）：每个小的组件仅仅包含自身的逻辑，更容易被理解和维护；</li>
+</ul>
+<p>举个🌰，我们看一下这个Demo使用的导航栏：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_nav.png" alt=""></p>
+<p>封装好的导航栏就可以被称之为一个组件，它符合上述三个特点：</p>
+<ol>
+<li>可组合：可以将导航栏组件放在页面组件中作为页面组件的子组件。而且在导航栏组件的内部，也有按钮组件等子组件。</li>
+<li>可重用：如果封装好了该组件，就可以放在任意需要导航栏的页面（组件）使用，也可以放在其他项目中使用。</li>
+<li>可维护：因为具有独立的功能和展示逻辑，所以便于定位和修改。</li>
+</ol>
+<p>在了解了组件的基本概念以后，我们来看一下组件其他的一些相关知识。</p>
+<h2 id="2-2-组件的属性与状态"><a href="#2-2-组件的属性与状态" class="headerlink" title="2.2 组件的属性与状态"></a>2.2 组件的属性与状态</h2><p>在React Native（React.js）里，组件所持有的数据分为两种：</p>
+<ol>
+<li>属性（props）：组件的props是不可变的，它只能从其他的组件（例如父组件）传递过来。</li>
+<li>状态（state）：组件的state是可变的，它负责处理与用户的交互。在通过用户点击事件等操作以后，如果使得当前组件的某个state发生了改变，那么当前组件就会触发<code>render()</code>方法刷新自己。</li>
+</ol>
+<p>举一个这个项目的收藏页面来说：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_fav.png" alt=""></p>
+<p>我们可以看到这个页面有两个子页面，一个是‘最热’页面（组件），另一个是‘趋势‘页面（组件）。那么这两个组件都有什么props和state呢？</p>
+<h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3><p>首先看一下props：<br>由于props是从其父组件传递过来的，那么可想而知，props的声明应该是在当前组件的父组件里来做。在React Native中，通常props的声明是和当前组件的声明放在一起的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最热子页面</span></span><br><span class="line">&lt;FavoriteTabPage  &#123;...this.props&#125; tabLabel=<span class="string">'最热'</span> flag=&#123;FlAG_STORAGE.flag_popular&#125;/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//趋势子页面</span></span><br><span class="line">&lt;FavoriteTabPage  &#123;...this.props&#125; tabLabel=<span class="string">'趋势'</span> flag=&#123;FlAG_STORAGE.flag_trending&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p>在这里，收藏页面是父组件，而最热页面和趋势页面是其子组件。在收藏页面组件里声明了最热页面和趋势页面的组件。</p>
+<p>而且我们也可以看到，最热页面和趋势页面组件都用的是同一个组件：<code>FavoriteTabPage</code>，而这两个页面的不同点只在于传入的两个props的不同：<code>tabLabel</code>和<code>flag</code>。</p>
+<p>而在<code>FavoriteTabPage</code>组件内部，如果想调用flag这个props，可以使用<code>this.props.flag</code>来调用。</p>
+<p>再来看一下state：</p>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>下面是最热和趋势页面的组件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FavoriteTabPage</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//组件的构造方法</span></span><br><span class="line">    <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.state=&#123;</span><br><span class="line">            dataSource:<span class="keyword">new</span> ListView.DataSource(&#123;<span class="attr">rowHasChanged</span>:<span class="function">(<span class="params">r1,r2</span>)=&gt;</span>r1!==r2&#125;),</span><br><span class="line">            isLoading:<span class="literal">false</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面定义了两个state:</p>
+<ol>
+<li>dataSource:列表的数据源</li>
+<li>isLoading:是否正在刷新</li>
+</ol>
+<p>这两个state都是将来可能经常变化的。比如在网络请求以后，列表的数据源会被替换掉，这个时候就要调用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">     <span class="comment">//把新的值newDataArr对象传给dataSource</span></span><br><span class="line">      dataSource:newDataArr</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>来触发<code>render()</code>方法来刷新列表组件。</p>
+<h2 id="2-3-组件的生命周期"><a href="#2-3-组件的生命周期" class="headerlink" title="2.3 组件的生命周期"></a>2.3 组件的生命周期</h2><p>和iOS开发里<code>ViewController</code>的生命周期类似，组件也有生命周期，大致分为三大阶段：</p>
+<ul>
+<li>Mounting：已插入真实 DOM</li>
+<li>Updating：正在被重新渲染</li>
+<li>Unmounting：已移出真实 DOM</li>
+</ul>
+<blockquote>
+<p>DOM是前端的一个概念，暂时可以粗略理解为一个页面的树形结构。</p>
+</blockquote>
+<p>在每个阶段都有相应的状态和与之对应的回调函数，具体可以看下图：</p>
+<p><img src="https://raw.githubusercontent.com/crazycodeboy/RNStudyNotes/master/React%20Native%E4%B9%8BReact%E9%80%9F%E5%AD%A6%E6%95%99%E7%A8%8B/images/component-lifecycle.jpg" alt="组件的生命周期"></p>
+<blockquote>
+<p>上图来自：<a href="http://www.devio.org/2016/08/10/React-Native%E4%B9%8BReact%E9%80%9F%E5%AD%A6%E6%95%99%E7%A8%8B-(%E4%B8%AD" target="_blank" rel="noopener">贾鹏辉的技术博客：React Native之React速学教程(中)</a>/)</p>
+</blockquote>
+<p>从上图中我们可以看到，React 为每个状态都提供了两种回调函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用。</p>
+<p>在这里讲一下这其中几个重要的回调函数：</p>
+<h4 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h4><p>该函数是组件的渲染回调函数，该函数是必须实现的，并且必须返回一个组件或一个包含多个子组件的组件。</p>
+<blockquote>
+<p>注意：该函数可以被调用多次：初始化时的渲染以及state改变以后的渲染都会调用这个函数。</p>
+</blockquote>
+<h4 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount()"></a>componentDidMount()</h4><p>在初始化渲染执行之后立刻调用一次，也就是说，在这个函数调用时，当前组件已经渲染完毕了，相当于iOS开发中<code>ViewController</code>里的<code>viewDidLoad</code>方法。</p>
+<blockquote>
+<p>我们通常在这个方法里执行网络请求操作。</p>
+</blockquote>
+<h4 id="componentWillReceiveProps-object-nextProps"><a href="#componentWillReceiveProps-object-nextProps" class="headerlink" title="componentWillReceiveProps(object nextProps)"></a>componentWillReceiveProps(object nextProps)</h4><p>在当前组件接收到新的 props 的时候调用。此函数可以作为 react 在 prop 传入之后， render() 渲染之前更新 state 的机会。新的props可以从参数里取到，老的 props 可以通过 this.props 获取到。</p>
+<blockquote>
+<p>注意：在初始化渲染的时候，该方法不会调用。</p>
+</blockquote>
+<h4 id="shouldComponentUpdate-object-nextProps-object-nextState"><a href="#shouldComponentUpdate-object-nextProps-object-nextState" class="headerlink" title="shouldComponentUpdate(object nextProps, object nextState):"></a>shouldComponentUpdate(object nextProps, object nextState):</h4><p>在接收到新的 props 或者 state，将要渲染之前调用。如果确定新的 props 和 state 不会导致组件更新，则此处应该 返回 false，这样组件就不会更新，减少了性能上不必要的损耗。</p>
+<blockquote>
+<p>注意：该方法在初始化渲染的时候不会调用。</p>
+</blockquote>
+<h4 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount()"></a>componentWillUnmount()</h4><p>在组件从 DOM 中移除的时候立刻被调用。例如当前页面点击返回键跳转到上一页面的时候就会调用。</p>
+<blockquote>
+<p>我们通常在这个方法里移除通知。具体做法在后文会提到。</p>
+</blockquote>
+<p>到此，已经讲解了一些组件相关的知识，下面来看一下我们如何使用组件来搭建界面。</p>
+<h2 id="2-4-使用组件来搭建界面"><a href="#2-4-使用组件来搭建界面" class="headerlink" title="2.4 使用组件来搭建界面"></a>2.4 使用组件来搭建界面</h2><p>在这里我们举几个例子来看一下在React Native里搭建View的方式。</p>
+<p>首先我们来看一下最热页面的cell是如何布局的：</p>
+<h3 id="2-41-搭建cell组件"><a href="#2-41-搭建cell组件" class="headerlink" title="2.41 搭建cell组件"></a>2.41 搭建cell组件</h3><p>首先举一个在最热标签页面列表里的一个cell为例，讲解一下一个简单的UI组件是如何实现的：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cell.png" alt="最热标签页面的cell"></p>
+<p>我们把该组件定名为：<code>RespositoryCell</code>，结合代码来看一下具体的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">RespositoryCell</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    render()&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取当前cell的数据赋值给item</span></span><br><span class="line">        <span class="keyword">let</span> item = <span class="keyword">this</span>.props.projectModel.item?<span class="keyword">this</span>.props.projectModel.item:<span class="keyword">this</span>.props.projectModel;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//收藏按钮</span></span><br><span class="line">        <span class="keyword">let</span> favoriteButton = &lt;TouchableOpacity</span><br><span class="line">            onPress=&#123;()=&gt;this.onPressFavorite()&#125;</span><br><span class="line">        &gt;</span><br><span class="line">            &lt;Image</span><br><span class="line">                style=&#123;[styles.favoriteImageStyle,this.props.theme.styles.tabBarSelectedIcon]&#125;</span><br><span class="line">                source=&#123;this.state.favoriteIcon&#125;</span><br><span class="line">            /&gt;</span><br><span class="line">        &lt;/TouchableOpacity&gt;</span><br><span class="line"></span><br><span class="line">        return(</span><br><span class="line">            &lt;TouchableOpacity</span><br><span class="line">                 onPress=&#123;this.props.onSelect&#125;</span><br><span class="line">                 style=&#123;styles.container&#125;</span><br><span class="line">            &gt;</span><br><span class="line">                //整个cell的view</span><br><span class="line">                &lt;View style=&#123;styles.cellContainerViewStyle&#125;&gt;</span><br><span class="line"></span><br><span class="line">                    //1. 项目名称</span><br><span class="line">                    &lt;Text style=&#123;styles.repositoryTitleStyle&#125;&gt;&#123;item.full_name&#125;&lt;/Text&gt;</span><br><span class="line"></span><br><span class="line">                    //2. 项目介绍</span><br><span class="line">                    &lt;Text style=&#123;styles.repositoryDescriptionStyle&#125;&gt;&#123;item.description&#125;&lt;/Text&gt;</span><br><span class="line"></span><br><span class="line">                    //3. 底部 container</span><br><span class="line">                    &lt;View style=&#123;styles.bottomContainerViewStyle&#125;&gt;</span><br><span class="line"></span><br><span class="line">                        //3.1 作者container</span><br><span class="line">                        &lt;View style=&#123;styles.authorContainerViewStyle&#125;&gt;</span><br><span class="line"></span><br><span class="line">                            //3.11 作者名称</span><br><span class="line">                            &lt;Text style=&#123;styles.bottomTextStyle&#125;&gt;Author:&lt;/Text&gt;</span><br><span class="line"></span><br><span class="line">                            //3.12 作者头像</span><br><span class="line">                            &lt;Image</span><br><span class="line">                                style=&#123;styles.authorAvatarImageStyle&#125;</span><br><span class="line">                                source=&#123;&#123;uri:item.owner.avatar_url&#125;&#125;</span><br><span class="line">                             /&gt;</span><br><span class="line">                        &lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                        //3.2 star container</span><br><span class="line">                        &lt;View style=&#123;styles.starContainerViewStyle&#125;&gt;</span><br><span class="line">                //3.21 star标题</span><br><span class="line">                            &lt;Text style=&#123;styles.bottomTextStyle&#125;&gt;Starts:&lt;/Text&gt;</span><br><span class="line">                       //3.21 star数量</span><br><span class="line">                            &lt;Text style=&#123;styles.bottomTextStyle&#125;&gt;&#123;item.stargazers_count&#125;&lt;/Text&gt;</span><br><span class="line">                        &lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                        //3.3 收藏按钮</span><br><span class="line">                        &#123;favoriteButton&#125;</span><br><span class="line">                     &lt;/View&gt;</span><br><span class="line">                 &lt;/View&gt;</span><br><span class="line">            &lt;/TouchableOpacity&gt;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里省略了处理交互事件等的函数，为了让大家集中在cell的布局和样式上。</p>
+</blockquote>
+<ul>
+<li>这里声明了<code>RespositoryCell</code>组件，它继承于<code>Component</code>，也就是组件类，即是说，声明组件的时候必须都要继承与这个类。</li>
+<li>集中看一下该组件的render方法，它返回的是该组件的实际布局：在语法上使用JSX，类似于HTML的标签式语法，很清楚地将cell的层级展现了出来：<ul>
+<li>最外层被一个<code>View</code>组件包裹着，里面第一层有三个子组件：两个<code>Text</code>组件和一个作为底部背景的<code>View</code>组件。</li>
+<li>底部背景的<code>View</code>组件又有三个子组件：<code>View</code>组件（显示作者信息），<code>View</code>组件（显示star信息）,收藏按钮。</li>
+</ul>
+</li>
+</ul>
+<p>试着结合代码来看一下下面的图片，可以看出组件的实际布局与代码的布局是高度一致的：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_cel_layout.png" alt="Cell 布局 "></p>
+<p>然而仅仅定义组件的层级关系是不够的，我们还需要定义组件的样式（例如图片组件的大小样式等等），这时候就通过定义一个样式的对象（通常使用常量对象）来定义一些需要使用的样式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//样式常量</span></span><br><span class="line"><span class="keyword">const</span> styles =StyleSheet.create(&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//项目cell的背景view的style       </span></span><br><span class="line">    cellContainerViewStyle:&#123;</span><br><span class="line">          </span><br><span class="line">        <span class="comment">//背景色</span></span><br><span class="line">        backgroundColor:<span class="string">'white'</span>,</span><br><span class="line">          </span><br><span class="line">        <span class="comment">//内边距</span></span><br><span class="line">        padding:<span class="number">10</span>,</span><br><span class="line">          </span><br><span class="line">        <span class="comment">//外边距</span></span><br><span class="line">        marginTop:<span class="number">4</span>,</span><br><span class="line">        marginLeft:<span class="number">6</span>,</span><br><span class="line">        marginRight:<span class="number">6</span>,</span><br><span class="line">        marginVertical:<span class="number">2</span>,</span><br><span class="line">          </span><br><span class="line">        <span class="comment">//边框</span></span><br><span class="line">        borderWidth:<span class="number">0.3</span>,</span><br><span class="line">        borderColor:<span class="string">'#dddddd'</span>,</span><br><span class="line">        borderRadius:<span class="number">1</span>,</span><br><span class="line">          </span><br><span class="line">        <span class="comment">//iOS的阴影</span></span><br><span class="line">        shadowColor:<span class="string">'#b5b5b5'</span>,</span><br><span class="line">        shadowOffset:&#123;<span class="attr">width</span>:<span class="number">3</span>,<span class="attr">height</span>:<span class="number">2</span>&#125;,</span><br><span class="line">        shadowOpacity:<span class="number">0.4</span>,</span><br><span class="line">        shadowRadius:<span class="number">1</span>,</span><br><span class="line">      </span><br><span class="line">        <span class="comment">//Android的阴影</span></span><br><span class="line">        elevation:<span class="number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//项目标题的style</span></span><br><span class="line">    repositoryTitleStyle:&#123;</span><br><span class="line">        fontSize:<span class="number">15</span>,</span><br><span class="line">        marginBottom:<span class="number">2</span>,</span><br><span class="line">        color:<span class="string">'#212121'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//项目介绍的style  </span></span><br><span class="line">    repositoryDescriptionStyle:&#123;</span><br><span class="line">        fontSize:<span class="number">12</span>,</span><br><span class="line">        marginBottom:<span class="number">2</span>,</span><br><span class="line">        color:<span class="string">'#757575'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//底部container的style</span></span><br><span class="line">    bottomContainerViewStyle:&#123;</span><br><span class="line">        flexDirection:<span class="string">'row'</span>,</span><br><span class="line">        justifyContent:<span class="string">'space-between'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//作者container的style</span></span><br><span class="line">    authorContainerViewStyle:&#123;</span><br><span class="line">        flexDirection:<span class="string">'row'</span>,</span><br><span class="line">        alignItems:<span class="string">'center'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//作者头像图片的style</span></span><br><span class="line">    authorAvatarImageStyle:&#123;</span><br><span class="line">        width:<span class="number">16</span>,</span><br><span class="line">        height:<span class="number">16</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//星星container的style</span></span><br><span class="line">    starContainerViewStyle: &#123;</span><br><span class="line">        flexDirection:<span class="string">'row'</span>,</span><br><span class="line">        alignItems:<span class="string">'center'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//底部文字的style</span></span><br><span class="line">    bottomTextStyle:&#123;</span><br><span class="line">       fontSize:<span class="number">11</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//收藏按钮的图片的style</span></span><br><span class="line">    favoriteImageStyle:&#123;</span><br><span class="line">        width:<span class="number">18</span>,</span><br><span class="line">        height:<span class="number">18</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在上面这段代码里定义了<code>RespositoryCell</code>组件所使用的所有样式，通过将其赋值给对应子组件的style属性来实现对组件样式的修改，例如我们看一下项目标题的组件和其样式的定义：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Text style=&#123;styles.repositoryTitleStyle&#125;&gt;&#123;item.full_name&#125;&lt;<span class="regexp">/Text&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这里，我们首先定义了一个Text组件用来显示项目的标题。然后将<code>styles.repositoryTitleStyle</code>赋给了当前Text组件的style,而标题的具体内容，则通过<code>item.full_name</code>来获取。</p>
+<p>需要注意的是，在JSX的语法中，对象需要被{}来包裹住，否则会被认为是常量。比如，如果这里写成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Text style=&#123;styles.repositoryTitleStyle&#125;&gt;item.full_name&lt;<span class="regexp">/Text&gt;</span></span><br></pre></td></tr></table></figure>
+<p>那么所有项目cell的标题则都会显示为’’item.full_name’’，有图有真相：</p>
+<p><img src="hhttps://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_hot.png" alt=""></p>
+<p>这是初学者比较常犯的错误，所以要注意：在搭建页面的时候，一定要区分是对象还是常量。如果是对象就必须要用大括号括起来！如果是对象就必须要用大括号括起来！如果是对象就必须要用大括号括起来！</p>
+<blockquote>
+<p>这里每个样式里面的长，宽，内外边距，以及<code>flexDirection</code>等flexBox相关的布局属性就不介绍了。可以通过查找本文最后的相关链接来学习。</p>
+</blockquote>
+<h3 id="2-42-搭建静态表格页"><a href="#2-42-搭建静态表格页" class="headerlink" title="2.42 搭建静态表格页"></a>2.42 搭建静态表格页</h3><p>在React Native中搭建个人页，设置页这种静态表格页面的时候，可以用<code>ScrollView</code>组件包裹各种封装好的cell组件的形式实现。看一下这个Demo的个人页的效果图和代码实现：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_static.png" alt="个人页"></p>
+<p>我们在项目中新建一个JavaScript文件，取名为取名为<code>MinePage.js</code> 。该文件就是个人页面的实现。结合代码来看一下它的实现（删除了处理点击cell的逻辑处理代码）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//区域一：引用区：</span></span><br><span class="line"><span class="comment">//引用React，Component(组件类)以及React Native中自带的组件</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    StyleSheet,</span><br><span class="line">    Text,</span><br><span class="line">    View,</span><br><span class="line">    Image,</span><br><span class="line">    ScrollView,</span><br><span class="line">    TouchableHighlight,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//引入项目中定义的其他组件(页面组件)和常量，路径为相对路径</span></span><br><span class="line"><span class="keyword">import</span> NavigationBar <span class="keyword">from</span> <span class="string">'../../common/NavigationBar'</span></span><br><span class="line"><span class="keyword">import</span> &#123;MORE_MENU&#125; <span class="keyword">from</span> <span class="string">'../../common/MoreMenu'</span></span><br><span class="line"><span class="keyword">import</span> GlobalStyles <span class="keyword">from</span> <span class="string">'../../../res/styles/GlobalStyles'</span></span><br><span class="line"><span class="keyword">import</span> ViewUtil <span class="keyword">from</span> <span class="string">'../../util/ViewUtils'</span></span><br><span class="line"><span class="keyword">import</span> &#123;FLAG_LANGUAGE&#125;<span class="keyword">from</span> <span class="string">'../../dao/LanguageDao'</span></span><br><span class="line"><span class="keyword">import</span> AboutPage <span class="keyword">from</span> <span class="string">'./AboutPage'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> CustomKeyPage <span class="keyword">from</span> <span class="string">'./CustomKeyPage'</span></span><br><span class="line"><span class="keyword">import</span> SortPage <span class="keyword">from</span> <span class="string">'./SortKeyPage'</span></span><br><span class="line"><span class="keyword">import</span> AboutMePage <span class="keyword">from</span> <span class="string">'./AboutMePage'</span></span><br><span class="line"><span class="keyword">import</span> CustomThemePage <span class="keyword">from</span> <span class="string">'./CustomThemePage'</span></span><br><span class="line"><span class="keyword">import</span> BaseComponent <span class="keyword">from</span> <span class="string">'../../base/BaseCommon'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//区域二：页面组件定义区域：</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">MinePage</span> <span class="keyword">extends</span> <span class="title">BaseComponent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> ...</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//渲染页面中List中每个cell的统一函数</span></span><br><span class="line">    createSettingItem(tag,icon,text)&#123;</span><br><span class="line">        <span class="keyword">return</span> ViewUtil.createSettingItem(<span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">this</span>.onClick(tag),icon,text,<span class="keyword">this</span>.state.theme.styles.tabBarSelectedIcon,<span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span> &lt;View style=&#123;GlobalStyles.listViewContainerStyle&#125;&gt;</span><br><span class="line">            &lt;NavigationBar</span><br><span class="line">                title=&#123;'我的'&#125;</span><br><span class="line">                style=&#123;this.state.theme.styles.navBar&#125;</span><br><span class="line">            /&gt;</span><br><span class="line">            &lt;ScrollView&gt;</span><br><span class="line"></span><br><span class="line">                &#123;/*=============项目信息Section=============*/&#125;</span><br><span class="line">                &lt;TouchableHighlight</span><br><span class="line">                    underlayColor= 'transparent'</span><br><span class="line">                    onPress=&#123;()=&gt;this.onClick(MORE_MENU.About)&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                    &lt;View style=&#123;styles.itemInfoItemStyle&#125;&gt;</span><br><span class="line">                        &lt;View style=&#123;&#123;flexDirection:'row',alignItems:'center'&#125;&#125;&gt;</span><br><span class="line">                            &lt;Image source=&#123;require('../../../res/images/ic_trending.png')&#125;</span><br><span class="line">                                   style=&#123;[&#123;width:40,height:40,marginRight:10&#125;,this.state.theme.styles.tabBarSelectedIcon]&#125;</span><br><span class="line">                            /&gt;</span><br><span class="line">                            &lt;Text&gt;GitHub Popular 项目信息&lt;/Text&gt;</span><br><span class="line">                        &lt;/View&gt;</span><br><span class="line">                        &lt;Image source=&#123;require('../../../res/images/ic_tiaozhuan.png')&#125;</span><br><span class="line">                            style=&#123;[&#123;height:22,width:22&#125;,this.state.theme.styles.tabBarSelectedIcon]&#125;</span><br><span class="line">                        /&gt;</span><br><span class="line">                    &lt;/View&gt;</span><br><span class="line">                &lt;/TouchableHighlight&gt;</span><br><span class="line">                &#123;/*分割线*/&#125;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                &#123;/*=============趋势管理Section=============*/&#125;</span><br><span class="line">                &lt;Text style=&#123;styles.groupTitleStyle&#125;&gt;趋势管理&lt;/Text&gt;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line">                &#123;/*自定义语言*/&#125;</span><br><span class="line">                &#123;this.createSettingItem(MORE_MENU.Custom_Language,require('../../../res/images/ic_custom_language.png'),'自定义语言')&#125;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                &#123;/*语言排序*/&#125;</span><br><span class="line">                &#123;this.createSettingItem(MORE_MENU.Sort_Language,require('../../../res/images/ic_swap_vert.png'),'语言排序')&#125;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                &#123;/*=============标签管理Section=============*/&#125;</span><br><span class="line">                &lt;Text style=&#123;styles.groupTitleStyle&#125;&gt;标签管理&lt;/Text&gt;</span><br><span class="line"></span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line">                &#123;/*自定义标签*/&#125;</span><br><span class="line">                &#123;this.createSettingItem(MORE_MENU.Custom_Key,require('../../../res/images/ic_custom_language.png'),'自定义标签')&#125;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line">                &#123;/*标签排序*/&#125;</span><br><span class="line">                &#123;this.createSettingItem(MORE_MENU.Sort_Key,require('../../../res/images/ic_swap_vert.png'),'标签排序')&#125;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line">                &#123;/*标签移除*/&#125;</span><br><span class="line">                &#123;this.createSettingItem(MORE_MENU.Remove_Key,require('../../../res/images/ic_remove.png'),'标签移除')&#125;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                &#123;/*=============设置Section=============*/&#125;</span><br><span class="line">                &lt;Text style=&#123;styles.groupTitleStyle&#125;&gt;设置&lt;/Text&gt;</span><br><span class="line">                &#123;/*自定义主题*/&#125;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line">                &#123;this.createSettingItem(MORE_MENU.Custom_Theme,require('../../../res/images/ic_view_quilt.png'),'自定义主题')&#125;</span><br><span class="line">                &lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br><span class="line"></span><br><span class="line">                &#123;/*展示自定义主题页面*/&#125;</span><br><span class="line">                &#123;this.renderCustomTheme()&#125;</span><br><span class="line">            &lt;/ScrollView&gt;</span><br><span class="line">        &lt;/View&gt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//区域三：定义页面组件样式区：</span><br><span class="line">const styles = StyleSheet.create(&#123;</span><br><span class="line"></span><br><span class="line">    itemInfoItemStyle:&#123;</span><br><span class="line">        flexDirection:'row',</span><br><span class="line">        justifyContent:'space-between',</span><br><span class="line">        alignItems:'center',</span><br><span class="line">        padding:10,</span><br><span class="line">        height:76,</span><br><span class="line">        backgroundColor:'white'</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    groupTitleStyle:&#123;</span><br><span class="line">        marginLeft:10,</span><br><span class="line">        marginTop:15,</span><br><span class="line">        marginBottom:6,</span><br><span class="line">        color:'gray'</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，我们可以看到一个页面组件的全貌，它大致分为三个区域：</p>
+<ol>
+<li>引用区域</li>
+<li>定义组件区域</li>
+<li>定义样式区域</li>
+</ol>
+<p>下面两个区域在上一节已经介绍过。第一个区域，引用区域一般写在组件文件的开头，在这里一般是需要引入该组件需要的其他组件或者常量。</p>
+<p>现在看一下该组件的<code>render()</code>函数，它返回了用来包裹整个页面的<code>View</code>组件，该组件有两个子组件</p>
+<ul>
+<li>NavigationBar组件（导航栏），传入了两个props：title和style。</li>
+<li>ScrollView组件，包裹了项目信息Cell的View组件，分割线，项目Cell的View组件。需要注意的是，每个cell的组件都比较类似，所以在这里将生成它的代码封装起来做一个函数来调用：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">createSettingItem(tag,icon,text)&#123;</span><br><span class="line">        <span class="keyword">return</span>  ViewUtil.createSettingItem(<span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">this</span>.onClick(tag),icon,text,<span class="keyword">this</span>.state.theme.styles.tabBarSelectedIcon,<span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到这个函数传入的参数有三个：用来作标记的tag，图片 和标题文字。它的返回值通过调用ViewUtil组件的<code>createSettingItem</code>方法来实现。这个方法用于统一生成类似布局的cell。</p>
+<p>看一下这个函数的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="comment">//ViewUtils.js</span></span><br><span class="line"><span class="keyword">static</span> createSettingItem(callBack,icon,text,tintColor,expandableIcon)&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//如果不传入icon，则不显示</span></span><br><span class="line">        <span class="keyword">let</span> image = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (icon)&#123;</span><br><span class="line">            image = &lt;Image</span><br><span class="line">                source=&#123;icon&#125;</span><br><span class="line">                resizeMode='stretch'</span><br><span class="line">                style=&#123;[&#123;width:18,height:18,marginRight:10&#125;,tintColor]&#125;</span><br><span class="line">            /&gt;</span><br><span class="line">        &#125;</span><br><span class="line">        return (</span><br><span class="line">            &lt;View style=&#123;&#123;backgroundColor:'white'&#125;&#125;&gt;</span><br><span class="line">                &lt;TouchableHighlight</span><br><span class="line">                    onPress=&#123;callBack&#125;</span><br><span class="line">                    underlayColor= 'transparent'</span><br><span class="line">                &gt;</span><br><span class="line">                    &lt;View style=&#123;styles.settingItemContainerStyle&#125;&gt;</span><br><span class="line">                        &lt;View style=&#123;&#123;flexDirection:'row',alignItems:'center'&#125;&#125;&gt;</span><br><span class="line">                            &#123;image&#125;</span><br><span class="line">                            &lt;Text&gt;&#123;text&#125;&lt;/Text&gt;</span><br><span class="line">                        &lt;/View&gt;</span><br><span class="line">                        &lt;Image source=&#123;expandableIcon?expandableIcon:require('../../res/images/ic_tiaozhuan.png')&#125;</span><br><span class="line">                               style=&#123;[&#123;marginRight:0,height:22,width:22&#125;,tintColor]&#125;//要用括号</span><br><span class="line">                        /&gt;</span><br><span class="line">                    &lt;/View&gt;</span><br><span class="line">                &lt;/TouchableHighlight&gt;</span><br><span class="line">            &lt;/View&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数有5个参数：</p>
+<ul>
+<li>callback：点击cell时调用的方法，需要父组件传入</li>
+<li>icon：cell左侧的图片</li>
+<li>text：cell标题</li>
+<li>tintColor：cell的主题颜色</li>
+<li>expandableIcon:cell右侧的图片（三角箭头）</li>
+</ul>
+<p>因为在React Native中没有特定的<code>Button</code>组件，所以实现组件的点击都是通过被<code>TouchableHighlight</code>等可点击组件包裹来实现的。</p>
+<p>常用的可以实现点击效果的是<code>View</code>组件和<code>Text</code>组件。</p>
+<p>注意一下<code>TouchableHighlight</code>里面传入的两个props：</p>
+<ol>
+<li>如果需要在点击时颜色不变，可以将它的<code>underlayColor</code>设为<code>transparent</code>。</li>
+<li>可以把点击时触发的函数传给它的<code>onPress</code>属性。所以，如果该cell被点击了，就会触发传入的callback。这个callback就等于当初传过来的箭头函数：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ViewUtil.createSettingItem(<span class="function"><span class="params">()</span>=&gt;</span><span class="keyword">this</span>.onClick(tag),icon,text,<span class="keyword">this</span>.state.theme.styles.tabBarSelectedIcon,<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+<p>该函数是在个人页被调用的，用来实现点击cell时的跳转等操作。</p>
+<blockquote>
+<p>注意，在这个ViewUtils类中，我们可以定义很多常用的View组件，例如这种设置页面的cell，导航栏上的返回按钮等等。</p>
+</blockquote>
+<p>现在cell的实现讲完了，下面讲一下分割线和session的title。</p>
+<p>先来看一下分割线：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;View style=&#123;GlobalStyles.cellBottomLineStyle&#125;&gt;&lt;/View&gt;</span><br></pre></td></tr></table></figure>
+<p>它的样式调用了<code>GlobalStyles</code>的<code>cellBottomLineStyle</code>。因为<code>GlobalStyles</code>是全局的样式文件（单独写在了一个js文件中），可以使用它来专门管理一些常用的样式。这样一来，我们就不需要在不同页面的组件页面里面重复声明样式常量了。</p>
+<p>我们看一下如何定义全局的样式文件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//GlobalStyles.js</span></span><br><span class="line"><span class="built_in">module</span>.exports =&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//cell分割线样式</span></span><br><span class="line">    cellBottomLineStyle: &#123;</span><br><span class="line">        height: <span class="number">0.4</span>,</span><br><span class="line">        opacity:<span class="number">0.5</span>,</span><br><span class="line">        backgroundColor: <span class="string">'darkgray'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//cell背景色样式</span></span><br><span class="line">    cell_container: &#123;</span><br><span class="line">        flex: <span class="number">1</span>,</span><br><span class="line">        backgroundColor: <span class="string">'white'</span>,</span><br><span class="line">        padding: <span class="number">10</span>,</span><br><span class="line">        marginLeft: <span class="number">5</span>,</span><br><span class="line">        marginRight: <span class="number">5</span>,</span><br><span class="line">        marginVertical: <span class="number">3</span>,</span><br><span class="line">        borderColor: <span class="string">'#dddddd'</span>,</span><br><span class="line">        borderStyle: <span class="literal">null</span>,</span><br><span class="line">        borderWidth: <span class="number">0.5</span>,</span><br><span class="line">        borderRadius: <span class="number">2</span>,</span><br><span class="line">        shadowColor: <span class="string">'gray'</span>,</span><br><span class="line">        shadowOffset: &#123;<span class="attr">width</span>:<span class="number">0.5</span>, <span class="attr">height</span>: <span class="number">0.5</span>&#125;,</span><br><span class="line">        shadowOpacity: <span class="number">0.4</span>,</span><br><span class="line">        shadowRadius: <span class="number">1</span>,</span><br><span class="line">        elevation:<span class="number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">//当前屏幕高度</span></span><br><span class="line">    window_height:height,</span><br><span class="line">    <span class="comment">//当前屏幕宽度</span></span><br><span class="line">    window_width:width,</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>因为使用了<code>module.exports</code>方法，在这里定义的全局样式可以在外部随意使用。</p>
+<p>最后，Section Title的View就比较简单了，就是一个带有灰色文字的<code>View</code>组件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Text style=&#123;styles.groupTitleStyle&#125;&gt;趋势管理&lt;/Text&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-43-搭建app基本骨架：TabBar-NavigationBar"><a href="#2-43-搭建app基本骨架：TabBar-NavigationBar" class="headerlink" title="2.43 搭建app基本骨架：TabBar + NavigationBar"></a>2.43 搭建app基本骨架：TabBar + NavigationBar</h3><p>做移动开发的朋友们应该比较了解，底部TabBar，顶部NavigationBar是移动app很主流的一个全局界面方案。然而在原生的React Native组件里面，没有将二者整合在一起的组件。幸运的是，有一个第三方组件比较好的将二者整合到了一起：<a href="https://github.com/happypancake/react-native-tab-navigator">react-native-tab-navigator</a>.</p>
+<p>在它的主页告诉我们其导入方式是在项目主目录下执行：<code>npm install react-native-tab-navigator —save</code>命令。但是我建议使用<code>yarn</code>来引入所有第三方的组件：<code>yarn add react-native-tab-navigator</code>。因为使用npm命令安装第三方组件的时候有时会出现问题。而且建议引入第三方组件的时候都是用<code>yarn</code>来操作，比较保险一点。</p>
+<p>在确认<code>react-native-tab-navigator</code>组件下载到了npm文件夹以后，就可以在项目中导入使用了。下面来看一下使用方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入 react-native-tab-navigator 组件，取名为 TabNavigator(随意取名)</span></span><br><span class="line"><span class="keyword">import</span> TabNavigator <span class="keyword">from</span> <span class="string">'react-native-tab-navigator'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每个tab对应的唯一标识，可以在外部获取</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> FLAG_TAB = &#123;</span><br><span class="line">    flag_popularTab: <span class="string">'flag_popularTab'</span>,</span><br><span class="line">    flag_trendingTab: <span class="string">'flag_trendingTab'</span>,</span><br><span class="line">    flag_favoriteTab: <span class="string">'flag_favoriteTab'</span>,</span><br><span class="line">    flag_myTab: <span class="string">'flag_myTab'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">HomePage</span> <span class="keyword">extends</span> <span class="title">BaseComponent</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">      </span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> selectedTab = <span class="keyword">this</span>.props.selectedTab?<span class="keyword">this</span>.props.selectedTab:FLAG_TAB.flag_popularTab</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.state = &#123;</span><br><span class="line">            selectedTab:selectedTab,</span><br><span class="line">            theme:<span class="keyword">this</span>.props.theme</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _renderTab(Component, selectedTab, title, renderIcon) &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;TabNavigator.Item</span><br><span class="line">                selected=&#123;<span class="keyword">this</span>.state.selectedTab === selectedTab&#125;</span><br><span class="line">                title=&#123;title&#125;</span><br><span class="line">                selectedTitleStyle=&#123;<span class="keyword">this</span>.state.theme.styles.selectedTitleStyle&#125;</span><br><span class="line">                renderIcon=&#123;() =&gt; &lt;Image style=&#123;styles.tabItemImageStyle&#125;</span><br><span class="line">                                         source=&#123;renderIcon&#125;/&gt;&#125;</span><br><span class="line">                renderSelectedIcon=&#123;() =&gt; &lt;Image</span><br><span class="line">                    style=&#123;[styles.tabItemImageStyle,this.state.theme.styles.tabBarSelectedIcon]&#125;</span><br><span class="line">                    source=&#123;renderIcon&#125;/&gt;&#125;</span><br><span class="line">                    onPress=&#123;() =&gt; this.onSelected(selectedTab)&#125;&gt;</span><br><span class="line">                &lt;Component &#123;...this.props&#125; theme=&#123;this.state.theme&#125; homeComponent=&#123;this&#125;/&gt;</span><br><span class="line">            &lt;/TabNavigator.Item&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">                &lt;TabNavigator</span><br><span class="line">                    tabBarStyle=&#123;&#123;opacity: 0.9,&#125;&#125;</span><br><span class="line">                    sceneStyle=&#123;&#123;paddingBottom: 0&#125;&#125;</span><br><span class="line">                &gt;</span><br><span class="line">                    &#123;this._renderTab(PopularPage, FLAG_TAB.flag_popularTab, '最热', require('../../../res/images/ic_polular.png'))&#125;</span><br><span class="line">                    &#123;this._renderTab(TrendingPage, FLAG_TAB.flag_trendingTab, '趋势', require('../../../res/images/ic_trending.png'))&#125;</span><br><span class="line">                    &#123;this._renderTab(FavoritePage, FLAG_TAB.flag_favoriteTab, '收藏', require('../../../res/images/ic_favorite.png'))&#125;</span><br><span class="line">                    &#123;this._renderTab(MinePage, FLAG_TAB.flag_myTab, '我的', require('../../../res/images/ic_my.png'))&#125;</span><br><span class="line">                &lt;/TabNavigator&gt;</span><br><span class="line">            &lt;/View&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里我省略了其他的代码，只保留了关于搭建<code>TabBar &amp;&amp; NavigationBar</code>的代码。</p>
+<p>这里定义的是<code>HomePage</code>组件，是这个Demo用来管理这些tab的组件。</p>
+<p>因为这个Demo一共有四个tab，所以将渲染的tab的代码抽取出来作为单独的一个函数：<code>_renderTab</code>。该函数有四个参数：</p>
+<ul>
+<li>Component：当前tab被点击后显示的组件。</li>
+<li>selectedTab：当前tab的唯一标识。</li>
+<li>title：当前tab的标题。</li>
+<li>renderIcon：当前tab的图标。</li>
+</ul>
+<p>在<code>_renderTab</code>方法里，我们返回一个<code>TabNavigator.Item</code>组件，除了一些关于tab的props的定义以外，我们将属于该tab的组件填充了进去：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Component &#123;...this.props&#125; theme=&#123;this.state.theme&#125; homeComponent=&#123;this&#125;/&gt;</span><br></pre></td></tr></table></figure>
+<p>在这里，{…this.props}是将当前<code>HomePage</code>的所有props赋给这个<code>Component</code>。还有另外两个props也定义了进去：<code>theme</code>和<code>homeComponent</code>。</p>
+<p>这里用一个常量定义了四个tab的唯一标识，需要注意的是，这个常量是可以被其他组件获得的，以为它被<code>export</code>字段修饰了。</p>
+<p>另外，还需要注意一下<code>HomePage</code>有一个属性是<code>selectedTab</code>，它用来标记当前选择的tab是哪一个。在<code>constructor</code>方法里做了一个判断，如果没有从外部组件传进来<code>selectedTab</code>，则需要初始化为<code>FLAG_TAB.flag_popularTab</code>。</p>
+<h2 id="2-5-组件间通信"><a href="#2-5-组件间通信" class="headerlink" title="2.5 组件间通信"></a>2.5 组件间通信</h2><p>既然React项目是以组件为单位搭建的，那么一定少不了组件之间的数据和事件的传递，也就是组件之间的通信。</p>
+<p>组件间通信分为两大类：</p>
+<ol>
+<li><p>有直接关系或间接关系的组件之间通信</p>
+</li>
+<li><p>无直接关系或间接关系的组件之间通信</p>
+</li>
+</ol>
+<p>   ​</p>
+<h3 id="2-51-有直接关系或间接关系的组件之间通信"><a href="#2-51-有直接关系或间接关系的组件之间通信" class="headerlink" title="2.51 有直接关系或间接关系的组件之间通信"></a>2.51 有直接关系或间接关系的组件之间通信</h3><p>我个人是这么理解父组件和子组件的关系的：</p>
+<p>如果A组件包含了B组件，或者说在A组件里创建了B组件，那么A组件就是B组件的父组件；反过来B组件就是A组件的子组件，是有直接关系的组件。</p>
+<p>比如：</p>
+<ul>
+<li><p>一个界面的导航栏组件是整个页面组件的子组件，因为这个导航栏组件被包含在了当前的页面组件当中。</p>
+</li>
+<li><p>从这个页面跳转到的下一个页面是当前页面的子组件：因为被包含在了当前页面组件的<code>Navigator</code>里。</p>
+<p>​</p>
+</li>
+</ul>
+<p>再加上子组件和子组件的通信，直接或间接关系组件之间的通信就分为下面这三种情况：</p>
+<ol>
+<li><p>父组件向子组件传递数据和事件。</p>
+</li>
+<li><p>子组件向父组件传递消息和事件。</p>
+</li>
+<li><p>子组件向子组件传递消息和事件。</p>
+<p>​</p>
+</li>
+</ol>
+<h4 id="父组件向子组件传递数据和事件：通过对子组件的属性赋值来实现。"><a href="#父组件向子组件传递数据和事件：通过对子组件的属性赋值来实现。" class="headerlink" title="父组件向子组件传递数据和事件：通过对子组件的属性赋值来实现。"></a>父组件向子组件传递数据和事件：通过对子组件的属性赋值来实现。</h4><p>在上面我们看到，在给页面布局的时候我们使用了导航栏组件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;NavigationBar</span><br><span class="line">      title=&#123;<span class="string">'我的'</span>&#125;</span><br><span class="line">      style=&#123;<span class="keyword">this</span>.state.theme.styles.navBar&#125;</span><br><span class="line"> /&gt;</span><br></pre></td></tr></table></figure>
+<p>在这里，当前页面组件将<code>&#39;我的&#39;</code>对象，以及<code>this.state.theme.styles.navBar</code>对象分别赋值给了导航栏组件。而导航栏接收到这两个值以后，在其内部可以通过<code>this.props.title</code>和<code>this.props.style</code>来获取到这两个值。这样一来，就实现了父组件向子组件传递数据的功能。</p>
+<h4 id="子组件向父组件传递消息、数据：通过父组件给子组件一个闭包（回调函数）来实现"><a href="#子组件向父组件传递消息、数据：通过父组件给子组件一个闭包（回调函数）来实现" class="headerlink" title="子组件向父组件传递消息、数据：通过父组件给子组件一个闭包（回调函数）来实现"></a>子组件向父组件传递消息、数据：通过父组件给子组件一个闭包（回调函数）来实现</h4><p>举一个点击最热标签页面的一个cell进行回调后实现界面跳转的例子：</p>
+<p>既然这个cell组件是在最热标签页面组件中生成的，那么cell组件就是其子组件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ListView组件生成每个cell的函数</span></span><br><span class="line">renderRow(projectModel)&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;RespositoryCell</span><br><span class="line">            key = &#123;projectModel.item.id&#125;</span><br><span class="line">            theme=&#123;this.state.theme&#125;</span><br><span class="line">            projectModel=&#123;projectModel&#125;</span><br><span class="line">            onSelect = &#123;()=&gt;this.onSelectRepository(projectModel)&#125;</span><br><span class="line">            onFavorite=&#123;(item,isFavorite)=&gt;this.onFavorite(item,isFavorite)&#125;/&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个<code>renderRow()</code>函数是<code>ListView</code>组件用来渲染每一行Cell的函数，必须返回一个Cell组件才可以。在这里我们自定义了一个<code>RespositoryCell</code>组件作为其Cell组件。</p>
+<p>我们可以看到，这里面有5个props被赋值了，其中，<code>onSelect</code>和<code>onFavorite</code>被赋予了函数：</p>
+<ul>
+<li><code>onSelect</code>回调的是点击cell之后在最热标签页面里跳转页面的函数<code>onSelectRepository()</code>。</li>
+<li><code>onFavorite</code>则回调的是更改最热标签页面对应收藏按钮状态的函数<code>onFavorite</code>（未被收藏时是空心的星；被收藏的话是实心的星）。</li>
+</ul>
+<p>下面在<code>RespositoryCell</code>组件内部看一下这两个函数是如何回调的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">render()&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> item = <span class="keyword">this</span>.props.projectModel.item?<span class="keyword">this</span>.props.projectModel.item:<span class="keyword">this</span>.props.projectModel;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> favoriteButton = &lt;TouchableOpacity</span><br><span class="line">            &#123;/*调用点击收藏的回调函数*/&#125;</span><br><span class="line">            onPress=&#123;()=&gt;this.onPressFavorite()&#125;</span><br><span class="line">        &gt;</span><br><span class="line">            &lt;Image</span><br><span class="line">                style=&#123;[styles.favoriteImageStyle,this.props.theme.styles.tabBarSelectedIcon]&#125;</span><br><span class="line">                source=&#123;this.state.favoriteIcon&#125;</span><br><span class="line">            /&gt;</span><br><span class="line">        &lt;/TouchableOpacity&gt;</span><br><span class="line"></span><br><span class="line">        return(</span><br><span class="line">            &lt;TouchableOpacity</span><br><span class="line">                 &#123;/*点击cell的回调函数*/&#125;</span><br><span class="line">                 onPress=&#123;this.props.onSelect&#125;</span><br><span class="line">                 style=&#123;styles.container&#125;</span><br><span class="line">            &gt;</span><br><span class="line">               &lt;View style=&#123;styles.cellContainerViewStyle&#125;&gt;</span><br><span class="line">                   ...</span><br><span class="line">                   &#123;favoriteButton&#125;</span><br><span class="line">               &lt;/View&gt;</span><br><span class="line">            &lt;/TouchableOpacity&gt;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">          </span><br><span class="line">   onPressFavorite()&#123;</span><br><span class="line">        this.setFavoriteState(!this.state.isFavorite);</span><br><span class="line">        //点击收藏的回调函数</span><br><span class="line">        this.props.onFavorite(this.props.projectModel.item,!this.state.isFavorite)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>由上一节我们知道，父组件给子组件的props传值后，子组件里面对应的props就被赋值了。在这<code>RespositoryCell</code>组件里面就是<code>this.props.onSelect</code>和<code>this.props.onFavorite</code>。这两个函数被赋给了两个<code>TouchableOpacity</code>组件的<code>onPress</code>里面。这里的<code>()=&gt;</code>可以理解为为传递事件，表示当该控件被点击后的事件。</p>
+<p>不同的是，<code>this.props.onFavorite()</code>是可以将两个值回传给其父组件。细心的同学会发现，在给<code>RespositoryCell</code>传值的时候，是有两个返回值存在的。</p>
+<blockquote>
+<p>注意，在这里的<code>TouchableOpacity</code>和上文提到的<code>TouchableHighlight</code>类似，都可以让非可点击组件变成可点击组件。区别在于配合<code>TouchableOpacity</code>使用时，点击后无高亮效果。而<code>TouchableHighlight</code>默认是有高亮效果的。</p>
+</blockquote>
+<p>OK，现在我们知道了父组件和子组件是如何传递数据和事件了：</p>
+<ul>
+<li>父组件到子组件：通过直接给属性赋值</li>
+<li>子组件到父组件：通过父组件给子组件传递回调函数</li>
+</ul>
+<p>需要注意的是，上面讲的都是直接关系的父子组件，其实还有间接关系的组件，也就是两个组件之间有一个或多个组件连接着，比如父组件的子组件的子组件。这些组件之间的通信都可以通过上述的方法来实现，只不过是中间跨过多少层的区别而已。</p>
+<blockquote>
+<p>需要注意的是，这里说的父组件和子组件的通信，不仅仅包括这种直接关系，还包括间接关系，而间接关系的组件就是该组件与其子组件的子组件的关系。</p>
+</blockquote>
+<p>所以无论中间隔了多少组件，只要是存在于这种关系链上的组件，都可以用上述两种方式来传递数据和事件。</p>
+<h4 id="兄弟组件之间的通信"><a href="#兄弟组件之间的通信" class="headerlink" title="兄弟组件之间的通信"></a>兄弟组件之间的通信</h4><p>虽然不是包含于被包含，由谁创建了谁的关系，但是同一父组件下的几个子组件（兄弟组件）也算得上是有间接关系了（中间夹着共同的父组件）。</p>
+<p>那么在同一父组件下的两个子组件是如何传递数据呢？</p>
+<p>答案是通过二者所共享的父组件的state来传递数据的</p>
+<p>因为我们知道触发组件的渲染是通过<code>setState</code>方法的。因此，如果两个子组件都使用了他们的父组件的同一个state来渲染自己。</p>
+<p>那么当其中一个子组件触发了<code>setState</code>,更新了这个共享的父组件的state，继而触发了父组件的<code>render()</code>方法，那么这两个子组件都会依据这个更新后的<code>state</code>来刷新自己，这样一来，就实现了子组件的数据传递。</p>
+<p>到现在就讲完了有直接或间接关系的组件之间的通信，下面来讲一下无直接关系或间接关系的组件之间的通信：</p>
+<h3 id="2-52-无直接关系和间接关系的组件之间通信"><a href="#2-52-无直接关系和间接关系的组件之间通信" class="headerlink" title="2.52 无直接关系和间接关系的组件之间通信"></a>2.52 无直接关系和间接关系的组件之间通信</h3><p>如果两个组件从属于不同的关系链既没有直接关系，也没有间接关系（例如不同模块下的两个页面组件），那么想实现通信的话，就需要通过通知机制，或者本地持久化方案来实现。在这里先介绍一下通知机制，而本地持久化会在下面单拿出一节来专门讲解。</p>
+<p>通知机制可以通过这个Demo的收藏功能来讲解：</p>
+<p>先大致介绍一下收藏的需求：</p>
+<ol>
+<li>在最热标签页或者语言趋势页面如果点击了收藏按钮，那么在收藏页面就会增加被收藏的项目（注意，点击收藏按钮后不进行网络请求，也就是说，收藏页面是没有网络请求的）。</li>
+<li>而如果在收藏页面中取消了收藏，就需要在最热标签页面或语言趋势页面中对应的项目里面更新取消收藏的效果（同样没有网络请求）。</li>
+</ol>
+<p>因为这三个页面从属于不同模块， 而且又不是以网络请求的方式刷新列表，所以如果要满足上述需求，就需要使用通知或者本地存储的方式来实现。</p>
+<p>在这个Demo中，第一个需求采用的是本地持久化方案，第二个需求采用的是通知机制。本地持久化方案我会在下一节单独介绍，在本节先讲一下在React Native里如何使用通知机制：</p>
+<p>在React Native里面有专门的组件专门负责通知这一功能，它的名字是：<code>DeviceEventEmitter</code>，它是React Native内置的组件，我们可以直接将它导入到工程里。导入的方式和其他内置的组件一样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    StyleSheet,</span><br><span class="line">    Text,</span><br><span class="line">    View,</span><br><span class="line">    Image,</span><br><span class="line">    DeviceEventEmitter,</span><br><span class="line">    TouchableOpacity</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br></pre></td></tr></table></figure>
+<p>既然是通知，那么自然有接收的一方，也有发送的一方，这两个组件都需要引入该通知组件。</p>
+<p>在接收的一方需要注册某个通知：</p>
+<p>比如在该Demo里面，如果在收藏页面修改了收藏的状态，就要给最热标签页面发送一个通知。所以首先就需要在最热标签页面注册一个通知，注册通知后才能确保将来可以收到某个频道上的通知</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount() &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">this</span>.listener = DeviceEventEmitter.addListener(<span class="string">'favoriteChanged_popular'</span>,()=&gt; &#123;</span><br><span class="line">            <span class="keyword">this</span>.isFavoriteChanged = <span class="literal">true</span>;</span><br><span class="line">     &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里通过给<code>DeviceEventEmitter</code>的<code>addListener</code>方法传入两个参数来进行通知的注册：</p>
+<ul>
+<li>第一个参数是通知的频道，用来区别其他的通知。</li>
+<li>第二个参数是需要调用的函数：在这里只是将<code>this.isFavoriteChanged</code>赋值为YES。它的目的是在于将来如果该值等于YES，就进行界面的再渲染，更新收藏状态。</li>
+</ul>
+<p>需要注意的是，有注册，就要有注销，在组件被卸载之前，需要将监听解除：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">componentWillUnmount() &#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="keyword">this</span>.listener)&#123;</span><br><span class="line">         <span class="keyword">this</span>.listener.remove();</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，我们搞定了通知的注册，就可以在程序的任意地方发送通知了。在该需求中，我们需要拦截住在收藏页面里对项目的收藏按钮的点击，只要点击了，就发送通知：告知最热标签页面收藏的状态改变了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">onFavorite(item,isFavorite)&#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    DeviceEventEmitter.emit(&apos;favoriteChanged_popular&apos;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，拦截了收藏按钮的点击。还记得么？这里<code>onFavorite()</code>函数就是上面说的点击收藏按钮的回调。</p>
+<p>我们在这里发送了通知，只需传入频道名称即可。</p>
+<p>是不是很easy？</p>
+<p>OK，到这里我们讲完了组件间的通信这一块，简单回想一下各种关系的组件之间的通信方案。</p>
+<p>下面我们来讲一下在React Native里的本地持久化的方案。</p>
+<h2 id="2-6-本地持久化"><a href="#2-6-本地持久化" class="headerlink" title="2.6 本地持久化"></a>2.6 本地持久化</h2><p>类似于iOS 中的<code>NSUserDefault</code>， AsyncStorage 是React Native中的 Key-Value 存储系统，可以做本地持久化。</p>
+<p>首先看它主要的几个接口：</p>
+<h3 id="2-61-AsyncStorage常用接口"><a href="#2-61-AsyncStorage常用接口" class="headerlink" title="2.61 AsyncStorage常用接口"></a>2.61 AsyncStorage常用接口</h3><h4 id="根据键来获取值，获取的结果会放在回调函数中："><a href="#根据键来获取值，获取的结果会放在回调函数中：" class="headerlink" title="根据键来获取值，获取的结果会放在回调函数中："></a>根据键来获取值，获取的结果会放在回调函数中：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> getItem(key: string, <span class="attr">callback</span>:(error, result))</span><br></pre></td></tr></table></figure>
+<h4 id="根据键来设置值："><a href="#根据键来设置值：" class="headerlink" title="根据键来设置值："></a>根据键来设置值：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> setItem(key: string, <span class="attr">value</span>: string, <span class="attr">callback</span>:(error))</span><br></pre></td></tr></table></figure>
+<h4 id="根据键来移除项："><a href="#根据键来移除项：" class="headerlink" title="根据键来移除项："></a>根据键来移除项：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> removeItem(key: string, <span class="attr">callback</span>:(error))</span><br></pre></td></tr></table></figure>
+<h4 id="获取所有的键："><a href="#获取所有的键：" class="headerlink" title="获取所有的键："></a>获取所有的键：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> getAllKeys(callback:(error, keys))</span><br></pre></td></tr></table></figure>
+<h4 id="设置多项，其中-keyValuePairs-是字符串的二维数组，比如：-‘k1’-‘val1’-‘k2’-‘val2’-："><a href="#设置多项，其中-keyValuePairs-是字符串的二维数组，比如：-‘k1’-‘val1’-‘k2’-‘val2’-：" class="headerlink" title="设置多项，其中 keyValuePairs 是字符串的二维数组，比如：[[‘k1’, ‘val1’], [‘k2’, ‘val2’]]："></a>设置多项，其中 keyValuePairs 是字符串的二维数组，比如：[[‘k1’, ‘val1’], [‘k2’, ‘val2’]]：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> multiSet(keyValuePairs, <span class="attr">callback</span>:(errors))</span><br></pre></td></tr></table></figure>
+<h4 id="获取多项，其中-keys-是字符串数组，比如：-‘k1’-‘k2’-："><a href="#获取多项，其中-keys-是字符串数组，比如：-‘k1’-‘k2’-：" class="headerlink" title="获取多项，其中 keys 是字符串数组，比如：[‘k1’, ‘k2’]："></a>获取多项，其中 keys 是字符串数组，比如：[‘k1’, ‘k2’]：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> multiGet(keys, <span class="attr">callback</span>:(errors, result))</span><br></pre></td></tr></table></figure>
+<h4 id="删除多项，其中-keys-是字符串数组，比如：-‘k1’-‘k2’-："><a href="#删除多项，其中-keys-是字符串数组，比如：-‘k1’-‘k2’-：" class="headerlink" title="删除多项，其中 keys 是字符串数组，比如：[‘k1’, ‘k2’]："></a>删除多项，其中 keys 是字符串数组，比如：[‘k1’, ‘k2’]：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> multiRemove(keys, <span class="attr">callback</span>:(errors))</span><br></pre></td></tr></table></figure>
+<h4 id="清除所有的项目："><a href="#清除所有的项目：" class="headerlink" title="清除所有的项目："></a>清除所有的项目：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> clear(callback:(error))</span><br></pre></td></tr></table></figure>
+<h3 id="2-62-AsyncStorage使用注意事项"><a href="#2-62-AsyncStorage使用注意事项" class="headerlink" title="2.62 AsyncStorage使用注意事项"></a>2.62 AsyncStorage使用注意事项</h3><p>需要注意的是，在使用AsyncStorage的时候，setItem里面传入的数组或字典等对象需要使用<code>JSON.stringtify()</code>方法把他们解析成JSON字符串：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AsyncStorage.setItem(<span class="keyword">this</span>.favoriteKey,<span class="built_in">JSON</span>.stringify(favoriteKeys));</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里,favoriteKeys是一个数组。</p>
+</blockquote>
+<p>反过来，在getItem方法里获取数组或字典等对象的时候需要使用<code>JSON.parse</code>方法将他们解析成对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">AsyncStorage.getItem(<span class="keyword">this</span>.favoriteKey,(error,result)=&gt;&#123;</span><br><span class="line">     <span class="keyword">if</span> (!error) &#123;</span><br><span class="line">          <span class="keyword">var</span> favoriteKeys=[];</span><br><span class="line">          <span class="keyword">if</span> (result) &#123;</span><br><span class="line">                favoriteKeys=<span class="built_in">JSON</span>.parse(result);</span><br><span class="line">          &#125;</span><br><span class="line">     ...</span><br><span class="line">      &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里，result被解析出来后是一个数组。</p>
+</blockquote>
+<h3 id="2-7-网络请求"><a href="#2-7-网络请求" class="headerlink" title="2.7 网络请求"></a>2.7 网络请求</h3><p>在React Native中，经常使用Fetch函数来实现网络请求，它支持GET和POST请求并返回一个Promise对象，这个对象包含一个正确的结果和一个错误的结果。</p>
+<p>来看一下用Fetch发起的POST请求：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">'http://www.***.cn/v1/friendList'</span>, &#123;</span><br><span class="line">          method: <span class="string">'POST'</span>,</span><br><span class="line">          headers: &#123; <span class="comment">//header</span></span><br><span class="line">                <span class="string">'token'</span>: <span class="string">''</span></span><br><span class="line">            &#125;,</span><br><span class="line">          body: <span class="built_in">JSON</span>.stringify(&#123; <span class="comment">//参数</span></span><br><span class="line">                <span class="string">'start'</span>: <span class="string">'0'</span>,</span><br><span class="line">                <span class="string">'limit'</span>: <span class="string">'20'</span>,</span><br><span class="line">            &#125;)</span><br><span class="line"> &#125;)</span><br><span class="line">            .then(<span class="function">(<span class="params">response</span>) =&gt;</span> response.json()) <span class="comment">//把response转为json</span></span><br><span class="line">            .then(<span class="function">(<span class="params">responseData</span>) =&gt;</span> &#123; <span class="comment">// 上面的转好的json</span></span><br><span class="line">                 <span class="comment">//using responseData</span></span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function">(<span class="params">error</span>)=&gt;</span> &#123;</span><br><span class="line">                alert(<span class="string">'返回错误'</span>);</span><br><span class="line">            &#125;)</span><br></pre></td></tr></table></figure>
+<p>从上面的代码中，我们可以大致看到：Fetch函数中，第一个参数是请求url，第二个参数是一个字典，包括方法，请求头，请求体等信息。</p>
+<p>随后的<code>then</code>和<code>catch</code>分别捕捉了fetch函数的返回值：一个Promise对象的<code>正确结果</code>和<code>错误结果</code>。注意，这里面有两个<code>then</code>，其中第二个<code>then</code>把第一个<code>then</code>的结果拿了过来。而第一个<code>then</code>做的事情是把网络请求的结果转化为JSON对象。</p>
+<p>那么什么是Promise对象呢？</p>
+<p>Promise 是异步编程的一种解决方案，Promise对象可以获取某个异步操作的消息。它里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。</p>
+<p>它分为三种状态：</p>
+<p><code>Pending</code>（进行中）、<code>Resolved</code>（已成功）和<code>Rejected</code>（已失败）</p>
+<p>它的构造函数接受一个函数作为参数，该函数的两个参数分别是<code>resolve</code>和<code>reject</code>：</p>
+<p><code>resolve</code>函数的作用：将Promise对象的状态从“未完成”变成“成功”(即从Pending变为Resolved)，在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；。<br><code>reject</code>函数的作用：将Promise对象的状态从“未完成”变成“成功”(即从Pending变为Rejected)，在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
+<p>举个例子来看一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... some code</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里resolve和reject的结果会分别被配套使用的Fetch函数的.then和.catch捕捉。</p>
+<p>我个人的理解是：如果某个异步操作的返回值是一个Promise对象，那么我们就可以分别使用<code>.then</code>和<code>.catch</code>来捕捉正确和错误的结果。</p>
+<p>再看一下GET请求：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fetch(url)</span><br><span class="line">    .then(<span class="function"><span class="params">response</span>=&gt;</span>response.json())</span><br><span class="line">    .then(<span class="function"><span class="params">result</span>=&gt;</span>&#123;</span><br><span class="line">         resolve(result);</span><br><span class="line">     &#125;)</span><br><span class="line"></span><br><span class="line">     .catch(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</span><br><span class="line">         reject(error)</span><br><span class="line">     &#125;)</span><br></pre></td></tr></table></figure>
+<p>因为只是GET请求，所以不需要配置请求体，而且因为这个fetch函数返回值是一个Promise对象， 所以我们可以用<code>.then</code>和<code>.catch</code>来捕捉正确和错误的结果。</p>
+<p>在项目中，我们可以创建一个抓们负责网络请求的工具HttpUtils类，封装GET和POST请求。看一下一个简单的封装：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpUtls</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> get(url)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">            fetch(url)</span><br><span class="line">                .then(<span class="function"><span class="params">response</span>=&gt;</span>response.json())</span><br><span class="line">                .then(<span class="function"><span class="params">result</span>=&gt;</span>&#123;</span><br><span class="line">                    resolve(result);</span><br><span class="line">                &#125;)</span><br><span class="line"></span><br><span class="line">                .catch(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</span><br><span class="line">                    reject(error)</span><br><span class="line">                &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> post(url, data) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">            fetch(url,&#123;</span><br><span class="line">                method:<span class="string">'POST'</span>,</span><br><span class="line">                header:&#123;</span><br><span class="line">                    <span class="string">'Accept'</span>:<span class="string">'application/json'</span>,</span><br><span class="line">                    <span class="string">'Content-Type'</span>:<span class="string">'application/json'</span>,</span><br><span class="line">                &#125;,</span><br><span class="line">                body:<span class="built_in">JSON</span>.stringify(data)</span><br><span class="line">            &#125;)</span><br><span class="line"></span><br><span class="line">                .then(<span class="function"><span class="params">result</span>=&gt;</span>&#123;</span><br><span class="line">                    resolve(result);</span><br><span class="line">                &#125;)</span><br><span class="line"></span><br><span class="line">                .catch(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</span><br><span class="line">                    reject(error)</span><br><span class="line">                &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-8-离线缓存"><a href="#2-8-离线缓存" class="headerlink" title="2.8 离线缓存"></a>2.8 离线缓存</h3><p>离线缓存技术可以利用上文提到的<code>Fetch</code>和<code>AsyncStorage</code>实现，将请求url作为key，将返回的结果作为值存入本地数据里。</p>
+<p>在下一次请求之前查询是否有缓存，缓存是否过期，如果有缓存并且没有过期，则拿到缓存之后，立即返回进行处理。否则继续进行网络请求。</p>
+<p>而且即使没有网络，最终返回错误，也可以拿到缓存数据，立即返回。</p>
+<p>来看一下在该项目里面是如何实现离线缓存的:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取数据</span></span><br><span class="line">    fetchRespository(url) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//首先获取本地缓存</span></span><br><span class="line">            <span class="keyword">this</span>.fetchLocalRespository(url)</span><br><span class="line">                .then(<span class="function">(<span class="params">wrapData</span>)=&gt;</span> &#123;</span><br><span class="line">                    <span class="comment">//本地缓存获取成功</span></span><br><span class="line">                <span class="keyword">if</span> (wrapData) &#123;</span><br><span class="line">                    <span class="comment">//缓存对象存在</span></span><br><span class="line">                    resolve(wrapData,<span class="literal">true</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//缓存对象不存在，进行网络请求</span></span><br><span class="line">                    <span class="keyword">this</span>.fetchNetRepository(url)</span><br><span class="line"></span><br><span class="line">                        <span class="comment">//网路请求成功</span></span><br><span class="line">                        .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">                            resolve(data);</span><br><span class="line">                        &#125;)</span><br><span class="line">                        <span class="comment">//网路请求失败</span></span><br><span class="line">                        .catch(<span class="function"><span class="params">e</span>=&gt;</span> &#123;</span><br><span class="line">                            reject(e);</span><br><span class="line">                        &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).catch(<span class="function"><span class="params">e</span>=&gt;</span> &#123;</span><br><span class="line">                    <span class="comment">//本地缓存获取失败，进行网络请求</span></span><br><span class="line">                    <span class="keyword">this</span>.fetchNetRepository(url)</span><br><span class="line"></span><br><span class="line">                        <span class="comment">//网路请求成功</span></span><br><span class="line">                        .then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">                            resolve(result);</span><br><span class="line">                        &#125;)</span><br><span class="line">                        <span class="comment">//网路请求失败</span></span><br><span class="line">                        .catch(<span class="function"><span class="params">e</span>=&gt;</span> &#123;</span><br><span class="line">                            reject(e);</span><br><span class="line">                        &#125;)</span><br><span class="line">                &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的方法中，包含了获取本地缓存和网络请求的两个方法。</p>
+<p>首先是尝试获取本地缓存：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//获取本地缓存</span></span><br><span class="line">    fetchLocalRespository(url)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="comment">// 获取本地存储</span></span><br><span class="line">            AsyncStorage.getItem(url, (error, result)=&gt;&#123;</span><br><span class="line">                <span class="keyword">if</span> (!error)&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="comment">//必须使用parse解析成对象</span></span><br><span class="line">                        resolve(<span class="built_in">JSON</span>.parse(result));</span><br><span class="line">                    &#125;<span class="keyword">catch</span> (e)&#123;</span><br><span class="line">                        <span class="comment">//解析失败</span></span><br><span class="line">                        reject(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//获取缓存失败</span></span><br><span class="line">                    reject(error);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里，<code>AsyncStorage.getItem</code>方法的结果也可以使用Promise对象来包装。因此，<code>this.fetchLocalRespository(url)</code>的结果也就可以被<code>.then</code>和<code>.catch</code>捕捉到了。</p>
+</blockquote>
+<p>如果获取本地缓存失败，就会调用网络请求：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">    fetchNetRepository(url)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span>  <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">            fetch(url)</span><br><span class="line">                .then(<span class="function"><span class="params">response</span>=&gt;</span>response.json())</span><br><span class="line">                .catch(<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span><br><span class="line">                    reject(error);</span><br><span class="line">                &#125;).then(<span class="function">(<span class="params">responseData</span>)=&gt;</span>&#123;</span><br><span class="line">                    resolve(responseData);</span><br><span class="line">                 &#125;)</span><br><span class="line">             &#125;)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-9-主题更换"><a href="#2-9-主题更换" class="headerlink" title="2.9 主题更换"></a>2.9 主题更换</h3><p>这个Demo有一个主题更换的需求，在主题设置页点击某个颜色之后，全app的颜色方案就会改变：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_theme_config.png" alt=""></p>
+<p>我们只需要将四个模块的第一个页面的主题修改即可，因为第二个页面的主题都是从第一个页面传进去的，所以只要第一个页面的主题改变了即可。</p>
+<p>但是，我们应该不能在选择新主题之后同时向这四个页面都发送通知，命令它们修改自己的页面，而是应该采取一个更加优雅的方法来解决这个问题：使用父类。</p>
+<p>新建一个<code>BaseCommon.js</code>页面，作为这四个页面的父类。在这个父类里面接收主题更改的通知，并更新自己的主题。这样一来，继承它的这四个页面就都会刷新自己：</p>
+<p>来看一下这个父类的定义：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    DeviceEventEmitter</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;ACTION_HOME&#125; <span class="keyword">from</span> <span class="string">'../pages/Entry/HomePage'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.state=&#123;</span><br><span class="line">            theme:<span class="keyword">this</span>.props.theme,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        <span class="keyword">this</span>.baseListener = DeviceEventEmitter.addListener(<span class="string">'ACTION_BASE'</span>,(action,parmas)=&gt;<span class="keyword">this</span>.changeThemeAction(action,parmas));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//卸载前移除通知</span></span><br><span class="line">    componentWillUnmount() &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.baseListener)&#123;</span><br><span class="line">            <span class="keyword">this</span>.baseListener.remove();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//接收通知</span></span><br><span class="line">    changeThemeAction(action,params)&#123;</span><br><span class="line">        <span class="keyword">if</span> (ACTION_HOME.A_THEME === action)&#123;</span><br><span class="line">            <span class="keyword">this</span>.onThemeChange(params);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//更新theme</span></span><br><span class="line">    onThemeChange(theme)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!theme)<span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            theme:theme</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在更新主题页面的更新主题事件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">onSelectTheme(themeKey) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.themeDao.save(ThemeFlags[themeKey]);</span><br><span class="line">        <span class="keyword">this</span>.props.onClose();</span><br><span class="line">        DeviceEventEmitter.emit(<span class="string">'ACTION_BASE'</span>,ACTION_HOME.A_THEME,ThemeFactory.createTheme(</span><br><span class="line">            ThemeFlags[themeKey]</span><br><span class="line">        ))</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-10-功能调试"><a href="#2-10-功能调试" class="headerlink" title="2.10 功能调试"></a>2.10 功能调试</h3><p>我们可以使用浏览器的开发者工具来调试React Native项目，可以通过打断点的方式来看数据信息以及方法的调用：</p>
+<ol>
+<li>首先在iOS模拟器中点击<code>command + D</code>，然后再弹出菜单里点击<code>Debug JS Remotely</code>。随后就打开了浏览器进入了调试。</li>
+</ol>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_debug.png" alt=""></p>
+<ol>
+<li>浏览器一般会展示下面的页面，然后点击<code>command + option + J</code>进入真生的调试界面。</li>
+</ol>
+<p><img src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_debug_control.png" alt=""></p>
+<ol>
+<li>点击最上方的<code>Sources</code>，然后点击左侧<code>debuggerWorker.js</code>下的<code>localhost:8081</code>，就可以看到目录文件。点击需要调试的文件，在行数栏就可以打断点了。</li>
+</ol>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_proj_folder.png" alt=""></p>
+<h3 id="2-11-适配iOS和Android平台"><a href="#2-11-适配iOS和Android平台" class="headerlink" title="2.11 适配iOS和Android平台"></a>2.11 适配iOS和Android平台</h3><p>因为React Native讲求的是一份代码跑在两个平台上，而客观上这两个平台又有一些不一样的地方，所以就需要在别要的时候做一下两个平台的适配。</p>
+<p>例如导航栏：在iOS设备中是存在导航栏的，而安卓设备上是没有的。所以在定制导航栏的时候，在不同平台下给导航栏设置不同的高度：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    StyleSheet,</span><br><span class="line">    Platform,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> NAV_BAR_HEIGHT_IOS = <span class="number">44</span>;</span><br><span class="line"><span class="keyword">const</span> NAV_BAR_HEIGHT_ANDROID = <span class="number">50</span>;</span><br><span class="line"></span><br><span class="line">navBarStyle: &#123;</span><br><span class="line">        flexDirection: <span class="string">'row'</span>,</span><br><span class="line">        alignItems: <span class="string">'center'</span>,</span><br><span class="line">        justifyContent: <span class="string">'space-between'</span>,</span><br><span class="line">        height: Platform.OS === <span class="string">'ios'</span> ? NAV_BAR_HEIGHT_IOS : NAV_BAR_HEIGHT_ANDROID,</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+<p>上面的<code>Platform</code>是React Native内置的用于区分平台的库，可以在引入后直接使用。</p>
+<p>建议在调试程序的时候，同时打开iOS和Android的模拟器进行调试，因为有些地方可能在某个平台上是没问题的，但是另一个平台上有问题，这就需要使用<code>Platform</code>来区分平台。</p>
+<h3 id="2-12-组织项目结构"><a href="#2-12-组织项目结构" class="headerlink" title="2.12 组织项目结构"></a>2.12 组织项目结构</h3><p>在终端输入<code>react-native demo --version 0.44.0</code>命令以后，就会初始化一个React Native版本为0.44.0的项目。这个最初项目里面直接就包含了iOS和Android的工程文件夹，可以用对应的IDE打开后编译运行。</p>
+<p>在新建一个React Native项目之后的根目录结构是这样的：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_folder_detail.png" alt=""></p>
+<p>或者也可以根目录下输入<code>react-native run-ios</code>或者<code>react-native run-android</code>指令， 就会自动打开模拟器运行项目(前提是安装了相应的开发环境)。</p>
+<p>但是一个比较完整的项目仅仅有这些类别的文件是不够的，还需要一些工具类，模型类，资源等文件。为了很好地区分它们，使项目结构一目了然，需要组织好项目文件夹以及类的命名，下面是我将教程里的文件夹命名和结构稍加修改后的一个方案，可供大家参考：</p>
+<p><img src="https://jknight-blog.oss-cn-shanghai.aliyuncs.com/react_native/imooc_demo/rn_p_folder_detail2.png" alt=""></p>
+<p>  ​</p>
+<h1 id="三-总结"><a href="#三-总结" class="headerlink" title="三. 总结"></a>三. 总结</h1><p>从最开始的FlexBox布局的学习到现在这个项目的总结完成有了快两个月的时间了。我在这里说一下这段学习过程中的一些感受：</p>
+<h3 id="关于学习成本"><a href="#关于学习成本" class="headerlink" title="关于学习成本"></a>关于学习成本</h3><p>我觉得这一点应该是所有未接触到React Native的人最关心的一点了，所以我将它放到了总结里的第一位。我在这里取两种典型的群体来做比较：</p>
+<ol>
+<li>只会某种Native开发但是不会JavaScript等前端知识的人群。</li>
+<li>只会前端知识但是不会任何一种Native开发的人群。</li>
+</ol>
+<p>对于这两种人群来说，在React Native的学习过程中成本都不小。但不同的是，这两种人群的学习成本在整个学习过程中的不同阶段是不一样的。怎么说呢？</p>
+<p>对于第一种人群，因为缺乏前端相关知识，所以在组建的布局，以及JavaScript的语法上会有点吃力。而这两点恰恰是React Native学习的敲门砖，因此，对于这种群体，在学习React Native的初期会比较吃力，学习成本很大。</p>
+<h3 id="关于如何配合视频来学习"><a href="#关于如何配合视频来学习" class="headerlink" title="关于如何配合视频来学习"></a>关于如何配合视频来学习</h3><p>在结合视频学习的时候一定要跟上思路，如果讲师是边写代码边讲解，就一定要弄清楚每一行代码的意义在哪里，为什么要这么写，千万不要怕浪费时间而快速略过。停下脚步来思考实际上是节省时间：因为如果你不试着去理解代码和讲师的思路，在后来你会越来越看不懂，反而浪费大量时间重新回头看。</p>
+<p>所以我认为最好是先听一遍讲师讲的内容，理清思路，然后再动手写代码，这样效率会比较高，在将来出现的问题也会更少。</p>
+<h1 id="四-学习参考资料"><a href="#四-学习参考资料" class="headerlink" title="四. 学习参考资料"></a>四. 学习参考资料</h1><p>下面是我近1个半月以来收集的比较好的React Native入门资料和博客，分享给大家：</p>
+<ul>
+<li><a href="http://reactnative.cn/" target="_blank" rel="noopener">React Native中文网</a></li>
+<li><a href="http://www.devio.org/" target="_blank" rel="noopener">贾鹏辉的技术博客</a></li>
+<li><a href="http://www.jianshu.com/p/fa0874be0827" target="_blank" rel="noopener">Marno:给所有开发者的React Native详细入门指南</a></li>
+<li><a href="http://www.w3cplus.com/css3/a-guide-to-flexbox.html" target="_blank" rel="noopener">大漠:一个完整的Flexbox指南</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">阮一峰:Flex 布局教程：语法篇</a></li>
+<li><a href="https://juejin.im/post/597724c26fb9a06bb75260e8" target="_blank" rel="noopener">八段代码彻底掌握 Promise</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="noopener">阮一峰：Promise对象</a></li>
+<li><a href="http://www.jianshu.com/p/454f2e6f28e9#rd" target="_blank" rel="noopener">asce1885:React Native 高质量学习资料汇总</a></li>
+<li><a href="https://juejin.im/post/591ec246da2f60005d30654c" target="_blank" rel="noopener">世锋日上:ReactNative 学习资源大汇集</a></li>
+</ul>
+<p><strong>————————————————-   2018年7月17日更新  ————————————————-</strong></p>
+<p><strong>注意注意！！！</strong></p>
+<p>笔者在近期开通了个人公众号，主要分享编程，读书笔记，思考类的文章。</p>
+<ul>
+<li><strong>编程类</strong>文章：包括笔者以前发布的精选技术文章，以及后续发布的技术文章（以原创为主），并且逐渐脱离 iOS 的内容，将侧重点会转移到<strong>提高编程能力</strong>的方向上。</li>
+<li><strong>读书笔记类</strong>文章：分享<strong>编程类</strong>，<strong>思考类</strong>，<strong>心理类</strong>，<strong>职场类</strong>书籍的读书笔记。</li>
+<li><strong>思考类</strong>文章：分享笔者平时在<strong>技术上</strong>，<strong>生活上</strong>的思考。</li>
+</ul>
+<blockquote>
+<p>因为公众号每天发布的消息数有限制，所以到目前为止还没有将所有过去的精选文章都发布在公众号上，后续会逐步发布的。</p>
+</blockquote>
+<p><strong>而且因为各大博客平台的各种限制，后面还会在公众号上发布一些短小精干，以小见大的干货文章哦~</strong></p>
+<p>扫下方的公众号二维码并点击关注，期待与您的共同成长~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/859001-5bddfacafb9e9079.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号：程序员维他命"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="J_Knight_ WeChat Pay">
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.jpg" alt="J_Knight_ Alipay">
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React-Native/" rel="tag"># React Native</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/25/《如何有效整理信息》 - 读书笔记/" rel="next" title="《如何有效整理信息》- 读书笔记">
+                <i class="fa fa-chevron-left"></i> 《如何有效整理信息》- 读书笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/25/使用Block实现KVO/" rel="prev" title="使用Block实现KVO">
+                使用Block实现KVO <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://jknight-blog.oss-cn-shanghai.aliyuncs.com/blog-config/jknight_avatar.png" alt="J_Knight_">
+          <p class="site-author-name" itemprop="name">J_Knight_</p>
+           
+              <p class="site-description motion-element" itemprop="description">iOS开发，正在研究设计模式 | 下方的RSS已修复，欢迎订阅</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/knightsj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/1929625262/profile?rightmod=1&wvr=6&mod=personinfo" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://juejin.im/user/57f8ffda2e958a005581e3c0" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.jianshu.com/u/3dd433cb3ea1" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-项目介绍"><span class="nav-number">1.</span> <span class="nav-text">一. 项目介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-React-Native开发的几个关键技术点"><span class="nav-number">2.</span> <span class="nav-text">二. React Native开发的几个关键技术点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-组件化的思想"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 组件化的思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-组件的属性与状态"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 组件的属性与状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#props"><span class="nav-number">2.2.1.</span> <span class="nav-text">props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#state"><span class="nav-number">2.2.2.</span> <span class="nav-text">state</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-组件的生命周期"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 组件的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#render"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">render()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#componentDidMount"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">componentDidMount()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#componentWillReceiveProps-object-nextProps"><span class="nav-number">2.3.0.3.</span> <span class="nav-text">componentWillReceiveProps(object nextProps)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shouldComponentUpdate-object-nextProps-object-nextState"><span class="nav-number">2.3.0.4.</span> <span class="nav-text">shouldComponentUpdate(object nextProps, object nextState):</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#componentWillUnmount"><span class="nav-number">2.3.0.5.</span> <span class="nav-text">componentWillUnmount()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-使用组件来搭建界面"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 使用组件来搭建界面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-41-搭建cell组件"><span class="nav-number">2.4.1.</span> <span class="nav-text">2.41 搭建cell组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-42-搭建静态表格页"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.42 搭建静态表格页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-43-搭建app基本骨架：TabBar-NavigationBar"><span class="nav-number">2.4.3.</span> <span class="nav-text">2.43 搭建app基本骨架：TabBar + NavigationBar</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-组件间通信"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 组件间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-51-有直接关系或间接关系的组件之间通信"><span class="nav-number">2.5.1.</span> <span class="nav-text">2.51 有直接关系或间接关系的组件之间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#父组件向子组件传递数据和事件：通过对子组件的属性赋值来实现。"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">父组件向子组件传递数据和事件：通过对子组件的属性赋值来实现。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子组件向父组件传递消息、数据：通过父组件给子组件一个闭包（回调函数）来实现"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">子组件向父组件传递消息、数据：通过父组件给子组件一个闭包（回调函数）来实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兄弟组件之间的通信"><span class="nav-number">2.5.1.3.</span> <span class="nav-text">兄弟组件之间的通信</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-52-无直接关系和间接关系的组件之间通信"><span class="nav-number">2.5.2.</span> <span class="nav-text">2.52 无直接关系和间接关系的组件之间通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-本地持久化"><span class="nav-number">2.6.</span> <span class="nav-text">2.6 本地持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-61-AsyncStorage常用接口"><span class="nav-number">2.6.1.</span> <span class="nav-text">2.61 AsyncStorage常用接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根据键来获取值，获取的结果会放在回调函数中："><span class="nav-number">2.6.1.1.</span> <span class="nav-text">根据键来获取值，获取的结果会放在回调函数中：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据键来设置值："><span class="nav-number">2.6.1.2.</span> <span class="nav-text">根据键来设置值：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#根据键来移除项："><span class="nav-number">2.6.1.3.</span> <span class="nav-text">根据键来移除项：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取所有的键："><span class="nav-number">2.6.1.4.</span> <span class="nav-text">获取所有的键：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置多项，其中-keyValuePairs-是字符串的二维数组，比如：-‘k1’-‘val1’-‘k2’-‘val2’-："><span class="nav-number">2.6.1.5.</span> <span class="nav-text">设置多项，其中 keyValuePairs 是字符串的二维数组，比如：[[‘k1’, ‘val1’], [‘k2’, ‘val2’]]：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取多项，其中-keys-是字符串数组，比如：-‘k1’-‘k2’-："><span class="nav-number">2.6.1.6.</span> <span class="nav-text">获取多项，其中 keys 是字符串数组，比如：[‘k1’, ‘k2’]：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除多项，其中-keys-是字符串数组，比如：-‘k1’-‘k2’-："><span class="nav-number">2.6.1.7.</span> <span class="nav-text">删除多项，其中 keys 是字符串数组，比如：[‘k1’, ‘k2’]：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清除所有的项目："><span class="nav-number">2.6.1.8.</span> <span class="nav-text">清除所有的项目：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-62-AsyncStorage使用注意事项"><span class="nav-number">2.6.2.</span> <span class="nav-text">2.62 AsyncStorage使用注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-网络请求"><span class="nav-number">2.6.3.</span> <span class="nav-text">2.7 网络请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-离线缓存"><span class="nav-number">2.6.4.</span> <span class="nav-text">2.8 离线缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-主题更换"><span class="nav-number">2.6.5.</span> <span class="nav-text">2.9 主题更换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-功能调试"><span class="nav-number">2.6.6.</span> <span class="nav-text">2.10 功能调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-11-适配iOS和Android平台"><span class="nav-number">2.6.7.</span> <span class="nav-text">2.11 适配iOS和Android平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-组织项目结构"><span class="nav-number">2.6.8.</span> <span class="nav-text">2.12 组织项目结构</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#三-总结"><span class="nav-number">3.</span> <span class="nav-text">三. 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于学习成本"><span class="nav-number">3.0.1.</span> <span class="nav-text">关于学习成本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于如何配合视频来学习"><span class="nav-number">3.0.2.</span> <span class="nav-text">关于如何配合视频来学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四-学习参考资料"><span class="nav-number">4.</span> <span class="nav-text">四. 学习参考资料</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">J_Knight_</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
