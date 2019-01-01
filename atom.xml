@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://github.com/knightsj/knightsj.github.io/"/>
-  <updated>2018-12-24T18:45:27.505Z</updated>
+  <updated>2019-01-01T10:49:15.040Z</updated>
   <id>https://github.com/knightsj/knightsj.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《简约之美：软件设计之道》- 读书笔记</title>
+    <link href="https://github.com/knightsj/knightsj.github.io/2019/01/01/%E3%80%8A%E7%AE%80%E7%BA%A6%E4%B9%8B%E7%BE%8E%EF%BC%9A%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E4%B9%8B%E9%81%93%E3%80%8B-%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>https://github.com/knightsj/knightsj.github.io/2019/01/01/《简约之美：软件设计之道》- 读书笔记/</id>
+    <published>2019-01-01T10:47:48.641Z</published>
+    <updated>2019-01-01T10:49:15.040Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jknight-blog.oss-cn-shanghai.aliyuncs.com/book-note/jyzm_header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;本篇读书笔记的内容大部分是来自我刚参与的掘金的读书打卡活动。这次读书打卡活动选择了《简约之美：软件设计之道》这本书。我把这几次打卡的内容作了整合，也加了一点没有在打卡活动里面写的内容构成了这篇读书笔记。&lt;/p&gt;
+&lt;p&gt;本书一共有九个章节，我抽取了10个觉得比较好的段落并附加上我个人的解读，希望读者可以有些收获。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/categories/BookNote/"/>
+    
+    
+      <category term="BookNote" scheme="https://github.com/knightsj/knightsj.github.io/tags/BookNote/"/>
+    
+  </entry>
   
   <entry>
     <title>2018 年年终总结 - J_Knight_</title>
@@ -581,32 +603,6 @@
       &lt;p&gt;第十二课和第十三课都介绍了CoreData的知识，并在十三课的中段通过一个Demo来具体实现了CoreData的操作。&lt;/p&gt;
 &lt;p&gt;笔者之前从未接触过Core Data的相关知识，因此学期这两节课比较吃力，这一篇总结还是有很多需要改进的地方，以后随着对Core Data认识的深入和对这两节课的反复咀嚼，会不断更新该总结。&lt;/p&gt;
 &lt;p&gt;开始吧！&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/categories/iOS/"/>
-    
-    
-      <category term="iOS" scheme="https://github.com/knightsj/knightsj.github.io/tags/iOS/"/>
-    
-      <category term="Objective-C" scheme="https://github.com/knightsj/knightsj.github.io/tags/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo</title>
-    <link href="https://github.com/knightsj/knightsj.github.io/2018/12/25/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6iOS%E5%BC%80%E5%8F%91%E5%85%AC%E5%BC%80%E8%AF%BE%E6%80%BB%E7%BB%93%EF%BC%88%E5%8D%81%E4%B8%83%EF%BC%89%EF%BC%9ACoreMotion%EF%BC%8Capp%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%8C%E6%96%B9%E5%9D%97%E7%A2%B0%E6%92%9E%E6%B8%B8%E6%88%8FDemo/"/>
-    <id>https://github.com/knightsj/knightsj.github.io/2018/12/25/斯坦福大学iOS开发公开课总结（十七）：CoreMotion，app的生命周期，方块碰撞游戏Demo/</id>
-    <published>2018-12-24T18:33:45.630Z</published>
-    <updated>2018-12-24T18:33:45.631Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本节课讲解了Core Motion框架的知识，简单介绍了app的生命周期，最后用一个方块碰撞游戏来对本节课的知识作总结。&lt;/p&gt;
-&lt;h1 id=&quot;Core-Motion&quot;&gt;&lt;a href=&quot;#Core-Motion&quot; class=&quot;headerlink&quot; title=&quot;Core Motion&quot;&gt;&lt;/a&gt;Core Motion&lt;/h1&gt;&lt;hr&gt;
-&lt;p&gt;CoreMotion是一个专门处理设备“动作”的框架，其中包含了加速度计，陀螺仪和磁力针。加速计由三个坐标轴决定，用户最常见的操作设备的动作移动，晃动手机(摇一摇)，倾斜手机都可以被设备检测到，加速计可以检测到线性的变化。陀螺仪可以更好的检测到偏转的动作，可以根据用户的动作做出相应的动作；磁力针可以判断设备的方向。&lt;/p&gt;
-&lt;p&gt;CoreMotion的工作是基于&lt;code&gt;CMMotionManager&lt;/code&gt;类来执行的。我们看一下该类的API：&lt;/p&gt;
-&lt;h2 id=&quot;CMMotionManager&quot;&gt;&lt;a href=&quot;#CMMotionManager&quot; class=&quot;headerlink&quot; title=&quot;CMMotionManager&quot;&gt;&lt;/a&gt;CMMotionManager&lt;/h2&gt;&lt;h3 id=&quot;检测硬件设备：&quot;&gt;&lt;a href=&quot;#检测硬件设备：&quot; class=&quot;headerlink&quot; title=&quot;检测硬件设备：&quot;&gt;&lt;/a&gt;检测硬件设备：&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isAccelerometerAvailable) BOOL accelerometerAvailable __TVOS_PROHIBITED;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isGyroAvailable) BOOL gyroAvailable __TVOS_PROHIBITED;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isMagnetometerAvailable) BOOL magnetometerAvailable NS_AVAILABLE(NA,5_0) __TVOS_PROHIBITED;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;@property(readonly, nonatomic, getter=isDeviceMotionAvailable) BOOL deviceMotionAvailable __TVOS_PROHIBITED;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
